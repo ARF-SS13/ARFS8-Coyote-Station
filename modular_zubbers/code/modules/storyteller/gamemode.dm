@@ -728,6 +728,9 @@ SUBSYSTEM_DEF(gamemode)
 	min_pop_thresholds[EVENT_TRACK_GHOSTSET] = CONFIG_GET(number/ghostset_min_pop)
 
 /datum/controller/subsystem/gamemode/proc/storyteller_vote_choices()
+	if(storyteller_override)
+		set_storyteller(storyteller_override, TRUE)
+		return
 	var/client_amount = GLOB.clients.len
 	var/list/choices = list()
 	var/list/vote_message = list()

@@ -1207,6 +1207,21 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/station/hallway/secondary/entry)
+"bbD" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/cable,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 1
+	},
+/obj/machinery/light/directional/north,
+/turf/open/floor/iron/dark/textured_large,
+/area/station/science/auxlab)
 "bbF" = (
 /obj/effect/turf_decal/tile/purple/opposingcorners{
 	dir = 4
@@ -5474,6 +5489,11 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/grimy,
 /area/station/security/detectives_office)
+"eqi" = (
+/obj/effect/turf_decal/tile/dark_green/half/contrasted,
+/obj/machinery/light,
+/turf/open/floor/iron,
+/area/station/hallway/primary/central)
 "equ" = (
 /obj/structure/closet/crate/coffin,
 /obj/machinery/door/window/right/directional/north{
@@ -6048,6 +6068,15 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
+"eMg" = (
+/obj/effect/turf_decal/tile/dark_green/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/station/hallway/primary/aft)
 "eMw" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/light/directional/east,
@@ -10150,6 +10179,10 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/maintenance/department/security)
+"hXr" = (
+/obj/structure/musician/piano,
+/turf/open/floor/wood/large,
+/area/station/service/cafeteria)
 "hXE" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -12522,6 +12555,7 @@
 	dir = 1
 	},
 /obj/structure/chair/sofa/bench/tram/left,
+/obj/machinery/light/directional/north,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/science/auxlab)
 "jKy" = (
@@ -14954,6 +14988,7 @@
 	dir = 1
 	},
 /obj/machinery/power/apc/auto_name/directional/east,
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/station/security/prison)
 "lLp" = (
@@ -24620,9 +24655,10 @@
 /turf/open/floor/iron/dark/small,
 /area/station/science/robotics/mechbay)
 "sSd" = (
-/obj/structure/reagent_dispensers/watertank/high,
-/turf/closed/wall/r_wall,
-/area/station/security/office)
+/obj/effect/turf_decal/trimline/red/filled/line,
+/obj/machinery/light/directional/south,
+/turf/open/floor/iron/dark,
+/area/station/maintenance/department/security)
 "sSG" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -28752,6 +28788,11 @@
 	},
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/qm)
+"wcO" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden,
+/turf/open/floor/plating,
+/area/station/engineering/main)
 "wcZ" = (
 /obj/machinery/computer/apc_control{
 	dir = 4
@@ -30641,10 +30682,18 @@
 /turf/open/floor/iron,
 /area/station/cargo/storage)
 "xAm" = (
-/obj/machinery/light,
-/obj/effect/turf_decal/tile/dark_green/half/contrasted,
-/turf/open/floor/iron,
-/area/station/hallway/primary/central)
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+	dir = 9
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/red/filled/line,
+/obj/machinery/light/directional/south,
+/turf/open/floor/iron/dark,
+/area/station/maintenance/department/security)
 "xAs" = (
 /obj/machinery/shower/directional/east,
 /obj/structure/drain,
@@ -61918,7 +61967,7 @@ vDs
 hNB
 eMf
 quD
-vgq
+eqi
 ran
 bYN
 cHT
@@ -62689,7 +62738,7 @@ iOQ
 wlY
 oHF
 quD
-xAm
+vgq
 ran
 ran
 ran
@@ -63718,7 +63767,7 @@ aSU
 nLg
 quD
 lTZ
-qoZ
+eMg
 qoZ
 qoZ
 jCy
@@ -64747,7 +64796,7 @@ aES
 quD
 vgq
 dwp
-oPn
+hXr
 bro
 ecv
 hZm
@@ -65232,7 +65281,7 @@ jAn
 oiX
 egK
 egK
-sSd
+egK
 hgt
 iSz
 cwK
@@ -67846,7 +67895,7 @@ rwC
 tEm
 wjd
 tEm
-kZr
+wcO
 yfj
 kZr
 tEm
@@ -131282,7 +131331,7 @@ qeo
 qEv
 lbZ
 xLM
-rDM
+xAm
 oXk
 qJN
 qJN
@@ -132315,7 +132364,7 @@ iED
 oxY
 oxY
 oxY
-kpe
+oxY
 kpe
 oZL
 oZL
@@ -132572,7 +132621,7 @@ wPx
 kpe
 pds
 pBa
-kpe
+oxY
 kpe
 oZL
 cyu
@@ -134108,7 +134157,7 @@ jbr
 dit
 hWW
 kmf
-thz
+sSd
 imJ
 cxd
 hiH
@@ -135905,7 +135954,7 @@ wzv
 wzv
 jbr
 ksu
-rDM
+xAm
 fZt
 bpk
 szC
@@ -136183,8 +136232,8 @@ tMU
 rjk
 sGt
 xoz
-tMU
-rjk
+tsS
+tsS
 aNt
 nLw
 bJA
@@ -140802,7 +140851,7 @@ vma
 vma
 mBs
 wGJ
-kCR
+bbD
 cxI
 tJr
 xTd
@@ -201719,8 +201768,8 @@ nyc
 nyc
 nyc
 nyc
-nyc
-nyc
+wna
+wna
 lbv
 wzv
 nLw
