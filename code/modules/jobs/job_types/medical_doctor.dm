@@ -3,8 +3,8 @@
 	description = "Save lives, run around the station looking for victims, \
 		scan everyone in sight."
 	faction = FACTION_STATION
-	total_positions = 6
-	spawn_positions = 4
+	total_positions = 5
+	spawn_positions = 5
 	supervisors = SUPERVISOR_CMO
 	exp_granted_type = EXP_TYPE_CREW
 	config_tag = "MEDICAL_DOCTOR"

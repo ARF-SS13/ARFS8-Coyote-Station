@@ -4,8 +4,8 @@
 		collect empty crates, load and unload the supply shuttle, \
 		ship bounty cubes."
 	faction = FACTION_STATION
-	total_positions = 5
-	spawn_positions = 3
+	total_positions = 4
+	spawn_positions = 4
 	supervisors = SUPERVISOR_QM
 	exp_granted_type = EXP_TYPE_CREW
 	config_tag = "CARGO_TECHNICIAN"

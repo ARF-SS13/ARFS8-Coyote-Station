@@ -3,8 +3,8 @@
 	description = "Perform autopsies whenever needed, \
 		update medical records accordingly, apply formaldehyde."
 	faction = FACTION_STATION
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 2 //The hot goth and her weird boyfriend
+	spawn_positions = 2
 	supervisors = "the Head of Personnel and the Chief Medical Officer"
 	exp_granted_type = EXP_TYPE_CREW
 	config_tag = "CORONER"

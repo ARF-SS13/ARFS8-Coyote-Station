@@ -3,8 +3,8 @@
 	description = "Travel to strange lands, mine ores, \
 		meet strange creatures, kill them for their gold."
 	faction = FACTION_STATION
-	total_positions = 3
-	spawn_positions = 3
+	total_positions = 2
+	spawn_positions = 2
 	supervisors = SUPERVISOR_QM
 	exp_granted_type = EXP_TYPE_CREW
 	config_tag = "SHAFT_MINER"
