@@ -85,9 +85,6 @@
 			playsound(turf, sound, 15 * volume, falloff_distance = 1, vary = sound_vary)
 		return
 
-	if(iscarbon(source) && source.move_intent == MOVE_INTENT_WALK)
-		return // stealth
-
 	steps_for_living[source] += 1
 	var/steps = steps_for_living[source]
 
@@ -202,6 +199,9 @@
 	if(HAS_TRAIT(source, TRAIT_LIGHT_STEP))
 		volume_multiplier = 0.6
 		range_adjustment = -2
+
+	if(iscarbon(source) && source.move_intent == MOVE_INTENT_WALK)
+		volume_multiplier = 0.5
 
 	// list returned by playsound() filled by client mobs who heard the footstep. given to play_fov_effect()
 	var/list/heard_clients

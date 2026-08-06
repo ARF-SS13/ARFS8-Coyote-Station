@@ -1,5 +1,6 @@
 /datum/round_event_control/antagonist
 	reoccurence_penalty_multiplier = 0
+	max_occurrences = 0
 	track = EVENT_TRACK_CREWSET
 	alert_observers = FALSE
 	/// Protected roles from the antag roll. People will not get those roles if a config is enabled

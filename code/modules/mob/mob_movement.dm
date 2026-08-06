@@ -534,14 +534,23 @@
 		var/mob/living/user_mob = mob
 		user_mob.toggle_move_intent()
 
+GLOBAL_LIST_EMPTY(move_intent_event_thing_told_ckeys)
+#define MI_TOLD_WALK 1
+#define MI_TOLD_RUN 2
 /**
  * Toggle the move intent of the mob
  *
  * triggers an update the move intent hud as well
  */
 /mob/living/proc/toggle_move_intent()
+	if(!isnum(GLOB.move_intent_event_thing_told_ckeys[ckey]))
+		GLOB.move_intent_event_thing_told_ckeys[ckey] = NONE // 0
+	var/msg
 	if(move_intent == MOVE_INTENT_RUN)
 		move_intent = MOVE_INTENT_WALK
+		if(!(GLOB.move_intent_event_thing_told_ckeys[ckey] & MI_TOLD_WALK))
+			msg = "<b>Protip:</b> Walking is known to decrease the level of dangerous station events!"
+			GLOB.move_intent_event_thing_told_ckeys[ckey] |= MI_TOLD_WALK
 	else
 		//SKYRAT EDIT ADDITION BEGIN - GUNPOINT
 		if (HAS_TRAIT(src,TRAIT_NORUNNING))
@@ -549,12 +558,19 @@
 			return FALSE
 		//SKYRAT EDIT ADDITION END
 		move_intent = MOVE_INTENT_RUN
+		if(!(GLOB.move_intent_event_thing_told_ckeys[ckey] & MI_TOLD_RUN))
+			msg = "<b>Protip:</b> Running is known to increase the level of dangerous station events!"
+			GLOB.move_intent_event_thing_told_ckeys[ckey] |= MI_TOLD_RUN
 	if(hud_used?.static_inventory)
 		for(var/atom/movable/screen/mov_intent/selector in hud_used.static_inventory)
 			selector.update_appearance()
+	if(msg)
+		to_chat(src, custom_boxed_message("purple_box", span_purple("[msg]")), type = MESSAGE_TYPE_INFO)
 	update_move_intent_slowdown()
 
 	SEND_SIGNAL(src, COMSIG_MOVE_INTENT_TOGGLED)
+#undef MI_TOLD_WALK // be kind, undefined
+#undef MI_TOLD_RUN
 
 ///Moves a mob upwards in z level
 /mob/verb/up()

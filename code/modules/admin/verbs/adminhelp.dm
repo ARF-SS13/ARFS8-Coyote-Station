@@ -587,8 +587,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		if(!response || response == "No")
 			return
 	//SKYRAT EDIT ADDITION END
-	var/msg = "<font color='red' size='4'><b>- AdminHelp marked as IC issue! -</b></font><br>"
-	msg += "<font color='red'>Your issue has been determined by an administrator to be an in character issue and does NOT require administrator intervention at this time. For further resolution you should pursue options that are in character.</font>"
+	var/msg = "<font color='red' size='8'><b>- AdminHelp marked as an active issue by an administrator! They will look into it ASAP. -</b></font><br>"
+	msg += "<font color='green'>Your AHELP is being investigated by an administrator. For now please treat this issue as though it is an IN CHARACTER happening. Please do not linger on it, let staff do their job so that the situation can be resolved.  Thank you!</font>"
 
 	if(initiator)
 		to_chat(initiator, msg, confidential = TRUE)

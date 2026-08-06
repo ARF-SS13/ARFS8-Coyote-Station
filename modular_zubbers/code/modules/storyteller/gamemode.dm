@@ -13,6 +13,8 @@ SUBSYSTEM_DEF(gamemode)
 	var/datum/storyteller/storyteller
 	/// Result of the storyteller vote. Defaults to the guide.
 	var/voted_storyteller = /datum/storyteller/default
+	/// The storyteller to force to use!
+	var/storyteller_override = /datum/storyteller/coyote
 	/// List of all the storytellers. Populated at init. Associative from type
 	var/list/storytellers = list()
 	/// Next process for our storyteller. The wait time is STORYTELLER_WAIT_TIME
@@ -433,6 +435,11 @@ SUBSYSTEM_DEF(gamemode)
 		if(!player_mob || !player_mob.mind || !player_mob.client)
 			continue
 
+		if(isliving(player_mob))
+			var/mob/living/player_living = player_mob
+			if(player_living.move_intent == MOVE_INTENT_WALK)
+				continue
+
 		if(player_mob.client.is_afk()) //If afk. Don't include.
 			continue
 
@@ -758,7 +765,11 @@ SUBSYSTEM_DEF(gamemode)
 		log_dynamic("Roundstart storyteller has been set by admins to [storyteller.name], the vote was not considered.")
 		return
 	var/datum/storyteller/storyteller_pick
-	if(!voted_storyteller)
+	if(storyteller_override)
+		storyteller_pick = storyteller_override
+		log_dynamic("Roundstart picked storyteller [storyteller_pick.name] cus of override.")
+		voted_storyteller = storyteller_pick
+	else if(!voted_storyteller)
 		storyteller_pick = pick(storytellers)
 		log_dynamic("Roundstart picked storyteller [storyteller_pick.name] randomly due to no vote result.")
 		voted_storyteller = storyteller_pick
