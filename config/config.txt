@@ -23,17 +23,17 @@ $include splurt/plug13.txt
 
 # You can use the @ character at the beginning of a config option to lock it from being edited in-game
 # Example usage:
-# @SERVERNAME tgstation
+# @SERVERNAME ARFS8
 # Which sets the SERVERNAME, and disallows admins from being able to change it using View Variables.
 # @LOG_TWITTER 0
 # Which explicitly disables LOG_TWITTER, as well as locking it.
 # There are various options which are hard-locked for security reasons.
 
 ## Server name: This appears at the top of the screen in-game and in the BYOND hub. Uncomment and replace 'tgstation' with the name of your choice.
-# SERVERNAME tgstation
+SERVERNAME Coyote Station
 
 ## Server tagline: This will appear right below the server's title.
-# SERVERTAGLINE A generic TG-based server
+# SERVERTAGLINE Low Pop Designed Furry Station Gameplay
 
 ## Discord Link: This is the link to Skyrat's discord server
 # DISCORD_LINK https://discord.gg/hGpZ4Z3
@@ -42,19 +42,19 @@ $include splurt/plug13.txt
 # SERVERSQLNAME tgstation
 
 ## Station name: The name of the station as it is referred to in-game. If commented out, the game will generate a random name instead.
-STATIONNAME Space Station 13
+STATIONNAME Kennel Station
 
 ## Put on byond hub: Uncomment this to put your server on the byond hub.
 #HUB
 
 ## Once the server population reaches this number, it will be taken off the byond hub. 0 disables.
-#MAX_HUB_POP 100
+#MAX_HUB_POP 50
 
 ## Lobby time: This is the amount of time between rounds that players have to setup their characters and be ready.
 LOBBY_COUNTDOWN 120
 
 ## Round End Time: This is the amount of time after the round ends that players have to murder death kill each other.
-ROUND_END_COUNTDOWN 90
+ROUND_END_COUNTDOWN 120
 
 ## Comment this out if you want to use the SQL based admin system, the legacy system uses admins.txt.
 ## You need to set up your database to use the SQL based system.
@@ -106,10 +106,10 @@ ENABLE_LOCALHOST_RANK
 PICTURE_LOGGING_CAMERA
 
 ## period of time in seconds for players to be considered inactive
-# INACTIVITY_PERIOD 300
+INACTIVITY_PERIOD 120
 
 ## period of time in seconds for players to be considered afk and kickable
-# AFK_PERIOD 600
+AFK_PERIOD 300
 
 ## disconnect players who are considered afk
 # KICK_INACTIVE
@@ -161,11 +161,11 @@ ALLOW_RESPAWN 0
 RESPAWN_DELAY 0
 
 ## set a hosted by name for unix platforms
-HOSTEDBY Yournamehere
+HOSTEDBY Coyote Team
 
 ## Uncomment this to stop people connecting to your server without a registered ckey. (i.e. guest-* are all blocked from connecting).
 ## You probably want this enabled for a production server.
-#GUEST_BAN
+GUEST_BAN
 
 ## IPINTEL:
 ## This allows you to detect likely proxies by checking ips against getipintel.net
@@ -199,7 +199,7 @@ IPINTEL_REJECT_BAD
 #WEBCLIENT_ONLY_BYOND_MEMBERS
 
 ## Set to prevent anyone but those ckeys listed in config/whitelist.txt and config/admins.txt from joining your server
-#USEWHITELIST
+USEWHITELIST
 
 ## The address shown for the game server in the TGS check command
 # PUBLIC_ADDRESS ss13.example.com:2506
@@ -219,7 +219,7 @@ IPINTEL_REJECT_BAD
 # RULESURL http://tgstation13.org/wiki/Rules
 
 ## Github address
-# GITHUBURL https://www.github.com/tgstation/tgstation
+GITHUBURL https://github.com/ARF-SS13/ARFS8-Coyote-Station
 
 ## Discord bot command prefix, if the discord bot is used
 # DISCORDBOTCOMMANDPREFIX ?
@@ -310,22 +310,22 @@ NOTE_STALE_DAYS 365.2422
 ##Note: all population caps can be used with each other if desired.
 
 ## Uncomment for 'soft' population caps, players will be warned while joining if the living crew exceeds the listed number.
-#SOFT_POPCAP 100
+#SOFT_POPCAP 75
 
 ## Message for soft cap
 SOFT_POPCAP_MESSAGE Be warned that the server is currently serving a high number of users, consider using alternative game servers.
 
 ## Uncomment for 'hard' population caps, players will not be allowed to spawn if the living crew exceeds the listed number, though they may still observe or wait for the living crew to decrease in size.
-#HARD_POPCAP 150
+#HARD_POPCAP 76
 
 ## Message for hard cap
 HARD_POPCAP_MESSAGE The server is currently serving a high number of users, You cannot currently join. You may wait for the number of living crew to decline, observe, or find alternative servers.
 
 ## Uncomment for 'extreme' population caps, players will not be allowed to join the server if living crew exceeds the listed number.
-#EXTREME_POPCAP 200
+#EXTREME_POPCAP 80
 
 ## Message for extreme cap
-EXTREME_POPCAP_MESSAGE The server is currently serving a high number of users, find alternative servers.
+EXTREME_POPCAP_MESSAGE Ouuuhhh~ I'm sooo fulll~
 
 ## Uncomment to allow BYOND subscribers to bypassing server connection population cap. (Living player population cap still applies.)
 BYOND_MEMBER_BYPASS_POPCAP
@@ -381,7 +381,7 @@ ANNOUNCE_ADMIN_LOGOUT
 
 ## Map rotation
 ## You should edit maps.txt to match your configuration when you enable this.
-MAPROTATION
+#MAPROTATION
 
 ## Map voting
 ## Allows players to vote with their preffered map setting
