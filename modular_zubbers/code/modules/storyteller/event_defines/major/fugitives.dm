@@ -5,7 +5,7 @@
 	typepath = /datum/round_event/ghost_role/fugitives
 	track = EVENT_TRACK_MAJOR
 	tags = list(TAG_COMBAT)
-	max_occurrences = 1
+	max_occurrences = 0
 	min_players = 20
 	earliest_start = 30 MINUTES //deadchat sink, lets not even consider it early on.
 	category = EVENT_CATEGORY_INVASION

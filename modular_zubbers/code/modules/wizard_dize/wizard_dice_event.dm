@@ -12,7 +12,7 @@
 	max_wizard_trigger_potency = NEVER_TRIGGERED_BY_WIZARDS
 
 	min_players = 30
-	max_occurrences = 1
+	max_occurrences = 0
 	weight = 10
 	earliest_start = 60 MINUTES
 

@@ -1839,7 +1839,10 @@
 /turf/open/floor/iron,
 /area/station/cargo/storage)
 "bwR" = (
-/obj/structure/flora/bush/flowers_yw/style_2,
+/obj/structure/railing/wooden_fencing{
+	dir = 4
+	},
+/obj/structure/flora/bush/flowers_br/style_2,
 /obj/structure/flora/bush/fullgrass/style_2,
 /turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
@@ -3750,6 +3753,16 @@
 /obj/structure/hedge/opaque,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
+"cYJ" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/item/kirbyplants/random,
+/turf/open/floor/stone,
+/area/station/service/hydroponics/park)
 "cYS" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 8
@@ -7022,6 +7035,11 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/station/service/library)
+"fAZ" = (
+/obj/structure/flora/bush/flowers_br/style_2,
+/obj/structure/flora/bush/fullgrass/style_2,
+/turf/open/misc/grass/jungle/station,
+/area/station/service/hydroponics/park)
 "fBl" = (
 /obj/structure/cable/multilayer/multiz,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
@@ -8070,13 +8088,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/stone,
 /area/station/service/cafeteria)
-"gsa" = (
-/obj/structure/railing/wooden_fencing{
-	dir = 1
-	},
-/obj/structure/flora/bush/fullgrass/style_2,
-/turf/open/misc/grass/jungle/station,
-/area/station/service/hydroponics/park)
 "gsk" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -8493,10 +8504,8 @@
 /turf/closed/wall,
 /area/station/cargo/storage)
 "gGm" = (
-/obj/structure/railing/wooden_fencing{
-	dir = 8
-	},
 /obj/structure/flora/bush/flowers_yw/style_2,
+/obj/structure/flora/bush/fullgrass/style_2,
 /turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
 "gGq" = (
@@ -9939,13 +9948,10 @@
 	},
 /area/station/service/chapel)
 "hOb" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
-/turf/open/misc/grass/jungle/station,
-/area/station/service/hydroponics/park)
-"hOk" = (
-/obj/structure/flora/bush/flowers_br/style_2,
-/obj/structure/flora/bush/fullgrass/style_2,
-/turf/open/misc/grass/jungle/station,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
+	dir = 8
+	},
+/turf/open/floor/stone,
 /area/station/service/hydroponics/park)
 "hOl" = (
 /obj/structure/railing/wooden_fencing{
@@ -11177,9 +11183,10 @@
 /turf/open/floor/iron,
 /area/station/medical/virology)
 "iKB" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
-	dir = 1
+/obj/structure/railing/wooden_fencing{
+	dir = 8
 	},
+/obj/structure/flora/bush/flowers_yw/style_2,
 /turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
 "iLt" = (
@@ -13154,11 +13161,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/rd)
-"kkj" = (
-/obj/structure/railing/wooden_fencing,
-/obj/structure/flora/bush/fullgrass/style_2,
-/turf/open/misc/grass/jungle/station,
-/area/station/service/hydroponics/park)
 "kkr" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -15014,14 +15016,6 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/maintenance/port/aft)
-"lNW" = (
-/obj/structure/railing/wooden_fencing{
-	dir = 4
-	},
-/obj/structure/flora/bush/flowers_br/style_2,
-/obj/structure/flora/bush/fullgrass/style_2,
-/turf/open/misc/grass/jungle/station,
-/area/station/service/hydroponics/park)
 "lOy" = (
 /obj/structure/cable,
 /obj/effect/spawner/random/structure/closet_maintenance,
@@ -18680,6 +18674,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/virology)
+"ogq" = (
+/obj/structure/railing/wooden_fencing,
+/obj/structure/flora/bush/fullgrass/style_2,
+/turf/open/misc/grass/jungle/station,
+/area/station/service/hydroponics/park)
 "ogt" = (
 /obj/effect/spawner/structure/window,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
@@ -22011,7 +22010,9 @@
 /turf/open/floor/iron,
 /area/station/tcommsat/computer)
 "qOW" = (
-/obj/structure/sign/barber/directional/east,
+/obj/structure/railing/wooden_fencing{
+	dir = 1
+	},
 /obj/structure/flora/bush/fullgrass/style_2,
 /turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
@@ -30309,10 +30310,9 @@
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain)
 "xna" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
-	dir = 8
-	},
-/turf/open/floor/stone,
+/obj/structure/sign/barber/directional/east,
+/obj/structure/flora/bush/fullgrass/style_2,
+/turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
 "xnl" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
@@ -127432,10 +127432,10 @@ khT
 rjk
 wMZ
 rjk
-hOb
+rjk
 iFS
 jlC
-iKB
+rjk
 rjk
 rjk
 faF
@@ -127690,7 +127690,7 @@ qjz
 iSt
 rjk
 rjk
-wna
+eBU
 iFS
 cKn
 cKn
@@ -127948,7 +127948,7 @@ uas
 rjk
 rjk
 wna
-wna
+hOb
 wna
 ojW
 ojW
@@ -128225,7 +128225,7 @@ uas
 tMU
 fJh
 rjk
-hOk
+fAZ
 rjk
 rjk
 rHW
@@ -128997,7 +128997,7 @@ wna
 wna
 eBU
 wna
-xna
+hOb
 wna
 wna
 wna
@@ -129260,7 +129260,7 @@ xoz
 iSt
 wna
 xoz
-kkj
+ogq
 hBi
 cAC
 uNf
@@ -129516,7 +129516,7 @@ biA
 ndq
 eSl
 wna
-lNW
+bwR
 dOR
 hBi
 cAC
@@ -129779,7 +129779,7 @@ wna
 ojW
 wna
 ojW
-gsa
+qOW
 qjz
 sjn
 wna
@@ -130550,7 +130550,7 @@ wna
 wna
 cXe
 cXe
-gsa
+qOW
 rjk
 sjn
 hDQ
@@ -130805,7 +130805,7 @@ ayg
 apn
 apn
 wna
-gGm
+iKB
 apn
 rjk
 xoz
@@ -131575,12 +131575,12 @@ rjk
 tMU
 xoz
 rjk
-qOW
+xna
 han
 vWu
 rjk
 rjk
-bwR
+gGm
 iSt
 wna
 sGt
@@ -189126,7 +189126,7 @@ dXZ
 tyS
 lsj
 dXZ
-jJZ
+cYJ
 hjs
 jJZ
 qqL

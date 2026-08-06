@@ -11,7 +11,7 @@
 	track = EVENT_TRACK_GHOSTSET
 	tags = list(TAG_COMBAT, TAG_CREW_ANTAG)
 	weight = 6
-	max_occurrences = 3
+	max_occurrences = 0
 	min_players = 20
 	category = EVENT_CATEGORY_ENTITIES
 	description = "A meteor containing a changeling is summoned and thrown at the exterior of the station."

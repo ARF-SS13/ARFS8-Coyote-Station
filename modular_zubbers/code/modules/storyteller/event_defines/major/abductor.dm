@@ -10,7 +10,7 @@
 	description = "One or more abductor teams spawns, and they plan to experiment on the crew."
 
 /datum/round_event/ghost_role/abductor
-	minimum_required = 2
+	minimum_required = 0
 	role_name = "abductor team"
 	fakeable = FALSE //Nothing to fake here
 

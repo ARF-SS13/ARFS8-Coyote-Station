@@ -4,7 +4,7 @@
 	track = EVENT_TRACK_MAJOR
 	tags = list(TAG_DESTRUCTIVE, TAG_COMBAT, TAG_CHAOTIC)
 	weight = 10
-	max_occurrences = 2
+	max_occurrences = 0
 	min_players = 45
 	category = EVENT_CATEGORY_ENTITIES
 	description = "Spawns a new blob overmind."

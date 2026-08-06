@@ -30,9 +30,9 @@ PROCESSING_SUBSYSTEM_DEF(station)
 
 	// SPLURT EDIT ADD
 	//Initialize the station's announcer datums as singletons
-	for(var/announcer_type in subtypesof(/datum/centcom_announcer/))
-		var/datum/centcom_announcer/announce = new announcer_type()
-		announcers[announcer_type] = announce
+	// for(var/announcer_type in subtypesof(/datum/centcom_announcer/))
+	// 	var/datum/centcom_announcer/announce = new announcer_type()
+	announcers[/datum/centcom_announcer/default] = new /datum/centcom_announcer/default()
 
 	announcer = announcers[announcer] // Fetch me
 	// SPLURT EDIT END

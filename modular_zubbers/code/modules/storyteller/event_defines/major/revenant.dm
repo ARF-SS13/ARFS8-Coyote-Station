@@ -7,7 +7,7 @@
 	min_players = 20
 	track = EVENT_TRACK_MAJOR
 	tags = list(TAG_DESTRUCTIVE, TAG_SPOOKY)
-	max_occurrences = 1
+	max_occurrences = 0
 	category = EVENT_CATEGORY_ENTITIES
 	description = "Spawns an angry, soul sucking ghost."
 	min_wizard_trigger_potency = 4
