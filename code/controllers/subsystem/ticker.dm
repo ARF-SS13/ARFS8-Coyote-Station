@@ -333,8 +333,8 @@ SUBSYSTEM_DEF(ticker)
 			preferred_announcer = SSstation.announcers[preferred_announcer]
 		else
 			preferred_announcer = SSstation.announcer
-
-		SEND_SOUND(target, sound(preferred_announcer.get_rand_welcome_sound()))
+		if(preferred_announcer)
+			SEND_SOUND(target, sound(preferred_announcer.get_rand_welcome_sound()))
 	// SPLURT EDIT CHANGE END
 	current_state = GAME_STATE_PLAYING
 	Master.SetRunLevel(RUNLEVEL_GAME)
