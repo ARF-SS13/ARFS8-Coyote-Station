@@ -2,7 +2,7 @@
 	title = JOB_SCIENTIST
 	description = "Do experiments, perform research, feed the slimes, make bombs."
 	faction = FACTION_STATION
-	total_positions = 5
+	total_positions = 3
 	spawn_positions = 3
 	supervisors = SUPERVISOR_RD
 	exp_requirements = 60
