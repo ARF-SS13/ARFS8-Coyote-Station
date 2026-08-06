@@ -30299,6 +30299,11 @@
 /obj/effect/spawner/surgery_tray/full,
 /turf/open/floor/iron/white,
 /area/station/medical/surgery/fore)
+"ygF" = (
+/obj/structure/flora/bush/flowers_br/style_2,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/misc/grass/jungle/station,
+/area/station/service/hydroponics/park)
 "ygI" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -129603,7 +129608,7 @@ uas
 rjk
 tMU
 rjk
-wna
+ojW
 wna
 rjk
 rjk
@@ -129862,7 +129867,7 @@ rjk
 rjk
 wna
 ojW
-uas
+ygF
 rjk
 rjk
 fTe
