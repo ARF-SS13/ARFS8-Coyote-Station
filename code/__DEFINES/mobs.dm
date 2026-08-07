@@ -857,13 +857,13 @@ GLOBAL_LIST_INIT(human_heights_to_offsets, list(
 #define LEGCUFF_LAYER                  12
 /// Hands layer (for the actual hand, not the arm... I think?)
 #define HANDS_LAYER                    11
-/// Body front layer. Usually used for mutant bodyparts that need to be in front of stuff (e.g. cat ears)
-#define BODY_FRONT_LAYER               10
 //coyote bingus addition begin, make the undies go over boobies
-#define UNDERWEAR_LAYER                9
-#define SOCKS_LAYER                    8
-#define BRA_LAYER                      7
-#define SHIRT_LAYER                    6
+#define UNDERWEAR_LAYER                10
+#define SOCKS_LAYER                    9
+#define BRA_LAYER                      8
+#define SHIRT_LAYER                    7
+/// Body front layer. Usually used for mutant bodyparts that need to be in front of stuff (e.g. cat ears)
+#define BODY_FRONT_LAYER               6
 // coyote bingus addition end
 /// Special body layer that actually require to be above the hair (e.g. lifted welding goggles)
 #define ABOVE_BODY_FRONT_GLASSES_LAYER 5
