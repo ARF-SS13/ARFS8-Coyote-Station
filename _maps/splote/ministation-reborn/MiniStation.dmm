@@ -16908,17 +16908,13 @@
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/hos)
 "miL" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/flora/grass/jungle/a/style_3,
-/obj/structure/flora/bush/flowers_yw/style_2,
-/obj/structure/marker_beacon/olive{
-	pixel_x = 0;
-	pixel_y = -16
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+	dir = 4
 	},
-/turf/open/floor/grass,
-/area/space)
+/obj/machinery/meter,
+/turf/open/space/basic,
+/area/space/nearstation)
 "mjC" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp{
@@ -25032,6 +25028,11 @@
 /turf/open/floor/wood/large,
 /area/station/commons/dorms/room3)
 "rLk" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
+	dir = 4
+	},
+/obj/machinery/meter,
 /turf/open/space/basic,
 /area/space/nearstation)
 "rLB" = (
@@ -72928,8 +72929,8 @@ kQD
 sRz
 yaj
 nKS
-rLk
-rLk
+wjd
+wjd
 xVu
 hAP
 ihk
@@ -72938,19 +72939,19 @@ hAP
 ihk
 xVu
 hAP
-rLk
-rLk
+wjd
+wjd
 ihk
 geC
 caj
 ihk
-xVu
-hAP
+rLk
+miL
 ihk
 xVu
 hAP
 tzO
-rLk
+wjd
 ihk
 wjd
 wjd
@@ -73185,7 +73186,7 @@ kQD
 ldl
 ofF
 aNn
-rLk
+wjd
 hRz
 bWX
 jrZ
@@ -73196,7 +73197,7 @@ hRz
 bWX
 jrZ
 hRz
-rLk
+wjd
 hRz
 jRY
 pRr
@@ -73207,7 +73208,7 @@ hRz
 bWX
 jrZ
 hRz
-rLk
+wjd
 bvr
 wjd
 wjd
@@ -73721,7 +73722,7 @@ hRz
 uIs
 iqq
 hRz
-rLk
+wjd
 bvr
 wjd
 wjd
@@ -73956,7 +73957,7 @@ bKo
 kxo
 xxC
 ihk
-rLk
+wjd
 hRz
 cJt
 fvt
@@ -73967,7 +73968,7 @@ hRz
 utX
 beb
 hRz
-rLk
+wjd
 hRz
 kJS
 eaV
@@ -73978,7 +73979,7 @@ hRz
 fxQ
 nSv
 hRz
-rLk
+wjd
 bvr
 wjd
 wjd
@@ -74212,8 +74213,8 @@ hPr
 hPr
 aGk
 xxC
-rLk
-rLk
+wjd
+wjd
 hRz
 cJt
 tzc
@@ -74470,7 +74471,7 @@ vzg
 sPK
 nVb
 ihk
-rLk
+wjd
 hRz
 hRz
 hRz
@@ -74481,7 +74482,7 @@ hRz
 hRz
 hRz
 hRz
-rLk
+wjd
 hRz
 hRz
 hRz
@@ -74492,7 +74493,7 @@ hRz
 hRz
 hRz
 hRz
-rLk
+wjd
 bvr
 wjd
 wjd
@@ -74727,29 +74728,29 @@ oFx
 lNr
 xxC
 wjd
-rLk
-rLk
-rLk
-rLk
+wjd
+wjd
+wjd
+wjd
 ihk
 jqt
 jqt
 ihk
-rLk
-rLk
-rLk
-rLk
-rLk
-rLk
-rLk
+wjd
+wjd
+wjd
+wjd
+wjd
+wjd
+wjd
 ihk
-rLk
-rLk
+wjd
+wjd
 ihk
-rLk
-rLk
-rLk
-rLk
+wjd
+wjd
+wjd
+wjd
 bvr
 wjd
 wjd
@@ -75493,8 +75494,8 @@ sHu
 hIG
 kyO
 swT
-rLk
-rLk
+wjd
+wjd
 ihk
 wjd
 wjd
@@ -75750,7 +75751,7 @@ vNP
 tQS
 wvD
 swT
-rLk
+wjd
 wjd
 wjd
 wjd
@@ -76007,7 +76008,7 @@ xRM
 sHD
 dcx
 swT
-rLk
+wjd
 wjd
 wjd
 wjd
@@ -76264,7 +76265,7 @@ qcc
 ogi
 kJt
 swT
-rLk
+wjd
 wjd
 wjd
 wjd
@@ -76521,7 +76522,7 @@ swT
 swT
 swT
 swT
-rLk
+wjd
 wjd
 wjd
 wjd
@@ -76758,17 +76759,9 @@ uzy
 kHQ
 skt
 tXY
-miL
-ihk
-wjd
 wjd
 ihk
 wjd
-wjd
-wjd
-wjd
-wjd
-ihk
 wjd
 ihk
 wjd
@@ -76776,9 +76769,17 @@ wjd
 wjd
 wjd
 wjd
+ihk
 wjd
 ihk
-rLk
+wjd
+wjd
+wjd
+wjd
+wjd
+wjd
+ihk
+wjd
 wjd
 wjd
 wjd
