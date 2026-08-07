@@ -4927,11 +4927,6 @@
 	name = "Containment Cell";
 	req_access = list("xenobiology")
 	},
-/obj/machinery/door/window/right/directional/south{
-	name = "Research and Development Desk";
-	req_access = list("science");
-	dir = 4
-	},
 /turf/open/floor/engine,
 /area/station/science/research)
 "dBF" = (
@@ -5567,11 +5562,6 @@
 /obj/machinery/door/window/left/directional/west{
 	name = "Containment Cell";
 	req_access = list("xenobiology")
-	},
-/obj/machinery/door/window/right/directional/south{
-	name = "Research and Development Desk";
-	req_access = list("science");
-	dir = 4
 	},
 /turf/open/floor/iron/white,
 /area/station/science/research)
@@ -6471,11 +6461,6 @@
 "eIE" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/window/right/directional/south{
-	name = "Robotics Desk";
-	req_access = list("robotics");
-	dir = 4
-	},
 /obj/structure/marker_beacon/olive,
 /obj/item/stamp/granted{
 	pixel_x = -7;
@@ -6630,11 +6615,6 @@
 	name = "containment blast door"
 	},
 /obj/structure/cable,
-/obj/machinery/door/window/right/directional/south{
-	name = "Research and Development Desk";
-	req_access = list("science");
-	dir = 4
-	},
 /turf/open/floor/engine,
 /area/station/science/research)
 "eNE" = (
@@ -22874,11 +22854,6 @@
 	color = "#6a3182";
 	dir = 8
 	},
-/obj/machinery/door/window/right/directional/south{
-	name = "Research and Development Desk";
-	req_access = list("science");
-	dir = 4
-	},
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "qms" = (
@@ -22943,11 +22918,6 @@
 /obj/machinery/door/window/left/directional/west{
 	name = "Containment Cell";
 	req_access = list("xenobiology")
-	},
-/obj/machinery/door/window/right/directional/south{
-	name = "Research and Development Desk";
-	req_access = list("science");
-	dir = 4
 	},
 /turf/open/floor/engine,
 /area/station/science/research)
@@ -23667,6 +23637,17 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/glass/reinforced,
 /area/station/command/bridge)
+"qLT" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering Foyer"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/iron,
+/area/station/engineering/power_station/upperer)
 "qML" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -25680,17 +25661,6 @@
 /obj/effect/turf_decal/trimline/blue/filled/line,
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/central)
-"slq" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Engineering Foyer"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/iron,
-/area/station/engineering/power_station/upperer)
 "slt" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
@@ -28999,11 +28969,6 @@
 	name = "research lab shutters"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/window/right/directional/south{
-	name = "Research and Development Desk";
-	req_access = list("science");
-	dir = 4
-	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "uFD" = (
@@ -31830,11 +31795,6 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/window/brigdoor/left/directional/east{
-	name = "Engineering Desk";
-	req_access = list("engineering");
-	dir = 2
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
@@ -194679,7 +194639,7 @@ nyc
 xss
 gTF
 uEY
-slq
+qLT
 han
 wna
 nyc
