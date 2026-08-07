@@ -13,7 +13,6 @@
 /obj/machinery/atmospherics/pipe/multiz/scrubbers/visible/layer2,
 /obj/machinery/atmospherics/pipe/multiz/supply/visible/layer4,
 /obj/machinery/airalarm/directional/north,
-/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/plating,
 /area/station/engineering/power_station/upper/tertiary)
 "ach" = (
@@ -649,11 +648,6 @@
 	},
 /obj/structure/cable,
 /obj/effect/turf_decal/trimline/red/real_red/filled/corner{
-	dir = 1
-	},
-/obj/machinery/door/window/brigdoor/security/cell/left/directional/south{
-	id = "Cell 1";
-	name = "Cell 1";
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -6140,7 +6134,7 @@
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable,
 /obj/machinery/airalarm/directional/west,
-/turf/open/misc/grass/jungle/station,
+/turf/open/floor/stone,
 /area/station/service/hydroponics/park)
 "evx" = (
 /obj/structure/chair/wood,
@@ -9282,12 +9276,15 @@
 /turf/open/floor/iron/dark,
 /area/station/security/armory)
 "gID" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering Foyer"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/effect/turf_decal/trimline/yellow/filled/warning,
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/stone,
+/turf/open/floor/iron,
 /area/station/service/hydroponics/park)
 "gIF" = (
 /obj/effect/turf_decal/siding/dark{
@@ -25692,10 +25689,18 @@
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/central)
 "slq" = (
-/obj/structure/flora/tree/jungle/small/style_random,
-/obj/structure/window/reinforced/spawner/directional,
-/turf/open/misc/grass/jungle/station,
-/area/station/service/hydroponics/park)
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/cable,
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering Foyer"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/turf/open/floor/iron,
+/area/station/engineering/power_station/upper/tertiary)
 "slt" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
@@ -28028,11 +28033,6 @@
 	pixel_x = 5;
 	pixel_y = 1
 	},
-/obj/machinery/door/window/left/directional/north{
-	req_access = list("medical");
-	name = "Reception";
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/blue/full,
 /turf/open/floor/iron,
 /area/station/medical/medbay/lobby)
@@ -28733,11 +28733,6 @@
 "usx" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/window/brigdoor/left/directional/east{
-	name = "Engineering Desk";
-	req_access = list("engineering");
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/station/engineering/power_station/upper/tertiary)
 "usz" = (
@@ -29174,14 +29169,9 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/glasses/science,
 /obj/machinery/door/firedoor/heavy,
-/obj/machinery/door/window/right/directional/west{
-	req_access = list("pharmacy");
+/obj/machinery/door/window/left/directional/north{
 	name = "Pharmacy Desk";
-	dir = 2
-	},
-/obj/machinery/door/window/left/directional/east{
-	name = "Pharmacy Desk";
-	dir = 1
+	req_access = list("pharmacy")
 	},
 /turf/open/floor/plating,
 /area/station/medical/pharmacy)
@@ -30981,18 +30971,15 @@
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/central)
 "vZI" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering Foyer"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/cable,
-/obj/machinery/door/window/brigdoor/left/directional/east{
-	name = "Engineering Desk";
-	req_access = list("engineering");
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plating,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/iron,
 /area/station/engineering/power_station/upper)
 "vZL" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
@@ -128922,7 +128909,7 @@ xoz
 tav
 jbA
 tzW
-xoz
+uHP
 slK
 lCm
 kgT
@@ -129436,7 +129423,7 @@ xoz
 tav
 rvK
 ijk
-slq
+uHP
 nyc
 nyc
 rjk
@@ -129473,10 +129460,10 @@ ugk
 uHP
 nLw
 nLw
-dFE
-rwA
-vuj
-dFE
+cBs
+cBs
+slq
+cBs
 nLw
 aHo
 aHo
