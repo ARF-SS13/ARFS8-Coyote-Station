@@ -2586,12 +2586,8 @@
 /turf/open/floor/iron/large,
 /area/station/medical/surgery)
 "bRj" = (
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio8";
-	name = "containment blast door"
-	},
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/engine,
 /area/station/science/research)
 "bRs" = (
@@ -3875,12 +3871,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio2";
-	name = "containment blast door"
-	},
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/engine,
 /area/station/science/research)
 "cOV" = (
@@ -12422,10 +12414,7 @@
 /turf/open/floor/carpet,
 /area/station/service/cafeteria)
 "jhe" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack,
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "jhr" = (
@@ -22140,18 +22129,6 @@
 	},
 /turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
-"pOb" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio8";
-	name = "containment blast door"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/turf/open/floor/engine,
-/area/station/science/research)
 "pOf" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -23069,15 +23046,12 @@
 /turf/open/floor/iron/dark,
 /area/station/medical/storage)
 "qvU" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
 /obj/item/clothing/shoes/magboots,
 /obj/item/clothing/shoes/magboots,
 /obj/effect/turf_decal/siding/dark{
 	dir = 6
 	},
+/obj/structure/rack,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/eva)
 "qvW" = (
@@ -29378,18 +29352,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/meeting_room)
-"uZp" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xenobio1";
-	name = "containment blast door"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/turf/open/floor/engine,
-/area/station/science/research)
 "uZD" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -32119,11 +32081,8 @@
 /turf/open/floor/iron/dark,
 /area/station/security/prison)
 "wVU" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
 /obj/machinery/camera/autoname/directional/east,
+/obj/structure/rack,
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "wWJ" = (
@@ -72963,9 +72922,9 @@ cOM
 qpt
 cOM
 tXY
-uZp
+cOM
 qpt
-uZp
+cOM
 tXY
 uEA
 hYP
@@ -74246,7 +74205,7 @@ wjd
 tXY
 bRj
 eNc
-pOb
+cOM
 tXY
 hpT
 qML
