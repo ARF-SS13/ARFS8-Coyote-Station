@@ -13618,12 +13618,8 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
-	dir = 9
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/plating,
 /area/station/science/research)
 "jOL" = (
@@ -16909,7 +16905,7 @@
 /area/station/command/heads_quarters/hos)
 "miL" = (
 /obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
 	dir = 4
 	},
 /obj/machinery/meter,
@@ -25029,7 +25025,7 @@
 /area/station/commons/dorms/room3)
 "rLk" = (
 /obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 4
 	},
 /obj/machinery/meter,
@@ -32995,10 +32991,6 @@
 "xxk" = (
 /turf/open/floor/iron,
 /area/station/cargo/storage)
-"xxC" = (
-/obj/structure/lattice,
-/turf/closed/wall,
-/area/station/medical/psychology)
 "xxD" = (
 /obj/machinery/computer/security/telescreen/entertainment/directional/south,
 /obj/structure/chair/comfy/brown{
@@ -72945,8 +72937,8 @@ ihk
 geC
 caj
 ihk
-rLk
 miL
+rLk
 ihk
 xVu
 hAP
@@ -73955,7 +73947,7 @@ nVb
 fmy
 bKo
 kxo
-xxC
+nVb
 ihk
 wjd
 hRz
@@ -74212,7 +74204,7 @@ iLx
 hPr
 hPr
 aGk
-xxC
+nVb
 wjd
 wjd
 hRz
@@ -74726,7 +74718,7 @@ sjN
 beW
 oFx
 lNr
-xxC
+nVb
 wjd
 wjd
 wjd
@@ -74983,7 +74975,7 @@ swT
 vYB
 aXE
 bDR
-xxC
+nVb
 bvr
 bvr
 bvr
@@ -75239,7 +75231,7 @@ khw
 swT
 nVb
 nVb
-xxC
+nVb
 nVb
 wjd
 wjd
