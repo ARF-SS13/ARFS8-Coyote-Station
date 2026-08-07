@@ -93,7 +93,6 @@
 /area/station/engineering/main)
 "afA" = (
 /obj/structure/cable/multilayer/multiz,
-/obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/commons/dorms)
 "afX" = (
@@ -5003,7 +5002,6 @@
 /area/station/science/research)
 "dFf" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 4
@@ -7009,9 +7007,6 @@
 "fcx" = (
 /obj/machinery/atmospherics/pipe/multiz/scrubbers/visible/layer2,
 /obj/machinery/atmospherics/pipe/multiz/supply/visible/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
-	dir = 9
-	},
 /turf/open/floor/plating,
 /area/station/maintenance/fore)
 "fdc" = (
@@ -9784,7 +9779,6 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -19577,7 +19571,6 @@
 	},
 /obj/effect/landmark/navigate_destination,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/station/service/barber)
 "nSv" = (
@@ -22339,7 +22332,6 @@
 /area/station/service/chapel/funeral)
 "pQq" = (
 /obj/structure/cable/multilayer/multiz,
-/obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/maintenance/fore)
 "pQO" = (
@@ -23688,11 +23680,6 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/glass/reinforced,
 /area/station/command/bridge)
-"qLT" = (
-/obj/structure/reagent_dispensers/watertank/high,
-/obj/machinery/duct,
-/turf/open/misc/grass/jungle/station,
-/area/station/service/hydroponics/park)
 "qML" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -125088,7 +125075,7 @@ nbj
 vKM
 vKM
 vKM
-qLT
+beD
 aNt
 wzv
 wzv
