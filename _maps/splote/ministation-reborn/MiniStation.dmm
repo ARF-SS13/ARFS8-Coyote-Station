@@ -652,6 +652,11 @@
 /obj/effect/turf_decal/trimline/red/real_red/filled/corner{
 	dir = 1
 	},
+/obj/machinery/door/window/brigdoor/security/cell/left/directional/south{
+	id = "Cell 1";
+	name = "Cell 1";
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "axJ" = (
@@ -2103,12 +2108,7 @@
 	},
 /area/station/command/heads_quarters/ce)
 "bBg" = (
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 1;
-	name = "_North APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/command/eva)
@@ -3594,12 +3594,7 @@
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 8;
-	name = "_West APC";
-	pixel_x = -25
-	},
+/obj/machinery/power/apc/auto_name/directional/west,
 /obj/structure/cable,
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 9
@@ -5264,12 +5259,7 @@
 /turf/open/floor/iron,
 /area/station/medical/medbay/lobby)
 "dRh" = (
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 8;
-	name = "_West APC";
-	pixel_x = -25
-	},
+/obj/machinery/power/apc/auto_name/directional/west,
 /obj/structure/cable,
 /obj/effect/spawner/random/structure/crate,
 /turf/open/floor/iron,
@@ -6149,12 +6139,7 @@
 /turf/open/floor/iron/white,
 /area/station/medical/virology)
 "evk" = (
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 1;
-	name = "_North APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable,
 /obj/machinery/airalarm/directional/west,
 /turf/open/misc/grass/jungle/station,
@@ -6700,11 +6685,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 8
 	},
-/obj/machinery/door/window/left/directional/south{
-	name = "Court Cell";
-	req_access = list("brig");
-	dir = 8
-	},
+/obj/machinery/door/window/left/directional/west,
 /turf/open/floor/iron/dark,
 /area/station/security/courtroom)
 "ePp" = (
@@ -7448,13 +7429,8 @@
 /obj/effect/turf_decal/tile/dark_green/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 8;
-	name = "_West APC";
-	pixel_x = -25
-	},
 /obj/structure/cable,
+/obj/machinery/power/apc/auto_name/directional/west,
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
 "fpZ" = (
@@ -9109,11 +9085,6 @@
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/window/brigdoor/security/cell/left/directional/south{
-	id = "Cell 1";
-	name = "Cell 1";
-	dir = 4
-	},
 /obj/effect/turf_decal/bot_red,
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig"
@@ -10638,6 +10609,10 @@
 	pixel_y = 6
 	},
 /obj/effect/turf_decal/trimline/purple/filled/line,
+/obj/machinery/door/window/brigdoor/security/cell/left/directional/south{
+	id = "Cell 3";
+	name = "Cell 3"
+	},
 /turf/open/floor/iron/white/smooth_edge,
 /area/station/science/research)
 "hIG" = (
@@ -12436,12 +12411,7 @@
 /area/station/maintenance/department/security)
 "jbA" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 1;
-	name = "_North APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable,
 /obj/machinery/light/small/directional/west,
 /turf/open/floor/plating,
@@ -13363,10 +13333,6 @@
 /area/station/service/hydroponics/park)
 "jFR" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
-/obj/structure/closet/secure_closet/wall{
-	pixel_y = 27;
-	pixel_x = 13
-	},
 /obj/structure/closet/secure_closet/wall{
 	pixel_y = 27;
 	pixel_x = -5
@@ -16169,12 +16135,7 @@
 /area/station/maintenance/port/fore)
 "lLS" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 1;
-	name = "_North APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable,
 /obj/machinery/light/small/directional/west,
 /turf/open/floor/plating,
@@ -16646,13 +16607,7 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/station/science/auxlab)
 "mdD" = (
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 4;
-	name = "_East APC";
-	pixel_x = 27;
-	pixel_y = 2
-	},
+/obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable,
 /obj/effect/spawner/random/structure/closet_maintenance,
 /turf/open/floor/iron,
@@ -17898,13 +17853,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
 "mNa" = (
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 4;
-	name = "_East APC";
-	pixel_x = 27;
-	pixel_y = 2
-	},
+/obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable,
 /obj/effect/spawner/random/structure/crate,
 /turf/open/floor/iron,
@@ -19561,13 +19510,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 4;
-	name = "_East APC";
-	pixel_x = 27;
-	pixel_y = 2
-	},
+/obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable,
 /turf/open/floor/iron/textured,
 /area/station/cargo/storage)
@@ -22490,13 +22433,7 @@
 	},
 /obj/effect/turf_decal/delivery/red,
 /obj/structure/closet/secure_closet/security,
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 4;
-	name = "_East APC";
-	pixel_x = 27;
-	pixel_y = 2
-	},
+/obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
@@ -23418,12 +23355,7 @@
 /turf/open/floor/iron/grimy,
 /area/station/security/detectives_office)
 "qCP" = (
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 8;
-	name = "_West APC";
-	pixel_x = -25
-	},
+/obj/machinery/power/apc/auto_name/directional/west,
 /obj/structure/cable,
 /obj/machinery/duct,
 /turf/open/floor/plating,
@@ -26231,12 +26163,7 @@
 /area/station/commons/dorms/room1)
 "sEg" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 1;
-	name = "_North APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable,
 /obj/machinery/light/small/directional/west,
 /turf/open/floor/plating,
@@ -26589,12 +26516,7 @@
 /turf/closed/wall,
 /area/station/maintenance/port/aft)
 "sRH" = (
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 1;
-	name = "_North APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable,
 /obj/machinery/cryopod,
 /turf/open/floor/iron,
@@ -28023,12 +27945,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/meeting_room)
 "tOP" = (
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 1;
-	name = "_North APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable,
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/iron,
@@ -29613,13 +29530,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 4;
-	name = "_East APC";
-	pixel_x = 27;
-	pixel_y = 2
-	},
+/obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
@@ -30403,12 +30314,7 @@
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/captain)
 "vyX" = (
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 1;
-	name = "_North APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/engineering/main)
@@ -30532,13 +30438,7 @@
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "vES" = (
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 4;
-	name = "_East APC";
-	pixel_x = 27;
-	pixel_y = 2
-	},
+/obj/machinery/power/apc/auto_name/directional/east,
 /obj/structure/cable,
 /obj/effect/spawner/random/structure/chair_maintenance{
 	dir = 8
@@ -32934,12 +32834,7 @@
 /turf/closed/wall/r_wall,
 /area/station/maintenance/starboard/upper)
 "xqb" = (
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 1;
-	name = "_North APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/maintenance/port/aft)
@@ -33143,12 +33038,7 @@
 /turf/open/floor/wood,
 /area/station/service/library)
 "xyh" = (
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 2;
-	name = "_South APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable,
 /obj/effect/landmark/start/hangover,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
@@ -33808,12 +33698,7 @@
 /turf/open/floor/plating,
 /area/station/cargo/storage)
 "xUJ" = (
-/obj/machinery/power/apc{
-	auto_name = 1;
-	dir = 2;
-	name = "_South APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/auto_name/directional/south,
 /obj/structure/cable,
 /obj/machinery/computer/records/security{
 	dir = 1
