@@ -4697,8 +4697,6 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
 "duW" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/effect/turf_decal/siding/dark{
@@ -4707,9 +4705,8 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
+/obj/structure/disposalpipe/junction/flip,
+/obj/structure/cable,
 /turf/open/floor/wood,
 /area/station/command/meeting_room)
 "duX" = (
@@ -8036,7 +8033,6 @@
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "fPQ" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/effect/turf_decal/siding/dark{
@@ -8045,6 +8041,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/wood,
 /area/station/command/meeting_room)
 "fQl" = (
@@ -13675,7 +13672,6 @@
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel"
 	},
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/meeting_room)
 "jRe" = (
@@ -26868,7 +26864,6 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/wood,
 /area/station/command/meeting_room)
 "tgp" = (
