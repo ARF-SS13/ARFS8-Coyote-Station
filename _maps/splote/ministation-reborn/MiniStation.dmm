@@ -1606,16 +1606,12 @@
 /turf/open/floor/carpet/royalblue,
 /area/station/commons/dorms/room5)
 "bjD" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/machinery/conveyor{
 	id = "CanisterStore"
 	},
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "bkk" = (
@@ -3867,14 +3863,10 @@
 	},
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
-"cOM" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/engine,
-/area/station/science/research)
+"cOT" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/openspace,
+/area/station/maintenance/department/security)
 "cOV" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/yellow/visible{
 	dir = 8
@@ -4847,20 +4839,6 @@
 	},
 /turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
-"dAn" = (
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
-	dir = 9
-	},
-/obj/structure/window/reinforced/spawner/directional{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/station/maintenance/department/security)
 "dAA" = (
 /turf/open/floor/wood,
 /area/station/service/chapel)
@@ -4884,6 +4862,14 @@
 /obj/structure/flora/bush/jungle/b/style_random,
 /turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
+"dBv" = (
+/obj/structure/cable,
+/obj/machinery/door/window/left/directional/west{
+	name = "Containment Cell";
+	req_access = list("xenobiology")
+	},
+/turf/open/floor/engine,
+/area/station/science/research)
 "dBF" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -5082,16 +5068,12 @@
 /turf/open/floor/plating,
 /area/station/maintenance/starboard/upper)
 "dMr" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/machinery/conveyor{
 	id = "CanisterStore"
 	},
 /obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "dMS" = (
@@ -5980,6 +5962,7 @@
 "esb" = (
 /obj/structure/cable,
 /obj/machinery/firealarm/directional/west,
+/obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/stone,
 /area/station/service/hydroponics/park)
 "esf" = (
@@ -6071,11 +6054,14 @@
 /turf/open/floor/iron/white,
 /area/station/medical/virology)
 "evk" = (
-/obj/machinery/power/apc/auto_name/directional/north,
-/obj/structure/cable,
-/obj/machinery/airalarm/directional/west,
-/turf/open/floor/stone,
-/area/station/service/hydroponics/park)
+/obj/machinery/conveyor{
+	id = "CanisterStore"
+	},
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/iron,
+/area/station/engineering/atmos)
 "evx" = (
 /obj/structure/chair/wood,
 /obj/effect/turf_decal/siding/wood,
@@ -15232,13 +15218,11 @@
 /turf/open/floor/wood/tile,
 /area/station/commons/dorms/room4)
 "lbZ" = (
-/obj/structure/window/reinforced/spawner/directional{
-	dir = 8
-	},
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 1
 	},
 /obj/structure/closet/emcloset,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark,
 /area/station/maintenance/department/security)
 "ldi" = (
@@ -19222,9 +19206,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
 	},
-/obj/structure/window/reinforced/spawner/directional{
-	dir = 1
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -20897,16 +20878,12 @@
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/hop)
 "oRr" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/machinery/conveyor{
 	id = "CanisterStore"
 	},
 /obj/machinery/portable_atmospherics/canister/air,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "oRO" = (
@@ -21288,16 +21265,11 @@
 /turf/open/floor/wood/parquet,
 /area/station/command/heads_quarters/qm)
 "pjI" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/machinery/conveyor{
 	id = "CanisterStore"
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "pkb" = (
@@ -21471,9 +21443,7 @@
 /area/station/maintenance/port/fore)
 "ptU" = (
 /obj/item/kirbyplants/random,
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/west,
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
 "pun" = (
@@ -22129,6 +22099,14 @@
 	},
 /turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
+"pOb" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/engine,
+/area/station/science/research)
 "pOf" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -22818,13 +22796,9 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
 "qpt" = (
-/obj/structure/cable,
-/obj/machinery/door/window/left/directional/west{
-	name = "Containment Cell";
-	req_access = list("xenobiology")
-	},
-/turf/open/floor/engine,
-/area/station/science/research)
+/obj/machinery/airalarm/directional/west,
+/turf/closed/wall,
+/area/station/commons/dorms/room2)
 "qpv" = (
 /obj/structure/flora/tree/jungle/small/style_random,
 /obj/structure/flora/bush/fullgrass/style_2,
@@ -23097,16 +23071,12 @@
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "qyR" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/machinery/conveyor{
 	id = "CanisterStore"
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "qzl" = (
@@ -33229,9 +33199,7 @@
 /turf/open/floor/iron/dark,
 /area/station/security/courtroom)
 "xLM" = (
-/obj/structure/window/reinforced/spawner/directional{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark,
 /area/station/maintenance/department/security)
 "xLS" = (
@@ -33818,17 +33786,13 @@
 /turf/open/floor/wood/tile,
 /area/station/common/pool/sauna)
 "yiv" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/machinery/conveyor{
 	id = "CanisterStore"
 	},
 /obj/machinery/portable_atmospherics/canister/nitrogen,
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "yiL" = (
@@ -69368,9 +69332,9 @@ gkZ
 meA
 naA
 jMZ
-pjI
-pjI
-pjI
+evk
+evk
+evk
 iZp
 wpV
 wpV
@@ -72918,13 +72882,13 @@ wjd
 wjd
 wjd
 tXY
-cOM
-qpt
-cOM
+pOb
+dBv
+pOb
 tXY
-cOM
-qpt
-cOM
+pOb
+dBv
+pOb
 tXY
 uEA
 hYP
@@ -74205,7 +74169,7 @@ wjd
 tXY
 bRj
 eNc
-cOM
+pOb
 tXY
 hpT
 qML
@@ -128191,7 +128155,7 @@ rjk
 tav
 tav
 ilw
-ilw
+qpt
 ilw
 ilw
 ilw
@@ -128446,7 +128410,7 @@ xoz
 tav
 tav
 wEH
-evk
+uHP
 esb
 wna
 wna
@@ -133060,7 +133024,7 @@ gHv
 oZN
 ksu
 fwf
-dAn
+ltK
 thz
 kZU
 nNd
@@ -133316,7 +133280,7 @@ oZN
 oZN
 oZN
 vpe
-vpe
+cOT
 nLQ
 iYN
 kZU
