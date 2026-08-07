@@ -5008,6 +5008,7 @@
 /area/station/science/research)
 "dFf" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 4
@@ -30824,15 +30825,15 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/gravity_generator)
 "vQr" = (
-/obj/machinery/sparker{
-	id = s;
-	pixel_x = -25
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 8
 	},
 /obj/machinery/igniter/incinerator_atmos{
 	id = "burnchamber"
+	},
+/obj/machinery/sparker{
+	id = "burnchamber";
+	pixel_x = -25
 	},
 /turf/open/floor/engine/vacuum,
 /area/station/engineering/main)
