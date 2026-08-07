@@ -2931,9 +2931,9 @@
 /turf/open/floor/plating,
 /area/station/commons/dorms/room5)
 "cdG" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/turf/open/openspace,
-/area/station/service/hydroponics/park)
+/obj/machinery/airalarm/directional/west,
+/turf/closed/wall,
+/area/station/commons/dorms/room2)
 "ceG" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -3683,9 +3683,14 @@
 /turf/open/floor/stone,
 /area/station/service/hydroponics/park)
 "cKm" = (
+/obj/machinery/conveyor{
+	id = "CanisterStore"
+	},
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/openspace,
-/area/station/service/hydroponics/park)
+/turf/open/floor/iron,
+/area/station/engineering/atmos)
 "cKn" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -3853,17 +3858,18 @@
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "cOM" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/engine,
-/area/station/science/research)
-"cOT" = (
-/obj/machinery/airalarm/directional/west,
 /turf/closed/wall,
-/area/station/commons/dorms/room2)
+/area/station/service/hydroponics/park)
+"cOT" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/openspace,
+/area/station/service/hydroponics/park)
 "cOV" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/yellow/visible{
 	dir = 8
@@ -4836,15 +4842,6 @@
 	},
 /turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
-"dAn" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/structure/cable,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/closed/wall,
-/area/station/service/hydroponics/park)
 "dAA" = (
 /turf/open/floor/wood,
 /area/station/service/chapel)
@@ -4867,6 +4864,11 @@
 "dBr" = (
 /obj/structure/flora/bush/jungle/b/style_random,
 /turf/open/misc/grass/jungle/station,
+/area/station/service/hydroponics/park)
+"dBv" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/openspace,
 /area/station/service/hydroponics/park)
 "dBF" = (
 /obj/structure/chair/office{
@@ -6051,6 +6053,10 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/virology)
+"evk" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/openspace,
+/area/station/service/hydroponics/park)
 "evx" = (
 /obj/structure/chair/wood,
 /obj/effect/turf_decal/siding/wood,
@@ -7356,10 +7362,8 @@
 /turf/open/floor/engine/o2,
 /area/station/engineering/atmos)
 "fsa" = (
-/obj/structure/window/reinforced/spawner/directional{
-	dir = 8
-	},
-/obj/structure/window/reinforced/spawner/directional,
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/openspace,
 /area/station/command/heads_quarters/captain)
 "fsC" = (
@@ -7380,13 +7384,9 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
 "fsG" = (
-/obj/machinery/conveyor{
-	id = "CanisterStore"
-	},
-/obj/machinery/portable_atmospherics/canister/plasma,
-/obj/structure/window/reinforced/spawner/directional/east,
-/turf/open/floor/iron,
-/area/station/engineering/atmos)
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/openspace,
+/area/station/maintenance/department/security)
 "fsI" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
 /turf/open/floor/iron,
@@ -14001,7 +14001,6 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/science/rd,
 /obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/rd)
 "kkr" = (
@@ -15920,12 +15919,6 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/station/service/library)
-"lID" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/structure/cable,
-/turf/open/floor/iron/dark/small,
-/area/station/security/prison)
 "lJG" = (
 /obj/effect/spawner/liquids_spawner,
 /obj/effect/turf_decal/siding/wood{
@@ -21245,7 +21238,6 @@
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "pkb" = (
@@ -22076,10 +22068,13 @@
 /turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
 "pOb" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/south,
-/turf/open/openspace,
-/area/station/service/hydroponics/park)
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/engine,
+/area/station/science/research)
 "pOf" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -24825,13 +24820,11 @@
 /turf/open/floor/iron,
 /area/station/medical/virology)
 "rMs" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 1
-	},
 /obj/machinery/photobooth{
 	req_one_access = list("lawyer","security","command")
 	},
 /obj/machinery/door/window/left/directional/west,
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/north,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/hop)
 "rMN" = (
@@ -29286,9 +29279,11 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/meeting_room)
 "uZp" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/turf/open/openspace,
-/area/station/maintenance/department/security)
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/cable,
+/turf/open/floor/iron/dark/small,
+/area/station/security/prison)
 "uZD" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -69036,9 +69031,9 @@ gkZ
 aAG
 naA
 jMZ
-fsG
-fsG
-fsG
+pjI
+pjI
+pjI
 iZp
 msV
 wpV
@@ -69293,9 +69288,9 @@ gkZ
 meA
 naA
 jMZ
-pjI
-pjI
-pjI
+cKm
+cKm
+cKm
 iZp
 wpV
 wpV
@@ -72843,13 +72838,13 @@ wjd
 wjd
 wjd
 tXY
-cOM
+pOb
 qpt
-cOM
+pOb
 tXY
-cOM
+pOb
 qpt
-cOM
+pOb
 tXY
 uEA
 hYP
@@ -74130,7 +74125,7 @@ wjd
 tXY
 bRj
 eNc
-cOM
+pOb
 tXY
 hpT
 qML
@@ -128116,7 +128111,7 @@ rjk
 tav
 tav
 ilw
-cOT
+cdG
 ilw
 ilw
 ilw
@@ -129143,8 +129138,8 @@ tav
 rvK
 ijk
 uHP
-cdG
-pOb
+evk
+dBv
 rjk
 xoz
 qjz
@@ -133241,7 +133236,7 @@ oZN
 oZN
 oZN
 vpe
-uZp
+fsG
 nLQ
 iYN
 kZU
@@ -137627,7 +137622,7 @@ wna
 rjk
 rjk
 xoz
-dAn
+cOM
 rjk
 tsS
 una
@@ -200326,7 +200321,7 @@ kpe
 oxY
 vkV
 fve
-lID
+uZp
 aPH
 wPx
 lbv
@@ -203929,7 +203924,7 @@ wna
 wna
 nyc
 nyc
-cKm
+cOT
 nyc
 nyc
 nyc
