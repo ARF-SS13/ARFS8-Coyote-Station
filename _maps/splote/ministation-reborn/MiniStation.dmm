@@ -272,7 +272,6 @@
 /area/station/command/heads_quarters/qm)
 "alT" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -3691,9 +3690,7 @@
 "cKm" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted,
-/obj/structure/window/reinforced/tinted{
-	dir = 1
-	},
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/north,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/hop)
 "cKn" = (
@@ -3862,10 +3859,12 @@
 	},
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
-"cOT" = (
-/obj/machinery/airalarm/directional/west,
-/turf/closed/wall,
-/area/station/commons/dorms/room2)
+"cOM" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/cable,
+/turf/open/floor/iron/dark/small,
+/area/station/security/prison)
 "cOV" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/yellow/visible{
 	dir = 8
@@ -4838,6 +4837,14 @@
 	},
 /turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
+"dAn" = (
+/obj/machinery/conveyor{
+	id = "CanisterStore"
+	},
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/floor/iron,
+/area/station/engineering/atmos)
 "dAA" = (
 /turf/open/floor/wood,
 /area/station/service/chapel)
@@ -6291,13 +6298,9 @@
 /turf/open/floor/iron,
 /area/station/engineering/main)
 "eGd" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced/tinted{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/dark_blue/half/contrasted,
-/turf/open/floor/iron,
-/area/station/command/heads_quarters/hop)
+/obj/machinery/airalarm/directional/west,
+/turf/closed/wall,
+/area/station/commons/dorms/room2)
 "eGf" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -13095,7 +13098,6 @@
 /area/station/commons/dorms/apartment1)
 "jEK" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -14432,9 +14434,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "kBi" = (
-/obj/structure/window/reinforced/spawner/directional{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/west,
 /turf/open/openspace,
 /area/station/science/auxlab)
 "kBn" = (
@@ -18882,7 +18882,6 @@
 /area/station/engineering/atmos)
 "nCb" = (
 /obj/structure/cable,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -21239,6 +21238,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "pkb" = (
@@ -24464,7 +24464,6 @@
 	name = "Cyto Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/door/poddoor/preopen{
@@ -24737,12 +24736,8 @@
 /turf/open/floor/iron/dark/textured,
 /area/station/science/genetics)
 "rJg" = (
-/obj/structure/window/reinforced/spawner/directional{
-	dir = 1
-	},
-/obj/structure/window/reinforced/spawner/directional{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/north,
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/west,
 /turf/open/openspace,
 /area/station/science/auxlab)
 "rJW" = (
@@ -29288,15 +29283,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/meeting_room)
-"uZp" = (
-/obj/machinery/conveyor{
-	id = "CanisterStore"
-	},
-/obj/machinery/portable_atmospherics/canister/plasma,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/floor/iron,
-/area/station/engineering/atmos)
 "uZD" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -63376,7 +63362,7 @@ gQj
 oHF
 aIY
 fKN
-eGd
+cKm
 sSG
 bkw
 oRj
@@ -69047,9 +69033,9 @@ gkZ
 aAG
 naA
 jMZ
-pjI
-pjI
-pjI
+dAn
+dAn
+dAn
 iZp
 msV
 wpV
@@ -69304,9 +69290,9 @@ gkZ
 meA
 naA
 jMZ
-uZp
-uZp
-uZp
+pjI
+pjI
+pjI
 iZp
 wpV
 wpV
@@ -128127,7 +128113,7 @@ rjk
 tav
 tav
 ilw
-cOT
+eGd
 ilw
 ilw
 ilw
@@ -134801,7 +134787,7 @@ kpe
 pds
 pBa
 oxY
-kpe
+oxY
 oZL
 cyu
 wPx
@@ -200337,7 +200323,7 @@ kpe
 oxY
 vkV
 fve
-gJc
+cOM
 aPH
 wPx
 lbv
