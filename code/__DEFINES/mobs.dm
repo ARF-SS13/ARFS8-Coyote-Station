@@ -168,7 +168,7 @@
 ///The limb causes shoes to no longer be displayed, useful for taurs.
 #define BODYSHAPE_HIDE_SHOES (1<<12)
 ///The limb causes glasses and hats to be drawn on layers 5 and 4 respectively. Currently used for snouts with the (Top) suffix, which are drawn on layer 6 and would normally cover facewear
-#define BODYSHAPE_ALT_FACEWEAR_LAYER (1<<13)
+#define BODYSHAPE_ALT_FACEWEAR_LAYER   (1<<13)
 // BUBBER EDIT ADDITION: START - Adding the kinetic bodytype
 ///The limb is a kinetic prosthetic.
 #define BODYTYPE_KINETIC (1<<14)
@@ -771,104 +771,110 @@ GLOBAL_LIST_INIT(human_heights_to_offsets, list(
 /// Total number of layers for mob overlays
 /// KEEP THIS UP-TO-DATE OR SHIT WILL BREAK
 /// Also consider updating layers_to_offset
-#define TOTAL_LAYERS 50 // SKYRAT EDIT CHANGE - ORIGINAL: 38
+#define TOTAL_LAYERS                  50 // SKYRAT EDIT CHANGE - ORIGINAL: 38
 /// Mutations layer - Tk headglows, cold resistance glow, etc
-#define MUTATIONS_LAYER 50 // SKYRAT EDIT CHANGE - ORIGINAL: 37
+#define MUTATIONS_LAYER                50 // SKYRAT EDIT CHANGE - ORIGINAL: 37
 /// Mutantrace features (tail when looking south) that must appear behind the body parts
-#define BODY_BEHIND_LAYER 49 // SKYRAT EDIT CHANGE - ORIGINAL: 36
+#define BODY_BEHIND_LAYER              49 // SKYRAT EDIT CHANGE - ORIGINAL: 36
 /// Layer for bodyparts that should appear behind every other bodypart - Mostly, legs when facing WEST or EAST
-#define BODYPARTS_LOW_LAYER 48 // SKYRAT EDIT CHANGE - ORIGINAL: 35
-/// Layer for most bodyparts, appears above BODYPARTS_LOW_LAYER and below BODYPARTS_HIGH_LAYER
-#define BODYPARTS_LAYER 47 // SKYRAT EDIT CHANGE - ORIGINAL: 34
+#define BODYPARTS_LOW_LAYER            48 // SKYRAT EDIT CHANGE - ORIGINAL: 35
+/// Layer for most bodyparts, appears a BODYPARTS_LOW_LAYER and below BODYPARTS_HIGH_LAYER
+#define BODYPARTS_LAYER                47 // SKYRAT EDIT CHANGE - ORIGINAL: 34
 /// Mutantrace features (snout, body markings) that must appear above the body parts
-#define BODY_ADJ_LAYER 46 // SKYRAT EDIT CHANGE - ORIGINAL: 33
+#define BODY_ADJ_LAYER                 46 // SKYRAT EDIT CHANGE - ORIGINAL: 33
 /// Underwear, undershirts, socks
-#define BODY_LAYER 45 // SKYRAT EDIT CHANGE - ORIGINAL: 32
+#define BODY_LAYER                     45 // SKYRAT EDIT CHANGE - ORIGINAL: 32
 /// Eyes and eyelids
-#define EYES_LAYER 44 // SKYRAT EDIT CHANGE - ORIGINAL: 31
+#define EYES_LAYER                     44 // SKYRAT EDIT CHANGE - ORIGINAL: 31
 // SPLURT EDIT undies
-#define UNDERWEAR_LAYER			43
-#define SOCKS_LAYER				42
-#define BRA_LAYER				41
-#define SHIRT_LAYER				40
+// #define UNDERWEAR_LAYER			43
+// #define SOCKS_LAYER				42
+// #define BRA_LAYER				41
+// #define SHIRT_LAYER				40
 // SPLURT EDIT END
 /// Mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
-#define FRONT_MUTATIONS_LAYER 39 // SKYRAT EDIT CHANGE - ORIGINAL: 30
+#define FRONT_MUTATIONS_LAYER          43 // SKYRAT EDIT CHANGE - ORIGINAL: 30
 /// Damage indicators (cuts and burns)
-#define DAMAGE_LAYER 38 // SKYRAT EDIT CHANGE - ORIGINAL: 29
+#define DAMAGE_LAYER                   42 // SKYRAT EDIT CHANGE - ORIGINAL: 29
 // SKYRAT EDIT ADDITION START
 /// This layer is used for things that shouldn't be over clothes, but should be over mutations
-#define BODY_FRONT_UNDER_CLOTHES 37
+#define BODY_FRONT_UNDER_CLOTHES 41
 // SKYRAT EDIT ADDITION END
 /// Jumpsuit clothing layer
-#define UNIFORM_LAYER 36 // SKYRAT EDIT CHANGE - ORIGINAL: 28 //SPLURT EDIT undies
+#define UNIFORM_LAYER                  40 // SKYRAT EDIT CHANGE - ORIGINAL: 28 //SPLURT EDIT undies
 // SKYRAT EDIT ADDITION BEGIN - cursed layers under clothing
-#define ANUS_LAYER 35
-#define VAGINA_LAYER 34
-#define PENIS_LAYER 33
-#define NIPPLES_LAYER 32
-#define BANDAGE_LAYER 31
+#define ANUS_LAYER                     39
+#define VAGINA_LAYER                   38
+#define PENIS_LAYER                    37
+#define NIPPLES_LAYER                  36
+#define BANDAGE_LAYER                  35
 //SKYRAT EDIT ADDITION END
 /// ID card layer
-#define ID_LAYER 30
+#define ID_LAYER                       34
 /// ID card layer (might be deprecated)
-#define ID_CARD_LAYER 29
+#define ID_CARD_LAYER                  33
 /// Layer for bodyparts that should appear above every other bodypart - Currently only used for hands
-#define BODYPARTS_HIGH_LAYER 28
+#define BODYPARTS_HIGH_LAYER           32
 /// Gloves layer
-#define GLOVES_LAYER 27
+#define GLOVES_LAYER                   31
 /// Wrists layer
-#define WRISTS_LAYER 26
+#define WRISTS_LAYER                   30
 /// Shoes layer
-#define SHOES_LAYER 25
+#define SHOES_LAYER                    29
 /// Layer for masks that are worn below ears and eyes (like Balaclavas) (layers below hair, use flagsinv=HIDEHAIR as needed)
-#define LOW_FACEMASK_LAYER 24
+#define LOW_FACEMASK_LAYER             28
 /// SPLURT EDIT - Extra ears layer
-#define EARS_EXTRA_LAYER 23
+#define EARS_EXTRA_LAYER               27
 /// Ears layer (Spessmen have ears? Wow)
-#define EARS_LAYER 22
+#define EARS_LAYER                     26
 /// Layer for neck apperal that should appear below the suit slot (like neckties)
-#define LOW_NECK_LAYER 21
+#define LOW_NECK_LAYER                 25
 /// Suit layer (armor, coats, etc.)
-#define SUIT_LAYER 20
+#define SUIT_LAYER                     24
 /// Glasses layer
-#define GLASSES_LAYER 19
+#define GLASSES_LAYER                  23
 /// Belt layer
-#define BELT_LAYER 18 //Possible make this an overlay of something required to wear a belt?
+#define BELT_LAYER                     22 //Possible make this an overlay of something required to wear a belt?
 /// Suit storage layer (tucking a gun or baton underneath your armor)
-#define SUIT_STORE_LAYER 17
+#define SUIT_STORE_LAYER               21
 /// Neck layer (for wearing capes and bedsheets)
-#define NECK_LAYER 16
+#define NECK_LAYER                     20
 /// Back layer (for backpacks and equipment on your back)
-#define BACK_LAYER 15
+#define BACK_LAYER                     19
 /// Special layer for rendering beneath hair, for special facemasks
-#define BENEATH_HAIR_LAYER 14
+#define BENEATH_HAIR_LAYER             18
 /// Hair layer (mess with the fro and you got to go!)
-#define HAIR_LAYER 13 //TODO: make part of head layer?
+#define HAIR_LAYER                     17 //TODO: make part of head layer?
 /// Facemask layer (gas masks, breath masks, etc.)
-#define FACEMASK_LAYER 12
+#define FACEMASK_LAYER                 16
 /// Head layer (hats, helmets, etc.)
-#define HEAD_LAYER 11
+#define HEAD_LAYER                     15
 /// Hair that layers out above clothing, including hats (high ponytails and such)
-#define OUTER_HAIR_LAYER 10
+#define OUTER_HAIR_LAYER               14
 /// Handcuff layer (when your hands are cuffed)
-#define HANDCUFF_LAYER 9
+#define HANDCUFF_LAYER                 13
 /// Legcuff layer (when your feet are cuffed)
-#define LEGCUFF_LAYER 8
+#define LEGCUFF_LAYER                  12
 /// Hands layer (for the actual hand, not the arm... I think?)
-#define HANDS_LAYER 7
+#define HANDS_LAYER                    11
 /// Body front layer. Usually used for mutant bodyparts that need to be in front of stuff (e.g. cat ears)
-#define BODY_FRONT_LAYER 6
+#define BODY_FRONT_LAYER               10
+//coyote bingus addition begin, make the undies go over boobies
+#define UNDERWEAR_LAYER                9
+#define SOCKS_LAYER                    8
+#define BRA_LAYER                      7
+#define SHIRT_LAYER                    6
+// coyote bingus addition end
 /// Special body layer that actually require to be above the hair (e.g. lifted welding goggles)
 #define ABOVE_BODY_FRONT_GLASSES_LAYER 5
 /// Special body layer for the rare cases where something on the head needs to be above everything else (e.g. flowers)
-#define ABOVE_BODY_FRONT_HEAD_LAYER 4
+#define ABOVE_BODY_FRONT_HEAD_LAYER    4
 /// Bleeding wound icons
-#define WOUND_LAYER 3
+#define WOUND_LAYER                    3
 /// Blood cult ascended halo layer, because there's currently no better solution for adding/removing
-#define HALO_LAYER 2
+#define HALO_LAYER                     2
 /// The highest most layer for mob overlays. Unused
-#define HIGHEST_LAYER 1
+#define HIGHEST_LAYER                  1
 
 #define UPPER_BODY "upper body"
 #define LOWER_BODY "lower body"
@@ -906,17 +912,17 @@ GLOBAL_LIST_INIT(layers_to_offset, list(
 	"[FRONT_MUTATIONS_LAYER]" = NO_MODIFY,
 	// These DO get a filter, I'm leaving them here as reference,
 	// to show how many filters are added at a glance
-	// BACK_LAYER (backpacks are big)
-	// BODYPARTS_HIGH_LAYER (arms)
-	// BODY_LAYER (body markings (full body), underwear (full body))
+	// BACK_LAYER                          (backpacks are big)
+	// BODYPARTS_HIGH_LAYER                (arms)
+	// BODY_LAYER                          (body markings (full body), underwear (full body))
 	// EYES_LAYER,
-	// BODY_ADJ_LAYER (external organs like wings)
-	// BODY_BEHIND_LAYER (external organs like wings)
-	// BODY_FRONT_LAYER (external organs like wings)
-	// DAMAGE_LAYER (full body)
-	// HIGHEST_LAYER (full body)
-	// UNIFORM_LAYER (full body)
-	// WOUND_LAYER (full body)
+	// BODY_ADJ_LAYER                      (external organs like wings)
+	// BODY_BEHIND_LAYER                   (external organs like wings)
+	// BODY_FRONT_LAYER                    (external organs like wings)
+	// DAMAGE_LAYER                        (full body)
+	// HIGHEST_LAYER                       (full body)
+	// UNIFORM_LAYER                       (full body)
+	// WOUND_LAYER                         (full body)
 ))
 
 //Bitflags for the layers an external organ can draw on (organs can be drawn on multiple layers)
@@ -950,15 +956,15 @@ GLOBAL_LIST_INIT(layers_to_offset, list(
 //Because I *KNOW* somebody will think layer+1 means "above"
 //IT DOESN'T OK, IT MEANS "UNDER"
 /// The layer underneath the suit
-#define UNDER_SUIT_LAYER (SUIT_LAYER+1)
+#define UNDER_SUIT_LAYER               (SUIT_LAYER+1)
 /// The layer underneath the head (for hats)
-#define UNDER_HEAD_LAYER (HEAD_LAYER+1)
+#define UNDER_HEAD_LAYER               (HEAD_LAYER+1)
 
 //AND -1 MEANS "ABOVE", OK?, OK!?!
 /// The layer above shoes
-#define ABOVE_SHOES_LAYER (SHOES_LAYER-1)
+#define ABOVE_SHOES_LAYER              (SHOES_LAYER-1)
 /// The layer above mutant body parts
-#define ABOVE_BODY_FRONT_LAYER (BODY_FRONT_LAYER-1)
+#define ABOVE_BODY_FRONT_LAYER         (BODY_FRONT_LAYER-1)
 
 /// If gravity must be present to perform action (can't use pens without gravity)
 #define NEED_GRAVITY (1<<0)

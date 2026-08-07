@@ -106,7 +106,7 @@ GLOBAL_LIST_EMPTY(startup_messages)
 				<a class="menu_button" href='byond://?src=[text_ref(src)];late_join=1'>JOIN GAME</a>
 				<a class="menu_button" href='byond://?src=[text_ref(src)];view_manifest=1'>CREW MANIFEST</a>
 			"}
-			dat += {"<a class="menu_button" href='byond://?src=[text_ref(src)];character_directory=1'>CHARACTER DIRECTORY</a>"}
+			// dat += {"<a class="menu_button" href='byond://?src=[text_ref(src)];character_directory=1'>CHARACTER DIRECTORY</a>"}
 
 		dat += {"<a class="menu_button" href='byond://?src=[text_ref(src)];observe=1'>OBSERVE</a>"}
 
@@ -114,7 +114,7 @@ GLOBAL_LIST_EMPTY(startup_messages)
 			<hr>
 			<a class="menu_button" href='byond://?src=[text_ref(src)];character_setup=1'>SETUP CHARACTER (<span id="character_slot">[uppertext(client.prefs.read_preference(/datum/preference/name/real_name))]</span>)</a>
 			<a class="menu_button" href='byond://?src=[text_ref(src)];game_options=1'>GAME OPTIONS</a>
-			<a id="be_antag" class="menu_button" href='byond://?src=[text_ref(src)];toggle_antag=1'>[client.prefs.read_preference(/datum/preference/toggle/be_antag) ? "<span class='checked'>☑</span> BE ANTAGONIST" : "<span class='unchecked'>☒</span> BE ANTAGONIST"]</a>
+			<!-- <a id="be_antag" class="menu_button" href='byond://?src=[text_ref(src)];toggle_antag=1'>[client.prefs.read_preference(/datum/preference/toggle/be_antag) ? "<span class='checked'>☑</span> BE ANTAGONIST" : "<span class='unchecked'>☒</span> BE ANTAGONIST"]</a> -->
 			<!-- SPLURT STATION EDIT: Server swap button removed - not needed for single server setup -->
 			<!-- <hr> -->
 			<!--  <a class="menu_button" href='byond://?src=[text_ref(src)];server_swap=1'>SWAP SERVERS</a> -->

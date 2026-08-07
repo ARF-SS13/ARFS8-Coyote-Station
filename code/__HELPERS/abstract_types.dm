@@ -68,3 +68,10 @@
 	result -= get_abstract_branch_descendants(root)
 
 	return result
+
+/proc/is_abstract(datum/sometype)
+	if(istype(sometype))
+		return sometype.abstract_type == sometype.type
+	else if(ispath(sometype))
+		return sometype::abstract_type == sometype
+	return FALSE

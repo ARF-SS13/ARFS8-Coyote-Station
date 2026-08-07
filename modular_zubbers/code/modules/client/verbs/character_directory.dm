@@ -126,21 +126,23 @@ GLOBAL_DATUM(character_directory, /datum/character_directory)
 	COOLDOWN_DECLARE(char_directory_cooldown)
 
 //Make a verb to open the character directory
-/client/verb/show_character_directory()
-	set name = "Character Directory"
-	set category = "OOC"
-	set desc = "Shows a listing of all active characters, along with their associated OOC notes, flavor text, and more."
+// modular coyote or somethign, make the character fiurectory only 4 adminds
+ADMIN_VERB(show_character_directory, R_ADMIN, "Show Character Directory", "View the character directory.", ADMIN_CATEGORY_FUN)
+// /client/verb/show_character_directory()
+// 	set name = "Character Directory"
+// 	set category = "OOC"
+// 	set desc = "Shows a listing of all active characters, along with their associated OOC notes, flavor text, and more."
 
 	// This is primarily to stop malicious users from trying to lag the server by spamming this verb
-	if(!COOLDOWN_FINISHED(src, char_directory_cooldown))
-		to_chat(src, span_alert("Hold your horses! It's still refreshing!"))
-		return
-	COOLDOWN_START(src, char_directory_cooldown, 10)
+	// if(!COOLDOWN_FINISHED(usr, char_directory_cooldown))
+	// 	to_chat(usr, span_alert("Hold your horses! It's still refreshing!"))
+	// 	return
+	// COOLDOWN_START(usr, char_directory_cooldown, 10)
 
 //Check if there's not already a character directory open; open a new one if one is not present
 	if(!GLOB.character_directory)
 		GLOB.character_directory = new
-	GLOB.character_directory.ui_interact(mob)
+	GLOB.character_directory.ui_interact(usr)
 
 // This is a global singleton. Keep in mind that all operations should occur on user, not src.
 /datum/character_directory

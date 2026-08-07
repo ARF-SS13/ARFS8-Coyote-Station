@@ -2,11 +2,12 @@
 	icon = 'modular_coyote/icons/mob/underwear/curvywear.dmi'
 	use_static = FALSE
 	em_block = TRUE
+	abstract_type = /datum/sprite_accessory/bra/shapely
 /datum/sprite_accessory/undershirt/shapely
 	icon = 'modular_coyote/icons/mob/underwear/curvywear.dmi'
 	use_static = FALSE
 	em_block = TRUE
-
+	abstract_type = /datum/sprite_accessory/undershirt/shapely
 // Shapley Shirts//
 
 /datum/sprite_accessory/bra/shapely/shapelypetite

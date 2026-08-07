@@ -223,7 +223,7 @@ export function CharacterPreferenceWindow(props) {
           </Stack.Item>
           {/* BUBBER EDIT ADDITION END */}
 
-          <Stack.Item grow>
+          {/* <Stack.Item grow>
             <PageButton
               currentPage={currentPage}
               page={Page.Antags}
@@ -231,7 +231,7 @@ export function CharacterPreferenceWindow(props) {
             >
               Antagonists
             </PageButton>
-          </Stack.Item>
+          </Stack.Item> */}
 
           <Stack.Item grow>
             <PageButton
