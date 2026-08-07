@@ -541,7 +541,6 @@
 	name = "Pool and Sauna"
 	},
 /obj/structure/plasticflaps/kitchen,
-/obj/structure/cable,
 /obj/machinery/duct,
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
@@ -3859,12 +3858,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
-"cOM" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/structure/cable,
-/turf/open/floor/iron/dark/small,
-/area/station/security/prison)
 "cOV" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/yellow/visible{
 	dir = 8
@@ -4838,13 +4831,9 @@
 /turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
 "dAn" = (
-/obj/machinery/conveyor{
-	id = "CanisterStore"
-	},
-/obj/machinery/portable_atmospherics/canister/plasma,
-/obj/structure/window/reinforced/spawner/directional/east,
-/turf/open/floor/iron,
-/area/station/engineering/atmos)
+/obj/machinery/airalarm/directional/west,
+/turf/closed/wall,
+/area/station/commons/dorms/room2)
 "dAA" = (
 /turf/open/floor/wood,
 /area/station/service/chapel)
@@ -6051,6 +6040,12 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/virology)
+"evk" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/cable,
+/turf/open/floor/iron/dark/small,
+/area/station/security/prison)
 "evx" = (
 /obj/structure/chair/wood,
 /obj/effect/turf_decal/siding/wood,
@@ -6297,10 +6292,6 @@
 /obj/machinery/computer/station_alert,
 /turf/open/floor/iron,
 /area/station/engineering/main)
-"eGd" = (
-/obj/machinery/airalarm/directional/west,
-/turf/closed/wall,
-/area/station/commons/dorms/room2)
 "eGf" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -7377,6 +7368,10 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/aft)
+"fsG" = (
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/west,
+/turf/closed/wall,
+/area/station/service/lawoffice)
 "fsI" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
 /turf/open/floor/iron,
@@ -11270,14 +11265,12 @@
 	pixel_y = 4;
 	req_access_txt = "55"
 	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	alpha = 160;
 	color = "#6a3182";
 	dir = 10
 	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "ilw" = (
@@ -14582,7 +14575,6 @@
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "kGR" = (
-/obj/structure/window/reinforced,
 /obj/structure/table/reinforced,
 /obj/machinery/button/door{
 	id = "xenobio8";
@@ -14596,6 +14588,7 @@
 	color = "#6a3182";
 	dir = 5
 	},
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "kHQ" = (
@@ -16057,14 +16050,12 @@
 	pixel_y = 4;
 	req_access_txt = "55"
 	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	alpha = 160;
 	color = "#6a3182";
 	dir = 10
 	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "lPB" = (
@@ -16929,7 +16920,6 @@
 /turf/open/floor/stone,
 /area/station/service/hydroponics/park)
 "mrq" = (
-/obj/structure/cable,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
@@ -21238,7 +21228,6 @@
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "pkb" = (
@@ -22069,13 +22058,14 @@
 /turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
 "pOb" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/machinery/conveyor{
+	id = "CanisterStore"
 	},
-/obj/structure/cable,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/engine,
-/area/station/science/research)
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/iron,
+/area/station/engineering/atmos)
 "pOf" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -26190,9 +26180,6 @@
 /turf/closed/wall,
 /area/station/medical/surgery)
 "sNr" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -26202,6 +26189,7 @@
 	color = "#6a3182";
 	dir = 6
 	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "sNM" = (
@@ -29283,6 +29271,14 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/meeting_room)
+"uZp" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/engine,
+/area/station/science/research)
 "uZD" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -32233,12 +32229,12 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/structure/window/reinforced,
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	alpha = 160;
 	color = "#6a3182";
 	dir = 9
 	},
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/white,
 /area/station/science/research)
 "xgr" = (
@@ -69033,9 +69029,9 @@ gkZ
 aAG
 naA
 jMZ
-dAn
-dAn
-dAn
+pjI
+pjI
+pjI
 iZp
 msV
 wpV
@@ -69290,9 +69286,9 @@ gkZ
 meA
 naA
 jMZ
-pjI
-pjI
-pjI
+pOb
+pOb
+pOb
 iZp
 wpV
 wpV
@@ -72840,13 +72836,13 @@ wjd
 wjd
 wjd
 tXY
-pOb
+uZp
 qpt
-pOb
+uZp
 tXY
-pOb
+uZp
 qpt
-pOb
+uZp
 tXY
 uEA
 hYP
@@ -74127,7 +74123,7 @@ wjd
 tXY
 bRj
 eNc
-pOb
+uZp
 tXY
 hpT
 qML
@@ -128113,7 +128109,7 @@ rjk
 tav
 tav
 ilw
-eGd
+dAn
 ilw
 ilw
 ilw
@@ -135560,7 +135556,7 @@ xGO
 huL
 gOu
 usN
-imJ
+fsG
 xoz
 uas
 wna
@@ -200323,7 +200319,7 @@ kpe
 oxY
 vkV
 fve
-cOM
+evk
 aPH
 wPx
 lbv
