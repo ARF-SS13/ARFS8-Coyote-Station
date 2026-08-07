@@ -12429,7 +12429,6 @@
 "jcq" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/structure/window/reinforced/spawner/directional,
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/plating,
 /area/station/engineering/power_station/upperer)
@@ -21169,7 +21168,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/directional,
 /turf/open/floor/plating,
 /area/station/engineering/power_station/upperer)
 "oZL" = (
@@ -26508,6 +26506,17 @@
 /obj/machinery/cryopod,
 /turf/open/floor/iron,
 /area/station/commons/dorms)
+"sRR" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering Foyer"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/iron,
+/area/station/engineering/power_station/upperer)
 "sRZ" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 1
@@ -29018,11 +29027,6 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/machinery/door/window/brigdoor/left/directional/east{
-	name = "Engineering Desk";
-	req_access = list("engineering");
-	dir = 2
-	},
 /turf/open/floor/plating,
 /area/station/engineering/power_station/upperer)
 "uFA" = (
@@ -193940,7 +193944,7 @@ nyc
 nyc
 nyc
 wna
-wna
+xss
 ugG
 ugG
 ugG
@@ -194197,7 +194201,7 @@ nyc
 xss
 xss
 xss
-wna
+xss
 han
 han
 han
@@ -194454,7 +194458,7 @@ nyc
 xss
 sEg
 oZH
-wna
+xss
 han
 wna
 wna
@@ -194711,7 +194715,7 @@ nyc
 xss
 gTF
 uEY
-han
+sRR
 han
 wna
 nyc
@@ -194968,7 +194972,7 @@ nyc
 xss
 rNS
 jcq
-wna
+xss
 wna
 wna
 nyc
