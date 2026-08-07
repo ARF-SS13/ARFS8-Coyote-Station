@@ -147,8 +147,10 @@ SUBSYSTEM_DEF(accessories) // just 'accessories' for brevity
 		FEMALE_SPRITE_LIST = list(),
 	)
 
-	for(var/path in subtypesof(prototype))
-		var/datum/sprite_accessory/accessory = new path
+	for(var/path as anything in subtypesof(prototype))
+		if(is_abstract(path))
+			continue
+		var/datum/sprite_accessory/accessory = new path()
 
 		if(accessory.icon_state)
 			returnable_list[DEFAULT_SPRITE_LIST][accessory.name] = accessory
