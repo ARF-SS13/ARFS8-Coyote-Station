@@ -147,7 +147,7 @@ SUBSYSTEM_DEF(accessories) // just 'accessories' for brevity
 		FEMALE_SPRITE_LIST = list(),
 	)
 
-	for(var/path as anything in subtypesof(prototype))
+	for(var/path in subtypesof(prototype))
 		if(is_abstract(path))
 			continue
 		var/datum/sprite_accessory/accessory = new path()
