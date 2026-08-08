@@ -2756,13 +2756,6 @@
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood/large,
 /area/station/service/chapel)
-"bTH" = (
-/obj/structure/flora/bush/fullgrass/style_2,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/turf/open/floor/stone,
-/area/station/service/hydroponics/park)
 "bTO" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -11049,9 +11042,10 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "hPW" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/space)
+/obj/structure/flora/bush/sparsegrass/style_3,
+/obj/structure/closet/crate/bin,
+/turf/open/misc/grass/jungle/station,
+/area/station/service/hydroponics/park)
 "hPY" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -18485,11 +18479,6 @@
 /obj/structure/plasticflaps,
 /turf/open/space/basic,
 /area/station/cargo/storage)
-"mTa" = (
-/obj/structure/flora/bush/flowers_br/style_random,
-/obj/structure/closet/crate/bin,
-/turf/open/misc/grass/jungle/station,
-/area/station/service/hydroponics/park)
 "mTk" = (
 /obj/machinery/telecomms/receiver/preset_left,
 /turf/open/floor/iron/dark/telecomms,
@@ -21893,10 +21882,6 @@
 /obj/machinery/barsign/all_access,
 /turf/closed/wall,
 /area/station/service/cafeteria)
-"peA" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/misc/grass/jungle/station,
-/area/station/service/hydroponics/park)
 "pfQ" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/yellow,
@@ -21949,11 +21934,6 @@
 	},
 /turf/open/floor/wood/stairs/left,
 /area/station/common/pool/sauna)
-"phw" = (
-/obj/structure/lattice,
-/obj/structure/marker_beacon/jade,
-/turf/open/floor/engine/hull,
-/area/space/nearstation)
 "phA" = (
 /obj/effect/turf_decal/trimline/brown/line{
 	dir = 4
@@ -26288,11 +26268,6 @@
 /obj/item/skillchip/basketweaving,
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
-"sfC" = (
-/obj/structure/flora/bush/fullgrass/style_2,
-/obj/structure/closet/crate/bin,
-/turf/open/misc/grass/jungle/station,
-/area/station/service/hydroponics/park)
 "sgf" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 4
@@ -125999,7 +125974,7 @@ wzv
 wzv
 wzv
 wzv
-wzv
+nLw
 nLw
 nLw
 nLw
@@ -126256,7 +126231,7 @@ wzv
 wzv
 wzv
 wzv
-wzv
+nLw
 nLw
 nLw
 nLw
@@ -126513,7 +126488,7 @@ wzv
 wzv
 wzv
 wzv
-wzv
+nLw
 nLw
 nLw
 nLw
@@ -129604,7 +129579,7 @@ fAX
 lQL
 ajc
 sts
-sfC
+iSt
 eJf
 wna
 ugk
@@ -129894,7 +129869,7 @@ qWi
 nMQ
 nLw
 nLw
-uHP
+aNt
 uas
 rjk
 uas
@@ -130159,7 +130134,7 @@ ugk
 xoz
 ugk
 ugk
-aNt
+uHP
 nLw
 nLw
 cBs
@@ -131934,14 +131909,14 @@ xoz
 ami
 nNG
 ojW
-tMU
+hPW
 rjk
 rjk
 fJh
 iSt
 bBR
 fgY
-sfC
+iSt
 kZR
 sSP
 sSP
@@ -132188,7 +132163,7 @@ rjk
 tMU
 iSt
 rjk
-xDn
+rjk
 ujS
 dSi
 tck
@@ -134758,7 +134733,7 @@ iSt
 rjk
 rjk
 xoz
-xDn
+rjk
 ojW
 wna
 wna
@@ -135275,7 +135250,7 @@ rjk
 qjz
 wna
 wna
-xDn
+rjk
 rjk
 rjk
 rjk
@@ -135786,7 +135761,7 @@ rjk
 iSt
 rjk
 rjk
-tMU
+hPW
 ojW
 wna
 dRF
@@ -136048,7 +136023,7 @@ ojW
 wna
 rjk
 rjk
-rjk
+xoz
 rjk
 wna
 wna
@@ -136066,7 +136041,7 @@ seM
 sOW
 rjk
 xoz
-sfC
+iSt
 wna
 sUe
 ojW
@@ -136323,19 +136298,19 @@ lsN
 sOW
 rjk
 sUe
-bTH
+sUe
 sUe
 rxN
-rjk
-rjk
-rjk
+xDn
 usB
 fgY
-xDn
 rjk
-peA
+iSt
+iSt
+usB
+fgY
 rjk
-rjk
+iSt
 iqd
 pwR
 iVx
@@ -137367,10 +137342,10 @@ nLw
 nLw
 nLw
 nLw
-dGe
 nLw
 nLw
-dGe
+nLw
+nLw
 nLw
 wzv
 plj
@@ -137624,10 +137599,10 @@ nLw
 nLw
 nLw
 nLw
-dGe
 nLw
 nLw
-dGe
+nLw
+nLw
 nLw
 wzv
 plj
@@ -137881,12 +137856,12 @@ nLw
 nLw
 nLw
 nLw
-dGe
-dGe
-dGe
-dGe
-dGe
-hOP
+nLw
+nLw
+nLw
+nLw
+nLw
+wzv
 plj
 evx
 dPD
@@ -138139,10 +138114,10 @@ nLw
 nLw
 nLw
 nLw
-dGe
 nLw
 nLw
-dGe
+nLw
+nLw
 wzv
 plj
 gEX
@@ -138396,7 +138371,7 @@ nLw
 nLw
 nLw
 nLw
-phw
+nLw
 nLw
 nLw
 nLw
@@ -195394,7 +195369,7 @@ lbv
 rjk
 pvN
 xMz
-xDn
+rjk
 rjk
 wna
 wna
@@ -195903,7 +195878,7 @@ wzv
 nLw
 nLw
 nLw
-hPW
+lbv
 nyc
 nyc
 nyc
@@ -195912,7 +195887,7 @@ nyc
 nyc
 nLP
 wna
-ugk
+qOq
 rjk
 rjk
 xss
@@ -196160,7 +196135,7 @@ wzv
 nLw
 nLw
 nLw
-hPW
+lbv
 nyc
 nyc
 nyc
@@ -196417,7 +196392,7 @@ wzv
 nLw
 nLw
 nLw
-hPW
+lbv
 nyc
 nyc
 nyc
@@ -196674,7 +196649,7 @@ mvp
 mvp
 mvp
 mvp
-hPW
+lbv
 nyc
 nyc
 nyc
@@ -196705,7 +196680,7 @@ khT
 rjk
 rjk
 oWz
-qOq
+ugk
 wna
 bYu
 wna
@@ -196714,7 +196689,7 @@ wna
 wna
 wna
 bYu
-mTa
+oWz
 btY
 nyc
 nyc
@@ -196931,7 +196906,7 @@ myg
 qDC
 lbi
 mvp
-hPW
+lbv
 lbv
 nyc
 nyc
@@ -198226,7 +198201,7 @@ ugk
 ugk
 ugk
 rjk
-xDn
+rjk
 wna
 qFQ
 nyc
