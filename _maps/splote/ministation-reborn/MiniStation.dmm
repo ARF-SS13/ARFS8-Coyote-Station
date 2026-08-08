@@ -927,9 +927,7 @@
 "aIU" = (
 /obj/effect/spawner/random/burgerstation/liquid,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "aIY" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -1661,9 +1659,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "bhN" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -1815,9 +1811,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "box" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible/layer4,
 /obj/machinery/portable_atmospherics/canister/air,
@@ -3998,9 +3992,7 @@
 /obj/structure/cable,
 /obj/machinery/power/terminal,
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "cKS" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -4018,9 +4010,7 @@
 "cLh" = (
 /obj/machinery/pipedispenser/disposal/transit_tube,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "cMg" = (
 /obj/machinery/door/window/right/directional/north,
 /obj/machinery/shower/directional/east,
@@ -4792,9 +4782,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "dpC" = (
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
@@ -5366,9 +5354,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "dIR" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
@@ -5918,9 +5904,7 @@
 "ebe" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "ebn" = (
 /turf/closed/wall/r_wall,
 /area/station/hallway/primary/fore)
@@ -6131,9 +6115,7 @@
 /area/station/command/eva)
 "ekp" = (
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "ekD" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -6516,9 +6498,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "exg" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible{
 	dir = 8
@@ -6695,9 +6675,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "eDW" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 8
@@ -7638,9 +7616,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "fkJ" = (
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron/white,
@@ -8766,9 +8742,7 @@
 "fZc" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "fZn" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 4
@@ -10211,9 +10185,7 @@
 /area/station/medical/medbay/central)
 "gUJ" = (
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "gUQ" = (
 /obj/machinery/light{
 	dir = 1
@@ -11284,9 +11256,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "hJX" = (
 /turf/closed/wall/r_wall,
 /area/station/security/brig)
@@ -11423,9 +11393,7 @@
 "hOu" = (
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "hOE" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -12611,9 +12579,7 @@
 "iFy" = (
 /obj/machinery/pipedispenser/disposal,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "iFD" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -13351,9 +13317,7 @@
 "jhe" = (
 /obj/structure/rack,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "jhr" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -14859,9 +14823,7 @@
 /obj/structure/table,
 /obj/item/clothing/shoes/magboots,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "kbk" = (
 /obj/machinery/computer/monitor{
 	dir = 8
@@ -15555,9 +15517,7 @@
 /obj/structure/cable,
 /obj/machinery/requests_console/directional/north,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "kBq" = (
 /obj/structure/railing{
 	dir = 10
@@ -15922,9 +15882,7 @@
 "kNh" = (
 /obj/machinery/pipedispenser,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "kNk" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -16126,9 +16084,7 @@
 "kUG" = (
 /obj/machinery/light,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "kVe" = (
 /obj/machinery/flasher{
 	id = "Cell 2";
@@ -16205,9 +16161,7 @@
 	dir = 9
 	},
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "kXH" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/siding/wood{
@@ -16245,9 +16199,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "kZE" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -16694,9 +16646,7 @@
 "lrv" = (
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "lrN" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk,
@@ -16789,9 +16739,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "lvm" = (
 /turf/closed/wall/rust,
 /area/station/service/hydroponics/park)
@@ -16967,9 +16915,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "lCM" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/east,
@@ -18527,9 +18473,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "mxi" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -20195,9 +20139,7 @@
 /obj/machinery/camera/autoname/directional/east,
 /obj/structure/table,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "nwU" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -20499,9 +20441,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "nGZ" = (
 /turf/open/misc/beach/sand,
 /area/station/service/hydroponics/park)
@@ -21610,9 +21550,7 @@
 "okn" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "okv" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood{
@@ -22911,9 +22849,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/visible,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "pkv" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/curtain/cloth/fancy/mechanical{
@@ -22944,9 +22880,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "plj" = (
 /turf/closed/wall,
 /area/station/service/chapel/funeral)
@@ -23378,9 +23312,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "pAG" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -26001,9 +25933,7 @@
 "rlE" = (
 /obj/structure/table,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "rma" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/plasma_input{
 	dir = 8
@@ -26050,9 +25980,7 @@
 "rnL" = (
 /obj/structure/closet/secure_closet/engineering_welding,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "rok" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Cargo Bay Maintenance";
@@ -26327,9 +26255,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "rzH" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -26389,9 +26315,7 @@
 	dir = 9
 	},
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "rAm" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /obj/structure/sign/warning/no_smoking/directional/east,
@@ -26798,9 +26722,7 @@
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "rLT" = (
 /obj/structure/table/wood,
 /obj/item/clothing/head/hats/warden/drill/captain,
@@ -27666,9 +27588,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "snI" = (
 /obj/structure/cable,
 /obj/effect/landmark/start/hangover,
@@ -29184,9 +29104,7 @@
 "tqJ" = (
 /obj/effect/landmark/start/station_engineer,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "tqR" = (
 /obj/structure/railing{
 	dir = 8
@@ -29735,9 +29653,7 @@
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "tHb" = (
 /obj/structure/sign/warning/secure_area{
 	desc = "A warning sign which reads 'SERVER ROOM'.";
@@ -30147,16 +30063,12 @@
 "tRS" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange,
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "tRX" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange,
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "tSO" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 1
@@ -30227,9 +30139,7 @@
 "tUY" = (
 /obj/machinery/drone_dispenser,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "tVW" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/briefcase/secure{
@@ -30827,9 +30737,7 @@
 "uqs" = (
 /obj/structure/cable,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "ure" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Gravity Generator Chamber"
@@ -33556,9 +33464,7 @@
 "wgz" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "wgE" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -33975,9 +33881,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/visible,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "wsm" = (
 /obj/machinery/camera/autoname/directional/east,
 /obj/effect/turf_decal/delivery,
@@ -34654,13 +34558,9 @@
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable,
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "wWJ" = (
-/turf/closed/mineral/random{
-	mineralSpawnChanceList = list(/turf/closed/mineral/uranium = 5, /turf/closed/mineral/diamond = 1, /turf/closed/mineral/gold = 10, /turf/closed/mineral/silver = 12, /turf/closed/mineral/plasma = 20, /turf/closed/mineral/iron = 40, /turf/closed/mineral/titanium = 11, /turf/closed/mineral/gibtonite = 4, /turf/closed/mineral/bscrystal = 1)
-	},
+/turf/closed/mineral/random,
 /area/space/nearstation)
 "wWM" = (
 /obj/effect/turf_decal/trimline/blue/filled/line{
@@ -35586,9 +35486,7 @@
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/visible,
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "xCI" = (
 /obj/machinery/airalarm/directional/north,
 /obj/effect/turf_decal/trimline/red/filled/line{
@@ -35664,9 +35562,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "xET" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -36126,9 +36022,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "xUx" = (
 /obj/machinery/light/directional/south,
 /obj/structure/extinguisher_cabinet/directional/south,
@@ -36569,9 +36463,7 @@
 /area/station/common/pool/sauna)
 "ykk" = (
 /turf/closed/wall,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "ykp" = (
 /turf/open/floor/stone{
 	color = "#BBBBBB"
@@ -36644,9 +36536,7 @@
 	dir = 9
 	},
 /turf/open/floor/iron/smooth,
-/area/station/engineering/supermatter{
-	name = "\improper Engine Room"
-	})
+/area/station/engineering/engine_room)
 "ymb" = (
 /obj/machinery/light{
 	icon_state = "tube1";
