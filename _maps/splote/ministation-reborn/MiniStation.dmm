@@ -2751,10 +2751,13 @@
 /area/station/service/chapel)
 "bTH" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor,
+/obj/structure/curtain/cloth/fancy/mechanical{
+	id = "interlink_cabin_curtains_6";
+	name = "curtains"
+	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
-/area/station/service/library)
+/area/station/commons/dorms/apartment1)
 "bTO" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -4176,10 +4179,8 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/service/chapel/funeral)
 "cWv" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable,
-/turf/open/floor/plating,
-/area/station/command/heads_quarters/ce)
+/turf/closed/wall/r_wall,
+/area/space)
 "cWy" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 1
@@ -11037,9 +11038,10 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "hPW" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/station/common/pool/sauna)
+/obj/structure/flora/bush/sparsegrass/style_3,
+/obj/structure/closet/crate/bin,
+/turf/open/misc/grass/jungle/station,
+/area/station/service/hydroponics/park)
 "hPY" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -18465,7 +18467,7 @@
 "mTa" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/station/maintenance/department/security)
+/area/station/common/pool/sauna)
 "mTk" = (
 /obj/machinery/telecomms/receiver/preset_left,
 /turf/open/floor/iron/dark/telecomms,
@@ -21864,10 +21866,9 @@
 /turf/closed/wall,
 /area/station/service/cafeteria)
 "peA" = (
-/obj/structure/flora/bush/sparsegrass/style_3,
-/obj/structure/closet/crate/bin,
-/turf/open/misc/grass/jungle/station,
-/area/station/service/hydroponics/park)
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/station/command/meeting_room)
 "pfQ" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/yellow,
@@ -21921,9 +21922,8 @@
 /turf/open/floor/wood/stairs/left,
 /area/station/common/pool/sauna)
 "phw" = (
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/station/command/meeting_room)
+/area/space)
 "phA" = (
 /obj/effect/turf_decal/trimline/brown/line{
 	dir = 4
@@ -22051,15 +22051,6 @@
 "plZ" = (
 /turf/closed/wall,
 /area/station/medical/storage)
-"pmg" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/curtain/cloth/fancy/mechanical{
-	id = "interlink_cabin_curtains_6";
-	name = "curtains"
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/plating,
-/area/station/commons/dorms/apartment1)
 "pmm" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -26260,8 +26251,9 @@
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
 "sfC" = (
-/turf/closed/wall/r_wall,
-/area/space)
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/station/maintenance/department/security)
 "sgf" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 4
@@ -31578,8 +31570,10 @@
 /turf/open/floor/stone,
 /area/station/service/hydroponics/park)
 "vRc" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable,
 /turf/open/floor/plating,
-/area/space)
+/area/station/command/heads_quarters/ce)
 "vRd" = (
 /obj/structure/toilet,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
@@ -61754,10 +61748,10 @@ wjd
 ihk
 wjd
 dSc
-cWv
+vRc
 dSc
 dSc
-cWv
+vRc
 dSc
 dSc
 dSc
@@ -63044,7 +63038,7 @@ jds
 dMo
 skp
 oWt
-cWv
+vRc
 wjd
 wjd
 wjd
@@ -63552,7 +63546,7 @@ gFC
 wjd
 wjd
 wjd
-cWv
+vRc
 ogA
 waB
 cle
@@ -126238,7 +126232,7 @@ uas
 rjk
 fki
 fki
-pmg
+bTH
 dzg
 dzg
 fki
@@ -128520,7 +128514,7 @@ wzv
 wzv
 wzv
 qiX
-bTH
+qiX
 uVe
 aac
 srs
@@ -128777,7 +128771,7 @@ wzv
 wzv
 wzv
 qiX
-bTH
+qiX
 ktG
 qro
 gLh
@@ -128815,10 +128809,10 @@ iga
 iga
 iga
 iga
-hPW
-hPW
-hPW
-hPW
+mTa
+mTa
+mTa
+mTa
 wzv
 wzv
 wzv
@@ -129034,7 +129028,7 @@ wzv
 wzv
 wzv
 qiX
-bTH
+qiX
 dkJ
 huf
 mcH
@@ -129076,7 +129070,7 @@ nMQ
 nMQ
 nMQ
 nMQ
-hPW
+mTa
 wzv
 wzv
 wzv
@@ -129333,7 +129327,7 @@ sFC
 kDR
 jhv
 nMQ
-hPW
+mTa
 nLw
 lbv
 lbv
@@ -129590,7 +129584,7 @@ dnv
 vvn
 qWi
 nMQ
-hPW
+mTa
 lbv
 aNt
 aNt
@@ -131341,11 +131335,11 @@ wzv
 wzv
 wzv
 nLw
-phw
-phw
-phw
-phw
-phw
+peA
+peA
+peA
+peA
+peA
 oZN
 oZN
 oZN
@@ -131889,7 +131883,7 @@ xoz
 ami
 nNG
 ojW
-peA
+hPW
 rjk
 rjk
 fJh
@@ -132367,7 +132361,7 @@ wzv
 wzv
 wzv
 wzv
-phw
+peA
 nPs
 sxc
 lvb
@@ -132624,7 +132618,7 @@ wzv
 wzv
 wzv
 wzv
-phw
+peA
 nPs
 kxL
 dbx
@@ -133138,7 +133132,7 @@ wzv
 wzv
 wzv
 wzv
-phw
+peA
 nPs
 pkx
 oxG
@@ -133395,7 +133389,7 @@ wzv
 wzv
 wzv
 wzv
-phw
+peA
 nPs
 vmT
 efH
@@ -134425,10 +134419,10 @@ wzv
 wzv
 wzv
 nLw
-phw
-phw
-phw
-phw
+peA
+peA
+peA
+peA
 nLw
 nLw
 wzv
@@ -135204,7 +135198,7 @@ wzv
 wzv
 wzv
 wzv
-mTa
+sfC
 jbr
 ksu
 fwf
@@ -135461,7 +135455,7 @@ wzv
 wzv
 wzv
 wzv
-mTa
+sfC
 jbr
 ksu
 fwf
@@ -135718,7 +135712,7 @@ wzv
 wzv
 wzv
 wzv
-mTa
+sfC
 jbr
 bgF
 kGc
@@ -135741,7 +135735,7 @@ rjk
 iSt
 rjk
 rjk
-peA
+hPW
 ojW
 wna
 dRF
@@ -135975,7 +135969,7 @@ wzv
 wzv
 wzv
 wzv
-mTa
+sfC
 jbr
 jSX
 fwf
@@ -136232,7 +136226,7 @@ wzv
 wzv
 wzv
 wzv
-mTa
+sfC
 jbr
 jSX
 daG
@@ -136489,7 +136483,7 @@ wzv
 wzv
 wzv
 wzv
-mTa
+sfC
 jbr
 mJs
 uSr
@@ -136746,7 +136740,7 @@ wzv
 wzv
 wzv
 wzv
-mTa
+sfC
 jbr
 jSX
 thz
@@ -137002,8 +136996,8 @@ wzv
 wzv
 wzv
 wzv
-mTa
-mTa
+sfC
+sfC
 jbr
 jSX
 thz
@@ -137258,7 +137252,7 @@ wzv
 wzv
 wzv
 wzv
-mTa
+sfC
 jbr
 jbr
 qEv
@@ -137515,7 +137509,7 @@ xAE
 xAE
 xAE
 xAE
-mTa
+sfC
 jbr
 dit
 hWW
@@ -137772,7 +137766,7 @@ wzv
 wzv
 wzv
 wzv
-mTa
+sfC
 jbr
 ksu
 lJL
@@ -138029,7 +138023,7 @@ wzv
 wzv
 wzv
 wzv
-mTa
+sfC
 jbr
 ksu
 rDM
@@ -138286,7 +138280,7 @@ wzv
 wzv
 wzv
 wzv
-mTa
+sfC
 jbr
 ksu
 rDM
@@ -138543,7 +138537,7 @@ wzv
 wzv
 wzv
 wzv
-mTa
+sfC
 jbr
 ksu
 rDM
@@ -138800,7 +138794,7 @@ wzv
 wzv
 wzv
 wzv
-mTa
+sfC
 jbr
 ksu
 rDM
@@ -139057,7 +139051,7 @@ wzv
 wzv
 wzv
 wzv
-mTa
+sfC
 jbr
 ksu
 rDM
@@ -139314,7 +139308,7 @@ wzv
 wzv
 wzv
 wzv
-mTa
+sfC
 jbr
 ksu
 bFI
@@ -139571,7 +139565,7 @@ wzv
 wzv
 wzv
 wzv
-mTa
+sfC
 jbr
 fXp
 axg
@@ -197143,7 +197137,7 @@ tlX
 eQI
 rLT
 oMa
-vRc
+phw
 uHP
 nyc
 nyc
@@ -197400,7 +197394,7 @@ igN
 pPh
 qZF
 oMa
-vRc
+phw
 uHP
 nyc
 nyc
@@ -197657,7 +197651,7 @@ aPJ
 cvY
 wiE
 oMa
-vRc
+phw
 uHP
 uHP
 uHP
@@ -197914,9 +197908,9 @@ fRQ
 kEr
 nPr
 oMa
-vRc
-vRc
-vRc
+phw
+phw
+phw
 uHP
 dIU
 vom
@@ -198171,9 +198165,9 @@ duX
 hMH
 qWP
 oMa
-vRc
-vRc
-vRc
+phw
+phw
+phw
 uHP
 rjk
 xoz
@@ -198428,9 +198422,9 @@ hXW
 svL
 svL
 oMa
-vRc
-vRc
-vRc
+phw
+phw
+phw
 uHP
 rjk
 ugk
@@ -198685,9 +198679,9 @@ dmx
 pwB
 cZo
 oMa
-vRc
-vRc
-vRc
+phw
+phw
+phw
 uHP
 rjk
 xoz
@@ -198942,9 +198936,9 @@ svL
 svL
 svL
 oMa
-vRc
-vRc
-vRc
+phw
+phw
+phw
 uHP
 rjk
 rjk
@@ -199201,7 +199195,7 @@ svL
 oMa
 oMa
 oMa
-vRc
+phw
 uHP
 ugk
 ugk
@@ -199458,7 +199452,7 @@ nCb
 cUY
 okZ
 oMa
-vRc
+phw
 uHP
 uHP
 uHP
@@ -199715,16 +199709,16 @@ svL
 fsa
 dWF
 oMa
-vRc
-vRc
-vRc
-vRc
-vRc
-vRc
-vRc
-vRc
-vRc
-vRc
+phw
+phw
+phw
+phw
+phw
+phw
+phw
+phw
+phw
+phw
 uHP
 hNh
 hcV
@@ -199972,12 +199966,12 @@ tsJ
 tsJ
 igT
 oMa
-vRc
-vRc
-vRc
-vRc
-vRc
-vRc
+phw
+phw
+phw
+phw
+phw
+phw
 wPx
 wPx
 wPx
@@ -200229,7 +200223,7 @@ sgD
 sgD
 iHA
 oMa
-vRc
+phw
 wPx
 wPx
 wPx
@@ -200486,8 +200480,8 @@ oBO
 oMa
 oMa
 oMa
-vRc
-vRc
+phw
+phw
 wPx
 kTZ
 msL
@@ -200742,9 +200736,9 @@ wzv
 wzv
 nLw
 nLw
-sfC
-vRc
-vRc
+cWv
+phw
+phw
 wPx
 uoZ
 pHZ
@@ -200999,9 +200993,9 @@ wzv
 wzv
 nLw
 nLw
-sfC
-vRc
-vRc
+cWv
+phw
+phw
 wPx
 xfs
 kpe
@@ -201256,9 +201250,9 @@ wzv
 wzv
 nLw
 nLw
-sfC
-vRc
-vRc
+cWv
+phw
+phw
 wPx
 nob
 fhN
@@ -201513,9 +201507,9 @@ wzv
 wzv
 nLw
 nLw
-sfC
-vRc
-vRc
+cWv
+phw
+phw
 wPx
 kpe
 oxY
@@ -201770,9 +201764,9 @@ wzv
 wzv
 nLw
 nLw
-sfC
-vRc
-vRc
+cWv
+phw
+phw
 wPx
 blv
 oxY
@@ -202027,8 +202021,8 @@ wzv
 wzv
 nLw
 nLw
-sfC
-sfC
+cWv
+cWv
 rpU
 wPx
 wPx
