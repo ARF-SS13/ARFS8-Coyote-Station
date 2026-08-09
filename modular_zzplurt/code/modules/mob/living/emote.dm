@@ -88,23 +88,6 @@
 	specific_emote_audio_cooldown = 0.4 SECONDS
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/eyebrow2
-	key = "eyebrow2"
-	key_third_person = "eyebrows2"
-	message = "<b>raises an eyebrow.</b>"
-	message_mime = "<b>raises an eyebrow with quaking force!</b>"
-	sound = 'modular_zzplurt/sound/voice/vineboom.ogg'
-	specific_emote_audio_cooldown = 2.9 SECONDS
-	emote_type = EMOTE_VISIBLE
-
-/datum/emote/living/eyebrow3
-	key = "eyebrow3"
-	key_third_person = "eyebrows3"
-	message = "raises an eyebrow <i>quizzaciously</i>."
-	sound = 'modular_zzplurt/sound/voice/moonmen.ogg'
-	specific_emote_audio_cooldown = 7 SECONDS
-	emote_type = EMOTE_VISIBLE
-
 /datum/emote/living/blink3
 	key = "blink3"
 	key_third_person = "blinks3"
