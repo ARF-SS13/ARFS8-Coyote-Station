@@ -373,27 +373,6 @@
 	. = ..()
 	return pick('modular_zzplurt/sound/voice/cscream1.ogg', 'modular_zzplurt/sound/voice/cscream2.ogg', 'modular_zzplurt/sound/voice/cscream3.ogg', 'modular_zzplurt/sound/voice/cscream4.ogg', 'modular_zzplurt/sound/voice/cscream5.ogg', 'modular_zzplurt/sound/voice/cscream6.ogg', 'modular_zzplurt/sound/voice/cscream7.ogg', 'modular_zzplurt/sound/voice/cscream8.ogg', 'modular_zzplurt/sound/voice/cscream9.ogg', 'modular_zzplurt/sound/voice/cscream10.ogg', 'modular_zzplurt/sound/voice/cscream11.ogg', 'modular_zzplurt/sound/voice/cscream12.ogg')
 
-/datum/emote/living/bazinga
-	key = "bazinga"
-	key_third_person = "bazingas"
-	message = "exclaims, \"<i>Bazinga!</i>\""
-	message_mime = "fools someone, silently."
-	sound = 'modular_zzplurt/sound/voice/bazinga.ogg'
-	cooldown = 0.65 SECONDS
-
-/datum/emote/living/bazinga/run_emote(mob/user, params, type_override, intentional)
-	if(prob(1))
-		sound = 'modular_zzplurt/sound/voice/bazinga_ebil.ogg'
-		vary = FALSE
-		cooldown = 1.92 SECONDS
-		sound_volume = 110
-	else
-		sound = 'modular_zzplurt/sound/voice/bazinga.ogg'
-		vary = TRUE
-		cooldown = 0.65 SECONDS
-		sound_volume = 50
-	. = ..()
-
 /datum/emote/living/yooo
 	key = "yooo"
 	key_third_person = "yooos"
