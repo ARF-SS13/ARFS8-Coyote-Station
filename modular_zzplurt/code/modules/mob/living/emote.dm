@@ -373,13 +373,6 @@
 	. = ..()
 	return pick('modular_zzplurt/sound/voice/cscream1.ogg', 'modular_zzplurt/sound/voice/cscream2.ogg', 'modular_zzplurt/sound/voice/cscream3.ogg', 'modular_zzplurt/sound/voice/cscream4.ogg', 'modular_zzplurt/sound/voice/cscream5.ogg', 'modular_zzplurt/sound/voice/cscream6.ogg', 'modular_zzplurt/sound/voice/cscream7.ogg', 'modular_zzplurt/sound/voice/cscream8.ogg', 'modular_zzplurt/sound/voice/cscream9.ogg', 'modular_zzplurt/sound/voice/cscream10.ogg', 'modular_zzplurt/sound/voice/cscream11.ogg', 'modular_zzplurt/sound/voice/cscream12.ogg')
 
-/datum/emote/living/yooo
-	key = "yooo"
-	key_third_person = "yooos"
-	message = "thinks they are part of Kabuki play."
-	sound = 'modular_zzplurt/sound/voice/yooo.ogg'
-	cooldown = 2.54 SECONDS
-
 /datum/emote/living/buzzer_correct
 	key = "correct"
 	key_third_person = "corrects"
