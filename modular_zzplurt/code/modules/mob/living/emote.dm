@@ -330,19 +330,6 @@
 	key_third_person = "facehoofs"
 	metacarpus_type = "hoof"
 
-/datum/emote/living/poyo
-	key = "poyo"
-	key_third_person = "poyos"
-	message = "%SAYS, \"Poyo!\""
-	message_mime = "acts out an excited motion!"
-	sound = 'modular_zzplurt/sound/voice/barks/poyo.ogg'
-
-/datum/emote/living/poyo/run_emote(mob/user, params, type_override, intentional)
-	var/obj/item/organ/tongue/tongue = user.get_organ_slot(ORGAN_SLOT_TONGUE)
-	var/say_mod = (tongue ? tongue.say_mod : "says")
-	message = replacetextEx(message, "%SAYS", say_mod)
-	. = ..()
-
 /datum/emote/living/rizz
 	key = "rizz"
 	key_third_person = "rizzes"
