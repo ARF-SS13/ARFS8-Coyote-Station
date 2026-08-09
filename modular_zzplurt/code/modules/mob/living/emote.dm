@@ -284,14 +284,6 @@
 	message = pick(pants)
 	. = ..()
 
-/datum/emote/living/yippee
-	key = "yippee"
-	key_third_person = "yippees"
-	message = "lets out a yippee!"
-	message_mime = "acts out a yippee!"
-	sound = 'modular_zzplurt/sound/voice/yippee.ogg'
-	cooldown = 1.2 SECONDS
-
 /datum/emote/living/mewo
 	key = "mewo"
 	key_third_person = "mewos"
