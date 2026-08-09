@@ -75,24 +75,6 @@
 	specific_emote_audio_cooldown = 0.25 SECONDS
 	emote_type = EMOTE_VISIBLE
 
-/datum/emote/living/laugh3
-	key = "laugh3"
-	key_third_person = "laughs3"
-	message = "laughs silly."
-	message_mime = "acts out laughing silly."
-	sound = 'modular_zzplurt/sound/voice/lol.ogg'
-	specific_emote_audio_cooldown = 6.1 SECONDS
-	emote_type = EMOTE_AUDIBLE
-
-/datum/emote/living/laugh4
-	key = "laugh4"
-	key_third_person = "laughs4"
-	message = "burst into laughter!"
-	message_mime = "acts out bursting into laughter."
-	sound = 'modular_zzplurt/sound/voice/laugh_muta.ogg'
-	specific_emote_audio_cooldown = 3 SECONDS
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/wtune
 	key = "whistletune"
 	key_third_person = "whistletunes"
