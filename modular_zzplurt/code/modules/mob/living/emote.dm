@@ -292,19 +292,6 @@
 	sound = 'modular_zzplurt/sound/voice/mewo.ogg'
 	cooldown = 0.7 SECONDS
 
-/datum/emote/living/ara_ara
-	key = "ara"
-	key_third_person = "aras"
-	message = "coos with sultry surprise~..."
-	message_mime = "exudes a sultry aura~"
-	sound = 'modular_zzplurt/sound/voice/ara-ara.ogg'
-	cooldown = 1.25 SECONDS
-
-/datum/emote/living/ara_ara/alt
-	key = "ara2"
-	sound = 'modular_zzplurt/sound/voice/ara-ara2.ogg'
-	cooldown = 1.25 SECONDS
-
 /datum/emote/living/facemetacarpus
 	key = "facehand"
 	key_third_person = "facepalms"
