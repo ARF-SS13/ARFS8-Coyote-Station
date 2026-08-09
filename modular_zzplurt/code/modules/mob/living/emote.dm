@@ -98,31 +98,6 @@
 	specific_emote_audio_cooldown = 0.78 SECONDS
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/chill
-	key = "chill"
-	key_third_person = "chills"
-	message = "feels a chill running down their spine..."
-	message_mime = "acts out a chill running down their spine..."
-	sound = 'modular_zzplurt/sound/voice/waterphone.ogg'
-	specific_emote_audio_cooldown = 3.4 SECONDS
-	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
-
-/datum/emote/living/taunt
-	key = "tt"
-	key_third_person = "taunts"
-	message = "strikes a pose!"
-	message_param = "taunts %t!"
-	sound = 'modular_zzplurt/sound/voice/phillyhit.ogg'
-	emote_type = EMOTE_VISIBLE
-	//is_muzzled = FALSE
-
-/datum/emote/living/taunt/alt
-	key = "tt2"
-	key_third_person = "taunts2"
-	sound_volume = 100
-	sound = 'modular_zzplurt/sound/voice/orchestrahit.ogg'
-	emote_type = EMOTE_VISIBLE
-
 /datum/emote/living/weh2
 	key = "weh2"
 	key_third_person = "wehs2"
