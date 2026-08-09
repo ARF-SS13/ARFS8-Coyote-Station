@@ -414,14 +414,6 @@
 	cooldowns = 0.8 SECONDS
 	vary = FALSE
 
-/datum/emote/living/gay
-	key = "gay"
-	key_third_person = "points at a player"
-	message = "saw something gay."
-	sound = 'modular_zzplurt/sound/voice/gay-echo.ogg'
-	cooldown = 0.95 SECONDS
-	vary = FALSE
-
 /datum/emote/living/flabbergast
 	key = "flabbergast"
 	key_third_person = "is flabbergasted"
