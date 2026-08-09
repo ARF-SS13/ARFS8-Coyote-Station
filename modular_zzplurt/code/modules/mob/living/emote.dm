@@ -373,22 +373,6 @@
 	. = ..()
 	return pick('modular_zzplurt/sound/voice/cscream1.ogg', 'modular_zzplurt/sound/voice/cscream2.ogg', 'modular_zzplurt/sound/voice/cscream3.ogg', 'modular_zzplurt/sound/voice/cscream4.ogg', 'modular_zzplurt/sound/voice/cscream5.ogg', 'modular_zzplurt/sound/voice/cscream6.ogg', 'modular_zzplurt/sound/voice/cscream7.ogg', 'modular_zzplurt/sound/voice/cscream8.ogg', 'modular_zzplurt/sound/voice/cscream9.ogg', 'modular_zzplurt/sound/voice/cscream10.ogg', 'modular_zzplurt/sound/voice/cscream11.ogg', 'modular_zzplurt/sound/voice/cscream12.ogg')
 
-/datum/emote/living/ambatukam
-	key = "ambatukam"
-	key_third_person = "ambatukams"
-	message = "is about to come!"
-	message_mime = "seems like about to come!"
-	sound = 'modular_zzplurt/sound/voice/ambatukam.ogg'
-	cooldown = 2.75 SECONDS
-
-/datum/emote/living/ambatukam2
-	key = "ambatukam2"
-	key_third_person = "ambatukams2"
-	message = "is about to come in harmony!"
-	message_mime = "seems like about to come in harmony!"
-	sound = 'modular_zzplurt/sound/voice/ambatukam_harmony.ogg'
-	cooldown = 3.42 SECONDS
-
 /datum/emote/living/eekum
 	key = "eekumbokum"
 	key_third_person = "eekumbokums"
