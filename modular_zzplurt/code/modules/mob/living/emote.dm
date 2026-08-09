@@ -330,15 +330,6 @@
 	key_third_person = "facehoofs"
 	metacarpus_type = "hoof"
 
-/datum/emote/living/rizz
-	key = "rizz"
-	key_third_person = "rizzes"
-	message = "gives <b>\[<u><i>The Look</i></u>\]</b>."
-	message_param = "looks at %t with bedroom eyes."
-	message_mime = "makes bedroom eyes."
-	sound = 'modular_zzplurt/sound/voice/rizz.ogg'
-	cooldown = 1.43 SECONDS
-
 /datum/emote/living/buff
 	key = "buff"
 	key_third_person = "buffs"
