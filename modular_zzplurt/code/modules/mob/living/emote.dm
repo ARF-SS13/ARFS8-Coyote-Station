@@ -79,15 +79,6 @@
 	specific_emote_audio_cooldown = 0.3 SECONDS
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/bruh
-	key = "bruh"
-	key_third_person = "bruhs"
-	message = "thinks this is a bruh moment."
-	message_mime = "silently acknowledges the bruh moment."
-	sound = 'modular_zzplurt/sound/voice/bruh.ogg'
-	specific_emote_audio_cooldown = 0.6 SECONDS
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/boowomp
 	key = "boowomp"
 	key_third_person = "boowomps"
