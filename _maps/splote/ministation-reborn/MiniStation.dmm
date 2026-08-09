@@ -896,8 +896,8 @@
 /area/station/security/detectives_office)
 "aGX" = (
 /obj/structure/cable,
-/turf/closed/wall,
-/area/station/medical/surgery)
+/turf/open/floor/wood/tile,
+/area/station/service/lawoffice)
 "aHd" = (
 /obj/machinery/camera/directional/west{
 	c_tag = "Chapel - Center"
@@ -3335,10 +3335,6 @@
 /obj/effect/mapping_helpers/airlock/access/any/command/hop,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/hop)
-"cmH" = (
-/obj/machinery/power/port_gen/pacman,
-/turf/open/floor/iron/smooth,
-/area/station/engineering/engine_room)
 "cnj" = (
 /obj/structure/closet/crate/solarpanel_small,
 /turf/open/floor/plating,
@@ -17167,8 +17163,9 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port/fore)
 "lLS" = (
-/turf/closed/wall/r_wall,
-/area/station/medical/surgery/fore)
+/obj/structure/cable,
+/turf/closed/wall,
+/area/station/medical/surgery)
 "lMq" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -22936,14 +22933,10 @@
 /turf/closed/wall,
 /area/station/medical/storage)
 "pmm" = (
-/obj/structure/table/optable,
+/obj/machinery/duct,
 /obj/structure/cable,
-/obj/machinery/light/directional/north,
-/obj/machinery/defibrillator_mount/directional/north,
-/obj/effect/turf_decal/tile/blue/full,
-/obj/machinery/power/apc/auto_name/directional/east,
-/turf/open/floor/iron/large,
-/area/station/medical/surgery)
+/turf/open/floor/stone,
+/area/station/service/hydroponics/park)
 "pmq" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -23465,6 +23458,10 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/eva)
+"pFf" = (
+/obj/machinery/power/port_gen/pacman,
+/turf/open/floor/iron/smooth,
+/area/station/engineering/engine_room)
 "pFp" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -25609,9 +25606,10 @@
 	},
 /area/station/command/bridge)
 "qYR" = (
+/obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable,
-/turf/open/floor/wood/tile,
-/area/station/service/lawoffice)
+/turf/open/floor/stone,
+/area/station/service/hydroponics/park)
 "qZo" = (
 /obj/structure/fluff/beach_umbrella/cap,
 /obj/machinery/light/directional/west,
@@ -28291,10 +28289,8 @@
 /turf/open/floor/iron/dark,
 /area/station/security/courtroom)
 "sNh" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable,
-/turf/open/floor/stone,
-/area/station/service/hydroponics/park)
+/turf/closed/wall/r_wall,
+/area/station/medical/surgery/fore)
 "sNr" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
@@ -28734,10 +28730,14 @@
 /turf/open/floor/iron/dark,
 /area/station/medical/pharmacy)
 "tbO" = (
-/obj/machinery/duct,
+/obj/structure/table/optable,
 /obj/structure/cable,
-/turf/open/floor/stone,
-/area/station/service/hydroponics/park)
+/obj/machinery/light/directional/north,
+/obj/machinery/defibrillator_mount/directional/north,
+/obj/effect/turf_decal/tile/blue/full,
+/obj/machinery/power/apc/auto_name/directional/east,
+/turf/open/floor/iron/large,
+/area/station/medical/surgery)
 "tca" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/condom_pack,
@@ -32286,14 +32286,6 @@
 	dir = 1
 	},
 /area/station/common/pool/sauna)
-"vtc" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/structure/cable,
-/turf/open/floor/plating,
-/area/station/engineering/main)
 "vtj" = (
 /obj/structure/cable,
 /turf/open/floor/iron/dark/telecomms,
@@ -32697,7 +32689,6 @@
 /obj/effect/turf_decal/trimline/blue/filled/corner{
 	dir = 4
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/open/floor/iron/white,
 /area/station/medical/surgery)
@@ -35930,6 +35921,14 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/station/engineering/atmos)
+"xPa" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/cable,
+/turf/open/floor/plating,
+/area/station/engineering/main)
 "xPp" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -67633,7 +67632,7 @@ uqs
 ekp
 ekp
 ekp
-cmH
+pFf
 ykk
 xUT
 gNe
@@ -68923,7 +68922,7 @@ xEC
 nuW
 huS
 hnZ
-vtc
+xPa
 olg
 xSD
 xIh
@@ -77106,7 +77105,7 @@ tXY
 gwT
 rux
 gFI
-lLS
+sNh
 xzw
 xzw
 tLC
@@ -77363,7 +77362,7 @@ pae
 wew
 czr
 hHD
-lLS
+sNh
 odU
 mny
 goE
@@ -77620,7 +77619,7 @@ tXY
 mta
 wNN
 bqt
-lLS
+sNh
 fkS
 aVH
 kpD
@@ -77877,12 +77876,12 @@ tXY
 skc
 dcJ
 kTq
-lLS
+sNh
 aWF
 hNx
 eKa
 qpF
-aGX
+lLS
 rmn
 pBK
 qpF
@@ -78134,7 +78133,7 @@ tXY
 ohQ
 rIv
 bsx
-lLS
+sNh
 jxA
 oBb
 wlj
@@ -78391,12 +78390,12 @@ tXY
 hFw
 eYV
 thh
-lLS
+sNh
 tJR
 tjF
 ygB
-aGX
-pmm
+lLS
+tbO
 upA
 weq
 qpF
@@ -78648,7 +78647,7 @@ tXY
 sjC
 jnX
 kuf
-lLS
+sNh
 xzw
 xzw
 kpF
@@ -136481,8 +136480,8 @@ slK
 slK
 slK
 slK
-sNh
-sNh
+qYR
+qYR
 ojW
 ojW
 ojW
@@ -137752,22 +137751,22 @@ sdA
 wPx
 dBr
 wna
-sNh
+qYR
 slK
 aZM
 slK
-sNh
+qYR
 slK
 slK
 slK
-sNh
+qYR
 slK
 rjk
 rjk
 rjk
 rjk
 wna
-tbO
+pmm
 gZn
 eWa
 eNF
@@ -139029,9 +139028,9 @@ imJ
 cxd
 hiH
 cSv
-qYR
-qYR
-qYR
+aGX
+aGX
+aGX
 rjt
 lvs
 slK
