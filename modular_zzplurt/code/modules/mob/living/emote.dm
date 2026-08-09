@@ -373,22 +373,6 @@
 	. = ..()
 	return pick('modular_zzplurt/sound/voice/cscream1.ogg', 'modular_zzplurt/sound/voice/cscream2.ogg', 'modular_zzplurt/sound/voice/cscream3.ogg', 'modular_zzplurt/sound/voice/cscream4.ogg', 'modular_zzplurt/sound/voice/cscream5.ogg', 'modular_zzplurt/sound/voice/cscream6.ogg', 'modular_zzplurt/sound/voice/cscream7.ogg', 'modular_zzplurt/sound/voice/cscream8.ogg', 'modular_zzplurt/sound/voice/cscream9.ogg', 'modular_zzplurt/sound/voice/cscream10.ogg', 'modular_zzplurt/sound/voice/cscream11.ogg', 'modular_zzplurt/sound/voice/cscream12.ogg')
 
-/datum/emote/living/buzzer_correct
-	key = "correct"
-	key_third_person = "corrects"
-	message = "thinks someone is correct."
-	message_param = "thinks %t is correct."
-	sound = 'modular_zzplurt/sound/voice/buzzer_correct.ogg'
-	cooldown = 0.84 SECONDS
-
-/datum/emote/living/buzzer_incorrect
-	key = "incorrect"
-	key_third_person = "incorrects"
-	message = "thinks someone is incorrect."
-	message_param = "thinks %t is incorrect."
-	sound = 'modular_zzplurt/sound/voice/buzzer_incorrect.ogg'
-	cooldown = 1.21 SECONDS
-
 /datum/emote/living/ace/
 	key = "objection0"
 	key_third_person = "objections0"
