@@ -414,15 +414,6 @@
 	cooldowns = 0.8 SECONDS
 	vary = FALSE
 
-/datum/emote/living/ah
-	key = "ah"
-	key_third_person = "ahs"
-	message = "ahs!"
-	message_mime = "ahs silently"
-	sound = 'modular_zzplurt/sound/voice/gachi/ah.ogg'
-	cooldown = 0.67 SECONDS
-	sound_volume = 25
-
 /datum/emote/living/shiss
 	key = "shiss"
 	key_third_person = "hisses"
