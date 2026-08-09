@@ -305,14 +305,6 @@
 	sound = 'modular_zzplurt/sound/voice/ara-ara2.ogg'
 	cooldown = 1.25 SECONDS
 
-/datum/emote/living/missouri
-	key = "missouri"
-	key_third_person = "missouris"
-	message = "has relocated to Missouri."
-	message_mime = "starts thinking about Missouri."
-	sound = 'modular_zzplurt/sound/voice/missouri.ogg'
-	cooldown = 3.4 SECONDS
-
 /datum/emote/living/missouri/run_emote(mob/user, params, type_override, intentional)
 	// Set message pronouns
 	message = "appears to believe [user.p_theyre()] in Missouri."
