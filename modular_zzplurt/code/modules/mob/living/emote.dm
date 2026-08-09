@@ -40,17 +40,6 @@
 	if(!iscarbon(user))
 		return
 
-
-/datum/emote/living/burp/get_sound(mob/living/user)
-	. = ..()
-	sound_volume = 50
-	vary = TRUE
-	return pick('modular_zzplurt/sound/voice/burps/belch1.ogg','modular_zzplurt/sound/voice/burps/belch2.ogg','modular_zzplurt/sound/voice/burps/belch3.ogg','modular_zzplurt/sound/voice/burps/belch4.ogg',
-		'modular_zzplurt/sound/voice/burps/belch5.ogg','modular_zzplurt/sound/voice/burps/belch6.ogg','modular_zzplurt/sound/voice/burps/belch7.ogg','modular_zzplurt/sound/voice/burps/belch8.ogg',
-		'modular_zzplurt/sound/voice/burps/belch9.ogg','modular_zzplurt/sound/voice/burps/belch10.ogg','modular_zzplurt/sound/voice/burps/belch11.ogg','modular_zzplurt/sound/voice/burps/belch12.ogg',
-		'modular_zzplurt/sound/voice/burps/belch13.ogg','modular_zzplurt/sound/voice/burps/belch14.ogg','modular_zzplurt/sound/voice/burps/belch15.ogg')
-
-
 /datum/emote/living/bleat
 	key = "bleat"
 	key_third_person = "bleats"
