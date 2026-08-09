@@ -373,24 +373,6 @@
 	. = ..()
 	return pick('modular_zzplurt/sound/voice/cscream1.ogg', 'modular_zzplurt/sound/voice/cscream2.ogg', 'modular_zzplurt/sound/voice/cscream3.ogg', 'modular_zzplurt/sound/voice/cscream4.ogg', 'modular_zzplurt/sound/voice/cscream5.ogg', 'modular_zzplurt/sound/voice/cscream6.ogg', 'modular_zzplurt/sound/voice/cscream7.ogg', 'modular_zzplurt/sound/voice/cscream8.ogg', 'modular_zzplurt/sound/voice/cscream9.ogg', 'modular_zzplurt/sound/voice/cscream10.ogg', 'modular_zzplurt/sound/voice/cscream11.ogg', 'modular_zzplurt/sound/voice/cscream12.ogg')
 
-/datum/emote/living/eekum
-	key = "eekumbokum"
-	key_third_person = "eekumbokums"
-	message = "eekum-bokums!"
-	message_mime = "seems to eekum-bokum!"
-	sound = 'modular_zzplurt/sound/voice/eekum-bokum.ogg'
-	cooldown = 0.9
-
-/datum/emote/living/eekum/run_emote(mob/user, params, type_override, intentional)
-	switch(user.gender)
-		if(MALE)
-			sound = 'modular_zzplurt/sound/voice/eekum-bokum.ogg'
-		if(FEMALE)
-			sound = pick('modular_zzplurt/sound/voice/eekum-bokum_f1.ogg','modular_zzplurt/sound/voice/eekum-bokum_f2.ogg')
-		else
-			sound = pick('modular_zzplurt/sound/voice/eekum-bokum.ogg','modular_zzplurt/sound/voice/eekum-bokum_f1.ogg','modular_zzplurt/sound/voice/eekum-bokum_f2.ogg')
-	. = ..()
-
 /datum/emote/living/bazinga
 	key = "bazinga"
 	key_third_person = "bazingas"
