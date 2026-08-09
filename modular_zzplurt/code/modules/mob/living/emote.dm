@@ -253,15 +253,6 @@
 	message = "sticks their tongue for a moment. Mlem!"
 	emote_type = EMOTE_VISIBLE
 
-/datum/emote/living/snore/snore2
-	key = "snore2"
-	key_third_person = "snores2"
-	message = "lets out an <b>earthshaking</b> snore"
-	message_mime = "lets out an <b>inaudible</b> snore!"
-	sound = 'modular_zzplurt/sound/voice/aauugghh1.ogg'
-	specific_emote_audio_cooldown = 2.1 SECONDS
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/snore/snore2/run_emote(mob/user, params)
 	var/obj/item/organ/tongue/tongue = user.get_organ_slot(ORGAN_SLOT_TONGUE)
 	var/say_mod = (tongue ? tongue.say_mod : "says")
