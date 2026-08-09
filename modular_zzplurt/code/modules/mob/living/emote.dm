@@ -305,13 +305,6 @@
 	sound = 'modular_zzplurt/sound/voice/ara-ara2.ogg'
 	cooldown = 1.25 SECONDS
 
-/datum/emote/living/missouri/run_emote(mob/user, params, type_override, intentional)
-	// Set message pronouns
-	message = "appears to believe [user.p_theyre()] in Missouri."
-
-	// Return normally
-	. = ..()
-
 /datum/emote/living/facemetacarpus
 	key = "facehand"
 	key_third_person = "facepalms"
