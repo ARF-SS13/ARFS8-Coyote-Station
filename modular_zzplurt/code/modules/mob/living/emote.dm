@@ -373,21 +373,6 @@
 	. = ..()
 	return pick('modular_zzplurt/sound/voice/cscream1.ogg', 'modular_zzplurt/sound/voice/cscream2.ogg', 'modular_zzplurt/sound/voice/cscream3.ogg', 'modular_zzplurt/sound/voice/cscream4.ogg', 'modular_zzplurt/sound/voice/cscream5.ogg', 'modular_zzplurt/sound/voice/cscream6.ogg', 'modular_zzplurt/sound/voice/cscream7.ogg', 'modular_zzplurt/sound/voice/cscream8.ogg', 'modular_zzplurt/sound/voice/cscream9.ogg', 'modular_zzplurt/sound/voice/cscream10.ogg', 'modular_zzplurt/sound/voice/cscream11.ogg', 'modular_zzplurt/sound/voice/cscream12.ogg')
 
-/datum/emote/living/nani
-	key = "nani"
-	key_third_person = "nanis"
-	message = "seems confused."
-	sound = 'modular_zzplurt/sound/voice/nani.ogg'
-	cooldown = 0.5 SECONDS
-
-/datum/emote/living/canonevent
-	key = "2099"
-	key_third_person = "canons"
-	message = "thinks this is a canon event."
-	sound = 'modular_zzplurt/sound/voice/canon_event.ogg'
-	cooldown = 5.0 SECONDS
-	sound_volume = 27
-
 /datum/emote/living/meow2/get_sound(mob/living/user)
 	. = ..()
 	return  pick('modular_zzplurt/sound/voice/catpeople/cat_meow1.ogg', 'modular_zzplurt/sound/voice/catpeople/cat_meow2.ogg', 'modular_zzplurt/sound/voice/catpeople/cat_meow3.ogg')
