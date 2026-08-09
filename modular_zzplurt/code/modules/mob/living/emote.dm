@@ -373,15 +373,6 @@
 	. = ..()
 	return pick('modular_zzplurt/sound/voice/cscream1.ogg', 'modular_zzplurt/sound/voice/cscream2.ogg', 'modular_zzplurt/sound/voice/cscream3.ogg', 'modular_zzplurt/sound/voice/cscream4.ogg', 'modular_zzplurt/sound/voice/cscream5.ogg', 'modular_zzplurt/sound/voice/cscream6.ogg', 'modular_zzplurt/sound/voice/cscream7.ogg', 'modular_zzplurt/sound/voice/cscream8.ogg', 'modular_zzplurt/sound/voice/cscream9.ogg', 'modular_zzplurt/sound/voice/cscream10.ogg', 'modular_zzplurt/sound/voice/cscream11.ogg', 'modular_zzplurt/sound/voice/cscream12.ogg')
 
-/datum/emote/living/sciteam
-	key = "sciteam"
-	key_third_person = "sciteams"
-	message = "exclaims, \"I am with the <b>Science</b> team!\""
-	message_mime = "gestures being with the Science team!"
-	sound = 'modular_zzplurt/sound/voice/sciteam.ogg'
-	cooldown = 1.32 SECONDS
-	sound_volume = 90
-
 /datum/emote/living/ambatukam
 	key = "ambatukam"
 	key_third_person = "ambatukams"
