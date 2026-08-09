@@ -18,28 +18,6 @@
 	cooldown = 1 SECONDS
 	emote_type = EMOTE_AUDIBLE
 
-
-/datum/emote/living/speen
-	key = "speen"
-	key_third_person ="speens"
-	message = "speeeeens!"
-	message_mime = "speeeeens silently!"
-	sound = 'modular_zzplurt/sound/voice/speen.ogg'
-	hands_use_check = TRUE
-
-/datum/emote/living/speen/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
-	user.spin(20, 1)
-
-/datum/emote/living/speen/check_cooldown(mob/user, intentional)
-	. = ..()
-	if(.)
-		return
-	if(!can_run_emote(user, intentional=intentional))
-		return
-	if(!iscarbon(user))
-		return
-
 /datum/emote/living/bleat
 	key = "bleat"
 	key_third_person = "bleats"
