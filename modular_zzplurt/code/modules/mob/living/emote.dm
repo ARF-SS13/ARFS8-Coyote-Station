@@ -414,24 +414,6 @@
 	cooldowns = 0.8 SECONDS
 	vary = FALSE
 
-/datum/emote/living/flabbergast
-	key = "flabbergast"
-	key_third_person = "is flabbergasted"
-	message = "looks flabbergasted!"
-	sound = 'modular_zzplurt/sound/voice/flabbergasted.ogg'
-	cooldown = 3.0 SECONDS
-	vary = FALSE
-	sound_volume = 70
-
-/datum/emote/living/sadness
-	key = "sadness"
-	key_third_person = "feels sadness"
-	message = "is experiencing <b><i>Profound Sadness</i></b>!"
-	sound = 'modular_zzplurt/sound/voice/sadness.ogg'
-	cooldown = 4.0 SECONDS
-	vary = FALSE
-	sound_volume = 30
-
 /datum/emote/living/ah
 	key = "ah"
 	key_third_person = "ahs"
