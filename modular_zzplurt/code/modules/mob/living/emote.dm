@@ -488,14 +488,6 @@
 		return pick('modular_zzplurt/sound/voice/human_male_pain_1.ogg', 'modular_zzplurt/sound/voice/human_male_pain_2.ogg', 'modular_zzplurt/sound/voice/human_male_pain_3.ogg', 'modular_zzplurt/sound/voice/human_male_pain_rare.ogg', 'modular_zzplurt/sound/voice/human_male_scream_1.ogg', 'modular_zzplurt/sound/voice/human_male_scream_2.ogg', 'modular_zzplurt/sound/voice/human_male_scream_3.ogg', 'modular_zzplurt/sound/voice/human_male_scream_4.ogg')
 	return pick('modular_zzplurt/sound/voice/human_female_pain_1.ogg', 'modular_zzplurt/sound/voice/human_female_pain_2.ogg', 'modular_zzplurt/sound/voice/human_female_pain_3.ogg', 'modular_zzplurt/sound/voice/human_female_scream_2.ogg', 'modular_zzplurt/sound/voice/human_female_scream_3.ogg', 'modular_zzplurt/sound/voice/human_female_scream_4.ogg')
 
-/datum/emote/living/malaysia
-	key = "malaysia"
-	key_third_person = "admits to blowing up Malaysia!"
-	message = "admits to blowing up Malaysia!"
-	message_mime = "silently explains they blew up Malaysia!"
-	emote_type = EMOTE_AUDIBLE
-	sound = 'modular_zzplurt/sound/voice/malaysia.ogg'
-
 /datum/emote/living/wchoo
 	key = "wachoo"
 	key_third_person = "sneezes!"
