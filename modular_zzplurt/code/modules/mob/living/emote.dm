@@ -97,15 +97,6 @@
 	specific_emote_audio_cooldown = 0.25 SECONDS
 	emote_type = EMOTE_VISIBLE
 
-/datum/emote/living/laugh2
-	key = "laugh2"
-	key_third_person = "laughs2"
-	message = "laughs like a king."
-	message_mime = "acts out laughing like a king."
-	sound = 'modular_zzplurt/sound/voice/laugh_king.ogg'
-	// No cooldown var required
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/laugh3
 	key = "laugh3"
 	key_third_person = "laughs3"
