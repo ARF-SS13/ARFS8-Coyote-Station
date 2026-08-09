@@ -330,15 +330,6 @@
 	key_third_person = "facehoofs"
 	metacarpus_type = "hoof"
 
-/datum/emote/living/buff
-	key = "buff"
-	key_third_person = "buffs"
-	message = "shows off their muscles."
-	message_param = "shows off their muscles to %t."
-	sound = 'modular_zzplurt/sound/voice/buff.ogg'
-	cooldown = 4.77 SECONDS
-//  vary = FALSE
-
 /datum/emote/living/merowr
 	key = "merowr"
 	key_third_person = "merowrs"
