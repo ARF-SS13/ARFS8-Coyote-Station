@@ -115,22 +115,6 @@
 	specific_emote_audio_cooldown = 3 SECONDS
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/breakbad
-	key = "breakbad"
-	key_third_person = "breakbads"
-	message = "stares intensively with determination."
-	sound = 'modular_zzplurt/sound/voice/breakbad.ogg'
-	specific_emote_audio_cooldown = 6.4 SECONDS
-	emote_type = EMOTE_AUDIBLE
-
-/datum/emote/living/lawyerup
-	key = "lawyerup"
-	key_third_person = "lawyerups"
-	message = "emits an aura of expertise."
-	sound = 'modular_zzplurt/sound/voice/lawyerup.ogg'
-	specific_emote_audio_cooldown = 7.5 SECONDS
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/goddamn
 	key = "damn"
 	key_third_person = "damns"
