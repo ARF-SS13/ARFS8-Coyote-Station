@@ -79,14 +79,6 @@
 	specific_emote_audio_cooldown = 0.3 SECONDS
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/monkeytwerk
-	key = "twerk"
-	key_third_person = "twerks"
-	message = "shakes it harder than James Russle himself!"
-	sound = 'modular_zzplurt/sound/misc/monkey_twerk.ogg'
-	specific_emote_audio_cooldown = 3.2 SECONDS
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/bruh
 	key = "bruh"
 	key_third_person = "bruhs"
