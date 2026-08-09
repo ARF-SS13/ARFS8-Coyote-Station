@@ -138,38 +138,6 @@
 	specific_emote_audio_cooldown = 0.78 SECONDS
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/terror
-	key = "terror"
-	key_third_person = "terrors"
-	message = "whistles some dreadful tune..."
-	message_mime = "stares with aura full of dread..."
-	sound = 'modular_zzplurt/sound/voice/terror1.ogg'
-	specific_emote_audio_cooldown = 13.07 SECONDS // Uses longest sound's time.
-	emote_type = EMOTE_AUDIBLE
-
-/datum/emote/living/terror/get_sound(mob/living/user)
-	. = ..()
-	return pick('modular_zzplurt/sound/voice/terror1.ogg', 'modular_zzplurt/sound/voice/terror2.ogg')
-
-/datum/emote/living/deathglare
-	key = "glare2"
-	key_third_person = "glares2"
-	message = "<b><i>glares</b></i>."
-	message_param = "<b><i>glares</b></i> at %t."
-	sound = 'modular_zzplurt/sound/voice/deathglare.ogg'
-	specific_emote_audio_cooldown = 4.4 SECONDS
-	emote_type = EMOTE_VISIBLE
-	//is_muzzled = FALSE
-
-/datum/emote/living/sicko
-	key = "sicko"
-	key_third_person = "sickos"
-	message = "briefly goes sicko mode!"
-	message_mime = "briefly imitates sicko mode!"
-	sound = 'modular_zzplurt/sound/voice/sicko.ogg'
-	specific_emote_audio_cooldown = 0.8 SECONDS
-	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
-
 /datum/emote/living/chill
 	key = "chill"
 	key_third_person = "chills"
