@@ -115,24 +115,6 @@
 	specific_emote_audio_cooldown = 3 SECONDS
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/laugh5
-	key = "laugh5"
-	key_third_person = "laughs5"
-	message = "laughs in Scottish."
-	message_mime = "acts out laughing in Scottish."
-	sound = 'modular_zzplurt/sound/voice/laugh_deman.ogg'
-	specific_emote_audio_cooldown = 2.75 SECONDS
-	emote_type = EMOTE_AUDIBLE
-
-/datum/emote/living/laugh6
-	key = "laugh6"
-	key_third_person = "laughs6"
-	message = "laughs like a kettle!"
-	message_mime = "acts out laughing like a kettle."
-	sound = 'modular_zzplurt/sound/voice/laugh6.ogg'
-	specific_emote_audio_cooldown = 4.45 SECONDS
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/breakbad
 	key = "breakbad"
 	key_third_person = "breakbads"
