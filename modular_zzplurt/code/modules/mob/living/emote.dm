@@ -88,15 +88,6 @@
 	specific_emote_audio_cooldown = 0.4 SECONDS
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/swaos
-	key = "swaos"
-	key_third_person = "swaos"
-	message = "mutters swaos."
-	message_mime = "imitates swaos."
-	sound = 'modular_zzplurt/sound/voice/swaos.ogg'
-	specific_emote_audio_cooldown = 0.7 SECONDS
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/eyebrow2
 	key = "eyebrow2"
 	key_third_person = "eyebrows2"
