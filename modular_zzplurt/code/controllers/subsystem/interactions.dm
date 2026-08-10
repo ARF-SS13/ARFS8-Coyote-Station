@@ -13,8 +13,8 @@ PROCESSING_SUBSYSTEM_DEF(interactions)
 		/datum/preference/choiced/erp_status_nc,
 		/datum/preference/choiced/erp_status_v,
 		/datum/preference/choiced/erp_status_extm,
-		/datum/preference/choiced/erp_status_unholy,
-		/datum/preference/choiced/erp_status_extmharm,
+		// /datum/preference/choiced/erp_status_unholy,
+		// /datum/preference/choiced/erp_status_extmharm,
 	)
 	VAR_PROTECTED/list/blacklisted_mobs = list(
 		/mob/dead,
