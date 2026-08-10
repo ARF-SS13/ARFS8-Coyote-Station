@@ -114,16 +114,6 @@ export const erp_status_pref_extm: FeatureChoiced = {
   component: FeatureDropdownInput,
 };
 
-export const erp_status_pref_extmharm: FeatureChoiced = {
-  name: 'Harmful ERP verbs',
-  component: FeatureDropdownInput,
-};
-
-export const erp_status_pref_unholy: FeatureChoiced = {
-  name: 'Unholy ERP verbs',
-  component: FeatureDropdownInput,
-};
-
 export const erp_lust_tolerance_pref: FeatureNumeric = {
   name: 'Lust tolerance multiplier',
   description:

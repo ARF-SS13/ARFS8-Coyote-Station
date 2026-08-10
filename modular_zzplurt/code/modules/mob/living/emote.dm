@@ -188,21 +188,21 @@
 	message = "sticks their tongue for a moment. Mlem!"
 	emote_type = EMOTE_VISIBLE
 
-/datum/emote/living/snore/snore2/run_emote(mob/user, params)
-	var/obj/item/organ/tongue/tongue = user.get_organ_slot(ORGAN_SLOT_TONGUE)
-	var/say_mod = (tongue ? tongue.say_mod : "says")
-	var/list/aaauughh = list(
-		"lets out an <b>earthshaking</b> snore.",
-		"lets out what sounds like a <b>painful</b> snore.",
-		"[say_mod], <b>\"AAAAAAUUUUUUGGGHHHHH!!!\"</b>"
-	)
-	message = pick(aaauughh)
+// /datum/emote/living/snore/snore2/run_emote(mob/user, params)
+// 	var/obj/item/organ/tongue/tongue = user.get_organ_slot(ORGAN_SLOT_TONGUE)
+// 	var/say_mod = (tongue ? tongue.say_mod : "says")
+// 	var/list/aaauughh = list(
+// 		"lets out an <b>earthshaking</b> snore.",
+// 		"lets out what sounds like a <b>painful</b> snore.",
+// 		"[say_mod], <b>\"AAAAAAUUUUUUGGGHHHHH!!!\"</b>"
+// 	)
+// 	message = pick(aaauughh)
 
-	// Set random emote sound
-	sound = pick('modular_zzplurt/sound/voice/aauugghh1.ogg', 'modular_zzplurt/sound/voice/aauugghh2.ogg')
+// 	// Set random emote sound
+// 	sound = pick('modular_zzplurt/sound/voice/aauugghh1.ogg', 'modular_zzplurt/sound/voice/aauugghh2.ogg')
 
-	// Return normally
-	. = ..()
+// 	// Return normally
+// 	. = ..()
 
 /datum/emote/living/pant
 	key = "pant"

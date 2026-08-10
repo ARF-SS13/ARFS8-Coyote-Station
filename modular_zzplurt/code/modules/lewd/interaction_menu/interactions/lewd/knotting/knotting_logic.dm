@@ -226,18 +226,6 @@
 
 	var/user_intent = resolve_intent_name(user)
 	if(user_intent == "grab" || user_intent == "harm") // if more than playful
-		if(user_intent == "harm") // damage if harmful
-			if(user.client?.prefs?.read_preference(/datum/preference/choiced/erp_status_extmharm) != "No" || target.client?.prefs?.read_preference(/datum/preference/choiced/erp_status_extmharm) != "No")
-				var/damage = user == target.knotted_parts["mouth"] ? 6 : 18 // base damage value
-				var/body_zone = user == target.knotted_parts["mouth"] ? BODY_ZONE_HEAD : BODY_ZONE_CHEST
-				var/obj/item/bodypart/affecting = target.get_bodypart(body_zone)
-				if(affecting && affecting.brute_dam < 90-damage) // cap damage applied, can still kill if you hatefuck their mouth and any other orifice
-					target.apply_damage(damage, BRUTE, body_zone)
-				target.adjust_pain(10, user, src, position)
-			else
-				target.adjust_pain(4, user, src, position) // if harm pref fails still apply some pain
-		else
-			target.adjust_pain(4, user, src, position)
 		target.Stun(80) // stun for dramatic effect
 	user.visible_message(span_lewd("[user] [tie]s their [knot] inside of [target]!"), span_lewd("I [tie] my [knot] inside of [target]."))
 
@@ -439,12 +427,6 @@
 			to_chat(btm, span_alert("I'm being thrown around as [top] runs!"))
 		return
 
-	if(prob(5))
-		if(top == btm.knotted_parts["mouth"] && btm.get_oxy_loss() < 80) // if the current top knotted them orally
-			if(btm.client?.prefs?.read_preference(/datum/preference/choiced/erp_status_extmharm) != "No")
-				to_chat(btm, span_warning("I struggle to breath with [top]'s [knot] in my mouth!"))
-				btm.adjust_oxy_loss(2)
-
 /// Handles aditional pleasure, ect, caused by the btm moving
 /datum/interaction/lewd/proc/knot_movement_btm(mob/living/top, mob/living/btm)
 	if(!isliving(btm) || QDELETED(btm) || !isliving(top) || QDELETED(top))
@@ -502,50 +484,13 @@
 			to_chat(btm, span_alert("[top] is being thrown around by their [knot] as I run!"))
 		return
 
-	if(prob(5))
-		if(top == btm.knotted_parts["mouth"] && btm.get_oxy_loss() < 80) // if the current top knotted them orally
-			if(btm.client?.prefs?.read_preference(/datum/preference/choiced/erp_status_extmharm) != "No")
-				to_chat(btm, span_warning("I can't catch my breath with [top]'s [knot] in my mouth!"))
-				btm.adjust_oxy_loss(3)
-
 /datum/interaction/lewd/proc/knot_remove(mob/living/top, mob/living/btm, forceful_removal = FALSE, notify = TRUE)
 	if(isliving(btm) && !QDELETED(btm) && isliving(top) && !QDELETED(top))
 		var/knot = "knot"
 		if(iscarbon(top)) // get text overrides, mostly for a horse cock's flare
 			var/obj/item/organ/genital/penis/penis = top.get_organ_slot(ORGAN_SLOT_PENIS)
 			knot = penis.override_string_knot
-		if(top.client?.prefs?.read_preference(/datum/preference/choiced/erp_status_extmharm) != "No" || btm.client?.prefs?.read_preference(/datum/preference/choiced/erp_status_extmharm) != "No")
-
-			// Figure out who is where in the interaction because we can't rely on it being passed to us (signals)
-			var/btm_position
-			if(cum_genital[CLIMAX_POSITION_USER] == CLIMAX_PENIS)
-				btm_position = CLIMAX_POSITION_TARGET
-			else if(cum_genital[CLIMAX_POSITION_TARGET] == CLIMAX_PENIS)
-				btm_position = CLIMAX_POSITION_USER
-
-			if(forceful_removal)
-				var/damage = top == btm.knotted_parts["mouth"] ? 6 : 18 // base damage value
-				if (top.arousal >= AROUSAL_LOW) // considered still hard, let it rip like a beyblade
-					damage *= 2
-					btm.Knockdown(10)
-					if(notify && !btm.has_status_effect(/datum/status_effect/knot_gaped)) // apply gaped status if extra forceful pull
-						btm.apply_status_effect(/datum/status_effect/knot_gaped)
-				if(top.combat_mode)
-					var/body_zone = top == btm.knotted_parts["mouth"] ? BODY_ZONE_HEAD : BODY_ZONE_CHEST
-					var/obj/item/bodypart/affecting = btm.get_bodypart(body_zone)
-					if(affecting && affecting.brute_dam < 90-damage) // cap damage applied, can still kill if you yank out of their mouth and any other orifice
-						btm.apply_damage(damage, BRUTE, body_zone)
-				btm.Stun(80)
-				conditional_pref_sound(btm, 'modular_zzplurt/sound/Scarlet_Reach/pop.ogg', 100, TRUE, -2, ignore_walls = FALSE, pref_to_check = /datum/preference/toggle/erp/sounds)
-				conditional_pref_sound(top, 'modular_zzplurt/sound/Scarlet_Reach/segso.ogg', 50, TRUE, -2, ignore_walls = FALSE, pref_to_check = /datum/preference/toggle/erp/sounds)
-				btm.adjust_pain(10, top, src, btm_position)
-				if(notify)
-					top.visible_message(span_notice("[top] yanks their [knot] out of [btm]!"), span_notice("I yank my [knot] out from [btm]."))
-			else if(notify)
-				conditional_pref_sound(btm, 'sound/misc/moist_impact.ogg', 50, TRUE, -2, ignore_walls = FALSE, pref_to_check = /datum/preference/toggle/erp/sounds)
-				top.visible_message(span_lewd("[top] slips their [knot] out of [btm]!"), span_lewd("I slip my [knot] out from [btm]."))
-				btm.adjust_pain(4, top, src, btm_position)
-		else if(notify)
+		if(notify)
 			conditional_pref_sound(btm, 'sound/misc/moist_impact.ogg', 50, TRUE, -2, ignore_walls = FALSE, pref_to_check = /datum/preference/toggle/erp/sounds)
 			top.visible_message(span_lewd("[top] slips their [knot] out of [btm]!"), span_lewd("I slip my [knot] out from [btm]."))
 		btm.add_cum_splatter_floor(get_turf(btm))
@@ -824,10 +769,6 @@
 	//icon_state = "knotted"
 
 /datum/status_effect/knotted/tick()
-	if(!owner.knotted_parts["mouth"])
-		return
-	if(owner.client?.prefs?.read_preference(/datum/preference/choiced/erp_status_extmharm) != "No")
-		owner.adjust_oxy_loss(2)
 
 /atom/movable/screen/alert/status_effect/knotted/Click() // Silently remove all ties
 	..()

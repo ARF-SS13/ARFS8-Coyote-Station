@@ -67,7 +67,7 @@
 	icon = 'modular_zzplurt/icons/obj/plushes.dmi'
 	icon_state = "ollie_plush"
 	worn_icon_state = "ollie_plush"
-	squeak_override = list('modular_zzplurt/sound/voice/farts/fart9.ogg' = 1)
+	// squeak_override = list('modular_zzplurt/sound/voice/farts/fart9.ogg' = 1)
 
 /obj/item/toy/plush/artificer_kobold
 	name = "Artificer Kobold"
@@ -117,7 +117,7 @@
 	worn_icon_state = "plush_bro"
 	attack_verb_simple = list("beast")
 	attack_verb_continuous = list("beasts")
-	squeak_override = list('modular_zzplurt/sound/voice/gachi/woop.ogg' = 1)
+	// squeak_override = list('modular_zzplurt/sound/voice/gachi/woop.ogg' = 1)
 
 /obj/item/toy/plush/toaste_plushy
 	name = "Marketable Toaste Plushie"
