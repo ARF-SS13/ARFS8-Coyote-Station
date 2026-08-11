@@ -239,10 +239,13 @@
 		return FALSE
 
 	if(!LAZYACCESS(attack_modifiers, SILENCE_HITSOUND))
-		if(!final_force && !HAS_TRAIT(src, TRAIT_CUSTOM_TAP_SOUND))
+		if(!final_force && !HAS_TRAIT(src, TRAIT_CUSTOM_TAP_SOUND) && !tap_uses_hitsound)
 			playsound(src, 'sound/items/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)
-		else if(hitsound)
-			playsound(src, hitsound, get_clamped_volume(), TRUE, extrarange = stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
+		else
+			var/toplay = hitsound
+			if(islist(hitsound_list) && LAZYLEN(hitsound_list))
+				toplay = pick(hitsound_list)
+			playsound(src, toplay, get_clamped_volume(), TRUE, extrarange = stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
 
 	target_mob.lastattacker = user.real_name
 	target_mob.lastattackerckey = user.ckey

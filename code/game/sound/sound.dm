@@ -15,12 +15,27 @@
  * * falloff_distance - Distance at which falloff begins. Sound is at peak volume (in regards to falloff) aslong as it is in this range.
  * * volume_preference - Optional: Will be checked to modify the volume of the sound for each listener.
  */
-/proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE, datum/preference/numeric/volume/volume_preference = null)
+/proc/playsound(
+	atom/source,
+	soundin,
+	vol as num,
+	vary,
+	extrarange as num,
+	falloff_exponent = SOUND_FALLOFF_EXPONENT,
+	frequency = null,
+	channel = 0,
+	pressure_affected = TRUE,
+	ignore_walls = TRUE,
+	falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE,
+	use_reverb = TRUE,
+	datum/preference/numeric/volume/volume_preference = null
+)
 	if(isarea(source))
 		CRASH("playsound(): source is an area")
 
-	if(islist(soundin))
-		CRASH("playsound(): soundin attempted to pass a list! Consider using pick()")
+	if(islist(soundin) && LAZYLEN(soundin))
+		soundin = pick(soundin)
+		// CRASH("playsound(): soundin attempted to pass a list! Consider using pick()")
 
 	if(!soundin)
 		CRASH("playsound(): no soundin passed")

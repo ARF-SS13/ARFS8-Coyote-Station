@@ -74,6 +74,10 @@
 	///Item flags for the item
 	var/item_flags = NONE
 
+	///Whether hitting something with a tap should use the hitsound
+	var/tap_uses_hitsound
+	///Sound played when you hit something with the item, now in list form
+	var/hitsound_list
 	///Sound played when you hit something with the item
 	var/hitsound
 	///Played when the item is used, for example tools
