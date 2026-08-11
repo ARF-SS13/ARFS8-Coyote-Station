@@ -22885,6 +22885,11 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron,
 /area/station/engineering/power_station/upper/tertiary)
+"oco" = (
+/obj/structure/lattice/catwalk,
+/obj/effect/spawner/random/structure/cable,
+/turf/open/space/basic,
+/area/station/solars/starboard/fore)
 "ocp" = (
 /obj/machinery/shower/directional/east,
 /turf/open/floor/iron/white,
@@ -34661,9 +34666,10 @@
 /turf/open/floor/iron/solarpanel/airless,
 /area/station/solars/port/aft)
 "vmC" = (
-/obj/structure/sign/poster/official/fruit_bowl,
+/obj/structure/lattice/catwalk,
+/obj/effect/spawner/random/structure/cable,
 /turf/open/space/basic,
-/area/space)
+/area/station/solars/port/aft)
 "vmD" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -63626,7 +63632,7 @@ elT
 elT
 wjd
 wjd
-tlU
+vmC
 wjd
 wjd
 wjd
@@ -63881,7 +63887,7 @@ wjd
 elT
 tlU
 tlU
-tlU
+vmC
 tlU
 tlU
 wjd
@@ -63901,7 +63907,7 @@ tlU
 lCp
 wjd
 lCp
-tlU
+vmC
 lCp
 wjd
 wjd
@@ -64158,7 +64164,7 @@ tlU
 tlU
 wjd
 wjd
-tlU
+vmC
 wjd
 wjd
 wjd
@@ -64657,7 +64663,7 @@ tlU
 wjd
 wjd
 wjd
-tlU
+vmC
 wjd
 wjd
 wjd
@@ -65167,7 +65173,7 @@ wjd
 wjd
 wjd
 wjd
-qFM
+vmC
 qFM
 qFM
 qFM
@@ -66223,7 +66229,7 @@ wjd
 qFM
 qFM
 tlU
-tlU
+vmC
 tlU
 tlU
 tlU
@@ -66444,7 +66450,7 @@ oVm
 jag
 xxI
 wjd
-vmC
+wjd
 wjd
 wjd
 wjd
@@ -69309,7 +69315,7 @@ ihk
 qFM
 qFM
 qFM
-qFM
+vmC
 tlU
 tlU
 tlU
@@ -70597,7 +70603,7 @@ wjd
 wjd
 wjd
 wjd
-qFM
+vmC
 wjd
 wjd
 wjd
@@ -72656,7 +72662,7 @@ wjd
 wjd
 wjd
 tlU
-tlU
+vmC
 tlU
 tlU
 lCp
@@ -74363,7 +74369,7 @@ ihp
 eci
 eci
 eci
-eci
+oco
 nDz
 wjd
 oiX
@@ -74967,7 +74973,7 @@ jVn
 jVn
 rEA
 tlU
-tlU
+vmC
 tlU
 tlU
 lCp
@@ -76427,7 +76433,7 @@ wjd
 wjd
 wjd
 dmV
-dmV
+oco
 wjd
 wjd
 mMh
@@ -76761,7 +76767,7 @@ hwD
 hRz
 ihk
 ihk
-tlU
+vmC
 tlU
 tlU
 tlU
@@ -79074,7 +79080,7 @@ wjd
 wjd
 wjd
 wjd
-tlU
+vmC
 wjd
 wjd
 wjd
@@ -80793,7 +80799,7 @@ nDz
 wjd
 eci
 eci
-eci
+oco
 dmV
 dmV
 wjd
@@ -81565,7 +81571,7 @@ wjd
 wjd
 wjd
 wjd
-dmV
+oco
 wjd
 wjd
 dmV
@@ -81822,7 +81828,7 @@ wjd
 wjd
 wjd
 wjd
-dmV
+oco
 wjd
 wjd
 wjd
@@ -82863,7 +82869,7 @@ nDz
 wjd
 wjd
 wjd
-eci
+oco
 wjd
 wjd
 dmV
@@ -82886,7 +82892,7 @@ wjd
 ihk
 wjd
 wjd
-dmV
+oiX
 wjd
 wjd
 wjd
@@ -83143,7 +83149,7 @@ wjd
 ihk
 wjd
 wjd
-dmV
+oiX
 wjd
 wjd
 wjd
@@ -83400,7 +83406,7 @@ wjd
 ihk
 wjd
 wjd
-dmV
+oiX
 wjd
 ihp
 ihp
@@ -83658,13 +83664,13 @@ dmV
 dmV
 dmV
 dmV
-eci
+oco
 eci
 eci
 wjd
 ihp
 eci
-eci
+oco
 eci
 eci
 eci
@@ -83907,7 +83913,7 @@ wjd
 dmV
 dmV
 dmV
-dmV
+oco
 wjd
 wjd
 wjd
@@ -85436,7 +85442,7 @@ wjd
 wjd
 wjd
 wjd
-eci
+oco
 wjd
 wjd
 wjd
