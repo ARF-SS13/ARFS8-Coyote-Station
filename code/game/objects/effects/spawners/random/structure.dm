@@ -51,6 +51,15 @@
 		/obj/structure/grille/broken = 1,
 	)
 
+/obj/effect/spawner/random/structure/cable
+	name = "cable spawner"
+	icon_state = "cable"
+	spawn_loot_chance = 50
+	loot = list( // 80% chance normal grille, 10% chance of broken, 10% chance of nothing
+		/obj/structure/cable = 1,
+	)
+
+
 /obj/effect/spawner/random/structure/furniture_parts
 	name = "furniture parts spawner"
 	icon_state = "table_parts"
