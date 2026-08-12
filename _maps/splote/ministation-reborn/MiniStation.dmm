@@ -8908,9 +8908,13 @@
 /turf/open/floor/stone,
 /area/station/service/hydroponics/park)
 "fHZ" = (
-/obj/structure/closet/secure_closet/engineering_personal,
 /obj/machinery/firealarm/directional/west,
 /obj/effect/turf_decal/bot,
+/obj/structure/table,
+/obj/item/stack/sheet/rglass/fifty,
+/obj/item/stack/sheet/glass/fifty{
+	pixel_y = 7
+	},
 /turf/open/floor/iron/smooth,
 /area/station/engineering/main)
 "fIT" = (
@@ -14929,15 +14933,9 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/bridge)
 "jta" = (
-/obj/effect/turf_decal/trimline/yellow/filled/line{
-	dir = 1
-	},
+/obj/effect/turf_decal/bot,
 /obj/structure/table,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = -7;
-	pixel_y = 6
-	},
+/obj/item/stack/sheet/iron/fifty,
 /turf/open/floor/iron/smooth,
 /area/station/engineering/main)
 "jte" = (
@@ -68625,7 +68623,7 @@ iWN
 dSc
 dSc
 dSc
-jta
+fPZ
 ybW
 tcC
 iqE
@@ -68880,7 +68878,7 @@ tEm
 tEm
 tEm
 tEm
-gaw
+jta
 fHZ
 fPZ
 ybW
