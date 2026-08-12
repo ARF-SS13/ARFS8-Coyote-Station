@@ -201,8 +201,8 @@
 	name = "immortal goliath"
 	desc = "Goliaths are biologically immortal, and rare specimens have survived for centuries. \
 		This one is clearly ancient, and its tentacles constantly churn the earth around it."
-	maxHealth = 400
-	health = 400
+	maxHealth = 4000
+	health = 4000
 	crusher_drop_chance = 30 // Wow a whole 5% more likely, how generous
 	/// Don't re-check nearby turfs for this long
 	COOLDOWN_DECLARE(retarget_turfs_cooldown)
