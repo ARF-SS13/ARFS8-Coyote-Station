@@ -7041,6 +7041,7 @@
 #include "interface\fonts\vcr_osd_mono.dm"
 #include "modular_coyote\code\coyote_areas.dm"
 #include "modular_coyote\code\coyote_assteroids.dm"
+#include "modular_coyote\code\clothing.dm"
 #include "modular_coyote\code\disabled_antags.dm"
 #include "modular_coyote\code\rebuild_undies.dm"
 #include "modular_coyote\sprite_accessories\curvy_shirt_underwear.dm"
