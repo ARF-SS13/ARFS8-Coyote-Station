@@ -930,6 +930,6 @@
 	item_path = /obj/item/clothing/under/rank/security/detective/cowboy/armorless
 
 	//coyote
-/datum/loadout_item/uniform/coyote/orangedress
+/datum/loadout_item/uniform/orangedress
 	name = "Orange Dress"
 	item_path = /obj/item/clothing/under/dress/coyote/orange_dress
