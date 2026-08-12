@@ -241,15 +241,20 @@
 
 /turf/closed/indestructible/rock/coyote
 	name              = "sealed stone hull"
-	desc              = "A nigh-indestructible sheet of alien stone as of yet still unknown to your so-called 'science'. Now in rhaspberry flavor!"
+	desc              = "A nigh-indestructible sheet of alien stone as of yet still unknown to your so-called 'science'. Now in grape-ade flavor!"
 	icon              = /turf/closed/mineral/random/coyote::icon
 	icon_state        = /turf/closed/mineral/random/coyote::icon_state
 	color             = /turf/closed/mineral/random/coyote::color
 	base_icon_state   = /turf/closed/mineral/random/coyote::base_icon_state
 	smoothing_flags   = /turf/closed/mineral/random/coyote::smoothing_flags
 	canSmoothWith     = /turf/closed/mineral/random/coyote::canSmoothWith
-	baseturfs         = /turf/open/misc/asteroid/coyote/airless
+	baseturfs         = /turf/closed/mineral/random/coyote::baseturfs
 	initial_gas_mix   = /turf/closed/mineral/random/coyote::initial_gas_mix
+
+/turf/closed/indestructible/rock/coyote/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	underlay_appearance.icon        = /turf/open/misc/asteroid/coyote::icon        // = 'icons/turf/floors.dmi'
+	underlay_appearance.icon_state  = /turf/open/misc/asteroid/coyote::icon_state  // = "basalt"
+	return TRUE
 
 
 /turf/open/misc/asteroid/coyote
