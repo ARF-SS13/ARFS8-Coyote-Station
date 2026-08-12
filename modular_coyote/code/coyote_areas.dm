@@ -14,16 +14,16 @@
 	allow_shuttle_docking = TRUE
 	map_generator = /datum/map_generator/cave_generator/coyote_assteroid
 
-area/station/asteroid/coyote/second_floor
+/area/station/asteroid/coyote/second_floor
 	map_generator = /datum/map_generator/cave_generator/coyote_assteroid/second_floor
 
-area/station/asteroid/coyote/third_floor
+/area/station/asteroid/coyote/third_floor
 	map_generator = /datum/map_generator/cave_generator/coyote_assteroid/third_floor
 
-area/station/asteroid/coyote/lower_risk
+/area/station/asteroid/coyote/lower_risk
 	map_generator = /datum/map_generator/cave_generator/coyote_assteroid/lower_risk
 
-area/station/asteroid/coyote/lowest_risk
+/area/station/asteroid/coyote/lowest_risk
 	map_generator = /datum/map_generator/cave_generator/coyote_assteroid/lowest_risk
 
 /area/station/asteroid/coyote/unexplored
