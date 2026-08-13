@@ -989,6 +989,7 @@
 /area/station/command/heads_quarters/captain)
 "aHT" = (
 /obj/structure/cable/multilayer/multiz,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/command/meeting_room)
 "aIA" = (
@@ -1659,7 +1660,6 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/bridge)
 "bcV" = (
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -1736,6 +1736,7 @@
 "bfk" = (
 /obj/machinery/airalarm/directional/north,
 /obj/structure/cable/multilayer/multiz,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/engineering/power_station/upper/tertiary)
 "bfK" = (
@@ -8485,6 +8486,7 @@
 /obj/effect/turf_decal/trimline/yellow/filled/warning{
 	dir = 1
 	},
+/obj/structure/cable,
 /turf/open/floor/iron/smooth,
 /area/station/engineering/main)
 "fsC" = (
@@ -11006,6 +11008,7 @@
 /area/station/commons/storage/primary)
 "gTF" = (
 /obj/structure/cable/multilayer/multiz,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/engineering/power_station/upperer)
 "gTH" = (
@@ -14560,6 +14563,7 @@
 /area/station/security/prison)
 "jjl" = (
 /obj/structure/cable/multilayer/multiz,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/command/heads_quarters/captain)
 "jjv" = (
@@ -21656,6 +21660,7 @@
 "nqw" = (
 /obj/machinery/airalarm/directional/north,
 /obj/structure/cable/multilayer/multiz,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/command/meeting_room)
 "nqz" = (
@@ -39121,6 +39126,7 @@
 /area/station/hallway/secondary/entry)
 "xKU" = (
 /obj/structure/cable/multilayer/multiz,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/engineering/power_station/upper)
 "xLf" = (
@@ -70538,7 +70544,7 @@ sRz
 aAG
 bPz
 pfQ
-nZG
+wfo
 nZG
 wfo
 dmh
@@ -70795,7 +70801,7 @@ sRz
 cxU
 bPz
 toj
-nZG
+wfo
 nZG
 nZG
 dmh
@@ -71053,7 +71059,7 @@ aAG
 bPz
 vyX
 wXe
-wfo
+nZG
 nZG
 dmh
 mrX
@@ -71311,7 +71317,7 @@ bPz
 tMh
 kbk
 eFW
-wfo
+nZG
 mrM
 swx
 ykk
@@ -79038,7 +79044,7 @@ bWX
 jrZ
 hRz
 wjd
-bvr
+ihk
 wjd
 wjd
 wjd
@@ -79295,7 +79301,7 @@ oQm
 rsQ
 hRz
 ihk
-bvr
+ihk
 wjd
 wjd
 wjd
@@ -79552,7 +79558,7 @@ uIs
 iqq
 hRz
 wjd
-bvr
+ihk
 wjd
 wjd
 wjd
@@ -79809,7 +79815,7 @@ fxQ
 nSv
 hRz
 wjd
-bvr
+ihk
 wjd
 wjd
 wjd
@@ -80066,7 +80072,7 @@ fxQ
 whR
 hRz
 ihk
-bvr
+ihk
 wjd
 wjd
 wjd
@@ -80323,7 +80329,7 @@ hRz
 hRz
 hRz
 wjd
-bvr
+ihk
 wjd
 wjd
 wjd
@@ -80580,7 +80586,7 @@ wjd
 wjd
 wjd
 wjd
-bvr
+ihk
 wjd
 wjd
 wjd
@@ -80813,31 +80819,31 @@ vYB
 aXE
 bDR
 nVb
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
-bvr
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
+ihk
 wjd
 wjd
 wjd
