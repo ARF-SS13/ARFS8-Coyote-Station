@@ -6,7 +6,7 @@
 		/turf/closed/mineral/random/coyote              = 100,
 		/turf/closed/mineral/random/coyote/high_chance  = 40,
 		/turf/closed/mineral/random/coyote/low_chance   = 30,
-		/turf/closed/mineral/gibtonite/coyote           = 10,
+		/turf/closed/mineral/gibtonite/coyote           = 3,
 	)
 
 	weighted_mob_spawn_list = list(
@@ -63,7 +63,7 @@
 		/turf/closed/mineral/random/coyote              = 80,
 		/turf/closed/mineral/random/coyote/high_chance  = 20,
 		/turf/closed/mineral/random/coyote/low_chance   = 30,
-		/turf/closed/mineral/gibtonite/coyote           = 10,
+		/turf/closed/mineral/gibtonite/coyote           = 3,
 		)
 
 	initial_closed_chance  = 45
@@ -74,7 +74,7 @@
 		/turf/closed/mineral/random/coyote              = 80,
 		/turf/closed/mineral/random/coyote/high_chance  = 20,
 		/turf/closed/mineral/random/coyote/low_chance   = 30,
-		/turf/closed/mineral/gibtonite/coyote           = 10,
+		/turf/closed/mineral/gibtonite/coyote           = 3,
 		)
 
 	initial_closed_chance  = 50
