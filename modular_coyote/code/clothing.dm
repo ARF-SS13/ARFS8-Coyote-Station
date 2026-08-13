@@ -34,7 +34,7 @@
 	greyscale_config_worn = null
 	greyscale_colors = null
 
-/obj/item/clothing/under/dress/coyote/sundress/blow
+/obj/item/clothing/under/dress/coyote/sundress/bow
 	icon = 'icons/obj/clothing/under/dress.dmi'
 	icon_state = "bowsun"
 	body_parts_covered = CHEST|ARMS|GROIN|LEGS
