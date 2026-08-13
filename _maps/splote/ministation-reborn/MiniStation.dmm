@@ -18571,13 +18571,6 @@
 	},
 /turf/open/floor/plating,
 /area/station/engineering/main)
-"lFO" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "mining_internal"
-	},
-/turf/open/floor/plating/airless,
-/area/station/cargo/storage)
 "lGX" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
@@ -19772,10 +19765,6 @@
 /area/station/command/meeting_room)
 "mry" = (
 /obj/machinery/light/small,
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "mining_internal"
-	},
 /obj/structure/sign/poster/official/no_erp/directional/south,
 /turf/open/floor/plating/airless,
 /area/station/cargo/storage)
@@ -32232,11 +32221,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/mineral/unloading_machine{
-	icon_state = "unloader-corner";
-	input_dir = 4;
-	output_dir = 2
-	},
 /turf/open/floor/plating/airless,
 /area/station/cargo/storage)
 "tCp" = (
@@ -33021,13 +33005,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/dark,
 /area/station/engineering/storage/tech)
-"tXp" = (
-/obj/machinery/conveyor_switch/oneway{
-	id = "mining_internal";
-	name = "mining conveyor"
-	},
-/turf/open/floor/plating/airless,
-/area/station/cargo/storage)
 "tXz" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /obj/structure/extinguisher_cabinet/directional/west,
@@ -37390,13 +37367,6 @@
 /obj/machinery/iv_drip,
 /turf/open/floor/iron/white,
 /area/station/medical/surgery)
-"wCC" = (
-/obj/machinery/conveyor{
-	id = "mining_internal"
-	},
-/obj/structure/plasticflaps,
-/turf/open/floor/iron,
-/area/station/cargo/storage)
 "wCH" = (
 /obj/machinery/light{
 	icon_state = "tube1";
@@ -65702,7 +65672,7 @@ ihk
 ihk
 ihk
 wjd
-wjd
+ihk
 wjd
 wjd
 qFM
@@ -65959,7 +65929,7 @@ wjd
 wjd
 ihk
 wjd
-wjd
+ihk
 wjd
 wjd
 ihk
@@ -67436,7 +67406,7 @@ wjd
 ihk
 iiO
 tCc
-wCC
+ejC
 nKT
 bET
 oDI
@@ -67507,7 +67477,7 @@ qiJ
 hAw
 pTR
 wjd
-ihk
+wjd
 qFM
 wjd
 wjd
@@ -67691,8 +67661,8 @@ ihk
 ihk
 ihk
 ihk
-tXp
-lFO
+iiO
+iiO
 ejC
 aYk
 uUU
@@ -67949,7 +67919,7 @@ wjd
 wjd
 ihk
 gSl
-lFO
+iiO
 fxL
 qWp
 nhx
@@ -68021,7 +67991,7 @@ gbd
 cqJ
 pTR
 wjd
-ihk
+wjd
 qFM
 wjd
 wjd
@@ -68278,7 +68248,7 @@ uLm
 nIO
 pTR
 wjd
-ihk
+wjd
 qFM
 qFM
 wjd
@@ -69049,8 +69019,8 @@ pIf
 pIf
 uVm
 cXf
-ihk
 wjd
+ihk
 qFM
 wjd
 elT
@@ -69307,7 +69277,7 @@ pIf
 wPQ
 cXf
 ihk
-wjd
+ihk
 qFM
 wjd
 wjd
@@ -69820,7 +69790,7 @@ pIf
 pIf
 wPQ
 cXf
-ihk
+wjd
 ihk
 qFM
 qFM
@@ -70334,7 +70304,7 @@ pIf
 pIf
 wPQ
 cXf
-ihk
+wjd
 wjd
 qFM
 wjd
@@ -70591,7 +70561,7 @@ kLq
 pIf
 uVm
 cXf
-ihk
+wjd
 wjd
 qFM
 qFM
@@ -71362,9 +71332,9 @@ pHV
 gWe
 qCo
 tEm
-wjd
-wjd
-wjd
+ihk
+ihk
+ihk
 ihk
 wjd
 wjd
@@ -72392,7 +72362,7 @@ eop
 tEm
 wjd
 wjd
-wjd
+ihk
 ihk
 wjd
 wjd
@@ -74113,7 +74083,7 @@ wjd
 wjd
 wjd
 wjd
-oiX
+wjd
 wjd
 wjd
 iRP
@@ -74369,10 +74339,10 @@ wjd
 wjd
 wjd
 wjd
-oiX
-oiX
 wjd
 wjd
+wjd
+ihk
 xgj
 jAn
 xgj
@@ -74625,11 +74595,11 @@ wjd
 wjd
 wjd
 wjd
-oiX
-oiX
-ihk
-ihk
 wjd
+wjd
+wjd
+wjd
+ihk
 wjd
 sFc
 wjd
@@ -74882,10 +74852,10 @@ eci
 oco
 nDz
 wjd
-oiX
 wjd
 wjd
-ihk
+wjd
+wjd
 ihk
 wjd
 wjd
@@ -81578,7 +81548,7 @@ wjd
 wjd
 wjd
 ihk
-ihk
+wjd
 llZ
 tlm
 rMN
@@ -81835,7 +81805,7 @@ wjd
 wjd
 ihk
 ihk
-ihk
+wjd
 llZ
 noj
 wOd
@@ -82367,9 +82337,9 @@ riW
 riW
 alB
 wjd
+ihk
 wjd
-wjd
-wjd
+ihk
 wjd
 ihk
 wjd
@@ -82624,9 +82594,9 @@ wjd
 wjd
 ihk
 wjd
-wjd
-wjd
-wjd
+ihk
+ihk
+ihk
 wjd
 ihk
 wjd
@@ -82882,7 +82852,7 @@ wjd
 ihk
 wjd
 wjd
-wjd
+ihk
 wjd
 wjd
 ihk
@@ -83137,8 +83107,8 @@ ihk
 wjd
 wjd
 ihk
-wjd
-wjd
+ihk
+ihk
 ihk
 ihk
 ihk
