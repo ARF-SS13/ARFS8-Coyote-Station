@@ -343,27 +343,38 @@
 /datum/id_trim/job/chemist
 	assignment = JOB_CHEMIST
 	trim_state = "trim_chemist"
-	department_color = COLOR_MEDICAL_BLUE
-	subdepartment_color = COLOR_MEDICAL_BLUE
+	department_color = COLOR_SCIENCE_PINK
+	subdepartment_color = COLOR_SCIENCE_PINK
 	sechud_icon_state = SECHUD_CHEMIST
 	minimal_access = list(
-		ACCESS_MECH_MEDICAL,
-		ACCESS_MEDICAL,
+		ACCESS_AUX_BASE,
+		ACCESS_MECH_SCIENCE,
 		ACCESS_MINERAL_STOREROOM,
+		ACCESS_ORDNANCE,
+		ACCESS_ORDNANCE_STORAGE,
+		ACCESS_RESEARCH,
+		ACCESS_SCIENCE,
+		ACCESS_XENOBIOLOGY,
 		ACCESS_PHARMACY,
 		ACCESS_PLUMBING,
-		)
-	extra_access = list(
-		ACCESS_MORGUE,
-		ACCESS_SURGERY,
-		ACCESS_VIROLOGY,
-		ACCESS_PARAMEDIC,
-		)
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		ACCESS_CMO,
-		)
+	)
+	extra_access = /datum/id_trim/job/scientist::extra_access
+	template_access = /datum/id_trim/job/scientist::template_access
+	// minimal_access = list(
+	// 	ACCESS_MECH_MEDICAL,
+	// 	ACCESS_MEDICAL,
+	// 	)
+	// extra_access = list(
+	// 	ACCESS_MORGUE,
+	// 	ACCESS_SURGERY,
+	// 	ACCESS_VIROLOGY,
+	// 	ACCESS_PARAMEDIC,
+	// 	)
+	// template_access = list(
+	// 	ACCESS_CAPTAIN,
+	// 	ACCESS_CHANGE_IDS,
+	// 	ACCESS_CMO,
+	// 	)
 	job = /datum/job/chemist
 
 /datum/id_trim/job/chief_engineer
