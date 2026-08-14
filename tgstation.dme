@@ -7045,6 +7045,7 @@
 #include "modular_coyote\code\disabled_antags.dm"
 #include "modular_coyote\code\rebuild_undies.dm"
 #include "modular_coyote\sprite_accessories\curvy_shirt_underwear.dm"
+#include "modular_nova\peering.dm"
 #include "modular_skyrat\master_files\code\_globalvars\configuration.dm"
 #include "modular_skyrat\master_files\code\_globalvars\regexes.dm"
 #include "modular_skyrat\master_files\code\_globalvars\religion.dm"
