@@ -243,7 +243,7 @@
 
 /mob/living/basic/skunk/eunice/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_GODMODE, src)
+	ADD_TRAIT(src, TRAIT_GODMODE, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	AddElement(/datum/element/tiny_mob_hunter)
 	var/static/list/eatable_food = list(
