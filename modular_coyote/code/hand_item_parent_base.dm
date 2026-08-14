@@ -95,6 +95,7 @@
 	var/list/required_months = list() // if set, only spawns in these months (1-12)
 	/// Is it in season? cached for sanic speed i guess? set by init
 	var/in_season_cache
+	//todo: get burnt if you burn your things
 
 /obj/item/hand_item/Initialize(mapload, mob/handholder)
 	if(!inventoryable) // cant stuff your butt in your backpack... i guess?

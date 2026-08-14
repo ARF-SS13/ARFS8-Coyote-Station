@@ -36,6 +36,54 @@
 /obj/item/reagent_containers/cup/glass/sillycup/handcup/pickup(mob/user)
 	. = ..()
 
+/obj/item/reagent_containers/cup/glass/sillycup/handcup/attackby(obj/item/attacking_item, mob/user, list/modifiers, list/attack_modifiers)
+	. = ..()
+	var/mob/living/ownermaybe = loc
+	if(!ownermaybe)
+		return
+	var/hotness = attacking_item.get_temperature()
+	if(hotness == 0)
+		return
+	var/burnhot = FALSE
+	var/burndam = 0
+	if(hotness > 360)
+		burnhot = TRUE
+		burndam = (hotness - 360) * 0.1
+	else if(hotness < 50)
+		burnhot = TRUE
+		burndam = abs(50 - hotness) * 0.2
+	if(burndam <= 0)
+		return
+	burndam = min(burndam, 25)
+	var/selfmsg = ""
+	var/othermsg = ""
+	var/soundmsg = "You hear a gross sizzle!"
+	var/is_me = ownermaybe == user
+	if(burnhot)
+		if(is_me)
+			selfmsg = span_alert("You burn your cupped hand with [attacking_item]!")
+			othermsg = span_alert("[ownermaybe] burns [ownermaybe.p_their()] hand with [attacking_item]!")
+		else
+			selfmsg = span_alert("[user] burns your cupped hand with [attacking_item]!")
+			othermsg = span_alert("[user] burns [ownermaybe]'s cupped hand with [attacking_item]!")
+	else
+		if(is_me)
+			selfmsg = span_alert("You freeze your cupped hand with [attacking_item]!")
+			othermsg = span_alert("[ownermaybe] freezes [ownermaybe.p_their()] hand with [attacking_item]!")
+		else
+			selfmsg = span_alert("[user] freezes your cupped hand with [attacking_item]!")
+			othermsg = span_alert("[user] freezes [ownermaybe]'s cupped hand with [attacking_item]!")
+	var/hand_zone = ownermaybe.get_hand_zone_of_item(src)
+	if(!hand_zone)
+		return
+	ownermaybe.visible_message(selfmsg, othermsg, soundmsg)
+	ownermaybe.apply_damage(burndam, BURN, hand_zone)
+	ownermaybe.emote("scream")
+	if(ownermaybe.get_fire_loss() > 50)
+		to_chat(ownermaybe, span_alert("You drop the liquid in your hand!"))
+		just_slash_em(ownermaybe, ownermaybe)
+
+
 /obj/item/reagent_containers/cup/glass/sillycup/handcup/process(seconds_per_tick)
 	if(reagents.total_volume <= 0)
 		return
@@ -81,8 +129,7 @@
 			carbon_owner.emote("scream")
 		if(carbon_owner.get_fire_loss() > 50)
 			to_chat(carbon_owner, span_alert("You drop the liquid in your hand!"))
-			try_splash(carbon_owner, carbon_owner)
-			qdel(src)
+			just_slash_em(carbon_owner, carbon_owner)
 			return
 	// now the acid treatment
 	var/glove_acidproof = carbon_owner.getarmor(hand_zone, ACID) >= 0.8 // close enough
