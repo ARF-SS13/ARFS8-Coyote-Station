@@ -3,7 +3,7 @@
 		/turf/open/misc/asteroid/coyote/freon = 1,
 	)
 	weighted_closed_turf_types = list(
-		/turf/closed/mineral/random/coyote              = 100,
+		/turf/closed/mineral/random/coyote              = 120,
 		/turf/closed/mineral/random/coyote/high_chance  = 40,
 		/turf/closed/mineral/random/coyote/low_chance   = 30,
 		/turf/closed/mineral/gibtonite/coyote           = 3,
@@ -85,10 +85,10 @@
 		/turf/open/misc/asteroid/coyote = 1,
 	)
 	weighted_closed_turf_types = list(
-		/turf/closed/mineral/random/coyote              = 73,
-		/turf/closed/mineral/random/coyote/high_chance  = 5,
-		/turf/closed/mineral/random/coyote/low_chance   = 18,
-		/turf/closed/mineral/gibtonite/coyote           = 5,
+		/turf/closed/mineral/random/coyote              = 77,
+		/turf/closed/mineral/random/coyote/high_chance  = 25,
+		/turf/closed/mineral/random/coyote/low_chance   = 48,
+		/turf/closed/mineral/gibtonite/coyote           = 1,
 	)
 
 	weighted_mob_spawn_list = list(
@@ -139,10 +139,10 @@
 		/turf/open/misc/asteroid/coyote = 1,
 	)
 	weighted_closed_turf_types = list(
-		/turf/closed/mineral/random/coyote              = 80,
-		/turf/closed/mineral/random/coyote/high_chance  = 5,
-		/turf/closed/mineral/random/coyote/low_chance   = 10,
-		/turf/closed/mineral/gibtonite/coyote           = 5,
+		/turf/closed/mineral/random/coyote              = 90,
+		/turf/closed/mineral/random/coyote/high_chance  = 20,
+		/turf/closed/mineral/random/coyote/low_chance   = 40,
+		/turf/closed/mineral/gibtonite/coyote           = 1,
 	)
 
 	weighted_mob_spawn_list = list(

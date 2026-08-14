@@ -605,7 +605,18 @@ Ignore_errors instructes mysql to continue inserting rows if some of them have e
 /datum/db_query/proc/warn_execute(async = TRUE)
 	. = Execute(async)
 	if(!.)
-		to_chat(usr, span_danger("A SQL error occurred during this operation, check the server logs."))
+		// to_chat(usr, span_danger("A SQL error occurred during this operation, check the server logs.")) // what a useful error message
+		message_admins("Oh no! An SQL error has occurred! Check the SQL logs for more!")
+		var/list/err = list()
+		err += "Connection was: [connection]"
+connection
+sql
+arguments
+job_id
+last_error
+last_activity
+last_activity_time
+		log_sql()
 
 /datum/db_query/proc/Execute(async = TRUE, log_error = TRUE)
 	Activity("Execute")
