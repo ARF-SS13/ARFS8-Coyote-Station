@@ -1,4 +1,5 @@
-
+// huh, i guess we dont actually have any actual basic hand items
+// oh well
 
 
 

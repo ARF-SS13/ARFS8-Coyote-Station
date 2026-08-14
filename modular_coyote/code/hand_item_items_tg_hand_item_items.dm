@@ -5,6 +5,9 @@
 	icon_state = "madeyoulook"
 	attack_verb_continuous = list("bops")
 	attack_verb_simple = list("bop")
+	hud_use = TRUE
+	hud_icon = 'modular_coyote/icons/hand_items.dmi' // override this please
+	hud_icon_state = "circle"
 
 /obj/item/hand_item/circlegame/Initialize(mapload)
 	. = ..()
@@ -23,6 +26,15 @@
 	UnregisterSignal(user, COMSIG_ATOM_EXAMINE) //loc will have changed by the time this is called, so Destroy() can't catch it
 	// this is a dropdel item.
 	return ..()
+
+/obj/item/hand_item/circlegame/on_failed_give_message(mob/user, reason)
+	if(reason == HI_HANDS_FULL)
+		to_chat(user, span_warning("You don't have any free hands to make a circle with."))
+		return
+	. = ..()
+
+/obj/item/hand_item/circlegame/on_successful_give_message(mob/user, reason)
+	to_chat(user, span_notice("You make a circle with your hand."))
 
 /// Stage 1: The mistake is made
 /obj/item/hand_item/circlegame/proc/ownerExamined(mob/living/owner, mob/living/sucker)
@@ -103,6 +115,18 @@
 	name = "noogie"
 	desc = "Get someone in an aggressive grab then use this on them to ruin their day."
 	inhand_icon_state = "nothing"
+	hud_use = TRUE
+	hud_icon = 'modular_coyote/icons/hand_items.dmi' // override this please
+	hud_icon_state = "noogie"
+
+/obj/item/hand_item/noogie/on_failed_give_message(mob/user, reason)
+	if(reason == HI_HANDS_FULL)
+		to_chat(user, span_warning("You can't get ye noogie!"))
+		return
+	. = ..()
+
+/obj/item/hand_item/noogie/on_successful_give_message(mob/user, reason)
+	to_chat(user, span_notice("You ready your noogie'ing hand."))
 
 /obj/item/hand_item/noogie/attack(mob/living/carbon/target, mob/living/carbon/human/user)
 	if(!istype(target))
@@ -198,12 +222,24 @@
 	attack_verb_continuous = list("slaps")
 	attack_verb_simple = list("slap")
 	hitsound = 'sound/effects/snap.ogg'
+	hud_use = TRUE
+	hud_icon = 'modular_coyote/icons/hand_items.dmi' // override this please
+	hud_icon_state = "slap"
 	/// How many smaller table smacks we can do before we're out
 	var/table_smacks_left = 3
 
 /obj/item/hand_item/slapper/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_fiver)
+
+/obj/item/hand_item/slapper/on_failed_give_message(mob/user, reason)
+	if(reason == HI_HANDS_FULL)
+		to_chat(user, span_warning("You can't get ye slappyhand!"))
+		return
+	. = ..()
+
+/obj/item/hand_item/slapper/on_successful_give_message(mob/user, reason)
+	to_chat(user, span_notice("You ready your hand for a slap!"))
 
 /obj/item/hand_item/slapper/attack(mob/living/slapped, mob/living/carbon/human/user)
 	. = ..()
@@ -341,6 +377,19 @@
 	name = "hand"
 	desc = "Sometimes, you just want to act gentlemanly."
 	inhand_icon_state = "nothing"
+	hud_use = TRUE
+	hud_icon = 'modular_coyote/icons/hand_items.dmi' // override this please
+	hud_icon_state = "hand"
+
+/obj/item/hand_item/hand/on_failed_give_message(mob/user, reason)
+	if(reason == HI_HANDS_FULL)
+		to_chat(user, span_warning("You can't get ye hand ready!"))
+		return
+	. = ..()
+
+/obj/item/hand_item/hand/on_successful_give_message(mob/user, reason)
+	to_chat(user, span_notice("You ready your hand."))
+
 
 /obj/item/hand_item/hand/pre_attack(mob/living/carbon/help_target, mob/living/carbon/helper, list/modifiers, list/attack_modifiers)
 	if(!loc.Adjacent(help_target) || !istype(helper) || !istype(help_target))
@@ -447,6 +496,18 @@
 	inhand_icon_state = "nothing"
 	attack_verb_continuous = list("steals")
 	attack_verb_simple = list("steal")
+	hud_use = TRUE
+	hud_icon = 'modular_coyote/icons/hand_items.dmi' // override this please
+	hud_icon_state = "steal"
+
+/obj/item/hand_item/stealer/on_failed_give_message(mob/user, reason)
+	if(reason == HI_HANDS_FULL)
+		to_chat(user, span_warning("You can't steal shoes! How pathetic."))
+		return
+	. = ..()
+
+/obj/item/hand_item/stealer/on_successful_give_message(mob/user, reason)
+	to_chat(user, span_notice("You get ready to steal someone's shoes!"))
 
 /obj/item/hand_item/stealer/attack(mob/living/target_mob, mob/living/user, list/modifiers, list/attack_modifiers)
 	. = ..()
@@ -473,11 +534,6 @@
 		span_notice("You stole [target_human]'s [item_to_strip.name]!"))
 	to_chat(target_human, span_userdanger("[user] stole your [item_to_strip.name]!"))
 
-
-
-
-
-
 /// todo: horny
 /obj/item/hand_item/kisser
 	name = "kiss"
@@ -485,6 +541,9 @@
 	icon = 'icons/mob/simple/animal.dmi'
 	icon_state = "heart"
 	inhand_icon_state = "nothing"
+	hud_use = TRUE
+	hud_icon = 'modular_coyote/icons/hand_items.dmi' // override this please
+	hud_icon_state = "kiss"
 	/// The kind of projectile this version of the kiss blower fires
 	var/kiss_type = /obj/projectile/kiss
 	/// TRUE if the user was aiming anywhere but the mouth when they offer the kiss, if it's offered
@@ -564,7 +623,6 @@
 	blown_kiss.fire()
 	qdel(src)
 	return TRUE // so the core offering code knows to halt
-
 /// / / / / ///
 /// KISSERS ///
 /// / / / / ///
@@ -573,30 +631,35 @@
 	desc = "If looks could kill, they'd be this."
 	color = COLOR_BLACK
 	kiss_type = /obj/projectile/kiss/death
+	required_trait = TRAIT_KISS_OF_DEATH
 
 /obj/item/hand_item/kisser/syndie
 	name = "syndie kiss"
 	desc = "oooooo you like syndicate ur a syndiekisser"
 	color = COLOR_SYNDIE_RED
 	kiss_type = /obj/projectile/kiss/syndie
+	required_trait = TRAIT_SYNDIE_KISS
 
 /obj/item/hand_item/kisser/ink
 	name = "ink kiss"
 	desc = "Is that a blot of ink in your pocket or are you just happy to see me?"
 	color = COLOR_ALMOST_BLACK
 	kiss_type = /obj/projectile/kiss/ink
+	hud_use = FALSE
 
 /obj/item/hand_item/kisser/french
 	name = "french kiss"
 	desc = "You really should brush your teeth."
 	color = COLOR_GRAY
 	kiss_type = /obj/projectile/kiss/french
+	required_trait = TRAIT_GARLIC_BREATH
 
 /obj/item/hand_item/kisser/chef
 	name = "chef's kiss"
 	desc = "The secret ingridient is love. And opium, but mostly love."
 	color = COLOR_LIGHT_PINK
 	kiss_type = /obj/projectile/kiss/chef
+	required_trait = TRAIT_CHEF_KISS
 
 /// / / / / / / / / / ///
 /// KISS PROJECTILEs  ///
@@ -776,3 +839,72 @@
 	to_chat(firer, span_green("You deliver a chef's kiss over [target], declaring it perfect."))
 	target.visible_message(span_notice("[firer] delivers a chef's kiss over [target]."), ignored_mobs = firer)
 	target.reagents.add_reagent(/datum/reagent/love, 10)
+
+
+/obj/item/hand_item/bonkinghand
+	name = "bonking hand"
+	desc = "Time to bonk someone over the head in comedic fashion."
+	inhand_icon_state = "nothing"
+	attack_verb_continuous = list("bonks")
+	attack_verb_simple = list("bonk")
+	hitsound = 'sound/effects/snap.ogg'
+	hud_use = TRUE
+	hud_icon = 'modular_coyote/icons/hand_items.dmi' // override this please
+	hud_icon_state = "bonk"
+
+/obj/item/hand_item/bonkinghand/on_failed_give_message(mob/user, reason)
+	if(reason == HI_HANDS_FULL)
+		to_chat(user, span_warning("You can't get ye bonker!"))
+		return
+	. = ..()
+
+/obj/item/hand_item/bonkinghand/on_successful_give_message(mob/user, reason)
+	to_chat(user, span_notice("You get ready to bonk someone over the head in comedic fashion!"))
+
+/obj/item/hand_item/bonkinghand/attack(mob/living/bonked, mob/living/carbon/human/user)
+	var/bonk_volume = 75
+	var/obj/item/bodypart/bonkers_hand = user.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
+	var/obj/item/bodypart/head/bonk_victims_head = bonked.get_bodypart(BODY_ZONE_HEAD)
+	if(user.zone_selected != BODY_ZONE_HEAD)
+		to_chat(user, span_warning("You can't bonk someone on the head if you aren't aiming for their head!"))
+		return
+
+	if(issilicon(bonked))
+		if(bonkers_hand?.receive_damage( 5, 0 )) // 5 brute damage
+			user.update_damage_overlays()
+		user.visible_message(
+			span_danger("[user] bonks [bonked] on the head, leaving their hand red and swollen!"),
+			span_notice("You bonk [bonked] on the head, but hurt your hand on the metal of their head!"),
+			span_hear("You hear a comedic metallic bonk."),
+		)
+		playsound(bonked, 'sound/items/weapons/smash.ogg', bonk_volume, TRUE, -1)
+
+	else if(bonk_victims_head)
+		if(bonk_victims_head.biological_state & BIO_METAL)
+			if(bonkers_hand?.receive_damage( 5, 0 )) // 5 brute damage
+				user.update_damage_overlays()
+			user.visible_message(
+				span_danger("[user] bonks [bonked] on the head, leaving their hand red and swollen!"),
+				span_notice("You bonk [bonked] on the head, but hurt your hand on the metal of their head!"),
+				span_hear("You hear a comedic metallic bonk."),
+			)
+			playsound(bonked, 'sound/items/weapons/smash.ogg', bonk_volume, FALSE, -1)
+
+		else
+			user.visible_message(
+				span_danger("[user] bonks [bonked] on the head!"),
+				span_notice("You bonk [bonked] on the head!"),
+				span_hear("You hear a comedic bonking sound."),
+			)
+			playsound(bonked, 'modular_zubbers/code/modules/emotes/sound/effects/bonk.ogg', bonk_volume, FALSE, -1)
+	else
+		to_chat(user, span_warning("You can't bonk someone on the head if they have no head!"))
+		return
+	qdel(src)
+// Successful takes will qdel our hand after
+/obj/item/hand_item/bonkinghand/on_offer_taken(mob/living/carbon/offerer, mob/living/carbon/taker)
+	. = ..()
+	if(!.)
+		return
+
+	qdel(src)

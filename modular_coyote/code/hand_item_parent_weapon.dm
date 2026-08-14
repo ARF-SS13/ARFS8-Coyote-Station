@@ -55,19 +55,15 @@
 		return
 	if(!iscarbon(user))
 		return
-	var/datum/genital_images/mynt = SSpornhud.get_genital_datum(user)
+	var/mob/living/carbon/carbon_user = user
+	var/obj/item/organ/part = carbon_user.get_organ_slot(use_bodypart_image_slot)
+	if(!part)
+		return
 	bodypart_images.Cut()
-	if(mynt)
-		switch(use_bodypart_image_slot)
-			if(PHUD_TAIL)
-				bodypart_images = mynt.tail.Copy()
-			if(PHUD_BUTT)
-				bodypart_images = mynt.butt.Copy()
-	if(!LAZYLEN(bodypart_images))
-		return // use default icon
-	icon = "icons/effects/effects.dmi"
+	icon = 'icons/effects/effects.dmi'
 	icon = "nothing"
 	overlays.Cut()
+	bodypart_images |= part.get_overlays()
 	for(var/whatever in bodypart_images)
 		var/image/I = whatever
 		I.dir = NORTH

@@ -98,7 +98,10 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 
 	if(!use_mob_sprite_as_obj_sprite)
 		return
+	. += get_overlays()
 
+/obj/item/organ/proc/get_overlays()
+	. = list()
 	//Build the mob sprite and use it as our overlay
 	for(var/external_layer in bodypart_overlay.all_layers)
 		if(bodypart_overlay.layers & external_layer)

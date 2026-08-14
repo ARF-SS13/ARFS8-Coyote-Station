@@ -12,16 +12,19 @@
 
 	/// am I disabled?
 	var/disabled = FALSE
+	/// admemes only?
+	var/admin_only = FALSE
 
 	/// UI stuff
 	/// Icon used for the hud button for this thing
-	var/hud_icon // override this please
+	var/hud_icon = 'modular_coyote/icons/hand_items.dmi' // override this please
 	/// Icon state used for the hud button for this thing
-	var/hud_icon_state // this too
+	var/hud_icon_state = "default" // this too
 	/// Whether the hud icon should be used for this hand item
 	var/hud_use = FALSE
 	/// Description used for the hud button for this thing
-	var/hud_desc = "Just a normal every day hand for doing handy things for handy people!"
+	/// leave blamk to just use the item desc
+	var/hud_desc
 
 	/*
 	 * TRAIT-SWITCHED BASE ITEM SWITCH TRAIT SYSTEM THING
@@ -150,6 +153,8 @@
 			return instead.give_to_user(user, just_checking, TRUE)
 	if(type == abstract_type)
 		return FALSE
+	if(admin_only && !is_admin(user))
+		return FALSE
 	if(!item_is_in_season(user, just_checking))
 		return FALSE
 	if(!user_is_outside(user, just_checking))
@@ -171,18 +176,22 @@
 
 /// Retrieves the proper hand item to be used for hudding
 /// returns a hand item template
-/obj/item/hand_item/proc/get_hud_template(mob/living/user)
+/obj/item/hand_item/proc/get_hud_template(mob/living/user, is_replacement = FALSE)
 	if(!user)
 		return null
 	// first, get the appropriate HUD template for the user
-
+	if(!is_replacement)
+		var/obj/item/hand_item/instead = find_suitable_replacement_if_any(user)
+		if(istype(instead))
+			return instead.get_hud_template(user, TRUE)
 	if(!hud_use)
 		return null
 	var/hud_icon_use = hud_icon || icon
 	var/hud_icon_state_use = hud_icon_state || icon_state
 	return list(
-		hud_icon = hud_icon_use,
-		hud_icon_state = hud_icon_state_use
+		HI_HUD_PATH = src.type,
+		HI_HUD_ICON = hud_icon_use,
+		HI_HUD_ICON_STATE = hud_icon_state_use,
 	)
 
 /// Checks if the hand item should be shown in the UI menu for the user
@@ -206,13 +215,14 @@
 /// true if theyre outside, false if they arent outside
 /// todo: make space be considered something other than outdoors or indoors, cus its space
 /obj/item/hand_item/proc/user_is_outside(mob/living/user, just_checking = FALSE)
-	if(!outside_only)
-		return TRUE
-	if(is_outdoors(user))
-		return TRUE
-	if(!just_checking)
-		on_failed_give(user, HI_OUTSIDE_ONLY)
-	return FALSE
+	return TRUE // todo: make this both work, and also matter
+	// if(!outside_only)
+	// 	return TRUE
+	// if(is_outdoors(user))
+	// 	return TRUE
+	// if(!just_checking)
+	// 	on_failed_give(user, HI_OUTSIDE_ONLY)
+	// return FALSE
 
 /// tis it the season to use this thing?
 /// true if tis, false if tisnt

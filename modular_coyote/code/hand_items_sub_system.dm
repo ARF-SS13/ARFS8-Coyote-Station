@@ -32,7 +32,7 @@ SUBSYSTEM_DEF(handitems)
 
 /datum/controller/subsystem/handitems/Initialize(start_timeofday)
 	generate_hand_items()
-	generate_grope_kissers()
+	// generate_grope_kissers()
 	generate_hudcheck_items()
 	to_chat(world, span_abductor("Initialized [LAZYLEN(hand_items)] hand items and [LAZYLEN(gropekissers)]-ish ways to fondle your friends!"))
 
@@ -45,12 +45,12 @@ SUBSYSTEM_DEF(handitems)
 		hi.templateify()
 		hand_items[hi.type] = hi
 
-/datum/controller/subsystem/handitems/proc/generate_grope_kissers()
-	if(LAZYLEN(gropekissers))
-		QDEL_LIST_ASSOC_VAL(gropekissers)
-	for(var/booby in typesof(/datum/grope_kiss_MERP))
-		var/datum/grope_kiss_MERP/gkm = new booby()
-		gropekissers[gkm.type] = gkm
+// /datum/controller/subsystem/handitems/proc/generate_grope_kissers()
+// 	if(LAZYLEN(gropekissers))
+// 		QDEL_LIST_ASSOC_VAL(gropekissers)
+// 	for(var/booby in typesof(/datum/grope_kiss_MERP))
+// 		var/datum/grope_kiss_MERP/gkm = new booby()
+// 		gropekissers[gkm.type] = gkm
 
 /// spits out a list of all the types of hand items to attempt extracting hud buttons
 /datum/controller/subsystem/handitems/proc/generate_hudcheck_items()
@@ -131,41 +131,146 @@ SUBSYSTEM_DEF(handitems)
 		return 0
 
 /// generates the popup thingy for the hand items on the ui doodle
-/datum/controller/subsystem/handitems/proc/get_hand_item_popup(mob/living/user, atom/origin)
+/// now in screen-object flavor!
+/datum/controller/subsystem/handitems/proc/get_hud_object_data(mob/living/user)
 	if(!user)
 		return null
 	var/list/hi_candidates = list()
-
-
-
-
 	for(var/hi in hand_items)
 		var/obj/item/hand_item/hi_temp = get_hand_item_template(hi)
-		var/obj/item/hand_item/hi_huduse = hi_temp.get_hud_template(user)
-		if(!hi_huduse) // dont show
+		var/list/hi_hud_data = hi_temp.get_hud_template(user)
+		if(!LAZYLEN(hi_hud_data)) // dont show
 			continue
-		hi_candidates |= hi_temp
+		hi_candidates |= list(hi_hud_data)
 	if(!LAZYLEN(hi_candidates))
 		return null
 	// sort candidates by name, alphabetically
-	hi_candidates = sort_list(hi_candidates, /proc/cmp_name_asc)
-	// got the stuff, now to make the popup
-	var/list/popup_choices = list()
-	var/list/popup_decoder = list()
-	for(var/obj/item/hand_item/hi_cand in hi_candidates)
-		if(!hud_map[hi_cand.type])
-			var/icon/ico_use = hi_cand.hud_icon || hi_cand.icon
-			var/ico_state_use = hi_cand.hud_icon_state || hi_cand.icon_state
-			var/image/img_use = image(icon = ico_use, icon_state = ico_state_use)
-			hud_map[hi_cand.type] = img_use
-		popup_choices["[hi_cand.name]"] = hud_map[hi_cand.type]
-		popup_decoder["[hi_cand.name]"] = hi_cand.type
-	var/choice = show_radial_menu(user, origin, popup_choices, radius = 28, ultradense = TRUE, linedir = NORTH)
-	if(!choice || !isliving(user))
+	hi_candidates = sort_list(hi_candidates, /proc/cmp_hud_name)
+	// spam a buinch of screen object buttons
+	return hi_candidates // your problem now!
+
+
+/proc/cmp_hud_name(list/a, list/b)
+	var/obj/item/hand_item/a_hi = a[HI_HUD_PATH]
+	var/obj/item/hand_item/b_hi = b[HI_HUD_PATH]
+	return sorttext(a_hi.name, b_hi.name)
+
+
+/atom/movable/screen/hand_item_folder
+	name = "hand items"
+	icon = 'modular_coyote/icons/hand_items.dmi'
+	icon_state = "hand_item_folder_closed"
+	screen_loc = "EAST-4:22,SOUTH+1:7"
+	mouse_over_pointer = MOUSE_HAND_POINTER
+	var/open = FALSE
+	/// the px to push upward for each hand item
+	/// px height of button, + padding underneath
+	var/pushup_px = 15 + 1
+	var/list/clickies = list()
+
+/atom/movable/screen/hand_item_folder/Click(location, control, params)
+	toggle_it()
+
+/atom/movable/screen/hand_item_folder/proc/toggle_it()
+	var/mob/pwner = hud.mymob
+	if(!pwner)
 		return
-	var/true_hi_cand_type = popup_decoder[choice]
-	return SShanditems.give_hand_item(user, true_hi_cand_type)
+	if(!SShanditems.initialized)
+		to_chat(pwner, span_abductor("Dunno how you did this, but this thing isnt ready yet!"))
+		return
+	if(open)
+		close_folder(pwner)
+	else
+		open_folder(pwner)
+
+/atom/movable/screen/hand_item_folder/proc/open_folder(mob/user)
+	if(LAZYLEN(clickies)) // oh dear
+		close_folder(user)
+		return
+	var/list/hitem_datas = SShanditems.get_hud_object_data(user)
+	if(!LAZYLEN(hitem_datas))
+		var/msg = "Oh dear, you dont have any hand items you can use! How embarrassing!"
+		to_chat(user, span_alert(msg))
+		balloon_alert(user, msg)
+		return
+	var/i = 1
+	for(var/list/hitem_data in hitem_datas)
+		// create a new hand item clicky for each hand item
+		var/atom/movable/screen/hand_item_clicky/hi_clicky = new()
+		hi_clicky.hand_itemize(src, hitem_data, i)
+		i++
+		clickies += hi_clicky
+	icon_state = "hand_item_folder_open"
+	open = TRUE
+
+/atom/movable/screen/hand_item_folder/proc/close_folder(mob/user)
+	if(!LAZYLEN(clickies))
+		return
+	for(var/atom/movable/screen/hand_item_clicky/clecky in clickies)
+		qdel(clecky)
+	clickies = list()
+	icon_state = "hand_item_folder_closed"
+	open = FALSE
+
+/atom/movable/screen/hand_item_folder/proc/subthing_got_clicked()
+	close_folder(hud.mymob)
 
 
+/// defines one of many hand item clicky buttons on screen
+/// generates, and listens to, the hand item folder button
+/atom/movable/screen/hand_item_clicky
+	name = "hand item clicky"
+	desc = "Click me to give you whatever this is!"
+	icon = 'modular_coyote/icons/hand_items.dmi'
+	icon_state = "hand_item_clicky"
+	screen_loc = /atom/movable/screen/hand_item_folder::screen_loc
+	mouse_over_pointer = MOUSE_HAND_POINTER
+	var/obj/item/hand_item/my_hand_item
+	var/atom/movable/screen/hand_item_folder/parent
+
+/atom/movable/screen/hand_item_clicky/Destroy()
+	set_parent(null)
+	parent = null
+	. = ..()
+
+/atom/movable/screen/hand_item_clicky/MouseEntered(location, control, params)
+	. = ..()
+	openToolTip(usr, src, params, title = name, content = desc)
+
+/atom/movable/screen/hand_item_clicky/MouseExited(location, control, params)
+	. = ..()
+	closeToolTip(usr)
+
+/atom/movable/screen/hand_item_clicky/Click(location, control, params)
+	var/mob/user = parent.hud.mymob
+	if(!user)
+		return
+	SShanditems.give_hand_item(user, my_hand_item)
+	parent.subthing_got_clicked()
+
+/atom/movable/screen/hand_item_clicky/proc/hand_itemize(
+	atom/movable/screen/hand_item_folder/to_parent,
+	list/hitem_data = list(),
+	i)
+	set_parent(to_parent)
+	screen_loc = parent.screen_loc
+	transform = transform.Translate(0, parent.pushup_px * i)
+	my_hand_item  = hitem_data[HI_HUD_PATH]
+	name          = my_hand_item::name
+	desc          = my_hand_item::desc
+	icon          = hitem_data[HI_HUD_ICON]
+	icon_state    = hitem_data[HI_HUD_ICON_STATE]
+	parent.hud.mymob.client.screen += src
+
+/atom/movable/screen/hand_item_clicky/proc/set_parent(new_value)
+	if(parent)
+		UnregisterSignal(parent, COMSIG_QDELETING)
+	parent = new_value
+	if(parent)
+		RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(handle_parent_del))
+
+/atom/movable/screen/hand_item_clicky/proc/handle_parent_del()
+	SIGNAL_HANDLER
+	set_parent(null)
 
 

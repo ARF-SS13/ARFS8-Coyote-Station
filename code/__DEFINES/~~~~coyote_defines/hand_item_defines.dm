@@ -14,3 +14,7 @@
 /// Sounds and text for licking have this range
 #define HI_LICK_SOUND_TEXT_RANGE 2
 
+#define HI_HUD_PATH "HI_HUD_PATH"
+#define HI_HUD_ICON "HI_HUD_ICON"
+#define HI_HUD_ICON_STATE "HI_HUD_ICON_STATE"
+

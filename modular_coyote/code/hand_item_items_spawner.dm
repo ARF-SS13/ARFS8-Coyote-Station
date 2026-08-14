@@ -33,6 +33,10 @@
 	owner = null
 	. = ..()
 
+/obj/item/reagent_containers/cup/glass/sillycup/handcup/pickup(mob/user)
+	. = ..()
+	ownerize(user)
+
 /obj/item/reagent_containers/cup/glass/sillycup/handcup/proc/ownerize(mob/new_owner)
 	owner = WEAKREF(new_owner)
 

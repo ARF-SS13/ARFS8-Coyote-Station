@@ -65,6 +65,8 @@ GLOBAL_LIST_INIT(available_erp_ui_styles, list(
 	var/atom/movable/screen/resist_icon
 	var/atom/movable/screen/floor_change
 
+	var/atom/movable/screen/hand_item_folder
+
 	var/list/static_inventory = list() //the screen objects which are static
 	var/list/toggleable_inventory = list() //the screen objects which can be hidden
 	var/list/atom/movable/screen/hotkeybuttons = list() //the buttons that can be used via hotkeys
@@ -263,6 +265,7 @@ GLOBAL_LIST_INIT(available_erp_ui_styles, list(
 	rest_icon = null
 	sleep_icon = null
 	floor_change = null
+	hand_item_folder = null
 	hand_slots.Cut()
 
 	QDEL_LIST(toggleable_inventory)
