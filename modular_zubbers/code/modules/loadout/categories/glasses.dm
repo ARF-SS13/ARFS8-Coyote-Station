@@ -87,7 +87,7 @@
 /datum/loadout_item/glasses/eyepatch/robotics
 	name = "Diagnostic Eyepatch"
 	item_path = /obj/item/clothing/glasses/hud/eyepatch/diagnostic
-	restricted_roles = list(JOB_SCIENTIST, JOB_ROBOTICIST, JOB_GENETICIST, JOB_RESEARCH_DIRECTOR, JOB_SCIENCE_GUARD)
+	restricted_roles = list(JOB_SCIENTIST, JOB_ROBOTICIST, JOB_GENETICIST, JOB_RESEARCH_DIRECTOR, JOB_CHEMIST, JOB_SCIENCE_GUARD)
 
 /datum/loadout_item/glasses/eyepatch/science
 	name = "Science Eyepatch"
@@ -147,12 +147,12 @@
 /datum/loadout_item/glasses/hud/med/glasses
 	name = "Prescription Medical HUD"
 	item_path = /obj/item/clothing/glasses/hud/health/prescription
-	restricted_roles = list(JOB_MEDICAL_DOCTOR, JOB_CHIEF_MEDICAL_OFFICER, JOB_GENETICIST, JOB_CHEMIST, JOB_PARAMEDIC, JOB_ORDERLY, JOB_CORONER)
+	restricted_roles = list(JOB_MEDICAL_DOCTOR, JOB_CHIEF_MEDICAL_OFFICER, JOB_GENETICIST, JOB_PARAMEDIC, JOB_ORDERLY, JOB_CORONER)
 
 /datum/loadout_item/glasses/hud/diag/glasses
 	name = "Prescription Diagnostic HUD"
 	item_path = /obj/item/clothing/glasses/hud/diagnostic/prescription
-	restricted_roles = list(JOB_RESEARCH_DIRECTOR,JOB_SCIENTIST, JOB_ROBOTICIST)
+	restricted_roles = list(JOB_RESEARCH_DIRECTOR,JOB_SCIENTIST, JOB_CHEMIST, JOB_ROBOTICIST)
 
 /datum/loadout_item/glasses/hud/science/glasses
 	name = "Prescription Science Glasses"
@@ -167,7 +167,7 @@
 /datum/loadout_item/glasses/hud/retinalprojector/health
 	name = "Retinal Projector Health HUD"
 	item_path = /obj/item/clothing/glasses/hud/ar/projector/health
-	restricted_roles = list(JOB_MEDICAL_DOCTOR, JOB_CHIEF_MEDICAL_OFFICER, JOB_GENETICIST, JOB_CHEMIST, JOB_PARAMEDIC, JOB_ORDERLY, JOB_CORONER)
+	restricted_roles = list(JOB_MEDICAL_DOCTOR, JOB_CHIEF_MEDICAL_OFFICER, JOB_GENETICIST, JOB_PARAMEDIC, JOB_ORDERLY, JOB_CORONER)
 
 /datum/loadout_item/glasses/hud/retinalprojector/meson
 	name = "Retinal Projector Meson HUD"
@@ -177,7 +177,7 @@
 /datum/loadout_item/glasses/hud/retinalprojector/diagnostic
 	name = "Retinal Projector Diagnostic HUD"
 	item_path = /obj/item/clothing/glasses/hud/ar/projector/diagnostic
-	restricted_roles = list(JOB_RESEARCH_DIRECTOR, JOB_SCIENTIST, JOB_ROBOTICIST)
+	restricted_roles = list(JOB_RESEARCH_DIRECTOR, JOB_SCIENTIST, JOB_CHEMIST, JOB_ROBOTICIST)
 
 /datum/loadout_item/glasses/hud/retinalprojector/science
 	name = "Science Retinal Projector"
@@ -227,7 +227,7 @@
 /datum/loadout_item/glasses/shades/aviator/health
 	name = "Medical HUD Aviators"
 	item_path = /obj/item/clothing/glasses/hud/ar/aviator/health
-	restricted_roles = list(JOB_MEDICAL_DOCTOR, JOB_CHIEF_MEDICAL_OFFICER, JOB_GENETICIST, JOB_CHEMIST, JOB_PARAMEDIC, JOB_ORDERLY, JOB_CORONER)
+	restricted_roles = list(JOB_MEDICAL_DOCTOR, JOB_CHIEF_MEDICAL_OFFICER, JOB_GENETICIST, JOB_PARAMEDIC, JOB_ORDERLY, JOB_CORONER)
 
 /datum/loadout_item/glasses/shades/aviator/meson
 	name = "Meson HUD Aviators"
@@ -252,7 +252,7 @@
 /datum/loadout_item/glasses/shades/prescription/aviator/health
 	name = "Prescription Medical HUD Aviators"
 	item_path = /obj/item/clothing/glasses/hud/ar/aviator/health/prescription
-	restricted_roles = list(JOB_MEDICAL_DOCTOR, JOB_CHIEF_MEDICAL_OFFICER, JOB_GENETICIST, JOB_CHEMIST, JOB_PARAMEDIC, JOB_ORDERLY, JOB_CORONER)
+	restricted_roles = list(JOB_MEDICAL_DOCTOR, JOB_CHIEF_MEDICAL_OFFICER, JOB_GENETICIST, JOB_PARAMEDIC, JOB_ORDERLY, JOB_CORONER)
 
 /datum/loadout_item/glasses/shades/prescription/aviator/meson
 	name = "Prescription Meson HUD Aviators"
