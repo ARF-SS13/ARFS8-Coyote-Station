@@ -612,7 +612,7 @@ Ignore_errors instructes mysql to continue inserting rows if some of them have e
 			message_admins("Oh no! An SQL error has occurred! Check the SQL logs for more!")
 #if defined(OPENDREAM) || defined(UNIT_TESTS)
 		return // linter no linting! linter no linting!
-#endif
+#else
 		var/list/err = list()
 		err += "Connection: [connection], sql: [sql], args: [arguments], jobid: [job_id]"
 		err += "LastError: [last_error], LastActivity: [last_activity], LastActivityTime: [last_activity_time]"
@@ -627,6 +627,7 @@ Ignore_errors instructes mysql to continue inserting rows if some of them have e
 		var/errmess = err.Join("\n")
 		log_sql("[errmess]")
 		CRASH(errmess)
+#endif
 
 /datum/db_query/proc/Execute(async = TRUE, log_error = TRUE)
 	Activity("Execute")
