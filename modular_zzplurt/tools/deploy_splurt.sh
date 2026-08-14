@@ -6,10 +6,8 @@
 mkdir -p \
     $1/modular_zzplurt/icons \
     $1/modular_zzplurt/code/datums/greyscale/json_configs\
-    $1/modular_coyote/icons \
-    $1/modular_coyote/code/datums/greyscale/json_configs
+    $1/modular_coyote/icons
 
 cp -r modular_zzplurt/icons/* $1/modular_zzplurt/icons/
 cp -r modular_zzplurt/code/datums/greyscale/json_configs/* $1/modular_zzplurt/code/datums/greyscale/json_configs/
 cp -r modular_coyote/icons/* $1/modular_coyote/icons/
-cp -r modular_coyote/code/datums/greyscale/json_configs/* $1/modular_coyote/code/datums/greyscale/json_configs/
