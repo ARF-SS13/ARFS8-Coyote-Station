@@ -616,7 +616,7 @@ Ignore_errors instructes mysql to continue inserting rows if some of them have e
 		err += "Stack Trace!"
 		//stacktrace!
 		for(var/callee/p = caller, p, p = p.caller) // thanks lummox!
-			err += "  [p.proc.type] (src=[p.src], usr=[p.usr])"
+			err += "  [p.proc.type] (src=[p.src])"
 			if(p.file)
 				err += "    at [p.file]:[p.line]"
 		err += "Fuzzy's cute"
