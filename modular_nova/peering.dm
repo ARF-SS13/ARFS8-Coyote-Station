@@ -22,7 +22,7 @@
 /mob/living/proc/peer_into_distance(turf/target)
 	if(!client || !istype(target))
 		return FALSE
-	if(IsUnconscious(src) || is_blind() || stat >= UNCONSIOUS)
+	if(IsUnconscious(src) || is_blind() || stat >= UNCONSCIOUS)
 		return FALSE
 	// Don't fight the vertical look (look up/down) system or any non-standard perspective.
 	if(client.perspective != MOB_PERSPECTIVE || looking_vertically)
