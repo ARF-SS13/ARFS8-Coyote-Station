@@ -128,31 +128,6 @@ export const erp_sexual_potency_pref: FeatureNumeric = {
   component: FeatureNumberInput,
 };
 
-// Genital fluid preferences
-export const testicles_fluid: FeatureChoiced = {
-  name: 'Testicles Fluid',
-  description: 'The type of fluid produced by the testicles.',
-  component: FeatureDropdownInput,
-};
-
-export const breasts_fluid: FeatureChoiced = {
-  name: 'Breasts Fluid',
-  description: 'The type of fluid produced by the breasts.',
-  component: FeatureDropdownInput,
-};
-
-export const vagina_fluid: FeatureChoiced = {
-  name: 'Vagina Fluid',
-  description: 'The type of fluid produced by the vagina.',
-  component: FeatureDropdownInput,
-};
-
-export const cumflates_partners_pref: FeatureToggle = {
-  name: 'Cumflates Partners',
-  description: 'Your character cumflates partners.',
-  component: CheckboxInput,
-};
-
 export const knots_partners_pref: FeatureToggle = {
   name: 'knots Partners',
   description: 'Your character knots partners.',
