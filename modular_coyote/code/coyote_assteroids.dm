@@ -191,7 +191,7 @@
 /turf/closed/mineral/random/coyote
 	name = "PLACEHOLDER_NAME: ROCKWALL"
 	desc = "Wow, I wonder what wonders there are to behold in PLACEHOLDER_NAME: ROCKWALL"
-	icon = 'icons/turf/walls/mountain_wall.dmi'
+	icon = MAP_SWITCH('icons/turf/walls/mountain_wall.dmi', 'icons/turf/mining.dmi') // SKYRAT EDIT CHANGE
 	icon_state = "mountainrock"
 	color = "#550155"
 	base_icon_state = "mountain_wall"

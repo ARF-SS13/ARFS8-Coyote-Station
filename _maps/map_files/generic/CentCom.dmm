@@ -1608,7 +1608,7 @@
 /obj/structure/flora/bush/fullgrass/style_random,
 /obj/structure/flora/bush/flowers_br/style_random,
 /obj/structure/flora/bush/generic/style_random,
-/mob/living/simple_animal/skunk/eunice,
+/mob/living/basic/skunk/eunice,
 /turf/open/floor/grass,
 /area/centcom/central_command_areas/evacuation)
 "hv" = (
