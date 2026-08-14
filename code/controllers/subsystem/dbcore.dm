@@ -606,17 +606,24 @@ Ignore_errors instructes mysql to continue inserting rows if some of them have e
 	. = Execute(async)
 	if(!.)
 		// to_chat(usr, span_danger("A SQL error occurred during this operation, check the server logs.")) // what a useful error message
-		message_admins("Oh no! An SQL error has occurred! Check the SQL logs for more!")
+		if(prob(1))
+			message_admins("Auuh~ oh nooooo~! A big thiiicc SQL ewwour haz come! *Notices SQL logs for more~*")
+		else
+			message_admins("Oh no! An SQL error has occurred! Check the SQL logs for more!")
 		var/list/err = list()
-		err += "Connection was: [connection]"
-connection
-sql
-arguments
-job_id
-last_error
-last_activity
-last_activity_time
-		log_sql()
+		err += "Connection: [connection], sql: [sql], args: [arguments], jobid: [job_id]"
+		err += "LastError: [last_error], LastActivity: [last_activity], LastActivityTime: [last_activity_time]"
+		err += "Stack Trace!"
+		//stacktrace!
+		for(var/callee/p = caller, p, p = p.caller) // thanks lummox!
+			err += "  [p.proc.type] (src=[p.src], usr=[p.usr])"
+			if(p.file)
+				err += "    at [p.file]:[p.line]"
+		err += "Fuzzy's cute"
+		err += "-END OF ERROR-"
+		var/errmess = err.Join("\n")
+		log_sql("[errmess]")
+		CRASH(errmess)
 
 /datum/db_query/proc/Execute(async = TRUE, log_error = TRUE)
 	Activity("Execute")
