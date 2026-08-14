@@ -3,7 +3,7 @@
 		/turf/open/misc/asteroid/coyote/freon = 1,
 	)
 	weighted_closed_turf_types = list(
-		/turf/closed/mineral/random/coyote              = 100,
+		/turf/closed/mineral/random/coyote              = 120,
 		/turf/closed/mineral/random/coyote/high_chance  = 40,
 		/turf/closed/mineral/random/coyote/low_chance   = 30,
 		/turf/closed/mineral/gibtonite/coyote           = 3,
@@ -85,10 +85,10 @@
 		/turf/open/misc/asteroid/coyote = 1,
 	)
 	weighted_closed_turf_types = list(
-		/turf/closed/mineral/random/coyote              = 73,
-		/turf/closed/mineral/random/coyote/high_chance  = 5,
-		/turf/closed/mineral/random/coyote/low_chance   = 18,
-		/turf/closed/mineral/gibtonite/coyote           = 5,
+		/turf/closed/mineral/random/coyote              = 77,
+		/turf/closed/mineral/random/coyote/high_chance  = 25,
+		/turf/closed/mineral/random/coyote/low_chance   = 48,
+		/turf/closed/mineral/gibtonite/coyote           = 1,
 	)
 
 	weighted_mob_spawn_list = list(
@@ -139,10 +139,10 @@
 		/turf/open/misc/asteroid/coyote = 1,
 	)
 	weighted_closed_turf_types = list(
-		/turf/closed/mineral/random/coyote              = 80,
-		/turf/closed/mineral/random/coyote/high_chance  = 5,
-		/turf/closed/mineral/random/coyote/low_chance   = 10,
-		/turf/closed/mineral/gibtonite/coyote           = 5,
+		/turf/closed/mineral/random/coyote              = 90,
+		/turf/closed/mineral/random/coyote/high_chance  = 20,
+		/turf/closed/mineral/random/coyote/low_chance   = 40,
+		/turf/closed/mineral/gibtonite/coyote           = 1,
 	)
 
 	weighted_mob_spawn_list = list(
@@ -189,9 +189,9 @@
 ////////////////////COYOTE ROCKS
 
 /turf/closed/mineral/random/coyote
-	name = "PLACEHOLDER_NAME: ROCKWALL"
+	name = "PLACEHOLDER_NAME: ROCKWALL~"
 	desc = "Wow, I wonder what wonders there are to behold in PLACEHOLDER_NAME: ROCKWALL"
-	icon = 'icons/turf/walls/mountain_wall.dmi'
+	icon = MAP_SWITCH('icons/turf/walls/mountain_wall.dmi', 'icons/turf/mining.dmi') // SKYRAT EDIT CHANGE
 	icon_state = "mountainrock"
 	color = "#550155"
 	base_icon_state = "mountain_wall"
