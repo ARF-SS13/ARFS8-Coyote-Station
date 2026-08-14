@@ -607,7 +607,7 @@ Ignore_errors instructes mysql to continue inserting rows if some of them have e
 	if(!.)
 		// to_chat(usr, span_danger("A SQL error occurred during this operation, check the server logs.")) // what a useful error message
 		if(prob(1))
-			message_admins("Auuh~ oh nooooo~! A big thiiicc SQL ewwour haz come! *Notices SQL logs for more~*")
+			message_admins("Auuh~ oh nooooo~! A big thiiicc SQL ewwour haz come inside ur coode uwu~! *Notices SQL logs for more~*")
 		else
 			message_admins("Oh no! An SQL error has occurred! Check the SQL logs for more!")
 		var/list/err = list()
