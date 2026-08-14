@@ -610,13 +610,14 @@ Ignore_errors instructes mysql to continue inserting rows if some of them have e
 			message_admins("Auuh~ oh nooooo~! A big thiiicc SQL ewwour haz come inside ur coode uwu~! *Notices SQL logs for more~*")
 		else
 			message_admins("Oh no! An SQL error has occurred! Check the SQL logs for more!")
+#ifndef SPACEMAN_DMM
 		var/list/err = list()
 		err += "Connection: [connection], sql: [sql], args: [arguments], jobid: [job_id]"
 		err += "LastError: [last_error], LastActivity: [last_activity], LastActivityTime: [last_activity_time]"
 		err += "Stack Trace!"
 		//stacktrace!
 		for(var/callee/p = caller, p, p = p.caller) // thanks lummox!
-			err += "  [p.proc.type] (src=[p.src])"
+			err += "  [p.proc.type] (src=[p.src.type], usr=[usr?.name])"
 			if(p.file)
 				err += "    at [p.file]:[p.line]"
 		err += "Fuzzy's cute"
@@ -624,6 +625,7 @@ Ignore_errors instructes mysql to continue inserting rows if some of them have e
 		var/errmess = err.Join("\n")
 		log_sql("[errmess]")
 		CRASH(errmess)
+#endif
 
 /datum/db_query/proc/Execute(async = TRUE, log_error = TRUE)
 	Activity("Execute")
