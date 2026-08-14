@@ -2,7 +2,9 @@
 // CUPHAND AND HEAD  //
 /obj/item/hand_item/spawner/cuphand
 	name = "your cupped hand"
-	desc = "Cup your hand to hold liquids. Kinda gross ngl. if you can read this, call 1-800-IM-CODER with error code: OBESE-AVALI-TOIR"
+	desc = "Cup your hand to hold liquids!"
+	icon = /obj/item/reagent_containers/cup/glass/sillycup/handcup::icon
+	icon_state = /obj/item/reagent_containers/cup/glass/sillycup/handcup::icon_state
 	thing_to_spawn = /obj/item/reagent_containers/cup/glass/sillycup/handcup
 	del_on_ground = TRUE // its your hand, if you drop it, it goes back to being your hand!
 	hud_icon = 'modular_coyote/icons/hand_items.dmi'
@@ -22,7 +24,6 @@
 	volume = 5
 	isGlass = FALSE
 	custom_materials = null
-	var/datum/weakref/owner
 
 /obj/item/reagent_containers/cup/glass/sillycup/handcup/Initialize(mapload)
 	. = ..()
@@ -30,22 +31,17 @@
 
 /obj/item/reagent_containers/cup/glass/sillycup/handcup/Destroy()
 	STOP_PROCESSING(SSprocessing, src)
-	owner = null
 	. = ..()
 
 /obj/item/reagent_containers/cup/glass/sillycup/handcup/pickup(mob/user)
 	. = ..()
-	ownerize(user)
-
-/obj/item/reagent_containers/cup/glass/sillycup/handcup/proc/ownerize(mob/new_owner)
-	owner = WEAKREF(new_owner)
 
 /obj/item/reagent_containers/cup/glass/sillycup/handcup/process(seconds_per_tick)
 	if(reagents.total_volume <= 0)
 		return
-	var/mob/living/carbon/carbon_owner = GET_WEAKREF(owner)
+	var/mob/living/carbon/carbon_owner = loc
 	if(!iscarbon(carbon_owner))
-		return ..(seconds_per_tick)
+		return
 	// try to burn em or acid them!
 	// gloves?
 	var/hand_zone = carbon_owner.get_hand_zone_of_item(src)
@@ -96,7 +92,7 @@
 	for(var/datum/reagent/reagent as anything in reagents.reagent_list)
 		if(reagent::is_gas)
 			just_slash_em(carbon_owner)
-		if(reagent::ok_for_cuphand)
+		if(reagent::ok_for_cuphand || glove_acidproof)
 			continue
 		just_slash_em(carbon_owner)
 
@@ -115,6 +111,7 @@
 /datum/reagent/phlogiston/ok_for_cuphand           = FALSE
 /datum/reagent/reaction_agent/ok_for_cuphand       = FALSE
 /datum/reagent/toxin/ok_for_cuphand                = FALSE
+/datum/reagent/fluorine/ok_for_cuphand             = FALSE
 
 /datum/reagent/carbon_dioxide/is_gas  = TRUE
 /datum/reagent/chlorine/is_gas        = TRUE

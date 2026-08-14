@@ -9,6 +9,8 @@
 	item_flags = DROPDEL | ABSTRACT | HAND_ITEM
 	abstract_type = /obj/item/hand_item
 	tap_uses_hitsound = TRUE
+	icon = 'icons/obj/weapons/hand.dmi'
+	icon_state = "latexballoon"
 
 	/// am I disabled?
 	var/disabled = FALSE
@@ -179,12 +181,14 @@
 /obj/item/hand_item/proc/get_hud_template(mob/living/user, is_replacement = FALSE)
 	if(!user)
 		return null
+	if(ispath(subitem_master_path) && type != subitem_master_path)
+		return null
 	// first, get the appropriate HUD template for the user
 	if(!is_replacement)
 		var/obj/item/hand_item/instead = find_suitable_replacement_if_any(user)
 		if(istype(instead))
 			return instead.get_hud_template(user, TRUE)
-	if(!hud_use)
+	if(!should_show_up_in_ui_menu(user))
 		return null
 	var/hud_icon_use = hud_icon || icon
 	var/hud_icon_state_use = hud_icon_state || icon_state

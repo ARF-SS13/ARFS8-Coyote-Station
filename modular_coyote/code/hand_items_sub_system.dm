@@ -253,7 +253,7 @@ SUBSYSTEM_DEF(handitems)
 	list/hitem_data = list(),
 	i)
 	set_parent(to_parent)
-	screen_loc = parent.screen_loc
+	// screen_loc = shift_screen_loc(parent.screen_loc, 0, parent.pushup_px * i)
 	transform = transform.Translate(0, parent.pushup_px * i)
 	my_hand_item  = hitem_data[HI_HUD_PATH]
 	name          = my_hand_item::name
