@@ -173,6 +173,10 @@
 		return FALSE
 	return !held_items[hand_index]
 
+/// Puts the item into the specified hand if possible and calls all necessary triggers/updates
+/// Returns the hand index the item was put into on success, or FALSE on failure.
+/// You're probably gonna want to use put_in_handS (plural) for general use, as it finds the first available hand automatically.
+/// Though its good for cases where you specifically want to target a particular hand.
 /mob/proc/put_in_hand(obj/item/I, hand_index, forced = FALSE, ignore_anim = TRUE, visuals_only = FALSE)
 	if(hand_index == null || !held_items.len || (!forced && !can_put_in_hand(I, hand_index)))
 		return FALSE
@@ -223,9 +227,9 @@
 	return put_in_hand(I, get_inactive_hand_index(), forced, visuals_only = visuals_only)
 
 
-//Puts the item our active hand if possible. Failing that it tries other hands. Returns TRUE on success.
-//If both fail it drops it on the floor (or nearby tables if germ sensitive) and returns FALSE.
-//This is probably the main one you need to know :)
+/// Puts the item into our active hand if possible. Failing that it tries other hands. Returns TRUE on success.
+/// If both fail it drops it on the floor (or nearby tables if germ sensitive) and returns FALSE.
+/// This is probably the main one you need to know :)
 /mob/proc/put_in_hands(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE, forced = FALSE, ignore_animation = TRUE, visuals_only = FALSE)
 	if(QDELETED(I))
 		return FALSE

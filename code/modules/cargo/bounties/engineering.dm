@@ -40,7 +40,7 @@
 	reward = CARGO_CRATE_VALUE * 5
 	wanted_types = list(/obj/machinery/power/energy_accumulator/tesla_coil = TRUE)
 
-/datum/bounty/item/engineering/welding_tank
+/datum/bounty/item/engineering/welding_tank7
 	name = "Welding Fuel Tank"
 	description = "We need more welding fuel for the engineering team, send us a tank."
 	reward = CARGO_CRATE_VALUE * 5

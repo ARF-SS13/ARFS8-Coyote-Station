@@ -4,7 +4,7 @@
 	maximum = 100
 
 /datum/preference/numeric/volume/create_default_value()
-	return maximum
+	return (minimum + maximum) * 0.5
 
 /// Controls ambience volume
 /datum/preference/numeric/volume/sound_ambience_volume
@@ -97,6 +97,9 @@
 		client.playtitlemusic()
 	else
 		client.mob.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+
+/datum/preference/numeric/volume/sound_lobby_volume/create_default_value()
+	return 10
 
 /// Controls hearing admin music
 /datum/preference/numeric/volume/sound_midi

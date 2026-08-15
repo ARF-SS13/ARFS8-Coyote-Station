@@ -64,19 +64,14 @@
 		return
 	return user.dna.species.get_cry_sound(user)
 
-/datum/emote/living/carbon/circle
-	key = "circle"
-	key_third_person = "circles"
-	hands_use_check = TRUE
+// /datum/emote/living/carbon/circle
+// 	key = "circle"
+// 	key_third_person = "circles"
+// 	hands_use_check = TRUE
 
-/datum/emote/living/carbon/circle/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
-	if(!length(user.get_empty_held_indexes()))
-		to_chat(user, span_warning("You don't have any free hands to make a circle with."))
-		return
-	var/obj/item/hand_item/circlegame/N = new(user)
-	if(user.put_in_hands(N))
-		to_chat(user, span_notice("You make a circle with your hand."))
+// /datum/emote/living/carbon/circle/run_emote(mob/user, params, type_override, intentional)
+// 	. = ..()
+// 	SShanditems.give_hand_item(user, /obj/item/hand_item/circlegame)
 
 /* BUBBER EDIT REMOVE - moved to modular_skyrat/modules/emotes/code/emotes.dm
 /datum/emote/living/carbon/meow
@@ -140,19 +135,14 @@
 		return FALSE
 	return ..()
 
-/datum/emote/living/carbon/noogie
-	key = "noogie"
-	key_third_person = "noogies"
-	hands_use_check = TRUE
+// /datum/emote/living/carbon/noogie
+// 	key = "noogie"
+// 	key_third_person = "noogies"
+// 	hands_use_check = TRUE
 
-/datum/emote/living/carbon/noogie/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
-	var/obj/item/hand_item/noogie/noogie = new(user)
-	if(user.put_in_hands(noogie))
-		to_chat(user, span_notice("You ready your noogie'ing hand."))
-	else
-		qdel(noogie)
-		to_chat(user, span_warning("You're incapable of noogie'ing in your current state."))
+// /datum/emote/living/carbon/noogie/run_emote(mob/user, params, type_override, intentional)
+// 	. = ..()
+// 	SShanditems.give_hand_item(user, /obj/item/hand_item/noogie)
 
 /datum/emote/living/carbon/roll
 	key = "roll"
@@ -187,36 +177,25 @@
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
 	hands_use_check = TRUE
 
-/datum/emote/living/carbon/slap
-	key = "slap"
-	key_third_person = "slaps"
-	hands_use_check = TRUE
-	cooldown = 3 SECONDS // to prevent endless table slamming
+// /datum/emote/living/carbon/slap
+// 	key = "slap"
+// 	key_third_person = "slaps"
+// 	hands_use_check = TRUE
+// 	cooldown = 3 SECONDS // to prevent endless table slamming
 
-/datum/emote/living/carbon/slap/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
-	var/obj/item/hand_item/slapper/N = new(user)
-	if(user.put_in_hands(N))
-		to_chat(user, span_notice("You ready your slapping hand."))
-	else
-		qdel(N)
-		to_chat(user, span_warning("You're incapable of slapping in your current state."))
+// /datum/emote/living/carbon/slap/run_emote(mob/user, params, type_override, intentional)
+// 	. = ..()
+// 	SShanditems.give_hand_item(user, /obj/item/hand_item/slapper)
 
-
-/datum/emote/living/carbon/hand
-	key = "hand"
-	key_third_person = "hands"
-	hands_use_check = TRUE
+// /datum/emote/living/carbon/hand
+// 	key = "hand"
+// 	key_third_person = "hands"
+// 	hands_use_check = TRUE
 
 
-/datum/emote/living/carbon/hand/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
-	var/obj/item/hand_item/hand/hand = new(user)
-	if(user.put_in_hands(hand))
-		to_chat(user, span_notice("You ready your hand."))
-	else
-		qdel(hand)
-		to_chat(user, span_warning("You're incapable of using your hand in your current state."))
+// /datum/emote/living/carbon/hand/run_emote(mob/user, params, type_override, intentional)
+// 	. = ..()
+// 	SShanditems.give_hand_item(user, /obj/item/hand_item/hand)
 
 /* Bubber removal begin - moved to modular_zubbers\code\modules\emotes\emotes.dm - /datum/emote/living/snap
 /datum/emote/living/carbon/snap
@@ -237,20 +216,15 @@
 	return null
 Bubber removal end */
 
-/datum/emote/living/carbon/shoesteal
-	key = "shoesteal"
-	key_third_person = "shoesteals"
-	hands_use_check = TRUE
-	cooldown = 3 SECONDS
+// /datum/emote/living/carbon/shoesteal
+// 	key = "shoesteal"
+// 	key_third_person = "shoesteals"
+// 	hands_use_check = TRUE
+// 	cooldown = 3 SECONDS
 
-/datum/emote/living/carbon/shoesteal/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
-	var/obj/item/hand_item/stealer/stealing_hand = new(user)
-	if (user.put_in_hands(stealing_hand))
-		user.balloon_alert(user, "preparing to steal shoes...")
-	else
-		qdel(stealing_hand)
-		user.balloon_alert(user, "you can't steal shoes!")
+// /datum/emote/living/carbon/shoesteal/run_emote(mob/user, params, type_override, intentional)
+// 	. = ..()
+// 	SShanditems.give_hand_item(user, /obj/item/hand_item/stealer)
 
 /datum/emote/living/carbon/tail
 	key = "tail"
