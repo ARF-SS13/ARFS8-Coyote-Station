@@ -128,8 +128,14 @@ export const erp_sexual_potency_pref: FeatureNumeric = {
   component: FeatureNumberInput,
 };
 
+export const cumflates_partners_pref: FeatureToggle = {
+  name: 'Cumflates Partners',
+  description: 'Your character cumflates partners.',
+  component: CheckboxInput,
+};
+
 export const knots_partners_pref: FeatureToggle = {
-  name: 'knots Partners',
+  name: 'Knots Partners',
   description: 'Your character knots partners.',
   component: CheckboxInput,
 };
