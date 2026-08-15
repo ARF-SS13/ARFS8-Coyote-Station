@@ -76,14 +76,10 @@ GLOBAL_LIST_INIT(stone_recipes, list ( \
 	desc = "A tile made of stone bricks, for that fortress look."
 	icon_state = "tile_herringbone"
 	inhand_icon_state = "tile"
-	turf_type = /turf/open/floor/stone
+	turf_type = /turf/open/floor/stone/coyote
 	mineralType = "stone"
 	mats_per_unit = list(/datum/material/stone = HALF_SHEET_MATERIAL_AMOUNT / 2)
 	merge_type = /obj/item/stack/tile/mineral/stone
-
-/turf/open/floor/stone
-	desc = "Blocks of stone arranged in a tile-like pattern, odd, really, how it looks like real stone too, because it is!" //A play on the original description for stone tiles
-	slowdown = -0.3
 
 /turf/closed/wall/mineral/stone
 	name = "stone wall"

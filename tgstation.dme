@@ -7041,6 +7041,7 @@
 #include "interface\fonts\tiny_unicode.dm"
 #include "interface\fonts\vcr_osd_mono.dm"
 #include "modular_coyote\code\hand_item_emotes.dm"
+#include "modular_coyote\code\coyote_floors.dm"
 #include "modular_coyote\code\hand_item_items.dm"
 #include "modular_coyote\code\hand_item_items_spawner.dm"
 #include "modular_coyote\code\hand_item_items_tactile.dm"
