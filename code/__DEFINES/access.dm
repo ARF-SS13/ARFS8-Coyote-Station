@@ -424,6 +424,13 @@
 	ACCESS_BLOODCULT, \
 )
 
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ *FUTRE DAN NOTE: THIS IS HOW U CHANGE WHERE WHAT DEPARTMENT THE ID CONPUTER
+ *PUTS UR JOB IN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+* WHEN U MAKE ITWHERE TOXINS IS ATMOS, THIS U CHANGE IT!!!!!!!!!!!!!!!!!!!!
+ */
+
+
 /// Name for the Global region.
 #define REGION_ALL_GLOBAL "All"
 /// Used to seed the accesses_by_region list in SSid_access. A list of every single access in the game.
@@ -474,8 +481,6 @@
 	ACCESS_MORGUE, \
 	ACCESS_MORGUE_SECURE, \
 	ACCESS_PARAMEDIC, \
-	ACCESS_PHARMACY, \
-	ACCESS_PLUMBING, \
 	ACCESS_PSYCHOLOGY, \
 	ACCESS_SURGERY, \
 	ACCESS_VIROLOGY, \
@@ -497,6 +502,8 @@
 	ACCESS_ROBOTICS, \
 	ACCESS_SCIENCE, \
 	ACCESS_XENOBIOLOGY, \
+	ACCESS_PHARMACY, \
+	ACCESS_PLUMBING, \
 )
 /// Name for the Engineering region.
 #define REGION_ENGINEERING "Engineering"

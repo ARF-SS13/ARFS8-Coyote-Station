@@ -142,12 +142,6 @@
 	if(unsafe_types & INTERACTION_EXTREME)
 		if(!(user.client?.prefs?.read_preference(/datum/preference/choiced/erp_status_extm) != "No" || nonhuman_client_bypass_user) || !(target.client?.prefs?.read_preference(/datum/preference/choiced/erp_status_extm) != "No" || nonhuman_client_bypass_target))
 			return FALSE
-	if(unsafe_types & INTERACTION_HARMFUL)
-		if(!(user.client?.prefs?.read_preference(/datum/preference/choiced/erp_status_extmharm) != "No" || nonhuman_client_bypass_user) || !(target.client?.prefs?.read_preference(/datum/preference/choiced/erp_status_extmharm) != "No" || nonhuman_client_bypass_target))
-			return FALSE
-	if(unsafe_types & INTERACTION_UNHOLY)
-		if(!(user.client?.prefs?.read_preference(/datum/preference/choiced/erp_status_unholy) != "No" || nonhuman_client_bypass_user) || !(target.client?.prefs?.read_preference(/datum/preference/choiced/erp_status_unholy) != "No" || nonhuman_client_bypass_target))
-			return FALSE
 
 	if(user_required_parts.len)
 		for(var/slot in user_required_parts)

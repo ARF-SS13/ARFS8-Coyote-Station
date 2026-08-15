@@ -17,7 +17,11 @@ type Department = {
   color: string;
   trims: string[];
 };
-
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+*HEY THIS JUST CHANGES THE COLOR AND DEPARTMENT IN THE
+*GHOST ORBIT MENU WHOCH MAKES SENSE CUS ITS IN THE
+*ORBIT FOLDER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+* */
 export const DEPARTMENT2COLOR: Record<string, Department> = {
   cargo: {
     color: 'brown',
@@ -37,7 +41,6 @@ export const DEPARTMENT2COLOR: Record<string, Department> = {
   medical: {
     color: 'teal',
     trims: [
-      'Chemist',
       'Chief Medical Officer',
       'Coroner',
       'Medical Doctor',
@@ -47,7 +50,14 @@ export const DEPARTMENT2COLOR: Record<string, Department> = {
   },
   science: {
     color: 'pink',
-    trims: ['Geneticist', 'Research Director', 'Roboticist', 'Scientist', 'Science Guard'],
+    trims: [
+      'Geneticist',
+      'Research Director',
+      'Roboticist',
+      'Scientist',
+      'Science Guard',
+      'Chemist',
+    ],
     // BUBBER EDIT ADDITION - Science Guard
   },
   security: {

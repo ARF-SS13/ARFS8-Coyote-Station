@@ -215,11 +215,3 @@
 /datum/augment_item/organ/ears/cybernetic
 	name = "Basic cybernetic ears"
 	path = /obj/item/organ/ears/cybernetic
-
-//SPLURT ORGANS
-/datum/augment_item/organ/bladder
-	slot = "Bladder"
-
-/datum/augment_item/organ/bladder/cybernetic
-	name = "Cybernetic bladder"
-	path = /obj/item/organ/bladder/cybernetic

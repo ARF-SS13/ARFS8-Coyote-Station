@@ -227,16 +227,6 @@ GLOBAL_LIST_INIT(mkultra_command_docs, list(
 			"off_master" = "<span class='notice'><i>{target} has their training lifted.</i></span>"
 		)
 	),
-	"piss_self" = list(
-		"summary" = "Force the pet to urinate on themselves.",
-		"usage" = "Say: piss yourself / wet yourself / pee yourself.",
-		"patterns" = list(regex("piss yourself|piss for me|wet yourself|pee yourself|urinate on yourself")),
-		"handler" = /proc/process_mkultra_command_piss_self,
-		"texts" = list(
-			"pet" = "<span class='warning'>You shamefully soak yourself on command.</span>",
-			"master" = "<span class='notice'><i>You order {target} to humiliate themself, and they do.</i></span>"
-		)
-	),
 	"sissy" = list(
 		"summary" = "Enforce or clear sissy dress code.",
 		"usage" = "Say: be a sissy / sissy mode / dress cute OR stop being a sissy / dress normal.",
@@ -1850,41 +1840,6 @@ GLOBAL_LIST_INIT(mkultra_strip_slot_lookup, list(
 			mkultra_set_well_trained(humanoid, FALSE)
 			var/msg_off = mkultra_cmd_text("well_trained", "off_master", list("target" = humanoid)) || "<span class='notice'><i>[humanoid] has their training lifted.</i></span>"
 			to_chat(user, msg_off)
-	return TRUE
-
-/proc/process_mkultra_command_piss_self(message, mob/living/user, list/listeners, power_multiplier)
-	var/list/patterns = mkultra_cmd_patterns("piss_self")
-	if(!mkultra_command_matches(message, LOWER_TEXT(message), patterns))
-		return FALSE
-	mkultra_debug("piss-self matched by [user] -> [listeners.len] listeners")
-
-	for(var/enthrall_victim in listeners)
-		if(!ishuman(enthrall_victim))
-			mkultra_debug("piss-self skip [enthrall_victim]: not human")
-			continue
-		var/mob/living/carbon/human/humanoid = enthrall_victim
-		var/datum/status_effect/chem/enthrall/enthrall_chem = humanoid.has_status_effect(/datum/status_effect/chem/enthrall)
-		if(!enthrall_chem || !enthrall_chem.lewd || enthrall_chem.phase < 2 || enthrall_chem.enthrall_mob != user)
-			mkultra_debug("piss-self skip [humanoid]: enthrall gate fail (lewd=[enthrall_chem?.lewd] phase=[enthrall_chem?.phase] master_match=[enthrall_chem?.enthrall_mob == user])")
-			continue
-		if(humanoid.client?.prefs?.read_preference(/datum/preference/choiced/erp_status_unholy) == "No")
-			mkultra_debug("piss-self skip [humanoid]: unholy pref off")
-			continue
-		var/obj/item/organ/bladder/bladder = humanoid.get_organ_slot(ORGAN_SLOT_BLADDER)
-		if(!bladder)
-			mkultra_debug("piss-self skip [humanoid]: no bladder organ")
-			continue
-		var/before = bladder.stored_piss
-		// Ensure enough volume to actually expel urine; forced urinate still requires a minimum.
-		if(bladder.stored_piss < bladder.piss_dosage)
-			bladder.stored_piss = bladder.piss_dosage
-		bladder.urinate(forced = TRUE)
-		mkultra_debug("piss-self urinate [humanoid]: before=[before] after=[bladder.stored_piss]")
-		mkultra_add_cooldown(enthrall_chem, 3)
-		var/msg_master = mkultra_cmd_text("piss_self", "master", list("target" = humanoid)) || "<span class='notice'><i>You order [humanoid] to humiliate themself, and they do.</i></span>"
-		var/msg_pet = mkultra_cmd_text("piss_self", "pet") || "<span class='warning'>You shamefully soak yourself on command.</span>"
-		to_chat(user, msg_master)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, humanoid, msg_pet), 5)
 	return TRUE
 
 /proc/process_mkultra_command_sissy(message, mob/living/user, list/listeners, power_multiplier)

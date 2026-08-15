@@ -114,16 +114,6 @@ export const erp_status_pref_extm: FeatureChoiced = {
   component: FeatureDropdownInput,
 };
 
-export const erp_status_pref_extmharm: FeatureChoiced = {
-  name: 'Harmful ERP verbs',
-  component: FeatureDropdownInput,
-};
-
-export const erp_status_pref_unholy: FeatureChoiced = {
-  name: 'Unholy ERP verbs',
-  component: FeatureDropdownInput,
-};
-
 export const erp_lust_tolerance_pref: FeatureNumeric = {
   name: 'Lust tolerance multiplier',
   description:
@@ -136,31 +126,6 @@ export const erp_sexual_potency_pref: FeatureNumeric = {
   description:
     'Set your sexual potency multiplier. \n(0.5 = half potency, 2 = double potency)',
   component: FeatureNumberInput,
-};
-
-// Genital fluid preferences
-export const testicles_fluid: FeatureChoiced = {
-  name: 'Testicles Fluid',
-  description: 'The type of fluid produced by the testicles.',
-  component: FeatureDropdownInput,
-};
-
-export const breasts_fluid: FeatureChoiced = {
-  name: 'Breasts Fluid',
-  description: 'The type of fluid produced by the breasts.',
-  component: FeatureDropdownInput,
-};
-
-export const vagina_fluid: FeatureChoiced = {
-  name: 'Vagina Fluid',
-  description: 'The type of fluid produced by the vagina.',
-  component: FeatureDropdownInput,
-};
-
-export const cumflates_partners_pref: FeatureToggle = {
-  name: 'Cumflates Partners',
-  description: 'Your character cumflates partners.',
-  component: CheckboxInput,
 };
 
 export const knots_partners_pref: FeatureToggle = {

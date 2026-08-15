@@ -6,11 +6,11 @@
 	/// How many uses does it have left?
 	var/charges = 1
 	/// Who summoned this?
-	var/caller
+	var/callerer
 
 /obj/item/card/emag/one_shot/examine(mob/user)
 	. = ..()
-	if(user == caller)
+	if(user == callerer)
 		. += span_notice("It looks cheapo, they did say it gives just one shot...")
 	else
 		. += span_notice("It looks flimsy and identical to the \"Donk Co.\" toy.")

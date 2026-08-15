@@ -72,9 +72,6 @@
 		if(target.trim == JOB_MEDICAL_DOCTOR)
 			med_staff++
 
-		if(target.trim == JOB_CHEMIST)
-			med_staff++
-
 	if(med_staff >= crew_threshold)
 		return FALSE
 

@@ -38,13 +38,6 @@
 
 /datum/interaction/lewd/extreme/earfuck/post_interaction(mob/living/user, mob/living/target)
 	. = ..()
-	if(target.client?.prefs?.read_preference(/datum/preference/choiced/erp_status_extmharm) == "No" && !(!ishuman(target) && !target.client && !SSinteractions.is_blacklisted(target)))
-		return
-	if(prob(15) && iscarbon(target))
-		target:bleed(2)
-	if(prob(25))
-		target.adjust_organ_loss(ORGAN_SLOT_EARS, rand(3,7))
-		target.adjust_organ_loss(ORGAN_SLOT_BRAIN, rand(3,7))
 
 /datum/interaction/lewd/extreme/earsocketfuck
 	name = "Earsocketfuck"
@@ -86,9 +79,4 @@
 
 /datum/interaction/lewd/extreme/earsocketfuck/post_interaction(mob/living/user, mob/living/target)
 	. = ..()
-	if(target.client?.prefs?.read_preference(/datum/preference/choiced/erp_status_extmharm) == "No" && !(!ishuman(target) && !target.client && !SSinteractions.is_blacklisted(target)))
-		return
-	if(prob(15) && iscarbon(target))
-		target:bleed(2)
-	if(prob(25))
-		target.adjust_organ_loss(ORGAN_SLOT_BRAIN, rand(3,7))
+

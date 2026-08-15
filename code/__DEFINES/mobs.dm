@@ -808,62 +808,62 @@ GLOBAL_LIST_INIT(human_heights_to_offsets, list(
 #define PENIS_LAYER                    37
 #define NIPPLES_LAYER                  36
 #define BANDAGE_LAYER                  35
+//coyote bingus addition begin, make the undies go over boobies
+#define UNDERWEAR_LAYER                34
+#define SOCKS_LAYER                    33
+#define BRA_LAYER                      32
+#define SHIRT_LAYER                    31
 //SKYRAT EDIT ADDITION END
 /// ID card layer
-#define ID_LAYER                       34
+#define ID_LAYER                       30
 /// ID card layer (might be deprecated)
-#define ID_CARD_LAYER                  33
+#define ID_CARD_LAYER                  29
 /// Layer for bodyparts that should appear above every other bodypart - Currently only used for hands
-#define BODYPARTS_HIGH_LAYER           32
+#define BODYPARTS_HIGH_LAYER           28
 /// Gloves layer
-#define GLOVES_LAYER                   31
+#define GLOVES_LAYER                   27
 /// Wrists layer
-#define WRISTS_LAYER                   30
+#define WRISTS_LAYER                   26
 /// Shoes layer
-#define SHOES_LAYER                    29
+#define SHOES_LAYER                    25
 /// Layer for masks that are worn below ears and eyes (like Balaclavas) (layers below hair, use flagsinv=HIDEHAIR as needed)
-#define LOW_FACEMASK_LAYER             28
+#define LOW_FACEMASK_LAYER             24
 /// SPLURT EDIT - Extra ears layer
-#define EARS_EXTRA_LAYER               27
+#define EARS_EXTRA_LAYER               23
 /// Ears layer (Spessmen have ears? Wow)
-#define EARS_LAYER                     26
+#define EARS_LAYER                     22
 /// Layer for neck apperal that should appear below the suit slot (like neckties)
-#define LOW_NECK_LAYER                 25
+#define LOW_NECK_LAYER                 21
 /// Suit layer (armor, coats, etc.)
-#define SUIT_LAYER                     24
+#define SUIT_LAYER                     20
 /// Glasses layer
-#define GLASSES_LAYER                  23
+#define GLASSES_LAYER                  19
 /// Belt layer
-#define BELT_LAYER                     22 //Possible make this an overlay of something required to wear a belt?
+#define BELT_LAYER                     18 //Possible make this an overlay of something required to wear a belt?
 /// Suit storage layer (tucking a gun or baton underneath your armor)
-#define SUIT_STORE_LAYER               21
+#define SUIT_STORE_LAYER               17
 /// Neck layer (for wearing capes and bedsheets)
-#define NECK_LAYER                     20
+#define NECK_LAYER                     16
 /// Back layer (for backpacks and equipment on your back)
-#define BACK_LAYER                     19
+#define BACK_LAYER                     15
 /// Special layer for rendering beneath hair, for special facemasks
-#define BENEATH_HAIR_LAYER             18
+#define BENEATH_HAIR_LAYER             14
 /// Hair layer (mess with the fro and you got to go!)
-#define HAIR_LAYER                     17 //TODO: make part of head layer?
+#define HAIR_LAYER                     13 //TODO: make part of head layer?
 /// Facemask layer (gas masks, breath masks, etc.)
-#define FACEMASK_LAYER                 16
+#define FACEMASK_LAYER                 12
 /// Head layer (hats, helmets, etc.)
-#define HEAD_LAYER                     15
+#define HEAD_LAYER                     11
 /// Hair that layers out above clothing, including hats (high ponytails and such)
-#define OUTER_HAIR_LAYER               14
+#define OUTER_HAIR_LAYER               10
 /// Handcuff layer (when your hands are cuffed)
-#define HANDCUFF_LAYER                 13
+#define HANDCUFF_LAYER                 9
 /// Legcuff layer (when your feet are cuffed)
-#define LEGCUFF_LAYER                  12
+#define LEGCUFF_LAYER                  8
 /// Hands layer (for the actual hand, not the arm... I think?)
-#define HANDS_LAYER                    11
+#define HANDS_LAYER                    7
 /// Body front layer. Usually used for mutant bodyparts that need to be in front of stuff (e.g. cat ears)
-#define BODY_FRONT_LAYER               10
-//coyote bingus addition begin, make the undies go over boobies
-#define UNDERWEAR_LAYER                9
-#define SOCKS_LAYER                    8
-#define BRA_LAYER                      7
-#define SHIRT_LAYER                    6
+#define BODY_FRONT_LAYER               6
 // coyote bingus addition end
 /// Special body layer that actually require to be above the hair (e.g. lifted welding goggles)
 #define ABOVE_BODY_FRONT_GLASSES_LAYER 5
