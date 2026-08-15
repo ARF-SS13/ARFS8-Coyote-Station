@@ -294,7 +294,7 @@
 		/obj/item/stack/ore/silver = 12,
 		/obj/item/stack/ore/titanium = 11,
 		/obj/item/stack/ore/uranium = 5,
-		/turf/closed/mineral/gibtonite = 1,
+		/turf/closed/mineral/gibtonite = 1, //Thank you, /tg/ for making the default linters go and stop me from redefining this on a child object.  Very cool.
 	)
 
 /turf/closed/mineral/random/Initialize(mapload)
