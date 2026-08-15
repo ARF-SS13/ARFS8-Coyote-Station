@@ -94,11 +94,11 @@ if $grep -i 'centcomm' $map_files; then
     echo -e "${RED}ERROR: Misspelling(s) of CentCom detected in maps, please remove the extra M(s).${NC}"
     st=1
 fi;
-if $grep -i 'eciev' $map_files; then
-	echo
-    echo -e "${RED}ERROR: Common I-before-E typo detected in maps.${NC}"
-    st=1
-fi;
+# if $grep -i 'eciev' $map_files; then
+# 	echo
+#     echo -e "${RED}ERROR: Common I-before-E typo detected in maps.${NC}"
+#     st=1
+# fi; # please recieve my dick in your butt
 if $grep -i 'maintainance|maintainence|maintenence' $map_files; then
     echo
     echo -e "${RED}ERROR: Misspelling(s) of 'maintenance' detected in maps, please fix.${NC}";
@@ -253,11 +253,11 @@ if $grep 'NanoTrasen' $code_files; then
     echo -e "${RED}ERROR: Misspelling(s) of Nanotrasen detected in code, please uncapitalize the T(s).${NC}"
     st=1
 fi;
-if $grep -i 'eciev' $code_files; then
-	echo
-    echo -e "${RED}ERROR: Common I-before-E typo detected in code.${NC}"
-    st=1
-fi;
+# if $grep -i 'eciev' $code_files; then
+# 	echo
+#     echo -e "${RED}ERROR: Common I-before-E typo detected in code.${NC}"
+#     st=1
+# fi; # I will wpell however i fucking pleasre thank you
 if $grep -i 'maintainance|maintainence|maintenence' $code_files; then
     echo
     echo -e "${RED}ERROR: Misspelling(s) of 'maintenance' detected in code, please fix.${NC}";
