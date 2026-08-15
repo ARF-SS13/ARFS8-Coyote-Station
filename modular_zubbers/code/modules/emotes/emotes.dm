@@ -158,15 +158,6 @@
 				'modular_zubbers/code/modules/emotes/sound/voice/yip2.ogg',
 				'modular_zubbers/code/modules/emotes/sound/voice/yip2.ogg')
 
-/datum/emote/living/carbon/bonk
-	key = "bonk"
-	key_third_person = "bonks"
-	hands_use_check = TRUE
-
-/datum/emote/living/carbon/bonk/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
-	SShanditems.give_hand_item(user, /obj/item/hand_item/bonkinghand)
-
 /datum/emote/living/kweh
 	key = "kweh"
 	key_third_person = "kwehs"
