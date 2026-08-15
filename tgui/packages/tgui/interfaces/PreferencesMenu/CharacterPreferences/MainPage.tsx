@@ -1,6 +1,6 @@
 import { sortBy } from 'es-toolkit';
 import { filter, map } from 'es-toolkit/compat';
-import { type ReactNode, useState } from 'react';
+import { type ReactNode, useState, Fragment } from 'react';
 import { useBackend } from 'tgui/backend';
 import { sendAct } from 'tgui/events/act';
 import {
@@ -408,9 +408,7 @@ export function PreferenceList(props: PreferenceListProps) {
 
             if (feature === undefined) {
               return (
-                <Stack.Item key={featureId}>
-                  <b>Feature {featureId} is not recognized.</b>
-                </Stack.Item>
+                <Fragment key={featureId} />
               );
             }
 

@@ -245,7 +245,7 @@ export const ContentPreferencesTab = ({
           {renderToggle(
             'knots_partners_pref',
             knots_partners_pref,
-            'knots Partners',
+            'Knots Partners',
             'Your character knots partners.',
           )}
           {renderToggle(
