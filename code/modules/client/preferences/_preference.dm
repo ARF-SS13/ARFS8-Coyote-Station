@@ -529,7 +529,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	return sanitize_float(input, minimum, maximum, step, create_default_value())
 
 /datum/preference/numeric/create_default_value()
-	return rand(minimum, maximum)
+	return (minimum + maximum) / 2
 
 /datum/preference/numeric/is_valid(value, datum/preferences/preferences)
 	return isnum(value) && value >= round(minimum, step) && value <= round(maximum, step)
