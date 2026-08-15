@@ -1,10 +1,3 @@
-/*
- * UNUSED, KINDA USELESS RIGHT NOW< TODO: MAKE GOOD AND WORK
- * UNTICKED FILE!!!!
- * UNTICKED FILE!!!!
- * UNTICKED FILE!!!!
- *  */
-
 /// / / / / ///
 /// LICKER  ///
 /// Course our first hand item would be a tongue
@@ -21,7 +14,7 @@
 	action_verb = "lick"
 	action_verb_s = "licks"
 	action_verb_ing = "licking"
-	can_taste = FALSE
+	can_taste = TRUE
 	just_one = TRUE
 	// grope = /datum/grope_kiss_MERP/lick
 	hud_use = TRUE
