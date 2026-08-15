@@ -5337,19 +5337,6 @@
 /obj/structure/bookcase/random/reference,
 /turf/open/indestructible/hotelwood,
 /area/centcom/holding/cafe/station/service/lawoffice)
-"ewI" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 1;
-	height = 13;
-	name = "tram dock";
-	roundstart_template = /datum/map_template/shuttle/arrivals_skyrat;
-	shuttle_id = "arrivals_shuttle";
-	width = 5
-	},
-/obj/effect/light_emitter/interlink,
-/turf/open/floor/iron/dark/smooth_large,
-/area/centcom/interlink)
 "ewW" = (
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
@@ -38202,7 +38189,7 @@ tqe
 pNv
 pNv
 jRU
-ewI
+pNv
 pNv
 tvw
 tvw

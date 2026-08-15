@@ -244,8 +244,6 @@ ADMIN_VERB(show_character_directory, R_ADMIN, "Show Character Directory", "View 
 		ooc_notes = READ_PREFS(mob, text/ooc_notes)
 		// SPLURT EDIT START: INTERACTION PANEL
 		extreme = READ_PREFS(mob, choiced/erp_status_extm)
-		extremeharm = READ_PREFS(mob, choiced/erp_status_extmharm)
-		unholy = READ_PREFS(mob, choiced/erp_status_unholy)
 		// SPLURT EDIT END: INTERACTION PANEL
 		name = mob.real_name ? mob.name : mob.real_name
 

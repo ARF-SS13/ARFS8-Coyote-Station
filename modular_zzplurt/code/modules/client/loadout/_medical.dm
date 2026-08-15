@@ -11,7 +11,7 @@
 /datum/loadout_item/head/nursehat
 	name = "Nurse Hat"
 	item_path = /obj/item/clothing/head/costume/nursehat
-	restricted_roles = list(JOB_MEDICAL_DOCTOR, JOB_CHIEF_MEDICAL_OFFICER, JOB_GENETICIST, JOB_CHEMIST)
+	restricted_roles = list(JOB_MEDICAL_DOCTOR, JOB_CHIEF_MEDICAL_OFFICER, JOB_GENETICIST)
 
 /* // Exists in nonmodular code
 /datum/loadout_item/uniform/nursesuit

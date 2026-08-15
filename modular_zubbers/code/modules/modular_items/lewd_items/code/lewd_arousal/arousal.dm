@@ -9,7 +9,8 @@
 
 ///Adjusts the parent human's arousal value based off the value assigned to `arous.`
 /mob/living/proc/adjust_arousal(arous = 0) // SPLURT EDIT - INTERACTIONS - Is now a property of the base living mob
-	if(stat >= DEAD || !(client?.prefs?.read_preference(/datum/preference/toggle/erp) || (!ishuman(src) && !src.client && !SSinteractions.is_blacklisted(src)))) // SPLURT EDIT - INTERACTIONS - Simple mobs should also be able to handle pain
+	// if(stat >= DEAD || !(client?.prefs?.read_preference(/datum/preference/toggle/erp) || (!ishuman(src) && !src.client && !SSinteractions.is_blacklisted(src)))) // SPLURT EDIT - INTERACTIONS - Simple mobs should also be able to handle pain
+	if(stat >= DEAD || (!ishuman(src) && !src.client && !SSinteractions.is_blacklisted(src))) // SPLURT EDIT - INTERACTIONS - Simple mobs should also be able to handle pain
 		return FALSE
 
 	var/arousal_flag = AROUSAL_NONE

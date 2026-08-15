@@ -44,8 +44,6 @@
 		"noncon_pref" = /datum/preference/choiced/erp_status_nc,
 		"vore_pref" = /datum/preference/choiced/erp_status_v,
 		"extreme_pref" = /datum/preference/choiced/erp_status_extm,
-		"extreme_harm" = /datum/preference/choiced/erp_status_extmharm,
-		"unholy_pref" = /datum/preference/choiced/erp_status_unholy
 	)
 	/// Cache of the user's preferences, used to avoid re-reading them from the client
 	var/list/cached_preferences = list()

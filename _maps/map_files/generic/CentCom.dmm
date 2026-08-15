@@ -986,6 +986,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/catwalk_floor,
 /area/centcom/central_command_areas/evacuation/ship)
+"es" = (
+/obj/structure/flora/bush/lavendergrass/style_random,
+/obj/structure/flora/bush/sparsegrass/style_random,
+/obj/structure/flora/bush/fullgrass/style_random,
+/obj/structure/flora/bush/flowers_br/style_random,
+/obj/structure/flora/bush/generic/style_random,
+/obj/structure/bed/dogbed,
+/turf/open/floor/grass,
+/area/centcom/central_command_areas/evacuation)
 "et" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/sign/directions/engineering{
@@ -1593,6 +1602,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/briefing)
+"ht" = (
+/obj/structure/flora/bush/lavendergrass/style_random,
+/obj/structure/flora/bush/sparsegrass/style_random,
+/obj/structure/flora/bush/fullgrass/style_random,
+/obj/structure/flora/bush/flowers_br/style_random,
+/obj/structure/flora/bush/generic/style_random,
+/mob/living/basic/skunk/eunice,
+/turf/open/floor/grass,
+/area/centcom/central_command_areas/evacuation)
 "hv" = (
 /obj/machinery/barsign/all_access/directional/south,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
@@ -59602,9 +59620,9 @@ rM
 rM
 zc
 Hv
-qy
+es
 qz
-cg
+fm
 sN
 bL
 Sj
@@ -59861,7 +59879,7 @@ Wp
 Hv
 qz
 qy
-cg
+fm
 sO
 bJ
 IX
@@ -60117,7 +60135,7 @@ ja
 Hv
 Hv
 qA
-qy
+ht
 fm
 sP
 tT
@@ -60375,8 +60393,8 @@ SD
 Hv
 qy
 qz
-cg
-fE
+fm
+sQ
 tT
 xt
 vf
@@ -60632,7 +60650,7 @@ Ar
 Hv
 qy
 qz
-cg
+fm
 sQ
 tT
 xt
@@ -60887,7 +60905,7 @@ mY
 rM
 OS
 Hv
-cg
+fm
 fm
 cg
 sQ

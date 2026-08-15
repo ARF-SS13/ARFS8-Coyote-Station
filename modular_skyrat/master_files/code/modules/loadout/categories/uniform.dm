@@ -928,3 +928,109 @@
 /datum/loadout_item/uniform/donator/blondie
 	name = "Blonde Cowboy Uniform"
 	item_path = /obj/item/clothing/under/rank/security/detective/cowboy/armorless
+
+	//coyote
+/datum/loadout_item/uniform/orangedress
+	name = "Orange Dress"
+	item_path = /obj/item/clothing/under/dress/coyote/orange_dress
+
+/datum/loadout_item/uniform/sundressflower
+	name = "flower sundress"
+	item_path = /obj/item/clothing/under/dress/coyote/sundress/flower
+
+/datum/loadout_item/uniform/sundress
+	name = "white sundress"
+	item_path = /obj/item/clothing/under/dress/coyote/sundress
+
+/datum/loadout_item/uniform/sundress/pink
+	name = "pink sundress"
+	item_path = /obj/item/clothing/under/dress/coyote/sundress/pink
+
+/datum/loadout_item/uniform/sundress/bow
+	name = "bow sundress"
+	item_path = /obj/item/clothing/under/dress/coyote/sundress/bow
+
+/datum/loadout_item/uniform/sundress/blue
+	name = "blue sundress"
+	item_path = /obj/item/clothing/under/dress/coyote/sundress/blue
+
+/datum/loadout_item/uniform/kimonored
+	name = "red kimono"
+	item_path = /obj/item/clothing/under/dress/coyote/kimono/red
+
+/datum/loadout_item/uniform/kimonoorange
+	name = "orange kimono"
+	item_path = /obj/item/clothing/under/dress/coyote/kimono/orange
+
+/datum/loadout_item/uniform/kimonoyellow
+	name = "yellow kimono"
+	item_path = /obj/item/clothing/under/dress/coyote/kimono/yellow
+
+/datum/loadout_item/uniform/kimonogreen
+	name = "green kimono"
+	item_path = /obj/item/clothing/under/dress/coyote/kimono/green
+
+/datum/loadout_item/uniform/kimonoblue
+	name = "blue kimono"
+	item_path = /obj/item/clothing/under/dress/coyote/kimono/blue
+
+/datum/loadout_item/uniform/kimonopurple
+	name = "purple kimono"
+	item_path = /obj/item/clothing/under/dress/coyote/kimono/purple
+
+/datum/loadout_item/uniform/kimonoviolet
+	name = "violet kimono"
+	item_path = /obj/item/clothing/under/dress/coyote/kimono/violet
+
+/datum/loadout_item/uniform/kimonopink
+	name = "pink kimono"
+	item_path = /obj/item/clothing/under/dress/coyote/kimono/pink
+
+/datum/loadout_item/uniform/kimonoflower
+	name = "flower kimono"
+	item_path = /obj/item/clothing/under/dress/coyote/kimono/flower
+
+/datum/loadout_item/uniform/shortpink
+	name = "short pink dress"
+	item_path = /obj/item/clothing/under/dress/coyote/shortpink
+
+/datum/loadout_item/uniform/twopiece
+	name = "twopiece dress"
+	item_path = /obj/item/clothing/under/dress/coyote/twopiece
+
+/datum/loadout_item/uniform/puffydress
+	name = "puffy dress"
+	item_path = /obj/item/clothing/under/dress/coyote/puffydress
+
+/datum/loadout_item/uniform/rattyskirt
+	name = "ratty skirt green"
+	item_path = /obj/item/clothing/under/dress/coyote/rattyskirt
+
+/datum/loadout_item/uniform/rattyskirt/yellow
+	name = "ratty skirt yellow"
+	item_path = /obj/item/clothing/under/dress/coyote/rattyskirt/yellow
+
+/datum/loadout_item/uniform/rattyskirt/pink
+	name = "ratty skirt pink"
+	item_path = /obj/item/clothing/under/dress/coyote/rattyskirt/pink
+
+/datum/loadout_item/uniform/rattyskirt/cyber
+	name = "ratty skirt cyber"
+	item_path = /obj/item/clothing/under/dress/coyote/rattyskirt/cyber
+
+/datum/loadout_item/uniform/tribal
+	name = "tribal like skirt"
+	item_path = /obj/item/clothing/under/dress/coyote/tribal
+
+/datum/loadout_item/uniform/sunskirt
+	name = "green sunskirt"
+	item_path = /obj/item/clothing/under/dress/coyote/sunskirt
+
+/datum/loadout_item/uniform/halfskirt
+	name = "half skirt"
+	item_path = /obj/item/clothing/under/dress/coyote/halfskirt
+
+
+
+
+

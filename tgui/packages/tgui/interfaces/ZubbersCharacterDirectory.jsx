@@ -48,8 +48,6 @@ export const ZubbersCharacterDirectory = (props) => {
     personalNonconTag,
     // SPLURT EDIT START: EXTRA TAGS
     personalExtremeTag,
-    personalExtremeHarmTag,
-    personalUnholyTag,
     // SPLURT EDIT END: EXTRA TAGS
   } = data;
 
@@ -84,12 +82,6 @@ export const ZubbersCharacterDirectory = (props) => {
             {/* SPLURT EDIT START: EXTRA TAGS */}
             <LabeledList.Item label="Extreme">
               <Button fluid>{personalExtremeTag}</Button>
-            </LabeledList.Item>
-            <LabeledList.Item label="Extreme Harm">
-              <Button fluid>{personalExtremeHarmTag}</Button>
-            </LabeledList.Item>
-            <LabeledList.Item label="Unholy">
-              <Button fluid>{personalUnholyTag}</Button>
             </LabeledList.Item>
             {/* SPLURT EDIT END: EXTRA TAGS */}
           </LabeledList>
@@ -261,22 +253,6 @@ const CharacterDirectoryList = (props) => {
           >
             Extreme
           </SortButton>
-          <SortButton
-            id="extremeharm"
-            sortId={sortId}
-            sortOrder={sortOrder}
-            onClick={handleSort}
-          >
-            Extreme Harm
-          </SortButton>
-          <SortButton
-            id="unholy"
-            sortId={sortId}
-            sortOrder={sortOrder}
-            onClick={handleSort}
-          >
-            Unholy
-          </SortButton>
           {/* SPLURT EDIT END: EXTRA TAGS */}
           <Table.Cell collapsing textAlign="right">
             Advert
@@ -307,8 +283,6 @@ const CharacterDirectoryList = (props) => {
             <Table.Cell>{character.noncon}</Table.Cell>
             {/* SPLURT EDIT START: EXTRA TAGS */}
             <Table.Cell>{character.extreme}</Table.Cell>
-            <Table.Cell>{character.extremeharm}</Table.Cell>
-            <Table.Cell>{character.unholy}</Table.Cell>
             {/* SPLURT EDIT END: EXTRA TAGS */}
             <Table.Cell collapsing textAlign="right">
               <Button
