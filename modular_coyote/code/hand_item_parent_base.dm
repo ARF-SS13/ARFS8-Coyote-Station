@@ -8,7 +8,7 @@
 	throwforce = 0
 	item_flags = DROPDEL | ABSTRACT | HAND_ITEM
 	abstract_type = /obj/item/hand_item
-	tap_uses_hitsound = TRUE
+	// tap_uses_hitsound = TRUE
 	icon = 'icons/obj/weapons/hand.dmi'
 	icon_state = "latexballoon"
 
@@ -182,10 +182,10 @@
 /obj/item/hand_item/proc/get_hud_template(mob/living/user, is_replacement = FALSE)
 	if(!user)
 		return null
-	if(ispath(subitem_master_path) && type != subitem_master_path)
-		return null
 	// first, get the appropriate HUD template for the user
 	if(!is_replacement)
+		if(ispath(subitem_master_path) && type != subitem_master_path)
+			return null
 		var/obj/item/hand_item/instead = find_suitable_replacement_if_any(user)
 		if(istype(instead))
 			return instead.get_hud_template(user, TRUE)

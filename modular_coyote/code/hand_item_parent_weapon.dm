@@ -40,7 +40,7 @@
 	if(spin_attack)
 		user.spin(4, 1) // SPEEN
 
-/obj/item/hand_item/weapon/pickup(mob/living/user)
+/obj/item/hand_item/weapon/equipped(mob/living/user)
 	. = ..()
 	transmute_into_bodypart(user)
 

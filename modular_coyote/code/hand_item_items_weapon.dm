@@ -84,6 +84,7 @@
 	force = 0
 	// force_wielded = 0
 	// force_unwielded = 0
+	suppress_attack_text = TRUE
 	attack_speed = 1
 	wound_bonus = -999
 	exposed_wound_bonus = -999
@@ -129,6 +130,8 @@
 	force = 0
 	// force_wielded = 0
 	attack_speed = 3
+	suppress_attack_text = TRUE
+	can_knockback = FALSE
 	// weapon_special_component = /datum/component/weapon_special/single_turf
 	// associated_trait = TRAIT_TAILPLAY // yeah im into tailplay, what of it?
 	// required_trait = TRAIT_TAILPLAY
@@ -148,6 +151,7 @@
 	hitsound = "sound/effects/attackblob.ogg"
 	force = 0
 	// force_wielded = 0
+	suppress_attack_text = TRUE
 	throwforce = 0
 	attack_speed = 0 // spammable, amazingly annoying
 	extra_damage = 1 // its mildly annoying!
@@ -236,7 +240,7 @@
 		return
 	var/obj/item/organ/genital/butt/B = H.get_organ_slot(ORGAN_SLOT_BUTT)
 	// force = 6 * B.size
-	attack_speed = (CLICK_CD_MELEE / 3) * B.genital_size
+	// attack_speed = (CLICK_CD_MELEE / 3) * B.genital_size
 	switch(B.genital_size)
 		if(1 to 2)
 			w_class = WEIGHT_CLASS_TINY

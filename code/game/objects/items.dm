@@ -172,6 +172,8 @@
 	///Used in [atom/proc/attackby] to say how something was attacked `"[x] has been [z.attack_verb] by [y] with [z]"`
 	var/list/attack_verb_continuous
 	var/list/attack_verb_simple
+	/// yooooo should it mnot show the attack thext when it does a thing happen???bru
+	var/suppress_attack_text = FALSE
 	///list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
 	var/list/species_exception = null
 	///This is a bitfield that defines what variations exist for bodyparts like Digi legs. See: code\_DEFINES\inventory.dm
