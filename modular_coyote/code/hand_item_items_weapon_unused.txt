@@ -42,6 +42,20 @@
 	to_chat(user, span_notice("You click your teeth together, ready to strike with lightning speed!"))
 
 
+/// PLAY BITER
+/obj/item/hand_item/weapon/biter/play
+	name = "Play Biter"
+	desc = "Someone really should just muzzle you."
+	color = "#ff44ff"
+	force = 0
+	// force_wielded = 0
+	// force_unwielded = 0
+	attack_speed = 1
+	wound_bonus = -999
+	exposed_wound_bonus = -999
+
+/obj/item/hand_item/weapon/biter/play/on_successful_give(mob/living/user, reason)
+	to_chat(user, span_notice("You bare your teeth with such ferocity! Such a mighty killer!"))
 
 
 /// SPICY BITER
