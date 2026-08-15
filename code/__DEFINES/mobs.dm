@@ -787,33 +787,27 @@ GLOBAL_LIST_INIT(human_heights_to_offsets, list(
 /// Eyes and eyelids
 #define EYES_LAYER                     44 // SKYRAT EDIT CHANGE - ORIGINAL: 31
 // SPLURT EDIT undies
-// #define UNDERWEAR_LAYER			43
-// #define SOCKS_LAYER				42
-// #define BRA_LAYER				41
-// #define SHIRT_LAYER				40
+#define UNDERWEAR_LAYER                43
+#define SOCKS_LAYER                    42
+#define BRA_LAYER                      41
+#define SHIRT_LAYER                    40
 // SPLURT EDIT END
 /// Mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
-#define FRONT_MUTATIONS_LAYER          43 // SKYRAT EDIT CHANGE - ORIGINAL: 30
+#define FRONT_MUTATIONS_LAYER          39 // SKYRAT EDIT CHANGE - ORIGINAL: 30
 /// Damage indicators (cuts and burns)
-#define DAMAGE_LAYER                   42 // SKYRAT EDIT CHANGE - ORIGINAL: 29
+#define DAMAGE_LAYER                   38 // SKYRAT EDIT CHANGE - ORIGINAL: 29
 // SKYRAT EDIT ADDITION START
 /// This layer is used for things that shouldn't be over clothes, but should be over mutations
-#define BODY_FRONT_UNDER_CLOTHES 41
+#define BODY_FRONT_UNDER_CLOTHES       37
 // SKYRAT EDIT ADDITION END
 /// Jumpsuit clothing layer
-#define UNIFORM_LAYER                  40 // SKYRAT EDIT CHANGE - ORIGINAL: 28 //SPLURT EDIT undies
+#define UNIFORM_LAYER                  36 // SKYRAT EDIT CHANGE - ORIGINAL: 28 //SPLURT EDIT undies
 // SKYRAT EDIT ADDITION BEGIN - cursed layers under clothing
-#define ANUS_LAYER                     39
-#define VAGINA_LAYER                   38
-#define PENIS_LAYER                    37
-#define NIPPLES_LAYER                  36
-#define BANDAGE_LAYER                  35
-//coyote bingus addition begin, make the undies go over boobies
-#define UNDERWEAR_LAYER                34
-#define SOCKS_LAYER                    33
-#define BRA_LAYER                      32
-#define SHIRT_LAYER                    31
-//SKYRAT EDIT ADDITION END
+#define ANUS_LAYER                     35
+#define VAGINA_LAYER                   34
+#define PENIS_LAYER                    33
+#define NIPPLES_LAYER                  32
+#define BANDAGE_LAYER                  31
 /// ID card layer
 #define ID_LAYER                       30
 /// ID card layer (might be deprecated)
