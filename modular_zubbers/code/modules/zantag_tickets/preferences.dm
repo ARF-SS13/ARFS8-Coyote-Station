@@ -1,11 +1,11 @@
-/datum/preferences/
+/datum/prefs_holder/
 	var/antag_tickets = -1 //Safety
 	var/antag_tickets_old = -1
 
 	var/antag_tickets_spent = 0 //This round.
 	var/antag_tickets_earned = 0 //This round.
 
-/datum/preferences/load_preferences()
+/datum/prefs_holder/load_preferences()
 	if(!savefile)
 		stack_trace("Attempted to load the preferences of [parent] without a savefile; did you forget to call load_savefile?")
 		load_savefile()
@@ -19,7 +19,7 @@
 	antag_tickets_old = antag_tickets
 	. = ..()
 
-/datum/preferences/save_preferences()
+/datum/prefs_holder/save_preferences()
 	if(!savefile)
 		CRASH("Attempted to save the preferences of [parent] without a savefile. This should have been handled by load_preferences()")
 	savefile.set_entry("antag_tickets", antag_tickets)
@@ -31,7 +31,7 @@
 	set waitfor = FALSE
 
 	for(var/ckey in GLOB.preferences_datums)
-		var/datum/preferences/prefs = GLOB.preferences_datums[ckey]
+		var/datum/prefs_holder/prefs = GLOB.preferences_datums[ckey]
 		if(prefs.antag_tickets == prefs.antag_tickets_old)
 			continue //Only save if there has been a change.
 		prefs.save_preferences()

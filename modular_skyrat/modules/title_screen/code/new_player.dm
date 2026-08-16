@@ -84,14 +84,14 @@
 
 	if(href_list["toggle_antag"])
 		play_lobby_button_sound()
-		var/datum/preferences/preferences = client.prefs
+		var/datum/prefs_holder/preferences = client.prefs
 		preferences.write_preference(GLOB.preference_entries[/datum/preference/toggle/be_antag], !preferences.read_preference(/datum/preference/toggle/be_antag))
 		client << output(preferences.read_preference(/datum/preference/toggle/be_antag), "title_browser:toggle_antag")
 		return
 
 	if(href_list["character_setup"])
 		play_lobby_button_sound()
-		var/datum/preferences/preferences = client.prefs
+		var/datum/prefs_holder/preferences = client.prefs
 		preferences.current_window = PREFERENCE_TAB_CHARACTER_PREFERENCES
 		preferences.update_static_data(src)
 		preferences.ui_interact(src)
@@ -99,7 +99,7 @@
 
 	if(href_list["game_options"])
 		play_lobby_button_sound()
-		var/datum/preferences/preferences = client.prefs
+		var/datum/prefs_holder/preferences = client.prefs
 		preferences.current_window = PREFERENCE_TAB_GAME_PREFERENCES
 		preferences.update_static_data(usr)
 		preferences.ui_interact(usr)
@@ -112,7 +112,7 @@
 			to_chat(src, span_notice("The round is starting. You cannot ready up at this time."))
 			return FALSE
 		if(CONFIG_GET(flag/min_flavor_text))
-			var/datum/preferences/preferences = client.prefs
+			var/datum/prefs_holder/preferences = client.prefs
 			var/uses_silicon_flavortext = (is_silicon_job(preferences?.get_highest_priority_job()) && length_char(client?.prefs?.read_preference(/datum/preference/text/silicon_flavor_text)) < CONFIG_GET(number/silicon_flavor_text_character_requirement))
 			var/uses_normal_flavortext = (!is_silicon_job(preferences?.get_highest_priority_job()) && length_char(client?.prefs?.read_preference(/datum/preference/text/flavor_text)) < CONFIG_GET(number/flavor_text_character_requirement))
 			if(uses_silicon_flavortext)

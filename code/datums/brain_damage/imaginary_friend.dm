@@ -134,7 +134,7 @@
 	greet()
 
 /// Copies appearance from passed player prefs, or randomises them if none are provided
-/mob/eye/imaginary_friend/proc/setup_appearance(datum/preferences/appearance_from_prefs = null)
+/mob/eye/imaginary_friend/proc/setup_appearance(datum/prefs_holder/appearance_from_prefs = null)
 	if(appearance_from_prefs)
 		INVOKE_ASYNC(src, PROC_REF(setup_friend_from_prefs), appearance_from_prefs)
 	else
@@ -154,7 +154,7 @@
  * Arguments:
  * * appearance_from_prefs - If this is a valid set of prefs, the appearance of the imaginary friend is based on the currently selected character in them. Otherwise, it's random.
  */
-/mob/eye/imaginary_friend/proc/setup_friend_from_prefs(datum/preferences/appearance_from_prefs)
+/mob/eye/imaginary_friend/proc/setup_friend_from_prefs(datum/prefs_holder/appearance_from_prefs)
 	if(!istype(appearance_from_prefs))
 		stack_trace("Attempted to create imaginary friend appearance from null prefs. Using random appearance.")
 		setup_friend()

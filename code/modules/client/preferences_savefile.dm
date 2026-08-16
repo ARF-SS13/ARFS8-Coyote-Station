@@ -34,7 +34,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	Failing all that, the standard sanity checks are performed. They simply check the data is suitable, reverting to
 	initial() values if necessary.
 */
-/datum/preferences/proc/check_savedata_version(list/save_data)
+/datum/prefs_holder/proc/check_savedata_version(list/save_data)
 	if(!save_data)
 		return -3 // BUBBER EDIT - ORIGINAL: return SAVE_DATA_EMPTY
 	var/save_version = save_data["version"]
@@ -52,7 +52,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 //This only really meant to avoid annoying frequent players
 //if your savefile is 3 months out of date, then 'tough shit'.
 
-/datum/preferences/proc/update_preferences(current_version, datum/json_savefile/S)
+/datum/prefs_holder/proc/update_preferences(current_version, datum/json_savefile/S)
 	if(current_version < 34)
 		write_preference(/datum/preference/toggle/auto_fit_viewport, TRUE)
 
@@ -107,7 +107,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	if (current_version < 44)
 		update_tts_blip_prefs()
 
-/datum/preferences/proc/update_character(current_version, list/save_data)
+/datum/prefs_holder/proc/update_character(current_version, list/save_data)
 	if (current_version < 41)
 		migrate_character_to_tgui_prefs_menu()
 
@@ -170,7 +170,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		migrate_gendered_nonbinary_physique(save_data)
 
 /// checks through keybindings for outdated unbound keys and updates them
-/datum/preferences/proc/check_keybindings()
+/datum/prefs_holder/proc/check_keybindings()
 	if(!parent)
 		return
 	var/list/binds_by_key = get_key_bindings_by_key(key_bindings)
@@ -204,24 +204,24 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	if(length(notadded))
 		addtimer(CALLBACK(src, PROC_REF(announce_conflict), notadded), 5 SECONDS)
 
-/datum/preferences/proc/announce_conflict(list/notadded)
+/datum/prefs_holder/proc/announce_conflict(list/notadded)
 	to_chat(parent, "<span class='warningplain'><b><u>Keybinding Conflict</u></b></span>\n\
 					<span class='warningplain'><b>There are new <a href='byond://?src=[REF(src)];open_keybindings=1'>keybindings</a> that default to keys you've already bound. The new ones will be unbound.</b></span>")
 	for(var/item in notadded)
 		var/datum/keybinding/conflicted = item
 		to_chat(parent, span_danger("[conflicted.category]: [conflicted.full_name] needs updating"))
 
-/datum/preferences/proc/load_path(ckey, filename="preferences.json")
+/datum/prefs_holder/proc/load_path(ckey, filename="preferences.json")
 	if(!ckey || !load_and_save)
 		return
 	path = "data/player_saves/[ckey[1]]/[ckey]/[filename]"
 
-/datum/preferences/proc/load_savefile()
+/datum/prefs_holder/proc/load_savefile()
 	if(load_and_save && !path)
 		CRASH("Attempted to load savefile without first loading a path!")
 	savefile = new /datum/json_savefile(load_and_save ? path : null)
 
-/datum/preferences/proc/load_preferences()
+/datum/prefs_holder/proc/load_preferences()
 	if(!savefile)
 		stack_trace("Attempted to load the preferences of [parent] without a savefile; did you forget to call load_savefile?")
 		load_savefile()
@@ -304,7 +304,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	return TRUE
 
-/datum/preferences/proc/save_preferences()
+/datum/prefs_holder/proc/save_preferences()
 	if(!savefile)
 		CRASH("Attempted to save the preferences of [parent] without a savefile. This should have been handled by load_preferences()")
 	if(path == DEV_PREFS_PATH)
@@ -338,7 +338,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	savefile.save()
 	return TRUE
 
-/datum/preferences/proc/load_character(slot)
+/datum/prefs_holder/proc/load_character(slot)
 	SHOULD_NOT_SLEEP(TRUE)
 	if(!slot)
 		slot = default_slot
@@ -397,7 +397,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	return needs_update != -3 // BUBBER EDIT
 
-/datum/preferences/proc/save_character(update, override_slot) // Skyrat edit - Choose when to update (This is stupid) //Bubber Edit - duplication support
+/datum/prefs_holder/proc/save_character(update, override_slot) // Skyrat edit - Choose when to update (This is stupid) //Bubber Edit - duplication support
 	SHOULD_NOT_SLEEP(TRUE)
 	if(!path)
 		return FALSE
@@ -448,7 +448,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	return TRUE
 
-/datum/preferences/proc/switch_to_slot(new_slot)
+/datum/prefs_holder/proc/switch_to_slot(new_slot)
 	if(new_slot == default_slot) // sanity check, nothing to do here.
 		return
 	// SAFETY: `load_character` performs sanitization on the slot number
@@ -467,7 +467,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		usr.client.tgui_panel?.emotes_send_list()
 	// SPLURT EDIT END: CUSTOM EMOTE PANEL
 
-/datum/preferences/proc/remove_current_slot()
+/datum/prefs_holder/proc/remove_current_slot()
 	PRIVATE_PROC(TRUE)
 
 	var/closest_slot
@@ -492,13 +492,13 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	tainted_character_profiles = TRUE
 	switch_to_slot(closest_slot)
 
-/datum/preferences/proc/duplicate_current_slot(target_slot)
+/datum/prefs_holder/proc/duplicate_current_slot(target_slot)
 	PRIVATE_PROC(TRUE)
 	if(isnull(target_slot))
 		return
 	save_character(TRUE, target_slot)
 
-/datum/preferences/proc/write_preference_special(datum/preference/preference, preference_value, override_slot)
+/datum/prefs_holder/proc/write_preference_special(datum/preference/preference, preference_value, override_slot)
 	var/save_data = savefile.get_entry("character[override_slot]")
 	var/new_value = preference.deserialize(preference_value, src)
 	var/success = preference.write(save_data, new_value)
@@ -506,7 +506,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		value_cache[preference.type] = new_value
 	return success
 
-/datum/preferences/proc/sanitize_be_special(list/input_be_special)
+/datum/prefs_holder/proc/sanitize_be_special(list/input_be_special)
 	var/list/output = list()
 
 	for (var/role in input_be_special)

@@ -13,7 +13,7 @@
  */
 /mob/living/carbon/human/proc/equip_outfit_and_loadout(
 	datum/outfit/outfit = /datum/outfit,
-	datum/preferences/preference_source,
+	datum/prefs_holder/preference_source,
 	visuals_only = FALSE,
 	datum/job/equipping,
 ) // BUBBER EDIT CHANGE - Added equipping param

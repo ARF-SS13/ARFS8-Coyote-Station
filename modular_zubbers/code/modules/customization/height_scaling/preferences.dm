@@ -25,7 +25,7 @@
 /datum/preference/choiced/height_scaling/create_default_value()
 	return HUMAN_HEIGHT_MEDIUM
 
-/datum/preference/choiced/height_scaling/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/height_scaling/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 
 	if(!.)
@@ -40,7 +40,7 @@
 
 	return TRUE
 
-/datum/preference/choiced/height_scaling/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/height_scaling/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	if (HAS_TRAIT(target, TRAIT_DWARF)) // nuh uh. your height is set mf
 		return FALSE
 

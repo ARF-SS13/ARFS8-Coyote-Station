@@ -5,15 +5,15 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	can_randomize = FALSE
 
-/datum/preference/loadout_index/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/loadout_index/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return
 
-/datum/preference/loadout_index/create_informed_default_value(datum/preferences/preferences)
+/datum/preference/loadout_index/create_informed_default_value(datum/prefs_holder/preferences)
 	var/list/loadouts = preferences.read_preference(/datum/preference/loadout)
 	if(length(loadouts))
 		return loadouts[1]
 
-/datum/preference/loadout_index/deserialize(input, datum/preferences/preferences)
+/datum/preference/loadout_index/deserialize(input, datum/prefs_holder/preferences)
 	if (istext(input))
 		return input
 
@@ -26,13 +26,13 @@
 	savefile_key = "loadout_lists" // Change the savefile key to avoid data corruption if this goes COMPLETELY WRONG during a test merge.
 
 // I'm going to flex my cursed modular knowledge now.
-/datum/preference/loadout/deserialize(list/input, datum/preferences/preferences)
+/datum/preference/loadout/deserialize(list/input, datum/prefs_holder/preferences)
 	for (var/name in input)
 		input[name] = ..(input[name], preferences) // ULTIMATE MODULARITY BULLSHIT GO
 
 	return input
 
-/datum/preference/loadout/create_default_value(datum/preferences/preferences)
+/datum/preference/loadout/create_default_value(datum/prefs_holder/preferences)
 	return list("Default" = list())
 
 /datum/preference/loadout/compile_ui_data(mob/user, value)

@@ -10,7 +10,7 @@
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	default_value = TRUE
 
-/datum/preference/toggle/ready_job/apply_to_human(mob/living/carbon/human/target, value, /datum/preferences/preferences)
+/datum/preference/toggle/ready_job/apply_to_human(mob/living/carbon/human/target, value, /datum/prefs_holder/preferences)
 	return FALSE
 
 /mob/dead/get_status_tab_items()

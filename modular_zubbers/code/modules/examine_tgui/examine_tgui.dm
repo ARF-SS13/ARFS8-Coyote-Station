@@ -56,7 +56,7 @@
 	. = ..()
 	var/list/data = .
 
-	var/datum/preferences/preferences = holder.client?.prefs
+	var/datum/prefs_holder/preferences = holder.client?.prefs
 
 	var/flavor_text
 	var/flavor_text_nsfw

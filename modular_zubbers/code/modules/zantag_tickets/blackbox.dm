@@ -19,7 +19,7 @@
 		var/tickets_to_add = ticket_multiplier*amount
 		if(!tickets_to_add)
 			continue
-		var/datum/preferences/prefs = GLOB.preferences_datums[found_client.ckey]
+		var/datum/prefs_holder/prefs = GLOB.preferences_datums[found_client.ckey]
 		if(tickets_to_add > 0)
 			if(max_antag_ticket_gain_per_round > 0)
 				tickets_to_add = min(tickets_to_add,max_antag_ticket_gain_per_round - prefs.antag_tickets_earned)

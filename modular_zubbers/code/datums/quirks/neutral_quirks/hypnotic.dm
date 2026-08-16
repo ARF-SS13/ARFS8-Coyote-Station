@@ -68,7 +68,7 @@
 /datum/preference/text/hypnotic_text/serialize(input)
 	return htmlrendertext(input)
 
-/datum/preference/text/hypnotic_text/deserialize(input, datum/preferences/preferences)
+/datum/preference/text/hypnotic_text/deserialize(input, datum/prefs_holder/preferences)
 	return htmlrendertext(input)
 
 /datum/preference/choiced/hypnotic_span
@@ -77,10 +77,10 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	can_randomize = FALSE
 
-/datum/preference/choiced/hypnotic_span/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/hypnotic_span/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return
 
-/datum/preference/text/hypnotic_text/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/text/hypnotic_text/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return
 
 /datum/preference/text/hypnotic_text/create_default_value()

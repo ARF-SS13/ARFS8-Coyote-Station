@@ -5,7 +5,7 @@
 	priority = PREFERENCE_PRIORITY_SPECIES
 	randomize_by_default = FALSE
 
-/datum/preference/choiced/species/deserialize(input, datum/preferences/preferences)
+/datum/preference/choiced/species/deserialize(input, datum/prefs_holder/preferences)
 	return GLOB.species_list[sanitize_inlist(input, get_choices_serialized(), SPECIES_HUMAN)]
 
 /datum/preference/choiced/species/serialize(input)
@@ -15,7 +15,7 @@
 /datum/preference/choiced/species/create_default_value()
 	return /datum/species/human
 
-/datum/preference/choiced/species/create_random_value(datum/preferences/preferences)
+/datum/preference/choiced/species/create_random_value(datum/prefs_holder/preferences)
 	return pick(get_choices())
 
 /datum/preference/choiced/species/init_possible_values()
@@ -31,7 +31,7 @@
 
 	return values
 
-/datum/preference/choiced/species/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/prefs)
+/datum/preference/choiced/species/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/prefs)
 	target.set_species(value, icon_update = FALSE, pref_load = FALSE, override_features = prefs?.features.Copy(), override_mutantparts = prefs?.mutant_bodyparts.Copy(), override_markings = prefs?.body_markings.Copy()) // SKYRAT EDIT - Customization
 
 	//SKYRAT EDIT ADDITION

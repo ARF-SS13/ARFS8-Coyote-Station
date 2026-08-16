@@ -1,4 +1,4 @@
-/datum/preferences/refresh_membership()
+/datum/prefs_holder/refresh_membership()
 	. = ..()
 	donator_status = !!GLOB.donator_list[parent.ckey]
 	if(unlock_content || donator_status)

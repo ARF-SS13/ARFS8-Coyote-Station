@@ -159,7 +159,7 @@
 	return /datum/sprite_accessory/undershirt/nude::name
 
 /* // SKYRAT EDIT REMOVAL - sports bra doesn't exist as an undershirt. so just let this default to naked and we'll add underwear elsewhere
-/datum/preference/choiced/undershirt/create_informed_default_value(datum/preferences/preferences)
+/datum/preference/choiced/undershirt/create_informed_default_value(datum/prefs_holder/preferences)
 	switch(preferences.read_preference(/datum/preference/choiced/gender))
 		if(MALE)
 			return /datum/sprite_accessory/undershirt/nude::name
@@ -222,7 +222,7 @@
 /datum/preference/choiced/underwear/apply_to_human(mob/living/carbon/human/target, value)
 	target.underwear = value
 
-/datum/preference/choiced/underwear/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/underwear/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 

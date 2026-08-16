@@ -3,7 +3,7 @@
  * Saves custom emotes to character slot
  * Returns TRUE on success, FALSE on failure
  */
-/datum/preferences/proc/save_custom_emotes()
+/datum/prefs_holder/proc/save_custom_emotes()
 	if(!path)
 		return FALSE
 

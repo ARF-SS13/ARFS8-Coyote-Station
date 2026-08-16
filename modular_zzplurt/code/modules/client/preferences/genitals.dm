@@ -9,7 +9,7 @@
 	relevant_mutant_bodypart = ORGAN_SLOT_BUTT
 	genital_pref_type = /datum/preference/choiced/genital/butt
 
-/datum/preference/toggle/genital_skin_tone/butt/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/genital_skin_tone/butt/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	target.dna.features["butt_uses_skintones"] = value
 
 /datum/preference/toggle/genital_skin_color/butt
@@ -17,7 +17,7 @@
 	relevant_mutant_bodypart = ORGAN_SLOT_BUTT
 	genital_pref_type = /datum/preference/choiced/genital/butt
 
-/datum/preference/toggle/genital_skin_color/butt/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/genital_skin_color/butt/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	if(!..()) // Don't apply it if it failed the check in the parent.
 		value = FALSE
 
@@ -31,14 +31,14 @@
 	minimum = BUTT_MIN_SIZE
 	maximum = BUTT_MAX_SIZE
 
-/datum/preference/numeric/butt_size/is_accessible(datum/preferences/preferences)
+/datum/preference/numeric/butt_size/is_accessible(datum/prefs_holder/preferences)
 	var/passed_initial_check = ..(preferences)
 	var/allowed = preferences.read_preference(/datum/preference/toggle/allow_mismatched_parts)
 	var/erp_allowed = preferences.read_preference(/datum/preference/toggle/master_erp_preferences) && preferences.read_preference(/datum/preference/toggle/allow_genitals)
 	var/part_enabled = is_factual_sprite_accessory(relevant_mutant_bodypart, preferences.read_preference(/datum/preference/choiced/genital/butt))
 	return erp_allowed && part_enabled && (passed_initial_check || allowed)
 
-/datum/preference/numeric/butt_size/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/numeric/butt_size/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	target.dna.features["butt_size"] = value
 
 /datum/preference/numeric/butt_size/create_default_value()
@@ -59,7 +59,7 @@
 
 
 //butthole
-/datum/preference/choiced/genital/anus/deserialize(input, datum/preferences/preferences)
+/datum/preference/choiced/genital/anus/deserialize(input, datum/prefs_holder/preferences)
 	if(preferences.read_preference(/datum/preference/choiced/genital/butt) == SPRITE_ACCESSORY_NONE && input != SPRITE_ACCESSORY_NONE)
 		return /datum/sprite_accessory/genital/anus/normal::name
 	. = ..()
@@ -69,7 +69,7 @@
 	relevant_mutant_bodypart = ORGAN_SLOT_ANUS
 	genital_pref_type = /datum/preference/choiced/genital/anus
 
-/datum/preference/toggle/genital_skin_tone/anus/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/genital_skin_tone/anus/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	target.dna.features["anus_uses_skintones"] = value
 
 /datum/preference/toggle/genital_skin_color/anus
@@ -77,7 +77,7 @@
 	relevant_mutant_bodypart = ORGAN_SLOT_ANUS
 	genital_pref_type = /datum/preference/choiced/genital/anus
 
-/datum/preference/toggle/genital_skin_color/anus/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/genital_skin_color/anus/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	if(!..()) // Don't apply it if it failed the check in the parent.
 		value = FALSE
 
@@ -113,14 +113,14 @@
 /datum/preference/numeric/belly_size/create_default_value()
 	return 1
 
-/datum/preference/numeric/belly_size/is_accessible(datum/preferences/preferences)
+/datum/preference/numeric/belly_size/is_accessible(datum/prefs_holder/preferences)
 	var/passed_initial_check = ..(preferences)
 	var/allowed = preferences.read_preference(/datum/preference/toggle/allow_mismatched_parts)
 	var/erp_allowed = preferences.read_preference(/datum/preference/toggle/master_erp_preferences) && preferences.read_preference(/datum/preference/toggle/allow_genitals)
 	var/part_enabled = is_factual_sprite_accessory(relevant_mutant_bodypart, preferences.read_preference(/datum/preference/choiced/genital/belly))
 	return erp_allowed && part_enabled && (passed_initial_check || allowed)
 
-/datum/preference/numeric/belly_size/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/numeric/belly_size/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	target.dna.features["belly_size"] = value
 
 
@@ -129,7 +129,7 @@
 	relevant_mutant_bodypart = ORGAN_SLOT_BELLY
 	genital_pref_type = /datum/preference/choiced/genital/belly
 
-/datum/preference/toggle/genital_skin_tone/belly/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/genital_skin_tone/belly/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	target.dna.features["belly_uses_skintones"] = value
 
 /datum/preference/toggle/genital_skin_color/belly
@@ -137,7 +137,7 @@
 	relevant_mutant_bodypart = ORGAN_SLOT_BELLY
 	genital_pref_type = /datum/preference/choiced/genital/belly
 
-/datum/preference/toggle/genital_skin_color/belly/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/genital_skin_color/belly/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	if(!..()) // Don't apply it if it failed the check in the parent.
 		value = FALSE
 
@@ -169,14 +169,14 @@
 // 		SSinteractions.prepare_genital_fluids()
 // 	return sort_list(SSinteractions.genital_fluids_paths)
 
-// /datum/preference/choiced/genital_fluid/is_accessible(datum/preferences/preferences)
+// /datum/preference/choiced/genital_fluid/is_accessible(datum/prefs_holder/preferences)
 // 	var/passed_initial_check = ..(preferences)
 // 	var/allowed = preferences.read_preference(/datum/preference/toggle/allow_mismatched_parts)
 // 	var/erp_allowed = !CONFIG_GET(flag/disable_erp_preferences) && preferences.read_preference(/datum/preference/toggle/master_erp_preferences) && preferences.read_preference(/datum/preference/toggle/allow_genitals)
 // 	var/part_enabled = is_factual_sprite_accessory(relevant_mutant_bodypart, preferences.read_preference(genital_pref))
 // 	return erp_allowed && part_enabled && (passed_initial_check || allowed) && preferences.read_preference(/datum/preference/toggle/erp/custom_genital_fluids)
 
-// /datum/preference/choiced/genital_fluid/deserialize(input, datum/preferences/preferences)
+// /datum/preference/choiced/genital_fluid/deserialize(input, datum/prefs_holder/preferences)
 // 	if(!is_accessible(preferences))
 // 		return create_default_value()
 // 	. = ..()
@@ -222,7 +222,7 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "cumflates_partners_pref"
 
-/datum/preference/toggle/erp/cumflates_partners/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/erp/cumflates_partners/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return
 
 // Knotting preferences
@@ -231,5 +231,5 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "knots_partners_pref"
 
-/datum/preference/toggle/erp/knots_partners/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/erp/knots_partners/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return

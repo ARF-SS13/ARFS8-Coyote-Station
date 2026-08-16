@@ -1,10 +1,10 @@
 /// Handle the migrations necessary from pre-tgui prefs to post-tgui prefs
-/datum/preferences/proc/migrate_preferences_to_tgui_prefs_menu()
+/datum/prefs_holder/proc/migrate_preferences_to_tgui_prefs_menu()
 	migrate_antagonists()
 	migrate_key_bindings()
 
 /// Handle the migrations necessary from pre-tgui prefs to post-tgui prefs, for characters
-/datum/preferences/proc/migrate_character_to_tgui_prefs_menu()
+/datum/prefs_holder/proc/migrate_character_to_tgui_prefs_menu()
 	migrate_randomization()
 
 // Key bindings used to be "key" -> list("action"),
@@ -12,7 +12,7 @@
 // This made it impossible to determine any order, meaning placing a new
 // hotkey would produce non-deterministic order.
 // tgui prefs menu moves this over to "swap_hands" -> list("X").
-/datum/preferences/proc/migrate_key_bindings()
+/datum/prefs_holder/proc/migrate_key_bindings()
 	var/new_key_bindings = list()
 
 	for (var/unbound_hotkey in key_bindings["Unbound"])
@@ -32,7 +32,7 @@
 
 // Before tgui preferences menu, "traitor" would handle both roundstart, midround, and latejoin.
 // These were split apart.
-/datum/preferences/proc/migrate_antagonists()
+/datum/prefs_holder/proc/migrate_antagonists()
 	migrate_antagonist(ROLE_MALF, list(ROLE_MALF_MIDROUND))
 	migrate_antagonist(ROLE_OPERATIVE, list(ROLE_OPERATIVE_MIDROUND, ROLE_LONE_OPERATIVE))
 	migrate_antagonist(ROLE_REV_HEAD, list(ROLE_PROVOCATEUR))
@@ -42,7 +42,7 @@
 
 // If you have an antagonist enabled, it will add the alternative preferences for said antag in be_special.
 // will_exist is the role we check if enabled, to_add list is the antagonists we add onto the be_special list.
-/datum/preferences/proc/migrate_antagonist(will_exist, list/to_add)
+/datum/prefs_holder/proc/migrate_antagonist(will_exist, list/to_add)
 	if (will_exist in be_special)
 		for (var/add in to_add)
 			be_special += add
@@ -52,7 +52,7 @@
 // tgui prefs menu changes from list("random_socks" = TRUE, "random_name_antag" = TRUE)
 // to list("socks" = "enabled", "name" = "antag")
 // as well as removing anything that was set to FALSE, as this can be extrapolated.
-/datum/preferences/proc/migrate_randomization()
+/datum/prefs_holder/proc/migrate_randomization()
 	var/static/list/random_settings = list(
 		"random_age" = "age",
 		"random_backpack" = "backpack",
@@ -104,7 +104,7 @@
 
 	randomise = new_randomise
 
-/datum/preferences/proc/migrate_randomization_to_new_pref(
+/datum/prefs_holder/proc/migrate_randomization_to_new_pref(
 	preference_type,
 	key,
 	key_antag,

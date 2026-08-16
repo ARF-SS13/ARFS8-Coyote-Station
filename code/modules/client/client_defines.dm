@@ -69,7 +69,7 @@
 		//OTHER//
 		/////////
 	///Player preferences datum for the client
-	var/datum/preferences/prefs = null
+	var/datum/prefs_holder/prefs = null
 	///Move delay of controlled mob, any keypresses inside this period will persist until the next proper move
 	var/move_delay = 0
 	///The visual delay to use for the current client.Move(), mostly used for making a client based move look like it came from some other slower source

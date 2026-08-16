@@ -18,7 +18,7 @@
 // 	icon = 'icons/obj/genitals/butt_onmob.dmi'
 // 	icon_state = B.get_icon_state(user, sprite_acc, FALSE, "FRONT")
 // 	dir = NORTH
-// 	var/datum/preferences/P = extract_prefs(user)
+// 	var/datum/prefs_holder/P = extract_prefs(user)
 // 	color = "#[P.features["butt_color"]]"
 // 	force = 6 * B.size
 // 	attack_speed = (CLICK_CD_MELEE / 3) * B.size

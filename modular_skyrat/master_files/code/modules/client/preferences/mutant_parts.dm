@@ -7,10 +7,10 @@
 	savefile_key = "allow_mismatched_parts_toggle"
 	default_value = FALSE
 
-/datum/preference/toggle/allow_mismatched_parts/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/allow_mismatched_parts/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return // we dont actually want this to do anything
 
-/datum/preference/toggle/allow_mismatched_parts/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/allow_mismatched_parts/is_accessible(datum/prefs_holder/preferences)
 	if(CONFIG_GET(flag/disable_mismatched_parts))
 		return FALSE
 	return ..()
@@ -26,10 +26,10 @@
 	savefile_key = "allow_mismatched_hair_color_toggle"
 	default_value = TRUE
 
-/datum/preference/toggle/allow_mismatched_hair_color/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/allow_mismatched_hair_color/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return // applied in apply_supplementary_body_changes()
 
-/datum/preference/toggle/allow_mismatched_hair_color/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/allow_mismatched_hair_color/is_accessible(datum/prefs_holder/preferences)
 	var/datum/species/species = preferences.read_preference(/datum/preference/choiced/species)
 	if(!ispath(species, /datum/species/jelly)) // only slimes can see this pref
 		return FALSE
@@ -41,7 +41,7 @@
 	savefile_key = "allow_emissives_toggle" // no 'e' so it goes right after allow_mismatched_parts, not before
 	default_value = FALSE
 
-/datum/preference/toggle/allow_emissives/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/allow_emissives/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return TRUE // we dont actually want this to do anything
 
 /datum/preference/tri_color/mutant_colors
@@ -61,7 +61,7 @@
 	category = PREFERENCE_CATEGORY_CHARACTER_BASICS
 	relevant_head_flag = HEAD_EYECOLOR
 
-/datum/preference/toggle/eye_emissives/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/eye_emissives/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	value = value && preferences && is_allowed(preferences)
 
 	var/obj/item/organ/eyes/eyes_organ = target.get_organ_by_type(/obj/item/organ/eyes)
@@ -72,7 +72,7 @@
 /datum/preference/toggle/eye_emissives/create_default_value()
 	return FALSE
 
-/datum/preference/toggle/eye_emissives/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/eye_emissives/is_accessible(datum/prefs_holder/preferences)
 	var/passed_initial_check = ..(preferences)
 	var/allowed = is_allowed(preferences)
 	return passed_initial_check && allowed
@@ -80,7 +80,7 @@
 /**
  * If eye emissives are actually on.
  */
-/datum/preference/toggle/eye_emissives/proc/is_allowed(datum/preferences/preferences)
+/datum/preference/toggle/eye_emissives/proc/is_allowed(datum/prefs_holder/preferences)
 	return preferences.read_preference(/datum/preference/toggle/allow_emissives)
 
 // Body Markings - This isn't used anymore and thus I'm making it not do anything.
@@ -89,11 +89,11 @@
 	savefile_key = "body_markings_toggle"
 	relevant_mutant_bodypart = "body_markings"
 
-/datum/preference/toggle/mutant_toggle/body_markings/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/mutant_toggle/body_markings/is_accessible(datum/prefs_holder/preferences)
 	. = ..() // Got to do this because of linters.
 	return FALSE
 
-/datum/preference/toggle/mutant_toggle/body_markings/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/mutant_toggle/body_markings/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/choiced/mutant_choice/body_markings
@@ -102,11 +102,11 @@
 	type_to_check = /datum/preference/toggle/mutant_toggle/body_markings
 	default_accessory_type = /datum/sprite_accessory/lizard_markings/none
 
-/datum/preference/choiced/mutant_choice/body_markings/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/body_markings/is_accessible(datum/prefs_holder/preferences)
 	. = ..() // Got to do this because of linters.
 	return FALSE
 
-/datum/preference/choiced/mutant_choice/body_markings/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/body_markings/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/tri_color/body_markings
@@ -116,11 +116,11 @@
 	relevant_mutant_bodypart = "body_markings"
 	type_to_check = /datum/preference/toggle/mutant_toggle/body_markings
 
-/datum/preference/tri_color/body_markings/is_accessible(datum/preferences/preferences)
+/datum/preference/tri_color/body_markings/is_accessible(datum/prefs_holder/preferences)
 	. = ..() // Got to do this because of linters.
 	return FALSE
 
-/datum/preference/tri_color/body_markings/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/tri_color/body_markings/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/tri_bool/body_markings
@@ -130,11 +130,11 @@
 	relevant_mutant_bodypart = "body_markings"
 	type_to_check = /datum/preference/toggle/mutant_toggle/body_markings
 
-/datum/preference/tri_bool/body_markings/is_accessible(datum/preferences/preferences)
+/datum/preference/tri_bool/body_markings/is_accessible(datum/prefs_holder/preferences)
 	. = ..() // Got to do this because of linters.
 	return FALSE
 
-/datum/preference/tri_bool/body_markings/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/tri_bool/body_markings/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /// Tails
@@ -399,7 +399,7 @@
 	savefile_key = "moth_markings_toggle"
 	relevant_mutant_bodypart = "moth_markings"
 
-/datum/preference/toggle/mutant_toggle/moth_markings/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/mutant_toggle/moth_markings/is_accessible(datum/prefs_holder/preferences)
 	. = ..() // Got to do this because of linters.
 	return FALSE
 
@@ -409,11 +409,11 @@
 	type_to_check = /datum/preference/toggle/mutant_toggle/moth_markings
 	default_accessory_type = /datum/sprite_accessory/moth_markings/none
 
-/datum/preference/choiced/mutant_choice/moth_markings/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/moth_markings/is_accessible(datum/prefs_holder/preferences)
 	. = ..() // Got to do this because of linters.
 	return FALSE
 
-/datum/preference/choiced/mutant_choice/moth_markings/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/moth_markings/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/tri_color/moth_markings
@@ -423,7 +423,7 @@
 	relevant_mutant_bodypart = "moth_markings"
 	type_to_check = /datum/preference/toggle/mutant_toggle/moth_markings
 
-/datum/preference/tri_color/moth_markings/is_accessible(datum/preferences/preferences)
+/datum/preference/tri_color/moth_markings/is_accessible(datum/prefs_holder/preferences)
 	. = ..() // Got to do this because of linters.
 	return FALSE
 
@@ -437,7 +437,7 @@
 	relevant_mutant_bodypart = "moth_markings"
 	type_to_check = /datum/preference/toggle/mutant_toggle/moth_markings
 
-/datum/preference/tri_bool/moth_markings/is_accessible(datum/preferences/preferences)
+/datum/preference/tri_bool/moth_markings/is_accessible(datum/prefs_holder/preferences)
 	. = ..() // Got to do this because of linters.
 	return FALSE
 
@@ -483,10 +483,10 @@
 	crop_area = list(11, 22, 21, 32) // We want just the head.
 	greyscale_color = DEFAULT_SYNTH_SCREEN_COLOR
 
-/datum/preference/choiced/mutant_choice/ipc_screen/is_part_enabled(datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/ipc_screen/is_part_enabled(datum/prefs_holder/preferences)
 	return TRUE
 
-/datum/preference/choiced/mutant_choice/ipc_screen/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/ipc_screen/is_accessible(datum/prefs_holder/preferences)
 	var/datum/species/species = preferences.read_preference(/datum/preference/choiced/species)
 	species = new species
 
@@ -505,7 +505,7 @@
 
 	return data
 
-/datum/preference/choiced/mutant_choice/ipc_screen/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/ipc_screen/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	var/species_path = preferences?.read_preference(/datum/preference/choiced/species)
 	if(!ispath(species_path, /datum/species/synthetic)) // This is what we do so it doesn't show up on non-synthetics.
 		return
@@ -534,7 +534,7 @@
 	relevant_mutant_bodypart = MUTANT_SYNTH_ANTENNA
 	default_accessory_type = /datum/sprite_accessory/antenna/none
 
-/datum/preference/choiced/mutant_choice/synth_antenna/is_part_enabled(datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/synth_antenna/is_part_enabled(datum/prefs_holder/preferences)
 	return TRUE
 
 /datum/preference/tri_color/synth_antenna
@@ -571,10 +571,10 @@
 	var/datum/sprite_accessory/synth_chassis/chassis = sprite_accessory
 	return "[original_icon_state]_chest[chassis.dimorphic ? "_m" : ""]"
 
-/datum/preference/choiced/mutant_choice/synth_chassis/is_part_enabled(datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/synth_chassis/is_part_enabled(datum/prefs_holder/preferences)
 	return TRUE
 
-/datum/preference/choiced/mutant_choice/synth_chassis/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/synth_chassis/is_accessible(datum/prefs_holder/preferences)
 	var/datum/species/species = preferences.read_preference(/datum/preference/choiced/species)
 	species = new species
 
@@ -614,10 +614,10 @@
 	var/datum/sprite_accessory/synth_head/head = sprite_accessory
 	return "[original_icon_state]_head[head.dimorphic ? "_m" : ""]"
 
-/datum/preference/choiced/mutant_choice/synth_head/is_part_enabled(datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/synth_head/is_part_enabled(datum/prefs_holder/preferences)
 	return TRUE
 
-/datum/preference/choiced/mutant_choice/synth_head/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/synth_head/is_accessible(datum/prefs_holder/preferences)
 	var/datum/species/species = preferences.read_preference(/datum/preference/choiced/species)
 	species = new species
 
@@ -656,7 +656,7 @@
 /datum/preference/numeric/hair_opacity/create_default_value()
 	return maximum
 
-/datum/preference/numeric/hair_opacity/is_accessible(datum/preferences/preferences)
+/datum/preference/numeric/hair_opacity/is_accessible(datum/prefs_holder/preferences)
 	var/passed_initial_check = ..(preferences)
 	var/allowed = preferences.read_preference(/datum/preference/toggle/allow_mismatched_parts) && preferences.read_preference(/datum/preference/toggle/mutant_toggle/hair_opacity)
 	return passed_initial_check || allowed
@@ -670,7 +670,7 @@
  * * target - The character this is being applied to.
  * * preferences - The relevant character preferences.
  */
-/datum/preference/numeric/hair_opacity/proc/is_visible(mob/living/carbon/human/target, datum/preferences/preferences)
+/datum/preference/numeric/hair_opacity/proc/is_visible(mob/living/carbon/human/target, datum/prefs_holder/preferences)
 	if(!preferences.read_preference(/datum/preference/toggle/mutant_toggle/hair_opacity))
 		return FALSE
 
@@ -682,7 +682,7 @@
 
 	return (savefile_key in species.get_features())
 
-/datum/preference/numeric/hair_opacity/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/numeric/hair_opacity/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	if(!preferences || !is_visible(target, preferences))
 		return FALSE
 
@@ -800,7 +800,7 @@
 	savefile_key = "head_acc_toggle"
 	relevant_mutant_bodypart = "head_acc"
 
-/datum/preference/toggle/mutant_toggle/head_acc/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/mutant_toggle/head_acc/is_accessible(datum/prefs_holder/preferences)
 	var/ckeycheck = preferences?.parent?.ckey == "whirlsam"
 	return ckeycheck && ..(preferences)
 
@@ -830,7 +830,7 @@
 	savefile_key = "neck_acc_toggle"
 	relevant_mutant_bodypart = "neck_acc"
 
-/datum/preference/toggle/mutant_toggle/neck_acc/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/mutant_toggle/neck_acc/is_accessible(datum/prefs_holder/preferences)
 	var/ckeycheck = preferences?.parent?.ckey == "whirlsam"
 	return ckeycheck && ..(preferences)
 
@@ -881,10 +881,10 @@
 	pod_head.crop(15, 64 - 31, 15 + 31, 64)
 	return pod_head
 
-/datum/preference/choiced/mutant_choice/pod_hair/is_part_enabled(datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/pod_hair/is_part_enabled(datum/prefs_holder/preferences)
 	return TRUE
 
-/datum/preference/choiced/mutant_choice/pod_hair/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/pod_hair/is_accessible(datum/prefs_holder/preferences)
 	var/datum/species/species = preferences.read_preference(/datum/preference/choiced/species)
 	species = new species
 
@@ -893,7 +893,7 @@
 	else
 		return FALSE
 
-/datum/preference/choiced/mutant_choice/pod_hair/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/pod_hair/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	var/species_path = preferences?.read_preference(/datum/preference/choiced/species)
 	if(!ispath(species_path, /datum/species/pod)) // This is what we do so it doesn't show up on non-podpeople.
 		return

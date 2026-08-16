@@ -3,7 +3,7 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 
-/datum/preference/color/underwear_color/is_accessible(datum/preferences/preferences)
+/datum/preference/color/underwear_color/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 

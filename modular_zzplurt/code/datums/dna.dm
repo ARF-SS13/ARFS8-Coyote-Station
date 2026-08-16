@@ -56,6 +56,6 @@
 	. = ..()
 	adjust_mobsize(get_size(src))
 
-/datum/preference/choiced/species/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/prefs)
+/datum/preference/choiced/species/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/prefs)
 	. = ..()
 	target.adjust_mobsize(get_size(target))

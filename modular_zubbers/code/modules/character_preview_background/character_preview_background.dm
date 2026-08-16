@@ -20,5 +20,5 @@ GLOBAL_LIST_INIT(background_state_options, list(
 /datum/preference/choiced/background_state/init_possible_values()
 	return GLOB.background_state_options
 
-/datum/preference/choiced/background_state/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/background_state/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return

@@ -106,7 +106,7 @@
 	return alterer?.client?.prefs
 
 /datum/action/innate/alter_form/proc/get_bodymorpher_preset_store(mob/living/carbon/human/alterer)
-	var/datum/preferences/preferences = get_bodymorpher_preferences(alterer)
+	var/datum/prefs_holder/preferences = get_bodymorpher_preferences(alterer)
 	var/list/store = preferences?.read_preference(/datum/preference/blob/bodymorpher_presets)
 	if(!islist(store))
 		store = list()
@@ -116,7 +116,7 @@
 	return store
 
 /datum/action/innate/alter_form/proc/save_bodymorpher_preset_store(mob/living/carbon/human/alterer, list/store)
-	var/datum/preferences/preferences = get_bodymorpher_preferences(alterer)
+	var/datum/prefs_holder/preferences = get_bodymorpher_preferences(alterer)
 	if(!preferences || !islist(store))
 		return FALSE
 	preferences.write_preference(GLOB.preference_entries[/datum/preference/blob/bodymorpher_presets], store)

@@ -73,7 +73,7 @@
 
 /mob/dead/observer/Login()
 	. = ..()
-	var/datum/preferences/preferences = client?.prefs
+	var/datum/prefs_holder/preferences = client?.prefs
 	var/soulcatcher_action_given
 
 	if(preferences)

@@ -21,7 +21,7 @@
 /datum/preference/choiced/junkie/create_default_value()
 	return "Random"
 
-/datum/preference/choiced/junkie/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/junkie/is_accessible(datum/prefs_holder/preferences)
 	if (!..())
 		return FALSE
 	return "Junkie" in preferences.all_quirks
@@ -40,7 +40,7 @@
 /datum/preference/choiced/smoker/create_default_value()
 	return "Random"
 
-/datum/preference/choiced/smoker/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/smoker/is_accessible(datum/prefs_holder/preferences)
 	if (!..())
 		return FALSE
 	return "Smoker" in preferences.all_quirks
@@ -59,7 +59,7 @@
 /datum/preference/choiced/alcoholic/create_default_value()
 	return "Random"
 
-/datum/preference/choiced/alcoholic/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/alcoholic/is_accessible(datum/prefs_holder/preferences)
 	if (!..())
 		return FALSE
 	return "Alcoholic" in preferences.all_quirks

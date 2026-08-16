@@ -1,4 +1,4 @@
-/datum/preference_middleware/loadout/New(datum/preferences)
+/datum/preference_middleware/loadout/New(datum/prefs_holder)
 	. = ..()
 	action_delegations += list(
 		"add_loadout_preset" = PROC_REF(add_loadout_preset),

@@ -30,7 +30,7 @@
 	return features
 
 
-/datum/species/proc/apply_supplementary_body_changes(mob/living/carbon/human/target, datum/preferences/preferences, visuals_only = FALSE)
+/datum/species/proc/apply_supplementary_body_changes(mob/living/carbon/human/target, datum/prefs_holder/preferences, visuals_only = FALSE)
 	return
 
 /datum/species/create_pref_traits_perks()

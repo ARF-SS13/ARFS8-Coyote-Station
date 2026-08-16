@@ -1,7 +1,7 @@
 /// Preference middleware is code that helps to decentralize complicated preference features.
 /datum/preference_middleware
 	/// The preferences datum
-	var/datum/preferences/preferences
+	var/datum/prefs_holder/preferences
 
 	/// The key that will be used for get_constant_data().
 	/// If null, will use the typepath minus /datum/preference_middleware.
@@ -12,7 +12,7 @@
 	/// Return output is the same as ui_act--TRUE if it should update, FALSE if it should not
 	var/list/action_delegations = list()
 
-/datum/preference_middleware/New(datum/preferences)
+/datum/preference_middleware/New(datum/prefs_holder)
 	src.preferences = preferences
 
 	if (isnull(key))
@@ -57,7 +57,7 @@
 	return
 
 /// Called when applying preferences to the mob.
-/datum/preference_middleware/proc/apply_to_human(mob/living/carbon/human/target, datum/preferences/preferences, visuals_only = FALSE) //SKYRAT EDIT CHANGE
+/datum/preference_middleware/proc/apply_to_human(mob/living/carbon/human/target, datum/prefs_holder/preferences, visuals_only = FALSE) //SKYRAT EDIT CHANGE
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_CALL_PARENT(FALSE)
 	return

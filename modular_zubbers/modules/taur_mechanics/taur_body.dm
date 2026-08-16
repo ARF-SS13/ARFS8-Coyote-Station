@@ -126,7 +126,7 @@
 	var/obj/item/bodypart/leg/left/taur/new_left_leg
 	var/obj/item/bodypart/leg/right/taur/new_right_leg
 
-	var/datum/preferences/prefs = receiver.client?.prefs
+	var/datum/prefs_holder/prefs = receiver.client?.prefs
 	var/use_synthetic_taur = FALSE
 	if (prefs)
 		use_synthetic_taur = prefs.read_preference(/datum/preference/toggle/synthetic_taur)

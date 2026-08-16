@@ -296,8 +296,8 @@ Secondary features tend to be species specific. Non contextual features shouldn'
 There are three procs to be aware of in regards to this topic:
 
 - `create_default_value()`. This is used when a value deserializes improperly or when a new character is created.
-- `create_informed_default_value(datum/preferences/preferences)` - Used for more complicated default values, like how names require the gender. Will call `create_default_value()` by default.
-- `create_random_value(datum/preferences/preferences)` - Explicitly used for random values, such as when a character is being randomized.
+- `create_informed_default_value(datum/prefs_holder/preferences)` - Used for more complicated default values, like how names require the gender. Will call `create_default_value()` by default.
+- `create_random_value(datum/prefs_holder/preferences)` - Explicitly used for random values, such as when a character is being randomized.
 
 `create_default_value()` in most preferences will create a random value. If this is a problem (like how default characters should always be human), you can override `create_default_value()`. By default (without overriding `create_random_value`), random values are just default values.
 

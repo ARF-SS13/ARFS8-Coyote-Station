@@ -32,7 +32,7 @@
 
 	step = 0.01
 
-/datum/preference/numeric/fragile_customization/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/numeric/fragile_customization/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/numeric/fragile_customization/create_default_value()
@@ -48,7 +48,7 @@
 	. = ..()
 
 	var/mob/living/carbon/human/user = quirk_holder
-	var/datum/preferences/prefs = user.client.prefs
+	var/datum/prefs_holder/prefs = user.client.prefs
 	var/brutemod = prefs.read_preference(/datum/preference/numeric/fragile_customization/brute)
 	var/burnmod = prefs.read_preference(/datum/preference/numeric/fragile_customization/burn)
 
@@ -61,7 +61,7 @@
 	if(QDELETED(quirk_holder))
 		return
 	var/mob/living/carbon/human/user = quirk_holder
-	var/datum/preferences/prefs = user.client.prefs
+	var/datum/prefs_holder/prefs = user.client.prefs
 	var/brutemod = prefs.read_preference(/datum/preference/numeric/fragile_customization/brute)
 	var/burnmod = prefs.read_preference(/datum/preference/numeric/fragile_customization/burn)
 	// will cause issues if the user changes this value before removal

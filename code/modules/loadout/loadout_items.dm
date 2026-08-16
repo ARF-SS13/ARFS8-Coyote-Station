@@ -283,7 +283,7 @@ GLOBAL_LIST_INIT(all_loadout_categories, init_loadout_categories())
  * At this point the item is in the mob's contents
  *
  * Arguments:
- * * preference_source - the datum/preferences our loadout item originated from - cannot be null
+ * * preference_source - the datum/prefs_holder our loadout item originated from - cannot be null
  * * item_details - the details of the item in the loadout preferences, such as greyscale, name, reskin, etc
  * * equipper - the mob we're equipping this item onto
  * * outfit - the rest of the outfit being equipped, may be null

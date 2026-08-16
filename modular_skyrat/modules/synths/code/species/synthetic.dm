@@ -134,7 +134,7 @@
 		eyes.eye_icon_state = initial(eyes.eye_icon_state)
 
 
-/datum/species/synthetic/apply_supplementary_body_changes(mob/living/carbon/human/target, datum/preferences/preferences, visuals_only = FALSE)
+/datum/species/synthetic/apply_supplementary_body_changes(mob/living/carbon/human/target, datum/prefs_holder/preferences, visuals_only = FALSE)
 	var/list/chassis = target.dna.mutant_bodyparts[MUTANT_SYNTH_CHASSIS]
 	var/list/head = target.dna.mutant_bodyparts[MUTANT_SYNTH_HEAD]
 	if(!chassis && !head)

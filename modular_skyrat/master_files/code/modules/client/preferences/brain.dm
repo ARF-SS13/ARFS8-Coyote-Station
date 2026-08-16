@@ -10,7 +10,7 @@
 /datum/preference/choiced/brain_type/create_default_value()
 	return ORGAN_PREF_POSI_BRAIN
 
-/datum/preference/choiced/brain_type/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/brain_type/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	if(!issynthetic(target))
 		return
 

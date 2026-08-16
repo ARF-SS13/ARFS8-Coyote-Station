@@ -2,7 +2,7 @@
 /// PR #62733 changed this to allow all characters to use body type.
 /// This migration moves binary-gendered characters over to the "use gender" body type
 /// so that old characters are preserved.
-/datum/preferences/proc/migrate_body_types(list/save_data)
+/datum/prefs_holder/proc/migrate_body_types(list/save_data)
 	var/current_gender = save_data["gender"]
 	if (current_gender == MALE || current_gender == FEMALE)
 		save_data["body_type"] = "Use gender"
@@ -11,7 +11,7 @@
 /// This caused inconsistencies when it was in play (male laughs and female screams)
 /// Force non-binary characters to have a female physique
 // TODO: Remove this entire migration if we ever add non-binary physiques
-/datum/preferences/proc/migrate_gendered_nonbinary_physique(list/save_data)
+/datum/prefs_holder/proc/migrate_gendered_nonbinary_physique(list/save_data)
 	var/current_gender = save_data["gender"]
 	if(current_gender == MALE || current_gender == FEMALE)
 		return

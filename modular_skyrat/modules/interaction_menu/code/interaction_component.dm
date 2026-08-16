@@ -210,7 +210,7 @@
 		return
 
 	var/mob/living/user = usr 	// SPLURT EDIT - INTERACTIONS - All mobs should be interactable
-	var/datum/preferences/prefs = user.client?.prefs
+	var/datum/prefs_holder/prefs = user.client?.prefs
 
 	switch(action)
 		if("interact")

@@ -8,7 +8,7 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
 
-/datum/preference/color/echolocation_outline/is_accessible(datum/preferences/preferences)
+/datum/preference/color/echolocation_outline/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
@@ -23,7 +23,7 @@
 	savefile_key = "echolocation_key"
 	savefile_identifier = PREFERENCE_CHARACTER
 
-/datum/preference/choiced/echolocation_key/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/echolocation_key/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
@@ -42,7 +42,7 @@
 	savefile_key = "echolocation_use_echo"
 	savefile_identifier = PREFERENCE_CHARACTER
 
-/datum/preference/toggle/echolocation_overlay/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/echolocation_overlay/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 

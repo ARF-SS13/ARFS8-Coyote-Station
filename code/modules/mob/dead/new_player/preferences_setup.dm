@@ -1,5 +1,5 @@
 /// Fully randomizes everything in the character.
-/datum/preferences/proc/randomise_appearance_prefs(randomize_flags = ALL)
+/datum/prefs_holder/proc/randomise_appearance_prefs(randomize_flags = ALL)
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
 		if (!preference.included_in_randomization_flags(randomize_flags))
 			continue
@@ -8,7 +8,7 @@
 			write_preference(preference, preference.create_random_value(src))
 
 /// Randomizes the character according to preferences.
-/datum/preferences/proc/apply_character_randomization_prefs(antag_override = FALSE)
+/datum/prefs_holder/proc/apply_character_randomization_prefs(antag_override = FALSE)
 	switch (read_preference(/datum/preference/choiced/random_body))
 		if (RANDOM_ANTAG_ONLY)
 			if (!antag_override)
@@ -22,7 +22,7 @@
 			write_preference(preference, preference.create_random_value(src))
 
 ///Setup the random hardcore quirks and give the character the new score prize.
-/datum/preferences/proc/hardcore_random_setup(mob/living/carbon/human/character)
+/datum/prefs_holder/proc/hardcore_random_setup(mob/living/carbon/human/character)
 	var/next_hardcore_score = select_hardcore_quirks(character.dna.species.type)
 	character.hardcore_survival_score = next_hardcore_score ** 1.2  //30 points would be about 60 score
 	log_game("[character] started hardcore random with [english_list(all_quirks)], for a score of [next_hardcore_score].")
@@ -35,7 +35,7 @@
  * Goes through all quirks that can be used in hardcore mode and select some based on a random budget.
  * Returns the new value to be gained with this setup, plus the previously earned score.
  **/
-/datum/preferences/proc/select_hardcore_quirks(species)
+/datum/prefs_holder/proc/select_hardcore_quirks(species)
 	. = 0
 
 	var/quirk_budget = rand(8, 35)
@@ -82,7 +82,7 @@
 		available_hardcore_quirks -= picked_quirk
 
 /// Returns what job is marked as highest
-/datum/preferences/proc/get_highest_priority_job()
+/datum/prefs_holder/proc/get_highest_priority_job()
 	var/datum/job/preview_job
 	var/highest_pref = 0
 
@@ -94,7 +94,7 @@
 	return preview_job
 /* SKYRAT EDIT REMOVE - MOVED TO MASTER FILES
 
-/datum/preferences/proc/render_new_preview_appearance(mob/living/carbon/human/dummy/mannequin, show_job_clothes = TRUE)
+/datum/prefs_holder/proc/render_new_preview_appearance(mob/living/carbon/human/dummy/mannequin, show_job_clothes = TRUE)
 	var/datum/job/no_job = SSjob.get_job_type(/datum/job/unassigned)
 	var/datum/job/preview_job = get_highest_priority_job() || no_job
 

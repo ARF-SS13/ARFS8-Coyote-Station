@@ -19,7 +19,7 @@
 		return uni_icon(initial(glasses_type.icon), initial(glasses_type.icon_state))
 		// BUBBER EDIT CHANGE END - Handle glasses not in the base tg file
 
-/datum/preference/choiced/glasses/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/glasses/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 

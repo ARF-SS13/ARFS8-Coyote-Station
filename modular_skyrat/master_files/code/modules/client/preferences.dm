@@ -1,6 +1,6 @@
 #define MAX_MUTANT_ROWS 4
 
-/datum/preferences
+/datum/prefs_holder
 	/// Associative list, keyed by language typepath, pointing to UNDERSTOOD_LANGUAGE, or UNDERSTOOD_LANGUAGE | SPOKEN_LANGUAGE, for whether we understand or speak the language
 	var/list/languages = list()
 	/// List of chosen augmentations. It's an associative list with key name of the slot, pointing to a typepath of an augment define
@@ -52,13 +52,13 @@
 	/// If a food doesn't exist in this list, it uses the default value.
 	var/list/food_preferences = list()
 
-/datum/preferences/proc/species_updated(species_type)
+/datum/prefs_holder/proc/species_updated(species_type)
 	all_quirks = list()
 	// Reset cultural stuff
 	languages[try_get_common_language()] = UNDERSTOOD_LANGUAGE | SPOKEN_LANGUAGE
 	save_character()
 
-/datum/preferences/proc/print_bodypart_change_line(key)
+/datum/prefs_holder/proc/print_bodypart_change_line(key)
 	var/acc_name = mutant_bodyparts[key][MUTANT_INDEX_NAME]
 	var/shown_colors = 0
 	var/datum/sprite_accessory/SA = SSaccessories.sprite_accessories[key][acc_name]
@@ -78,7 +78,7 @@
 				dat += " <a href='byond://?src=[REF(src)];key=[key];color_index=[i];preference=change_color;task=change_bodypart'><span class='color_holder_box' style='background-color:["#[colorlist[i]]"]'></span></a>"
 	return dat
 
-/datum/preferences/proc/reset_colors()
+/datum/prefs_holder/proc/reset_colors()
 	for(var/key in mutant_bodyparts)
 		var/datum/sprite_accessory/SA = SSaccessories.sprite_accessories[key][mutant_bodyparts[key][MUTANT_INDEX_NAME]]
 		if(SA.always_color_customizable)
@@ -93,7 +93,7 @@
 
 /// This helper proc gets the current species language holder and does any post-processing that's required in one easy to track place.
 /// This proc should *always* be edited or used when modifying or getting the default languages of a player controlled, unrestricted species, to prevent any errant conflicts.
-/datum/preferences/proc/get_adjusted_language_holder()
+/datum/prefs_holder/proc/get_adjusted_language_holder()
 	var/datum/species/species = read_preference(/datum/preference/choiced/species)
 	species = new species()
 	var/datum/language_holder/language_holder = new species.species_language_holder()
@@ -104,12 +104,12 @@
 	return language_holder
 
 /// Tries to get the topmost language of the language holder. Should be the species' native language, and if it isn't, you should pester a coder.
-/datum/preferences/proc/try_get_common_language()
+/datum/prefs_holder/proc/try_get_common_language()
 	var/datum/language_holder/language_holder = get_adjusted_language_holder()
 	var/language = language_holder.spoken_languages[1]
 	return language
 
-/datum/preferences/proc/validate_species_parts()
+/datum/prefs_holder/proc/validate_species_parts()
 	var/list/default_bodyparts = GLOB.default_mutant_bodyparts[pref_species.name]
 	var/list/target_bodyparts = default_bodyparts.Copy()
 
@@ -141,7 +141,7 @@
 	if(!allow_advanced_colors)
 		reset_colors()
 
-/datum/preferences/proc/validate_color_keys_for_part(key)
+/datum/prefs_holder/proc/validate_color_keys_for_part(key)
 	var/datum/sprite_accessory/SA = SSaccessories.sprite_accessories[key][mutant_bodyparts[key][MUTANT_INDEX_NAME]]
 	var/list/colorlist = mutant_bodyparts[key][MUTANT_INDEX_COLOR_LIST]
 	if(SA.color_src == USE_MATRIXED_COLORS && colorlist.len != 3)
@@ -149,7 +149,7 @@
 	else if (SA.color_src == USE_ONE_COLOR && colorlist.len != 1)
 		mutant_bodyparts[key][MUTANT_INDEX_COLOR_LIST] = SA.get_default_color(features, pref_species)
 
-/datum/preferences/proc/CanBuyAugment(datum/augment_item/target_aug, datum/augment_item/current_aug)
+/datum/prefs_holder/proc/CanBuyAugment(datum/augment_item/target_aug, datum/augment_item/current_aug)
 	// Check biotypes
 	if(!(pref_species.inherent_biotypes & target_aug.allowed_biotypes))
 		return
@@ -163,7 +163,7 @@
 		return FALSE
 
 /// This proc saves the damage currently on `character` (human) and reapplies it after `safe_transfer_prefs()` is applied to the `character`.
-/datum/preferences/proc/safe_transfer_prefs_to_with_damage(mob/living/carbon/human/character, icon_updates = TRUE, is_antag = FALSE, visuals_only = FALSE)
+/datum/prefs_holder/proc/safe_transfer_prefs_to_with_damage(mob/living/carbon/human/character, icon_updates = TRUE, is_antag = FALSE, visuals_only = FALSE)
 	if(!istype(character))
 		return FALSE
 
@@ -175,7 +175,7 @@
 	qdel(added_tracker)
 
 // Updates the mob's chat color in the global cache
-/datum/preferences/safe_transfer_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE, is_antag = FALSE, visuals_only = FALSE)
+/datum/prefs_holder/safe_transfer_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE, is_antag = FALSE, visuals_only = FALSE)
 	// clear organs that might not be replaced
 	for (var/obj/item/organ/iter_organ as anything in character.organs)
 		var/feature_key = iter_organ.bodypart_overlay?.feature_key

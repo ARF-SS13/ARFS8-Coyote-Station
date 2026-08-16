@@ -64,7 +64,7 @@
 		receiver.show_message(subtle_message, alt_msg = subtle_message)
 		// Optional sound notification
 		if(!isobserver(receiver))
-			var/datum/preferences/prefs = receiver.client?.prefs
+			var/datum/prefs_holder/prefs = receiver.client?.prefs
 			if(prefs && prefs.read_preference(/datum/preference/toggle/subtler_sound))
 				receiver.playsound_local(get_turf(receiver), 'sound/effects/achievement/glockenspiel_ping.ogg', 50)
 
@@ -205,7 +205,7 @@
 
 // Optional sound notification for subtler
 /datum/emote/living/subtler/proc/subtler_sound(mob/hearer)
-	var/datum/preferences/prefs = hearer.client?.prefs
+	var/datum/prefs_holder/prefs = hearer.client?.prefs
 	if(prefs && prefs.read_preference(/datum/preference/toggle/subtler_sound))
 		hearer.playsound_local(get_turf(hearer), 'sound/effects/achievement/glockenspiel_ping.ogg', 50)
 

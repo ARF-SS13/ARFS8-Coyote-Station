@@ -18,7 +18,7 @@
 			init_ai_status_display_options()
 		return uni_icon('icons/obj/machines/status_display.dmi', GLOB.ai_status_display_all_options[value])
 
-/datum/preference/choiced/ai_emote_display/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/ai_emote_display/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
