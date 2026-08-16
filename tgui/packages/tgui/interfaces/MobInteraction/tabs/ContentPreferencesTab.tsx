@@ -220,23 +220,6 @@ export const ContentPreferencesTab = ({
             'Forced Never Boner',
           )}
           {renderToggle(
-            'custom_genital_fluids_pref',
-            custom_genital_fluids_pref,
-            'Custom Genital Fluids',
-          )}
-          {renderToggle(
-            'cumflation_pref',
-            cumflation_pref,
-            'Cumflation',
-            'Allow your genitals to get cumflated',
-          )}
-          {renderToggle(
-            'cumflates_partners_pref',
-            cumflates_partners_pref,
-            'Cumflates Partners',
-            'Your character cumflates partners.',
-          )}
-          {renderToggle(
             'knotting_pref',
             knotting_pref,
             'Knotting',
