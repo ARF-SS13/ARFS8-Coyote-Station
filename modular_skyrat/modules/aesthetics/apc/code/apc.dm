@@ -1,5 +1,6 @@
 /obj/machinery/power/apc
 	icon = 'modular_skyrat/modules/aesthetics/apc/icons/apc.dmi'
+	icon_state = MAP_SWITCH("apc0", "mappingapc")
 
 /obj/item/wallframe/apc
 	icon = 'modular_skyrat/modules/aesthetics/apc/icons/apc.dmi'
