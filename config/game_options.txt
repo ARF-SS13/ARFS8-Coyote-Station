@@ -430,6 +430,9 @@ ROUNDSTART_RACES serpentid
 ## SPLURT BANDWAGON DOWN HERE
 ROUNDSTART_RACES arachnid
 
+## COYOTE RACES DOWN HERE
+ROUNDSTART_RACES rodentia
+
 ##-------------------------------------------------------------------------------------------
 
 ## Roundstart no-reset races

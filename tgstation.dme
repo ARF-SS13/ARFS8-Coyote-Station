@@ -8001,6 +8001,7 @@
 #include "modular_skyrat\modules\customization\modules\mob\living\carbon\human\species\mushpeople.dm"
 #include "modular_skyrat\modules\customization\modules\mob\living\carbon\human\species\placeholder_helper.dm"
 #include "modular_skyrat\modules\customization\modules\mob\living\carbon\human\species\podweak.dm"
+#include "modular_skyrat\modules\customization\modules\mob\living\carbon\human\species\rodentia.dm"
 #include "modular_skyrat\modules\customization\modules\mob\living\carbon\human\species\serpentid.dm"
 #include "modular_skyrat\modules\customization\modules\mob\living\carbon\human\species\skrell.dm"
 #include "modular_skyrat\modules\customization\modules\mob\living\carbon\human\species\tajaran.dm"

@@ -71,4 +71,4 @@
 	SHOULD_CALL_PARENT(FALSE)
 
 	//stack_trace("Species [name] ([type]) did not have a description set, and is a selectable roundstart race! Override get_species_description.")
-	return list("No species description set, file a bug report!",)
+	return list("This is some kind of cool critter, in need of describing!",)

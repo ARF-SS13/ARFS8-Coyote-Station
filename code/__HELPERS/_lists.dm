@@ -91,6 +91,8 @@
 #define LAZYCLEARLIST(L) L?.Cut()
 ///Returns the list if it's actually a valid list, otherwise will initialize it
 #define SANITIZE_LIST(L) ( islist(L) ? L : list() )
+/// Ensures whatever is in L is a list
+#define LAZYLISTIFY(L) ( islist(L) ? L : list(L) )
 /// Performs an insertion on the given lazy list with the given key and value. If the value already exists, a new one will not be made.
 #define LAZYORASSOCLIST(lazy_list, key, value) \
 	LAZYINITLIST(lazy_list); \
