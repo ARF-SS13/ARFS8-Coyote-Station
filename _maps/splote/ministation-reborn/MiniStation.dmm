@@ -2532,15 +2532,6 @@
 "bzw" = (
 /turf/closed/wall,
 /area/station/hallway/secondary/entry)
-"bzx" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/extinguisher_cabinet/directional/north,
-/obj/machinery/camera/autoname/aicore/directional/north,
-/turf/open/floor/plating,
-/area/space)
 "bAg" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -2636,15 +2627,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/station/hallway/secondary/entry)
-"bDw" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
-	dir = 1
-	},
-/obj/machinery/light,
-/obj/structure/extinguisher_cabinet/directional/south,
-/obj/machinery/camera/autoname/aicore/directional/south,
-/turf/open/floor/plating,
-/area/space)
 "bDE" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -7075,17 +7057,6 @@
 	},
 /turf/open/floor/stone,
 /area/station/service/hydroponics/park)
-"egW" = (
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 36;
-	pixel_y = 8
-	},
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/space)
 "ehG" = (
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/locked,
@@ -7210,17 +7181,6 @@
 /obj/machinery/duct,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/science/genetics)
-"ele" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/extinguisher_cabinet/directional/east,
-/obj/machinery/camera/autoname/aicore/directional/east,
-/turf/open/floor/plating,
-/area/space)
 "elr" = (
 /obj/structure/sign/painting/library_secure{
 	pixel_x = -32
@@ -8751,16 +8711,6 @@
 	},
 /turf/open/floor/iron/textured,
 /area/station/engineering/atmos)
-"fiJ" = (
-/obj/machinery/airalarm/directional/south{
-	pixel_y = -43
-	},
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/space)
 "fjk" = (
 /obj/machinery/power/apc/auto_name/directional/west,
 /obj/machinery/light/directional/west,
@@ -14913,17 +14863,6 @@
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron,
 /area/station/medical/virology)
-"iKz" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/extinguisher_cabinet/directional/west,
-/obj/machinery/camera/autoname/aicore/directional/west,
-/turf/open/floor/plating,
-/area/space)
 "iKB" = (
 /obj/structure/railing/wooden_fencing{
 	dir = 8
@@ -20146,29 +20085,6 @@
 /obj/machinery/duct,
 /turf/open/floor/wood/tile,
 /area/station/commons/dorms/room4)
-"lMB" = (
-/obj/machinery/power/apc/auto_name/directional/south{
-	pixel_x = 8;
-	pixel_y = -38
-	},
-/obj/machinery/light_switch/directional/south{
-	pixel_x = -4;
-	pixel_y = -36
-	},
-/obj/structure/cable,
-/obj/machinery/firealarm/directional/north{
-	pixel_x = -6;
-	pixel_y = -30
-	},
-/obj/item/radio/intercom{
-	pixel_x = 7;
-	pixel_y = -29
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/space)
 "lMI" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -28207,16 +28123,6 @@
 /obj/machinery/duct,
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
-"pZQ" = (
-/obj/machinery/airalarm/directional/west{
-	pixel_y = 6
-	},
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/space)
 "qaQ" = (
 /obj/effect/spawner/random/structure/crate,
 /turf/open/floor/plating,
@@ -28667,29 +28573,6 @@
 	},
 /turf/open/floor/stone,
 /area/station/service/hydroponics/park)
-"qnz" = (
-/obj/machinery/power/apc/auto_name/directional/east{
-	pixel_y = -6;
-	pixel_x = 35
-	},
-/obj/machinery/light_switch/directional/east{
-	pixel_y = -4;
-	pixel_x = 23
-	},
-/obj/structure/cable,
-/obj/machinery/firealarm/directional/north{
-	pixel_x = 21;
-	pixel_y = 2
-	},
-/obj/item/radio/intercom{
-	pixel_x = 34;
-	pixel_y = 3
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/space)
 "qnU" = (
 /obj/machinery/telecomms/server/presets/common,
 /obj/effect/turf_decal/box/white{
@@ -30796,16 +30679,6 @@
 	},
 /turf/open/floor/iron/white/small,
 /area/station/commons/toilet)
-"rxc" = (
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 40
-	},
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 2
-	},
-/turf/open/floor/plating,
-/area/space)
 "rxp" = (
 /turf/open/openspace,
 /area/station/hallway/floor2/aft)
@@ -33789,27 +33662,6 @@
 /obj/structure/marker_beacon/purple,
 /turf/open/floor/iron/dark/small,
 /area/station/science/research)
-"thj" = (
-/obj/machinery/power/apc/auto_name/directional/north{
-	pixel_x = 5;
-	pixel_y = 25
-	},
-/obj/machinery/light_switch/directional/north{
-	pixel_x = -7;
-	pixel_y = 26
-	},
-/obj/structure/cable,
-/obj/machinery/firealarm/directional/north{
-	pixel_x = -9;
-	pixel_y = 32
-	},
-/obj/item/radio/intercom{
-	pixel_x = 4;
-	pixel_y = 33
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
-/turf/open/floor/plating,
-/area/space)
 "thz" = (
 /obj/effect/turf_decal/trimline/red/filled/line,
 /turf/open/floor/iron/dark,
@@ -41864,28 +41716,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/service/hydroponics)
-"xIK" = (
-/obj/machinery/power/apc/auto_name/directional/west{
-	pixel_y = -9
-	},
-/obj/machinery/light_switch/directional/west{
-	pixel_x = -38;
-	pixel_y = -7
-	},
-/obj/structure/cable,
-/obj/machinery/firealarm/directional/north{
-	pixel_x = -39;
-	pixel_y = -1
-	},
-/obj/item/radio/intercom{
-	pixel_x = -26;
-	pixel_y = -1
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/space)
 "xIR" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/bot,
@@ -63145,9 +62975,9 @@ wjd
 wjd
 wjd
 wjd
-ele
-qnz
-egW
+wjd
+wjd
+wjd
 wjd
 wjd
 wjd
@@ -63402,9 +63232,9 @@ wjd
 wjd
 wjd
 wjd
-qoC
-qoC
-qoC
+wjd
+wjd
+wjd
 wjd
 wjd
 wjd
@@ -63913,15 +63743,15 @@ lPU
 wjd
 wjd
 wjd
-fiJ
-qoC
 wjd
 wjd
 wjd
 wjd
 wjd
-qoC
-bzx
+wjd
+wjd
+wjd
+wjd
 wjd
 wjd
 wjd
@@ -64170,15 +64000,15 @@ wjd
 wjd
 wjd
 wjd
-lMB
-qoC
 wjd
 wjd
 wjd
 wjd
 wjd
-qoC
-thj
+wjd
+wjd
+wjd
+wjd
 wjd
 wjd
 wjd
@@ -64427,15 +64257,15 @@ wjd
 wjd
 wjd
 wjd
-bDw
-qoC
 wjd
 wjd
 wjd
 wjd
 wjd
-qoC
-rxc
+wjd
+wjd
+wjd
+wjd
 wjd
 wjd
 wjd
@@ -64944,9 +64774,9 @@ wjd
 wjd
 wjd
 wjd
-qoC
-qoC
-qoC
+wjd
+wjd
+wjd
 wjd
 wjd
 wjd
@@ -65201,9 +65031,9 @@ wjd
 wjd
 wjd
 wjd
-pZQ
-xIK
-iKz
+wjd
+wjd
+wjd
 wjd
 wjd
 wjd
