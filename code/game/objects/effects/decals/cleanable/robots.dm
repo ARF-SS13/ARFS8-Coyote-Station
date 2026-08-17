@@ -47,7 +47,7 @@
 /obj/effect/decal/cleanable/blood/oil/get_default_blood_type()
 	return get_blood_type(BLOOD_TYPE_OIL)
 
-/obj/effect/decal/cleanable/blood/oil/slippery/Initialize(mapload, list/datum/disease/diseases, list/blood_or_dna)
+/obj/effect/decal/cleanable/blood/oil/slippery/Initialize(mapload, list/datum/disease/diseases, list/blood_or_dna = get_default_blood_type())
 	. = ..()
 	AddComponent(/datum/component/slippery, 80, (NO_SLIP_WHEN_WALKING | SLIDE))
 
