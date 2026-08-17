@@ -271,7 +271,7 @@
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 
 	equipped_slot = ITEM_SLOT_FEET
-	var/static/mutable_appearance/bloody_feet
+	var/mutable_appearance/bloody_feet
 
 	/// List of DNA on mob's feet, so we can handle it separately from blood on mob's hands
 	var/list/blood_DNA = null
@@ -316,7 +316,8 @@
 		wielder.update_worn_shoes()
 		return
 
-	bloody_feet.color = wielder.get_blood_dna_color()
+	// Color from the blood that's actually on feet
+	bloody_feet.color = length(blood_DNA) ? get_color_from_blood_list(blood_DNA) : wielder.get_blood_dna_color()
 	wielder.overlays_standing[SHOES_LAYER] = bloody_feet
 	wielder.apply_overlay(SHOES_LAYER)
 
