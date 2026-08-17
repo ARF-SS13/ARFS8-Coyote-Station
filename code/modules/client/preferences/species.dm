@@ -6,17 +6,17 @@
 	randomize_by_default = FALSE
 
 /datum/preference/choiced/species/deserialize(input, datum/preferences/preferences)
-	return GLOB.species_list[sanitize_inlist(input, get_choices_serialized(), SPECIES_HUMAN)]
+	return GLOB.species_list[sanitize_inlist(input, get_choices_serialized(), SPECIES_VULP)]
 
 /datum/preference/choiced/species/serialize(input)
 	var/datum/species/species = input
 	return initial(species.id)
 
 /datum/preference/choiced/species/create_default_value()
-	return /datum/species/human
+	return /datum/species/vulpkanin // furry server, furry default
 
 /datum/preference/choiced/species/create_random_value(datum/preferences/preferences)
-	return pick(get_choices())
+	return /datum/species/vulpkanin
 
 /datum/preference/choiced/species/init_possible_values()
 	var/list/values = list()
@@ -53,8 +53,10 @@
 
 		data[species_id] = list()
 		data[species_id]["name"] = species.name
-		data[species_id]["desc"] = species.get_species_description()
-		data[species_id]["lore"] = species.get_species_lore()
+		var/spedesc = species.get_species_description()
+		data[species_id]["desc"] = LAZYLISTIFY(spedesc)
+		var/spelore = species.get_species_lore()
+		data[species_id]["lore"] = LAZYLISTIFY(spelore)
 		data[species_id]["icon"] = sanitize_css_class_name(species.name)
 		data[species_id]["use_skintones"] = (TRAIT_USES_SKINTONES in species.inherent_traits)
 		data[species_id]["sexes"] = species.sexes

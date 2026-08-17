@@ -54,9 +54,9 @@ GLOBAL_LIST_EMPTY(customizable_races)
 
 /datum/species/human/get_default_mutant_bodyparts()
 	return list(
-		"ears" = list("None", FALSE),
-		"tail" = list("None", FALSE),
-		"wings" = list("None", FALSE),
+		// "ears" = list("None", FALSE),
+		// "tail" = list("None", FALSE),
+		// "wings" = list("None", FALSE),
 	)
 
 /datum/species/mush
