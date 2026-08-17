@@ -1,0 +1,1240 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/space/basic,
+/area/space)
+"b" = (
+/obj/structure/closet/emcloset/wall{
+	pixel_y = 32
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/space)
+"c" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
+	dir = 8
+	},
+/obj/machinery/camera/autoname/aicore/directional/east,
+/obj/machinery/requests_console/auto_name/directional/east,
+/turf/open/floor/plating,
+/area/space)
+"d" = (
+/obj/item/paper{
+	desc = "These directional wall setups can be used either as full inserts or piecemeal inserts into rooms to make certain that no mapping basics are missed.  No promises on camera coverage and lighting, but at least you have a camera and a light to start with."
+	},
+/turf/open/space/basic,
+/area/space)
+"e" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
+	dir = 1
+	},
+/obj/machinery/requests_console/auto_name/directional/south,
+/turf/open/floor/plating,
+/area/space)
+"f" = (
+/obj/structure/cable,
+/turf/open/floor/plating,
+/area/space)
+"g" = (
+/obj/machinery/power/apc/auto_name/directional/east{
+	pixel_y = -6;
+	pixel_x = 35
+	},
+/obj/machinery/light_switch/directional/east{
+	pixel_y = -5;
+	pixel_x = 22
+	},
+/obj/structure/cable,
+/obj/item/radio/intercom{
+	pixel_x = 34;
+	pixel_y = 2
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/space)
+"h" = (
+/obj/machinery/airalarm/directional/west{
+	pixel_y = 8;
+	pixel_x = -32
+	},
+/obj/structure/extinguisher_cabinet/directional/west{
+	pixel_x = -27;
+	pixel_y = -4
+	},
+/obj/machinery/firealarm/directional/west{
+	pixel_x = -42;
+	pixel_y = -3
+	},
+/obj/machinery/camera/autoname/aicore/directional/west,
+/turf/open/floor/plating,
+/area/space)
+"p" = (
+/obj/machinery/newscaster/directional/north,
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk,
+/turf/open/floor/plating,
+/area/space)
+"q" = (
+/obj/machinery/power/apc/auto_name/directional/south{
+	pixel_x = 7;
+	pixel_y = -38
+	},
+/obj/machinery/light_switch/directional/south{
+	pixel_x = -5;
+	pixel_y = -37
+	},
+/obj/structure/cable,
+/obj/item/radio/intercom{
+	pixel_x = 7;
+	pixel_y = -30
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/space)
+"r" = (
+/obj/machinery/newscaster/directional/east,
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/space)
+"t" = (
+/obj/machinery/atmospherics/pipe/multiz/scrubbers/visible/layer2,
+/obj/machinery/atmospherics/pipe/multiz/supply/visible/layer4,
+/turf/open/floor/plating,
+/area/space)
+"u" = (
+/obj/machinery/power/apc/auto_name/directional/north{
+	pixel_x = 5;
+	pixel_y = 26
+	},
+/obj/machinery/light_switch/directional/north{
+	pixel_x = -7;
+	pixel_y = 27
+	},
+/obj/structure/cable,
+/obj/item/radio/intercom{
+	pixel_x = 4;
+	pixel_y = 34
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
+/turf/open/floor/plating,
+/area/space)
+"v" = (
+/obj/machinery/newscaster/directional/south,
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/space)
+"B" = (
+/obj/structure/closet/emcloset/wall{
+	pixel_x = -32
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/space)
+"D" = (
+/obj/structure/closet/emcloset/wall{
+	pixel_y = -32
+	},
+/obj/machinery/light,
+/turf/open/floor/plating,
+/area/space)
+"E" = (
+/obj/structure/closet/emcloset/wall{
+	pixel_y = 0;
+	pixel_x = 33
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/space)
+"F" = (
+/turf/closed/wall,
+/area/space)
+"I" = (
+/obj/machinery/newscaster/directional/west,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/disposal/bin,
+/turf/open/floor/plating,
+/area/space)
+"J" = (
+/obj/structure/disposalpipe/trunk/multiz/down{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/space)
+"K" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/plating,
+/area/space)
+"L" = (
+/obj/machinery/airalarm/directional/north{
+	pixel_y = 40
+	},
+/obj/structure/extinguisher_cabinet/directional/north{
+	pixel_x = 5;
+	pixel_y = 27
+	},
+/obj/machinery/firealarm/directional/north{
+	pixel_x = -10;
+	pixel_y = 29
+	},
+/obj/machinery/camera/autoname/aicore/directional/north,
+/turf/open/floor/plating,
+/area/space)
+"M" = (
+/obj/structure/cable/multilayer/multiz,
+/turf/open/floor/plating,
+/area/space)
+"N" = (
+/obj/item/paper{
+	desc = "This little 2x3 is for multi-z power, disposals, and atmos. They can be stacked on top of each other ad-naseum but make sure you use the correct disposal tube directions for where you want trash to head."
+	},
+/turf/open/space/basic,
+/area/space)
+"R" = (
+/obj/machinery/airalarm/directional/east{
+	pixel_x = 31;
+	pixel_y = 8
+	},
+/obj/structure/extinguisher_cabinet/directional/east{
+	pixel_x = 37;
+	pixel_y = -5
+	},
+/obj/machinery/firealarm/directional/north{
+	pixel_x = 23;
+	pixel_y = -3
+	},
+/obj/machinery/camera/autoname/aicore/directional/east,
+/turf/open/floor/plating,
+/area/space)
+"T" = (
+/obj/structure/disposalpipe/trunk/multiz,
+/turf/open/floor/plating,
+/area/space)
+"U" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
+	dir = 4
+	},
+/obj/machinery/requests_console/auto_name/directional/west,
+/turf/open/floor/plating,
+/area/space)
+"V" = (
+/obj/machinery/power/apc/auto_name/directional/west{
+	pixel_y = -7;
+	pixel_x = -26
+	},
+/obj/machinery/light_switch/directional/west{
+	pixel_x = -38;
+	pixel_y = -5
+	},
+/obj/structure/cable,
+/obj/item/radio/intercom{
+	pixel_x = -26;
+	pixel_y = 2
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/space)
+"W" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
+/obj/machinery/camera/autoname/aicore/directional/north,
+/obj/machinery/requests_console/auto_name/directional/north,
+/turf/open/floor/plating,
+/area/space)
+"X" = (
+/obj/machinery/airalarm/directional/south{
+	pixel_y = -24;
+	pixel_x = -1
+	},
+/obj/structure/extinguisher_cabinet/directional/south{
+	pixel_x = 5;
+	pixel_y = -37
+	},
+/obj/machinery/firealarm/directional/north{
+	pixel_x = -9;
+	pixel_y = -35
+	},
+/obj/machinery/camera/autoname/aicore/directional/south,
+/turf/open/floor/plating,
+/area/space)
+
+(1,1,1) = {"
+a
+a
+r
+c
+g
+R
+E
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+F
+F
+F
+F
+F
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(3,1,1) = {"
+D
+F
+a
+a
+a
+a
+a
+F
+p
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(4,1,1) = {"
+X
+F
+a
+a
+a
+a
+a
+F
+W
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(5,1,1) = {"
+q
+F
+a
+a
+d
+a
+a
+F
+u
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(6,1,1) = {"
+e
+F
+a
+a
+a
+a
+a
+F
+L
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(7,1,1) = {"
+v
+F
+a
+a
+a
+a
+a
+F
+b
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(8,1,1) = {"
+a
+a
+F
+F
+F
+F
+F
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(9,1,1) = {"
+a
+a
+B
+h
+V
+U
+I
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(10,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(11,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(12,1,1) = {"
+a
+a
+N
+M
+f
+J
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(13,1,1) = {"
+a
+a
+a
+t
+K
+T
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(14,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(15,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(16,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(17,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(18,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(19,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(20,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(21,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(22,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(23,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(24,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(25,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(26,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(27,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(28,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(29,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(30,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
