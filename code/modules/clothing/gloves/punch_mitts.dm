@@ -3,7 +3,7 @@
 	desc = "Fingerless gloves with nasty spikes attached. Allows the wearer to utilize the ill-reputed fighting technique known as Hunter Boxing. The style \
 		allows the user to rapidly punch wildlife into smithereens. Great workout. Extremely ill-advised for ensuring your own personal survival."
 	icon_state = "punch_mitts"
-	body_parts_covered = HANDS|ARMS
+	body_parts_covered = HANDS //Coyote change - bro these are fingerless GLOVES not fingerless fucking princess sleeves. ~Fenny
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	armor_type = /datum/armor/gloves_mitts
 
@@ -17,6 +17,6 @@
 	bullet = 5
 	laser = 5
 	energy = 5
-	bomb = 100
+	bomb = 100 //I love exploding and being just a pair of fucking hands. ~ Fenny
 	fire = 100
 	acid = 30

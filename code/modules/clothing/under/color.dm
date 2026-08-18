@@ -172,6 +172,15 @@
 	icon_state = "/obj/item/clothing/under/color/white"
 	greyscale_colors = "#ffffff"
 
+//Coyote Addition Start
+/obj/item/clothing/under/color/white/security
+	name = "white security jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/white"
+	armor_type = /datum/armor/clothing_under/rank_security
+	greyscale_colors = "#ffffff"
+
+//Coyote Addition End
+
 /obj/item/clothing/under/color/jumpskirt/white
 	name = "white jumpskirt"
 	icon_state = "/obj/item/clothing/under/color/jumpskirt/white"
