@@ -120,29 +120,32 @@ GLOBAL_DATUM(character_directory, /datum/character_directory)
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	savefile_identifier = PREFERENCE_PLAYER
 
-//CHARACTER DIRECTORY CODE START
-//Add a cooldown for the character directory to the client, primarily to stop server lag from refresh spam
-/client
-	COOLDOWN_DECLARE(char_directory_cooldown)
+// ╔═══╦════════════════════════════════╦═══╗
+// ║♥♥♥║ CHARACTER DIRECTORY CODE START ║☺☻☺║
+// ╚═══╩════════════════════════════════╩═══╝
 
-//Make a verb to open the character directory
-// modular coyote or somethign, make the character fiurectory only 4 adminds
+/// Cooldown so ppl cant spam it so good
+/client/var/char_directory_cooldown = 0
+
+/// Admins can access the CD from ahost
 ADMIN_VERB(show_character_directory, R_ADMIN, "Show Character Directory", "View the character directory.", ADMIN_CATEGORY_FUN)
 // /client/verb/show_character_directory()
-// 	set name = "Character Directory"
-// 	set category = "OOC"
-// 	set desc = "Shows a listing of all active characters, along with their associated OOC notes, flavor text, and more."
+	if(!isAdminObserver(user.mob))
+		to_chat(user, span_hypnophrase("For technical limitation reasons "))
+	user.open_character_directory()
 
-	// This is primarily to stop malicious users from trying to lag the server by spamming this verb
-	// if(!COOLDOWN_FINISHED(usr, char_directory_cooldown))
-	// 	to_chat(usr, span_alert("Hold your horses! It's still refreshing!"))
-	// 	return
-	// COOLDOWN_START(usr, char_directory_cooldown, 10)
+// PROC WHAT OPENS IT
+/client/proc/open_character_directory()
+	var/mob/doer_mob = mob
+	if(!COOLDOWN_FINISHED(src, char_directory_cooldown))
+		to_chat(src, span_alert("Hold your horses! It's still refreshing!"))
+		return
+	COOLDOWN_START(src, char_directory_cooldown, 1 SECONDS)
 
 //Check if there's not already a character directory open; open a new one if one is not present
 	if(!GLOB.character_directory)
 		GLOB.character_directory = new
-	GLOB.character_directory.ui_interact(usr)
+	GLOB.character_directory.ui_interact(doer_mob)
 
 // This is a global singleton. Keep in mind that all operations should occur on user, not src.
 /datum/character_directory
@@ -163,13 +166,13 @@ ADMIN_VERB(show_character_directory, R_ADMIN, "Show Character Directory", "View 
 
 //Collect the user's own preferences for the top of the UI
 	if (user?.client?.prefs)
-		data["personalVisibility"] = READ_PREFS(user, toggle/show_in_directory)
-		data["personalAttraction"] = READ_PREFS(user, choiced/attraction)
-		data["personalGender"] = READ_PREFS(user, choiced/display_gender)
-		data["personalErpTag"] = READ_PREFS(user, choiced/erp_status)
-		data["personalVoreTag"] = READ_PREFS(user, choiced/erp_status_v)
-		data["personalHypnoTag"] = READ_PREFS(user, choiced/erp_status_hypno)
-		data["personalNonconTag"] = READ_PREFS(user, choiced/erp_status_nc)
+		data["personalVisibility"] =  READ_PREFS(user, toggle/show_in_directory)
+		data["personalAttraction"] =  READ_PREFS(user, choiced/attraction)
+		data["personalGender"] =      READ_PREFS(user, choiced/display_gender)
+		data["personalErpTag"] =      READ_PREFS(user, choiced/erp_status)
+		data["personalVoreTag"] =     READ_PREFS(user, choiced/erp_status_v)
+		data["personalHypnoTag"] =    READ_PREFS(user, choiced/erp_status_hypno)
+		data["personalNonconTag"] =   READ_PREFS(user, choiced/erp_status_nc)
 		data["prefsOnly"] = TRUE
 
 	data["canOrbit"] = isobserver(user)
@@ -184,24 +187,24 @@ ADMIN_VERB(show_character_directory, R_ADMIN, "Show Character Directory", "View 
 	//We want the directory to display only alive players, not observers or people in the lobby
 	for(var/mob/mob in GLOB.alive_player_list)
 		// These are the variables we're trying to display in the directory
-		var/name = ""
-		var/species = "Ask"
-		var/ooc_notes = ""
-		var/flavor_text = ""
-		var/nsfw_flavor_text = ""
-		var/attraction = "Unset"
-		var/gender = "Nonbinary"
-		var/erp = "Ask"
-		var/vore = "Ask"
-		var/hypno = "Ask"
-		var/noncon = "Ask"
+		var/name              = ""
+		var/species           = "Ask"
+		var/ooc_notes         = ""
+		var/flavor_text       = ""
+		var/nsfw_flavor_text  = ""
+		var/attraction        = "Unset"
+		var/gender            = "Nonbinary"
+		var/erp               = "Ask"
+		var/vore              = "Ask"
+		var/hypno             = "Ask"
+		var/noncon            = "Ask"
 		// SPLURT EDIT START: INTERACTION PANEL
-		var/extreme = "Ask"
-		var/extremeharm = "Ask"
-		var/unholy = "Ask"
+		var/extreme           = "Ask"
+		var/extremeharm       = "Ask"
+		var/unholy            = "Ask"
 		// SPLURT EDIT END: INTERACTION PANEL
-		var/character_ad = ""
-		var/ref = REF(mob)
+		var/character_ad      = ""
+		var/ref               = REF(mob)
 		//Just in case something we get is not a mob
 		if(!mob)
 			continue
@@ -234,38 +237,38 @@ ADMIN_VERB(show_character_directory, R_ADMIN, "Show Character Directory", "View 
 		//Don't show if they are not a human or a silicon
 		else continue
 		//List of all the shown ERP preferences in the Directory. If there is none, return "Unset"
-		attraction = READ_PREFS(mob, choiced/attraction)
-		gender = READ_PREFS(mob, choiced/display_gender)
-		erp = READ_PREFS(mob, choiced/erp_status)
-		vore = READ_PREFS(mob, choiced/erp_status_v)
-		hypno = READ_PREFS(mob, choiced/erp_status_hypno)
-		noncon = READ_PREFS(mob, choiced/erp_status_nc)
-		character_ad = READ_PREFS(mob, text/character_ad)
-		ooc_notes = READ_PREFS(mob, text/ooc_notes)
+		attraction    = READ_PREFS(mob, choiced/attraction)
+		gender        = READ_PREFS(mob, choiced/display_gender)
+		erp           = READ_PREFS(mob, choiced/erp_status)
+		vore          = READ_PREFS(mob, choiced/erp_status_v)
+		hypno         = READ_PREFS(mob, choiced/erp_status_hypno)
+		noncon        = READ_PREFS(mob, choiced/erp_status_nc)
+		character_ad  = READ_PREFS(mob, text/character_ad)
+		ooc_notes     = READ_PREFS(mob, text/ooc_notes)
 		// SPLURT EDIT START: INTERACTION PANEL
-		extreme = READ_PREFS(mob, choiced/erp_status_extm)
+		extreme       = READ_PREFS(mob, choiced/erp_status_extm)
 		// SPLURT EDIT END: INTERACTION PANEL
-		name = mob.real_name ? mob.name : mob.real_name
+		name          = mob.real_name ? mob.name : mob.real_name
 
 		directory_mobs.Add(list(list(
-			"name" = name,
-			"species" = species,
-			"ooc_notes" = ooc_notes,
-			"attraction" = attraction,
-			"gender" = gender,
-			"erp" = erp,
-			"vore" = vore,
-			"hypno" = hypno,
-			"noncon" = noncon,
+			"name"              = name,
+			"species"           = species,
+			"ooc_notes"         = ooc_notes,
+			"attraction"        = attraction,
+			"gender"            = gender,
+			"erp"               = erp,
+			"vore"              = vore,
+			"hypno"             = hypno,
+			"noncon"            = noncon,
 			// SPLURT EDIT START: INTERACTION PANEL
-			"extreme" = extreme,
-			"extremeharm" = extremeharm,
-			"unholy" = unholy,
+			"extreme"           = extreme,
+			"extremeharm"       = extremeharm,
+			"unholy"            = unholy,
 			// SPLURT EDIT END: INTERACTION PANEL
-			"character_ad" = character_ad,
-			"flavor_text" = flavor_text,
-			"nsfw_flavor_text" = nsfw_flavor_text,
-			"ref" = ref
+			"character_ad"      = character_ad,
+			"flavor_text"       = flavor_text,
+			"nsfw_flavor_text"  = nsfw_flavor_text,
+			"ref"               = ref
 		)))
 
 	data["directory"] = directory_mobs
@@ -286,7 +289,7 @@ ADMIN_VERB(show_character_directory, R_ADMIN, "Show Character Directory", "View 
 		if("refresh")
 			// This is primarily to stop malicious users from trying to lag the server by spamming this verb
 			if(!COOLDOWN_FINISHED(user.client, char_directory_cooldown))
-				to_chat(user, "<span class='warning'>Don't spam character directory refresh.</span>")
+				to_chat(user, "<span class='warning'>Hold your Horses! Its still refreshing! ♥</span>")
 				return
 			COOLDOWN_START(user.client, char_directory_cooldown, 10)
 			update_static_data(user, ui)

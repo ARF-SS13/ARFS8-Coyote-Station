@@ -81,7 +81,7 @@
 
 /obj/projectile/bullet/pellet/shotgun_buckshot
 	name = "buckshot pellet"
-	damage = 5
+	damage = 10 //kill the mother fucker if you're going to kill them, an underpowered shotgun is a fucking sin in gaming.  You should be ashamed. ~ Fenny
 	wound_bonus = 5
 	exposed_wound_bonus = 5
 	speed = 1.1

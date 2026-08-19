@@ -50,6 +50,9 @@
 		/datum/computer_file/program/maintenance/camera, // Adds camera to all base tablets
 		/datum/computer_file/program/crew_self_serve, // Crew Self Serve
 		// BUBBER EDIT ADDITION END
+		// coytoe
+		/datum/computer_file/program/character_directory,
+		// coyote
 	)
 	///List of items that can be stored in a PDA
 	var/static/list/contained_item = list(

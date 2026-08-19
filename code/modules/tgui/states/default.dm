@@ -8,11 +8,14 @@
  *
  * Checks a number of things -- mostly physical distance for humans
  * and view for robots.
+ * also aghosts
  */
 
 GLOBAL_DATUM_INIT(default_state, /datum/ui_state/default, new)
 
 /datum/ui_state/default/can_use_topic(src_object, mob/user)
+	if(isAdminObserver(user))
+		return TRUE
 	return user.default_can_use_topic(src_object) // Call the individual mob-overridden procs.
 
 /mob/proc/default_can_use_topic(src_object)

@@ -37,7 +37,7 @@ export const NtosMain = (props) => {
         (PC_device_theme === 'syndicate' && 'Syndix Main Menu') ||
         'NtOS Main Menu'
       }
-      width={400}
+      width={600}
       height={500}
       z
     >

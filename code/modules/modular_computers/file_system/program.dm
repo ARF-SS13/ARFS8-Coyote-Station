@@ -118,6 +118,11 @@
 		return FALSE
 	return computer.add_log(text)
 
+///if opening the program just causes a proc to happen
+///return TRUE to halt the program doing stuff
+/datum/computer_file/program/proc/simple_act(mob/user)
+	return
+
 /**
  *Runs when the device is used to attack an atom in non-combat mode using right click (secondary).
  *

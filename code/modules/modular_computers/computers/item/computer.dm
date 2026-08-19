@@ -703,6 +703,9 @@
 			to_chat(user, span_danger("\The [src]'s screen shows \"I/O ERROR - Unable to run program\" warning."))
 		return FALSE
 
+	if(program.simple_act(user))
+		return TRUE
+
 	if(active_program == program)
 		return FALSE
 
