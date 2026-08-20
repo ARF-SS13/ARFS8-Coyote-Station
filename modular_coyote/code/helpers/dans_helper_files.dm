@@ -29,8 +29,16 @@
 		. += "[xy_parts[1]]:[xy_parts[2]]"
 	. = jointext(., ",")
 
+/proc/get_species_name(mob/living/carbon/human/critter)
+	if(!ishuman(critter))
+		return "critter"
+	var/datum/species/species_datum = get_species(critter)
+	if(!species_datum)
+		return "critter"
+	return species_datum.name
 
-
-
-
+/proc/get_species(mob/living/carbon/human/critter)
+	if(!ishuman(critter))
+		return null
+	return critter?.dna?.species
 

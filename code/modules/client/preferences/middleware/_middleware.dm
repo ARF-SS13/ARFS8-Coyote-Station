@@ -12,8 +12,8 @@
 	/// Return output is the same as ui_act--TRUE if it should update, FALSE if it should not
 	var/list/action_delegations = list()
 
-/datum/preference_middleware/New(datum/prefs_holder)
-	src.preferences = preferences
+/datum/preference_middleware/New(datum/prefs_holder/p_holder)
+	src.preferences = p_holder
 
 	if (isnull(key))
 		// + 2 coming from the off-by-one of copytext, and then another from the slash

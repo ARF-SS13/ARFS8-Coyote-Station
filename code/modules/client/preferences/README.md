@@ -2,6 +2,17 @@
 
 This does not contain all the information on specific values--you can find those as doc-comments in relevant paths, such as `/datum/preference`. Rather, this gives you an overview for creating _most_ preferences, and getting your foot in the door to create more advanced ones.
 
+## /datum/prefs_holder
+
+They are instantiated per player and hold all the preferences for that player. Held in the Client, and kept safe in
+GLOB.preferences_datums[ckey] = prefs
+
+A player's prefs_holder is created on first connect of a client, and stored in `GLOB.preferences_datums` under their `ckey`.
+Clients have the var `prefs`, which is assigned a reference to their `prefs_holder`.
+Client deletion (disconnecting) doesn't touch the datum, it just remains safe in `GLOB.preferences_datums`.
+
+This also means that preference datums are also instantiated per player, or something.
+
 ## Anatomy of a preference (A.K.A. how do I make one?)
 
 Most preferences consist of two parts:

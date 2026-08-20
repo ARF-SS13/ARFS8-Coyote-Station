@@ -26,7 +26,7 @@
 		"belly_enlargement_pref" = /datum/preference/toggle/erp/belly_enlargement,
 		"belly_shrinkage_pref" = /datum/preference/toggle/erp/belly_shrinkage,
 		"forced_neverboner_pref" = /datum/preference/toggle/erp/forced_neverboner,
-		"custom_genital_fluids_pref" = /datum/preference/toggle/erp/custom_genital_fluids,
+		// "custom_genital_fluids_pref" = /datum/preference/toggle/erp/custom_genital_fluids,
 		"cumflation_pref" = /datum/preference/toggle/erp/cumflation,
 		"cumflates_partners_pref" = /datum/preference/toggle/erp/cumflates_partners,
 		"knotting_pref" = /datum/preference/toggle/erp/knotting,

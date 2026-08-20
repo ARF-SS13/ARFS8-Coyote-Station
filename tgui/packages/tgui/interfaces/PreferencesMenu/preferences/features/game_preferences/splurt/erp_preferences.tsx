@@ -40,12 +40,12 @@ export const forced_neverboner_pref: FeatureToggle = {
   component: CheckboxInput,
 };
 
-export const custom_genital_fluids_pref: FeatureToggle = {
-  name: 'Custom genital fluids',
-  category: 'ERP',
-  description: 'Allow custom genital fluids.',
-  component: CheckboxInput,
-};
+// export const custom_genital_fluids_pref: FeatureToggle = {
+//   name: 'Custom genital fluids',
+//   category: 'ERP',
+//   description: 'Allow custom genital fluids.',
+//   component: CheckboxInput,
+// };
 
 export const cumflation_pref: FeatureToggle = {
   name: 'Cumflation',

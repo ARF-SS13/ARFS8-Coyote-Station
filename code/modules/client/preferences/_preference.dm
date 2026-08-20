@@ -347,11 +347,11 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /// Returns whether or not this preference is accessible.
 /// If FALSE, will not show in the UI and will not be editable (by update_preference).
-/datum/preference/proc/is_accessible(datum/prefs_holder/preferences)
+/datum/preference/proc/is_accessible(datum/prefs_holder/preferences, ignore_feature)
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_NOT_SLEEP(TRUE)
 
-	if (!has_relevant_feature(preferences))
+	if(!ignore_feature && !has_relevant_feature(preferences))
 		return FALSE
 
 	if (!should_show_on_page(preferences.current_window))

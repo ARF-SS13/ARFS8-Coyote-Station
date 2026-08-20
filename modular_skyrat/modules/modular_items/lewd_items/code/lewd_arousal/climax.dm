@@ -24,7 +24,7 @@
 		return
 
 	var/nonhuman_bypass_self = !ishuman(src) && !src.client && !SSinteractions.is_blacklisted(src) // SPLURT EDIT - INTERACTIONS - All mobs should be interactable
-	var/nonhuman_bypass_partner = !ishuman(partner) && !partner?.client && !SSinteractions.is_blacklisted(partner) // SPLURT EDIT - INTERACTIONS - All mobs should be interactable
+	// var/nonhuman_bypass_partner = !ishuman(partner) && !partner?.client && !SSinteractions.is_blacklisted(partner) // SPLURT EDIT - INTERACTIONS - All mobs should be interactable
 
 	if(!(client?.prefs?.read_preference(/datum/preference/toggle/erp/autocum) || nonhuman_bypass_self) && !manual)
 		return
@@ -129,10 +129,10 @@
 
 			var/penis_climax_choice = climax_interaction && !manual ? CLIMAX_IN_OR_ON : tgui_alert(src, "Choose where to shoot your load.", "Load preference!", buttons) //SPLURT EDIT CHANGE - Interactions
 
-			var/create_cum_decal = FALSE
+			// var/create_cum_decal = FALSE
 
 			if(!penis_climax_choice || penis_climax_choice == CLIMAX_ON_FLOOR)
-				create_cum_decal = TRUE
+				// create_cum_decal = TRUE
 				visible_message(span_userlove("[src] shoots [self_their] sticky load onto the floor!"), \
 					span_userlove("You shoot string after string of hot cum, hitting the floor!"))
 				testicles?.reagents.remove_all(testicles.cumshot_size)
@@ -140,7 +140,7 @@
 			else if(penis_climax_choice == CLIMAX_OPEN_CONTAINER || ((!climax_interaction?.cum_target[interaction_position] || !partner) && climax_interaction?.fluid_transfer_objects.Find(REF(src)))) // SPLURT EDIT - Interactions - Added support for fluid transfer objects
 				target_choice = climax_interaction?.fluid_transfer_objects.Find(REF(src)) ? climax_interaction.fluid_transfer_objects[REF(src)].name : tgui_input_list(src, "Choose a container to cum into.", "Choose target!", interactable_inrange_open_containers) //SPLURT EDIT CHANGE - Interactions
 				if(!target_choice)
-					create_cum_decal = TRUE
+					// create_cum_decal = TRUE
 					visible_message(span_userlove("[src] shoots [self_their] sticky load onto the floor!"), \
 						span_userlove("You shoot string after string of hot cum, hitting the floor!"))
 					testicles?.reagents.remove_all(testicles.cumshot_size)
@@ -156,7 +156,7 @@
 							span_userlove("You cum into the [target_open_container]! (no reagents were added, just pretend it did!)"))
 					else
 						// cum fail
-						create_cum_decal = TRUE
+						// create_cum_decal = TRUE
 						visible_message(span_userlove("[src] shoots [self_their] sticky load onto the floor!"), \
 							span_userlove("You shoot string after string of hot cum, hitting the floor!"))
 						testicles?.reagents.remove_all(testicles.cumshot_size)
@@ -169,7 +169,7 @@
 			else
 				target_choice = climax_interaction && !manual ? partner?.name : tgui_input_list(src, "Choose a person to cum in or on.", "Choose target!", interactable_inrange_mobs) //SPLURT EDIT CHANGE - Interactions
 				if(!target_choice)
-					create_cum_decal = TRUE
+					// create_cum_decal = TRUE
 					visible_message(span_userlove("[src] shoots [self_their] sticky load onto the floor!"), \
 						span_userlove("You shoot string after string of hot cum, hitting the floor!"))
 				else
@@ -214,15 +214,15 @@
 						climax_into_choice = "On [target_mob_them]"
 
 					if(climax_interaction && !manual && climax_interaction.show_climax(src, target_mob, interaction_position))
-						create_cum_decal = !interaction_inside
+						// create_cum_decal = !interaction_inside
 					else if(!climax_into_choice)
 					//SPLURT EDIT CHANGE END
-						create_cum_decal = TRUE
+						// create_cum_decal = TRUE
 						visible_message(span_userlove("[src] shoots their sticky load onto the floor!"), \
 							span_userlove("You shoot string after string of hot cum, hitting the floor!"))
 						conditional_pref_sound(get_turf(src), 'modular_zzplurt/sound/interactions/endout.ogg', 50, TRUE, pref_to_check = /datum/preference/toggle/erp/sounds) //SPLURT EDIT CHANGE - Interactions
 					else if(climax_into_choice == "On [target_mob_them]")
-						create_cum_decal = TRUE
+						// create_cum_decal = TRUE
 						visible_message(span_userlove("[src] shoots their sticky load onto [target_mob]!"), \
 							span_userlove("You shoot string after string of hot cum onto [target_mob]!"))
 						conditional_pref_sound(get_turf(src), 'modular_zzplurt/sound/interactions/endout.ogg', 50, TRUE, pref_to_check = /datum/preference/toggle/erp/sounds) //SPLURT EDIT CHANGE - Interactions
@@ -256,27 +256,27 @@
 						//SPLURT EDIT ADDITION END
 
 			//SPLURT EDIT CHANGE BEGIN - Interactions
-			if(!(climax_interaction?.interaction_modifier_flags & INTERACTION_OVERRIDE_FLUID_TRANSFER) && ishuman(src))
-				if(create_cum_decal)
-					testicles.reagents.remove_all(testicles.cumshot_size)
-					add_cum_splatter_floor(get_turf(src), cum_reagent = testicles.internal_fluid_datum)
-				else if(partner || interactable_inrange_mobs[target_choice])
-					// Transfer reagents directly to partner
-					var/mob/living/target_mob = partner || interactable_inrange_mobs[target_choice]
+			// if(!(climax_interaction?.interaction_modifier_flags & INTERACTION_OVERRIDE_FLUID_TRANSFER) && ishuman(src))
+				// if(create_cum_decal)
+			// 		testicles.reagents.remove_all(testicles.cumshot_size)
+			// 		add_cum_splatter_floor(get_turf(src), cum_reagent = testicles.internal_fluid_datum)
+			// 	else if(partner || interactable_inrange_mobs[target_choice])
+			// 		// Transfer reagents directly to partner
+			// 		var/mob/living/target_mob = partner || interactable_inrange_mobs[target_choice]
 
-					var/datum/reagents/R = new(testicles.cumshot_size)
+			// 		var/datum/reagents/R = new(testicles.cumshot_size)
 
-					//Check if the target has custom genital fluids enabled
-					if(!(target_mob.client?.prefs?.read_preference(/datum/preference/toggle/erp/custom_genital_fluids) || nonhuman_bypass_partner))
-						R.add_reagent(initial(testicles.internal_fluid_datum), testicles.cumshot_size)
-						testicles.reagents.remove_all(testicles.cumshot_size)
-					else
-						testicles.reagents.trans_to(R, testicles.cumshot_size)
+			// 		//Check if the target has custom genital fluids enabled
+			// 		if(!(target_mob.client?.prefs?.read_preference(/datum/preference/toggle/erp/custom_genital_fluids) || nonhuman_bypass_partner))
+			// 			R.add_reagent(initial(testicles.internal_fluid_datum), testicles.cumshot_size)
+			// 			testicles.reagents.remove_all(testicles.cumshot_size)
+			// 		else
+			// 			testicles.reagents.trans_to(R, testicles.cumshot_size)
 
-					R.trans_to(target_mob, R.total_volume, transferred_by = src, methods = INGEST)
-					qdel(R)
-				else
-					testicles.reagents.remove_all(testicles.cumshot_size)
+			// 		R.trans_to(target_mob, R.total_volume, transferred_by = src, methods = INGEST)
+			// 		qdel(R)
+			// 	else
+			// 		testicles.reagents.remove_all(testicles.cumshot_size)
 			//SPLURT EDIT CHANGE END
 
 		try_lewd_autoemote("moan")
@@ -327,16 +327,16 @@
 
 			var/vagina_climax_choice = climax_interaction && !manual ? CLIMAX_IN_OR_ON : tgui_alert(src, "Choose where to squirt.", "Squirt preference!", buttons)
 
-			var/create_cum_decal = FALSE
+			// var/create_cum_decal = FALSE
 
 			if(!vagina_climax_choice || vagina_climax_choice == CLIMAX_ON_FLOOR)
-				create_cum_decal = TRUE
+				// create_cum_decal = TRUE
 				visible_message(span_userlove("[src] twitches and moans as [p_they()] squirt on the floor!"), \
 					span_userlove("You twitch and moan as you squirt on the floor!"))
 			else if(vagina_climax_choice == CLIMAX_OPEN_CONTAINER || ((!climax_interaction?.cum_target[interaction_position] || !partner) && climax_interaction?.fluid_transfer_objects.Find(REF(src)))) // SPLURT EDIT - Interactions - Added support for fluid transfer objects
 				target_choice = climax_interaction?.fluid_transfer_objects.Find(REF(src)) ? climax_interaction.fluid_transfer_objects[REF(src)].name : tgui_input_list(src, "Choose a container to squirt into.", "Choose target!", interactable_inrange_open_containers) // SPLURT EDIT - Interactions - Added support for fluid transfer objects
 				if(!target_choice)
-					create_cum_decal = TRUE
+					// create_cum_decal = TRUE
 					visible_message(span_userlove("[src] squirts onto the floor!"), \
 						span_userlove("You squirt onto the floor!"))
 					vagina?.reagents.remove_all(vagina?.reagents.total_volume)
@@ -359,7 +359,7 @@
 							visible_message(span_userlove("[src] squirts into the [target_open_container]!"), \
 								span_userlove("You squirt into the [target_open_container]! (no reagents were added, just pretend it did!)"))
 					else
-						create_cum_decal = TRUE
+						// create_cum_decal = TRUE
 						visible_message(span_userlove("[src] squirts onto the floor!"), \
 							span_userlove("You squirt onto the floor!"))
 						vagina?.reagents.remove_all(vagina?.reagents.total_volume)
@@ -371,7 +371,7 @@
 			else
 				target_choice = climax_interaction && !manual ? partner.name : tgui_input_list(src, "Choose who to squirt on.", "Choose target!", interactable_inrange_mobs)
 				if(!target_choice)
-					create_cum_decal = TRUE
+					// create_cum_decal = TRUE
 					visible_message(span_userlove("[src] twitches and moans as [p_they()] squirt on the floor!"), \
 						span_userlove("You twitch and moan as you squirt on the floor!"))
 				else
@@ -415,14 +415,14 @@
 						climax_into_choice = "On [target_mob_them]"
 
 					if(climax_interaction && !manual && climax_interaction.show_climax(src, target_mob, interaction_position))
-						create_cum_decal = !interaction_inside
+						// create_cum_decal = !interaction_inside
 					else if(!climax_into_choice)
-						create_cum_decal = TRUE
+						// create_cum_decal = TRUE
 						visible_message(span_userlove("[src] squirts on the floor!"), \
 							span_userlove("You squirt on the floor!"))
 						conditional_pref_sound(get_turf(src), 'modular_zzplurt/sound/interactions/endout.ogg', 50, TRUE, pref_to_check = /datum/preference/toggle/erp/sounds) //SPLURT EDIT CHANGE - Interactions
 					else if(climax_into_choice == "On [target_mob_them]")
-						create_cum_decal = TRUE
+						// create_cum_decal = TRUE
 						visible_message(span_userlove("[src] squirts all over [target_mob]!"), \
 							span_userlove("You squirt all over [target_mob]!"))
 						conditional_pref_sound(get_turf(src), 'modular_zzplurt/sound/interactions/endout.ogg', 50, TRUE, pref_to_check = /datum/preference/toggle/erp/sounds) //SPLURT EDIT CHANGE - Interactions
@@ -436,25 +436,25 @@
 						if(interactable)
 							interactable.climax_inflate_genital(src, "vagina", climax_into_choice)
 						//SPLURT EDIT ADDITION END
-			if(!(climax_interaction?.interaction_modifier_flags & INTERACTION_OVERRIDE_FLUID_TRANSFER))
-				if(create_cum_decal)
-					vagina?.reagents.remove_all(vagina?.reagents.total_volume)
-					add_cum_splatter_floor(get_turf(src), female = TRUE, cum_reagent = vagina?.internal_fluid_datum)
-				else if(partner || interactable_inrange_mobs[target_choice])
-					var/mob/living/target_mob = partner || interactable_inrange_mobs[target_choice]
+			// if(!(climax_interaction?.interaction_modifier_flags & INTERACTION_OVERRIDE_FLUID_TRANSFER))
+				// if(create_cum_decal)
+			// 		vagina?.reagents.remove_all(vagina?.reagents.total_volume)
+			// 		add_cum_splatter_floor(get_turf(src), female = TRUE, cum_reagent = vagina?.internal_fluid_datum)
+			// 	else if(partner || interactable_inrange_mobs[target_choice])
+			// 		var/mob/living/target_mob = partner || interactable_inrange_mobs[target_choice]
 
-					var/datum/reagents/R = new(vagina?.internal_fluid_maximum)
-					//Check if the target has custom genital fluids enabled
-					if(!(target_mob.client?.prefs?.read_preference(/datum/preference/toggle/erp/custom_genital_fluids) || nonhuman_bypass_partner))
-						R.add_reagent(initial(vagina?.internal_fluid_datum), vagina?.reagents.total_volume)
-						vagina?.reagents.remove_all(vagina?.reagents.total_volume)
-					else
-						vagina?.reagents.trans_to(R, vagina?.reagents.total_volume)
+			// 		var/datum/reagents/R = new(vagina?.internal_fluid_maximum)
+			// 		//Check if the target has custom genital fluids enabled
+			// 		if(!(target_mob.client?.prefs?.read_preference(/datum/preference/toggle/erp/custom_genital_fluids) || nonhuman_bypass_partner))
+			// 			R.add_reagent(initial(vagina?.internal_fluid_datum), vagina?.reagents.total_volume)
+			// 			vagina?.reagents.remove_all(vagina?.reagents.total_volume)
+			// 		else
+			// 			vagina?.reagents.trans_to(R, vagina?.reagents.total_volume)
 
-					R.trans_to(target_mob, R.total_volume, transferred_by = src, methods = INGEST)
-					qdel(R)
-				else
-					vagina?.reagents.remove_all(vagina?.reagents.total_volume)
+			// 		R.trans_to(target_mob, R.total_volume, transferred_by = src, methods = INGEST)
+			// 		qdel(R)
+			// 	else
+			// 		vagina?.reagents.remove_all(vagina?.reagents.total_volume)
 		//SPLURT EDIT CHANGE END
 
 	apply_status_effect(/datum/status_effect/climax)
