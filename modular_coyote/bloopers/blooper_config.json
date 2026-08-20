@@ -11,6 +11,10 @@
 		]
 	},
 	{
+		"version_debug" : "CoyoteStation-CB-Fat-Naked-Expie-2000",
+		"note" : "Change this whenever you change up this file, just to be sure it works"
+	},
+	{
 		"name": "Anubis",
 		"id": "anubis1",
 		"files": ["modular_coyote/sounds/barks/anubis1.ogg"]
