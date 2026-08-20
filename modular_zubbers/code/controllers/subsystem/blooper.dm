@@ -1,4 +1,4 @@
-#define BLOOPER_CONFIG_PATH "[global.config.directory]/bloopers"
+#define BLOOPER_CONFIG_PATH "modular_coyote/bloopers/blooper_config.json"
 
 SUBSYSTEM_DEF(blooper)
 	name = "Blooper"
@@ -6,18 +6,21 @@ SUBSYSTEM_DEF(blooper)
 
 	var/list/blooper_list
 	var/angry_letter
+	var/version
 	var/debug = TRUE
 
 /datum/controller/subsystem/blooper/OnConfigLoad()
 	blooper_list = initialize_blooper_datums()
 	to_chat(world, span_abductor("Initialized [LAZYLEN(blooper_list)] annoying say sounds[angry_letter?" and one angry letter to some guy":""]!"))
+	if(debug && version)
+		to_chat(world, span_abductor("Blooper file version: [version]"))
 
 /datum/controller/subsystem/blooper/proc/initialize_blooper_datums()
 	var/list/blooper_datums = list()
-	if(!rustg_file_exists("[BLOOPER_CONFIG_PATH]/blooper_config.json"))
+	if(!rustg_file_exists("[BLOOPER_CONFIG_PATH]"))
 		logger.Log(LOG_CATEGORY_DEBUG, "blooper_config.json not found.")
 		return blooper_datums
-	var/list/blooper_entries = safe_json_decode(rustg_file_read("[BLOOPER_CONFIG_PATH]/blooper_config.json"))
+	var/list/blooper_entries = safe_json_decode(rustg_file_read("[BLOOPER_CONFIG_PATH]"))
 	if(isnull(blooper_entries))
 		stack_trace("Blooper config is malformed!")
 		return blooper_datums
@@ -26,6 +29,9 @@ SUBSYSTEM_DEF(blooper)
 		if(!isnull(entry["comment"]))
 			angry_letter = TRUE
 			continue // gotta include the message that moseley is an idiot
+		if(!isnull(entry["version_debug"]))
+			version = entry["version_debug"]
+			continue
 		if(isnull(entry["name"]) || isnull(entry["id"]) || isnull(entry["files"]) || !length(entry["files"]))
 			stack_trace("Blooper config entry was missing required field!")
 			continue
