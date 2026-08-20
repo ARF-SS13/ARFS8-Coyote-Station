@@ -12,14 +12,14 @@ GLOBAL_VAR_INIT(temporary_flavor_text_indicator, generate_temporary_flavor_text_
 
 /mob/living/verb/set_temporary_flavor()
 	set category = "IC"
-	set name = "Set Temporary Flavor Text"
-	set desc = "Allows you to set a temporary flavor text."
+	set name = "Set Temporary Description"
+	set desc = "Allows you to set a temporary description."
 
 	if(stat != CONSCIOUS)
-		to_chat(src, span_warning("You can't set your temporary flavor text now..."))
+		to_chat(src, span_warning("You can't set your temporary description text now..."))
 		return
 
-	var/msg = tgui_input_text(src, "Set the temporary flavor text in your 'examine' verb. This is for describing what people can tell by looking at your character.", "Temporary Flavor Text", temporary_flavor_text, max_length = MAX_FLAVOR_LEN, multiline = TRUE)
+	var/msg = tgui_input_text(src, "Set the temporary description text in your 'examine' verb. This is for describing what people can tell by looking at your character.", "Temporary Description Text", temporary_flavor_text, max_length = MAX_FLAVOR_LEN, multiline = TRUE)
 	if(msg == null)
 		return
 

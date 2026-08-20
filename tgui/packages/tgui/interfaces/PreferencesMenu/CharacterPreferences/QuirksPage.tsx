@@ -305,7 +305,7 @@ function QuirkPage() {
   // this is mainly just here to copy from MainPage.tsx
   const [randomToggleEnabled] = useRandomToggleState();
   const randomBodyEnabled =
-    data.character_preferences.non_contextual.random_body !==
+    data.character_preferences.preftab_lore_page.random_body !==
       RandomSetting.Disabled || randomToggleEnabled;
 
   const selectedQuirks = data.selected_quirks;

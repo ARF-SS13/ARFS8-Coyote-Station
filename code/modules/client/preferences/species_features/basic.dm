@@ -23,7 +23,7 @@
 	priority = PREFERENCE_PRIORITY_BODYPARTS
 	savefile_key = "eye_color"
 	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_CHARACTER_BASICS // BUBBER EDIT CHANGE - Original: PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_BASICS // BUBBER EDIT CHANGE - Original: PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	relevant_head_flag = HEAD_EYECOLOR
 
 /datum/preference/color/eye_color/apply_to_human(mob/living/carbon/human/target, value)
@@ -106,7 +106,7 @@
 
 /datum/preference/choiced/facial_hair_gradient
 	priority = PREFERENCE_PRORITY_LATE_BODY_TYPE
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "facial_hair_gradient"
 	relevant_head_flag = HEAD_FACIAL_HAIR
@@ -123,7 +123,7 @@
 
 /datum/preference/color/facial_hair_gradient
 	priority = PREFERENCE_PRORITY_LATE_BODY_TYPE
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "facial_hair_gradient_color"
 	relevant_head_flag = HEAD_FACIAL_HAIR
@@ -200,7 +200,7 @@
 
 /datum/preference/choiced/hair_gradient
 	priority = PREFERENCE_PRIORITY_BODY_TYPE
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "hair_gradient"
 	relevant_head_flag = HEAD_HAIR
@@ -217,7 +217,7 @@
 
 /datum/preference/color/hair_gradient
 	priority = PREFERENCE_PRIORITY_BODY_TYPE
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "hair_gradient_color"
 	relevant_head_flag = HEAD_HAIR

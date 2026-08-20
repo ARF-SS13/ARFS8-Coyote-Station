@@ -27,7 +27,7 @@
 	target.dna.features["ooc_notes"] = value
 
 /datum/preference/text/custom_species
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "custom_species"
 	maximum_value_length = 100
@@ -43,7 +43,7 @@
 	return ..()
 
 /datum/preference/text/taste
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "custom_taste"
 	maximum_value_length = 100
@@ -53,7 +53,7 @@
 	return FALSE
 
 /datum/preference/text/smell
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "custom_smell"
 	maximum_value_length = 100
@@ -63,7 +63,7 @@
 	return FALSE
 
 /datum/preference/text/custom_species_lore
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "custom_species_lore"
 	maximum_value_length = MAX_FLAVOR_LEN
@@ -81,7 +81,7 @@
 
 // RP RECORDS REJUVINATION - All of these are handled in datacore, so we dont apply it to the human.
 /datum/preference/text/general
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "general_record"
 	maximum_value_length = MAX_FLAVOR_LEN
@@ -93,7 +93,7 @@
 	return FALSE
 
 /datum/preference/text/medical
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "medical_record"
 	maximum_value_length = MAX_FLAVOR_LEN
@@ -105,7 +105,7 @@
 	return FALSE
 
 /datum/preference/text/security
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "security_record"
 	maximum_value_length = MAX_FLAVOR_LEN

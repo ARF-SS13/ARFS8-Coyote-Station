@@ -193,13 +193,13 @@ export type CharacterPreferencesData = {
   clothing: Record<string, string>;
   features: Record<string, string>;
   game_preferences: Record<string, unknown>;
-  non_contextual: {
+  preftab_lore_page: {
     random_body: RandomSetting;
     [otherKey: string]: unknown;
   };
-  secondary_features: Record<string, unknown>;
-  character_basics: Record<string, unknown>; // BUBBER EDIT ADDITION: more character setup tabs
-  ooc_preferences: Record<string, unknown>; // BUBBER EDIT ADDITION: more character setup tabs
+  prefs_character_visual: Record<string, unknown>;
+  prefs_character_basics: Record<string, unknown>; // BUBBER EDIT ADDITION: more character setup tabs
+  character_dating_profile: Record<string, unknown>; // BUBBER EDIT ADDITION: more character setup tabs
   silicon_preferences: Record<string, unknown>; // BUBBER EDIT ADDITION: more character setup tabs
   supplemental_features: Record<string, unknown>;
   manually_rendered_features: Record<string, string>;
@@ -273,6 +273,9 @@ export type PreferencesMenuData = {
 
   active_slot: number;
   name_to_use: string;
+
+  dating_app_name : string;
+  prefs_tab_decoder : Record<string, string>;
 
   window: PrefsWindow;
 };

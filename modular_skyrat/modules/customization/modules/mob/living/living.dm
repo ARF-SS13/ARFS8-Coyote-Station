@@ -5,7 +5,7 @@
 
 /mob/living/proc/show_temp_ftext(mob/user)
 	if(temporary_flavor_text)
-		var/datum/browser/popup = new(user, "[name]'s temporary flavor text", "[name]'s Temporary Flavor Text", 500, 200)
-		popup.set_content(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", "[name]'s temporary flavor text", replacetext(temporary_flavor_text, "\n", "<BR>")))
+		var/datum/browser/popup = new(user, "[name]'s temporary description text", "[name]'s Temporary Description Text", 500, 200)
+		popup.set_content(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", "[name]'s temporary description text", replacetext(temporary_flavor_text, "\n", "<BR>")))
 		popup.open()
 		return

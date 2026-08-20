@@ -1,5 +1,5 @@
 /datum/preference/choiced/erp_status_extm
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "erp_status_pref_extm"
 
@@ -29,7 +29,7 @@
 	return FALSE
 
 /datum/preference/numeric/erp_lust_tolerance
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_key = "erp_lust_tolerance_pref"
 	savefile_identifier = PREFERENCE_CHARACTER
 
@@ -53,7 +53,7 @@
 	return preferences.read_preference(/datum/preference/toggle/master_erp_preferences)
 
 /datum/preference/numeric/erp_sexual_potency
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_key = "erp_sexual_potency_pref"
 	savefile_identifier = PREFERENCE_CHARACTER
 

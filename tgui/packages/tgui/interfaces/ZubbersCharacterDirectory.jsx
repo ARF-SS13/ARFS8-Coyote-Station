@@ -40,50 +40,40 @@ export const ZubbersCharacterDirectory = (props) => {
 
   const {
     personalVisibility,
-    personalAttraction,
+    personalSeeking,
     personalGender,
-    personalErpTag,
-    personalVoreTag,
-    personalHypnoTag,
-    personalNonconTag,
-    // SPLURT EDIT START: EXTRA TAGS
-    personalExtremeTag,
-    // SPLURT EDIT END: EXTRA TAGS
   } = data;
+
+/*
+Coyote Edits below
+Visibility -> Online status: Purpose shift from OOC Visibility to online status
+ treating the tool like an IC Ap and not an OOC tool.
+Looking for -> Needs to be added wholesale, will be a system for picking what
+ type of interactions your character is ICly looking for.
+ Dating, Mating, Frienship, etc.
+ERP -> Removed.  LOOC needs to be the standard way of finding this out, and
+ they can include if the character is DTF elsewhere.
+Vore, Hypno, Noncon, Extreme - Removed wholesale, this goes and stays in OOC
+ information that is no longer to be shown here in an IC space.
+ Encourage players to add info of this type to their Profile on the ap.
+*/
 
   return (
     <Window width={900} height={640} resizeable>
       <Window.Content scrollable>
         <Section title="Controls">
           <LabeledList>
-            <LabeledList.Item label="Visibility">
+            <LabeledList.Item label="Online Status">
               <Button fluid>
                 {personalVisibility ? 'Shown' : 'Not Shown'}
               </Button>
             </LabeledList.Item>
-            <LabeledList.Item label="Attraction">
-              <Button fluid>{personalAttraction}</Button>
+            <LabeledList.Item label="Seeking">
+              <Button fluid>{personalSeeking}</Button>
             </LabeledList.Item>
             <LabeledList.Item label="Gender">
               <Button fluid>{personalGender}</Button>
             </LabeledList.Item>
-            <LabeledList.Item label="ERP">
-              <Button fluid>{personalErpTag}</Button>
-            </LabeledList.Item>
-            <LabeledList.Item label="Vore">
-              <Button fluid>{personalVoreTag}</Button>
-            </LabeledList.Item>
-            <LabeledList.Item label="Hypno">
-              <Button fluid>{personalHypnoTag}</Button>
-            </LabeledList.Item>
-            <LabeledList.Item label="Noncon">
-              <Button fluid>{personalNonconTag}</Button>
-            </LabeledList.Item>
-            {/* SPLURT EDIT START: EXTRA TAGS */}
-            <LabeledList.Item label="Extreme">
-              <Button fluid>{personalExtremeTag}</Button>
-            </LabeledList.Item>
-            {/* SPLURT EDIT END: EXTRA TAGS */}
           </LabeledList>
         </Section>
         <CharacterDirectoryList />
@@ -146,12 +136,6 @@ const CharacterDirectoryList = (props) => {
   ];
 
   const sortedDirectory = filteredDirectory.slice().sort((a, b) => {
-    if (sortId === 'erp') {
-      const indexA = erpOrder.indexOf(a.erp);
-      const indexB = erpOrder.indexOf(b.erp);
-      return sortOrder === 'desc' ? indexA - indexB : indexB - indexA; // Toggle between descending and ascending
-    }
-
     const sortOrderValue = sortOrder === 'asc' ? 1 : -1;
     return sortOrderValue * a[sortId].localeCompare(b[sortId]);
   });
@@ -197,14 +181,6 @@ const CharacterDirectoryList = (props) => {
             Species
           </SortButton>
           <SortButton
-            id="attraction"
-            sortId={sortId}
-            sortOrder={sortOrder}
-            onClick={handleSort}
-          >
-            Attraction
-          </SortButton>
-          <SortButton
             id="gender"
             sortId={sortId}
             sortOrder={sortOrder}
@@ -213,45 +189,12 @@ const CharacterDirectoryList = (props) => {
             Gender
           </SortButton>
           <SortButton
-            id="erp"
+            id="datingapp_seeking"
             sortId={sortId}
             sortOrder={sortOrder}
             onClick={handleSort}
           >
-            ERP
-          </SortButton>
-          <SortButton
-            id="vore"
-            sortId={sortId}
-            sortOrder={sortOrder}
-            onClick={handleSort}
-          >
-            Vore
-          </SortButton>
-          <SortButton
-            id="hypno"
-            sortId={sortId}
-            sortOrder={sortOrder}
-            onClick={handleSort}
-          >
-            Hypno
-          </SortButton>
-          <SortButton
-            id="noncon"
-            sortId={sortId}
-            sortOrder={sortOrder}
-            onClick={handleSort}
-          >
-            Noncon
-          </SortButton>
-          {/* SPLURT EDIT START: EXTRA TAGS */}
-          <SortButton
-            id="extreme"
-            sortId={sortId}
-            sortOrder={sortOrder}
-            onClick={handleSort}
-          >
-            Extreme
+            Seeking
           </SortButton>
           {/* SPLURT EDIT END: EXTRA TAGS */}
           <Table.Cell collapsing textAlign="right">
@@ -275,15 +218,8 @@ const CharacterDirectoryList = (props) => {
               )}
             </Table.Cell>
             <Table.Cell>{character.species}</Table.Cell>
-            <Table.Cell>{character.attraction}</Table.Cell>
             <Table.Cell>{character.gender}</Table.Cell>
-            <Table.Cell>{character.erp}</Table.Cell>
-            <Table.Cell>{character.vore}</Table.Cell>
-            <Table.Cell>{character.hypno}</Table.Cell>
-            <Table.Cell>{character.noncon}</Table.Cell>
-            {/* SPLURT EDIT START: EXTRA TAGS */}
-            <Table.Cell>{character.extreme}</Table.Cell>
-            {/* SPLURT EDIT END: EXTRA TAGS */}
+            <Table.Cell>{character.attraction}</Table.Cell>
             <Table.Cell collapsing textAlign="right">
               <Button
                 onClick={() => act('view', { ref: character.ref })}

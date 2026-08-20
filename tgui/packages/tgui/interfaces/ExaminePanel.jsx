@@ -56,6 +56,7 @@ export const ExaminePanel = () => {
     ooc_notes,
     custom_species,
     custom_species_lore,
+    dating_profile_tab_name,
     character_ad,
     headshot,
     headshot_nsfw,
@@ -165,7 +166,7 @@ export const ExaminePanel = () => {
                     >
                       <Section
                         fitted
-                        title={'Flavor Text'}
+                        title={'Description'}
                         style={{ textAlign: 'center' }}
                       />
                     </Tabs.Tab>
@@ -238,22 +239,12 @@ export const ExaminePanel = () => {
                   )}
                   <Tabs fluid>
                     <Tabs.Tab
-                      selected={lowerTabIndex === 1}
-                      onClick={() => setLowerTabIndex(1)}
-                    >
-                      <Section
-                        fitted
-                        title={'OOC Notes'}
-                        style={{ textAlign: 'center' }}
-                      />
-                    </Tabs.Tab>
-                    <Tabs.Tab
                       selected={lowerTabIndex === 2}
                       onClick={() => setLowerTabIndex(2)}
                     >
                       <Section
                         fitted
-                        title={'Character Advert'}
+                        title={dating_profile_tab_name}
                         style={{ textAlign: 'center' }}
                       />
                     </Tabs.Tab>

@@ -2,6 +2,10 @@
 #define RANDOM_QUIRK_BONUS 3
 #define MINIMUM_RANDOM_QUIRKS 3
 
+//! ╔═══╦════════════════════════════════╦═══╗
+//! ║♣♣♣║ COYOTE BAYOU OVERHAUL WHEN???? ║♠♠♠║
+//! ╚═══╩════════════════════════════════╩═══╝
+
 // Shifted to glob so they are generated at world start instead of risking players doing preference stuff before the subsystem inits
 GLOBAL_LIST_INIT_TYPED(quirk_blacklist, /list/datum/quirk, list(
 	list(/datum/quirk/item_quirk/blindness, /datum/quirk/item_quirk/nearsighted),

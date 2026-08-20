@@ -1,5 +1,5 @@
 /datum/preference/toggle/scaled_appearance
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "scaled_appearance"
 	default_value = FALSE

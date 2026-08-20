@@ -42,6 +42,8 @@
 	/// A list of traits that should stop this quirk from processing.
 	/// Signals for adding and removing this trait will automatically be added to `process_update_signals`.
 	var/list/no_process_traits
+	/// am i disabled
+	var/disabled = FALSE
 
 /datum/quirk/New()
 	. = ..()

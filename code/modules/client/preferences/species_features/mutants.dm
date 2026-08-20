@@ -2,7 +2,7 @@
 /datum/preference/color/mutant_color
 	savefile_key = "feature_mcolor"
 	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	relevant_inherent_trait = TRAIT_MUTANT_COLORS
 
 /datum/preference/color/mutant_color/is_accessible(datum/preferences/preferences)

@@ -16,8 +16,8 @@
 #define ORGAN_PREF_CIRCUIT_BRAIN "Circuitboard"
 
 /// Essential features for every character, don't add new prefs to this unless you can justify why the majority of characters would use it
-#define PREFERENCE_CATEGORY_CHARACTER_BASICS "character_basics"
+#define PREFERENCE_CATEGORY_CHARACTER_BASICS "prefs_character_basics"
 /// OOC per-character preferences e.g. character advert, ERP status
-#define PREFERENCE_CATEGORY_OOC_PREFS "ooc_preferences"
+#define PREFERENCE_CATEGORY_OOC_PREFS "character_dating_profile"
 /// Preferences that only apply to AI and cyborgs
 #define PREFERENCE_CATEGORY_SILICON_PREFS "silicon_preferences"

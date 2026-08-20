@@ -185,7 +185,7 @@
 	target.dna.features["penis_uses_skincolor"] = value
 
 /datum/preference/numeric/penis_length
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "penis_length"
 	relevant_mutant_bodypart = ORGAN_SLOT_PENIS
@@ -206,7 +206,7 @@
 	return round(max(PENIS_MIN_LENGTH, PENIS_DEFAULT_LENGTH))
 
 /datum/preference/numeric/penis_girth
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "penis_girth"
 	relevant_mutant_bodypart = ORGAN_SLOT_PENIS
@@ -239,7 +239,7 @@
 	skin_color_type = /datum/preference/toggle/genital_skin_color/penis
 
 /datum/preference/toggle/penis_taur_mode
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "penis_taur_mode_toggle"
 	default_value = FALSE
@@ -260,7 +260,7 @@
 /datum/preference/choiced/penis_sheath
 	savefile_key = "penis_sheath"
 	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	relevant_mutant_bodypart = ORGAN_SLOT_PENIS
 
 /datum/preference/choiced/penis_sheath/is_accessible(datum/preferences/preferences)
@@ -318,7 +318,7 @@
 	skin_color_type = /datum/preference/toggle/genital_skin_color/testicles
 
 /datum/preference/numeric/balls_size
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "balls_size"
 	relevant_mutant_bodypart = ORGAN_SLOT_TESTICLES
@@ -422,7 +422,7 @@
 	skin_color_type = /datum/preference/toggle/genital_skin_color/breasts
 
 /datum/preference/toggle/breasts_lactation
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "breasts_lactation_toggle"
 	default_value = FALSE
@@ -439,7 +439,7 @@
 	return erp_allowed && part_enabled && (passed_initial_check || allowed)
 
 /datum/preference/choiced/breasts_size
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "breasts_size"
 	relevant_mutant_bodypart = ORGAN_SLOT_BREASTS

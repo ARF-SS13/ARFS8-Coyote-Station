@@ -44,7 +44,7 @@ A numeric preference derives from `/datum/preference/numeric`.
 
 ```dm
 /datum/preference/numeric/legs
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "legs"
 
@@ -71,7 +71,7 @@ Examples include enabling tooltips.
 
 ```dm
 /datum/preference/toggle/enable_breathing
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "enable_breathing"
 
@@ -98,7 +98,7 @@ To create one, derive from `/datum/preference/choiced`.
 
 ```dm
 /datum/preference/choiced/favorite_drink
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "favorite_drink"
 ```
@@ -133,7 +133,7 @@ Choiced preferences can generate icons. This is how the clothing/species prefere
 
 ```dm
 /datum/preference/choiced/favorite_drink
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "favorite_drink"
 	should_generate_icons = TRUE // NEW! This is necessary.
@@ -191,7 +191,7 @@ These refer to colors, such as your OOC color. When read, these values will be g
 
 ```dm
 /datum/preference/color/eyeliner_color
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "eyeliner_color"
 ```
@@ -272,13 +272,13 @@ Every preference needs to be in a `category`. These can be found in `code/__DEFI
 #define PREFERENCE_CATEGORY_CLOTHING "clothing"
 
 /// Preferences that will be put into the 3rd list, and are not contextual.
-#define PREFERENCE_CATEGORY_NON_CONTEXTUAL "non_contextual"
+#define PREFERENCE_CATEGORY_LORE "preftab_lore_page"
 
 /// Will be put under the game preferences window.
 #define PREFERENCE_CATEGORY_GAME_PREFERENCES "game_preferences"
 
 /// These will show in the list to the right of the character preview.
-#define PREFERENCE_CATEGORY_SECONDARY_FEATURES "secondary_features"
+#define PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES "prefs_character_visual"
 
 /// These are preferences that are supplementary for main features,
 /// such as hair color being affixed to hair.

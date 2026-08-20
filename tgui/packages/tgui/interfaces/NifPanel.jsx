@@ -210,7 +210,7 @@ const NifSettings = (props) => {
           onSelected={(value) => act('change_theme', { target_theme: value })}
         />
       </LabeledList.Item>
-      <LabeledList.Item label="NIF Flavor Text">
+      <LabeledList.Item label="NIF Description Text">
         <Input
           onBlur={(value) => act('change_examine_text', { new_text: value })}
           value={nif_examine_text}

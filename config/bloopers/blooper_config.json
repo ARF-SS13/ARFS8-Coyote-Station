@@ -1,5 +1,16 @@
 [
 	{
+		"comment" : [
+			"Mosley deleted these sounds from your code, and has placed them in",
+			"a folder that is not gitincluded with their files.",
+			"You can find the pr here.",
+			"https://github.com/SPLURT-Station/S.P.L.U.R.T-tg/commit/35357ddb1b42e23d7562c0a114e49e24f6db2302#diff-c5c5ead7a2da0bec38a3adba8afa138b6080e694aa398b667a42a70e7d84e047",
+			"As such we are going to use the sounds that we had on CB and ARFS1 isntead.",
+			"Love, Fenny. <3",
+			"dan too!"
+		]
+	},
+	{
 		"name": "Whistle 1",
 		"id": "whistle1",
 		"files": ["kazooie/birdwhistle.ogg"]

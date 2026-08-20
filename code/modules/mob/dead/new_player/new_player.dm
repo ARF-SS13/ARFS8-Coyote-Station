@@ -140,9 +140,9 @@
 			return "[jobtitle] is restricted due to your selected species."
 		//BUBBER EDIT BEGIN: Silicon flavor text
 		if(JOB_UNAVAILABLE_FLAVOUR)
-			return "[jobtitle] requires you to have [CONFIG_GET(number/flavor_text_character_requirement)] characters of Flavor Text. Go to the character setup and write more."
+			return "[jobtitle] requires you to have [CONFIG_GET(number/flavor_text_character_requirement)] characters of Description. Go to the character setup and write more."
 		if(JOB_UNAVAILABLE_FLAVOUR_SILICON)
-			return "[jobtitle] requires you to have [CONFIG_GET(number/silicon_flavor_text_character_requirement)] characters of Silicon Flavor Text. Go to the character setup and write more."
+			return "[jobtitle] requires you to have [CONFIG_GET(number/silicon_flavor_text_character_requirement)] characters of Silicon Description. Go to the character setup and write more."
 		//BUBBER EDIT END: Silicon flavor text
 		if(JOB_UNAVAILABLE_AUGMENT)
 			return "[jobtitle] is restricted due to your selected body augments."

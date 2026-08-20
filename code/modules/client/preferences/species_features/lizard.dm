@@ -77,7 +77,7 @@
 /datum/preference/choiced/lizard_legs
 	savefile_key = "feature_lizard_legs"
 	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 
 /datum/preference/choiced/lizard_legs/init_possible_values()
 	return list(NORMAL_LEGS, DIGITIGRADE_LEGS)
@@ -127,12 +127,12 @@
 /datum/preference/choiced/species_feature/lizard_spines
 	savefile_key = "feature_lizard_spines"
 	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	relevant_organ = /obj/item/organ/spines
 
 /datum/preference/choiced/species_feature/lizard_tail
 	savefile_key = "feature_lizard_tail"
 	savefile_identifier = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	relevant_organ = /obj/item/organ/tail/lizard
 */

@@ -489,14 +489,14 @@ export function MainPage(props: MainPageProps) {
   const currentSpeciesData =
     serverData?.species[data.character_preferences.misc.species];
 
-  const contextualPreferences =
-    data.character_preferences.secondary_features || [];
+  const characterVisualPreferences =
+    data.character_preferences.prefs_character_visual || [];
 
   // BUBBER EDIT ADDITION BEGIN: more character setup tabs
   const characterBasicsPreferences =
-    data.character_preferences.character_basics || [];
+    data.character_preferences.prefs_character_basics || [];
 
-  const oocPrefPreferences = data.character_preferences.ooc_preferences || [];
+  const datingProfilePreferences = data.character_preferences.character_dating_profile || [];
 
   const siliconPreferences =
     data.character_preferences.silicon_preferences || [];
@@ -508,7 +508,7 @@ export function MainPage(props: MainPageProps) {
   ];
 
   const randomBodyEnabled =
-    data.character_preferences.non_contextual.random_body !==
+    data.character_preferences.preftab_lore_page.random_body !==
       RandomSetting.Disabled || randomToggleEnabled;
 
   const randomizationOfMainFeatures = getRandomization(
@@ -517,26 +517,51 @@ export function MainPage(props: MainPageProps) {
     randomBodyEnabled,
   );
 
-  const nonContextualPreferences = {
-    ...data.character_preferences.non_contextual,
+  const lorePagePreferences = {
+    ...data.character_preferences.preftab_lore_page,
   };
 
   if (randomBodyEnabled) {
-    nonContextualPreferences.random_species =
+    lorePagePreferences.random_species =
       data.character_preferences.randomization.species;
   } else {
     // We can't use random_name/is_accessible because the
     // server doesn't know whether the random toggle is on.
-    delete nonContextualPreferences.random_name;
+    delete lorePagePreferences.random_name;
   }
 
   // BUBBER EDIT ADDITION BEGIN: SWAPPABLE PREF MENUS
   enum PrefPage {
-    CharBasics, // Character basics
-    Visual, // The visual parts
-    Lore, // Lore, Flavor Text, Age, Records
-    OOCPref, // OOC preferences
-    Silicon, // Silicon prefs
+    CharBasics,     // Character basics
+    Visual,         // The visual parts
+    Lore,           // Lore, Flavor Text, Age, Records
+    DatingAppPref,  // horny prefs kinda
+    Silicon,        // Silicon prefs
+  }
+
+  function GetTabName(input: PrefPage) {
+    let outp
+    switch (input){
+      case PrefPage.CharBasics:
+        outp = data.prefs_tab_decoder["CharBasics"]     || "a really cool tab"
+        break;
+      case PrefPage.Visual:
+        outp = data.prefs_tab_decoder["Visual"]         || "a really cool tab"
+        break;
+      case PrefPage.Lore:
+        outp = data.prefs_tab_decoder["Lore"]           || "a really cool tab"
+        break;
+      case PrefPage.DatingAppPref:
+        outp = data.prefs_tab_decoder["DatingAppPref"]  || "a really cool tab"
+        break;
+      case PrefPage.Silicon:
+        outp = data.prefs_tab_decoder["Silicon"]        || "a really cool tab"
+        break;
+      default:
+        outp = data.prefs_tab_decoder["Default"]        || "Some cool tab"
+        break;
+      }
+    return outp;
   }
 
   const [currentPrefPage, setCurrentPrefPage] = useState(PrefPage.CharBasics);
@@ -560,11 +585,11 @@ export function MainPage(props: MainPageProps) {
       prefPageContents = (
         <PreferenceList
           randomizations={getRandomization(
-            contextualPreferences,
+            characterVisualPreferences,
             serverData,
             randomBodyEnabled,
           )}
-          preferences={contextualPreferences}
+          preferences={characterVisualPreferences}
           maxHeight="auto"
         />
       );
@@ -573,24 +598,24 @@ export function MainPage(props: MainPageProps) {
       prefPageContents = (
         <PreferenceList
           randomizations={getRandomization(
-            nonContextualPreferences,
+            lorePagePreferences,
             serverData,
             randomBodyEnabled,
           )}
-          preferences={nonContextualPreferences}
+          preferences={lorePagePreferences}
           maxHeight="auto"
         />
       );
       break;
-    case PrefPage.OOCPref:
+    case PrefPage.DatingAppPref:
       prefPageContents = (
         <PreferenceList
           randomizations={getRandomization(
-            oocPrefPreferences,
+            datingProfilePreferences,
             serverData,
             randomBodyEnabled,
           )}
-          preferences={oocPrefPreferences}
+          preferences={datingProfilePreferences}
           maxHeight="auto"
         />
       );
@@ -771,7 +796,7 @@ export function MainPage(props: MainPageProps) {
                   page={PrefPage.CharBasics}
                   setPage={setCurrentPrefPage}
                 >
-                  Character Basics
+                  {GetTabName(PrefPage.CharBasics)}
                 </PageButton>
               </Stack.Item>
               <Stack.Item grow={2}>
@@ -780,7 +805,7 @@ export function MainPage(props: MainPageProps) {
                   page={PrefPage.Visual}
                   setPage={setCurrentPrefPage}
                 >
-                  Character Visuals
+                  {GetTabName(PrefPage.Visual)}
                 </PageButton>
               </Stack.Item>
               <Stack.Item grow={2}>
@@ -789,16 +814,16 @@ export function MainPage(props: MainPageProps) {
                   page={PrefPage.Lore}
                   setPage={setCurrentPrefPage}
                 >
-                  Character Lore
+                  {GetTabName(PrefPage.Lore)}
                 </PageButton>
               </Stack.Item>
               <Stack.Item grow={2}>
                 <PageButton
                   currentPage={currentPrefPage}
-                  page={PrefPage.OOCPref}
+                  page={PrefPage.DatingAppPref}
                   setPage={setCurrentPrefPage}
                 >
-                  OOC Preferences
+                  {GetTabName(PrefPage.DatingAppPref)}
                 </PageButton>
               </Stack.Item>
               <Stack.Item grow={2}>
@@ -807,7 +832,7 @@ export function MainPage(props: MainPageProps) {
                   page={PrefPage.Silicon}
                   setPage={setCurrentPrefPage}
                 >
-                  Silicon Preferences
+                  {GetTabName(PrefPage.Silicon)}
                 </PageButton>
               </Stack.Item>
             </Stack>

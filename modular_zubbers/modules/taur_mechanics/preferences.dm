@@ -1,5 +1,5 @@
 /datum/preference/toggle/naga_soles
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_key = "naga_sole"
 	savefile_identifier = PREFERENCE_CHARACTER
 	priority = PREFERENCE_PRIORITY_BODYPARTS + 0.1
@@ -20,7 +20,7 @@
 		snake_body.add_hardened_soles(target)
 
 /datum/preference/toggle/synthetic_taur
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_key = "synthetic_taur"
 	savefile_identifier = PREFERENCE_CHARACTER
 	priority = PREFERENCE_PRIORITY_BODYPARTS + 0.1

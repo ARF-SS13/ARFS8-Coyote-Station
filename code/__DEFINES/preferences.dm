@@ -133,13 +133,13 @@
 #define PREFERENCE_CATEGORY_CLOTHING "clothing"
 
 /// Preferences that will be put into the 3rd list, and are not contextual.
-#define PREFERENCE_CATEGORY_NON_CONTEXTUAL "non_contextual"
+#define PREFERENCE_CATEGORY_LORE "preftab_lore_page"
 
 /// Will be put under the game preferences window.
 #define PREFERENCE_CATEGORY_GAME_PREFERENCES "game_preferences"
 
 /// These will show in the list to the right of the character preview.
-#define PREFERENCE_CATEGORY_SECONDARY_FEATURES "secondary_features"
+#define PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES "prefs_character_visual"
 
 /// These are preferences that are supplementary for main features,
 /// such as hair color being affixed to hair.

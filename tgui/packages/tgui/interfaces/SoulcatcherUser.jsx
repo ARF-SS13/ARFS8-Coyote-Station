@@ -75,7 +75,7 @@ export const SoulcatcherUser = (props) => {
             )}
           </Box>
           <Divider />
-          <Collapsible title="Flavor Text">
+          <Collapsible title="Description">
             <BlockQuote preserveWhitespace>{user_data.description}</BlockQuote>
           </Collapsible>
           <Collapsible title="OOC Notes">
@@ -138,7 +138,7 @@ export const SoulcatcherUser = (props) => {
                   <Flex.Item key={soul.key}>
                     <Collapsible title={soul.name}>
                       <Box textAlign="center" fontSize="13px" opacity={0.8}>
-                        <b>Flavor Text</b>
+                        <b>Description Text</b>
                       </Box>
                       <Divider />
                       <BlockQuote preserveWhitespace>

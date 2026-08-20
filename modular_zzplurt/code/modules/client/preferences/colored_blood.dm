@@ -1,6 +1,6 @@
 // In PREFS 1 - Togglable stuff
 /datum/preference/toggle/custom_blood_color
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "custom_blood_color"
 	default_value = FALSE
@@ -11,7 +11,7 @@
 // In PREFS 2 - Color of Blood itself
 /datum/preference/color/blood_color
 	priority = PREFERENCE_PRIORITY_SPECIES
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "blood_color"
 

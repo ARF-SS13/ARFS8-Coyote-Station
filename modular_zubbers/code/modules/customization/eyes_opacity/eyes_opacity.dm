@@ -1,5 +1,5 @@
 /datum/preference/numeric/eyes_opacity
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "eyes_opacity"
 	maximum = 255

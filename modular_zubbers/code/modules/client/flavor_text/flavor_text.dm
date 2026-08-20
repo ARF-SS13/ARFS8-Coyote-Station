@@ -25,7 +25,7 @@
 	target.dna.features["flavor_text_nsfw"] = value
 
 /datum/preference/text/low_arousal
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "low_arousal_text"
 	maximum_value_length = 100
@@ -34,7 +34,7 @@
 	target.dna.features["low_arousal"] = value
 
 /datum/preference/text/medium_arousal
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "medium_arousal_text"
 	maximum_value_length = 100
@@ -43,7 +43,7 @@
 	target.dna.features["medium_arousal"] = value
 
 /datum/preference/text/high_arousal
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "high_arousal_text"
 	maximum_value_length = 100
@@ -61,7 +61,7 @@
 
 //Lets the client choose when their NSFW flavor text is visible on a per-character basis.
 /datum/preference/choiced/show_nsfw_flavor_text
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = PREFERENCE_CATEGORY_LORE
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "show_flavor_text_nsfw"
 

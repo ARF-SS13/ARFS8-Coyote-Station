@@ -240,7 +240,7 @@ export const Soulcatcher = (props) => {
                         }
                       >
                         <Box textAlign="center" fontSize="13px" opacity={0.8}>
-                          <b>Flavor Text</b>
+                          <b>Description</b>
                         </Box>
                         <Divider />
                         <BlockQuote preserveWhitespace>

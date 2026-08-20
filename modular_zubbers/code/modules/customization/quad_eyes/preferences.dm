@@ -1,5 +1,5 @@
 /datum/preference/toggle/quad_eyes
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_key = "quad_eyes"
 	savefile_identifier = PREFERENCE_CHARACTER
 	priority = PREFERENCE_PRIORITY_BODYPARTS + 0.1
@@ -16,7 +16,7 @@
 	ADD_TRAIT(target, TRAIT_QUAD_EYES, TRAIT_GENERIC)
 
 /datum/preference/numeric/quad_eyes_offset
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_key = "quad_eyes_offset"
 	savefile_identifier = PREFERENCE_CHARACTER
 	maximum = 2 // Any value higher than this and the eyes don't appear after the character is spawned in.
@@ -33,7 +33,7 @@
 	target.quad_eyes_offset = value
 
 /datum/preference/numeric/quad_eyes_offset_width
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_key = "quad_eyes_offset_width"
 	savefile_identifier = PREFERENCE_CHARACTER
 	maximum = 2

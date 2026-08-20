@@ -24,7 +24,7 @@
 	target.dna.features["butt_uses_skincolor"] = value
 
 /datum/preference/numeric/butt_size
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "butt_size"
 	relevant_mutant_bodypart = ORGAN_SLOT_BUTT
@@ -103,7 +103,7 @@
 	default_accessory_type = /datum/sprite_accessory/genital/belly/none
 
 /datum/preference/numeric/belly_size
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "belly_size"
 	relevant_mutant_bodypart = ORGAN_SLOT_BELLY
@@ -158,7 +158,7 @@
 
 // Genital fluid preferences base type
 /datum/preference/choiced/genital_fluid
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	abstract_type = /datum/preference/choiced/genital_fluid
 	var/datum/preference/choiced/genital/genital_pref
@@ -218,7 +218,7 @@
 
 // Cumflation preferences
 /datum/preference/toggle/erp/cumflates_partners
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "cumflates_partners_pref"
 
@@ -227,7 +227,7 @@
 
 // Knotting preferences
 /datum/preference/toggle/erp/knots_partners
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_CHARACTER_VISUAL_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "knots_partners_pref"
 

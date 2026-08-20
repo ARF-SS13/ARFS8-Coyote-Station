@@ -170,6 +170,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/ui_status(mob/user, datum/ui_state/state)
 	return user.client == parent ? UI_INTERACTIVE : UI_CLOSE
 
+/// sent to tgui, using type PreferencesMenuData
 /datum/preferences/ui_data(mob/user)
 	var/list/data = list()
 
@@ -183,6 +184,19 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	data["quirks_balance"] = GetQuirkBalance()
 	data["positive_quirk_count"] = GetPositiveQuirkCount()
 	//SKYRAT EDIT END
+	var/datingname = GLOB.character_directory.get_dating_app_name()
+	var/datingshortname = GLOB.character_directory.get_dating_app_name_short()
+	data["dating_app_name"] = datingname
+	data["dating_app_shortname"] = datingshortname
+
+	var/list/tabident2name = list()
+	tabident2name["default"] = "Rly CoolTab"
+	tabident2name["CharBasics"] = "Basics"
+	tabident2name["Visual"] = "Visuals"
+	tabident2name["Lore"] = "Lore"
+	tabident2name["DatingAppPref"] = "[datingshortname]"
+	tabident2name["Silicon"] = "Silicon Stuff"
+	data["prefs_tab_decoder"] = tabident2name
 
 	data["character_preferences"] = compile_character_preferences(user)
 
@@ -396,6 +410,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	save_character()
 	save_preferences()
 	QDEL_NULL(character_preview_view)
+
+// TODO: Unique identifiers for specific characters
 
 /datum/preferences/Topic(href, list/href_list)
 	. = ..()

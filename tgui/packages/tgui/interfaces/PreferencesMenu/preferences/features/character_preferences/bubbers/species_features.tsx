@@ -8,6 +8,7 @@ import {
 } from '../../base';
 import { FeatureDropdownInput } from '../../dropdowns';
 
+//Coyote Edit: These systems need to be retooled to show in your ooc notes, not in your character advert. If in character advert it should be written with the advert being IC in mind.
 export const emote_length: FeatureChoiced = {
   name: 'Preferred Emote Length',
   category: 'ADVERT',
@@ -79,16 +80,16 @@ export const attraction: FeatureChoiced = {
 };
 
 export const display_gender: FeatureChoiced = {
-  name: 'Character Gender',
+  name: 'Gender',
   description:
     'What classifies as the gender for your character. This is displayed in the Directory.',
   component: FeatureDropdownInput,
 };
 
 export const flavor_text_nsfw: Feature<string> = {
-  name: 'Flavor Text (NSFW)',
+  name: 'Description (NSFW)',
   description:
-    'The NSFW part of your flavor text. Used to store visual sexual details.',
+    'An IC description of your NSFW traits, as if your character was naked in front of the viewer.',
   component: FeatureTextInput,
 };
 
@@ -111,9 +112,9 @@ export const high_arousal_text: Feature<string> = {
 };
 
 export const silicon_flavor_text_nsfw: Feature<string> = {
-  name: 'Silicon NSFW Flavor Text',
+  name: 'Silicon NSFW Description',
   description:
-    'A portion of your flavor text that is stored in examine, used for Silicons. Used to store visual sexual details.',
+    'A portion of your IC description that is stored in examine, used for Silicons. Used to store visual sexual details.',
   component: FeatureTextInput,
 };
 

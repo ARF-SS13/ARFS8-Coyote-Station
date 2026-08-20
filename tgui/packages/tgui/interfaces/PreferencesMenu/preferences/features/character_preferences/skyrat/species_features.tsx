@@ -34,22 +34,22 @@ export const feature_mcolor3: Feature<string> = {
 };
 
 export const flavor_text: Feature<string> = {
-  name: 'Flavor Text',
+  name: 'Description',
   description:
-    'Appears when examined, provides a visual description with personality, allowing other characters to form their first impression of you. Check the wiki guides for help.',
+    'Appears when examined, provides a visual description of the character.  Do not include history.  Beware, less is often more.',
   component: FeatureTextInput,
 };
 
 export const silicon_flavor_text: Feature<string> = {
-  name: 'Silicon Flavor Text',
-  description: "Flavor text, but shows up when you're playing as a borg or AI.",
+  name: 'Silicon Description Text',
+  description: "Description text that shows up when you're playing as a borg or AI to describe their physical form.",
   component: FeatureTextInput,
 };
 
 export const ooc_notes: Feature<string> = {
   name: 'OOC Notes',
   description:
-    'Covers your sexual preferences, information about you OOC, any additional art references, and other misc. details. Here, you introduce yourself, rather than your character.',
+    'Covers your sexual preferences, information about you OOC, any additional art references, and other misc. details. These can, but do not have to match the characters sexual preferences. Note: Brevity helps readability. Communication with others helps more than extensive lists.',
   component: FeatureTextInput,
 };
 

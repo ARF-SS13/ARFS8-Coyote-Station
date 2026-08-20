@@ -239,35 +239,35 @@
 /datum/preference/choiced/erp_status_v/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	return FALSE
 
-/datum/preference/choiced/erp_status_mechanics
-	category = PREFERENCE_CATEGORY_OOC_PREFS
-	savefile_identifier = PREFERENCE_CHARACTER
-	savefile_key = "erp_status_pref_mechanics"
+// /datum/preference/choiced/erp_status_mechanics
+// 	category = PREFERENCE_CATEGORY_OOC_PREFS
+// 	savefile_identifier = PREFERENCE_CHARACTER
+// 	savefile_key = "erp_status_pref_mechanics"
 
-/datum/preference/choiced/erp_status_mechanics/init_possible_values()
-	return list("Roleplay only", "Mechanical only", "Mechanical and Roleplay", "None")
+// /datum/preference/choiced/erp_status_mechanics/init_possible_values()
+// 	return list("Roleplay only", "Mechanical only", "Mechanical and Roleplay", "None")
 
-/datum/preference/choiced/erp_status_mechanics/create_default_value()
-	return "None"
+// /datum/preference/choiced/erp_status_mechanics/create_default_value()
+// 	return "None"
 
-/datum/preference/choiced/erp_status_mechanics/is_accessible(datum/preferences/preferences)
-	if (!..(preferences))
-		return FALSE
+// /datum/preference/choiced/erp_status_mechanics/is_accessible(datum/preferences/preferences)
+// 	if (!..(preferences))
+// 		return FALSE
 
-	if(CONFIG_GET(flag/disable_erp_preferences))
-		return FALSE
+// 	if(CONFIG_GET(flag/disable_erp_preferences))
+// 		return FALSE
 
-	return preferences.read_preference(/datum/preference/toggle/master_erp_preferences)
+// 	return preferences.read_preference(/datum/preference/toggle/master_erp_preferences)
 
-/datum/preference/choiced/erp_status_mechanics/deserialize(input, datum/preferences/preferences)
-	if(CONFIG_GET(flag/disable_erp_preferences))
-		return "None"
-	if(!preferences.read_preference(/datum/preference/toggle/master_erp_preferences))
-		return "None"
-	. = ..()
+// /datum/preference/choiced/erp_status_mechanics/deserialize(input, datum/preferences/preferences)
+// 	if(CONFIG_GET(flag/disable_erp_preferences))
+// 		return "None"
+// 	if(!preferences.read_preference(/datum/preference/toggle/master_erp_preferences))
+// 		return "None"
+// 	. = ..()
 
-/datum/preference/choiced/erp_status_mechanics/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
-	return FALSE
+// /datum/preference/choiced/erp_status_mechanics/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+// 	return FALSE
 
 /* SPLURT EDIT REMOVAL - Not needed
 /datum/preference/choiced/erp_sexuality

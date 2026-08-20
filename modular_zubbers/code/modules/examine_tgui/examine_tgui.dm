@@ -71,45 +71,46 @@
 	var/art_ref = ""
 	var/art_ref_nsfw = preferences?.read_preference(/datum/preference/toggle/art_ref_nsfw)
 	var/character_ad = ""
+	var/dating_profile_tab_name = GLOB.character_directory.get_dating_app_name_short()
 
-	var/emote_length = preferences?.read_preference(/datum/preference/choiced/emote_length)
-	var/approach = preferences?.read_preference(/datum/preference/choiced/approach_pref)
-	var/furries = preferences?.read_preference(/datum/preference/choiced/directory_character_prefs/furry_pref)
-	var/scalies = preferences?.read_preference(/datum/preference/choiced/directory_character_prefs/scalie_pref)
-	var/others = preferences?.read_preference(/datum/preference/choiced/directory_character_prefs/other_pref)
-	var/demihumans = preferences?.read_preference(/datum/preference/choiced/directory_character_prefs/demihuman_pref)
-	var/humans = preferences?.read_preference(/datum/preference/choiced/directory_character_prefs/human_pref)
+	// var/emote_length = preferences?.read_preference(/datum/preference/choiced/emote_length)
+	var/approach = preferences?.read_preference(/datum/preference/choiced/dating_receptive_to)
+	// var/furries = preferences?.read_preference(/datum/preference/choiced/directory_character_prefs/furry_pref)
+	// var/scalies = preferences?.read_preference(/datum/preference/choiced/directory_character_prefs/scalie_pref)
+	// var/others = preferences?.read_preference(/datum/preference/choiced/directory_character_prefs/other_pref)
+	// var/demihumans = preferences?.read_preference(/datum/preference/choiced/directory_character_prefs/demihuman_pref)
+	// var/humans = preferences?.read_preference(/datum/preference/choiced/directory_character_prefs/human_pref)
 	var/show_nsfw_flavor_text = preferences?.read_preference(/datum/preference/choiced/show_nsfw_flavor_text)
 
 	//  Handle OOC notes first
 	if(preferences)
-		if(preferences.read_preference(/datum/preference/toggle/master_erp_preferences))
-			var/e_prefs = preferences.read_preference(/datum/preference/choiced/erp_status)
-			var/e_prefs_hypno = preferences.read_preference(/datum/preference/choiced/erp_status_hypno)
-			var/e_prefs_v = preferences.read_preference(/datum/preference/choiced/erp_status_v)
-			var/e_prefs_nc = preferences.read_preference(/datum/preference/choiced/erp_status_nc)
-			var/e_prefs_mechanical = preferences.read_preference(/datum/preference/choiced/erp_status_mechanics)
-			// SPLURT EDIT ADDITION - Interaction preferences
-			var/e_prefs_extm = preferences.read_preference(/datum/preference/choiced/erp_status_extm)
-			// var/e_prefs_extmharm = preferences.read_preference(/datum/preference/choiced/erp_status_extmharm)
-			// var/e_prefs_unholy = preferences.read_preference(/datum/preference/choiced/erp_status_unholy)
-			// SPLURT EDIT END
-			ooc_notes += "ERP: [e_prefs]\n"
-			ooc_notes += "Hypnosis: [e_prefs_hypno]\n"
-			ooc_notes += "Vore: [e_prefs_v]\n"
-			ooc_notes += "Non-Con: [e_prefs_nc]\n"
-			// SPLURT EDIT ADDITION - Interaction preferences
-			ooc_notes += "Extreme ERP verbs: [e_prefs_extm]\n"
-			// ooc_notes += "Harmful ERP verbs: [e_prefs_extmharm]\n"
-			// ooc_notes += "Unholy ERP verbs: [e_prefs_unholy]\n"
-			// SPLURT EDIT END
-			ooc_notes += "ERP Mechanics: [e_prefs_mechanical]\n"
-			ooc_notes += "\n"
+		// if(preferences.read_preference(/datum/preference/toggle/master_erp_preferences))
+		// 	var/e_prefs = preferences.read_preference(/datum/preference/choiced/erp_status)
+		// 	var/e_prefs_hypno = preferences.read_preference(/datum/preference/choiced/erp_status_hypno)
+		// 	var/e_prefs_v = preferences.read_preference(/datum/preference/choiced/erp_status_v)
+		// 	var/e_prefs_nc = preferences.read_preference(/datum/preference/choiced/erp_status_nc)
+		// 	var/e_prefs_mechanical = preferences.read_preference(/datum/preference/choiced/erp_status_mechanics)
+		// 	// SPLURT EDIT ADDITION - Interaction preferences
+		// 	var/e_prefs_extm = preferences.read_preference(/datum/preference/choiced/erp_status_extm)
+		// 	// var/e_prefs_extmharm = preferences.read_preference(/datum/preference/choiced/erp_status_extmharm)
+		// 	// var/e_prefs_unholy = preferences.read_preference(/datum/preference/choiced/erp_status_unholy)
+		// 	// SPLURT EDIT END
+		// 	// ooc_notes += "ERP: [e_prefs]\n"
+		// 	// ooc_notes += "Hypnosis: [e_prefs_hypno]\n"
+		// 	// ooc_notes += "Vore: [e_prefs_v]\n"
+		// 	// ooc_notes += "Non-Con: [e_prefs_nc]\n"
+		// 	// SPLURT EDIT ADDITION - Interaction preferences
+		// 	// ooc_notes += "Extreme ERP verbs: [e_prefs_extm]\n"
+		// 	// ooc_notes += "Harmful ERP verbs: [e_prefs_extmharm]\n"
+		// 	// ooc_notes += "Unholy ERP verbs: [e_prefs_unholy]\n"
+		// 	// SPLURT EDIT END
+		// 	// ooc_notes += "ERP Mechanics: [e_prefs_mechanical]\n"
+		// 	ooc_notes += "\n"
 
-		character_ad += "Preferred Emote Length: [emote_length]\n"
+		// character_ad += "Preferred Emote Length: [emote_length]\n"
 		character_ad += "How to Approach: [approach]\n"
-		character_ad += "Furries: [furries] | Scalies: [scalies] | Other: [others]\n"
-		character_ad += "Demis: [demihumans] | Humans: [humans]\n"
+		// character_ad += "Furries: [furries] | Scalies: [scalies] | Other: [others]\n"
+		// character_ad += "Demis: [demihumans] | Humans: [humans]\n"
 		character_ad += "\n"
 		character_ad += preferences.read_preference(/datum/preference/text/character_ad)
 
