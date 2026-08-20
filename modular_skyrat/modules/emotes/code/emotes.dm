@@ -18,7 +18,7 @@
 
 
 /datum/emote/living/blush
-	sound = 'modular_skyrat/modules/emotes/sound/emotes/blush.ogg'
+	sound = 'modular_coyote/sounds/barks/blush.ogg'
 
 /datum/emote/living/quill
 	key = "quill"

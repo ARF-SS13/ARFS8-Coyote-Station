@@ -29,7 +29,7 @@
 /datum/blooper/proc/play_bloop(atom/movable/speaker, list/listeners, message, distance, volume, speed, pitch, pitch_range)
 	if(!COOLDOWN_FINISHED(speaker, blooper_cooldown))
 		return
-	volume = min(volume, 100)
+	volume = min(volume, BLOOPER_TRANSMIT_VOLUME)
 	// convert passed values (which are percentages) into value clamped between min and max of blooper datum
 	speed = round(min_speed + ((max_speed - min_speed) * ((100 - speed) / 100)), 0.01) // this one gets inverted because lower % = faster isn't intuitive
 	pitch = round(min_pitch + ((max_pitch - min_pitch) * (pitch / 100)), 0.01)
@@ -38,6 +38,8 @@
 		if(target_mob.client && !(target_mob.client.prefs.read_preference(/datum/preference/toggle/hear_blooper)))
 			listeners -= target_mob
 	var/sound/blooper_pick = pick(soundpath_list)
+	if(!blooper_pick)
+		message_admins("Bad blooper, [name] - [id]")
 	var/num_bloopers = min(round(length(message) / speed, 1) + 1, BLOOPER_MAX_BLOOPERS)
 	var/total_delay = 0
 	for(var/i in 1 to num_bloopers)
