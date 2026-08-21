@@ -9,6 +9,7 @@
 		TRAIT_NIGHT_VISION
 	)
 	species_language_holder = /datum/language_holder/xeno_hybrid
+	language_prefs_whitelist = list(/datum/language/xenocommon, /datum/language/xenocommon/lesser_hivemind)
 
 /datum/species/xeno/get_species_description()
 	return list(
