@@ -455,6 +455,7 @@
 
 // Arnold Pizza
 // Has meme code.
+/* Coyote Removal - Yes, tg.  You are totally MRP.  100%.  Always were buddy.  Keep it up. ~Fenny
 /obj/item/food/pizza/arnold
 	name = "\improper Arnold pizza"
 	desc = "Hello, you've reached Arnold's pizza shop. I'm not here now, I'm out killing pepperoni."
@@ -528,6 +529,7 @@
 /obj/item/food/pizzaslice/arnold/attackby(obj/item/item, mob/user)
 	i_kill_you(item, user)
 	. = ..()
+*/
 
 // Ant Pizza, now with more ants.
 /obj/item/food/pizzaslice/ants

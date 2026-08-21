@@ -24,15 +24,16 @@
 	)
 	result = /obj/item/food/pizza/meat/raw
 
-/datum/crafting_recipe/food/pizza/arnold
-	reqs = list(
-		/obj/item/food/flatdough = 1,
-		/obj/item/food/meat/rawcutlet = 3,
-		/obj/item/ammo_casing/c9mm = 8,
-		/obj/item/food/cheese/wedge = 1,
-		/obj/item/food/grown/tomato = 1
-	)
-	result = /obj/item/food/pizza/arnold/raw
+//Coyote Edit: No, I don't think we need this. Thanks though. ~Fenny
+// /datum/crafting_recipe/food/pizza/arnold
+// 	reqs = list(
+// 		/obj/item/food/flatdough = 1,
+// 		/obj/item/food/meat/rawcutlet = 3,
+// 		/obj/item/ammo_casing/c9mm = 8,
+// 		/obj/item/food/cheese/wedge = 1,
+// 		/obj/item/food/grown/tomato = 1
+// 	)
+// 	result = /obj/item/food/pizza/arnold/raw
 
 /datum/crafting_recipe/food/pizza/mushroom
 	reqs = list(
