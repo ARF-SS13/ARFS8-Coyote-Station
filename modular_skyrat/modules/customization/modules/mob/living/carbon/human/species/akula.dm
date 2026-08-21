@@ -42,6 +42,9 @@
 
 	meat = /obj/item/food/fishmeat/moonfish/akula
 
+	species_language_holder = /datum/language_holder/akula
+	language_prefs_whitelist = list(/datum/language/akulan)
+
 	/// This variable stores the timer datum which appears if the mob becomes wet
 	var/dry_up_timer = TIMER_ID_NULL
 

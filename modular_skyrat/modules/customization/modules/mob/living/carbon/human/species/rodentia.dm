@@ -28,7 +28,6 @@
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/mutant,
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/mutant,
 	)
-	sort_bottom = TRUE //BUBBER EDIT ADDITION: We want to sort this to the bottom because it's a custom species template.
 	var/datum/action/cooldown/spell/sniff/food_sniff
 
 /datum/species/rodentia/on_species_gain(mob/living/carbon/newrat, datum/species/old_species, pref_load, regenerate_icons)

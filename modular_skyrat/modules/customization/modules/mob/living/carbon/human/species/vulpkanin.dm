@@ -15,6 +15,7 @@
 	mutanttongue = /obj/item/organ/tongue/vulpkanin
 	mutanteyes = /obj/item/organ/eyes/vulpkanin
 	species_language_holder = /datum/language_holder/vulpkanin
+	language_prefs_whitelist = list(/datum/language/canilunzt)
 	payday_modifier = 1.0
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	examine_limb_id = SPECIES_MAMMAL

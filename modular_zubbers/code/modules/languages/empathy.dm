@@ -12,11 +12,11 @@
 /datum/language_holder/shadekin
 	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
 								/datum/language/marish = list(LANGUAGE_ATOM),
-								/datum/language/marish/empathy = list(LANGUAGE_ATOM),
+//								/datum/language/marish/empathy = list(LANGUAGE_ATOM), // arfs: you get ONE for now
 								)
 	spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
 							/datum/language/marish = list(LANGUAGE_ATOM),
-							/datum/language/marish/empathy = list(LANGUAGE_ATOM),
+//							/datum/language/marish/empathy = list(LANGUAGE_ATOM), // arfs: you get ONE for now
 							)
 /obj/item/organ/tongue/shadekin
 	name = "shadekin tongue"

@@ -62,7 +62,7 @@
 
 	var/list/data = list()
 
-	var/max_languages = 3
+	var/max_languages = 2 // arfs: not everyone is a linguist. you get common and your native tongue
 	if(/datum/quirk/linguist::name in preferences.all_quirks)
 		max_languages++
 	if(/datum/quirk/bilingual::name in preferences.all_quirks)
@@ -130,7 +130,7 @@
  */
 /datum/preference_middleware/languages/proc/give_language(list/params, mob/user)
 	var/language_name = params["language_name"]
-	var/max_languages = 3
+	var/max_languages = 2 // arfs: not everyone is a linguist. you get common and your native tongue
 	if(/datum/quirk/linguist::name in preferences.all_quirks)
 		max_languages++
 	if(/datum/quirk/bilingual::name in preferences.all_quirks)
