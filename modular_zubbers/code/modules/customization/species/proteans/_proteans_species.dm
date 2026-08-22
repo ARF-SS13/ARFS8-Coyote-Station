@@ -80,7 +80,8 @@
 	var/mob/living/carbon/human/owner
 	var/list/organ_slots = list(ORGAN_SLOT_BRAIN, ORGAN_SLOT_HEART, ORGAN_SLOT_STOMACH, ORGAN_SLOT_EYES)
 	var/datum/action/protean/protean_action
-	language_prefs_whitelist = list(/datum/language/monkey)
+	species_language_holder = /datum/language_holder/machine
+	language_prefs_whitelist = list(/datum/language/machine)
 
 /mob/living/carbon/human/species/protean
 	race = /datum/species/protean

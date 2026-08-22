@@ -26,6 +26,7 @@
 	)
 	meat = /obj/item/food/meat/slab/spider
 	species_language_holder = /datum/language_holder/arachnid
+	language_prefs_whitelist = list(/datum/language/buzzwords)
 
 //this took WAYYYY too long to find
 //i hate this place

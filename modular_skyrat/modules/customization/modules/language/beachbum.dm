@@ -1,2 +1,2 @@
 /datum/language/beachbum
-	secret = TRUE
+	secret = FALSE // Arfs: what's the worst that could happen?
