@@ -315,3 +315,9 @@
 	mask_type = /obj/item/clothing/mask/gas
 	storage_type = /obj/item/tank/jetpack
 	mod_type = /obj/item/mod/control/pre_equipped/hop
+
+//Mining mod suits
+/datum/mod_theme/mining
+	default_skin = "asteroid"
+	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
