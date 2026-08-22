@@ -6,7 +6,7 @@
 /datum/preference/choiced/hemiplegic/init_possible_values()
 	return list("Random") + GLOB.side_choice_hemiplegic
 
-/datum/preference/choiced/hemiplegic/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/hemiplegic/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	if (!.)
 		return FALSE

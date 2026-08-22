@@ -10,7 +10,7 @@
 	var/type_to_check = /datum/preference/toggle/allow_mismatched_parts
 	var/check_mode = TRICOLOR_CHECK_BOOLEAN
 
-/datum/preference/tri_color/deserialize(input, datum/preferences/preferences)
+/datum/preference/tri_color/deserialize(input, datum/prefs_holder/preferences)
 	var/list/input_colors = input
 	return list(sanitize_hexcolor(input_colors[1]), sanitize_hexcolor(input_colors[2]), sanitize_hexcolor(input_colors[3]))
 
@@ -20,7 +20,7 @@
 /datum/preference/tri_color/is_valid(list/value)
 	return islist(value) && value.len == 3 && (findtext(value[1], GLOB.is_color) && findtext(value[2], GLOB.is_color) && findtext(value[3], GLOB.is_color))
 
-/datum/preference/tri_color/is_accessible(datum/preferences/preferences)
+/datum/preference/tri_color/is_accessible(datum/prefs_holder/preferences)
 	if (check_mode == TRICOLOR_NO_CHECK || type == abstract_type)
 		return ..(preferences)
 	var/passed_initial_check = ..(preferences)
@@ -42,7 +42,7 @@
 	var/type_to_check = /datum/preference/toggle/allow_mismatched_parts
 	var/check_mode = TRICOLOR_CHECK_BOOLEAN
 
-/datum/preference/tri_bool/deserialize(input, datum/preferences/preferences)
+/datum/preference/tri_bool/deserialize(input, datum/prefs_holder/preferences)
 	var/list/input_bools = input
 	return list(sanitize_integer(input_bools[1]), sanitize_integer(input_bools[2]), sanitize_integer(input_bools[3]))
 
@@ -52,7 +52,7 @@
 /datum/preference/tri_bool/is_valid(list/value)
 	return islist(value) && value.len == 3 && isnum(value[1]) && isnum(value[2]) && isnum(value[3])
 
-/datum/preference/tri_bool/is_accessible(datum/preferences/preferences)
+/datum/preference/tri_bool/is_accessible(datum/prefs_holder/preferences)
 	if(type == abstract_type)
 		return ..(preferences)
 	var/passed_initial_check = ..(preferences)
@@ -63,10 +63,10 @@
 		part_enabled = is_factual_sprite_accessory(relevant_mutant_bodypart, part_enabled)
 	return ((passed_initial_check || allowed) && part_enabled && emissives_allowed)
 
-/datum/preference/tri_bool/proc/is_emissive_allowed(datum/preferences/preferences)
+/datum/preference/tri_bool/proc/is_emissive_allowed(datum/prefs_holder/preferences)
 	return preferences?.read_preference(/datum/preference/toggle/allow_emissives)
 
-/datum/preference/tri_bool/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/tri_bool/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	if (type == abstract_type)
 		return ..()
 	if(!target.dna.mutant_bodyparts[relevant_mutant_bodypart])
@@ -96,10 +96,10 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	default_value = FALSE
 
-/datum/preference/toggle/mutant_toggle/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/mutant_toggle/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return TRUE // we dont actually want this to do anything
 
-/datum/preference/toggle/mutant_toggle/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/mutant_toggle/is_accessible(datum/prefs_holder/preferences)
 	var/passed_initial_check = ..(preferences)
 	var/allowed = preferences.read_preference(/datum/preference/toggle/allow_mismatched_parts)
 	return passed_initial_check || allowed
@@ -125,7 +125,7 @@
 	/// what sprite accessory list to get options from, by default uses relevant_mutant_bodypart if null
 	var/sprite_accessory_category
 
-/datum/preference/choiced/mutant_choice/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/is_accessible(datum/prefs_holder/preferences)
 	var/passed_initial_check = ..(preferences)
 	var/overriding = preferences.read_preference(/datum/preference/toggle/allow_mismatched_parts)
 	var/part_enabled = is_part_enabled(preferences)
@@ -175,7 +175,7 @@
  * Arguments:
  * * preferences - The relevant character preferences.
  */
-/datum/preference/choiced/mutant_choice/proc/is_part_enabled(datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/proc/is_part_enabled(datum/prefs_holder/preferences)
 	return preferences.read_preference(type_to_check)
 
 /**
@@ -187,7 +187,7 @@
  * * target - The character this is being applied to.
  * * preferences - The relevant character preferences.
  */
-/datum/preference/choiced/mutant_choice/proc/is_visible(mob/living/carbon/human/target, datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/proc/is_visible(mob/living/carbon/human/target, datum/prefs_holder/preferences)
 	if(!is_part_enabled(preferences))
 		return FALSE
 
@@ -204,7 +204,7 @@
 /// Called when the savefile_identifier == PREFERENCE_CHARACTER.
 ///
 /// Returns whether the bodypart is actually visible.
-/datum/preference/choiced/mutant_choice/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/mutant_choice/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	// body part is not the default/none value.
 	var/bodypart_is_visible = preferences && is_visible(target, preferences)
 
@@ -225,7 +225,7 @@
 	/// Can either be `TRICOLOR_CHECK_BOOLEAN` or `TRICOLOR_CHECK_ACCESSORY`, the latter of which adding an extra check to make sure the accessory is enabled and a factual accessory, aka not None
 	var/check_mode = TRICOLOR_CHECK_BOOLEAN
 
-/datum/preference/toggle/emissive/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/emissive/is_accessible(datum/prefs_holder/preferences)
 	if(type == abstract_type)
 		return ..(preferences)
 	var/passed_initial_check = ..(preferences)

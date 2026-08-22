@@ -894,7 +894,6 @@
 /obj/structure/closet/emcloset/wall{
 	pixel_x = 32
 	},
-/obj/structure/closet/crate/secure/loot,
 /turf/open/floor/iron,
 /area/mine/maintenance/public/north)
 "aAG" = (
@@ -10786,6 +10785,10 @@
 /obj/machinery/duct,
 /turf/open/floor/iron/white/smooth_large,
 /area/station/commons/toilet)
+"gjb" = (
+/obj/structure/closet/crate/secure/loot,
+/turf/open/space/openspace,
+/area/space)
 "gje" = (
 /obj/machinery/vending/assist,
 /obj/machinery/light/small{
@@ -12758,7 +12761,6 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/eva)
 "hnP" = (
-/obj/structure/table,
 /obj/structure/table,
 /turf/open/floor/iron/checker,
 /area/mine/maintenance/public/north)
@@ -19423,6 +19425,13 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/engine,
 /area/station/engineering/atmos/hfr_room)
+"kUB" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/closet/crate/secure/loot,
+/turf/open/floor/iron,
+/area/mine/maintenance/public/north)
 "kUG" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/trimline/yellow/filled/line,
@@ -146849,7 +146858,7 @@ heD
 kRF
 xhR
 xCG
-hyM
+kUB
 xhR
 heD
 heD
@@ -150458,7 +150467,7 @@ wzv
 wzv
 wzv
 wzv
-wzv
+gjb
 wzv
 wzv
 wzv

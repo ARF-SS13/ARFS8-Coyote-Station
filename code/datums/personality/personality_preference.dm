@@ -13,10 +13,10 @@
 		var/datum/personality/personality = SSpersonalities.personalities_by_key[personality_key]
 		personality.apply_to_mob(target)
 
-/datum/preference/personality/is_valid(value, datum/preferences/preferences)
+/datum/preference/personality/is_valid(value, datum/prefs_holder/preferences)
 	return islist(value) || isnull(value)
 
-/datum/preference/personality/deserialize(input, datum/preferences/preferences)
+/datum/preference/personality/deserialize(input, datum/prefs_holder/preferences)
 	if(!LAZYLEN(input))
 		return null
 
@@ -39,7 +39,7 @@
 /datum/preference/personality/create_default_value()
 	return null
 
-/datum/preference/personality/create_random_value(datum/preferences/preferences)
+/datum/preference/personality/create_random_value(datum/prefs_holder/preferences)
 	var/list/random_personalities
 	for(var/datum/personality/personality_type as anything in SSpersonalities.select_random_personalities())
 		LAZYADD(random_personalities, initial(personality_type.savefile_key))

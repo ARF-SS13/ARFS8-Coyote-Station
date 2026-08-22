@@ -426,7 +426,7 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 		var/toggles = TOGGLES_DEFAULT
 		var/list/ignoring
 		if(M.client?.prefs)
-			var/datum/preferences/prefs = M.client?.prefs
+			var/datum/prefs_holder/prefs = M.client?.prefs
 			chat_toggles = prefs.chat_toggles
 			toggles = prefs.toggles
 			ignoring = prefs.ignoring

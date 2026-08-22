@@ -22,6 +22,7 @@ import { useRandomToggleState } from '../useRandomToggleState';
 import { useServerPrefs } from '../useServerPrefs';
 import { getRandomization, PreferenceList } from './MainPage';
 import { PersonalityPage } from './PersonalityPage';
+import { TemperamentsAndBuildsPage } from './TemperamentsAndBuildsPage';
 
 function getColorValueClass(quirk: Quirk) {
   if (quirk.value > 0) {
@@ -549,7 +550,7 @@ function QuirkPage() {
 }
 
 export function QuirkPersonalityPage() {
-  const [contentPage, setContentPage] = useState<'quirks' | 'personality'>(
+  const [contentPage, setContentPage] = useState<'quirks' | 'personality' | 'temperaments_and_builds'>(
     'quirks',
   );
 
@@ -579,10 +580,25 @@ export function QuirkPersonalityPage() {
               Personality
             </Button>
           </Stack.Item>
+          <Stack.Item grow>
+            <Button
+              selected={contentPage === 'temperaments_and_builds'}
+              onClick={() => setContentPage('temperaments_and_builds')}
+              fluid
+              align="center"
+              fontSize="14px"
+            >
+              Temperaments & Builds
+            </Button>
+          </Stack.Item>
         </Stack>
       </Stack.Item>
       <Stack.Item grow>
-        {contentPage === 'personality' ? <PersonalityPage /> : <QuirkPage />}
+        {contentPage === 'personality'
+          ? <PersonalityPage />
+          : contentPage === 'temperaments_and_builds'
+            ? <TemperamentsAndBuildsPage />
+            : <QuirkPage />}
       </Stack.Item>
     </Stack>
   );

@@ -39,7 +39,7 @@
 		return client.get_vore_prefs()
 	return null
 
-// Lightweight-ish reimplementation of /datum/preferences
+// Lightweight-ish reimplementation of /datum/prefs_holder
 /datum/vore_preferences
 	var/client/owner
 	var/belly_layout_slot = 0

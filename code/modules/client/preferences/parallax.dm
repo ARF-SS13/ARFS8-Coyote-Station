@@ -19,7 +19,7 @@
 /datum/preference/choiced/parallax/apply_to_client(client/client, value)
 	client.mob?.hud_used?.update_parallax_pref(client?.mob)
 
-/datum/preference/choiced/parallax/deserialize(input, datum/preferences/preferences)
+/datum/preference/choiced/parallax/deserialize(input, datum/prefs_holder/preferences)
 	// Old preferences were numbers, which causes annoyances when
 	// sending over as lists that isn't worth dealing with.
 	if (isnum(input))

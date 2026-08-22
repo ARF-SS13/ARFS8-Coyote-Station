@@ -32,7 +32,7 @@
 		shoe.forceMove(get_turf(organ_owner))
 
 	var/use_hardened_soles = FALSE
-	var/datum/preferences/prefs = organ_owner.client?.prefs
+	var/datum/prefs_holder/prefs = organ_owner.client?.prefs
 	if (prefs)
 		use_hardened_soles = !(prefs.read_preference(/datum/preference/toggle/naga_soles))
 

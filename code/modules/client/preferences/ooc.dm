@@ -7,7 +7,7 @@
 /datum/preference/color/ooc_color/create_default_value()
 	return "#c43b23"
 
-/datum/preference/color/ooc_color/is_accessible(datum/preferences/preferences)
+/datum/preference/color/ooc_color/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 

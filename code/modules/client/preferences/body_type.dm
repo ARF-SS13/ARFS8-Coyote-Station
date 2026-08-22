@@ -10,12 +10,12 @@
 /datum/preference/choiced/body_type/init_possible_values()
 	return list(USE_GENDER, MALE, FEMALE)
 
-/datum/preference/choiced/body_type/is_valid(value, datum/preferences/preferences)
+/datum/preference/choiced/body_type/is_valid(value, datum/prefs_holder/preferences)
 	. = ..()
 	if(. && value == USE_GENDER)
 		return gender_has_physique(preferences.read_preference(/datum/preference/choiced/gender))
 
-/datum/preference/choiced/body_type/create_informed_default_value(datum/preferences/preferences)
+/datum/preference/choiced/body_type/create_informed_default_value(datum/prefs_holder/preferences)
 	return gender_has_physique(preferences.read_preference(/datum/preference/choiced/gender)) ? USE_GENDER : FEMALE
 
 /datum/preference/choiced/body_type/apply_to_human(mob/living/carbon/human/target, value)
@@ -26,7 +26,7 @@
 
 	target.physique = value
 
-/datum/preference/choiced/body_type/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/body_type/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 

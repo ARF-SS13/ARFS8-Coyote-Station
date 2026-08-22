@@ -26,7 +26,7 @@ MUTANT_SYNTH_CHASSIS, \
 "vagina", \
 "breasts",))
 
-/datum/preferences/proc/migrate_skyrat(list/skyrat_data)
+/datum/prefs_holder/proc/migrate_skyrat(list/skyrat_data)
 	if(features["flavor_text"])
 		write_preference(GLOB.preference_entries[/datum/preference/text/flavor_text], features["flavor_text"])
 
@@ -98,5 +98,5 @@ MUTANT_SYNTH_CHASSIS, \
 	tgui_prefs_migration = TRUE
 	skyrat_data["tgui_prefs_migration"] = tgui_prefs_migration
 
-/datum/preferences/proc/migrate_mentor()
+/datum/prefs_holder/proc/migrate_mentor()
 	write_preference(GLOB.preference_entries[/datum/preference/toggle/admin/auto_dementor], FALSE) // Someone thought it was a good idea to make it start at true :)

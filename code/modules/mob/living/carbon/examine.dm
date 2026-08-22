@@ -298,6 +298,27 @@
 						. += "<span class='notice'>[t_He] [t_has] exposed genitals... <a href='byond://?src=[REF(src)];lookup_info=genitals'>\[Look closer...\]</a></span>"
 						break
 
+	var/list/tnbs = get_mob_tnb_paths(src)
+	var/list/temperments = list()
+	var/list/builds = list()
+	for(var/tnb_cat in tnbs)
+		for(var/tnb in tnbs[tnb_cat])
+			var/datum/temperament_build/tnb_datum = GLOB.all_temperaments_and_builds_datums["[tnb]"]
+			if(!tnb_datum)
+				continue
+			switch(tnb_datum.tnb_category)
+				if(TNB_TEMPERAMENT)
+					temperments += capitalize(tnb_datum.get_desc_text(src))
+				if(TNB_BUILD)
+					builds += capitalize(tnb_datum.get_desc_text(src))
+	if(LAZYLEN(builds))
+		. += ""
+		. += span_green("[builds.Join("<br>")]")
+	if(LAZYLEN(temperments))
+		. += ""
+		. += span_notice("[temperments.Join("<br>")]")
+		. += ""
+
 	var/flavor_text_link = get_flavor_text()
 	if(flavor_text_link)
 		. += flavor_text_link

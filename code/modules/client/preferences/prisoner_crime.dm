@@ -13,7 +13,7 @@
 /datum/preference/choiced/prisoner_crime/create_default_value()
 	return "Random"
 
-/datum/preference/choiced/prisoner_crime/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/prisoner_crime/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
@@ -98,7 +98,7 @@ GLOBAL_LIST_INIT(prisoner_crimes, init_prisoner_crimes())
 	name = "Identity Theft of High-Ranking Figure"
 	desc = "Impersonated a high-ranking figure."
 	tattoos = 0 //well, obviously can't impersonate people with tats. if they want to go back to doing that
-	
+
 /datum/prisoner_crime/jaywalker
 	name = "Jaywalker"
 	desc = "Jaywalked across non-green tram crossings, shuttle docking zones, and/or through space."

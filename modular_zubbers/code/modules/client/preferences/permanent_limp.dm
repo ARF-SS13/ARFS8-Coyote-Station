@@ -9,7 +9,7 @@
 /datum/preference/choiced/permanent_limp/create_default_value()
 	return "Left, minor"
 
-/datum/preference/choiced/permanent_limp/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/permanent_limp/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	if (!.)
 		return FALSE

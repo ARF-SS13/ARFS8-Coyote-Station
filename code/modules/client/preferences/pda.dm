@@ -14,7 +14,7 @@
 	return MESSENGER_RINGTONE_DEFAULT
 
 // Returning false here because this pref is handled a little differently, due to its dependency on the existence of a PDA.
-/datum/preference/text/pda_ringtone/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/text/pda_ringtone/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /**
@@ -35,5 +35,5 @@
 	return PDA_THEME_NTOS_NAME
 
 // Returning false here because this pref is handled a little differently, due to its dependency on the existence of a PDA.
-/datum/preference/choiced/pda_theme/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/pda_theme/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE

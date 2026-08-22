@@ -8,7 +8,7 @@
 	target.apply_preference_chat_color(value)
 	return
 
-/datum/preference/color/chat_color/deserialize(input, datum/preferences/preferences)
+/datum/preference/color/chat_color/deserialize(input, datum/prefs_holder/preferences)
 	return process_chat_color(sanitize_hexcolor(input))
 
 /datum/preference/color/chat_color/create_default_value()

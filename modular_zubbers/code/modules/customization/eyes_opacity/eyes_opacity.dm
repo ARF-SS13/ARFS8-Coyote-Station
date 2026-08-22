@@ -9,6 +9,6 @@
 	return maximum
 
 
-/datum/preference/numeric/eyes_opacity/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/numeric/eyes_opacity/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	var/obj/item/organ/eyes/eyes = target.get_organ_slot(ORGAN_SLOT_EYES)
 	eyes.refresh()

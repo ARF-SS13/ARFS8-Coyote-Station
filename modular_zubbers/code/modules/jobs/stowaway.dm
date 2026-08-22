@@ -16,7 +16,7 @@
 
 	job_flags = JOB_NEW_PLAYER_JOINABLE|JOB_REOPEN_ON_ROUNDSTART_LOSS|JOB_ASSIGN_QUIRKS|JOB_CANNOT_OPEN_SLOTS
 
-/datum/job/assistant/stowaway/has_banned_species(datum/preferences/pref)
+/datum/job/assistant/stowaway/has_banned_species(datum/prefs_holder/pref)
 	//return false cause no species should be banned from this role
 	return FALSE
 

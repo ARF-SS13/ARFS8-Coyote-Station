@@ -7,7 +7,7 @@
 /datum/preference/color/blindfold_color/create_default_value()
 	return COLOR_WHITE
 
-/datum/preference/color/blindfold_color/is_accessible(datum/preferences/preferences)
+/datum/preference/color/blindfold_color/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 

@@ -274,6 +274,13 @@ export type PreferencesMenuData = {
   active_slot: number;
   name_to_use: string;
 
+  max_temperaments: number;
+  max_builds: number;
+  player_temperaments: TemperamentBuild[];
+  player_builds: TemperamentBuild[];
+  server_temperaments: TemperamentBuild[];
+  server_builds: TemperamentBuild[];
+
   window: PrefsWindow;
 };
 
@@ -299,4 +306,15 @@ export type ServerData = {
   species: Record<string, Species>;
   background_state: { choices: string[] }; // BUBBER EDIT ADDITION
   [otheyKey: string]: unknown;
+};
+
+export type TemperamentBuild = {
+  name: string;
+  desc: string;
+  example: string;
+  // can be one of two things: "Temperament" or "Build"
+  category: string;
+  path: string; // sent in as string, sent back as string
+  set_key: string | null;
+  order: number; // BUBBER EDIT ADDITION: order for sorting in the menu, lower is higher
 };

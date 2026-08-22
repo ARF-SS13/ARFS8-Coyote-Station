@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// older data.
 /// Must be overridden by subtypes.
 /// Can return null if no value was found.
-/datum/preference/proc/deserialize(input, datum/preferences/preferences)
+/datum/preference/proc/deserialize(input, datum/prefs_holder/preferences)
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_CALL_PARENT(FALSE)
 	CRASH("`deserialize()` was not implemented on [type]!")
@@ -159,12 +159,12 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// Unlike create_default_value(), will provide the preferences object if you
 /// need to use it.
 /// If not overriden, will call create_default_value() instead.
-/datum/preference/proc/create_informed_default_value(datum/preferences/preferences)
+/datum/preference/proc/create_informed_default_value(datum/prefs_holder/preferences)
 	return create_default_value()
 
 /// Produce a random value for the purposes of character randomization.
 /// Will just create a default value by default.
-/datum/preference/proc/create_random_value(datum/preferences/preferences)
+/datum/preference/proc/create_random_value(datum/prefs_holder/preferences)
 	return create_informed_default_value(preferences)
 
 /// Returns whether or not a preference can be randomized.
@@ -174,7 +174,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /// Given a savefile, return either the saved data or an acceptable default.
 /// This will write to the savefile if a value was not found with the new value.
-/datum/preference/proc/read(list/save_data, datum/preferences/preferences)
+/datum/preference/proc/read(list/save_data, datum/prefs_holder/preferences)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	var/value
@@ -190,7 +190,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// Given a savefile, writes the inputted value.
 /// Returns TRUE for a successful application.
 /// Return FALSE if it is invalid.
-/datum/preference/proc/write(list/save_data, value, datum/preferences/preferences)
+/datum/preference/proc/write(list/save_data, value, datum/prefs_holder/preferences)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	if (!is_valid(value, preferences))
@@ -204,7 +204,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	return TRUE
 
 /// Called after a preference has been updated
-/datum/preference/proc/post_write(value, datum/preferences/preferences)
+/datum/preference/proc/post_write(value, datum/prefs_holder/preferences)
 	SHOULD_CALL_PARENT(TRUE)
 	return
 
@@ -224,13 +224,13 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// Apply this preference onto the given human.
 /// Must be overriden by subtypes.
 /// Called when the savefile_identifier == PREFERENCE_CHARACTER.
-/datum/preference/proc/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences) //SKYRAT EDIT CHANGE
+/datum/preference/proc/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences) //SKYRAT EDIT CHANGE
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_CALL_PARENT(FALSE)
 	CRASH("`apply_to_human()` was not implemented for [type]!")
 
 /// Returns which savefile to use for a given savefile identifier
-/datum/preferences/proc/get_save_data_for_savefile_identifier(savefile_identifier)
+/datum/prefs_holder/proc/get_save_data_for_savefile_identifier(savefile_identifier)
 	RETURN_TYPE(/list)
 
 	if (!parent)
@@ -251,7 +251,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /// Read a /datum/preference type and return its value.
 /// This will write to the savefile if a value was not found with the new value.
-/datum/preferences/proc/read_preference(preference_type)
+/datum/prefs_holder/proc/read_preference(preference_type)
 	var/datum/preference/preference_entry = GLOB.preference_entries[preference_type]
 	if (isnull(preference_entry))
 		var/extra_info = ""
@@ -281,7 +281,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// Set a /datum/preference entry.
 /// Returns TRUE for a successful preference application.
 /// Returns FALSE if it is invalid.
-/datum/preferences/proc/write_preference(datum/preference/preference, preference_value)
+/datum/prefs_holder/proc/write_preference(datum/preference/preference, preference_value)
 	var/save_data = get_save_data_for_savefile_identifier(preference.savefile_identifier)
 	var/new_value = preference.deserialize(preference_value, src)
 	var/success = preference.write(save_data, new_value, src)
@@ -292,7 +292,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// Will perform an update on the preference, but not write to the savefile.
 /// This will, for instance, update the character preference view.
 /// Performs sanity checks.
-/datum/preferences/proc/update_preference(datum/preference/preference, preference_value)
+/datum/prefs_holder/proc/update_preference(datum/preference/preference, preference_value)
 	if (!preference.is_accessible(src))
 		return FALSE
 
@@ -315,7 +315,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// Checks that a given value is valid.
 /// Must be overriden by subtypes.
 /// Any type can be passed through.
-/datum/preference/proc/is_valid(value, datum/preferences/preferences)
+/datum/preference/proc/is_valid(value, datum/prefs_holder/preferences)
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_CALL_PARENT(FALSE)
 	CRASH("`is_valid()` was not implemented for [type]!")
@@ -333,13 +333,13 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	return null
 
 /// Checks the species currently selected by the passed preferences object to see if it has this preference's key as a feature.
-/datum/preference/proc/current_species_has_savekey(datum/preferences/preferences)
+/datum/preference/proc/current_species_has_savekey(datum/prefs_holder/preferences)
 	var/species_type = preferences.read_preference(/datum/preference/choiced/species)
 	var/datum/species/species = GLOB.species_prototypes[species_type]
 	return (savefile_key in species.get_features())
 
 /// Checks if this preference is relevant and thus visible to the passed preferences object.
-/datum/preference/proc/has_relevant_feature(datum/preferences/preferences)
+/datum/preference/proc/has_relevant_feature(datum/prefs_holder/preferences)
 	if(isnull(relevant_inherent_trait) && isnull(relevant_organ) && isnull(relevant_head_flag) && isnull(relevant_body_markings) && isnull(relevant_mutant_bodypart)) // BUBBER EDIT ADDITION
 		return TRUE
 
@@ -347,11 +347,11 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /// Returns whether or not this preference is accessible.
 /// If FALSE, will not show in the UI and will not be editable (by update_preference).
-/datum/preference/proc/is_accessible(datum/preferences/preferences)
+/datum/preference/proc/is_accessible(datum/prefs_holder/preferences, ignore_feature)
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_NOT_SLEEP(TRUE)
 
-	if (!has_relevant_feature(preferences))
+	if(!ignore_feature && !has_relevant_feature(preferences))
 		return FALSE
 
 	if (!should_show_on_page(preferences.current_window))
@@ -422,10 +422,10 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	SHOULD_NOT_SLEEP(TRUE)
 	CRASH("`icon_for()` was not implemented for [type], even though should_generate_icons = TRUE!")
 
-/datum/preference/choiced/is_valid(value, datum/preferences/preferences)
+/datum/preference/choiced/is_valid(value, datum/prefs_holder/preferences)
 	return value in get_choices()
 
-/datum/preference/choiced/deserialize(input, datum/preferences/preferences)
+/datum/preference/choiced/deserialize(input, datum/prefs_holder/preferences)
 	return sanitize_inlist(input, get_choices(), create_default_value())
 
 /datum/preference/choiced/create_default_value()
@@ -495,7 +495,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /datum/preference/color
 	abstract_type = /datum/preference/color
 
-/datum/preference/color/deserialize(input, datum/preferences/preferences)
+/datum/preference/color/deserialize(input, datum/prefs_holder/preferences)
 	return sanitize_hexcolor(input)
 
 /datum/preference/color/create_default_value()
@@ -504,7 +504,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /datum/preference/color/serialize(input)
 	return sanitize_hexcolor(input)
 
-/datum/preference/color/is_valid(value, datum/preferences/preferences)
+/datum/preference/color/is_valid(value, datum/prefs_holder/preferences)
 	return findtext(value, GLOB.is_color)
 
 /// A numeric preference with a minimum and maximum value
@@ -520,7 +520,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 	abstract_type = /datum/preference/numeric
 
-/datum/preference/numeric/deserialize(input, datum/preferences/preferences)
+/datum/preference/numeric/deserialize(input, datum/prefs_holder/preferences)
 	if(istext(input)) // Sometimes TGUI will return a string instead of a number, so we take that into account.
 		input = text2num(input) // Worst case, it's null, it'll just use create_default_value()
 	return sanitize_float(input, minimum, maximum, step, create_default_value())
@@ -531,7 +531,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /datum/preference/numeric/create_default_value()
 	return (minimum + maximum) / 2
 
-/datum/preference/numeric/is_valid(value, datum/preferences/preferences)
+/datum/preference/numeric/is_valid(value, datum/prefs_holder/preferences)
 	return isnum(value) && value >= round(minimum, step) && value <= round(maximum, step)
 
 /datum/preference/numeric/compile_constant_data()
@@ -551,10 +551,10 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /datum/preference/toggle/create_default_value()
 	return default_value
 
-/datum/preference/toggle/deserialize(input, datum/preferences/preferences)
+/datum/preference/toggle/deserialize(input, datum/prefs_holder/preferences)
 	return !!input
 
-/datum/preference/toggle/is_valid(value, datum/preferences/preferences)
+/datum/preference/toggle/is_valid(value, datum/prefs_holder/preferences)
 	return value == TRUE || value == FALSE
 
 
@@ -569,13 +569,13 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	var/should_strip_html = TRUE
 
 
-/datum/preference/text/deserialize(input, datum/preferences/preferences)
+/datum/preference/text/deserialize(input, datum/prefs_holder/preferences)
 	return should_strip_html ? STRIP_HTML_SIMPLE(input, maximum_value_length) : copytext(input, 1, maximum_value_length)
 
 /datum/preference/text/create_default_value()
 	return ""
 
-/datum/preference/text/is_valid(value, datum/preferences/preferences)
+/datum/preference/text/is_valid(value, datum/prefs_holder/preferences)
 	return istext(value) && length(value) < maximum_value_length
 
 /datum/preference/text/compile_constant_data()

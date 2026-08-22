@@ -9,7 +9,7 @@
 /datum/preference/choiced/trans_prosthetic/init_possible_values()
 	return list("Random") + GLOB.part_choice_transhuman
 
-/datum/preference/choiced/trans_prosthetic/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/trans_prosthetic/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	if (!.)
 		return FALSE

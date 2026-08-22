@@ -4,7 +4,7 @@
 
 	w_class = WEIGHT_CLASS_SMALL
 
-	var/datum/preferences/loaded_preference
+	var/datum/prefs_holder/loaded_preference
 
 	var/include_loadout = FALSE
 

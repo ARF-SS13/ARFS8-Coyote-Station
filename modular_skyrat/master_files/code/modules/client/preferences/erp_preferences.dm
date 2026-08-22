@@ -17,7 +17,7 @@
 	savefile_identifier = PREFERENCE_PLAYER
 	default_value = TRUE
 
-/datum/preference/toggle/master_erp_preferences/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/master_erp_preferences/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
@@ -26,7 +26,7 @@
 
 	return TRUE
 
-/datum/preference/toggle/master_erp_preferences/deserialize(input, datum/preferences/preferences)
+/datum/preference/toggle/master_erp_preferences/deserialize(input, datum/prefs_holder/preferences)
 	if(CONFIG_GET(flag/disable_erp_preferences))
 		return FALSE
 	. = ..()
@@ -37,7 +37,7 @@
 	savefile_key = "erp_pref"
 	default_value = FALSE
 
-/datum/preference/toggle/erp/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/erp/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
@@ -46,7 +46,7 @@
 
 	return preferences.read_preference(/datum/preference/toggle/master_erp_preferences)
 
-/datum/preference/toggle/erp/deserialize(input, datum/preferences/preferences)
+/datum/preference/toggle/erp/deserialize(input, datum/prefs_holder/preferences)
 	if(CONFIG_GET(flag/disable_erp_preferences))
 		return FALSE
 	if(!preferences.read_preference(/datum/preference/toggle/master_erp_preferences))
@@ -160,7 +160,7 @@
 /datum/preference/choiced/erp_status/create_default_value()
 	return "Ask (L)OOC"
 
-/datum/preference/choiced/erp_status/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/erp_status/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
@@ -169,14 +169,14 @@
 
 	return preferences.read_preference(/datum/preference/toggle/master_erp_preferences)
 
-/datum/preference/choiced/erp_status/deserialize(input, datum/preferences/preferences)
+/datum/preference/choiced/erp_status/deserialize(input, datum/prefs_holder/preferences)
 	if(CONFIG_GET(flag/disable_erp_preferences))
 		return "No"
 	if(!preferences.read_preference(/datum/preference/toggle/master_erp_preferences))
 		return "No"
 	. = ..()
 
-/datum/preference/choiced/erp_status/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/erp_status/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/choiced/erp_status_nc
@@ -190,7 +190,7 @@
 /datum/preference/choiced/erp_status_nc/create_default_value()
 	return "No"
 
-/datum/preference/choiced/erp_status_nc/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/erp_status_nc/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
@@ -199,14 +199,14 @@
 
 	return preferences.read_preference(/datum/preference/toggle/master_erp_preferences)
 
-/datum/preference/choiced/erp_status_nc/deserialize(input, datum/preferences/preferences)
+/datum/preference/choiced/erp_status_nc/deserialize(input, datum/prefs_holder/preferences)
 	if(CONFIG_GET(flag/disable_erp_preferences))
 		return "No"
 	if(!preferences.read_preference(/datum/preference/toggle/master_erp_preferences))
 		return "No"
 	. = ..()
 
-/datum/preference/choiced/erp_status_nc/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/erp_status_nc/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/choiced/erp_status_v
@@ -220,7 +220,7 @@
 /datum/preference/choiced/erp_status_v/create_default_value()
 	return "No"
 
-/datum/preference/choiced/erp_status_v/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/erp_status_v/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
@@ -229,14 +229,14 @@
 
 	return preferences.read_preference(/datum/preference/toggle/master_erp_preferences)
 
-/datum/preference/choiced/erp_status_v/deserialize(input, datum/preferences/preferences)
+/datum/preference/choiced/erp_status_v/deserialize(input, datum/prefs_holder/preferences)
 	if(CONFIG_GET(flag/disable_erp_preferences))
 		return "No"
 	if(!preferences.read_preference(/datum/preference/toggle/master_erp_preferences))
 		return "No"
 	. = ..()
 
-/datum/preference/choiced/erp_status_v/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/erp_status_v/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/choiced/erp_status_mechanics
@@ -250,7 +250,7 @@
 /datum/preference/choiced/erp_status_mechanics/create_default_value()
 	return "None"
 
-/datum/preference/choiced/erp_status_mechanics/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/erp_status_mechanics/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
@@ -259,14 +259,14 @@
 
 	return preferences.read_preference(/datum/preference/toggle/master_erp_preferences)
 
-/datum/preference/choiced/erp_status_mechanics/deserialize(input, datum/preferences/preferences)
+/datum/preference/choiced/erp_status_mechanics/deserialize(input, datum/prefs_holder/preferences)
 	if(CONFIG_GET(flag/disable_erp_preferences))
 		return "None"
 	if(!preferences.read_preference(/datum/preference/toggle/master_erp_preferences))
 		return "None"
 	. = ..()
 
-/datum/preference/choiced/erp_status_mechanics/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/erp_status_mechanics/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /* SPLURT EDIT REMOVAL - Not needed
@@ -281,7 +281,7 @@
 /datum/preference/choiced/erp_sexuality/create_default_value()
 	return "None"
 
-/datum/preference/choiced/erp_sexuality/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/erp_sexuality/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
@@ -290,14 +290,14 @@
 
 	return preferences.read_preference(/datum/preference/toggle/master_erp_preferences)
 
-/datum/preference/choiced/erp_sexuality/deserialize(input, datum/preferences/preferences)
+/datum/preference/choiced/erp_sexuality/deserialize(input, datum/prefs_holder/preferences)
 	if(CONFIG_GET(flag/disable_erp_preferences))
 		return "None"
 	if(!preferences.read_preference(/datum/preference/toggle/master_erp_preferences))
 		return "None"
 	. = ..()
 
-/datum/preference/choiced/erp_sexuality/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/erp_sexuality/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 */ // SPLURT EDIT REMOVAL END
 
@@ -312,7 +312,7 @@
 /datum/preference/choiced/erp_status_hypno/create_default_value()
 	return "No"
 
-/datum/preference/choiced/erp_status_hypno/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/erp_status_hypno/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
@@ -321,7 +321,7 @@
 
 	return preferences.read_preference(/datum/preference/toggle/master_erp_preferences)
 
-/datum/preference/choiced/erp_status_hypno/deserialize(input, datum/preferences/preferences)
+/datum/preference/choiced/erp_status_hypno/deserialize(input, datum/prefs_holder/preferences)
 	if(CONFIG_GET(flag/disable_erp_preferences))
 		return "No"
 
@@ -329,7 +329,7 @@
 		return "No"
 	return ..()
 
-/datum/preference/choiced/erp_status_hypno/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/erp_status_hypno/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/toggle/erp/vore_overlays

@@ -1,7 +1,7 @@
 /// This should match the interface of /client wherever necessary.
 /datum/client_interface
 	/// Player preferences datum for the client
-	var/datum/preferences/prefs
+	var/datum/prefs_holder/prefs
 
 	/// These persist between logins/logouts during the same round.
 	var/datum/persistent_client/persistent_client

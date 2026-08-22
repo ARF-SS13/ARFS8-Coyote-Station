@@ -5,7 +5,7 @@
  * you don't need to worry about handling that here -
  * quirk sanitization happens AFTER migration
  */
-/datum/preferences/proc/migrate_quirk_to_personality(quirk_to_migrate, datum/personality/new_typepath)
+/datum/prefs_holder/proc/migrate_quirk_to_personality(quirk_to_migrate, datum/personality/new_typepath)
 	ASSERT(istext(quirk_to_migrate) && ispath(new_typepath, /datum/personality))
 	if(!(quirk_to_migrate in all_quirks))
 		return

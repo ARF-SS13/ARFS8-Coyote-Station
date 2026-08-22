@@ -85,7 +85,7 @@
 
 	name = parent_mob.mind.name
 
-	var/datum/preferences/preferences = parent_mob?.client?.prefs
+	var/datum/prefs_holder/preferences = parent_mob?.client?.prefs
 	if(!preferences)
 		return FALSE
 

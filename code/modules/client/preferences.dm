@@ -1,6 +1,6 @@
 GLOBAL_LIST_EMPTY(preferences_datums)
 
-/datum/preferences
+/datum/prefs_holder
 	var/client/parent
 	/// The path to the general savefile for this datum
 	var/path
@@ -90,7 +90,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/list/custom_emote_panel = list() // SPLURT EDIT:  CUSTOM EMOTE PANEL
 
-/datum/preferences/Destroy(force)
+/datum/prefs_holder/Destroy(force)
 	QDEL_NULL(character_preview_view)
 	QDEL_LIST(middleware)
 	value_cache = null
@@ -100,7 +100,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	//SKYRAT EDIT END
 	return ..()
 
-/datum/preferences/New(client/parent)
+/datum/prefs_holder/New(client/parent)
 	src.parent = parent
 
 	for (var/middleware_type in subtypesof(/datum/preference_middleware))
@@ -145,7 +145,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		save_preferences()
 	save_character(TRUE) //let's save this new random character so it doesn't keep generating new ones. // BUBBER EDIT
 
-/datum/preferences/ui_interact(mob/user, datum/tgui/ui)
+/datum/prefs_holder/ui_interact(mob/user, datum/tgui/ui)
 	// There used to be code here that readded the preview view if you "rejoined"
 	// I'm making the assumption that ui close will be called whenever a user logs out, or loses a window
 	// If this isn't the case, kill me and restore the code, thanks
@@ -162,15 +162,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		ui.open()
 		character_preview_view.display_to(user, ui.window)
 
-/datum/preferences/ui_state(mob/user)
+/datum/prefs_holder/ui_state(mob/user)
 	return GLOB.always_state
 
 // Without this, a hacker would be able to edit other people's preferences if
 // they had the ref to Topic to.
-/datum/preferences/ui_status(mob/user, datum/ui_state/state)
+/datum/prefs_holder/ui_status(mob/user, datum/ui_state/state)
 	return user.client == parent ? UI_INTERACTIVE : UI_CLOSE
 
-/datum/preferences/ui_data(mob/user)
+/datum/prefs_holder/ui_data(mob/user)
 	var/list/data = list()
 
 	if (tainted_character_profiles)
@@ -193,7 +193,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	return data
 
-/datum/preferences/ui_static_data(mob/user)
+/datum/prefs_holder/ui_static_data(mob/user)
 	var/list/data = list()
 
 	// SKYRAT EDIT ADDITION START
@@ -216,7 +216,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	return data
 
-/datum/preferences/ui_assets(mob/user)
+/datum/prefs_holder/ui_assets(mob/user)
 	var/list/assets = list(
 		get_asset_datum(/datum/asset/spritesheet_batched/preferences),
 		get_asset_datum(/datum/asset/json/preferences),
@@ -227,7 +227,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	return assets
 
-/datum/preferences/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/datum/prefs_holder/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if (.)
 		return
@@ -384,7 +384,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return TRUE
 		//SKYRAT EDIT END
 
-
 	for (var/datum/preference_middleware/preference_middleware as anything in middleware)
 		var/delegation = preference_middleware.action_delegations[action]
 		if (!isnull(delegation))
@@ -392,12 +391,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	return FALSE
 
-/datum/preferences/ui_close(mob/user)
+/datum/prefs_holder/ui_close(mob/user)
 	save_character()
 	save_preferences()
 	QDEL_NULL(character_preview_view)
 
-/datum/preferences/Topic(href, list/href_list)
+/datum/prefs_holder/Topic(href, list/href_list)
 	. = ..()
 	if (.)
 		return
@@ -408,14 +407,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		ui_interact(usr)
 		return TRUE
 
-/datum/preferences/proc/create_character_preview_view(mob/user)
+/datum/prefs_holder/proc/create_character_preview_view(mob/user)
 	character_preview_view = new(null, src)
 	character_preview_view.generate_view("character_preview_[REF(character_preview_view)]")
 	character_preview_view.update_body()
 
 	return character_preview_view
 
-/datum/preferences/proc/compile_character_preferences(mob/user)
+/datum/prefs_holder/proc/compile_character_preferences(mob/user)
 	var/list/preferences = list()
 
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
@@ -443,7 +442,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	return preferences
 
 /// Applies all PREFERENCE_PLAYER preferences
-/datum/preferences/proc/apply_all_client_preferences()
+/datum/prefs_holder/proc/apply_all_client_preferences()
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
 		if (preference.savefile_identifier != PREFERENCE_PLAYER)
 			continue
@@ -458,7 +457,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// The body that is displayed
 	var/mob/living/carbon/human/dummy/body
 	/// The preferences this refers to
-	var/datum/preferences/preferences
+	var/datum/prefs_holder/preferences
 	/// Whether we show current job clothes or nude/loadout only
 	var/show_job_clothes = TRUE
 
@@ -468,7 +467,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/last_canvas_state
 	// BUBBER EDIT END
 
-/atom/movable/screen/map_view/char_preview/Initialize(mapload, datum/preferences/preferences)
+/atom/movable/screen/map_view/char_preview/Initialize(mapload, datum/prefs_holder/preferences)
 	. = ..()
 	src.preferences = preferences
 
@@ -533,7 +532,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	body = new
 
-/datum/preferences/proc/create_character_profiles()
+/datum/prefs_holder/proc/create_character_profiles()
 	var/list/profiles = list()
 
 	for (var/index in 1 to max_save_slots)
@@ -554,7 +553,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	return profiles
 
-/datum/preferences/proc/set_job_preference_level(datum/job/job, level)
+/datum/prefs_holder/proc/set_job_preference_level(datum/job/job, level)
 	if (!job)
 		return FALSE
 
@@ -577,7 +576,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	return TRUE
 
-/datum/preferences/proc/GetQuirkBalance()
+/datum/prefs_holder/proc/GetQuirkBalance()
 	var/bal = CONFIG_GET(number/default_quirk_points)
 	for(var/V in all_quirks)
 		var/datum/quirk/T = SSquirks.quirks[V]
@@ -589,13 +588,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	//SKYRAT EDIT END
 	return bal
 
-/datum/preferences/proc/GetPositiveQuirkCount()
+/datum/prefs_holder/proc/GetPositiveQuirkCount()
 	. = 0
 	for(var/q in all_quirks)
 		if(SSquirks.quirk_points[q] > 0)
 			.++
 
-/datum/preferences/proc/validate_quirks()
+/datum/prefs_holder/proc/validate_quirks()
 	var/datum/species/species_type = read_preference(/datum/preference/choiced/species)
 	var/list/quirks_removed
 	for(var/quirk_name in all_quirks)
@@ -657,7 +656,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(isnull(target))
 		return NONE
 
-	var/datum/preferences/preferences = target.prefs
+	var/datum/prefs_holder/preferences = target.prefs
 	if(isnull(preferences))
 		stack_trace("[key_name(target)] preference datum was null")
 		return NONE
@@ -665,7 +664,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	return preferences.chat_toggles
 
 /// Sanitizes the preferences, applies the randomization prefs, and then applies the preference to the human mob.
-/datum/preferences/proc/safe_transfer_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE, is_antag = FALSE, visuals_only = FALSE) // BUBBER EDIT - Customization - ORIGINAL: /datum/preferences/proc/safe_transfer_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE, is_antag = FALSE)
+/datum/prefs_holder/proc/safe_transfer_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE, is_antag = FALSE, visuals_only = FALSE) // BUBBER EDIT - Customization - ORIGINAL: /datum/prefs_holder/proc/safe_transfer_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE, is_antag = FALSE)
 	apply_character_randomization_prefs(is_antag)
 	apply_prefs_to(character, icon_updates, visuals_only = visuals_only) // BUBBER EDIT - Customization - ORIGINAL: apply_prefs_to(character, icon_updates)
 
@@ -679,7 +678,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
  * * do_not_apply - A list of preference types to skip when applying preferences.
  */
 /// Applies the given preferences to a human mob.
-/datum/preferences/proc/apply_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE, list/do_not_apply, visuals_only = FALSE)  // SKYRAT EDIT - Customization - ORIGINAL: /datum/preferences/proc/apply_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE)
+/datum/prefs_holder/proc/apply_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE, list/do_not_apply, visuals_only = FALSE)  // SKYRAT EDIT - Customization - ORIGINAL: /datum/prefs_holder/proc/apply_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE)
 	character.dna.features = MANDATORY_FEATURE_LIST //SKYRAT EDIT CHANGE - We need to instansiate the list with the basic features.
 
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
@@ -704,7 +703,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	SEND_SIGNAL(character, COMSIG_HUMAN_PREFS_APPLIED)
 
 /// Returns whether the parent mob should have the random hardcore settings enabled. Assumes it has a mind.
-/datum/preferences/proc/should_be_random_hardcore(datum/job/job, datum/mind/mind)
+/datum/prefs_holder/proc/should_be_random_hardcore(datum/job/job, datum/mind/mind)
 	if(!read_preference(/datum/preference/toggle/random_hardcore))
 		return FALSE
 	if(job.job_flags & JOB_HEAD_OF_STAFF) //No heads of staff
@@ -715,7 +714,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	return TRUE
 
 /// Inverts the key_bindings list such that it can be used for key_bindings_by_key
-/datum/preferences/proc/get_key_bindings_by_key(list/key_bindings)
+/datum/prefs_holder/proc/get_key_bindings_by_key(list/key_bindings)
 	var/list/output = list()
 
 	for (var/action in key_bindings)
@@ -725,7 +724,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	return output
 
 /// Returns the default `randomise` variable ouptut
-/datum/preferences/proc/get_default_randomization()
+/datum/prefs_holder/proc/get_default_randomization()
 	var/list/default_randomization = list()
 
 	for (var/preference_key in GLOB.preference_entries_by_key)
@@ -735,7 +734,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	return default_randomization
 
-/datum/preferences/proc/refresh_membership()
+/datum/prefs_holder/proc/refresh_membership()
 	var/byond_member = parent.IsByondMember()
 	if(isnull(byond_member)) // Connection failure, retry once
 		byond_member = parent.IsByondMember()

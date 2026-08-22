@@ -59,7 +59,7 @@
 /datum/quirk/hypnotic_borg/post_add()
 	if(!quirk_holder?.client)
 		return
-	var/datum/preferences/preferences = quirk_holder.client.prefs
+	var/datum/prefs_holder/preferences = quirk_holder.client.prefs
 	if(!preferences || !(/datum/quirk/hypnotic::name in preferences.all_quirks))
 		hypnotic_text = null
 		hypnotic_color = "Hypnophrase"

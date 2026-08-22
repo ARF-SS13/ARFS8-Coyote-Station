@@ -5,7 +5,7 @@
 /datum/preference/blob/create_default_value()
 	return list()
 
-/datum/preference/blob/deserialize(input, datum/preferences/preferences)
+/datum/preference/blob/deserialize(input, datum/prefs_holder/preferences)
 	if(!islist(input))
 		return list()
 	return input

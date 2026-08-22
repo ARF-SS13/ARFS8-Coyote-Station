@@ -38,7 +38,7 @@
 
 
 /// Generates a new avatar for the bitrunner.
-/obj/machinery/quantum_server/proc/generate_avatar(turf/destination, datum/outfit/netsuit, datum/preferences/prefs, load_loadout = FALSE) // BUBBER EDIT - Prefs and loadout argument
+/obj/machinery/quantum_server/proc/generate_avatar(turf/destination, datum/outfit/netsuit, datum/prefs_holder/prefs, load_loadout = FALSE) // BUBBER EDIT - Prefs and loadout argument
 	var/mob/living/carbon/human/avatar = new(destination)
 
 	// BUBBER EDIT BEGIN - PREFS!

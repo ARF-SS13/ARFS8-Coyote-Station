@@ -18,7 +18,7 @@
 	/// Which languages does the job require, associative to UNDERSTOOD_LANGUAGE or (UNDERSTOOD_LANGUAGE | SPOKEN_LANGUAGE)
 	var/list/required_languages = list(/datum/language/common = (UNDERSTOOD_LANGUAGE | SPOKEN_LANGUAGE))
 
-/datum/job/proc/has_banned_quirk(datum/preferences/pref)
+/datum/job/proc/has_banned_quirk(datum/prefs_holder/pref)
 	if(!pref) //No preferences? We'll let you pass, this time (just a precautionary check,you dont wanna mess up gamemode setting logic)
 		return FALSE
 	if(banned_quirks)
@@ -29,7 +29,7 @@
 					return TRUE
 	return FALSE
 
-/datum/job/proc/has_banned_species(datum/preferences/pref)
+/datum/job/proc/has_banned_species(datum/prefs_holder/pref)
 	var/species_type = pref.read_preference(/datum/preference/choiced/species)
 	var/datum/species/species = new species_type
 	var/my_id = species.id
@@ -41,7 +41,7 @@
 		return TRUE
 	return FALSE
 
-/datum/job/proc/has_banned_augment(datum/preferences/pref)
+/datum/job/proc/has_banned_augment(datum/prefs_holder/pref)
 	if(!pref)
 		return FALSE
 
@@ -55,7 +55,7 @@
 
 	return FALSE
 
-/datum/job/proc/has_enough_hands(datum/preferences/pref)
+/datum/job/proc/has_enough_hands(datum/prefs_holder/pref)
 	if(!pref)
 		return TRUE
 
@@ -243,7 +243,7 @@
 /datum/job/science_guard
 	banned_quirks = list(GUARD_RESTRICTED_QUIRKS)
 
-/datum/job/proc/has_required_languages(datum/preferences/pref)
+/datum/job/proc/has_required_languages(datum/prefs_holder/pref)
 	if(!required_languages)
 		return TRUE
 

@@ -3,7 +3,7 @@
 	allowed_biotypes = MOB_ORGANIC|MOB_ROBOTIC
 	///Hardcoded styles that can be chosen from and apply to limb, if it's true
 
-/datum/augment_item/limb/apply(mob/living/carbon/human/augmented, character_setup = FALSE, datum/preferences/prefs)
+/datum/augment_item/limb/apply(mob/living/carbon/human/augmented, character_setup = FALSE, datum/prefs_holder/prefs)
 	if(character_setup)
 		//Cheaply "faking" the appearance of the prosthetic. Species code sets this back if it doesnt exist anymore
 		var/obj/item/bodypart/new_limb = path

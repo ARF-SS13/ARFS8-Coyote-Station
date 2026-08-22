@@ -14,7 +14,7 @@
 	else
 		return uni_icon(GLOB.ai_hologram_icons[value], GLOB.ai_hologram_icon_state[value])
 
-/datum/preference/choiced/ai_hologram_display/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/ai_hologram_display/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 

@@ -12,7 +12,7 @@
 /datum/preference/choiced/enable_screentips/apply_to_client(client/client, value)
 	client.mob?.hud_used?.screentips_enabled = value
 
-/datum/preference/choiced/enable_screentips/deserialize(input, datum/preferences/preferences)
+/datum/preference/choiced/enable_screentips/deserialize(input, datum/prefs_holder/preferences)
 	// Migrate old always disabled screentips to context only.
 	// Screentips were always meant to have context, though were initially merged without it.
 	// This accepts that those users found screentips distracting, but gives a second chance now that

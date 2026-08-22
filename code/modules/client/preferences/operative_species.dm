@@ -7,7 +7,7 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "operative_species"
 
-/datum/preference/toggle/nuke_ops_species/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/nuke_ops_species/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	if(!.)
 		return FALSE

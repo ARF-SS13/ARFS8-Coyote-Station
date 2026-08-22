@@ -357,3 +357,34 @@ export const FeatureTriBoolInput = (props: FeatureValueProps<boolean[]>) => {
   );
 };
 // SKYRAT EDIT ADDITION END
+
+export const FeatureTwoButtonInput = (props: FeatureValueProps<string[]>) => {
+  const { act } = useBackend();
+  const buttonFromValue = (index) => {
+    return (
+      <Stack.Item grow>
+        <Button
+          onClick={() => {
+            act('set_two_button_preference', {
+              preference: props.featureId,
+              value: index + 1,
+            });
+          }}
+        >
+          <Stack align="center" fill>
+            <Stack.Item>
+              {props.value[index]}
+            </Stack.Item>
+          </Stack>
+        </Button>
+      </Stack.Item>
+    );
+  };
+  return (
+    <Stack align="center" fill>
+      {buttonFromValue(0)}
+      {buttonFromValue(1)}
+    </Stack>
+  );
+};
+

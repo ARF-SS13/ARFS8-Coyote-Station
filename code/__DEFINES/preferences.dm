@@ -116,7 +116,7 @@
 /// This preference is account specific.
 #define PREFERENCE_PLAYER "player"
 
-// Values for /datum/preferences/current_tab
+// Values for /datum/prefs_holder/current_tab
 /// Open the character preference window
 #define PREFERENCE_TAB_CHARACTER_PREFERENCES 0
 

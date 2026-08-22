@@ -90,6 +90,24 @@ GLOBAL_LIST_EMPTY(startup_messages)
 	else
 		dat += {"<img src="loading_screen.gif" class="bg" alt="">"}
 
+		//adds in a cool javascript function to make mousing over anything with class "menu_button" play a sound effect
+		// does it by artificially clicking an href link that goes to byond://?src=[text_ref(src)];play_lobby_button_sound=1, which then calls the proc in new_player.dm to play the sound on the server side, which is more reliable than the above method
+		dat += {"
+			<a href='byond://?src=[text_ref(src)];play_lobby_button_sound=1' id="boop" style="display:none;"></a>
+			<script>
+				document.addEventListener('DOMContentLoaded', () => {
+					const triggers = document.querySelectorAll('.menu_button');
+					triggers.forEach(trigger => {
+						trigger.addEventListener('mouseenter', function() {
+							if (document.querySelector('#boop')) {
+								document.querySelector('#boop').click();
+							}
+						});
+					});
+				});
+			</script>
+		"}
+
 		if(SStitle.current_notice)
 			dat += {"
 			<div class="container_notice">
@@ -97,31 +115,31 @@ GLOBAL_LIST_EMPTY(startup_messages)
 			</div>
 		"}
 
-		dat += {"<div class="container_nav">"}
+		dat += {"<div class="container_nav" id="nav_container">"}
 
 		if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
-			dat += {"<a id="ready" class="menu_button" href='byond://?src=[text_ref(src)];toggle_ready=1'>[ready == PLAYER_READY_TO_PLAY ? "<span class='checked'>☑</span> READY" : "<span class='unchecked'>☒</span> READY"]</a>"}
+			dat += {"<a id="ready" class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];toggle_ready=1'>[ready == PLAYER_READY_TO_PLAY ? "<span class='checked'>☑</span> READY" : "<span class='unchecked'>☒</span> READY"]</a>"}
 		else
 			dat += {"
-				<a class="menu_button" href='byond://?src=[text_ref(src)];late_join=1'>JOIN GAME</a>
-				<a class="menu_button" href='byond://?src=[text_ref(src)];view_manifest=1'>CREW MANIFEST</a>
+				<a class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];late_join=1'>JOIN GAME</a>
+				<a class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];view_manifest=1'>CREW MANIFEST</a>
 			"}
-			// dat += {"<a class="menu_button" href='byond://?src=[text_ref(src)];character_directory=1'>CHARACTER DIRECTORY</a>"}
+			// dat += {"<a class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];character_directory=1'>CHARACTER DIRECTORY</a>"}
 
-		dat += {"<a class="menu_button" href='byond://?src=[text_ref(src)];observe=1'>OBSERVE</a>"}
+		dat += {"<a class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];observe=1'>OBSERVE</a>"}
 
 		dat += {"
 			<hr>
-			<a class="menu_button" href='byond://?src=[text_ref(src)];character_setup=1'>SETUP CHARACTER (<span id="character_slot">[uppertext(client.prefs.read_preference(/datum/preference/name/real_name))]</span>)</a>
-			<a class="menu_button" href='byond://?src=[text_ref(src)];game_options=1'>GAME OPTIONS</a>
-			<!-- <a id="be_antag" class="menu_button" href='byond://?src=[text_ref(src)];toggle_antag=1'>[client.prefs.read_preference(/datum/preference/toggle/be_antag) ? "<span class='checked'>☑</span> BE ANTAGONIST" : "<span class='unchecked'>☒</span> BE ANTAGONIST"]</a> -->
+			<a class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];character_setup=1'>SETUP CHARACTER (<span id="character_slot">[uppertext(client.prefs.read_preference(/datum/preference/name/real_name))]</span>)</a>
+			<a class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];game_options=1'>GAME OPTIONS</a>
+			<!-- <a id="be_antag" class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];toggle_antag=1'>[client.prefs.read_preference(/datum/preference/toggle/be_antag) ? "<span class='checked'>☑</span> BE ANTAGONIST" : "<span class='unchecked'>☒</span> BE ANTAGONIST"]</a> -->
 			<!-- SPLURT STATION EDIT: Server swap button removed - not needed for single server setup -->
 			<!-- <hr> -->
-			<!--  <a class="menu_button" href='byond://?src=[text_ref(src)];server_swap=1'>SWAP SERVERS</a> -->
+			<!--  <a class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];server_swap=1'>SWAP SERVERS</a> -->
 		"}
 
 		if(length(GLOB.lobby_station_traits))
-			dat += {"<a class="menu_button" href='byond://?src=[text_ref(src)];job_traits=1'>JOB TRAITS</a>"}
+			dat += {"<a class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];job_traits=1'>JOB TRAITS</a>"}
 
 		if(!is_guest_key(src.key))
 			dat += playerpolls()

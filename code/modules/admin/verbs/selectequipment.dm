@@ -113,7 +113,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(select_equipment, R_FUN, "Select Equipment", mob/ta
 	data["icon64"] = icon2base64(dummysprite)
 	data["name"] = target_mob
 
-	var/datum/preferences/prefs = user?.client?.prefs
+	var/datum/prefs_holder/prefs = user?.client?.prefs
 	data["favorites"] = list()
 	if(prefs)
 		data["favorites"] = prefs.favorite_outfits

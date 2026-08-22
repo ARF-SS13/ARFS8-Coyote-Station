@@ -5,7 +5,7 @@
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	relevant_inherent_trait = TRAIT_MUTANT_COLORS
 
-/datum/preference/color/mutant_color/is_accessible(datum/preferences/preferences)
+/datum/preference/color/mutant_color/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 

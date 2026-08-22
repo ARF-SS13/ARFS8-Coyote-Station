@@ -12,7 +12,7 @@
 /datum/preference/choiced/digitigrade_legs/init_possible_values()
 	return list(NORMAL_LEGS, DIGITIGRADE_LEGS)
 
-/datum/preference/choiced/digitigrade_legs/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/digitigrade_legs/is_accessible(datum/prefs_holder/preferences)
 	return ..() && is_usable(preferences)
 
 /**
@@ -23,11 +23,11 @@
  * Arguments:
  * * preferences - The relevant character preferences.
  */
-/datum/preference/choiced/digitigrade_legs/proc/is_usable(datum/preferences/preferences)
+/datum/preference/choiced/digitigrade_legs/proc/is_usable(datum/prefs_holder/preferences)
 	var/datum/species/species_type = preferences.read_preference(/datum/preference/choiced/species)
 	return initial(species_type.digitigrade_customization) == DIGITIGRADE_OPTIONAL
 
-/datum/preference/choiced/digitigrade_legs/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/digitigrade_legs/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	if(!preferences || !is_usable(preferences))
 		return FALSE
 

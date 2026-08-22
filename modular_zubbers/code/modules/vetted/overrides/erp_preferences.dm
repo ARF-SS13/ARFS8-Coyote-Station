@@ -1,4 +1,4 @@
-/datum/preference/toggle/master_erp_preferences/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/master_erp_preferences/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	// SPLURT EDIT - Poorly implemented
 	/*
@@ -10,7 +10,7 @@
 		SSplayer_ranks.is_vetted(preferences.parent, admin_bypass = FALSE)
 
 
-/datum/preference/toggle/erp/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/erp/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	// SPLURT EDIT - Poorly implemented
 	/*

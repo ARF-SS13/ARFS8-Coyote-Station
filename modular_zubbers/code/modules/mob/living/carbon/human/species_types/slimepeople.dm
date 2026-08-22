@@ -76,7 +76,7 @@
 	slime.hair_color = COLOR_PINK
 	slime.update_body(is_creating = TRUE)
 
-/datum/species/jelly/roundstartslime/apply_supplementary_body_changes(mob/living/carbon/human/target, datum/preferences/preferences, visuals_only = FALSE)
+/datum/species/jelly/roundstartslime/apply_supplementary_body_changes(mob/living/carbon/human/target, datum/prefs_holder/preferences, visuals_only = FALSE)
 	if(preferences.read_preference(/datum/preference/toggle/allow_mismatched_hair_color))
 		target.dna.species.hair_color_mode = null
 
@@ -705,7 +705,7 @@
 		alterer.balloon_alert(alterer, "transformation rejected")
 		return
 
-	var/datum/preferences/prefs = target_client?.prefs
+	var/datum/prefs_holder/prefs = target_client?.prefs
 	if (isnull(prefs))
 		return
 
@@ -725,9 +725,9 @@
  * Args:
  * * mob/living/carbon/human/alterer: The mob doing the transforming.
  * * mob/living/carbon/human/target: The target to be transformed. Must have passed [is_valid_char_alteration_target].
- * * datum/preferences/char_source: The source of the character. Generally either target's or alterer's preference datum.
+ * * datum/prefs_holder/char_source: The source of the character. Generally either target's or alterer's preference datum.
  */
-/datum/action/innate/alter_form/proc/do_char_alteration(mob/living/carbon/human/alterer, mob/living/carbon/human/target, datum/preferences/char_source)
+/datum/action/innate/alter_form/proc/do_char_alteration(mob/living/carbon/human/alterer, mob/living/carbon/human/target, datum/prefs_holder/char_source)
 	target.visible_message(
 		span_warning("[target.get_visible_name()] unnervingly twitches, [target.p_their()] body distorting... until eventually transforming into something new."),
 		span_warning("Your body sears and tears, taking a new form!")

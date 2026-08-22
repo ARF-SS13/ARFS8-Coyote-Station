@@ -4,7 +4,7 @@
 	savefile_identifier = PREFERENCE_PLAYER
 	default_value = FALSE
 
-/datum/preference/toggle/fast_mc_refresh/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/fast_mc_refresh/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
