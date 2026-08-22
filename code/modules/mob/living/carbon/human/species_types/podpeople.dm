@@ -19,6 +19,7 @@
 	exotic_bloodtype = BLOOD_TYPE_H2O
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/plant
+	language_prefs_whitelist = list(/datum/language/sylvan)
 
 	mutantappendix = /obj/item/organ/appendix/pod
 	mutantbrain = /obj/item/organ/brain/pod

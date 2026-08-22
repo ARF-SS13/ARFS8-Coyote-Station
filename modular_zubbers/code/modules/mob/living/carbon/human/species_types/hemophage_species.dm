@@ -8,7 +8,9 @@
 		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/mhuman,
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/mhuman,
 	)
-	language_prefs_whitelist = list(/datum/language/monkey)
+	species_language_holder = /datum/language_holder/vampiric
+	language_prefs_whitelist = list(/datum/language/vampiric)
+
 
 // MUTANT COLOR OVERRIDE
 

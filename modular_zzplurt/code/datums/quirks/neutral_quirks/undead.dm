@@ -1,5 +1,10 @@
 #define QUIRK_HUNGER_UNDEAD 1.1
 
+///! WEEEOOOOWWEEEEOO COYOTE NOTE WEEOOOOWOOOWOOWOW
+///TODO: KILL THIS THING
+///? whyu is this here
+///! WEEEOOOOWWEEEEOO COYOTE NOTE WEEOOOOWOOOWOOWOW
+
 /datum/quirk/undead
 	name = "Undeath"
 	desc = "You stand on the border between life and death, causing you to function similar to a zombie."

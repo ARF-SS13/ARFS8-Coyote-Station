@@ -8,5 +8,5 @@
 	var/blooper_speed = preferences.read_preference(/datum/preference/numeric/blooper_speed)
 	var/blooper_pitch = preferences.read_preference(/datum/preference/numeric/blooper_pitch)
 	var/blooper_pitch_range = preferences.read_preference(/datum/preference/numeric/blooper_pitch_range)
-	blooper_to_use.play_bloop(user, list(user), "This is a test message to hear a blooper.", 7, 70, blooper_speed, blooper_pitch, blooper_pitch_range)
+	blooper_to_use.play_bloop(user, list(user), "This is a test message to hear a blooper.", 7, BLOOPER_TRANSMIT_VOLUME, blooper_speed, blooper_pitch, blooper_pitch_range)
 	return TRUE

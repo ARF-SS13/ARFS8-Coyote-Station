@@ -123,6 +123,7 @@
 #define SPECIES_HUMANOID "humanoid"
 #define SPECIES_INSECT "insect"
 #define SPECIES_MAMMAL "mammal"
+#define SPECIES_RODENTIA "rodentia"
 #define SPECIES_PODPERSON_WEAK "podweak"
 #define SPECIES_SYNTH "synth"
 #define SPECIES_SLIMESTART "slimeperson"	//There's already SPECIES_SLIMEPERSON in tg

@@ -29,6 +29,7 @@
 	inert_mutation = /datum/mutation/firebreath
 	death_sound = 'sound/mobs/humanoids/lizard/deathsound.ogg'
 	species_language_holder = /datum/language_holder/lizard
+	language_prefs_whitelist = list(/datum/language/draconic)
 	digitigrade_customization = DIGITIGRADE_OPTIONAL
 
 	// Lizards are coldblooded and can stand a greater temperature range than humans

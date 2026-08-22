@@ -1,12 +1,12 @@
 /datum/language_holder/felinid
 	understood_languages = list(
 		/datum/language/common = list(LANGUAGE_ATOM),
-		/datum/language/yangyu = list(LANGUAGE_ATOM),
+//		/datum/language/yangyu = list(LANGUAGE_ATOM), // arfs: available to anyone now
 		/datum/language/nekomimetic = list(LANGUAGE_ATOM),
 	)
 	spoken_languages = list(
 		/datum/language/common = list(LANGUAGE_ATOM),
-		/datum/language/yangyu = list(LANGUAGE_ATOM),
+//		/datum/language/yangyu = list(LANGUAGE_ATOM),
 		/datum/language/nekomimetic = list(LANGUAGE_ATOM),
 	)
 
@@ -47,12 +47,10 @@
 /datum/language_holder/skeleton
 	understood_languages = list(
 		/datum/language/common = list(LANGUAGE_ATOM),
-		/datum/language/piratespeak = list(LANGUAGE_ATOM),
 		/datum/language/calcic = list(LANGUAGE_ATOM),
 	)
 	spoken_languages = list(
 		/datum/language/common = list(LANGUAGE_ATOM),
-		/datum/language/piratespeak = list(LANGUAGE_ATOM),
 		/datum/language/calcic = list(LANGUAGE_ATOM),
 	)
 
@@ -60,13 +58,13 @@
 	understood_languages = list(
 		/datum/language/common = list(LANGUAGE_ATOM),
 		/datum/language/skrell = list(LANGUAGE_ATOM),
-		/datum/language/slime = list(LANGUAGE_ATOM)
+//		/datum/language/slime = list(LANGUAGE_ATOM) // arfs: you get one, whitelisted for the other
 	)
 
 	spoken_languages = list(
 		/datum/language/common = list(LANGUAGE_ATOM),
 		/datum/language/skrell = list(LANGUAGE_ATOM),
-		/datum/language/slime = list(LANGUAGE_ATOM)
+//		/datum/language/slime = list(LANGUAGE_ATOM)
 	)
 
 /datum/language_holder/tajaran
@@ -97,4 +95,24 @@
 	spoken_languages = list(
 		/datum/language/common = list(LANGUAGE_ATOM),
 		/datum/language/canilunzt = list(LANGUAGE_ATOM)
+	)
+
+/datum/language_holder/akula
+	understood_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/akulan = list(LANGUAGE_ATOM)
+	)
+	spoken_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/akulan = list(LANGUAGE_ATOM)
+	)
+
+/datum/language_holder/vampiric
+	understood_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/vampiric = list(LANGUAGE_ATOM)
+	)
+	spoken_languages = list(
+		/datum/language/common = list(LANGUAGE_ATOM),
+		/datum/language/vampiric = list(LANGUAGE_ATOM)
 	)
