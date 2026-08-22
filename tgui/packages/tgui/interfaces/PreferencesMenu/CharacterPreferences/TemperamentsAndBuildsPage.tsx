@@ -1,216 +1,215 @@
-import { useState } from 'react';
 import { useBackend } from 'tgui/backend';
 import {
   Box,
   Button,
   Icon,
-  Input,
   NoticeBox,
   Section,
   Stack,
   Tooltip,
 } from 'tgui-core/components';
-import { createSearch } from 'tgui-core/string';
 import type { PreferencesMenuData, TemperamentBuild } from '../types';
-import { useServerPrefs } from '../useServerPrefs';
 
 export function TemperamentsAndBuildsPage() {
   // the actual menu
   // dicolumnar terraflex abjugar
   return (
-    <Section fill>
-      <Stack fill>
-        <Stack.Item basis="50%" mr={0.5}>
-          {tnbColumn('Temperaments')}
-        </Stack.Item>
-        <Stack.Item basis="50%" ml={0.5}>
-          {tnbColumn('Builds')}
-        </Stack.Item>
-      </Stack>
-    </Section>
+    <Stack fill overflow="hidden" g={1}>
+      <Stack.Item basis="50%">{tnbColumn('Temperaments')}</Stack.Item>
+      <Stack.Item basis="50%">{tnbColumn('Builds')}</Stack.Item>
+    </Stack>
   );
 }
 
-function tnbColumn(
-  category: "Temperaments" | "Builds",
-) {
+// list of sys_tnbs that are in a set that the player has already selected a tnb from
+type SetReplacementThing = {
+  player_tnb_path: string;
+  server_tnb_path: string;
+  // the name of the tnb that would be replaced if the player clicked on this tnb
+  replaced_tnb_name: string;
+};
+
+function tnbColumn(category: 'Temperaments' | 'Builds') {
   const { act, data } = useBackend<PreferencesMenuData>();
 
-  const server_data = useServerPrefs();
-  if (!server_data)
-    return;
-
   // serverside static-ish data
-  const sys_tnbs = category === 'Temperaments'
-    ? server_data.tnb.temperaments
-    : server_data.tnb.builds;
-  const max4cat = category === 'Temperaments'
-    ? server_data.tnb.max_temperaments
-    : server_data.tnb.max_builds;
+  const sys_tnbs_raw =
+    category === 'Temperaments' ? data.server_temperaments : data.server_builds;
+  const max4cat =
+    category === 'Temperaments' ? data.max_temperaments : data.max_builds;
+
+  //presort the server tnb list by set_key and then by order
+  //then sort everything that doesnt have a set_key alphabetically by name
+  //then insert the set_key groups into the second list, still grouped, by set_key
+  const grouped_sys_tnbs: Record<string, TemperamentBuild[]> = {};
+  const ungrouped_sys_tnbs: TemperamentBuild[] = [];
+  for (const tnb of sys_tnbs_raw) {
+    if (tnb.set_key) {
+      if (!grouped_sys_tnbs[tnb.set_key]) {
+        grouped_sys_tnbs[tnb.set_key] = [];
+      }
+      grouped_sys_tnbs[tnb.set_key].push(tnb);
+    } else {
+      ungrouped_sys_tnbs.push(tnb);
+    }
+  }
+  for (const set_key in grouped_sys_tnbs) {
+    grouped_sys_tnbs[set_key].sort((a, b) => a.order - b.order);
+  }
+  ungrouped_sys_tnbs.sort((a, b) => a.name.localeCompare(b.name));
+  const sys_tnbs: TemperamentBuild[] = [
+    ...ungrouped_sys_tnbs,
+    ...Object.values(grouped_sys_tnbs).flat(),
+  ];
 
   // playerside chosem data
-  const char_tnbs = category === 'Temperaments'
-    ? data.temperaments
-    : data.builds;
+  const char_tnbs =
+    category === 'Temperaments' ? data.player_temperaments : data.player_builds;
 
   const char_tnb_count = char_tnbs?.length || 0;
   const max_tnb = max4cat === -1 ? '∞' : max4cat;
   const has_max_tnb = max4cat !== -1 && char_tnb_count >= max4cat;
-
-  // t or b searchamus
-  const [tnbSearchQuery, setTnbSearchQuery] = useState('');
-  const tnbSearch = createSearch(
-    tnbSearchQuery,
-    (tnb: TemperamentBuild) =>
-      tnb.name + tnb.description + tnb.example,
+  const has_this_tnb = (tnb: TemperamentBuild) =>
+    char_tnbs?.some((char_tnb) => char_tnb.name === tnb.name);
+  const sys_tnbs_minus_char_tnbs = sys_tnbs.filter(
+    (sys_tnb) => !has_this_tnb(sys_tnb),
   );
-  const filteredTemperaments = sys_tnbs
-    .filter(tnbSearch)
-    .sort((a, b) => sortTnB(a, b, char_tnbs));
 
-  const clearTerm = category === 'Temperaments'
-    ? 'clear_temperaments'
-    : 'clear_builds';
+  function getSetKeyInfo(tnb: TemperamentBuild): SetReplacementThing | null {
+    if (!tnb.set_key) return null;
+    const player_tnb_in_set = char_tnbs.find(
+      (char_tnb) => char_tnb.set_key === tnb.set_key,
+    );
+    if (!player_tnb_in_set) return null;
+    return {
+      player_tnb_path: player_tnb_in_set.path,
+      server_tnb_path: tnb.path,
+      replaced_tnb_name: player_tnb_in_set.name,
+    };
+  }
 
-  const title = category === 'Temperaments'
-    ? 'Temperaments'
-    : 'Builds';
-
-  const catDescription = category === 'Temperaments'
-    ? "Temperaments describe the general personality vibe your "
-      + "character gives off to other people at a glance. Like someone would "
-      + "take a look at you and say, wow, that person is brooding as heck!"
-    : "Builds describe the general physical traits of your character, "
-      + "highlighting the most prominent features. Like someone would take a "
-      + "look at you and say, wow, that person is REALLY buttsome!";
+  const catDescription =
+    category === 'Temperaments'
+      ? 'Temperaments describe the general personality vibe your ' +
+        'character gives off to other people at a glance. Like someone would ' +
+        'take a look at you and say, wow, that person is brooding as heck! ' +
+        'Note that none of these have any actual mechanical effect on ' +
+        'your character, it is purely for flavor and roleplay purposes.'
+      : 'Builds describe the general physical traits of your character, ' +
+        'highlighting the most prominent features. Like someone would take a ' +
+        'look at you and say, wow, that person is REALLY buttsome! ' +
+        'Note that none of these have any actual mechanical effect on ' +
+        'your character, it is purely for flavor and roleplay purposes.';
 
   return (
-    <Section
-      fill
-      scrollable
-      title={title}
-      >
     <Stack vertical fill>
-      <Stack.Item
-        align="center"
-        textAlign="center"
-        fontSize="20px"
-        bold
-        width="100%"
-        maxHeight="50px"
-        style={{
-          whiteSpace: 'normal',
-          wordBreak: 'break-word',
-        }}
-      >
-        <Stack vertical>
-          <Stack.Item>
-            <Stack align="center" justify="center">
-              <Stack.Item shrink>
-                <Tooltip
-                  content={catDescription}
-                  position="bottom"
+      <Stack.Item>
+        <Section fitted>
+          {/* The info header */}
+          <Stack align="center" fill bold>
+            <Stack.Item shrink fontSize="32px">
+              <Tooltip content={catDescription} position="bottom">
+                <Icon name="circle-question" color="yellow" p={2} />
+              </Tooltip>
+            </Stack.Item>
+            <Stack.Item grow align="center">
+              <Stack vertical>
+                <Stack.Item
+                  grow
+                  verticalAlign="center"
+                  textAlign="center"
+                  fontSize="24px"
                 >
-                  <Icon name="info-circle" color="yellow" />
-                </Tooltip>
-              </Stack.Item>
-              <Stack.Item grow>
-                <Box>
-                  You can select up to {max_tnb} {category}(s) for your character.
-                </Box>
-              </Stack.Item>
-              <Stack.Item shrink>
-                <Button
-                  color="red"
-                  icon="trash"
-                  disabled={!char_tnb_count}
-                  style={{
-                    cursor: char_tnb_count ? 'pointer' : undefined,
-                  }}
-                  onClick={() => {
-                    act(clearTerm);
-                  }}
-                  tooltip={`Clear all ${category}s`} />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          {has_max_tnb && (
-            <NoticeBox mb={1} color="yellow">
-              You have reached the maximum number of {category}s!
-            </NoticeBox>
-          )}
-          <Stack.Item>
-            <Input
-              value={tnbSearchQuery}
-              onChange={setTnbSearchQuery}
-              placeholder={`Search ${category}s...`}
-              width="100%"
-            />
-          </Stack.Item>
-        </Stack>
-      </Stack.Item>
-      {/* The actual list of stuff */}
-      <Stack.Item grow>
-        <Stack vertical fill>
-          <Stack vertical g={0}>
-            {filteredTemperaments.map((tnb) => (
-              <Stack.Item key={tnb.name} m={0}>
-                <TemperamentBuildButton
-                  onClick={() => {
-                    act('toggle_tnb', {
-                      tnb_path: tnb.path,
-                    });
-                  }}
-                  whichTnb={tnb}
-                  playerTnbs={char_tnbs}
-                  max4cat={max4cat}
-                />
-              </Stack.Item>
-            ))}
+                  <Box>{category}</Box>
+                </Stack.Item>
+                {(max4cat > 0 && has_max_tnb && (
+                  <Stack.Item grow align="center" width="100%">
+                    <NoticeBox
+                      mb={1}
+                      color="yellow"
+                      width="100%"
+                      textAlign="center"
+                      fontSize="14px"
+                    >
+                      You have {char_tnb_count} / {max_tnb} {category} selected!
+                    </NoticeBox>
+                  </Stack.Item>
+                )) || (
+                  <Stack.Item grow align="center" width="100%">
+                    <Box mb={1} width="100%" textAlign="center">
+                      You have {char_tnb_count} / {max_tnb} {category} selected.
+                    </Box>
+                  </Stack.Item>
+                )}
+              </Stack>
+            </Stack.Item>
+            <Stack.Item shrink>
+              <Button
+                color="red"
+                icon="trash"
+                fontSize="32px"
+                disabled={!char_tnb_count}
+                style={{
+                  cursor: char_tnb_count ? 'pointer' : undefined,
+                }}
+                onClick={() => {
+                  act('operate_tnb', {
+                    tnb_clear_cat: category === 'Temperaments' ? 'T' : 'B',
+                  });
+                }}
+                tooltip={`Clear all ${category}`}
+              />
+            </Stack.Item>
           </Stack>
-        </Stack>
+        </Section>
+      </Stack.Item>
+      <Stack.Item grow>
+        <Section fill scrollable>
+          <Stack vertical fill>
+            {/* The actual list of stuff */}
+            <Stack.Item grow>
+              <Stack vertical fill>
+                <Stack vertical g={0}>
+                  {char_tnbs.map((tnb) => (
+                    <Stack.Item key={tnb.name}>
+                      <TemperamentBuildButton
+                        onClick={() => {
+                          act('operate_tnb', {
+                            tnb_string_path: tnb.path,
+                          });
+                        }}
+                        whichTnb={tnb}
+                        maxTnbCategory={max4cat}
+                        hasMax={has_max_tnb}
+                        hasThis={has_this_tnb(tnb)}
+                        wouldReplace={getSetKeyInfo(tnb)}
+                      />
+                    </Stack.Item>
+                  ))}
+                  {sys_tnbs_minus_char_tnbs.map((tnb) => (
+                    <Stack.Item key={tnb.name}>
+                      <TemperamentBuildButton
+                        onClick={() => {
+                          act('operate_tnb', {
+                            tnb_string_path: tnb.path,
+                          });
+                        }}
+                        whichTnb={tnb}
+                        maxTnbCategory={max4cat}
+                        hasMax={has_max_tnb}
+                        hasThis={has_this_tnb(tnb)}
+                        wouldReplace={getSetKeyInfo(tnb)}
+                      />
+                    </Stack.Item>
+                  ))}
+                </Stack>
+              </Stack>
+            </Stack.Item>
+          </Stack>
+        </Section>
       </Stack.Item>
     </Stack>
-  </Section>
   );
-}
-
-
-
-type ButtonData = {
-  backgroundColor: string;
-  borderColor: string;
-  tooltip: string | null;
-};
-
-function getButtonColors(
-  selected: boolean | undefined,
-  disabled: boolean | undefined, // too many in a categorty
-  category: string  | undefined, // "Temperament" or "Build"
-  max4cat:  number  | undefined, // max temperaments or builds
-): ButtonData {
-  if (selected) {
-    disabled = false; // selected overrides disabled
-  }
-  if (disabled) {
-    return {
-      backgroundColor: 'rgba(64, 64, 64, 0.5)',
-      borderColor: '#666666',
-      tooltip: `You already have ${max4cat} ${category}(s)!`,
-    };
-  }
-  if (selected) {
-    return {
-      backgroundColor: 'rgba(144, 255, 144, 0.5)',
-      borderColor: 'green',
-      tooltip: `Click to remove this ${category}!`,
-    };
-  }
-  return {
-    backgroundColor: 'rgba(34, 34, 34, 0.5)',
-    borderColor: '#444444',
-    tooltip: `Click to select this ${category}!`,
-  };
 }
 
 type ButtonProps = {
@@ -218,45 +217,138 @@ type ButtonProps = {
     max_temperaments?: number;
     max_builds?: number;
   };
-  playerTnbs: TemperamentBuild[] | null;
-  max4cat: number | undefined;
+  maxTnbCategory: number;
+  hasMax: boolean;
+  hasThis: boolean;
   onClick: () => void;
+  wouldReplace: SetReplacementThing | null;
 };
 
 function TemperamentBuildButton(props: ButtonProps) {
-  const {
-    whichTnb,
-    playerTnbs,
-    max4cat,
-    onClick
-  } = props;
+  const { whichTnb, maxTnbCategory, hasMax, hasThis, wouldReplace, onClick } =
+    props;
 
-  const nonNullPlayerTnbs = playerTnbs || [];
-  const numInCategory = nonNullPlayerTnbs.filter((tnb) =>
-    tnb.category === whichTnb.category).length || 0;
-  const isInf = max4cat === -1 || max4cat === undefined;
-  const selected = nonNullPlayerTnbs.includes(whichTnb);
-  const isDisabled = !isInf && !selected && numInCategory >= max4cat!;
-  const { backgroundColor, borderColor, tooltip } = getButtonColors(
-    selected,
-    isDisabled,
-    whichTnb.category,
-    max4cat,
-  );
+  const maxDisplay = maxTnbCategory === -1 ? '∞' : maxTnbCategory;
+  const diabolest = !!(hasMax && !hasThis);
+  // i cant fukcin remember how i spelled the damn categories
+  const trueCat = whichTnb.category.toLowerCase().startsWith('t')
+    ? 'Temperment'
+    : whichTnb.category.toLowerCase().startsWith('b')
+      ? 'Build'
+      : 'Unknown';
+
+  const hadesolen = !!wouldReplace;
+
+  const seld = hasThis;
+
+  enum ColorState {
+    default = 'default',
+    selosted = 'selosted',
+    diabolest = 'diabolest',
+    hadesolen = 'hadesolen',
+  }
+  enum TnbCategory {
+    Temperament = 'Temperment',
+    Build = 'Build',
+    Unknown = 'Unknown',
+  }
+  //priorities: seld > hadesolen > diabolest > default
+  const whichState = seld
+    ? ColorState.selosted
+    : hadesolen
+      ? ColorState.hadesolen
+      : diabolest
+        ? ColorState.diabolest
+        : ColorState.default;
+
+  const categorio =
+    trueCat === 'Temperment'
+      ? TnbCategory.Temperament
+      : trueCat === 'Build'
+        ? TnbCategory.Build
+        : TnbCategory.Unknown;
+
+  type ColorPalette = {
+    default: string;
+    selosted: string;
+    diabolest: string;
+    hadesolen: string;
+  };
+
+  const bgColorPalette: Record<TnbCategory, ColorPalette> = {
+    Temperment: {
+      default: 'hsla(247, 100%, 20%, 0.50)',
+      selosted: 'hsla(247, 100%, 65%, 0.50)',
+      diabolest: 'hsla(247, 25%, 20%, 0.50)',
+      hadesolen: 'hsla(200, 100%, 20%, 0.50)',
+    },
+    Build: {
+      default: 'hsla(284, 100%, 20%, 0.50)',
+      selosted: 'hsla(284, 100%, 65%, 0.50)',
+      diabolest: 'hsla(284, 25%, 20%, 0.50)',
+      hadesolen: 'hsla(175, 100%, 20%, 0.50)',
+    },
+    Unknown: {
+      default: 'hsla(0, 0%, 0%, 0.50)',
+      selosted: 'hsla(0, 0%, 0%, 0.50)',
+      diabolest: 'hsla(0, 0%, 0%, 0.50)',
+      hadesolen: 'hsla(0, 0%, 0%, 0.50)',
+    },
+  };
+
+  const borderColorPalette: Record<TnbCategory, ColorPalette> = {
+    Temperment: {
+      default: 'hsla(247, 100%, 20%, 1.00)',
+      selosted: 'hsla(247, 100%, 65%, 1.00)',
+      diabolest: 'hsla(247, 25%, 20%, 1.00)',
+      hadesolen: 'hsla(200, 100%, 20%, 1.00)',
+    },
+    Build: {
+      default: 'hsla(284, 100%, 20%, 1.00)',
+      selosted: 'hsla(284, 100%, 65%, 1.00)',
+      diabolest: 'hsla(284, 25%, 20%, 1.00)',
+      hadesolen: 'hsla(175, 100%, 20%, 1.00)',
+    },
+    Unknown: {
+      default: 'rgb(0, 0, 0)',
+      selosted: 'rgb(0, 0, 0)',
+      diabolest: 'rgb(0, 0, 0)',
+      hadesolen: 'rgb(0, 0, 0)',
+    },
+  };
+
+  type TooltipPalette = {
+    default: string;
+    selosted: string;
+    diabolest: string;
+    hadesolen: string;
+  };
+
+  const tooltipPalette: TooltipPalette = {
+    default: `Click to select this ${categorio}!`,
+    selosted: `Click to remove this ${categorio}!`,
+    diabolest: `You already have ${maxDisplay} ${categorio}(s)!`,
+    hadesolen: `You already have a similar ${categorio}! Clicking this will replace ${wouldReplace?.replaced_tnb_name} with this!`,
+  };
+
+  const backgroundColor = bgColorPalette[categorio][whichState];
+  const borderColor = borderColorPalette[categorio][whichState];
+  const tooltip = tooltipPalette[whichState];
+
   return (
     <Button
-      onClick={isDisabled ? undefined : onClick}
-      p={1}
-      pt={0.2}
+      onClick={onClick}
       style={{
-        cursor: isDisabled ? undefined : 'pointer',
+        cursor: 'pointer',
         borderColor: borderColor,
         borderStyle: 'solid',
         borderWidth: '0.2em',
         borderRadius: '0.33em',
+        margin: '0.2em',
+        padding: '0.2em',
       }}
       fluid
-      height="180px"
+      minHeight="120px"
       backgroundColor={backgroundColor}
       tooltip={tooltip}
     >
@@ -287,24 +379,23 @@ function TemperamentBuildButton(props: ButtonProps) {
             paddingLeft: '0.5em',
           }}
         >
-          {whichTnb.description}
+          {whichTnb.desc}
+        </Stack.Item>
+        <Stack.Item
+          color="#999999"
+          mt={-1}
+          pt={0.2}
+          style={{
+            whiteSpace: 'normal',
+            wordBreak: 'break-word',
+            borderTop: '0.2em solid #444444',
+            borderLeft: '0.2em solid #444444',
+            paddingLeft: '0.5em',
+          }}
+        >
+          {whichTnb.example}
         </Stack.Item>
       </Stack>
     </Button>
   );
-}
-
-// Sort by selected first, then by name
-function sortTnB(
-  a: TemperamentBuild,
-  b: TemperamentBuild,
-  selectedPersonalities: TemperamentBuild[] | null,
-) {
-  const aSelected = selectedPersonalities?.includes(a);
-  const bSelected = selectedPersonalities?.includes(b);
-
-  if (aSelected && !bSelected) return -1;
-  if (!aSelected && bSelected) return 1;
-
-  return a.name < b.name ? -1 : 1;
 }

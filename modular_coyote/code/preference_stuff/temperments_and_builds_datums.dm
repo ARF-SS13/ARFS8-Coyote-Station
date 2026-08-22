@@ -1,59 +1,65 @@
 /// FORMAT: list("/datum/temperament_build/<type>" = instantiated singleton of that)
 GLOBAL_LIST_INIT(all_temperaments_and_builds_datums, init_tnb())//←═╕
 // format: list(instantiated singleton of each /datum/tnb_verbset)  │
-GLOBAL_LIST_EMPTY(all_verbsets) // set by ╞═════════════════════════╛
+GLOBAL_LIST_INIT(all_verbsets, init_verbsets()) // set by ╞═══════════not really
 GLOBAL_DATUM_INIT(cutie_cat_boy, /mob/living/carbon/human/cutiecat, new(null)) // cutie cat who lives in nullspace
 GLOBAL_DATUM_INIT(cutie_cat_girl, /mob/living/carbon/human/cutiecat/girl, new(null)) // cutie cat who lives in nullspace
 GLOBAL_DATUM_INIT(cutie_cat_nb, /mob/living/carbon/human/cutiecat/nb, new(null)) // cutie cat who lives in nullspace
 
+/// temperament and build types by name
+/proc/cmp_tnb(datum/temperament_build/a, datum/temperament_build/b)
+	return sorttext(b.name, a.name)
+
 /proc/init_tnb()
 	GLOB.all_temperaments_and_builds_datums = list()
-	for(var/tnb_path in typesof(/datum/temperament_build))
-		var/datum/temperament_build/tnb_path_pro = tnb_path
+	var/list/tnbs = list()
+	var/list/tnb2 = list()
+	for(var/tnb_string_path in typesof(/datum/temperament_build))
+		var/datum/temperament_build/tnb_path_pro = tnb_string_path
 		if(tnb_path_pro == tnb_path_pro::abstract_type)
 			continue
-		GLOB.all_temperaments_and_builds_datums["[tnb_path_pro]"] = new tnb_path_pro()
+		tnbs += new tnb_path_pro()
+	// sort!
+	sort_list(tnbs, /proc/cmp_tnb)
+	for(var/datum/temperament_build/tnb as anything in tnbs)
+		tnb2["[tnb.type]"] = tnb
+	return tnb2
 
-	GLOB.all_verbsets = list()
+/proc/init_verbsets()
+	var/list/verbies = list()
 	for(var/tnb_verbset_path in typesof(/datum/tnb_verbset))
 		var/datum/tnb_verbset/tnb_verbset_pro = tnb_verbset_path
 		if(tnb_verbset_pro == tnb_verbset_pro::abstract_type)
 			continue
-		GLOB.all_verbsets += new tnb_verbset_pro()
+		verbies += new tnb_verbset_pro()
+	return verbies
 
 /proc/get_mob_tnb_text(mob/haver)
+	var/list/translated = list("temperaments" = list(), "builds" = list())
 	if(!ishuman(haver))
-		return list()
+		return
 	var/mob/living/carbon/human/humaver = haver
 	var/list/tnb_paths = humaver?.dna?.features["temperaments_and_builds"]
 	if(!LAZYLEN(tnb_paths))
-		return list()
+		return
 	// divy into T and B datums
-	var/list/temperaments = list()
-	var/list/builds = list()
-	for(var/tnb in tnb_paths)
-		var/datum/temperament_build/tnb_datum = GLOB.all_temperaments_and_builds_datums["[tnb]"]
-		if(!tnb_datum)
-			continue
-		switch(tnb_datum.tnb_type)
-			if(TNB_TEMPERAMENT)
-				temperaments += tnb_datum
-			if(TNB_BUILD)
-				builds += tnb_datum
-	var/list/translated = list()
-	translated["temperaments"] = list(temperaments)
-	translated["builds"] = list(builds)
+	for(var/tnb_cat in tnb_paths)
+		for(var/tnb in tnb_paths[tnb_cat])
+			var/datum/temperament_build/tnb_datum = GLOB.all_temperaments_and_builds_datums["[tnb]"]
+			if(!tnb_datum)
+				continue
+			switch(tnb_datum.tnb_category)
+				if(TNB_TEMPERAMENT)
+					translated["[TNB_TEMPERAMENT]"] += tnb_datum
+				if(TNB_BUILD)
+					translated["[TNB_BUILD]"] += tnb_datum
 	return translated
 
 /mob/living/carbon/human/cutiecat
 	name = "Mr. Cutie Cat"
 	gender = MALE
 
-/mob/living/carbon/human/cutiecat/Initialize(mapload)
-	randomize_species()
-	. = ..()
-
-/mob/living/carbon/human/cutiecat/proc/create_dna()
+/mob/living/carbon/human/cutiecat/create_dna()
 	dna = new /datum/dna(src)
 	var/datum/species/cool = pick(
 		/datum/species/skeleton,
@@ -102,7 +108,7 @@ GLOBAL_DATUM_INIT(cutie_cat_nb, /mob/living/carbon/human/cutiecat/nb, new(null))
  *  */
 
 /datum/temperament_build
-	var/tnb_type = TNB_TEMPERAMENT
+	var/tnb_category = TNB_TEMPERAMENT
 	/// the display name of the temperament or build, in prefs
 	var/name = ""
 	/// description for the menu thing
@@ -117,6 +123,10 @@ GLOBAL_DATUM_INIT(cutie_cat_nb, /mob/living/carbon/human/cutiecat/nb, new(null))
 	var/preamble_text_color
 	/// the main clause text color, if blank then it just doesnt "FFFFFF"
 	var/main_clause_text_color
+	/// is this tnb_cat part of a set? this is the set key to swap out
+	var/set_key = ""
+	/// order for sorting in the menu, lower is higher
+	var/order = 0
 	abstract_type = /datum/temperament_build
 
 /datum/temperament_build/New()
@@ -133,8 +143,17 @@ GLOBAL_DATUM_INIT(cutie_cat_nb, /mob/living/carbon/human/cutiecat/nb, new(null))
 		verbified[2] = "<color=" + main_clause_text_color + ">" + verbified[2] + "</color>"
 	return "[verbified[1]] [verbified[2]]"
 
-/datum/temperament_build/proc/get_example()
-	return get_desc_text(pick(GLOB.cutie_cat_boy, GLOB.cutie_cat_girl, GLOB.cutie_cat_nb))
+/datum/temperament_build/proc/get_example(gendre, nombre = "Cutie Cat")
+	switch(gendre)
+		if(MALE)
+			GLOB.cutie_cat_boy.name = nombre
+			return get_desc_text(GLOB.cutie_cat_boy)
+		if(FEMALE)
+			GLOB.cutie_cat_girl.name = nombre
+			return get_desc_text(GLOB.cutie_cat_girl)
+		else
+			GLOB.cutie_cat_nb.name = nombre
+			return get_desc_text(GLOB.cutie_cat_nb)
 
 /datum/temperament_build/proc/verbify(mob/haver)
 	var/preamble_treated = preamble
@@ -205,68 +224,68 @@ GLOBAL_DATUM_INIT(cutie_cat_nb, /mob/living/carbon/human/cutiecat/nb, new(null))
 	female_form = "she's"
 	nonbinary_form = "they're"
 
-/datum/tnb_verbset/looks
-	verbset_token = "$LOOKS"
+/datum/tnb_verbset/look
+	verbset_token = "$LOOK"
 	male_form = "looks"
 	female_form = "looks"
 	nonbinary_form = "look"
 
-/datum/tnb_verbset/seems
-	verbset_token = "$SEEMS"
+/datum/tnb_verbset/seem
+	verbset_token = "$SEEM"
 	male_form = "seems"
 	female_form = "seems"
 	nonbinary_form = "seem"
 
-/datum/tnb_verbset/appears
-	verbset_token = "$APPEARS"
+/datum/tnb_verbset/appear
+	verbset_token = "$APPEAR"
 	male_form = "appears"
 	female_form = "appears"
 	nonbinary_form = "appear"
 
-/datum/tnb_verbset/presents
-	verbset_token = "$PRESENTS"
+/datum/tnb_verbset/present
+	verbset_token = "$PRESENT"
 	male_form = "presents"
 	female_form = "presents"
 	nonbinary_form = "present"
 
-/datum/tnb_verbset/gives
-	verbset_token = "$GIVES"
+/datum/tnb_verbset/give
+	verbset_token = "$GIVE"
 	male_form = "gives"
 	female_form = "gives"
 	nonbinary_form = "give"
 
-/datum/tnb_verbset/likes
-	verbset_token = "$LIKES"
+/datum/tnb_verbset/like
+	verbset_token = "$LIKE"
 	male_form = "likes"
 	female_form = "likes"
 	nonbinary_form = "like"
 
-/datum/tnb_verbset/wants
-	verbset_token = "$WANTS"
+/datum/tnb_verbset/want
+	verbset_token = "$WANT"
 	male_form = "wants"
 	female_form = "wants"
 	nonbinary_form = "want"
 
-/datum/tnb_verbset/needs
-	verbset_token = "$NEEDS"
+/datum/tnb_verbset/need
+	verbset_token = "$NEED"
 	male_form = "needs"
 	female_form = "needs"
 	nonbinary_form = "need"
 
-/datum/tnb_verbset/has
-	verbset_token = "$HAS"
+/datum/tnb_verbset/have
+	verbset_token = "$HAVE"
 	male_form = "has"
 	female_form = "has"
 	nonbinary_form = "have"
 
-/datum/tnb_verbset/does
-	verbset_token = "$DOES"
+/datum/tnb_verbset/do
+	verbset_token = "$DO"
 	male_form = "does"
 	female_form = "does"
 	nonbinary_form = "do"
 
-/datum/tnb_verbset/doesnt
-	verbset_token = "$DOESNT"
+/datum/tnb_verbset/dont
+	verbset_token = "$DONT"
 	male_form = "doesn't"
 	female_form = "doesn't"
 	nonbinary_form = "don't"
@@ -281,7 +300,7 @@ GLOBAL_DATUM_INIT(cutie_cat_nb, /mob/living/carbon/human/cutiecat/nb, new(null))
 	verbset_token = "$SPECIES"
 	// this is a special one, it just returns the species name of the mob
 
-/datum/tnb_verbset/species/proc/get_form(gend, mob/haver)
+/datum/tnb_verbset/species/get_form(gend, mob/haver)
 	if(!ishuman(haver))
 		return "critter"
 	var/spename = get_species_name(haver)
