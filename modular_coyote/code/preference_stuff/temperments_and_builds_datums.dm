@@ -159,7 +159,7 @@ GLOBAL_DATUM_INIT(cutie_cat_nb, /mob/living/carbon/human/cutiecat/nb, new(null))
 	var/preamble_treated = preamble
 	var/main_clause_treated = main_clause
 	for(var/datum/tnb_verbset/verbset in GLOB.all_verbsets)
-		var/form = verbset.get_form(haver.gender)
+		var/form = verbset.get_form(haver.gender, haver)
 		preamble_treated = replacetextEx(preamble_treated, verbset.verbset_token, form)
 		main_clause_treated = replacetextEx(main_clause_treated, verbset.verbset_token, form)
 	return list(
@@ -177,7 +177,7 @@ GLOBAL_DATUM_INIT(cutie_cat_nb, /mob/living/carbon/human/cutiecat/nb, new(null))
 	var/datum/tnb_verbset/check_first
 	abstract_type = /datum/tnb_verbset
 
-/datum/tnb_verbset/proc/get_form(gend)
+/datum/tnb_verbset/proc/get_form(gend, mob/haver)
 	switch(gend)
 		if(MALE)
 			return male_form
