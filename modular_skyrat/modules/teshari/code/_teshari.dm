@@ -38,6 +38,7 @@
 	bodytemp_heat_damage_limit = (BODYTEMP_HEAT_DAMAGE_LIMIT + TESHARI_TEMP_OFFSET)
 	bodytemp_cold_damage_limit = (BODYTEMP_COLD_DAMAGE_LIMIT + TESHARI_TEMP_OFFSET)
 	species_language_holder = /datum/language_holder/teshari
+	language_prefs_whitelist = list(/datum/language/schechi)
 	mutantears = /obj/item/organ/ears/teshari
 	mutantlungs = /obj/item/organ/lungs/adaptive/cold
 	body_size_restricted = TRUE

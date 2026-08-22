@@ -787,8 +787,8 @@ GLOBAL_LIST_INIT(human_heights_to_offsets, list(
 /// Eyes and eyelids
 #define EYES_LAYER                     44 // SKYRAT EDIT CHANGE - ORIGINAL: 31
 // SPLURT EDIT undies
-#define UNDERWEAR_LAYER                43
-#define SOCKS_LAYER                    42
+#define SOCKS_LAYER                    43
+#define UNDERWEAR_LAYER                42
 #define BRA_LAYER                      41
 #define SHIRT_LAYER                    40
 // SPLURT EDIT END

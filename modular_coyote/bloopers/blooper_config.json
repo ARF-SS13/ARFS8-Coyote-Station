@@ -1,0 +1,312 @@
+[
+	{
+		"comment" : [
+			"Mosley deleted these sounds from your code, and has placed them in",
+			"a folder that is not gitincluded with their files.",
+			"You can find the pr here.",
+			"https://github.com/SPLURT-Station/S.P.L.U.R.T-tg/commit/35357ddb1b42e23d7562c0a114e49e24f6db2302#diff-c5c5ead7a2da0bec38a3adba8afa138b6080e694aa398b667a42a70e7d84e047",
+			"As such we are going to use the sounds that we had on CB and ARFS1 isntead.",
+			"Love, Fenny. <3",
+			"dan too!"
+		]
+	},
+	{
+		"version_debug" : "CoyoteStation-CB-Fat-Naked-Expie-2000",
+		"note" : "Change this whenever you change up this file, just to be sure it works"
+	},
+	{
+		"name": "Anubis",
+		"id": "anubis1",
+		"files": ["modular_coyote/sounds/barks/anubis1.ogg"]
+	},
+	{
+		"name": "Baa",
+		"id": "baa",
+		"files": ["modular_coyote/sounds/barks/baa2.ogg"]
+	},
+	{
+		"name": "Bark",
+		"id": "bark",
+		"files": ["modular_coyote/sounds/barks/bark.ogg"]
+	},
+	{
+		"name": "Bat",
+		"id": "bat1",
+		"files": ["modular_coyote/sounds/barks/bat1.ogg"]
+	},
+	{
+		"name": "Bear",
+		"id": "bear1",
+		"files": ["modular_coyote/sounds/barks/bear1.ogg"]
+	},
+	{
+		"name": "Beaver",
+		"id": "beaver1",
+		"files": ["modular_coyote/sounds/barks/beaver1.ogg"]
+	},
+	{
+		"name": "Bird",
+		"id": "bird1",
+		"files": ["modular_coyote/sounds/barks/bird1.ogg"]
+	},
+	{
+		"name": "Kyaa",
+		"id": "birdkyaa",
+		"files": ["modular_coyote/sounds/barks/birdkyaa.ogg"]
+	},
+	{
+		"name": "Boar",
+		"id": "boar1",
+		"files": ["modular_coyote/sounds/barks/boar1.ogg"]
+	},
+	{
+		"name": "Bork",
+		"id": "bork1",
+		"files": ["modular_coyote/sounds/barks/bork.ogg"]
+	},
+	{
+		"name": "Capra",
+		"id": "capra1",
+		"files": ["modular_coyote/sounds/barks/capra1.ogg"]
+	},
+	{
+		"name": "Meow",
+		"id": "catmeow1",
+		"files": ["modular_coyote/sounds/barks/catmeow.ogg"]
+	},
+	{
+		"name": "Trill",
+		"id": "cattrill",
+		"files": ["modular_coyote/sounds/barks/cattrill.ogg"]
+	},
+	{
+		"name": "Corgi",
+		"id": "corgi2",
+		"files": ["modular_coyote/sounds/barks/corgi2.ogg"]
+	},
+	{
+		"name": "Cougar",
+		"id": "cougar1",
+		"files": ["modular_coyote/sounds/barks/cougar.ogg"]
+	},
+	{
+		"name": "Coyote",
+		"id": "coyote2",
+		"files": ["modular_coyote/sounds/barks/coyote2.ogg"]
+	},
+	{
+		"name": "Coy-Awoo",
+		"id": "coyawoo",
+		"files": ["modular_coyote/sounds/barks/coyoteawoo.ogg"]
+	},
+	{
+		"name": "Deep",
+		"id": "deep",
+		"files": ["modular_coyote/sounds/barks/deepspeak.ogg"]
+	},
+	{
+		"name": "Deer",
+		"id": "deer",
+		"files": ["modular_coyote/sounds/barks/deer1.ogg"]
+	},
+	{
+		"name": "Default",
+		"id": "default",
+		"files": ["modular_coyote/sounds/barks/default.ogg"]
+	},
+	{
+		"name": "Eevee",
+		"id": "eevee1",
+		"files": ["modular_coyote/sounds/barks/eevee1.ogg"]
+	},
+	{
+		"name": "Elephant",
+		"id": "elephant",
+		"files": ["modular_coyote/sounds/barks/elephant1.ogg"]
+	},
+	{
+		"name": "Messenger",
+		"id": "messenger",
+		"files": ["modular_coyote/sounds/barks/facebookmessenger.ogg"]
+	},
+	{
+		"name": "Fennec Bark",
+		"id": "fenbark",
+		"files": ["modular_coyote/sounds/barks/fenbark.ogg"]
+	},
+	{
+		"name": "Fennec",
+		"id": "fennec2",
+		"files": ["modular_coyote/sounds/barks/fennec2.ogg"]
+	},
+	{
+		"name": "Foxbark",
+		"id": "foxbark",
+		"files": ["modular_coyote/sounds/barks/foxbark.ogg"]
+	},
+	{
+		"name": "Frog",
+		"id": "frog",
+		"files": ["modular_coyote/sounds/barks/frogwarcry.ogg"]
+	},
+	{
+		"name": "Husky 1",
+		"id": "husky1",
+		"files": ["modular_coyote/sounds/barks/husky1.ogg"]
+	},
+	{
+		"name": "Husky 2",
+		"id": "husky2",
+		"files": ["modular_coyote/sounds/barks/husky2.ogg"]
+	},
+	{
+		"name": "Light",
+		"id": "lightspeak",
+		"files": ["modular_coyote/sounds/barks/lightspeak.ogg"]
+	},
+	{
+		"name": "Lizard",
+		"id": "lizard1",
+		"files": ["modular_coyote/sounds/barks/lizard1.ogg"]
+	},
+	{
+		"name": "Lynx",
+		"id": "lynx1",
+		"files": ["modular_coyote/sounds/barks/lynx.ogg"]
+	},
+	{
+		"name": "Mar",
+		"id": "mar",
+		"files": ["modular_coyote/sounds/barks/mar.ogg"]
+	},
+	{
+		"name": "Moo",
+		"id": "moo",
+		"files": ["modular_coyote/sounds/barks/moo.ogg"]
+	},
+	{
+		"name": "Mrowl",
+		"id": "mrowl",
+		"files": ["modular_coyote/sounds/barks/mrowl.ogg"]
+	},
+	{
+		"name": "Orca",
+		"id": "orca1",
+		"files": ["modular_coyote/sounds/barks/orca1.ogg"]
+	},
+	{
+		"name": "Panda",
+		"id": "panda1",
+		"files": ["modular_coyote/sounds/barks/panda.ogg"]
+	},
+	{
+		"name": "Pig",
+		"id": "pig1",
+		"files": ["modular_coyote/sounds/barks/pig1.ogg"]
+	},
+	{
+		"name": "Porcupine",
+		"id": "porcupine",
+		"files": ["modular_coyote/sounds/barks/porcupine1.ogg"]
+	},
+	{
+		"name": "Possum",
+		"id": "possum1",
+		"files": ["modular_coyote/sounds/barks/possum1.ogg"]
+	},
+	{
+		"name": "Rabbit",
+		"id": "rabbit",
+		"files": ["modular_coyote/sounds/barks/rabbit.ogg"]
+	},
+	{
+		"name": "Raccoon",
+		"id": "raccon1",
+		"files": ["modular_coyote/sounds/barks/raccoon1.ogg"]
+	},
+	{
+		"name": "Red Panda",
+		"id": "redpanda1",
+		"files": ["modular_coyote/sounds/barks/redpanda1.ogg"]
+	},
+	{
+		"name": "Siamese",
+		"id": "siamese1",
+		"files": ["modular_coyote/sounds/barks/siamese1.ogg"]
+	},
+	{
+		"name": "Skunk",
+		"id": "skunk1",
+		"files": ["modular_coyote/sounds/barks/skunk1.ogg"]
+	},
+	{
+		"name": "Snake Hiss",
+		"id": "snakehiss",
+		"files": ["modular_coyote/sounds/barks/snakehiss.ogg"]
+	},
+	{
+		"name": "Soft",
+		"id": "softspeak",
+		"files": ["modular_coyote/sounds/barks/softspeak.ogg"]
+	},
+	{
+		"name": "Moth",
+		"id": "moth",
+		"files": ["modular_coyote/sounds/barks/squeak_moth.ogg"]
+	},
+	{
+		"name": "Tiger",
+		"id": "tiger1",
+		"files": ["modular_coyote/sounds/barks/tiger1.ogg"]
+	},
+	{
+		"name": "Vulture",
+		"id": "vulture1",
+		"files": ["modular_coyote/sounds/barks/vulture1.ogg"]
+	},
+	{
+		"name": "Red Panda 2",
+		"id": "wah1",
+		"files": ["modular_coyote/sounds/barks/wah1.ogg"]
+	},
+	{
+		"name": "Red Panda 3",
+		"id": "wah2",
+		"files": ["modular_coyote/sounds/barks/wah2.ogg"]
+	},
+	{
+		"name": "Weh 1",
+		"id": "weh1",
+		"files": ["modular_coyote/sounds/barks/weh_1.ogg"]
+	},
+	{
+		"name": "Weh 2",
+		"id": "weh2",
+		"files": ["modular_coyote/sounds/barks/weh_2.ogg"]
+	},
+	{
+		"name": "Weh 3",
+		"id": "weh3",
+		"files": ["modular_coyote/sounds/barks/weh_3.ogg"]
+	},
+	{
+		"name": "Wolf",
+		"id": "wolf1",
+		"files": ["modular_coyote/sounds/barks/wolf1.ogg"]
+	},
+	{
+		"name": "Xeno",
+		"id": "xeno1",
+		"files": ["modular_coyote/sounds/barks/xeno1.ogg"]
+	},
+	{
+		"name": "Yap",
+		"id": "yap",
+		"files": ["modular_coyote/sounds/barks/yap.ogg"]
+	},
+	{
+		"name": "Small Subby Mouse",
+		"id": "mouse",
+		"files": ["sound/mobs/non-humanoids/mouse/mousesqueek.ogg"]
+	}
+]

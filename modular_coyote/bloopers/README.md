@@ -3,6 +3,8 @@
 By default, no vocal bloopers are included in the repository, a sample config file is provided to demonstrate the format used.
 To set things up, copy `blooper_config.json.example` and rename it to `blooper_config.json`, then add an entry for each blooper.
 
+cept i totally did - dan wuz here
+
 ## Config Format
 
 - name: Required, the user-friendly name of the voice, will be shown in the config menu

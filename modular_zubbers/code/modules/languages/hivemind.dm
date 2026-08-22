@@ -2,12 +2,12 @@
 	understood_languages = list(
 		/datum/language/common = list(LANGUAGE_ATOM),
 		/datum/language/xenocommon = list(LANGUAGE_ATOM),
-		/datum/language/xenocommon/lesser_hivemind = list(LANGUAGE_ATOM),
+//		/datum/language/xenocommon/lesser_hivemind = list(LANGUAGE_ATOM), //arfs: you get one extra language
 		)
 	spoken_languages = list(
 		/datum/language/common = list(LANGUAGE_ATOM),
 		/datum/language/xenocommon = list(LANGUAGE_ATOM),
-		/datum/language/xenocommon/lesser_hivemind = list(LANGUAGE_ATOM),
+//		/datum/language/xenocommon/lesser_hivemind = list(LANGUAGE_ATOM),
 		)
 
 /obj/item/organ/tongue/xeno_hybrid
