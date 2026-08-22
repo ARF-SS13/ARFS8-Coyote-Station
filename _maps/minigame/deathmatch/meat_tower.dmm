@@ -323,7 +323,6 @@
 /area/deathmatch)
 "EC" = (
 /obj/machinery/conveyor/auto,
-/obj/item/food/pizzaslice/arnold,
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
 	},
