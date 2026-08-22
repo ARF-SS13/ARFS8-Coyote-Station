@@ -66653,10 +66653,6 @@
 /area/station/service/abandoned_gambling_den)
 "qZD" = (
 /obj/structure/table,
-/obj/item/pizzabox{
-	pizza = /obj/item/food/pizza/arnold;
-	pixel_y = 10
-	},
 /obj/structure/sign/poster/contraband/random/directional/west,
 /obj/item/skub{
 	name = "skub gaming";

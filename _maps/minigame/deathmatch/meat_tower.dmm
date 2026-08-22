@@ -271,7 +271,6 @@
 /area/deathmatch)
 "wF" = (
 /obj/structure/kitchenspike,
-/obj/item/food/pizza/arnold,
 /obj/machinery/light{
 	dir = 4
 	},
