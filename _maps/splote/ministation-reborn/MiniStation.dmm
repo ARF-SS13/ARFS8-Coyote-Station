@@ -23378,6 +23378,7 @@
 "npT" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/trimline/purple/filled/warning,
+/obj/structure/cable,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 1
 	},
@@ -28969,6 +28970,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/trimline/purple/filled/warning,
+/obj/structure/cable,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 1
 	},
