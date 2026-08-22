@@ -600,7 +600,6 @@
 "Am" = (
 /obj/structure/table/wood,
 /obj/item/pizzabox/margherita,
-/obj/item/food/pizzaslice/arnold,
 /turf/open/floor/mineral/plastitanium,
 /area/ruin/space/has_grav/interdyne)
 "AC" = (

@@ -5,7 +5,7 @@
 	priority = PREFERENCE_PRIORITY_SPECIES
 	randomize_by_default = FALSE
 
-/datum/preference/choiced/species/deserialize(input, datum/preferences/preferences)
+/datum/preference/choiced/species/deserialize(input, datum/prefs_holder/preferences)
 	return GLOB.species_list[sanitize_inlist(input, get_choices_serialized(), SPECIES_VULP)]
 
 /datum/preference/choiced/species/serialize(input)
@@ -15,7 +15,7 @@
 /datum/preference/choiced/species/create_default_value()
 	return /datum/species/vulpkanin // furry server, furry default
 
-/datum/preference/choiced/species/create_random_value(datum/preferences/preferences)
+/datum/preference/choiced/species/create_random_value(datum/prefs_holder/preferences)
 	return /datum/species/vulpkanin
 
 /datum/preference/choiced/species/init_possible_values()
