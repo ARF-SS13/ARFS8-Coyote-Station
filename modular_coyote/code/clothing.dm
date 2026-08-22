@@ -242,6 +242,9 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/megaphone,
+		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/stamp,
 	)
 
 /datum/mod_theme/hop
@@ -253,7 +256,7 @@
 	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
-	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
+	complexity_max = DEFAULT_MAX_COMPLEXITY + 4
 	slowdown_deployed = 0.3
 	hearing_protection = EAR_PROTECTION_NORMAL
 	allowed_suit_storage = list(
@@ -262,7 +265,7 @@
 		/obj/item/melee/baton,
 	)
 	variants = list(
-		"magnate" = list(
+		"hop" = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = NECK_LAYER,
 				UNSEALED_CLOTHING = SNUG_FIT,
@@ -299,14 +302,14 @@
 
 /datum/armor/mod_theme_hop
 	melee = 30
-	bullet = 40
-	laser = 40
-	energy = 50
+	bullet = 30
+	laser = 30
+	energy = 40
 	bomb = 40
 	bio = 100
 	fire = 100
 	acid = 100
-	wound = 10
+	wound = 15
 
 /obj/machinery/suit_storage_unit/hop
 	mask_type = /obj/item/clothing/mask/gas
