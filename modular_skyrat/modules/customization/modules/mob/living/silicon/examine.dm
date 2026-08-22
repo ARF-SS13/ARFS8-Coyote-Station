@@ -22,3 +22,4 @@
 			. += span_notice("<b>They look different than usual:</b> [temporary_flavor_text]")
 		else
 			. += span_notice("<b>They look different than usual:</b> [copytext_char(temporary_flavor_text, 1, 37)]... <a href='byond://?src=[REF(src)];temporary_flavor=1'>More...</a>")
+
