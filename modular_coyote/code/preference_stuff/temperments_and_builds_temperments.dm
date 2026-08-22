@@ -43,7 +43,7 @@
 	desc = "You come off as confident and self-assured, whether that's a front or just the way you are. \
 		Maybe you're a total pro at what you do, maybe you just pretend like you do, maybe you're just \
 		comfortable in your own skin. To an outside observer, you come off as confident."
-	init_desc = "$THEY $CARRY | an air of self-assured confidence in $THEIR demeanor!"
+	init_desc = "$THEY | have an air of self-assured confidence in $THEIR demeanor!"
 
 /datum/temperament_build/temperment/cuddly
 	name = "Cuddly"
