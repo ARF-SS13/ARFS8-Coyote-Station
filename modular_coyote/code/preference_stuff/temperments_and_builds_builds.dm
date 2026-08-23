@@ -18,7 +18,7 @@
 		huge as to be abnormally large. Maybe you're naturally endowed, maybe you have a lot of body fat that collects \
 		in your chest, maybe you have a lot of muscle mass that makes your chest appear larger than it is. Could be \
 		implants, gene-mods, or some kind of space-magic!"
-	init_desc = "$THEY $SPORT | a buxom figure with a set of large, prominent breasts!"
+	init_desc = "$THEY | have a buxom figure with a set of large, prominent breasts!"
 	set_key = "boob_hugeness"
 	order = 2
 
