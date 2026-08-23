@@ -5,6 +5,13 @@
 	caliber = CALIBER_STRILKA310
 	max_ammo = 5
 
+/obj/item/ammo_box/magazine/internal/boltaction/mosin
+	name = "mosin nagant internal magazine"
+	desc = "Oh god, this shouldn't be here"
+	ammo_type = /obj/item/ammo_casing/m762r
+	caliber = CALIBER_M762R
+	max_ammo = 5
+
 /obj/item/ammo_box/magazine/internal/boltaction/surplus
 	ammo_type = /obj/item/ammo_casing/strilka310/surplus
 

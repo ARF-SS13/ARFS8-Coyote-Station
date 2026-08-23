@@ -14,6 +14,20 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/electrode) // BUBBER EDIT CHANGE - Original: ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 2
 
+/obj/item/gun/energy/civilian_taser
+	name = "civilian taser"
+	desc = "A single use, disposable taser for self defense. No permit required! Not rechargeable! A warning on the side indicates its electrode probes reach only three standard space station tiles."
+	icon_state = "civ_taser"
+	inhand_icon_state = null //so the human update icon uses the icon_state instead.
+	light_color = LIGHT_COLOR_DIM_YELLOW
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/civilian)
+	slot_flags = ITEM_SLOT_BELT
+	w_class = WEIGHT_CLASS_SMALL
+	item_flags = null //no permit needed
+	can_charge = FALSE
+	charge_sections = 2
+	ammo_x_offset = 2
+
 /obj/item/gun/energy/e_gun/advtaser/cyborg
 	name = "cyborg taser"
 	desc = "An integrated hybrid taser that draws directly from a cyborg's power cell. The weapon contains a limiter to prevent the cyborg's power cell from overheating."

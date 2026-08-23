@@ -166,9 +166,9 @@
 	desc = "A box full of rubber shot shotgun shells, designed for shotguns."
 	icon_state = "rubbershot_box"
 	illustration = null
-
+	storage_type = /datum/storage/cartridge_box
 /obj/item/storage/box/rubbershot/PopulateContents()
-	for(var/i in 1 to 7)
+	for(var/i in 1 to 12)
 		new /obj/item/ammo_casing/shotgun/rubbershot(src)
 
 /obj/item/storage/box/lethalshot
@@ -176,15 +176,16 @@
 	desc = "A box full of lethal shotgun shells, designed for shotguns."
 	icon_state = "lethalshot_box"
 	illustration = null
+	storage_type = /datum/storage/cartridge_box
 
 /obj/item/storage/box/lethalshot/PopulateContents()
-	for(var/i in 1 to 7)
+	for(var/i in 1 to 12)
 		new /obj/item/ammo_casing/shotgun/buckshot(src)
 
 /obj/item/storage/box/lethalshot/old
 
 /obj/item/storage/box/lethalshot/old/PopulateContents()
-	for(var/i in 1 to 7)
+	for(var/i in 1 to 12)
 		new /obj/item/ammo_casing/shotgun/buckshot/old(src)
 
 /obj/item/storage/box/slugs
@@ -192,9 +193,10 @@
 	desc = "A box full of lethal shotgun slugs, designed for shotguns."
 	icon_state = "breacher_box"
 	illustration = null
+	storage_type = /datum/storage/cartridge_box
 
 /obj/item/storage/box/slugs/PopulateContents()
-	for(var/i in 1 to 7)
+	for(var/i in 1 to 12)
 		new /obj/item/ammo_casing/shotgun(src)
 
 /obj/item/storage/box/beanbag
@@ -202,9 +204,10 @@
 	desc = "A box full of beanbag shotgun shells, designed for shotguns."
 	icon_state = "beanbagshot_box"
 	illustration = null
+	storage_type = /datum/storage/cartridge_box
 
 /obj/item/storage/box/beanbag/PopulateContents()
-	for(var/i in 1 to 6)
+	for(var/i in 1 to 12)
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
 
 /obj/item/storage/box/breacherslug
@@ -212,9 +215,10 @@
 	desc = "A box full of breaching slugs, designed for rapid entry, not very effective against anything else."
 	icon_state = "breacher_box"
 	illustration = null
+	storage_type = /datum/storage/cartridge_box
 
 /obj/item/storage/box/breacherslug/PopulateContents()
-	for(var/i in 1 to 7)
+	for(var/i in 1 to 12)
 		new /obj/item/ammo_casing/shotgun/breacher(src)
 
 /obj/item/storage/box/large_dart
@@ -222,10 +226,84 @@
 	desc = "A box full of shotgun darts with increased chemical storage capacity."
 	icon_state = "shotdart_box"
 	illustration = null
+	storage_type = /datum/storage/cartridge_box
 
 /obj/item/storage/box/large_dart/PopulateContents()
-	for(var/i in 1 to 7)
+	for(var/i in 1 to 12)
 		new /obj/item/ammo_casing/shotgun/dart/large(src)
+
+// arfs: .38 ammo boxes. old style so you gotta handle your cartridges one by one
+/obj/item/storage/box/c38
+	name = "box of .38 special ammunition"
+	desc = "A box full of standard revolver cartridges."
+	icon = 'modular_skyrat/modules/aesthetics/storage/storage.dmi'
+	icon_state = "secbox_xl"
+	illustration = "cartridge"
+	storage_type = /datum/storage/cartridge_box
+
+/obj/item/storage/box/c38/PopulateContents()
+	for(var/i in 1 to 12)
+		new /obj/item/ammo_casing/c38(src)
+
+/obj/item/storage/box/c38/trac
+	name = "box of .38 special TRAC ammunition"
+	desc = "A box full of revolver cartridges with imbedding trackers."
+	illustration = "cartridge_trac"
+/obj/item/storage/box/c38/trac/PopulateContents()
+	for(var/i in 1 to 12)
+		new /obj/item/ammo_casing/c38/trac(src)
+
+/obj/item/storage/box/c38/match
+	name = "box of .38 special match ammunition"
+	desc = "A box full of high quality trickshot revolver cartridges."
+	illustration = "cartridge_match"
+/obj/item/storage/box/c38/match/PopulateContents()
+	for(var/i in 1 to 12)
+		new /obj/item/ammo_casing/c38/match(src)
+
+/obj/item/storage/box/c38/rubber
+	name = "box of .38 special rubber ammunition"
+	desc = "A box full of nonlethal revolver cartridges."
+	illustration = "cartridge_rubber"
+/obj/item/storage/box/c38/rubber/PopulateContents()
+	for(var/i in 1 to 12)
+		new /obj/item/ammo_casing/c38/match/bouncy(src)
+
+/obj/item/storage/box/c38/dumdum
+	name = "box of .38 special DumDum ammunition"
+	desc = "A box full of hollow-point revolver cartridges."
+	illustration = "cartridge_dumdum"
+/obj/item/storage/box/c38/dumdum/PopulateContents()
+	for(var/i in 1 to 12)
+		new /obj/item/ammo_casing/c38/dumdum(src)
+
+/obj/item/storage/box/c38/hotshot
+	name = "box of .38 special Hot Shot ammunition"
+	desc = "A box full of incendiary revolver cartridges."
+	illustration = "cartridge_hotshot"
+/obj/item/storage/box/c38/hotshot/PopulateContents()
+	for(var/i in 1 to 12)
+		new /obj/item/ammo_casing/c38/hotshot(src)
+
+/obj/item/storage/box/c38/iceblox
+	name = "box of .38 special Iceblox ammunition"
+	desc = "A box full of cryogenic revolver cartridges."
+	illustration = "cartridge_iceblox"
+/obj/item/storage/box/c38/iceblox/PopulateContents()
+	for(var/i in 1 to 12)
+		new /obj/item/ammo_casing/c38/iceblox(src)
+
+/obj/item/storage/box/m762r
+	name = "box of 7.62x54mmR ammunition"
+	desc = "A box full of mosin nagant cartridges."
+	icon = 'modular_skyrat/modules/aesthetics/storage/storage.dmi'
+	icon_state = "secbox_xl"
+	illustration = "cartridge"
+	storage_type = /datum/storage/cartridge_box
+
+/obj/item/storage/box/m762r/PopulateContents()
+	for(var/i in 1 to 12)
+		new /obj/item/ammo_casing/m762r(src)
 
 /obj/item/storage/box/emptysandbags
 	name = "box of empty sandbags"

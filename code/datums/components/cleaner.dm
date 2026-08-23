@@ -64,7 +64,11 @@
 
 	if(isitem(source) && SHOULD_SKIP_INTERACTION(target, source, user))
 		return NONE
-
+	if(istype(parent, /obj/item/rag))
+		if(istype(target, /obj/item/gun/ballistic/rifle/mosin))
+			var/obj/item/gun/ballistic/rifle/mosin/I = target
+			if(I.should_clean())
+				return NONE
 	var/call_wash = TRUE
 	var/give_xp = TRUE
 	if(pre_clean_callback)

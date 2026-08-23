@@ -502,6 +502,30 @@
 	worn_icon_state = "bandolier"
 	storage_type = /datum/storage/bandolier_belt
 
+// arfs: for the armory
+/obj/item/storage/belt/shotgun_bandolier
+	name = "shotgun bandolier"
+	desc = "A bandolier for holding shotgun shells. Its loops are too large for slimmer cartridges."
+	icon_state = "shot_bandolier"
+	inhand_icon_state = "shot_bandolier"
+	worn_icon_state = "shot_bandolier"
+	storage_type = /datum/storage/shot_bandolier_belt
+
+/obj/item/storage/belt/shotgun_bandolier/full/PopulateContents()
+	for(var/i in 1 to 4)
+		new /obj/item/ammo_casing/shotgun/rubbershot(src)
+	for(var/i in 1 to 4)
+		new /obj/item/ammo_casing/shotgun/buckshot(src)
+	for(var/i in 1 to 4)
+		new /obj/item/ammo_casing/shotgun/beanbag(src)
+	for(var/i in 1 to 4)
+		new /obj/item/ammo_casing/shotgun(src)
+	for(var/i in 1 to 2)
+		new /obj/item/ammo_casing/shotgun/ion(src) // expensive, only get a couple
+	for(var/i in 1 to 2)
+		new /obj/item/ammo_casing/shotgun/breacher(src) // be responsible with these
+
+
 /obj/item/storage/belt/fannypack
 	name = "fannypack"
 	desc = "A dorky fannypack for keeping small items in. Concealed enough, or ugly enough to avert their eyes, that others won't see what you put in or take out easily."

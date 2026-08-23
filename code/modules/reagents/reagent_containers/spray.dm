@@ -225,6 +225,27 @@
 	user.visible_message(span_suicide("[user] begins huffing \the [src]! It looks like [user.p_theyre()] getting a dirty high!"))
 	return OXYLOSS
 
+/obj/item/reagent_containers/spray/civilian_pepper
+	name = "civilian pepperspray"
+	desc = "A small pepperspray device for personal defense, with enough capacity for two sprays and very short range. No permit required!"
+	icon = 'icons/obj/medical/chemical.dmi'
+	icon_state = "civilian_pepperspray"
+	inhand_icon_state = "pepperspray"
+	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+	volume = 10
+	current_range = 1
+	spray_range = 1
+	stream_range = 1
+	amount_per_transfer_from_this = 5
+	stream_mode = TRUE
+	can_fill_from_container = FALSE
+	has_variable_transfer_amount = FALSE
+	can_toggle_range = FALSE
+	list_reagents = list(/datum/reagent/consumable/condensedcapsaicin = 10)
+	pickup_sound = 'sound/items/handling/pepper_spray/pepper_spray_pick_up.ogg'
+	drop_sound = 'sound/items/handling/pepper_spray/pepper_spray_drop.ogg'
+
 //water flower
 /obj/item/reagent_containers/spray/waterflower
 	name = "water flower"

@@ -1,3 +1,11 @@
+// Mosin ammo. there's no way anyone would manufacture anything but standard ball ammo for this ancient cartridge
+/obj/item/ammo_casing/m762r
+	name = "7.62x54mmR bullet casing"
+	desc = "A 7.62x54mmR bullet casing. This is probably an antique."
+	icon_state = "762-casing"
+	caliber = CALIBER_M762R
+	projectile_type = /obj/projectile/bullet/m762r
+
 // .310 Strilka (Sakhno Rifle)
 
 /obj/item/ammo_casing/strilka310

@@ -49,8 +49,8 @@
 			return
 
 	// they are actually trying to shoot something
-	user.balloon_alert(user, "the safety disengages!")
-	toggle_safeties(user)
+//	user.balloon_alert(user, "the safety disengages!")
+//	toggle_safeties(user)
 	return COMPONENT_CANCEL_GUN_FIRE
 
 /// Calls toggle_safeties if the action type for doing so is used
