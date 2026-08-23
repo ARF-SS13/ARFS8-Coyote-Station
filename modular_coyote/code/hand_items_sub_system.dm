@@ -260,6 +260,7 @@ SUBSYSTEM_DEF(handitems)
 	desc          = my_hand_item::desc
 	icon          = hitem_data[HI_HUD_ICON]
 	icon_state    = hitem_data[HI_HUD_ICON_STATE]
+	color         = my_hand_item::color
 	parent.hud.mymob.client.screen += src
 
 /atom/movable/screen/hand_item_clicky/proc/set_parent(new_value)

@@ -150,13 +150,15 @@
 /obj/item/hand_item/proc/give_to_user(mob/living/user, just_checking = FALSE, is_replacement = FALSE)
 	if(!user)
 		return FALSE
+	if(disabled)
+		return FALSE
+	if(admin_only && !is_active_admin(user.client))
+		return FALSE
 	if(!is_replacement)
 		var/obj/item/hand_item/instead = find_suitable_replacement_if_any(user)
 		if(istype(instead))
 			return instead.give_to_user(user, just_checking, TRUE)
 	if(type == abstract_type)
-		return FALSE
-	if(admin_only && !is_admin(user))
 		return FALSE
 	if(!item_is_in_season(user, just_checking))
 		return FALSE
@@ -203,6 +205,10 @@
 /// true if it should be shown, false if it should not
 /obj/item/hand_item/proc/should_show_up_in_ui_menu(mob/living/user)
 	if(!user)
+		return FALSE
+	if(disabled)
+		return FALSE
+	if(admin_only && !is_active_admin(user.client))
 		return FALSE
 	if(!hud_use)
 		return FALSE
