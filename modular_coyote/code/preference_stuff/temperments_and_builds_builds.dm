@@ -8,11 +8,11 @@
 // ║ ☻ ☺ ☻ ☺ ☻ ☺ ☻ ☺ ☻ ☺ ☻ ☺ ☻ ☺ ☻ ☺ ☻ ☺ ☻ ☺ ☻ ☺ ☻ ☺ ☻ ☺ ☻ ☺ ☻ ☺ ☻ ☺ ☻ ☺ ☻ ☺ ☻ ☺ ☻ ║
 // ╚═══════════════════════════════════════════════════════════════════════════════╝
 
-/datum/temperament_build/build
-	tnb_category = TNB_BUILD
-	abstract_type = /datum/temperament_build/build
+/datum/character_snippet/build
+	category_csnip = CSNIP_BUILD
+	abstract_type = /datum/character_snippet/build
 
-/datum/temperament_build/build/buxom_1
+/datum/character_snippet/build/buxom_1
 	name = "Big Breasts"
 	desc = "Your chest sports a set of large, prominent breasts, big enough to turn heads and draw attention, yet not so \
 		huge as to be abnormally large. Maybe you're naturally endowed, maybe you have a lot of body fat that collects \
@@ -22,7 +22,7 @@
 	set_key = "boob_hugeness"
 	order = 2
 
-/datum/temperament_build/build/buxom_2
+/datum/character_snippet/build/buxom_2
 	name = "Huge Breasts"
 	desc = "Your chest sports a set of exceptionally large breasts, so big that they are impossible to ignore and larger \
 		than what is considered 'big' by your species' standards. Maybe you're naturally well-endowed, maybe you have a lot \
@@ -32,7 +32,7 @@
 	set_key = "boob_hugeness"
 	order = 3
 
-/datum/temperament_build/build/buxom_3
+/datum/character_snippet/build/buxom_3
 	name = "Ginormous Breasts"
 	desc = "Your chest sports a set of enormous, pendulous breasts, exceptionally large and impossible to ignore, so huge as to \
 		be an abnormality and potentially a hindrance to your daily life. Maybe your breasts are just naturally enormous, \
@@ -49,14 +49,14 @@
 // ║ just wait till i get to the fats! ╔═══════════════════╝
 // ╚═══════════════════════════════════╝
 
-/datum/temperament_build/build/broadshouldered
+/datum/character_snippet/build/broadshouldered
 	name = "Broad Shouldered"
 	desc = "Your shoulders are broad and sturdy, giving you a strong and imposing presence. Maybe you are a large and muscular \
 		individual, maybe your stockiness emphasizes your upper body, maybe you're just wider than you are tall. \
 		Either way, you appear to have a broad set of shoulders!"
 	init_desc = "$THEIR | shoulders are broad and sturdy!"
 
-/datum/temperament_build/build/extremely_short
+/datum/character_snippet/build/extremely_short
 	name = "Shortest"
 	desc = "You are extremely short, far smaller than anyone would expect someone on the station to be. Maybe you're naturally small, \
 		maybe you are a genetic anomaly that stunted your growth, maybe you took growth suppressants to remain tiny. Either way, you appear \
@@ -65,7 +65,7 @@
 	set_key = "tallness"
 	order = 3
 
-/datum/temperament_build/build/very_short
+/datum/character_snippet/build/very_short
 	name = "Shorter"
 	desc = "You are very short, standing well below the average height of the station. Maybe you're naturally small, \
 		maybe you were underfed as a youngster and never grew to your species' average size, maybe you took growth suppressants to remain small. \
@@ -74,7 +74,7 @@
 	set_key = "tallness"
 	order = 2
 
-/datum/temperament_build/build/short
+/datum/character_snippet/build/short
 	name = "Short"
 	desc = "You are short, standing noticeably below the average height of the station. Maybe you're naturally small, maybe you were underfed \
 		as a youngster and never grew to your species' average size, maybe you took growth suppressants to remain small. Either way, you appear \
@@ -83,7 +83,7 @@
 	set_key = "tallness"
 	order = 1
 
-/datum/temperament_build/build/tall
+/datum/character_snippet/build/tall
 	name = "Tall"
 	desc = "You are tall, standing noticeably above the average height of the station. Maybe you're naturally tall, maybe you were well fed \
 		as a youngster and grew taller than your species' average size, maybe you took growth enhancers to become taller. Either way, you appear \
@@ -92,7 +92,7 @@
 	set_key = "tallness"
 	order = 4
 
-/datum/temperament_build/build/very_tall
+/datum/character_snippet/build/very_tall
 	name = "Taller"
 	desc = "You are very tall, standing well above the average height of the station. Maybe you're naturally tall, maybe you are host to a genetic \
 		a genetic form of gigantism, maybe you took growth enhancers to become taller. Either way, you appear \
@@ -101,7 +101,7 @@
 	set_key = "tallness"
 	order = 5
 
-/datum/temperament_build/build/extremely_tall
+/datum/character_snippet/build/extremely_tall
 	name = "Tallest"
 	desc = "You are extremely tall, far above the average height of the station. Maybe your abnormal height is due to a genetic form of excessive gigantism, \
 		maybe you took growth enhancers to become taller, maybe you are host to some kind of space-magic that has made you taller than anyone else. Either way, you appear \
@@ -110,7 +110,7 @@
 	set_key = "tallness"
 	order = 6
 
-/datum/temperament_build/build/slender
+/datum/character_snippet/build/slender
 	name = "Slender"
 	desc = "Your body is slender, lightly built, a frame that is more delicate than imposing. Maybe you're a naturally thin \
 		individual, maybe you don't get enough nutrition to bulk up, maybe you have a metabolism that burns through calories \
@@ -119,7 +119,7 @@
 	init_desc = "$THEY $LOOK | like a slender, delicately built $SPECIES!"
 	set_key = "fatness"
 
-/datum/temperament_build/build/athletic
+/datum/character_snippet/build/athletic
 	name = "Athletic"
 	desc = "You have an athletic, well-toned build, appearing quite fit and full of stamina and endurance. Maybe you work out \
 		a lot and maintain a strict fitness regimen, maybe your work or lifestyle keeps you active and in shape, maybe you are \
@@ -127,14 +127,14 @@
 		Either way, you appear to have an athletic, well-toned build!"
 	init_desc = "$THEY $LOOK | quite athletically fit, possibly full of stamina and energy!"
 
-/datum/temperament_build/build/stocky
+/datum/character_snippet/build/stocky
 	name = "Stocky"
 	desc = "You have a stocky, solid build, sturdy in appearance and likely strong for your size. Maybe you're a compact yet \
 		powerful individual, maybe your species tends to be more 'dwarfish' in stature, maybe you're from a high-gravity \
 		world that has made you more dense and solid than your peers. Either way, you appear to have a stocky, solid build!"
 	init_desc = "$THEY $LOOK like a | stocky, solidly built $SPECIES!"
 
-/datum/temperament_build/build/lithe
+/datum/character_snippet/build/lithe
 	name = "Lithe"
 	desc = "You have a lithe build, appearing slender, flexible, yet not necessarily weak or frail. Maybe you're simply in-shape \
 	for your species, maybe you keep a slim figure for functional or aesthetic reasons, maybe you have a metabolism that prevents \
@@ -142,14 +142,14 @@
 	have a lithe, flexible build!"
 	init_desc = "$THEY $APPEAR | to keep a lithe, flexible physique!"
 
-/datum/temperament_build/build/lean
+/datum/character_snippet/build/lean
 	name = "Lean"
 	desc = "You have a lean build, appearing fit and toned, with minimal excess body fat and muscle mass. Maybe you maintain \
 		a strict diet and exercise regimen, maybe your species tends to be kinda wiry, maybe you have a metabolism that keeps \
 		you from gaining excess weight or muscle mass. Either way, you appear to have a lean, toned build!"
 	init_desc = "$THEY $LOOK | fairly lean, with minimal excess body fat or muscle mass!"
 
-/datum/temperament_build/build/muscular
+/datum/character_snippet/build/muscular
 	name = "Muscular"
 	desc = "Your muscles are well-defined and prominent, appearing strong in a sort of body-builder-esque way. Maybe you work \
 		out a lot and maintain a strict fitness regimen, maybe you want to appear strong and imposing for aesthetic reasons, \
@@ -157,7 +157,7 @@
 		appear to have a muscular, well-defined physique!"
 	init_desc = "$THEIR | muscles are very well-defined and prominent, like a body-builder!"
 
-/datum/temperament_build/build/burly
+/datum/character_snippet/build/burly
 	name = "Burly"
 	desc = "Your muscles are large and powerful, built for raw brute strength, possibly looking kinda doughy and soft while \
 		at rest, but clearly powerful when in use. Maybe your lifestyle or work requires you to be strong and capable, maybe you \
@@ -165,14 +165,14 @@
 		bearish sort of individual. Either way, you appear to have a burly, powerful physique!"
 	init_desc = "$THEIR | figure looks very burly, with large, powerful muscles!"
 
-/datum/temperament_build/build/petite
+/datum/character_snippet/build/petite
 	name = "Petite"
 	desc = "You are a small, petite individual, appearing like a dainty, delicate waif of a person. Maybe you're naturally small \
 		and light, maybe you were underfed as a youngster and never grew to your species' average size, maybe your species really \
 		is just small and delicate like a cute little mouse. Either way, you appear to be a petite, delicate individual!"
 	init_desc = "$THEY $LOOK | like a petite, delicate $SPECIES!"
 
-/datum/temperament_build/build/willowy
+/datum/character_snippet/build/willowy
 	name = "Willowy"
 	desc = "You have a willowy build, appearing tall and slender, with long limbs that give you a graceful, elegant appearance, \
 		yet not considered 'lanky' or awkward. Maybe you're naturally tall and thin, maybe you were raised in a low-gravity \
@@ -180,7 +180,7 @@
 		that give you more of a 'model-esque' physique. Either way, you appear to have a willowy, graceful build!"
 	init_desc = "$THEY $HAVE | a willowy, graceful build, with long limbs and a slender frame!"
 
-/datum/temperament_build/build/heavyset
+/datum/character_snippet/build/heavyset
 	name = "Heavyset"
 	desc = "You have a heavyset build, carrying excess body fat and muscle mass, yet not necessarily \
 		to the point of being obese or unhealthy, distributed in a rather imposing manner. Maybe you're naturally a \
@@ -188,7 +188,7 @@
 		aesthetic of being a larger, more robust individual. Either way, you appear to have a heavyset, robust build!"
 	init_desc = "$THEY $LOOK | quite heavyset, with a robust, well-padded frame!"
 
-/datum/temperament_build/build/curvy
+/datum/character_snippet/build/curvy
 	name = "Curvy"
 	desc = "You have a rather curvy build, with pronounced rounded flowing lines defining your figure, possibly somewhat \
 		feminine in your general appearance. Maybe you're naturally endowed with a curvy figure, maybe your body fat \
@@ -196,7 +196,7 @@
 		curvaceousness. Either way, you appear to have a curvy, flowing figure!"
 	init_desc = "$THEY $LOOK | quite curvaceous, with pronounced rounded flowing lines defining $THEIR figure!"
 
-/datum/temperament_build/build/gangly
+/datum/character_snippet/build/gangly
 	name = "Gangly"
 	desc = "You have a gangly build, appearing tall and lanky, with long limbs that give you a somewhat awkward appearance. \
 		Maybe you're naturally tall and thin, maybe you were raised in a low-gravity environment that allowed you to grow taller \
@@ -204,21 +204,21 @@
 		themselves. Either way, you appear to have a gangly, lanky build!"
 	init_desc = "$THEY $SEEM | like a gangly, lanky $SPECIES, somewhat awkward in their movements and posture!"
 
-/datum/temperament_build/build/husky
+/datum/character_snippet/build/husky
 	name = "Husky"
 	desc = "You have a husky build, appearing solid and sturdy, with a bit of extra body mass that gives you a more robust appearance. \
 		Maybe you're naturally well-built, maybe you have a metabolism that allows you to gain weight easily, maybe you just enjoy \
 		the aesthetic of being a larger, more robust individual. Either way, you appear to have a husky, solid build!"
 	init_desc = "$THEY $LOOK | quite husky, with a solid, sturdy frame!"
 
-/datum/temperament_build/build/compact
+/datum/character_snippet/build/compact
 	name = "Compact"
 	desc = "You have a compact, solid build, sturdy in appearance and likely strong for your size. Maybe you're a compact yet \
 		powerful individual, maybe your species tends to be more 'dwarfish' in stature, maybe you're from a high-gravity \
 		world that has made you more dense and solid than your peers. Either way, you appear to have a compact, solid build!"
 	init_desc = "$THEY $LOOK | like a compact, solid $SPECIES!"
 
-/datum/temperament_build/build/chiseled
+/datum/character_snippet/build/chiseled
 	name = "Chiseled"
 	desc = "Your features are sharply defined and angular, giving you a rather chad-like appearance. Maybe you have a strong \
 		jawline and prominent cheekbones, maybe you're overworked and underfed, maybe you regularly exercise your facial muscles \
@@ -226,7 +226,7 @@
 	angular face!"
 	init_desc = "$THEIR | facial features are sharply defined and angular, giving $THEM a chiseled appearance!"
 
-/datum/temperament_build/build/softbuilt
+/datum/character_snippet/build/softbuilt
 	name = "Soft-Built"
 	desc = "You have a soft, rounded build, appearing very plush and cuddly, padded with a bit of extra body mass that \
 		gives you a more approachable and huggable appearance. Maybe you're naturally soft and plush, maybe you have a metabolism \
@@ -234,7 +234,7 @@
 		to have a soft, rounded build!"
 	init_desc = "$THEY $LOOK | quite soft and plush, with a rounded, huggable frame!"
 
-/datum/temperament_build/build/topheavy
+/datum/character_snippet/build/topheavy
 	name = "Top Heavy"
 	desc = "You have a top-heavy build, carrying more mass in your upper body than your lower body, whether that is due to muscle \
 		or fat distribution. Maybe your upper body is naturally larger and more developed, maybe you have very large breasts or pecs, \
@@ -243,7 +243,7 @@
 	init_desc = "$THEY $LOOK | top-heavy, carrying around more mass in their upper body than their lower body!"
 	set_key = "topbottomness"
 
-/datum/temperament_build/build/bottomheavy
+/datum/character_snippet/build/bottomheavy
 	name = "Bottom Heavy"
 	desc = "You have a bottom-heavy build, carrying more mass in your lower body than your upper body, whether that is due \
 		to muscle or fat distribution. Maybe you focus more on lower body workouts, maybe your body fat concentrates more \
@@ -252,7 +252,7 @@
 	init_desc = "$THEY $LOOK | bottom-heavy, carrying around more mass in their lower body than their upper body!"
 	set_key = "topbottomness"
 
-/datum/temperament_build/build/barrelchested
+/datum/character_snippet/build/barrelchested
 	name = "Barrel Chested"
 	desc = "Your chest is very barrel-shaped, with a wide, deep volume that gives you a strong and imposing presence, though \
 		the more medically inclined might worry about your cardiovascular health. Maybe you're exceptionally well-built \
@@ -261,7 +261,7 @@
 		barrel-chested build!"
 	init_desc = "$THEIR | chest is wide and deep, giving them a barrel-chested appearance!"
 
-/datum/temperament_build/build/narrowframed
+/datum/character_snippet/build/narrowframed
 	name = "Narrow Framed"
 	desc = "You have a narrow-framed build, with a smaller, more delicate skeletal structure that gives you a more \
 		fragile and less imposing appearance. Maybe you're naturally small and light, maybe you have a metabolism that \
@@ -269,7 +269,7 @@
 		Either way, you appear to have a narrow-framed build!"
 	init_desc = "$THEY $LOOK | like a narrow-framed $SPECIES, with a smaller, more delicate skeletal structure!"
 
-/datum/temperament_build/build/widehipped
+/datum/character_snippet/build/widehipped
 	name = "Wide Hipped"
 	desc = "Your hips are wider than average, giving you a more curvaceous 'motherly' silhouette. Maybe your pelvis is \
 		naturally wider than average, maybe your hips accumulate more body fat than is typical for your species, maybe you \
@@ -277,28 +277,28 @@
 		wide-hipped build!"
 	init_desc = "$THEY $HAVE | some really wide, motherly hips!"
 
-/datum/temperament_build/build/longtorsoed
+/datum/character_snippet/build/longtorsoed
 	name = "Long Torsoed"
 	desc = "Your torso is longer than average, giving you more of a swimmer's build. Maybe your spine is naturally longer \
 		than average, maybe your species has aquatic adaptations that give you a longer torso, maybe you're Johnny Longtorso, \
 		the man who comes in pieces. Either way, you appear to have a long-torsoed build!"
 	init_desc = "$THEIR | torso is longer than average!"
 
-/datum/temperament_build/build/longlegged
+/datum/character_snippet/build/longlegged
 	name = "Long Legged"
 	desc = "Your legs quite long in proportion to the rest of you, giving you a more elegant and graceful appearance. \
 		Maybe your species has evolved to have longer legs for running or jumping, maybe your legs are naturally longer \
 		than average, maybe you're a leggy maned wolf! Either way, you appear to have a long-legged build!"
 	init_desc = "$THEY $HAVE | noticeably long legs!"
 
-/datum/temperament_build/build/shortlimbed
+/datum/character_snippet/build/shortlimbed
 	name = "Short Limbed"
 	desc = "Your arms and legs are shorter in proportion to the rest of you, giving you a more compact and sturdy appearance. \
 		Maybe your species has evolved to have shorter limbs for burrowing or climbing, maybe your limbs are naturally shorter \
 		than average, maybe you're a cute ferret! Either way, you appear to have a short-limbed build!"
 	init_desc = "$THEY $HAVE | short arms and legs in proportion to the rest of their body!"
 
-/datum/temperament_build/build/hourglass
+/datum/character_snippet/build/hourglass
 	name = "Hourglass"
 	desc = "Your body has a pronounced hourglass shape, with a narrow waist and wider hips and chest. Maybe your body fat \
 		distributes in a way that emphasizes your curves, maybe you have implants or gene-mods that enhance your natural \
@@ -307,7 +307,7 @@
 	init_desc = "$THEY $HAVE | a pronounced hourglass figure that emphasizes their hips and chest!"
 	set_key = "proportionality"
 
-/datum/temperament_build/build/appleshaped
+/datum/character_snippet/build/appleshaped
 	name = "Apple Shaped"
 	desc = "Your body has a pronounced apple shape, with a wider midsection and narrower hips and chest. Maybe your body fat \
 		distributes in a way that emphasizes your midsection, maybe your belly accumulates more body fat than is typical for \
@@ -315,7 +315,7 @@
 	init_desc = "$THEY $HAVE | a pronounced apple shape that emphasizes their midsection!"
 	set_key = "proportionality"
 
-/datum/temperament_build/build/pearshaped
+/datum/character_snippet/build/pearshaped
 	name = "Pear Shaped"
 	desc = "Your body has a pronounced pear shape, with wider hips and thighs and a narrower waist and chest. Maybe your \
 		butt and thighs accumulate more body fat than is typical for your species, maybe you've got a thick, juicy ass, \
@@ -324,14 +324,14 @@
 	init_desc = "$THEY $HAVE | a pronounced pear shape that emphasizes their hips and thighs!"
 	set_key = "proportionality"
 
-/datum/temperament_build/build/invertedtriangle
+/datum/character_snippet/build/invertedtriangle
 	name = "Inverted Triangle"
 	desc = "Your body has a pronounced inverted triangle shape, with broader shoulders and chest and narrower hips and waist. \
 		Maybe your upper body is naturally larger and more developed, maybe you have very large pecs or delts, maybe you've \
 		received implants or gene-mods that embiggen your upper body. Either way, you appear to have an inverted triangle-shaped build!"
 	init_desc = "$THEY $HAVE | a pronounced inverted triangle shape!"
 
-/datum/temperament_build/build/thickthighed
+/datum/character_snippet/build/thickthighed
 	name = "Thick Thighed"
 	desc = "Your thighs are thick and heavy, be that from muscle or fat, giving you a strong or curvaceous lower body. Maybe \
 		you work out your legs a lot and have developed strong, muscular thighs, maybe your body fat distributes in a way that \
@@ -339,21 +339,21 @@
 		you appear to have thick, heavy thighs!"
 	init_desc = "$THEY $HAVE | thick, heavy thighs!"
 
-/datum/temperament_build/build/ruggedlybuilt
+/datum/character_snippet/build/ruggedlybuilt
 	name = "Ruggedly Built"
 	desc = "You have a ruggedly built physique, appearing solid and durable. Maybe you're naturally well-built, maybe you have \
 		a metabolism that allows you to gain weight easily, maybe you just enjoy the aesthetic of being a larger, more robust \
 		individual. Either way, you appear to have a ruggedly built physique!"
 	init_desc = "$THEY $LOOK | ruggedly built, with a solid and durable frame!"
 
-/datum/temperament_build/build/average
+/datum/character_snippet/build/average
 	name = "Average"
 	desc = "You have an average build, with no extreme features or proportions. Maybe you're naturally average in size and \
 	shape, maybe you were engineered to be a 'baseline' specimen for your species, maybe you're just a regular, everyday sort \
 	of individual. Either way, you appear to have an average build!"
 	init_desc = "$THEY $LOOK | like a fairly average $SPECIES, with no extreme features or proportions!"
 
-/datum/temperament_build/build/plush
+/datum/character_snippet/build/plush
 	name = "Plush"
 	desc = "You have a plush build, appearing soft and cuddly, with a bit of extra body mass that gives you a more \
 		approachable and huggable appearance. Maybe you're naturally soft and plush, maybe you have a metabolism that allows \
@@ -362,7 +362,7 @@
 	init_desc = "$THEY $LOOK | pleasantly plump and soft around the edges!"
 	set_key = "fatness"
 
-/datum/temperament_build/build/chubby
+/datum/character_snippet/build/chubby
 	name = "Chubby"
 	desc = "You are somewhat chubby, carrying around a fair bit of extra body fat on your frame. Maybe your body naturally \
 		accumulates fat more easily than others, maybe you enjoy indulging in rich foods and treats, maybe you enjoy the \
@@ -370,7 +370,7 @@
 	init_desc = "$THEY $LOOK | a bit chubby, carrying around some extra body fat!"
 	set_key = "fatness"
 
-/datum/temperament_build/build/fat
+/datum/character_snippet/build/fat
 	name = "Fat"
 	desc = "You are quite fat, carrying around a significant amount of extra body fat on your frame. Maybe your body naturally \
 		accumulates fat more easily than others, maybe your species tends to be more well-padded, maybe you enjoy the aesthetic \
@@ -378,7 +378,7 @@
 	init_desc = "$THEY $LOOK | quite fat, carrying around a significant amount of extra body fat!"
 	set_key = "fatness"
 
-/datum/temperament_build/build/obese
+/datum/character_snippet/build/obese
 	name = "Obese"
 	desc = "You are very obese, weighed down by an excessive amount of body fat. Maybe your body's metabolism makes it very \
 		easy for you to gain weight, maybe you habitually overeat and indulge in fattening foods, maybe you seek to grow larger \
@@ -386,7 +386,7 @@
 	init_desc = "$THEY $LOOK | very obese, weighed down by an excessive amount of body fat!"
 	set_key = "fatness"
 
-/datum/temperament_build/build/morbidlyobese
+/datum/character_snippet/build/morbidlyobese
 	name = "Morbidly Obese"
 	desc = "You are morbidly obese, overburdened by a tremendous amount of excess body fat. Maybe your body's metabolism \
 		makes it extremely easy for you to gain weight and impossible to lose it, maybe you habitually overeat and indulge \
@@ -395,7 +395,7 @@
 	init_desc = "$THEY $LOOK | morbidly obese, overburdened by a tremendous amount of excess body fat!"
 	set_key = "fatness"
 
-/datum/temperament_build/build/extremelyobese
+/datum/character_snippet/build/extremelyobese
 	name = "Extremely Obese"
 	desc = "You are extremely obese, carrying an overwhelming amount of excess body fat. Maybe your body's metabolism \
 		causes uncontrollable weight gain and makes it nigh-impossible to lose it, maybe you habitually overeat and indulge \
@@ -404,7 +404,7 @@
 	init_desc = "$THEY $LOOK | extremely obese, carrying an overwhelming amount of excess body fat!"
 	set_key = "fatness"
 
-/datum/temperament_build/build/morphable
+/datum/character_snippet/build/morphable
 	name = "Morphable"
 	desc = "Your body is morphable, somewhat amorphous, possibly able to change shape and size at will. Maybe you have a \
 		gelatinous or malleable body, maybe you are host to some kind of bio-engineered or nanotech enhancements that allow \
@@ -412,7 +412,7 @@
 		you appear to have a morphable, amorphous body!"
 	init_desc = "$THEY $LOOK | like they have a morphable, amorphous body!"
 
-/datum/temperament_build/build/androgynous
+/datum/character_snippet/build/androgynous
 	name = "Androgynous"
 	desc = "You have an androgynous appearance, with features that are not distinctly male or female. Maybe your body \
 		is naturally androgynous, maybe you have undergone hormone therapy or surgery to achieve a more gender-neutral \
@@ -421,7 +421,7 @@
 	init_desc = "$THEY | present as androgynous!"
 	set_key = "genderiality"
 
-/datum/temperament_build/build/masculinepresenting
+/datum/character_snippet/build/masculinepresenting
 	name = "Masculine Presenting"
 	desc = "You present as masculine, with features and characteristics that are typically associated with masculinity. Maybe \
 		you have a more traditionally masculine body shape, maybe you consistently present yourself in a masculine manner, \
@@ -430,7 +430,7 @@
 	init_desc = "$THEY | present as masculine!"
 	set_key = "genderiality"
 
-/datum/temperament_build/build/femininepresenting
+/datum/character_snippet/build/femininepresenting
 	name = "Feminine Presenting"
 	desc = "You present as feminine, with features and characteristics that are typically associated with femininity. Maybe \
 		you have a more traditionally feminine body shape, maybe you consistently present yourself in a feminine manner, \
@@ -439,7 +439,7 @@
 	init_desc = "$THEY | present as feminine!"
 	set_key = "genderiality"
 
-/datum/temperament_build/build/fluffy
+/datum/character_snippet/build/fluffy
 	name = "Fluffy"
 	desc = "You are fluffy! Fur, bugfluff, sasquatch hair, whatever - you are covered in the stuff to the point of appearing \
 		soft and cuddly. Maybe your species is naturally fluffy, maybe you have an excess of body hair, maybe you have been \
@@ -447,7 +447,7 @@
 	init_desc = "$THEY $APPEAR to be | quite fluffy, covered in soft, cuddly fluff!"
 	set_key = "fluffiness"
 
-/datum/temperament_build/build/extremelyfluffy
+/datum/character_snippet/build/extremelyfluffy
 	name = "Extremely Fluffy"
 	desc = "You are extremely fluffy! Fur, bugfluff, sasquatch hair, whatever - you are covered in the stuff to the point of \
 		comedy, so thick and dense that it is difficult to see your actual body underneath, like a bamboo pillow turned inside out. \
@@ -456,21 +456,21 @@
 	init_desc = "$THEY $APPEAR to be | VERY fluffy - like - overwhelmingly so."
 	set_key = "fluffiness"
 
-/datum/temperament_build/build/jacked
+/datum/character_snippet/build/jacked
 	name = "Jacked"
 	desc = "You're jacked. Absolutely ripped. Naturally or from personal effort - the end result is the same. \
 		Rippling muscles cover your frame - you likey didn't even skip leg day - heck you likely have muscles \
 		in places most people didn't even think you could have muscles."
 	init_desc = "$THEY | got muscles for $THEIR muscles."
 
-/datum/temperament_build/build/shortstack
+/datum/character_snippet/build/shortstack
 	name = "Shortstack"
 	desc = "Your frame is short, and stacked.  With either a combination of heavy - for your frame - breasts, wide hips or a more than average backside. Be thee \
 		hourglass in build, some kind of creature, or a daydream of someone who has forgotten modesty one thing remains certain. \
 		You are built like a little brick house.  Warning: May or may not come with Bratty by default."
 	init_desc = "$THEY $ARE built | short, curvy, and well rounded. Like a strawberry shortcake - or a short... stack..."
 
-/datum/temperament_build/build/buttsum
+/datum/character_snippet/build/buttsum
 	name = "Buttsome"
 	desc = "You have been blessed with a particularly protruding postierer. A rotundly rambling rump. The better backside. \
 		Seats are easy prey for your cheeks, built plush in ways that make wearing tight fitting clothing a bit difficult or uncomfortable. \
@@ -480,7 +480,7 @@
 	set_key = "butt_largeness"
 	order = 2
 
-/datum/temperament_build/build/extremelybuttsum
+/datum/character_snippet/build/extremelybuttsum
 	name = "EXTREMELY Buttsome"
 	desc = "Your backside is a thing of legends.  In ancient days in human space it was said that those like you would have been the center of primitive cultures sexual practices. \
 		The thing hanging off your backside stands prepared in ways that those lesser buttsome companions can not even begin to consider - \
@@ -489,7 +489,7 @@
 	set_key = "butt_largeness"
 	order = 3
 
-/datum/temperament_build/build/flatchested
+/datum/character_snippet/build/flatchested
 	name = "Flat Chested"
 	desc = "You have been blessed (or cursed, your choice) with a flat chest. Your cup size is small, and your figure is shaped accordingly. \
 		The good news is you don't have to worry about smacking yourself in the face with your breasts when you run. \
@@ -498,7 +498,7 @@
 	set_key = "boob_hugeness"
 	order = 1
 
-/datum/temperament_build/build/flatassed
+/datum/character_snippet/build/flatassed
 	name = "Flat Assed"
 	desc = "Your backside is flatter than a washboard.  It likely makes sitting in chairs uncomfortable after a certain \
 		amount of time and god knows you throw it back much like a 2x4 would.  On the plus side you can wear the skinniest \

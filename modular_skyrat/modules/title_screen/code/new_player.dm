@@ -210,15 +210,15 @@
 	var/list/tnbs = client?.prefs?.read_preference(/datum/preference/temperaments_and_builds)
 	var/temperament_count = 0
 	var/build_count = 0
-	for(var/tnb_category in tnbs)
-		if(tnb_category == TNB_TEMPERAMENT)
-			temperament_count = LAZYLEN(tnbs[tnb_category])
-		else if(tnb_category == TNB_BUILD)
-			build_count = LAZYLEN(tnbs[tnb_category])
-	if(temperament_count < GLOB.max_tnb_sel[TNB_TEMPERAMENT])
-		bads["temperament"] = list(temperament_count, GLOB.max_tnb_sel[TNB_TEMPERAMENT])
-	if(build_count < GLOB.max_tnb_sel[TNB_BUILD])
-		bads["build"] = list(build_count, GLOB.max_tnb_sel[TNB_BUILD])
+	for(var/category_csnip in tnbs)
+		if(category_csnip == CSNIP_TEMPERAMENT)
+			temperament_count = LAZYLEN(tnbs[category_csnip])
+		else if(category_csnip == CSNIP_BUILD)
+			build_count = LAZYLEN(tnbs[category_csnip])
+	if(temperament_count < GLOB.max_tnb_sel[CSNIP_TEMPERAMENT])
+		bads["temperament"] = list(temperament_count, GLOB.max_tnb_sel[CSNIP_TEMPERAMENT])
+	if(build_count < GLOB.max_tnb_sel[CSNIP_BUILD])
+		bads["build"] = list(build_count, GLOB.max_tnb_sel[CSNIP_BUILD])
 
 	if(!LAZYLEN(bads))
 		return TRUE // okay have a good round!

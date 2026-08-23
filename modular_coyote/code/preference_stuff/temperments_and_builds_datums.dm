@@ -1,95 +1,10 @@
-/// FORMAT: list("/datum/temperament_build/<type>" = instantiated singleton of that)
+/// FORMAT: list("/datum/character_snippet/<type>" = instantiated singleton of that)
 GLOBAL_LIST_INIT(all_temperaments_and_builds_datums, init_tnb())//←═╕
 // format: list(instantiated singleton of each /datum/tnb_verbset)  │
 GLOBAL_LIST_INIT(all_verbsets, init_verbsets()) // set by ╞═══════════not really
 GLOBAL_DATUM_INIT(cutie_cat_boy, /mob/living/carbon/human/cutiecat, new(null)) // cutie cat who lives in nullspace
 GLOBAL_DATUM_INIT(cutie_cat_girl, /mob/living/carbon/human/cutiecat/girl, new(null)) // cutie cat who lives in nullspace
 GLOBAL_DATUM_INIT(cutie_cat_nb, /mob/living/carbon/human/cutiecat/nb, new(null)) // cutie cat who lives in nullspace
-
-/// temperament and build types by name
-/proc/cmp_tnb(datum/temperament_build/a, datum/temperament_build/b)
-	return sorttext(b.name, a.name)
-
-/proc/init_tnb()
-	GLOB.all_temperaments_and_builds_datums = list()
-	var/list/tnbs = list()
-	var/list/tnb2 = list()
-	for(var/tnb_string_path in typesof(/datum/temperament_build))
-		var/datum/temperament_build/tnb_path_pro = tnb_string_path
-		if(tnb_path_pro == tnb_path_pro::abstract_type)
-			continue
-		tnbs += new tnb_path_pro()
-	// sort!
-	sort_list(tnbs, /proc/cmp_tnb)
-	for(var/datum/temperament_build/tnb as anything in tnbs)
-		tnb2["[tnb.type]"] = tnb
-	return tnb2
-
-/proc/init_verbsets()
-	var/list/verbies = list()
-	for(var/tnb_verbset_path in typesof(/datum/tnb_verbset))
-		var/datum/tnb_verbset/tnb_verbset_pro = tnb_verbset_path
-		if(tnb_verbset_pro == tnb_verbset_pro::abstract_type)
-			continue
-		verbies += new tnb_verbset_pro()
-	return verbies
-
-/proc/get_mob_tnb_text(mob/haver)
-	var/list/translated = list("temperaments" = list(), "builds" = list())
-	if(!ishuman(haver))
-		return
-	var/mob/living/carbon/human/humaver = haver
-	var/list/tnb_paths = humaver?.dna?.features["temperaments_and_builds"]
-	if(!LAZYLEN(tnb_paths))
-		return
-	// divy into T and B datums
-	for(var/tnb_cat in tnb_paths)
-		for(var/tnb in tnb_paths[tnb_cat])
-			var/datum/temperament_build/tnb_datum = GLOB.all_temperaments_and_builds_datums["[tnb]"]
-			if(!tnb_datum)
-				continue
-			switch(tnb_datum.tnb_category)
-				if(TNB_TEMPERAMENT)
-					translated["[TNB_TEMPERAMENT]"] += tnb_datum
-				if(TNB_BUILD)
-					translated["[TNB_BUILD]"] += tnb_datum
-	return translated
-
-/mob/living/carbon/human/cutiecat
-	name = "Mr. Cutie Cat"
-	gender = MALE
-
-/mob/living/carbon/human/cutiecat/create_dna()
-	dna = new /datum/dna(src)
-	var/datum/species/cool = pick(
-		/datum/species/skeleton,
-		/datum/species/vulpkanin,
-		/datum/species/lizard,
-		/datum/species/vulpkanin,
-		/datum/species/tajaran,
-		/datum/species/unathi,
-		/datum/species/teshari,
-		/datum/species/akula,
-	)
-	dna.species = new cool()
-
-/mob/living/carbon/human/cutiecat/girl
-	name = "Ms. Cutie Cat"
-	gender = FEMALE
-
-/mob/living/carbon/human/cutiecat/nb
-	name = "Mx. Cutie Cat"
-	gender = PLURAL
-
-/proc/get_mob_tnb_paths(mob/haver)
-	if(!ishuman(haver))
-		return list()
-	var/mob/living/carbon/human/humaver = haver
-	var/list/tnb_paths = humaver?.dna?.features["temperaments_and_builds"]
-	if(!LAZYLEN(tnb_paths))
-		return list()
-	return tnb_paths
-
 
 /*
  * TNB (Temperament and Build)
@@ -107,8 +22,8 @@ GLOBAL_DATUM_INIT(cutie_cat_nb, /mob/living/carbon/human/cutiecat/nb, new(null))
  *
  *  */
 
-/datum/temperament_build
-	var/tnb_category = TNB_TEMPERAMENT
+/datum/character_snippet
+	var/category_csnip = CSNIP_TEMPERAMENT
 	/// the display name of the temperament or build, in prefs
 	var/name = ""
 	/// description for the menu thing
@@ -127,15 +42,15 @@ GLOBAL_DATUM_INIT(cutie_cat_nb, /mob/living/carbon/human/cutiecat/nb, new(null))
 	var/set_key = ""
 	/// order for sorting in the menu, lower is higher
 	var/order = 0
-	abstract_type = /datum/temperament_build
+	abstract_type = /datum/character_snippet
 
-/datum/temperament_build/New()
+/datum/character_snippet/New()
 	var/list/prepost = splittext(init_desc, "|")
 	preamble = trim(prepost[1])
 	main_clause = trim(prepost[2])
 	. = ..()
 
-/datum/temperament_build/proc/get_desc_text(mob/haver)
+/datum/character_snippet/proc/get_desc_text(mob/haver)
 	var/list/verbified = verbify(haver)
 	if(preamble_text_color)
 		verbified[1] = "<color=" + preamble_text_color + ">" + verbified[1] + "</color>"
@@ -143,7 +58,7 @@ GLOBAL_DATUM_INIT(cutie_cat_nb, /mob/living/carbon/human/cutiecat/nb, new(null))
 		verbified[2] = "<color=" + main_clause_text_color + ">" + verbified[2] + "</color>"
 	return "[verbified[1]] [verbified[2]]"
 
-/datum/temperament_build/proc/get_example(gendre, nombre = "Cutie Cat")
+/datum/character_snippet/proc/get_example(gendre, nombre = "Cutie Cat")
 	switch(gendre)
 		if(MALE)
 			GLOB.cutie_cat_boy.name = nombre
@@ -155,7 +70,7 @@ GLOBAL_DATUM_INIT(cutie_cat_nb, /mob/living/carbon/human/cutiecat/nb, new(null))
 			GLOB.cutie_cat_nb.name = nombre
 			return get_desc_text(GLOB.cutie_cat_nb)
 
-/datum/temperament_build/proc/verbify(mob/haver)
+/datum/character_snippet/proc/verbify(mob/haver)
 	var/preamble_treated = preamble
 	var/main_clause_treated = main_clause
 	for(var/datum/tnb_verbset/verbset in GLOB.all_verbsets)
