@@ -158,10 +158,6 @@
 	extra_damage_type = STAMINA
 	hud_icon = 'modular_coyote/icons/hand_items.dmi'
 	hud_icon_state = "beans"
-	subitem_master_path = /obj/item/hand_item/weapon/beans
-	subitem_paths = list(
-		HI_SUB_DEFAULT = /obj/item/hand_item/weapon/beans,
-	)
 
 /obj/item/hand_item/weapon/beans/on_successful_give(mob/user, reason)
 	to_chat(user, span_notice("You ready your beans for WAR!!"))
@@ -176,7 +172,7 @@
 	admin_only = TRUE // yeah
 	// required_trait = TRAIT_WARBEANS
 
-/obj/item/hand_item/weapon/beans/on_successful_give(mob/user, reason)
+/obj/item/hand_item/weapon/beans/war/on_successful_give(mob/user, reason)
 	to_chat(user, span_notice("You ready your warbeans for REAL WAR!!"))
 	return TRUE
 
@@ -196,6 +192,7 @@
 	just_one = TRUE
 	hud_icon = 'modular_coyote/icons/hand_items.dmi'
 	hud_icon_state = "butt"
+	admin_only = TRUE
 
 /obj/item/hand_item/weapon/butt/on_successful_give(mob/living/user, reason)
 	var/mob/living/carbon/human/H = user
