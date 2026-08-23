@@ -21,7 +21,7 @@
 		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO,
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
-
+/* arfs: removed for now to choke access to speedloaders and encourage security to get its ammo from cargo as currently intended
 /datum/design/c38
 	name = "Speed Loader (.38) (Lethal)"
 	id = "c38"
@@ -33,7 +33,7 @@
 		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO,
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
-
+*/
 /datum/design/recorder
 	name = "Universal Recorder"
 	id = "recorder"
@@ -180,66 +180,6 @@
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = SMALL_MATERIAL_AMOUNT * 3)
 	build_path = /obj/item/ammo_casing/c357
-	category = list(
-		RND_CATEGORY_HACKED,
-		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO,
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
-
-/datum/design/strilka310_surplus
-	name = ".310 Surplus Bullet Casing (VERY Lethal)"
-	id = "strilka310_surplus"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = SMALL_MATERIAL_AMOUNT * 3)
-	build_path = /obj/item/ammo_casing/strilka310/surplus
-	category = list(
-		RND_CATEGORY_HACKED,
-		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO,
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
-
-/datum/design/c10mm
-	name = "Ammo Box (10mm) (Lethal)"
-	id = "c10mm"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron =SMALL_MATERIAL_AMOUNT * 300)
-	build_path = /obj/item/ammo_box/c10mm
-	category = list(
-		RND_CATEGORY_HACKED,
-		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO,
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
-
-/datum/design/c45
-	name = "Ammo Box (.45) (Lethal)"
-	id = "c45"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron =SMALL_MATERIAL_AMOUNT * 300)
-	build_path = /obj/item/ammo_box/c45
-	category = list(
-		RND_CATEGORY_HACKED,
-		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO,
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
-
-/datum/design/c9mm
-	name = "Ammo Box (9x25mm Mk.12) (Lethal)" //SKYRAT EDIT: Calibre rename - Original: name = "Ammo Box
-	id = "c9mm"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron =SMALL_MATERIAL_AMOUNT * 300)
-	build_path = /obj/item/ammo_box/c9mm
-	category = list(
-		RND_CATEGORY_HACKED,
-		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO,
-	)
-	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
-
-/datum/design/c9mm_sec
-	name = "Ammo Box (9x25mm Mk.12) (Lethal)"
-	id = "c9mm_sec"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron =SMALL_MATERIAL_AMOUNT * 150)
-	build_path = /obj/item/ammo_box/c9mm/security
 	category = list(
 		RND_CATEGORY_HACKED,
 		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO,

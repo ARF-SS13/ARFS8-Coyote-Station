@@ -3,20 +3,6 @@
 	access = ACCESS_SECURITY
 	crate_type = /obj/structure/closet/crate/secure/gear
 
-/datum/supply_pack/security/ammo
-	name = "Ammo Crate"
-	desc = "Contains three boxes of beanbag shotgun shells, three boxes \
-		of rubbershot shotgun shells and one of each special .38 speedloaders."
-	cost = CARGO_CRATE_VALUE * 8
-	access_view = ACCESS_ARMORY
-	contains = list(/obj/item/storage/box/beanbag = 3,
-					/obj/item/storage/box/rubbershot = 3,
-					/obj/item/ammo_box/speedloader/c38/trac,
-					/obj/item/ammo_box/speedloader/c38/hotshot,
-					/obj/item/ammo_box/speedloader/c38/iceblox,
-				)
-	crate_name = "ammo crate"
-
 /datum/supply_pack/security/armor
 	name = "Armor Crate"
 	desc = "Three vests of well-rounded, decently-protective armor."
@@ -211,15 +197,6 @@
 	contains = list(/obj/item/storage/box/chemimp)
 	crate_name = "chemical implant crate"
 
-/datum/supply_pack/security/armory/ballistic
-	name = "Combat Shotguns Crate"
-	desc = "For when the enemy absolutely needs to be replaced with lead. \
-		Contains three Aussec-designed Combat Shotguns, and three Shotgun Bandoliers."
-	cost = CARGO_CRATE_VALUE * 17.5
-	contains = list(/obj/item/gun/ballistic/shotgun/automatic/combat = 3,
-					/obj/item/storage/belt/bandolier = 3)
-	crate_name = "combat shotguns crate"
-
 /datum/supply_pack/security/armory/dragnet
 	name = "DRAGnet Translocation Shotgun Crate"
 	desc = "Contains two \"Dynamic Rapid-Apprehension of the Guilty Network\" translocation shotguns, \
@@ -232,30 +209,54 @@
 	crate_name = "\improper DRAGnet crate"
 
 /datum/supply_pack/security/armory/energy
-	name = "Energy Guns Crate"
-	desc = "Contains three Energy Guns, capable of firing both nonlethal and lethal \
+	name = "SC-2 Energy Carbine Crate"
+	desc = "Contains three hybrid energy guns, capable of firing both nonlethal and lethal \
 		blasts of light."
 	cost = CARGO_CRATE_VALUE * 18
 	contains = list(/obj/item/gun/energy/e_gun = 3)
-	crate_name = "energy gun crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
+	crate_name = "energy carbine crate"
 
 /datum/supply_pack/security/armory/laser
-	name = "Type 5 Laser Gun Crate"
-	desc = "Contains three Type 5 laser guns, developed by Nanotrasen. For when the going gets tough, you get going with the \
-		Type 5 Heat Delivery System. As developed by Nanotrasen."
+	name = "SC-1 Laser Carbine Crate"
+	desc = "Contains three standard issue laser guns, for when the going gets tough."
 	cost = CARGO_CRATE_VALUE * 4
 	contains = list(/obj/item/gun/energy/laser = 3)
-	crate_name = "\improper Type 5 laser crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
+	crate_name = "\improper laser carbine crate"
 
 /datum/supply_pack/security/armory/laser_carbine
-	name = "Type 5/R Laser Carbine Crate"
-	desc = "Contains three Type 5R laser carbines, developed by Nanotrasen. Fires a rapid burst of slightly weaker laser projectiles."
+	name = "SC-1A Laser Auto-Carbine Crate"
+	desc = "Contains three laser auto-carbines, featuring a rapid burst of slightly weaker laser projectiles."
 	cost = CARGO_CRATE_VALUE * 9
 	contains = list(/obj/item/gun/energy/laser/carbine = 3)
-	crate_name = "\improper Type 5R laser carbine crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
+	crate_name = "\improper laser auto-carbine crate"
+
+/datum/supply_pack/security/armory/practice_carbine
+	name = "SC-1N Practice Carbine Crate"
+	desc = "Contains three nonlethal training carbines. Not intended for field use."
+	cost = CARGO_CRATE_VALUE * 4
+	contains = list(/obj/item/gun/energy/laser/carbine/practice = 3)
+	crate_name = "\improper practice carbine crate"
+
+/datum/supply_pack/security/armory/laser_pistol
+	name = "SC-1P Laser Pistol Crate"
+	desc = "Contains three compact laser pistols. Easily concealed lethal firearms are not part of the standard security kit. Distribution is not adviced without command clearance and good reason."
+	cost = CARGO_CRATE_VALUE * 18
+	contains = list(/obj/item/gun/energy/laser/pistol = 3)
+	crate_name = "\improper laser pistol crate"
+
+/datum/supply_pack/security/armory/laser_shotgun
+	name = "SC-1S Scatter Carbine Crate"
+	desc = "Contains three laser scatterguns with adjustable refractors."
+	cost = CARGO_CRATE_VALUE * 9
+	contains = list(/obj/item/gun/energy/laser/scatter = 3)
+	crate_name = "\improper scatter carbine crate"
+
+/datum/supply_pack/security/armory/laser_assault
+	name = "SC-4 assault laser rifle Crate"
+	desc = "Contains three miltary-grade laser rifles. High power, high capacity, EMP shielded. What more could you ask for? No, you can't have a gygax. No you can't have a pulse rifle either. Shush."
+	cost = CARGO_CRATE_VALUE * 50
+	contains = list(/obj/item/gun/energy/laser/assault = 3)
+	crate_name = "\improper scatter carbine crate"
 
 /datum/supply_pack/security/armory/disabler_smg
 	name = "Disabler SMG Crate"
@@ -264,30 +265,6 @@
 	contains = list(/obj/item/gun/energy/disabler/smg = 3)
 	crate_name = "disabler smg crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
-
-/datum/supply_pack/security/armory/battle_rifle
-	name = "NT BR-38 Crate"
-	desc = "An experimental energy-based ballistic battle rifle, as developed by Nanotrasen. \
-		Only available to Nanotrasen stations for security purposes. DO NOT RESELL TO OUTSIDE \
-		COMPANIES. Contains three NT BR-38 rifles and 6 magazines containing .38 Standard."
-	cost = CARGO_CRATE_VALUE * 100
-	contains = list(
-		/obj/item/gun/ballistic/automatic/battle_rifle = 3,
-		/obj/item/ammo_box/magazine/m38 = 6,
-	)
-	crate_name = "battle rifle crate"
-
-/datum/supply_pack/security/armory/br_mag
-	name = "NT BR-38 Magazine Crate"
-	desc = "Six .38 magazines, able to fit into the NT BR-38. Contains \
-		two standard magazines, two Hot Shot magazines and two Iceblox magazines."
-	cost = CARGO_CRATE_VALUE * 7
-	contains = list(
-		/obj/item/ammo_box/magazine/m38 = 2,
-		/obj/item/ammo_box/magazine/m38/hotshot = 2,
-		/obj/item/ammo_box/magazine/m38/iceblox =2,
-	)
-	crate_name = ".38 magazine crate"
 
 /datum/supply_pack/security/armory/exileimp
 	name = "Exile Implants Crate"
@@ -319,11 +296,9 @@
 
 /datum/supply_pack/security/armory/trackingimp
 	name = "Tracking Implants Crate"
-	desc = "Contains four tracking implants and three tracking speedloaders of tracing .38 ammo."
-	cost = CARGO_CRATE_VALUE * 4.5
-	contains = list(/obj/item/storage/box/trackimp,
-					/obj/item/ammo_box/speedloader/c38/trac = 3,
-				)
+	desc = "Contains four tracking implants."
+	cost = CARGO_CRATE_VALUE * 3
+	contains = list(/obj/item/storage/box/trackimp)
 	crate_name = "tracking implant crate"
 
 /datum/supply_pack/security/armory/laserarmor
@@ -373,14 +348,6 @@
 				)
 	crate_name = "swat crate"
 
-/datum/supply_pack/security/armory/thermal
-	name = "Thermal Pistol Crate"
-	desc = "Contains a pair of holsters each with two experimental thermal pistols, \
-		using nanites as the basis for their ammo. Can be shaken to reload."
-	cost = CARGO_CRATE_VALUE * 10
-	contains = list(/obj/item/storage/belt/holster/energy/thermal = 2)
-	crate_name = "thermal pistol crate"
-
 /datum/supply_pack/security/sunglasses
 	name = "Sunglasses Crate"
 	desc = "A single pair of flash-proof sunglasses."
@@ -410,3 +377,102 @@
 	access_view = ACCESS_SECURITY
 	contains = list(/obj/item/blood_worm_tester = 4)
 	crate_name = "hemoparasite testing crate"
+
+// I am DEVIOUS and CRUEL! you get two speedloaders, no more. you'll have to manually reload and reuse them.
+// you're using a revolver. it shouldn't be streamlined. it's your fidget toy so embrace it
+/datum/supply_pack/security/c38_standard
+	name = ".38 Special Ammo Crate (Bulk)"
+	desc = "Contains bulk .38 Special ammo to keep the detective's revolver fed."
+	cost = CARGO_CRATE_VALUE * 2
+	contains = list(/obj/item/storage/box/c38 = 2)
+	crate_name = ".38 Special ammo crate (bulk)"
+
+/datum/supply_pack/security/c38_specialty
+	name = ".38 Special Ammo Crate (Specialty)"
+	desc = "Contains specialty .38 Special ammo for nonstandard circumstances."
+	cost = CARGO_CRATE_VALUE * 4 // arfs: unsure if too much cost. will see
+	contains = list(/obj/item/storage/box/c38/rubber,
+					/obj/item/storage/box/c38/dumdum,
+				)
+	crate_name = ".38 Special ammo crate (specialty)"
+
+/datum/supply_pack/security/c38_precision
+	name = ".38 Special Ammo Crate (Precision)"
+	desc = "Contains precision engineered .38 Special ammo for trickshots and tracking targets."
+	cost = CARGO_CRATE_VALUE * 4
+	contains = list(/obj/item/storage/box/c38/match,
+					/obj/item/storage/box/c38/trac,
+				)
+	crate_name = ".38 Special ammo crate (precision)"
+
+/datum/supply_pack/security/c38_thermal
+	name = ".38 Special Ammo Crate (Thermal)"
+	desc = "Contains chemical .38 Special ammo for exploiting temperature weaknesses in exotic targets."
+	cost = CARGO_CRATE_VALUE * 6 // arfs: extra fancy, extra spendy. these have always hard to get ahold of
+	contains = list(/obj/item/storage/box/c38/hotshot,
+					/obj/item/storage/box/c38/iceblox,
+				)
+	crate_name = ".38 Special ammo crate (thermal)"
+
+/datum/supply_pack/security/armory/sec_shotgun
+	name = "Shotgun Crate (Security)"
+	desc = "Contains a pair of shotguns in standard security color. They come preloaded with beanbags and a set of empty bandoliers."
+	cost = CARGO_CRATE_VALUE * 6
+	contains = list(/obj/item/gun/ballistic/shotgun/snowsec = 2,
+					/obj/item/storage/belt/shotgun_bandolier = 2,
+				)
+	crate_name = "shotgun crate"
+
+/datum/supply_pack/security/armory/hunting_shotgun
+	name = "Shotgun Crate (Hunting)"
+	desc = "Contains a pair of shotguns with classy wood furniture. They come preloaded with buckshot so you can get to carp killing quicker."
+	cost = CARGO_CRATE_VALUE * 8
+	contains = list(/obj/item/gun/ballistic/shotgun/hunting = 2,
+					/obj/item/storage/belt/shotgun_bandolier = 2,
+				)
+	crate_name = "shotgun crate"
+
+/datum/supply_pack/security/armory/tactical_shotgun
+	name = "Shotgun Crate (Tactical)"
+	desc = "Contains a pair of shotguns with extended tubes and holographic sights. They come preloaded with rubber shot for optimal clown suppression."
+	cost = CARGO_CRATE_VALUE * 12
+	contains = list(/obj/item/gun/ballistic/shotgun/tactical = 2,
+					/obj/item/storage/belt/shotgun_bandolier = 2,
+				)
+	crate_name = "shotgun crate"
+
+/datum/supply_pack/security/armory/shotshell_lethal
+	name = "Shotshell Ammo Crate (Lethal)"
+	desc = "Contains three boxes of lethal shotgun shells for carp hunting and more!"
+	cost = CARGO_CRATE_VALUE * 4
+	contains = list(/obj/item/storage/box/lethalshot = 2,
+					/obj/item/storage/box/slugs = 1,
+				)
+	crate_name = "shotshell ammo crate"
+	crate_type = /obj/structure/closet/crate/secure/gear
+
+/datum/supply_pack/security/armory/shotshell_lesslethal
+	name = "Shotshell Ammo Crate (Less Lethal)"
+	desc = "Contains three boxes of less lethal shotgun shells for riot control. WARNING: LESS LETHAL DOES NOT MEAN NONLETHAL! These should not be used on normal crew under standard circumstances."
+	cost = CARGO_CRATE_VALUE * 4
+	contains = list(/obj/item/storage/box/rubbershot = 2,
+					/obj/item/storage/box/beanbag = 1,
+				)
+	crate_name = "shotshell ammo crate"
+	crate_type = /obj/structure/closet/crate/secure/gear
+
+/datum/supply_pack/security/armory/mosin_nagant
+	name = "Mosin Nagant Crate"
+	desc = "Contains six mosin nagant rifles packed in cosmoline. Most ballistics have been supplanted by much safer energy firearms, however A few have stuck around for their exceptional reliability, simplicity, and abundance. The mosin nagant is some of those things."
+	cost = CARGO_CRATE_VALUE * 4
+	contains = list(/obj/item/gun/ballistic/rifle/mosin/random = 6,
+					/obj/item/rag = 1,
+				)
+	crate_name = "mosin nagant crate"
+
+/datum/supply_pack/security/armory/mosin_ammo
+	name = "Mosin Nagant Ammo Crate"
+	desc = "Contains six boxes of ammunition for the mosin nagant. Nanotrassen does not supply stripper clips, because a very confused shareholder wants to preserve the company's family friendly image."
+	cost = CARGO_CRATE_VALUE * 2.5
+	contains = list(/obj/item/storage/box/m762r = 6)
+	crate_name = "mosin nagant ammo crate"

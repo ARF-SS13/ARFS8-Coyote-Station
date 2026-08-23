@@ -283,6 +283,39 @@
 		/obj/item/ammo_casing/shotgun,
 		/obj/item/ammo_casing/c357,
 		/obj/item/ammo_casing/junk,
+		/obj/item/ammo_casing/m762r,
+	))
+
+///Shotgun Bandolier belt
+/datum/storage/shot_bandolier_belt
+	max_slots = 24
+	max_total_storage = 24
+	numerical_stacking = TRUE
+	allow_quick_gather = TRUE
+	allow_quick_empty = TRUE
+
+/datum/storage/shot_bandolier_belt/New(atom/parent, max_slots, max_specific_storage, max_total_storage, rustle_sound, remove_rustle_sound)
+	. = ..()
+	set_holdable(list(
+		/obj/item/ammo_casing/shotgun,
+		/obj/item/ammo_casing/junk,
+	))
+
+///Shotgun ammo box
+/datum/storage/cartridge_box
+	screen_max_columns = 6 // makes the bullets fit more neatly on the screen without two apparent empty slots
+	max_slots = 12
+	max_total_storage = 12
+	allow_quick_gather = TRUE
+	allow_quick_empty = TRUE
+
+/datum/storage/shot_bandolier_belt/New(atom/parent, max_slots, max_specific_storage, max_total_storage, rustle_sound, remove_rustle_sound)
+	. = ..()
+	set_holdable(list(
+		/obj/item/ammo_casing/strilka310,
+		/obj/item/ammo_casing/shotgun,
+		/obj/item/ammo_casing/c357,
+		/obj/item/ammo_casing/junk,
 	))
 
 ///Fanny pack

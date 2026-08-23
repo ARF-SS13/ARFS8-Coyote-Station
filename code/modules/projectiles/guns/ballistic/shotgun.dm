@@ -60,6 +60,61 @@
 		overlay_x = 20, \
 		overlay_y = 11)
 
+// Arfs edition shotguns
+/obj/item/gun/ballistic/shotgun/snowsec // white security style
+	name = "security shotgun"
+	desc = "A sturdy shotgun with a fixed tactical stock designed for non-lethal riot control and carp hunting."
+	icon_state = "sec_shotgun"
+	inhand_icon_state = "sec_shotgun"
+	fire_delay = 8 DECISECONDS
+	accepted_magazine_type = /obj/item/ammo_box/magazine/internal/shot
+	sawn_desc = "The warden better not catch you modifying armory equipment."
+	can_be_sawn_off = TRUE
+	chambered_attack_block = TRUE // necessary for riot shotgun due to fire_delay and wanting to shoot point blank without accidental melee
+
+/obj/item/gun/ballistic/shotgun/snowsec/add_seclight_point()
+	AddComponent(/datum/component/seclite_attachable, \
+		light_overlay_icon = 'icons/obj/weapons/guns/flashlights.dmi', \
+		light_overlay = "flight", \
+		overlay_x = 20, \
+		overlay_y = 11)
+
+/obj/item/gun/ballistic/shotgun/hunting // wood furniture
+	name = "hunting shotgun"
+	desc = "A sturdy shotgun with a classy wooden stock for carp hunting in style."
+	icon_state = "shotgun"
+	inhand_icon_state = "shotgun"
+	fire_delay = 8 DECISECONDS
+	accepted_magazine_type = /obj/item/ammo_box/magazine/internal/shot/lethal
+	sawn_desc = "Somehow, somewhere, an antiquarian is sobbing at what you have done." // what did that wood stock ever do to you? :(
+	can_be_sawn_off = TRUE
+	chambered_attack_block = TRUE
+
+/obj/item/gun/ballistic/shotgun/hunting/add_seclight_point()
+	AddComponent(/datum/component/seclite_attachable, \
+		light_overlay_icon = 'icons/obj/weapons/guns/flashlights.dmi', \
+		light_overlay = "flight", \
+		overlay_x = 20, \
+		overlay_y = 11)
+
+/obj/item/gun/ballistic/shotgun/tactical // for extra shooty
+	name = "tactical shotgun"
+	desc = "A polymer shotgun with an extended tube for hunting a lot of carp."
+	icon_state = "tac_shotgun"
+	inhand_icon_state = "tac_shotgun"
+	fire_delay = 8 DECISECONDS
+	accepted_magazine_type = /obj/item/ammo_box/magazine/internal/shot/riot
+	sawn_desc = null
+	can_be_sawn_off = FALSE //you weren't just about to saw through the extended tube were you?
+	chambered_attack_block = TRUE
+
+/obj/item/gun/ballistic/shotgun/hunting/add_seclight_point()
+	AddComponent(/datum/component/seclite_attachable, \
+		light_overlay_icon = 'icons/obj/weapons/guns/flashlights.dmi', \
+		light_overlay = "flight", \
+		overlay_x = 20, \
+		overlay_y = 11)
+
 // Automatic Shotguns//
 
 /obj/item/gun/ballistic/shotgun/automatic/shoot_live_shot(mob/living/user)

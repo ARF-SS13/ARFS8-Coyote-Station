@@ -16,6 +16,16 @@
 	armour_penetration = 100
 	projectile_phasing =  PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
 
+// 7.62x54mmR ammo. get real, nobody's making anything other than standard ball for this cartridge
+// same statblock as the shotgun slug for now
+/obj/projectile/bullet/m762r
+	name = "7.62 bullet"
+	damage = 50
+	armour_penetration = 30
+	sharpness = SHARP_POINTY
+	wound_bonus = 0
+	exposed_wound_bonus = 15
+
 // .310 Strilka (Sakhno Rifle)
 
 /obj/projectile/bullet/strilka310

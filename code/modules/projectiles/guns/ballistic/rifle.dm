@@ -46,6 +46,193 @@
 	. = ..()
 	. += "The bolt is [bolt_locked ? "open" : "closed"]."
 
+////////////////////////////
+/// Mosin: Fuzzy edition ///
+////////////////////////////
+
+/obj/item/gun/ballistic/rifle/mosin
+	name = "mosin nagant"
+	desc = "An ancient rugged bolt action rifle. Its action runs butter smooth without a speck of cosmoline."
+	icon = 'icons/obj/weapons/guns/ballistic.dmi'
+	icon_state = "mosin"
+	inhand_icon_state = "mosin"
+	worn_icon_state = "mosin"
+	w_class = WEIGHT_CLASS_BULKY
+	accepted_magazine_type = /obj/item/ammo_box/magazine/internal/boltaction/mosin
+	bolt_type = BOLT_TYPE_STANDARD
+	need_bolt_lock_to_interact = TRUE
+	var/gum_chance = 50
+	var/cosmoline_level = 0
+	var/blood_level_per_clean = 0 // for the rag, from 0 to 10
+	var/clean_chance = 0
+	var/clean_success = "this shouldn't be happening, notify a coder!"
+	var/clean_fail = "this shouldn't be happening, notify a coder!"
+	var/cosmoline_suffix = null
+/obj/item/gun/ballistic/rifle/mosin/process_fire(mob/user)
+	if(gum_chance)
+		if(chambered.loaded_projectile)
+			if(prob(gum_chance))
+				balloon_alert(loc, "gummed up!")
+				playsound(loc,'sound/items/weapons/throwtap.ogg', 75, TRUE)
+				return FALSE
+	return ..()
+/obj/item/gun/ballistic/rifle/mosin/proc/should_clean()
+	return cosmoline_level > 0
+
+/obj/item/gun/ballistic/rifle/mosin/proc/update_cosmoline()
+	switch(cosmoline_level)
+		if(0)
+			name = "pristine mosin nagant"
+			desc = "An ancient rugged bolt action rifle. Its action runs butter smooth without a speck of cosmoline. It's already starting to rust."
+			inhand_icon_state = "mosin"
+			worn_icon_state = "mosin"
+			gum_chance = 2 // it's never zero
+			blood_level_per_clean = 0
+			clean_chance = 0
+			clean_success = "this shouldn't be happening, notify a coder!"
+			clean_fail = "this shouldn't be happening, notify a coder!"
+		if(1)
+			name = "lightly gummed mosin nagant"
+			desc = "An ancient rugged bolt action rifle. Its bolt sticks occasionally with leftover cosmoline. You could try to clean it out with a rag but it may take a while."
+			cosmoline_suffix = "gummed"
+			inhand_icon_state = "mosin"
+			worn_icon_state = "mosin"
+			gum_chance = 10
+			blood_level_per_clean = 1
+			clean_chance = 5
+			clean_success = "You finally got the last of the cosmoline out of the rifle's bolt!"
+			clean_fail = "You scrub the parts a little but there always seems to be a little more gunk in some small corner."
+		if(2)
+			name = "cosmoline smeared mosin nagant"
+			desc = "An ancient rugged bolt action rifle. It's smeared with cosmoline inside and out. You could use a rag to wipe a fair bit off without too much trouble."
+			cosmoline_suffix = "smeared"
+			inhand_icon_state = "mosin"
+			worn_icon_state = "mosin"
+			gum_chance = 25
+			blood_level_per_clean = 2
+			clean_chance = 20
+			clean_success = "You wipe down the rifle, removing all the cosmoline from its surfaces."
+			clean_fail = "You wipe down the rifle but it's still rather sticky."
+		if(3)
+			name = "cosmoline covered mosin nagant"
+			desc = "An ancient rugged bolt action rifle. It's covered in a thorough coating of cosmoline protecting it from rust. You could remove it with a rag."
+			cosmoline_suffix = "covered"
+			inhand_icon_state = "mosin"
+			worn_icon_state = "mosin"
+			gum_chance = 50
+			blood_level_per_clean = 2
+			clean_chance = 15
+			clean_success = "You wipe down the rifle, cleaning a fair amount of cosmoline off of it."
+			clean_fail = "You wipe down the rifle but it's still pretty thoroughly covered in cosmoline."
+		if(4)
+			name = "cosmoline soaked mosin nagant"
+			desc = "An ancient rugged bolt action rifle. It is utterly drenched in an extra helping of cosmoline. You could get a fair bit off with a rag."
+			cosmoline_suffix = "soaked"
+			inhand_icon_state = "mosin"
+			worn_icon_state = "mosin"
+			gum_chance = 75
+			blood_level_per_clean = 3
+			clean_chance = 15
+			clean_success = "You finally get most of the caked up cosmoline off."
+			clean_fail = "You wipe down the rifle but there's still cosmoline absolutely everywhere!"
+		if(5)
+			name = "rifle shaped glob of cosmoline"
+			desc = "There seems to be more cosmoline than rifle here. A rag could help but there's a lot to scoop off."
+			cosmoline_suffix = "shape"
+			inhand_icon_state = "cosmoline"
+			worn_icon_state = "cosmoline"
+			gum_chance = 95
+			blood_level_per_clean = 5
+			clean_chance = 10
+			clean_success = "You clean enough cosmoline off to actually see the rifle now."
+			clean_fail = "The rag is drenched without a whole lot of visible progress."
+		if(6)
+			name = "large glob of cosmoline"
+			desc = "This impressive sticky mass of cosmoline has the vague silhouette of a rifle inside it."
+			cosmoline_suffix = "glob"
+			inhand_icon_state = "cosmoline"
+			worn_icon_state = "cosmoline"
+			gum_chance = 99
+			blood_level_per_clean = 5
+			clean_chance = 10
+			clean_success = "You've made some progress, the glob is now somewhat rifle shaped."
+			clean_fail = "The rag is soaked in a single pass but the glob remains largely unchanged."
+		if(7)
+			name = "immense mass of cosmoline"
+			desc = "A truly enormous blob of cosmoline. It almost looks alive! When the light shines on it just right you can see the outline of a rifle inside. You might be able to find it with a rag."
+			cosmoline_suffix = "mass"
+			inhand_icon_state = "cosmoline"
+			worn_icon_state = "cosmoline"
+			gum_chance = 99
+			blood_level_per_clean = 5
+			clean_chance = 10
+			clean_success = "You've made some progress, the glob is now somewhat rifle shaped."
+			clean_fail = "The rag is soaked in a single pass but the glob remains largely unchanged."
+		if(8)
+			name = "monolithic pillar of cosmoline"
+			desc = "Legends say that somewhere within this vast blob of cosmoline lies a perfectly preserved mosin without a single flake of rust. You could try to find it with a rag, but this might be better served as a shrine."
+			cosmoline_suffix = "pillar"
+			inhand_icon_state = "cosmoline"
+			worn_icon_state = "cosmoline"
+			gum_chance = 99
+			blood_level_per_clean = 10
+			clean_chance = 5
+			clean_success = "You've removed a fair amount of mass, but there's still a lot of cosmoline remaining."
+			clean_fail = "Your rag barely makes a dent in the ocean of cosmoline before you."
+		else
+			name = "ERROR"
+	update_appearance()
+
+/obj/item/gun/ballistic/rifle/mosin/Initialize(mapload)
+	. = ..()
+	update_cosmoline()
+
+/obj/item/gun/ballistic/rifle/mosin/standard
+	cosmoline_level = 1
+
+/obj/item/gun/ballistic/rifle/mosin/random
+
+/obj/item/gun/ballistic/rifle/mosin/random/Initialize(mapload)
+	if(prob(95))
+		cosmoline_level = rand(1,5)
+	else if(prob(80))
+		cosmoline_level = 6
+	else if(prob(80))
+		cosmoline_level = 7
+	else
+		cosmoline_level = 8
+	. = ..()
+
+/obj/item/gun/ballistic/rifle/mosin/attackby(obj/item/rag/I, mob/living/user)
+	if(istype(I))
+		if(cosmoline_level <= 0)
+			to_chat(user, "The rifle is already in perfect condition!")
+			return
+		if(I.blood_level > 10-blood_level_per_clean)
+			to_chat(user, "The rag is filthy and needs wrung out before you continue cleaning.")
+			return
+		if(do_after(user, 3 SECONDS, target = I))
+			if(prob(clean_chance))
+				to_chat(user, clean_success)
+				cosmoline_level -= 1
+				update_cosmoline()
+			else
+				to_chat(user, clean_fail)
+			I.blood_level += blood_level_per_clean
+
+/obj/item/gun/ballistic/rifle/mosin/update_overlays()
+	. = ..()
+	if(cosmoline_level > 0)
+		. += "[initial(icon_state)]_[cosmoline_suffix]"
+
+/obj/item/gun/ballistic/rifle/mosin/rack(mob/user = null)
+	if(gum_chance)
+		if(prob(gum_chance / 2)) // not as big a chance as when trying to fire it
+			balloon_alert(loc, "gummed up!")
+			playsound(loc,'sound/items/weapons/throwtap.ogg', 75, TRUE)
+			return FALSE
+	. = ..()
+
 ///////////////////////
 // BOLT ACTION RIFLE //
 ///////////////////////

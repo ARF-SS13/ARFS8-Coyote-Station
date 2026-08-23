@@ -25,19 +25,6 @@
 	ricochet_incidence_leeway = 80
 	ricochet_decay_chance = 1
 
-/datum/design/c357/peacemaker
-	name = "Speed Loader (.357 Peacemaker)"
-	id = "a357PM"
-	build_type = AUTOLATHE
-	materials = list(
-		/datum/material/iron = SHEET_MATERIAL_AMOUNT * 2,
-	)
-	build_path = /obj/item/ammo_box/speedloader/c357/peacemaker
-	category = list(
-		RND_CATEGORY_HACKED,
-		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO,
-	)
-
 /obj/item/ammo_box/speedloader/c357/peacemaker
 	name = "speed loader (.357 Peacemaker)"
 	desc = "Designed to quickly reload revolvers."
