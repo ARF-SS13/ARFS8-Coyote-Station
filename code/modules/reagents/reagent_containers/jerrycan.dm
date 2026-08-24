@@ -122,7 +122,7 @@
 
 /obj/item/reagent_containers/cup/jerrycan/robustharvest
 	name = "Robust Harvest™ can"
-	desc = "A large container labled 'Robust Harvest' plant nutrient. Only trust 'Robust Harvest' for a robust yield."
+	desc = "A large container labled 'Robust Harvest' plant nutrient. Only trust 'Robust Harvest' for a robust yield. What does that mean?  Who fucking knows."
 	label_type = LABEL_ROBUST_HARVEST
 	list_reagents = list(/datum/reagent/plantnutriment/robustharvestnutriment = 200)
 	custom_price = PAYCHECK_CREW * 1.5
