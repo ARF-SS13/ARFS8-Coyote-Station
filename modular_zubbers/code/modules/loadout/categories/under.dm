@@ -187,8 +187,3 @@
 /datum/loadout_item/uniform/miscellaneous/stripper_outfit
 	name = "Stripper Outfit"
 	item_path = /obj/item/clothing/under/stripper_outfit
-
-	//coyote
-/datum/loadout_item/uniform/miscellaneous/orangedress
-	name = "Orange Dress"
-	item_path = /obj/item/clothing/under/dress/coyote/orange_dress
