@@ -194,31 +194,36 @@
 	var/am_admin = is_admin(client)
 	var/list/bads = list()
 	if(CONFIG_GET(flag/min_flavor_text))
-		var/datum/prefs_holder/preferences = client.prefs
-		var/uses_silicon_flavortext = (is_silicon_job(preferences?.get_highest_priority_job()) && length_char(client?.prefs?.read_preference(/datum/preference/text/silicon_flavor_text)) < CONFIG_GET(number/silicon_flavor_text_character_requirement))
-		var/uses_normal_flavortext = (!is_silicon_job(preferences?.get_highest_priority_job()) && length_char(client?.prefs?.read_preference(/datum/preference/text/flavor_text)) < CONFIG_GET(number/flavor_text_character_requirement))
-		if(uses_silicon_flavortext)
-			var/need = CONFIG_GET(number/silicon_flavor_text_character_requirement)
-			var/got = length_char(client?.prefs?.read_preference(/datum/preference/text/silicon_flavor_text))
-			bads["silicon_flavor_text"] = list(got, need)
-			return
-		if(uses_normal_flavortext)
-			var/need = CONFIG_GET(number/flavor_text_character_requirement)
-			var/got = length_char(client?.prefs?.read_preference(/datum/preference/text/flavor_text))
-			bads["flavor_text"] = list(got, need)
-			return
-	var/list/tnbs = client?.prefs?.read_preference(/datum/preference/temperaments_and_builds)
-	var/temperament_count = 0
-	var/build_count = 0
-	for(var/tnb_category in tnbs)
-		if(tnb_category == TNB_TEMPERAMENT)
-			temperament_count = LAZYLEN(tnbs[tnb_category])
-		else if(tnb_category == TNB_BUILD)
-			build_count = LAZYLEN(tnbs[tnb_category])
-	if(temperament_count < GLOB.max_tnb_sel[TNB_TEMPERAMENT])
-		bads["temperament"] = list(temperament_count, GLOB.max_tnb_sel[TNB_TEMPERAMENT])
-	if(build_count < GLOB.max_tnb_sel[TNB_BUILD])
-		bads["build"] = list(build_count, GLOB.max_tnb_sel[TNB_BUILD])
+		if(is_silicon_job(client?.prefs?.get_highest_priority_job()))
+			var/lengt = length_char(client?.prefs?.read_preference(/datum/preference/text/silicon_flavor_text))
+			if(lengt < CONFIG_GET(number/silicon_flavor_text_character_requirement))
+				var/need = CONFIG_GET(number/silicon_flavor_text_character_requirement)
+				var/got = length_char(client?.prefs?.read_preference(/datum/preference/text/silicon_flavor_text))
+				bads["silicon_flavor_text"] = list(got, need)
+		if(!is_silicon_job(client?.prefs?.get_highest_priority_job()))
+			var/lengt = length_char(client?.prefs?.read_preference(/datum/preference/text/flavor_text))
+			if(lengt < CONFIG_GET(number/flavor_text_character_requirement))
+				var/need = CONFIG_GET(number/flavor_text_character_requirement)
+				var/got = length_char(client?.prefs?.read_preference(/datum/preference/text/flavor_text))
+				bads["flavor_text"] = list(got, need)
+	// why do we check if client exists every line? cus clients are slippery little bastards and can vanish at any time
+	var/list/temperaments      = client?.prefs?.read_preference(/datum/preference/character_snippets/temperaments)
+	var/list/builds            = client?.prefs?.read_preference(/datum/preference/character_snippets/builds)
+	var/list/early_backgrounds = client?.prefs?.read_preference(/datum/preference/character_snippets/early_backgrounds)
+	var/list/adult_backgrounds = client?.prefs?.read_preference(/datum/preference/character_snippets/adult_backgrounds)
+	var/temperament_count       = LAZYLEN(temperaments)
+	var/build_count             = LAZYLEN(builds)
+	var/early_background_count  = LAZYLEN(early_backgrounds)
+	var/adult_background_count  = LAZYLEN(adult_backgrounds)
+	var/list/maxes = SSdans_cool_prefs.get_max_for()
+	if(temperament_count < maxes[CSNIP_TEMPERAMENT])
+		bads["temperament"] = list(temperament_count, maxes[CSNIP_TEMPERAMENT])
+	if(build_count < maxes[CSNIP_BUILD])
+		bads["build"] = list(build_count, maxes[CSNIP_BUILD])
+	if(early_background_count < maxes[CSNIP_EARLY_BACKGROUND])
+		bads["early_background"] = list(early_background_count, maxes[CSNIP_EARLY_BACKGROUND])
+	if(adult_background_count < maxes[CSNIP_ADULT_BACKGROUND])
+		bads["adult_background"] = list(adult_background_count, maxes[CSNIP_ADULT_BACKGROUND])
 
 	if(!LAZYLEN(bads))
 		return TRUE // okay have a good round!
@@ -247,6 +252,14 @@
 		message += "<b>Build</b>\n"
 		message += "You have [bads["build"][1]] build(s) selected.\n"
 		message += "However, you need at least [bads["build"][2]] build(s) to ready up for the round.\n\n"
+	if("early_background" in bads)
+		message += "<b>Early Background</b>\n"
+		message += "You have [bads["early_background"][1]] early background(s) selected.\n"
+		message += "However, you need at least [bads["early_background"][2]] early background(s) to ready up for the round.\n\n"
+	if("adult_background" in bads)
+		message += "<b>Adult Background</b>\n"
+		message += "You have [bads["adult_background"][1]] adult background(s) selected.\n"
+		message += "However, you need at least [bads["adult_background"][2]] adult background(s) to ready up for the round.\n\n"
 	if(am_admin)
 		message += "\n...however, you're an admin! You can ignore these requirements and ready up anyway if you want."
 		chooses = list(
