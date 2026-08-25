@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Box, Section, Stack, TextArea } from 'tgui-core/components';
-import { isEscape } from 'tgui-core/keys';
-import { KEY } from 'tgui-core/keys';
+import { isEscape, KEY } from 'tgui-core/keys';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -16,6 +15,7 @@ type TextInputData = {
   placeholder: string;
   timeout: number;
   title: string;
+  forceHTML: boolean;
 };
 
 export const sanitizeMultiline = (toSanitize: string) => {
@@ -36,6 +36,7 @@ export const TextInputModal = (props) => {
     placeholder = '',
     timeout,
     title,
+    forceHTML,
   } = data;
 
   const [input, setInput] = useState(placeholder || '');
@@ -56,7 +57,13 @@ export const TextInputModal = (props) => {
     135 +
     (message.length > 30 ? Math.ceil(message.length / 4) : 0) +
     (visualMultiline ? 75 : 0) +
-    (message.length && large_buttons ? 5 : 0);
+    (message.length && large_buttons ? 5 : 0) +
+    (message.length > 400 ? message.length / 10 : 0);
+  const windowWidth =
+    325 +
+    (large_buttons ? 50 : 0) +
+    (message.length > 30 ? 50 : 0) +
+    (message.length > 60 ? 50 : 0);
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
     if (event.key === KEY.Enter && (!visualMultiline || !event.shiftKey)) {
@@ -72,13 +79,20 @@ export const TextInputModal = (props) => {
   const char_length = [...input].length;
 
   return (
-    <Window title={title} width={325} height={windowHeight}>
+    <Window title={title} width={windowWidth} height={windowHeight}>
       {timeout && <Loader value={timeout} />}
       <Window.Content onKeyDown={handleKeyDown}>
         <Section fill>
           <Stack fill vertical>
             <Stack.Item>
-              <Box color="label">{message}</Box>
+              {forceHTML ? (
+                <Box
+                  color="label"
+                  dangerouslySetInnerHTML={{ __html: message }}
+                />
+              ) : (
+                <Box color="label">{message}</Box>
+              )}
             </Stack.Item>
             <Stack.Item grow>
               <TextArea
@@ -89,7 +103,7 @@ export const TextInputModal = (props) => {
                 maxLength={max_length}
                 onEscape={() => act('cancel')}
                 onChange={onType}
-                placeholder="Type something..."
+                placeholder={placeholder || 'Type something...'}
                 value={input}
               />
             </Stack.Item>
