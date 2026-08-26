@@ -53,25 +53,20 @@
 	id = /obj/item/card/id/advanced/rainbow
 	id_trim = /datum/id_trim/job/clown
 	uniform = /obj/item/clothing/under/rank/civilian/clown
-	backpack_contents = list(
-		/obj/item/stamp/clown = 1,
-		/obj/item/reagent_containers/spray/waterflower = 1,
-		/obj/item/food/grown/banana = 1,
-		/obj/item/instrument/bikehorn = 1,
-		/obj/item/storage/box/balloons = 1,
-		)
-	belt = /obj/item/modular_computer/pda/clown
+	belt = /obj/item/storage/belt/funnypack
 	ears = /obj/item/radio/headset/headset_srv
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	mask = /obj/item/clothing/mask/gas/clown_hat
-	l_pocket = /obj/item/bikehorn
+	l_pocket = /obj/item/modular_computer/pda/clown
+	r_pocket = /obj/item/instrument/bikehorn
+	pda_slot = ITEM_SLOT_LPOCKET
 
 	backpack = /obj/item/storage/backpack/clown
 	satchel = /obj/item/storage/backpack/clown
 	duffelbag = /obj/item/storage/backpack/duffelbag/clown //strangely has a duffel
 	messenger = /obj/item/storage/backpack/messenger/clown
 
-	box = /obj/item/storage/box/survival/hug
+	box = /obj/item/storage/box/survival/hug/clown
 	chameleon_extras = /obj/item/stamp/clown
 	implants = list(/obj/item/implant/sad_trombone)
 	skillchips = list(/obj/item/skillchip/job/clown)

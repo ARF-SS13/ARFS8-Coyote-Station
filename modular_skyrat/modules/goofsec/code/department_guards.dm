@@ -18,7 +18,7 @@
 
 /obj/item/clothing/under/rank/security/officer/blueshirt/skyrat/orderly
 	name = "orderly uniform"
-	desc = "White scrubs with gray pants underneath. Be warned, wearers of this uniform may only take the Hippocratic Oath as a suggestion."
+	desc = "White scrubs with gray pants underneath."
 	icon_state = "orderly_uniform"
 	worn_icon_state = "orderly_uniform"
 	icon = 'modular_skyrat/master_files/icons/obj/clothing/under/medical.dmi'
@@ -27,7 +27,7 @@
 
 /obj/item/clothing/under/rank/security/officer/blueshirt/skyrat/engineering_guard
 	name = "engineering guard uniform"
-	desc = "Effectively just padded hi-vis coveralls, they do the trick both inside of, and while keeping people out of, a hardhat zone."
+	desc = "Padded hi-vis coveralls."
 	icon_state = "engineering_guard_uniform"
 	worn_icon_state = "engineering_guard_uniform"
 	icon = 'modular_skyrat/master_files/icons/obj/clothing/under/engineering.dmi'
@@ -77,6 +77,10 @@
 	icon_state = "medical_coat"
 	worn_icon_state = "medical_coat"
 	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION
+
+/obj/item/clothing/suit/toggle/labcoat/paramedic/Initialize(mapload)
+	. = ..()
+	allowed += /obj/item/lightreplacer
 
 /obj/item/clothing/suit/armor/vest/blueshirt/skyrat/engineering_guard
 	name = "armored engineering guard coat"
@@ -177,8 +181,8 @@
 	rpg_title = "Secrets Keeper"
 	description = "Figure out why the emails aren't working, keep an eye on the eggheads, protect them from their latest mistakes."
 	faction = FACTION_STATION
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 0
+	spawn_positions = 0
 	supervisors = SUPERVISOR_RD
 	exp_granted_type = EXP_TYPE_CREW
 	config_tag = "SCIENCE_GUARD"
@@ -205,7 +209,8 @@
 	/obj/item/melee/baton = 5
 	)
 
-	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_REOPEN_ON_ROUNDSTART_LOSS | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN
+	// job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_REOPEN_ON_ROUNDSTART_LOSS | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN
+	job_flags = STATION_JOB_DISABLED_FLAGS
 
 /datum/outfit/job/science_guard
 	name = "Science Guard"
@@ -316,26 +321,23 @@
 	name = "Orderly"
 	jobtype = /datum/job/orderly
 
-	belt = /obj/item/modular_computer/pda/medical
+	belt = /obj/item/storage/belt/security/orderly
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/security/officer/blueshirt/skyrat/orderly
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	head = /obj/item/clothing/head/beret/sec/medical
 	glasses = /obj/item/clothing/glasses/hud/medsechud/sunglasses
 	suit = /obj/item/clothing/suit/armor/vest/blueshirt/skyrat/orderly
-	r_pocket = /obj/item/reagent_containers/spray/pepper
-	l_pocket = /obj/item/restraints/handcuffs
-	backpack_contents = list(
-		/obj/item/melee/baton/security/loaded/departmental/medical = 1,
-		/obj/item/gun/energy/e_gun/advtaser = 1,
-		/obj/item/holosign_creator/security = 1
-	)
+	suit_store = /obj/item/lightreplacer
+	l_pocket = /obj/item/modular_computer/pda/medical
+	r_pocket = /obj/item/soap
 
+	pda_slot = ITEM_SLOT_LPOCKET
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
 	messenger = /obj/item/storage/backpack/messenger/med
-	box = /obj/item/storage/box/survival/medical
+	box = /obj/item/storage/box/survival/medical/emergency
 
 	id_trim = /datum/id_trim/job/orderly
 
@@ -389,8 +391,8 @@
 	rpg_title = "Crystal Guardian"
 	description = "Monitor the supermatter, keep an eye on atmospherics, make sure everyone is wearing Proper Protective Equipment."
 	faction = FACTION_STATION
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 0
+	spawn_positions = 0
 	supervisors = SUPERVISOR_CE
 	exp_granted_type = EXP_TYPE_CREW
 	config_tag = "ENGINEERING_GUARD"
@@ -417,7 +419,8 @@
 		/obj/item/melee/baton = 5
 	)
 
-	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_REOPEN_ON_ROUNDSTART_LOSS | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN
+	// job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_REOPEN_ON_ROUNDSTART_LOSS | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN
+	job_flags = STATION_JOB_DISABLED_FLAGS
 
 /datum/outfit/job/engineering_guard
 	name = "Engineering Guard"
@@ -495,8 +498,8 @@
 	rpg_title = "Vault Keeper"
 	description = "Inspect the packages coming to and from the station, protect the cargo department, beat the shit out of people trying to ship Cocaine to the Spinward Stellar Coalition."
 	faction = FACTION_STATION
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 0
+	spawn_positions = 0
 	supervisors = SUPERVISOR_QM
 	exp_granted_type = EXP_TYPE_CREW
 	config_tag = "CUSTOMS_AGENT"
@@ -523,7 +526,8 @@
 		/obj/item/melee/baton = 5
 	)
 
-	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_REOPEN_ON_ROUNDSTART_LOSS | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN
+	// job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_REOPEN_ON_ROUNDSTART_LOSS | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN
+	job_flags = STATION_JOB_DISABLED_FLAGS
 
 /datum/outfit/job/customs_agent
 	name = "Customs Agent"
@@ -595,8 +599,8 @@
 	rpg_title = "Tavern Watch"
 	description = "Make sure people don't jump the kitchen counter, stop Chapel vandalism, check bargoer's IDs, prevent the dreaded \"food fight\"."
 	faction = FACTION_STATION
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 0
+	spawn_positions = 0
 	supervisors = SUPERVISOR_HOP
 	exp_granted_type = EXP_TYPE_CREW
 	config_tag = "BOUNCER"
@@ -623,7 +627,8 @@
 		/obj/item/melee/baton = 5
 	)
 
-	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_REOPEN_ON_ROUNDSTART_LOSS | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN
+	// job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_REOPEN_ON_ROUNDSTART_LOSS | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN
+	job_flags = STATION_JOB_DISABLED_FLAGS
 
 /datum/outfit/job/bouncer
 	name = "Bouncer"
@@ -783,7 +788,7 @@
 	desc = "A stun baton that doesn't operate outside of the Prison, based off the station's blueprint layout. Can be used outside of the Prison up to three times before needing to return!"
 	base_icon_state = "prison_baton"
 	valid_areas = list(/area/station/security/prison, /area/station/security/processing, /area/shuttle/escape)
-
+/*
 /datum/supply_pack/security/baton_prison
 	name = "Prison Baton Crate"
 	desc = "Contains an extra baton for Corrections Officers. \
@@ -832,6 +837,7 @@
 	access_view = ACCESS_SECURITY
 	access = ACCESS_SECURITY
 	contains = list(/obj/item/melee/baton/security/loaded/departmental/cargo)
+*/
 /*
 * Garment Bags
 */

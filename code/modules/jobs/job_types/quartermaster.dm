@@ -40,17 +40,15 @@
 /datum/outfit/job/quartermaster
 	name = "Quartermaster"
 	jobtype = /datum/job/quartermaster
-	backpack_contents = list(
-		/obj/item/melee/baton/telescopic/bronze = 1,
-	)
 	id_trim = /datum/id_trim/job/quartermaster
 	id = /obj/item/card/id/advanced/silver
-	uniform = /obj/item/clothing/under/rank/cargo/qm
+	uniform = /obj/item/clothing/under/rank/cargo/qm/skyrat/turtleneck
 	belt = /obj/item/modular_computer/pda/heads/quartermaster
 	suit = /obj/item/clothing/suit/jacket/quartermaster
 	ears = /obj/item/radio/headset/heads/qm
 	glasses = /obj/item/clothing/glasses/sunglasses
 	shoes = /obj/item/clothing/shoes/laceup
-	l_hand = /obj/item/clipboard
+	l_pocket = /obj/item/melee/baton/telescopic/bronze
+	r_pocket = /obj/item/clipboard
 
 	chameleon_extras = /obj/item/stamp/head/qm

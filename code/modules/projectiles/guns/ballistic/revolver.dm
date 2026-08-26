@@ -15,6 +15,7 @@
 	var/spin_delay = 10
 	var/recent_spin = 0
 	var/last_fire = 0
+	var/no_spin = FALSE
 
 /obj/item/gun/ballistic/revolver/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
 	. = ..()
@@ -97,7 +98,10 @@
 	. = ..()
 	var/live_ammo = get_ammo(FALSE, FALSE)
 	. += "[live_ammo ? live_ammo : "None"] of those are live rounds."
-	. += span_notice("It can be spun with [EXAMINE_HINT("alt-click")].")
+	if(!no_spin)
+		. += span_notice("It can be spun with [EXAMINE_HINT("alt-click")].")
+	else
+		. += span_notice("Its cylinder can be opened with [EXAMINE_HINT("alt-click")].")
 
 /obj/item/gun/ballistic/revolver/ignition_effect(atom/A, mob/user)
 	if(last_fire && last_fire + 15 SECONDS > world.time)
@@ -207,6 +211,68 @@
 
 	accepted_magazine_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
 
+// special quartermaster pistol cause they don't have anything
+// can perhaps later be fitted with its shortwave radio attachable stock and folding bayonet
+/obj/item/gun/ballistic/revolver/toz_mars
+	name = "\improper TOZ-81 Mars revolver"
+	desc = "A reproduction of an ancient cosmonaut pistol. Back then it was made for killing polar bears. Now it's made for killing space bears. Due to a lack of availability for its original calibers, it now comes with a three chamber cylinder for standard shotgun shells. Its cylinder can be swapped for a 7.62x54mmR one using a wrench."
+	icon_state = "mars"
+	base_icon_state = null
+	accepted_magazine_type = /obj/item/ammo_box/magazine/internal/cylinder/toz_mars
+	can_modify_ammo = TRUE
+	initial_caliber = CALIBER_SHOTGUN
+	initial_fire_sound = 'sound/items/weapons/gun/shotgun/shot.ogg'
+	alternative_caliber = CALIBER_M762R
+	alternative_fire_sound = 'sound/items/weapons/gun/rifle/shot_heavy.ogg'
+	alternative_ammo_misfires = FALSE
+	fire_sound_volume = 35
+	rack_sound = 'sound/items/weapons/gun/rifle/bolt_in.ogg'
+	bolt_drop_sound = 'sound/items/weapons/gun/rifle/bolt_out.ogg'
+	bolt_wording = "cylinder"
+	no_spin = TRUE
+
+/obj/item/gun/ballistic/revolver/toz_mars/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(!bolt_locked && !istype(tool, /obj/item/knife))
+		balloon_alert(user, "cylinder closed!")
+		return
+
+	return ..()
+
+/obj/item/gun/ballistic/revolver/toz_mars/update_overlays()
+	. = ..()
+	if(bolt_locked)
+		. += "[initial(icon_state)]_open"
+	else
+		. += "[initial(icon_state)]_closed"
+
+/obj/item/gun/ballistic/revolver/toz_mars/click_alt(mob/user)
+	if(!bolt_locked)
+		bolt_locked = TRUE
+		playsound(src, bolt_drop_sound, lock_back_sound_volume, lock_back_sound_vary)
+		balloon_alert(user, "cylinder opened")
+	else
+		bolt_locked = FALSE
+		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
+		balloon_alert(user, "cylinder closed")
+	update_appearance()
+	return CLICK_ACTION_SUCCESS
+
+/obj/item/gun/ballistic/revolver/toz_mars/attack_self(mob/living/user)
+	if(!bolt_locked)
+		balloon_alert(user, "cylinder closed!")
+		return FALSE
+	. = ..()
+
+/obj/item/gun/ballistic/revolver/toz_mars/process_fire(mob/user)
+	if(bolt_locked)
+		balloon_alert(user, "cylinder opened!")
+		return FALSE
+	return ..()
+
+/obj/item/storage/toolbox/guncase/skyrat/pistol/toz_mars
+	name = "Quartermaster's pistol case"
+	weapon_to_spawn = /obj/item/gun/ballistic/revolver/toz_mars
+	extra_to_spawn = /obj/item/ammo_casing/shotgun/buckshot
 
 // A gun to play Russian Roulette!
 // You can spin the chamber to randomize the position of the bullet.

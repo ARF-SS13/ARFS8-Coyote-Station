@@ -67,6 +67,7 @@
 		/obj/item/gun/energy/laser/pistol,
 		/obj/item/gun/energy/e_gun/hos,
 		/obj/item/gun/ballistic/rifle/boltaction, //fits if you make it an obrez
+		/obj/item/lighter,
 	)
 
 	return ..()

@@ -18,6 +18,8 @@
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/gloves/tackler(src)
 	new /obj/item/storage/belt/security/redsec/full(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/restraints/handcuffs(src)
 
 /obj/item/storage/belt/security/redsec/full/PopulateContents()
 	new /obj/item/reagent_containers/spray/pepper(src)

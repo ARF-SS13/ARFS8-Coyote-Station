@@ -65,18 +65,13 @@
 	id = /obj/item/card/id/advanced/silver
 	id_trim = /datum/id_trim/job/chief_engineer
 	uniform = /obj/item/clothing/under/rank/engineering/chief_engineer
-	backpack_contents = list(
-		/obj/item/melee/baton/telescopic/silver = 1,
-// 		/obj/item/construction/rcd/ce = 1, // BUBBER EDIT -> MOVED TO LOCKER
-		/obj/item/extinguisher/mini = 1,
-		/obj/item/analyzer = 1,
-	)
 	belt = /obj/item/storage/belt/utility/chief/full
 	ears = /obj/item/radio/headset/heads/ce
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/utility/hardhat/welding/white/up
 	shoes = /obj/item/clothing/shoes/workboots
 	l_pocket = /obj/item/modular_computer/pda/heads/ce
+	r_pocket = /obj/item/melee/baton/telescopic/silver
 
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel/eng

@@ -148,7 +148,7 @@
 	access = ACCESS_MEDICAL
 	contains = list(/obj/item/defibrillator/compact)
 	crate_name = "compact defibrillator crate"
-
+/* no.
 /datum/supply_pack/medical/medigun
 	name = "CWM-479 Medigun"
 	desc = "Contains a single VeyMedical CWM-479 model medical gun; cells not included."
@@ -168,7 +168,7 @@
 		/obj/item/weaponcell/medical/toxin,
 	)
 	crate_name = "medicell replacement crate"
-
+*/
 /*
 *	SECURITY
 */

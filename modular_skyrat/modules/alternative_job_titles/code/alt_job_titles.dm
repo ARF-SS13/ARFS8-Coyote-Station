@@ -14,6 +14,7 @@
 		"AI",
 		"Automated Overseer",
 		"Station Intelligence",
+		"Newly Appointed AI"
 	)
 
 /datum/job/assistant
@@ -47,6 +48,7 @@
 		"Off-Duty Personnel",
 		"Musician",
 		"Waiter",
+		"Novice Assistant",
 	)
 
 /datum/job/atmospheric_technician
@@ -57,6 +59,8 @@
 		"Life Support Technician",
 		"HVAC Engineer",
 		"Habitability Technician",
+		"Air Make Good Person",
+		"Novice Atmospheric Tech",
 	)
 
 /datum/job/barber
@@ -68,6 +72,7 @@
 		"Salon Manager",
 		"Salon Technician",
 		"Stylist",
+		"Novice Barber",
 	)
 
 /datum/job/bartender
@@ -77,6 +82,7 @@
 		"Barkeeper",
 		"Tavernkeeper",
 		"Mixologist",
+		"Novice Bartender"
 	)
 
 /datum/job/bitrunner
@@ -89,6 +95,7 @@
 		"Union Bitrunner",
 		"Junior Runner",
 		"Professional Gamer",
+		"Novice Bitrunner",
 	)
 
 /datum/job/blueshield
@@ -115,6 +122,7 @@
 		"Hydroponicist",
 		"Mycologist",
 		"Junior Botanist",
+		"Novice Botanist",
 	)
 
 /datum/job/bouncer
@@ -143,6 +151,7 @@
 		"Facility Director",
 		"Site Manager",
 		"Station Commander",
+		"Newly Appointed Captain",
 	)
 
 /datum/job/cargo_technician
@@ -161,7 +170,9 @@
 		"Postwoman",
 		"Receiving Clerk",
 		"Union Associate",
+		"Cargo Strikebreaker",
 		"Warehouse Technician",
+		"Novice Cargo Technician",
 	)
 
 /datum/job/chaplain
@@ -194,6 +205,7 @@
 		"Pharmacist",
 		"Pharmacologist",
 		"Trainee Pharmacist",
+		"Novice Pharmacist",
 	)
 
 /datum/job/chief_engineer
@@ -203,6 +215,7 @@
 		"Engineering Foreman",
 		"Head Crystallomancer",
 		"Head of Engineering",
+		"Newly Appointed Chielf Engineer",
 	)
 
 /datum/job/chief_medical_officer
@@ -212,6 +225,7 @@
 		"Head of Medical",
 		"Head Physician",
 		"Medical Director",
+		"Newly Appointed Chief Medical Officer",
 	)
 
 /datum/job/clown
@@ -221,12 +235,12 @@
 		"Jester",
 		"Joker",
 		"Prankster",
+		"Clown in Training",
 	)
 
 /datum/job/cook
 	alt_titles = list(
 		"Cook",
-		"All-American Diner Employee",
 		"Baker",
 		"Butcher",
 		"Chef",
@@ -238,6 +252,7 @@
 		"Pastry Chef",
 		"Sous-Chef",
 		"Tavern Chef",
+		"Novice Chef",
 	)
 
 /datum/job/coroner
@@ -286,7 +301,6 @@
 		"Criminal Investigator",
 		"Forensic Scientist",
 		"Forensic Technician",
-		"Gumshoe",
 		"Private Investigator",
 	)
 
@@ -303,6 +317,7 @@
 		"Physician",
 		"Surgeon",
 		"Virologist",
+		"Novice Medical Doctor",
 	)
 
 /datum/job/geneticist
@@ -313,6 +328,7 @@
 		"Genetic Engineer",
 		"Genetics Researcher",
 		"Mutation Researcher",
+		"Novice Geneticist",
 	)
 
 /datum/job/head_of_personnel
@@ -321,6 +337,7 @@
 		"Crew Supervisor",
 		"Employment Officer",
 		"Executive Officer",
+		"Newly Appointed Head of Personnel",
 	)
 
 /datum/job/head_of_security
@@ -334,6 +351,7 @@
 		"Security Commander",
 		"Security Commissioner",
 		"Sheriff",
+		"Newly Appointed Head of Security",
 	)
 
 /datum/job/janitor
@@ -345,6 +363,7 @@
 		"Groundskeeper",
 		"Maid",
 		"Sanitation Technician",
+		"Novice Janitor",
 	)
 
 /datum/job/lawyer
@@ -358,6 +377,9 @@
 		"Magistrate",
 		"Prosecutor",
 		"Public Defender",
+		"Union Lawyer",
+		"Union Representative",
+		"Space OSHA Inspector",
 	)
 
 /datum/job/mime
@@ -388,7 +410,16 @@
 /datum/job/orderly
 	alt_titles = list(
 		"Orderly",
-		"Medical Guard",
+		"Medical Steward",
+		"Medical Custodian",
+		"Medical Attendant",
+		"Medical Support Technician",
+		"Ward Assistant",
+		"Nurse Assistant",
+		"Nursing Assistant",
+		"Healthcare Assistant",
+		"Hospital Attendant",
+		"Novice Orderly",
 	) //other dept guards' alt-titles should be kept to [department] guard to avoid confusion, unless the department gets a re-do.
 
 /datum/job/paramedic
@@ -397,6 +428,7 @@
 		"Emergency Medical Technician",
 		"Search and Rescue Technician",
 		"Trauma Team Responder",
+		"Novice Paramedic",
 	)
 
 /datum/job/prisoner
@@ -413,9 +445,7 @@
 		"Psychologist",
 		"Counsellor",
 		"Psychiatrist",
-		"Shrink",
 		"Therapist",
-		"Anger Management",
 		"Emotional Support Animal",
 	)
 
@@ -428,6 +458,7 @@
 		"Supply Foreman",
 		"Union Requisitions Officer",
 		"Warehouse Supervisor",
+		"Newly Appointed Quartermaster",
 	)
 
 /datum/job/research_director
@@ -438,6 +469,7 @@
 		"Lead Researcher",
 		"Research Supervisor",
 		"Silicon Administrator",
+		"Newly Appointed Research Director",
 	)
 
 /datum/job/roboticist
@@ -448,6 +480,7 @@
 		"Cyberneticist",
 		"Machinist",
 		"Mechatronic Engineer",
+		"Novice Roboticist",
 	)
 
 /datum/job/science_guard //See orderly
@@ -469,8 +502,10 @@
 		"Research Assistant",
 		"Resonance Researcher",
 		"Theoretical Physicist",
+		"Theoretically a Physicist",
 		"Xenoarchaeologist",
 		"Xenobiologist",
+		"Novice Scientist",
 	)
 
 /datum/job/security_officer
@@ -486,6 +521,9 @@
 		"Security Guard",
 		"Security Operative",
 		"Security Specialist",
+		"Novice Security Officer",
+		"Patrolman",
+		"Patrol Officer",
 	)
 
 /datum/job/shaft_miner
@@ -499,6 +537,7 @@
 		"Prospector",
 		"Spelunker",
 		"Union Miner",
+		"Mining Strikebreaker",
 	)
 
 /datum/job/station_engineer
@@ -511,6 +550,7 @@
 		"EVA Technician",
 		"Mechanic",
 		"Repairs Technician",
+		"Novice Engineer",
 	)
 
 /datum/job/telecomms_specialist
@@ -535,4 +575,5 @@
 		"Dispatch Officer",
 		"Jailer",
 		"Master-at-Arms",
+		"Newly Appointed Warden",
 	)

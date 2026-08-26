@@ -260,6 +260,10 @@
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
 
+/obj/item/clothing/suit/armor/vest/capcarapace/Initialize(mapload)
+	. = ..()
+	allowed = GLOB.capcarapace_allowed
+
 /datum/armor/vest_capcarapace
 	melee = 50
 	bullet = 40

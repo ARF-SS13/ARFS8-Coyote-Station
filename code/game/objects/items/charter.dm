@@ -2,6 +2,7 @@
 	name = "station charter"
 	icon = 'icons/obj/scrolls.dmi'
 	icon_state = "charter"
+	worn_icon_state = "paper"
 	desc = "An official document entrusting the governance of the station \
 		and surrounding space to the Captain."
 	var/used = FALSE

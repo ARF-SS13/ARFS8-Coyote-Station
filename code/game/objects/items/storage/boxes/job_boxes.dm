@@ -12,6 +12,7 @@
 	var/internal_type = /obj/item/tank/internals/emergency_oxygen
 	/// What medipen should be present in this box?
 	var/medipen_type = /obj/item/reagent_containers/hypospray/medipen
+	var/crowbar_type = /obj/item/crowbar/red
 	/// Are we crafted?
 	var/crafted = FALSE
 	/// Should we contain an escape hook on maps with z-levels?
@@ -38,9 +39,14 @@
 	if(!isnull(internal_type))
 		new internal_type(src)
 
+	new /obj/item/oxygen_candle(src) //SKYRAT EDIT ADDITION
+
+	if(!isnull(crowbar_type))
+		new crowbar_type(src)
+
 	if(!isnull(medipen_type))
 		new medipen_type(src)
-
+/* no space anymore. good luck on the radioactive nebula I suppose
 	if(give_premium_goods && HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
 		new /obj/item/flashlight/flare(src)
 		new /obj/item/radio/off(src)
@@ -50,9 +56,7 @@
 
 	if(give_hook && length(SSmapping.levels_by_trait(ZTRAIT_STATION)) > 1 && SSmapping.current_map.give_players_hooks)
 		new /obj/item/climbing_hook/emergency(src)
-
-	new /obj/item/oxygen_candle(src) //SKYRAT EDIT ADDITION
-
+*/
 /obj/item/storage/box/survival/radio/PopulateContents()
 	..() // we want the survival stuff too.
 	new /obj/item/radio/off(src)
@@ -82,7 +86,7 @@
 
 /obj/item/storage/box/survival/mining/PopulateContents()
 	..()
-	new /obj/item/crowbar/red(src)
+	new /obj/item/reagent_containers/hypospray/medipen/survival(src)
 	new /obj/item/healthanalyzer/simple/miner(src)
 
 // Engineer survival box
@@ -108,7 +112,6 @@
 
 /obj/item/storage/box/survival/syndie/PopulateContents()
 	..()
-	new /obj/item/crowbar/red(src)
 	new /obj/item/screwdriver/red(src)
 	new /obj/item/weldingtool/mini(src)
 	new /obj/item/paper/fluff/operative(src)
@@ -119,21 +122,38 @@
 	illustration = "extendedtank"
 	internal_type = /obj/item/tank/internals/emergency_oxygen/double
 
-/obj/item/storage/box/survival/centcom/PopulateContents()
-	. = ..()
-	new /obj/item/crowbar(src)
-
 // Security survival box
 /obj/item/storage/box/survival/security
 	mask_type = /obj/item/clothing/mask/gas/sechailer
 
-/obj/item/storage/box/survival/security/radio/PopulateContents()
+/obj/item/storage/box/survival/security/PopulateContents()
 	..() // we want the regular stuff too
-	new /obj/item/radio/off(src)
+	new /obj/item/security_voucher/utility(src)
+	new /obj/item/evidencebag(src)
+
+/obj/item/storage/box/survival/detective
+	name = "detective survival box"
+	desc = "A box with the bare essentials for survival and securing the scene."
+	icon_state = "engibox"
+	crowbar_type = /obj/item/crowbar // a more demure color
+/obj/item/storage/box/survival/detective/PopulateContents()
+	..()
+	new /obj/item/toy/crayon/white(src)
+	new /obj/item/evidencebag(src)
 
 // Medical survival box
 /obj/item/storage/box/survival/medical
 	mask_type = /obj/item/clothing/mask/breath/medical
+
+/obj/item/storage/box/survival/medical/emergency/PopulateContents()
+	..()
+	new /obj/item/reagent_containers/hypospray/medipen(src)
+	new /obj/item/flashlight/pen/paramedic(src) // stopping this from taking up entire suit slots of initial loadout
+
+/obj/item/storage/box/survival/medical/coroner/PopulateContents()
+	..()
+	new /obj/item/storage/box/bodybags(src)
+	new /obj/item/storage/box/bodybags(src)
 
 /obj/item/storage/box/survival/crafted
 	crafted = TRUE
@@ -230,14 +250,18 @@
 	var/random_funny_internals = TRUE
 
 /obj/item/storage/box/survival/hug/PopulateContents()
-	if(!random_funny_internals)
-		return ..()
-	internal_type = pick(
+	if(random_funny_internals)
+		internal_type = pick(
 			/obj/item/tank/internals/emergency_oxygen/engi/clown/n2o,
 			/obj/item/tank/internals/emergency_oxygen/engi/clown/bz,
 			/obj/item/tank/internals/emergency_oxygen/engi/clown/helium,
 			)
-	return ..()
+	..()
+
+/obj/item/storage/box/survival/hug/clown/PopulateContents()
+	..()
+	new /obj/item/food/grown/banana(src)
+	new /obj/item/bikehorn(src)
 
 //Mime survival box
 /obj/item/storage/box/survival/hug/black
