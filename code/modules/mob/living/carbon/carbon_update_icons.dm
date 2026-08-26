@@ -288,7 +288,8 @@
 
 /mob/living/carbon/update_damage_overlays()
 	remove_overlay(DAMAGE_LAYER)
-
+	if(IsFeral())//coyote add
+		return
 	var/mutable_appearance/damage_overlay
 	for(var/obj/item/bodypart/iter_part as anything in bodyparts)
 		if(!iter_part.dmg_overlay_type)
@@ -313,7 +314,8 @@
 /// Handles bleeding overlays
 /mob/living/carbon/proc/update_wound_overlays()
 	remove_overlay(WOUND_LAYER)
-
+	if(IsFeral())//coyote add
+		return
 	var/datum/blood_type/blood_type = get_bloodtype()
 	if(!blood_type || !can_bleed())
 		return
@@ -479,6 +481,9 @@
 /mob/living/carbon/proc/update_body_parts(update_limb_data)
 	update_damage_overlays()
 	update_wound_overlays()
+	if(IsFeral())//coyote add
+		UpdateFeralBody()
+		return//coyote add end
 	var/list/needs_update = list()
 	var/limb_count_update = 0
 	for(var/obj/item/bodypart/limb as anything in bodyparts)

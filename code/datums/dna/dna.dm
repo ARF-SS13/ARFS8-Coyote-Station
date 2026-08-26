@@ -60,7 +60,8 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	var/static/list/nonfatal_meltdowns = list()
 	/// Weighted list of lethal meltdowns
 	var/static/list/fatal_meltdowns = list()
-
+	/// simple_icon species icon_state prefix
+	var/alt_appearance
 /datum/dna/New(mob/living/new_holder)
 	if(istype(new_holder))
 		holder = new_holder

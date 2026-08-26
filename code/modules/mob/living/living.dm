@@ -750,6 +750,8 @@
 				to_chat(src, "<span class='notice'>You stand up.</span>")*/
 			get_up(instant)
 
+	UpdateFeralBody()//coyote add
+
 	SEND_SIGNAL(src, COMSIG_LIVING_RESTING, new_resting, silent, instant)
 	update_resting()
 
@@ -817,6 +819,7 @@
 		setDir(pick(NORTH, SOUTH)) // We are and look helpless.
 	if(rotate_on_lying)
 		add_offsets(LYING_DOWN_TRAIT, y_add = PIXEL_Y_OFFSET_LYING)
+	UpdateFeralBody()//coyote add
 
 /// Proc to append behavior related to lying down.
 /mob/living/proc/on_standing_up()
@@ -824,6 +827,7 @@
 		layer = initial(layer)
 	remove_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED, TRAIT_UNDENSE), LYING_DOWN_TRAIT)
 	remove_offsets(LYING_DOWN_TRAIT)
+	UpdateFeralBody()//coyote add
 
 /mob/living/proc/update_density()
 	if(HAS_TRAIT(src, TRAIT_UNDENSE))
@@ -2548,6 +2552,8 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 			remove_from_alive_mob_list()
 			add_to_dead_mob_list()
 			log_combat(src, src, "died")
+
+	UpdateFeralBody()//coyote add
 
 ///Reports the event of the change in value of the buckled variable.
 /mob/living/proc/set_buckled(new_buckled)
