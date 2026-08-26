@@ -34771,12 +34771,6 @@
 "sVH" = (
 /turf/closed/wall/r_wall,
 /area/station/command/eva)
-"sVM" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/fireaxecabinet/directional/north,
-/obj/structure/fireaxecabinet/directional/north,
-/turf/open/floor/plating,
-/area/station/hallway/secondary/entry)
 "sWg" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -70162,7 +70156,7 @@ xNI
 sde
 bzw
 lYJ
-sVM
+xxI
 lYJ
 xxI
 ihk
