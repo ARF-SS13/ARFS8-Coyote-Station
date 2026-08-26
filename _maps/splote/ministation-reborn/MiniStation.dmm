@@ -6058,9 +6058,6 @@
 /obj/effect/turf_decal/trimline/yellow/filled/line,
 /turf/open/floor/iron,
 /area/station/tcommsat/computer)
-"dwi" = (
-/turf/open/space/openspace,
-/area/station/asteroid)
 "dwp" = (
 /turf/closed/wall,
 /area/station/service/cafeteria)
@@ -30989,6 +30986,7 @@
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "qSj" = (
+/obj/vehicle/ridden/janicart,
 /turf/open/floor/iron,
 /area/station/service/janitor)
 "qSm" = (
@@ -34500,7 +34498,6 @@
 /area/station/service/barber)
 "sPo" = (
 /obj/item/radio/intercom/directional/north,
-/obj/vehicle/ridden/janicart,
 /obj/structure/sink/basin/directional/south{
 	pixel_y = 10
 	},
@@ -73495,7 +73492,7 @@ odm
 dLv
 gQj
 fHQ
-mpB
+qSj
 qjI
 wQQ
 gQj
@@ -74267,7 +74264,7 @@ eyk
 gQj
 uyW
 gqV
-qSj
+mpB
 qcT
 gQj
 gLM
@@ -153086,7 +153083,7 @@ hON
 hON
 hON
 mKh
-dwi
+mKh
 wzv
 wzv
 wzv
@@ -153343,7 +153340,7 @@ hON
 hON
 hON
 hON
-dwi
+mKh
 wzv
 wzv
 wzv
@@ -153600,7 +153597,7 @@ hON
 hON
 hON
 hON
-dwi
+mKh
 wzv
 wzv
 wzv
@@ -153857,7 +153854,7 @@ hON
 hON
 hON
 hON
-dwi
+mKh
 wzv
 wzv
 wzv
@@ -154114,7 +154111,7 @@ hON
 hON
 hON
 hON
-dwi
+mKh
 wzv
 wzv
 wzv
@@ -154371,7 +154368,7 @@ hON
 hON
 hON
 hON
-dwi
+mKh
 wzv
 wzv
 wzv
@@ -154628,7 +154625,7 @@ hON
 hON
 hON
 hON
-dwi
+mKh
 wzv
 wzv
 wzv
@@ -154885,7 +154882,7 @@ hON
 hON
 hON
 hON
-dwi
+mKh
 wzv
 wzv
 wzv
@@ -155142,8 +155139,8 @@ hON
 hON
 hON
 hON
-dwi
-dwi
+mKh
+mKh
 wzv
 wzv
 wzv
@@ -155399,8 +155396,8 @@ hON
 hON
 hON
 hON
-dwi
-dwi
+mKh
+mKh
 wzv
 wzv
 wzv
