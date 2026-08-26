@@ -153,8 +153,8 @@ function tnbColumn(category: 'Temperaments' | 'Builds') {
                   cursor: char_tnb_count ? 'pointer' : undefined,
                 }}
                 onClick={() => {
-                  act('operate_tnb', {
-                    tnb_clear_cat: category === 'Temperaments' ? 'T' : 'B',
+                  act('operate_csnip', {
+                    csnip_clear_cat: category === 'Temperaments' ? 'T' : 'B',
                   });
                 }}
                 tooltip={`Clear all ${category}`}
@@ -174,8 +174,8 @@ function tnbColumn(category: 'Temperaments' | 'Builds') {
                     <Stack.Item key={tnb.name}>
                       <TemperamentBuildButton
                         onClick={() => {
-                          act('operate_tnb', {
-                            tnb_string_path: tnb.path,
+                          act('operate_csnip', {
+                            csnip_string_path: tnb.path,
                           });
                         }}
                         whichTnb={tnb}
@@ -190,8 +190,8 @@ function tnbColumn(category: 'Temperaments' | 'Builds') {
                     <Stack.Item key={tnb.name}>
                       <TemperamentBuildButton
                         onClick={() => {
-                          act('operate_tnb', {
-                            tnb_string_path: tnb.path,
+                          act('operate_csnip', {
+                            csnip_string_path: tnb.path,
                           });
                         }}
                         whichTnb={tnb}

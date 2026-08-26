@@ -159,6 +159,17 @@ function WindowContent(props: ContentProps) {
   const [altDown, setAltDown] = useState(false);
 
   function dragStartIfAltHeld(event: React.MouseEvent<HTMLDivElement>): void {
+    const target = event.target as HTMLElement;
+
+    // ignore scrollbar / content drag interactions
+    if (
+      target.closest(
+        '[data-scrollable="true"], .Window__content, .Window__contentPadding',
+      )
+    ) {
+      return;
+    }
+
     if (altDown) {
       dragStartHandler(event);
     }

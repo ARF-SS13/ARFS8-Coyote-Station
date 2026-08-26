@@ -1,113 +1,217 @@
-GLOBAL_LIST_INIT(max_tnb_sel, list(
-	TNB_TEMPERAMENT = 2,
-	TNB_BUILD = 2,
-))
+/datum/preference_middleware/character_snippets
+	var/modding_something = FALSE
 
-/datum/preference_middleware/temperaments_and_builds/New(datum/prefs_holder)
+/datum/preference_middleware/character_snippets/New(datum/prefs_holder)
 	. = ..()
 	action_delegations += list(
-		"operate_tnb" = PROC_REF(operate_tnb),
+		"operate_csnip" = PROC_REF(operate_csnip),
 	)
-/// PREFS FORMAT: list("temperaments" = list("/datum/temperament_build"), "builds" = list("/datum/temperament_build"))
+
+// FPREFSORMAT: list("/datum/character_snippet", etc)
 /// is given a tnb string, and then we determine what do with it
-/datum/preference_middleware/temperaments_and_builds/proc/operate_tnb(list/params, mob/user)
+/datum/preference_middleware/character_snippets/proc/operate_csnip(list/params, mob/user)
 	// clear it
-	var/tnb_clear_cat = params["tnb_clear_cat"]
-	if(tnb_clear_cat == "T" || tnb_clear_cat == "B")
-		var/list/curr = preferences.read_preference(/datum/preference/temperaments_and_builds)
-		curr |= list(TNB_TEMPERAMENT = list(), TNB_BUILD = list())
-		if(tnb_clear_cat == "T")
-			curr[TNB_TEMPERAMENT] = list()
-		else if(tnb_clear_cat == "B")
-			curr[TNB_BUILD] = list()
-		preferences.write_preference(GLOB.preference_entries[/datum/preference/temperaments_and_builds], curr)
+	var/csnip_clear_cat = params["csnip_clear_cat"]
+	var/static/list/csnip_cats = list(
+		"T" = CSNIP_TEMPERAMENT,
+		"B" = CSNIP_BUILD,
+		"E" = CSNIP_EARLY_BACKGROUND,
+		"A" = CSNIP_ADULT_BACKGROUND,
+	)
+	if(csnip_cats[csnip_clear_cat])
+		csnip_clear_cat = csnip_cats[csnip_clear_cat]
+		var/datum/preference/character_snippets/prefuse
+		switch(csnip_clear_cat)
+			if(CSNIP_TEMPERAMENT)
+				prefuse = /datum/preference/character_snippets/temperaments
+			if(CSNIP_BUILD)
+				prefuse = /datum/preference/character_snippets/builds
+			if(CSNIP_EARLY_BACKGROUND)
+				prefuse = /datum/preference/character_snippets/early_backgrounds
+			if(CSNIP_ADULT_BACKGROUND)
+				prefuse = /datum/preference/character_snippets/adult_backgrounds
+		preferences.write_preference(GLOB.preference_entries[prefuse], list())
+		return TRUE
+
+	// modify a background thing!
+	var/mod_this_path = params["bg_flavor_mod_path"]
+	if(mod_this_path) // it'll open a window for the user to modify the background flavor text
+		var/datum/character_snippet/bg_to_mod = SSdans_cool_prefs.get_snippet_by_string_path(mod_this_path) // to check if its a thing
+		if(!bg_to_mod)
+			return FALSE
+		modding_something = TRUE
+		var/list/bg_data = preferences.read_preference(/datum/preference/character_snippets/background_extras) || list()
+		var/thetext = bg_data["[mod_this_path]"] || ""
+		var/new_text = tgui_input_text(
+			user,
+			"Customize what this background means to your character! For instance, if you have a background of 'has a sister', you could write about them here!<br>\
+			Military service? Describe which branch, what you did, and how it affected you!<br>\
+			Horrible debt? Describe how bad it is, how you got into it, and how it affects your life!<br>\
+			<br>\
+			Maximum length is 512 characters. Special characters may be clipped, multiline should be okay.<br>\
+			Also these are saved separately, so if you remove the background, the text *should* be retained for if you add it back later!",
+			"Expand upon: [bg_to_mod.name]",
+			thetext,
+			512,
+			TRUE,
+			TRUE,
+			null,
+			null,
+			TRUE,
+			TRUE,
+		) // man look at all them args!
+		modding_something = FALSE
+		if(new_text == TGUI_TEXT_MODAL_CANCEL_TOKEN)
+			to_chat(user, span_notice("Okay never mind!!"))
+			return TRUE
+		if(!new_text)
+			modding_something = TRUE
+			var/r_u_sure = tgui_alert(
+				user,
+				"Are you sure you want to clear the flavor text for this background?",
+				"Clear Flavor Text?",
+				list("Yes, clear it", "No, cancel!"),
+			)
+			modding_something = FALSE
+			if(r_u_sure != "Yes, clear it")
+				to_chat(user, span_notice("Okay never mind!!"))
+				return TRUE
+		modding_something = FALSE
+		var/newertext = "[new_text]" || ""
+		// ok now set it or something
+		bg_data["[mod_this_path]"] = newertext
+		preferences.write_preference(GLOB.preference_entries[/datum/preference/character_snippets/background_extras], bg_data)
+		to_chat(user, span_notice("Saved!"))
 		return TRUE
 
 	// toogle it
-	var/chosen_txt = params["tnb_string_path"]
+	var/chosen_txt = params["csnip_string_path"]
+	var/back_which = csnip_cats[params["csnip_back_which"]]
 	if(!LAZYLEN(chosen_txt))
 		return FALSE
-	var/datum/temperament_build/chosen = GLOB.all_temperaments_and_builds_datums["[chosen_txt]"]
-	if(!istype(chosen))
+	var/datum/character_snippet/chosen = SSdans_cool_prefs.get_snippet_by_string_path(chosen_txt)
+	if(!istype(chosen, /datum/character_snippet))
 		return FALSE
-	// FORMAT: list("temperaments" = list("/datum/temperament_build"), "builds" = list("/datum/temperament_build"))
-	var/list/player_tnbs = preferences.read_preference(/datum/preference/temperaments_and_builds)
-	player_tnbs |= list(TNB_TEMPERAMENT = list(), TNB_BUILD = list())
-	/// FORMAT: list("temperaments" = list("tnb/paths"), "builds" = list("tnb/paths"))
+	var/datum/preference/character_snippets/prefuse
+	switch(chosen.category_csnip)
+		if(CSNIP_TEMPERAMENT)
+			prefuse = /datum/preference/character_snippets/temperaments
+		if(CSNIP_BUILD)
+			prefuse = /datum/preference/character_snippets/builds
+		if(CSNIP_BACKGROUND)
+			switch(back_which)
+				if(CSNIP_EARLY_BACKGROUND)
+					prefuse = /datum/preference/character_snippets/early_backgrounds
+				if(CSNIP_ADULT_BACKGROUND)
+					prefuse = /datum/preference/character_snippets/adult_backgrounds
+				else
+					prefuse = /datum/preference/character_snippets/adult_backgrounds // whatevs
+	// FORMAT: list("/datum/character_snippet", etc)
+	var/list/player_snips = preferences.read_preference(prefuse)
+	/// FORMAT: list("tnb/paths")
 	var/has_it = FALSE
-	for(var/tnb_cat in player_tnbs)
-		for(var/tnb_string_path in player_tnbs[tnb_cat])
-			if(tnb_string_path == "[chosen.type]")
-				has_it = TRUE
+	for(var/csnip_string_path in player_snips)
+		if(csnip_string_path == "[chosen.type]")
+			has_it = TRUE
 	var/didsomething = FALSE
 	if(!has_it) // lacks tnb, try to add it! gotta be under the limit for the t/b categories!
 		// first see if this is part of a set, and if so, remove the other tnb in that set
 		if(chosen.set_key)
-			for(var/tnb_cat in player_tnbs)
-				for(var/tnb_string_path in player_tnbs[tnb_cat])
-					var/datum/temperament_build/other = GLOB.all_temperaments_and_builds_datums["[tnb_string_path]"]
-					if(other && other.set_key == chosen.set_key)
-						player_tnbs["[tnb_cat]"] -= "[tnb_string_path]"
-		if(LAZYLEN(player_tnbs["[chosen.tnb_category]"]) < GLOB.max_tnb_sel["[chosen.tnb_category]"])
-			player_tnbs["[chosen.tnb_category]"] += "[chosen.type]"
+			for(var/csnip_string_path in player_snips)
+				var/datum/character_snippet/other = SSdans_cool_prefs.get_snippet_by_string_path(csnip_string_path)
+				if(other && other.set_key == chosen.set_key)
+					player_snips -= "[csnip_string_path]"
+		if(LAZYLEN(player_snips) < SSdans_cool_prefs.get_max_for(back_which || chosen.category_csnip))
+			player_snips += "[chosen.type]"
 			didsomething = TRUE
 	else
 		// already has it, remove
-		player_tnbs["[chosen.tnb_category]"] -= "[chosen.type]"
+		player_snips -= "[chosen.type]"
 		didsomething = TRUE
 	if(didsomething)
-		preferences.write_preference(GLOB.preference_entries[/datum/preference/temperaments_and_builds], player_tnbs)
+		preferences.write_preference(GLOB.preference_entries[prefuse], player_snips)
 	return TRUE
 
 // idk how prefs work, so imma just do it the way makes sense
-/datum/preference_middleware/temperaments_and_builds/get_ui_static_data(mob/user)
-	var/gendy = preferences.read_preference(/datum/preference/choiced/gender)
-	var/namey = preferences.read_preference(/datum/preference/name/real_name)
-	var/list/data = list()
-	data["max_temperaments"] = GLOB.max_tnb_sel[TNB_TEMPERAMENT]
-	data["max_builds"] = GLOB.max_tnb_sel[TNB_BUILD]
-	data["server_temperaments"] = list()
-	data["server_builds"] = list()
-	for(var/tbtxt in GLOB.all_temperaments_and_builds_datums)
-		var/datum/temperament_build/tb = GLOB.all_temperaments_and_builds_datums["[tbtxt]"]
-		var/list/tnbingus_entry = list()
-		tnbingus_entry["name"] = tb.name
-		tnbingus_entry["desc"] = tb.desc
-		tnbingus_entry["category"] = tb.tnb_category
-		tnbingus_entry["example"] = tb.get_example(gendy, namey)
-		tnbingus_entry["path"] = "[tb.type]"
-		tnbingus_entry["set_key"] = tb.set_key
-		if(tb.tnb_category == TNB_TEMPERAMENT)
-			data["server_temperaments"] += list(tnbingus_entry)
-		else if(tb.tnb_category == TNB_BUILD)
-			data["server_builds"] += list(tnbingus_entry)
+/datum/preference_middleware/character_snippets/get_ui_static_data(mob/user)
+	var/gendy      = preferences.read_preference(/datum/preference/choiced/gender)
+	var/namey      = preferences.read_preference(/datum/preference/name/real_name)
+	var/list/maxes = SSdans_cool_prefs.get_max_for()
+	var/list/mins  = SSdans_cool_prefs.get_min_for()
+	var/list/data  = list()
+	data["max_temperaments"]      = maxes[CSNIP_TEMPERAMENT]
+	data["max_builds"]            = maxes[CSNIP_BUILD]
+	data["max_early_backgrounds"] = maxes[CSNIP_EARLY_BACKGROUND]
+	data["max_adult_backgrounds"] = maxes[CSNIP_ADULT_BACKGROUND]
+
+	data["min_temperaments"]      = mins[CSNIP_TEMPERAMENT]
+	data["min_builds"]            = mins[CSNIP_BUILD]
+	data["min_early_backgrounds"] = mins[CSNIP_EARLY_BACKGROUND]
+	data["min_adult_backgrounds"] = mins[CSNIP_ADULT_BACKGROUND]
+
+	data["server_temperaments"]           = list()
+	data["server_builds"]                 = list()
+	data["server_tab_groups"]             = list()
+	data["server_tabs"]                   = list()
+	data["server_backgrounds"]            = list()
+	data["server_backgrounds_paginated"]  = list()
+	var/list/paginated_slugs = list()
+	var/list/current_page = list()
+	for(var/csnip_string_path in SSdans_cool_prefs.all_snippets)
+		var/list/slug = SSdans_cool_prefs.get_tgui_data_for_snippet(csnip_string_path, gendy, namey)
+		switch(slug["category"])
+			if(CSNIP_TEMPERAMENT)
+				data["server_temperaments"] += list(slug)
+			if(CSNIP_BUILD)
+				data["server_builds"] += list(slug)
+			if(CSNIP_BACKGROUND, CSNIP_EARLY_BACKGROUND, CSNIP_ADULT_BACKGROUND)
+				data["server_backgrounds"] += list(slug)
+				current_page += list(slug)
+				if(LAZYLEN(current_page) >= SSdans_cool_prefs.max_backgrounds_per_page)
+					paginated_slugs += list(current_page)
+					current_page = list()
+				var/tab = slug["subcategory"]
+				LAZYADD(data["server_tab_groups"][tab], slug)
+				data["server_tabs"] |= tab
+	if(LAZYLEN(current_page))
+		paginated_slugs += list(current_page)
+	data["server_tabs"] = sort_list(data["server_tabs"]) || list() // alphebeticalisze
+	data["server_backgrounds_paginated"] += paginated_slugs
 	return data
 
-/datum/preference_middleware/temperaments_and_builds/get_ui_data(mob/user)
-	var/gendy = preferences.read_preference(/datum/preference/choiced/gender)
-	var/namey = preferences.read_preference(/datum/preference/name/real_name)
+#define BG_LACKS_IT 0
+#define BG_HAS_AS_EARLY 1
+#define BG_HAS_AS_ADULT 2
+#define BG_HAS_AS_BOTH 3
+/datum/preference_middleware/character_snippets/get_ui_data(mob/user)
+	var/gendy     = preferences.read_preference(/datum/preference/choiced/gender)
+	var/namey     = preferences.read_preference(/datum/preference/name/real_name)
 	var/list/data = list()
-	data["player_temperaments"] = list()
-	data["player_builds"] = list()
-	var/list/player_tnbs = preferences.read_preference(/datum/preference/temperaments_and_builds)
-	for(var/tnb_cat in player_tnbs)
-		for(var/tnb in player_tnbs[tnb_cat])
-			var/datum/temperament_build/tb = GLOB.all_temperaments_and_builds_datums["[tnb]"]
-			if(!tb)
-				continue
-			var/list/tnbingus_entry = list()
-			tnbingus_entry["name"] = tb.name
-			tnbingus_entry["desc"] = tb.desc
-			tnbingus_entry["category"] = tb.tnb_category
-			tnbingus_entry["example"] = tb.get_example(gendy, namey)
-			tnbingus_entry["path"] = "[tb.type]"
-			tnbingus_entry["set_key"] = tb.set_key
-			tnbingus_entry["order"] = tb.order
-			if(tb.tnb_category == TNB_TEMPERAMENT)
-				data["player_temperaments"] += list(tnbingus_entry)
-			else if(tb.tnb_category == TNB_BUILD)
-				data["player_builds"] += list(tnbingus_entry)
-	data["max_temperaments"] = GLOB.max_tnb_sel[TNB_TEMPERAMENT]
-	data["max_builds"] = GLOB.max_tnb_sel[TNB_BUILD]
+	data["player_temperaments"]      = list()
+	data["player_builds"]            = list()
+	data["player_early_backgrounds"] = list()
+	data["player_adult_backgrounds"] = list()
+	var/static/list/csnip_prefs = subtypesof(/datum/preference/character_snippets)
+	var/list/player_csnips = list()
+	for(var/preffy in csnip_prefs)
+		player_csnips["[preffy]"] = preferences.read_preference(preffy)
+	for(var/csnip_pref in player_csnips)
+		var/list/valist = player_csnips[csnip_pref]
+		for(var/csnip_string in valist)
+			var/list/slug = SSdans_cool_prefs.get_tgui_data_for_snippet(csnip_string, gendy, namey)
+			switch(csnip_pref)
+				if("/datum/preference/character_snippets/temperaments")
+					data["player_temperaments"]       += list(slug)
+				if("/datum/preference/character_snippets/builds")
+					data["player_builds"]             += list(slug)
+				if("/datum/preference/character_snippets/early_backgrounds")
+					data["player_early_backgrounds"]  += list(slug)
+				if("/datum/preference/character_snippets/adult_backgrounds")
+					data["player_adult_backgrounds"]  += list(slug)
+	data["player_backgrounds"] =  preferences.read_preference(/datum/preference/character_snippets/background_extras) || list()
 	return data
 
+#undef BG_LACKS_IT
+#undef BG_HAS_AS_EARLY
+#undef BG_HAS_AS_ADULT
+#undef BG_HAS_AS_BOTH

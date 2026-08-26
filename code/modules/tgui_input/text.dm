@@ -15,7 +15,19 @@
  * * encode - Toggling this determines if input is filtered via html_encode. Setting this to FALSE gives raw input.
  * * timeout - The timeout of the textbox, after which the modal will close and qdel itself. Set to zero for no timeout.
  */
-/proc/tgui_input_text(mob/user, message = "", title = "Text Input", default, max_length, multiline = FALSE, encode = TRUE, timeout = 0, ui_state = GLOB.always_state)
+/proc/tgui_input_text(
+	mob/user,
+	message = "",
+	title = "Text Input",
+	default,
+	max_length,
+	multiline = FALSE,
+	encode = TRUE,
+	timeout = 0,
+	ui_state = GLOB.always_state,
+	send_cancel_token = null,
+	forceHTML = FALSE
+)
 	if (!user)
 		user = usr
 	if (!istype(user))
@@ -40,7 +52,7 @@
 				return input(user, message, title, default) as message|null
 			else
 				return input(user, message, title, default) as text|null
-	var/datum/tgui_input_text/text_input = new(user, message, title, default, max_length, multiline, encode, timeout, ui_state)
+	var/datum/tgui_input_text/text_input = new(user, message, title, default, max_length, multiline, encode, timeout, ui_state, send_cancel_token, forceHTML)
 	text_input.ui_interact(user)
 	text_input.wait()
 	if (text_input)
@@ -74,10 +86,14 @@
 	var/timeout
 	/// The title of the TGUI window
 	var/title
+	/// Send a cancel token to identify the cancellation action, as opposed to closing with a blank input
+	var/send_cancel_token
+	/// Force the message to be interpreted as HTML, instead of just text. This is useful for allowing line breaks and other formatting in the message.
+	var/forceHTML
 	/// The TGUI UI state that will be returned in ui_state(). Default: always_state
 	var/datum/ui_state/state
 
-/datum/tgui_input_text/New(mob/user, message, title, default, max_length, multiline, encode, timeout, ui_state)
+/datum/tgui_input_text/New(mob/user, message, title, default, max_length, multiline, encode, timeout, ui_state, send_cancel_token, forceHTML)
 	src.default = default
 	src.encode = encode
 	src.max_length = max_length
@@ -85,6 +101,8 @@
 	src.multiline = multiline
 	src.title = title
 	src.state = ui_state
+	src.send_cancel_token = send_cancel_token
+	src.forceHTML = forceHTML
 	if (timeout)
 		src.timeout = timeout
 		start_time = world.time
@@ -141,14 +159,17 @@
 		if("submit")
 			if(max_length)
 				if(length_char(params["entry"]) > max_length)
+					to_chat(usr, span_notice("Oh no, your message was too long! it was: [params["entry"]]"))
 					CRASH("[usr] typed a text string longer than the max length")
 				if(encode && (length_char(html_encode(params["entry"])) > max_length))
-					to_chat(usr, span_notice("Your message was clipped due to special character usage."))
+					to_chat(usr, span_notice("Your message was clipped due to special character usage. The message was: [params["entry"]]"))
 			set_entry(params["entry"])
 			closed = TRUE
 			SStgui.close_uis(src)
 			return TRUE
 		if("cancel")
+			if(send_cancel_token)
+				set_entry(TGUI_TEXT_MODAL_CANCEL_TOKEN) // ඞ
 			closed = TRUE
 			SStgui.close_uis(src)
 			return TRUE
