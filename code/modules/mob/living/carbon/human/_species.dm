@@ -244,6 +244,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/check_roundstart_eligible()
 	if(id in (CONFIG_GET(keyed_list/roundstart_races)))
 		return TRUE
+	if(roundstart)//coyote edit start
+		return TRUE//coyote edit end
 	return FALSE
 
 /**
