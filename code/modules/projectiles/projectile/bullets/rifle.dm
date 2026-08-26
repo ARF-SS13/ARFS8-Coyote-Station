@@ -26,6 +26,12 @@
 	wound_bonus = 0
 	exposed_wound_bonus = 15
 
+/obj/projectile/bullet/m762r/surplus
+	armour_penetration = 0
+	damage_falloff_tile = -1
+	wound_bonus = -100
+	exposed_wound_bonus = -100
+
 // .310 Strilka (Sakhno Rifle)
 
 /obj/projectile/bullet/strilka310

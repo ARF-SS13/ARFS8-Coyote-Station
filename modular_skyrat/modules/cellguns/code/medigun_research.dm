@@ -1,3 +1,4 @@
+/* removing mediguns. they're NRP. how do you roleplay around someone shooting at you?
 #define RND_SUBCATEGORY_WEAPONS_MEDICALAMMO "/Medical Ammunition"
 #define RND_MEDICALAMMO_UTILITY " (Utility)"
 
@@ -245,3 +246,4 @@
 
 #undef RND_SUBCATEGORY_WEAPONS_MEDICALAMMO
 #undef RND_MEDICALAMMO_UTILITY
+*/

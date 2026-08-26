@@ -1,6 +1,6 @@
 /obj/item/clothing/gloves/fingerless/punch_mitts
 	name = "punching mitts"
-	desc = "Fingerless gloves with nasty spikes attached. Allows the wearer to utilize the ill-reputed fighting technique known as Hunter Boxing. The style \
+	desc = "Fingerless gloves with hardened knuckles. Allows the wearer to utilize the ill-reputed fighting technique known as Hunter Boxing. The style \
 		allows the user to rapidly punch wildlife into smithereens. Great workout. Extremely ill-advised for ensuring your own personal survival."
 	icon_state = "punch_mitts"
 	body_parts_covered = HANDS //Coyote change - bro these are fingerless GLOVES not fingerless fucking princess sleeves. ~Fenny

@@ -72,9 +72,6 @@
 	jobtype = /datum/job/bridge_assistant
 
 	id_trim = /datum/id_trim/job/bridge_assistant
-	backpack_contents = list(
-		/obj/item/modular_computer/pda/bridge_assistant = 1,
-	)
 
 	uniform = /obj/item/clothing/under/trek/command/next
 	neck = /obj/item/clothing/neck/large_scarf/blue
@@ -84,9 +81,9 @@
 	gloves = /obj/item/clothing/gloves/fingerless
 	head = /obj/item/clothing/head/soft/black
 	shoes = /obj/item/clothing/shoes/laceup
-	l_pocket = /obj/item/gun/energy/e_gun/mini
-	r_pocket = /obj/item/assembly/flash/handheld
-	pda_slot = ITEM_SLOT_BACK
+	l_pocket = /obj/item/modular_computer/pda/bridge_assistant
+	r_pocket = /obj/item/gun/energy/e_gun/mini
+	pda_slot = ITEM_SLOT_LPOCKET
 
 // Coffeemaker time!
 /datum/job/bridge_assistant/New()

@@ -6,6 +6,12 @@
 	caliber = CALIBER_M762R
 	projectile_type = /obj/projectile/bullet/m762r
 
+/obj/item/ammo_casing/m762r/surplus
+	projectile_type = /obj/projectile/bullet/m762r/surplus
+	can_misfire = TRUE
+	misfire_increment = 2
+	integrity_damage = 4
+
 // .310 Strilka (Sakhno Rifle)
 
 /obj/item/ammo_casing/strilka310

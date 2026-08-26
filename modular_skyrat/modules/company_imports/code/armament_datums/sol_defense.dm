@@ -1,3 +1,4 @@
+/*
 /datum/armament_entry/company_import/sol_defense
 	category = COMPANY_NAME_SOL_DEFENSE_DEFENSE
 	company_bitflag = CARGO_COMPANY_SOL_DEFENSE
@@ -148,3 +149,4 @@ These one are simply rediculous, but we'll keep it there incase someone has idea
 	contraband = TRUE
 
 //These two don't really bothers me
+*/

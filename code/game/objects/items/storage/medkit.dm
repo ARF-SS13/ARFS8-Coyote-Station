@@ -365,6 +365,7 @@
 		/obj/item/reagent_containers/blood = 1,
 		/obj/item/bodybag = 2,
 		/obj/item/reagent_containers/syringe = 1,
+		/obj/item/reagent_containers/dropper = 1,
 	)
 	generate_items_inside(items_inside,src)
 

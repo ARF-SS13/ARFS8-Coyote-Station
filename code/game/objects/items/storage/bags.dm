@@ -345,6 +345,12 @@
 	resistance_flags = FLAMMABLE
 	storage_type = /datum/storage/bag/books
 
+/obj/item/storage/bag/books/curator/PopulateContents()
+	new /obj/item/glassblowing/magnifying_glass(src)
+	new /obj/item/barcodescanner(src)
+	new /obj/item/laser_pointer/green(src)
+	new /obj/item/key/displaycase(src)
+
 /obj/item/storage/bag/tray
 	name = "serving tray"
 	icon = 'icons/obj/food/containers.dmi'

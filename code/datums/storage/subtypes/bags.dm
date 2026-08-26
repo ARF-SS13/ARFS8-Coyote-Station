@@ -105,7 +105,11 @@
 		/obj/item/book,
 		/obj/item/spellbook,
 		/obj/item/poster,
-	))
+		/obj/item/glassblowing/magnifying_glass,
+		/obj/item/barcodescanner,
+		/obj/item/laser_pointer,
+		/obj/item/key,
+	)) // can hold a few extra useful curator tools, as a treat
 
 ///Tray bag
 /datum/storage/bag/tray

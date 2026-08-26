@@ -46,28 +46,23 @@
 	name = "Security Medic"
 	jobtype = /datum/job/security_medic
 
-	backpack_contents = list(
-		// /obj/item/security_voucher/primary = 1,
-		/obj/item/clothing/head/helmet/sec = 1,
-		/obj/item/storage/belt/security/full = 1,
-		/obj/item/gun/energy/e_gun/advtaser = 1,
-		/obj/item/security_voucher/utility = 1
-		)
-	suit_store = /obj/item/flashlight/seclite
-	belt = /obj/item/modular_computer/pda/security
+	suit_store = /obj/item/storage/medkit/brute
+	belt = /obj/item/storage/belt/security/full
 	ears = /obj/item/radio/headset/headset_medsec
 	uniform = /obj/item/clothing/under/rank/security/peacekeeper/security_medic
 	gloves = /obj/item/clothing/gloves/latex/nitrile
 	shoes = /obj/item/clothing/shoes/jackboots/sec
 	glasses = /obj/item/clothing/glasses/hud/medsechud
 	suit = /obj/item/clothing/suit/armor/vest/peacekeeper/security_medic
-	l_hand = /obj/item/storage/medkit/brute
 	head = /obj/item/clothing/head/beret/sec/security_medic
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
+	l_pocket = /obj/item/modular_computer/pda/security
+	r_pocket = /obj/item/flashlight/seclite
 
 	box = /obj/item/storage/box/survival/security
+	pda_slot = ITEM_SLOT_LPOCKET
 
 	implants = list(/obj/item/implant/mindshield)
 
@@ -139,11 +134,9 @@
 /obj/structure/closet/secure_closet/security_medic/PopulateContents()
 	..()
 	new /obj/item/radio/headset/headset_medsec(src)
-	new /obj/item/clothing/glasses/hud/medsechud/sunglasses(src)
 	new /obj/item/storage/medkit/emergency(src)
 	new /obj/item/clothing/suit/jacket/straight_jacket(src)
 	new /obj/item/storage/belt/medical(src)
-	new /obj/item/storage/belt/security/medic/full(src)
 	new /obj/item/storage/bag/garment/secmed(src)
 
 //Prevents secmed hours from counting towards HoS

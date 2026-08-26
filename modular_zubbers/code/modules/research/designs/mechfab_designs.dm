@@ -256,7 +256,7 @@
 	)
 
 //Borg PKAs
-
+/* arfs: lavaland is no more, we need to tone down the power fantasies
 /datum/design/kinetic_accelerator/railgun/cyborg
 	name = "proto-kinetic railgun"
 	desc = /obj/item/gun/energy/recharge/kinetic_accelerator/railgun::desc
@@ -354,3 +354,4 @@
 	category = list(
 		RND_CATEGORY_MECHFAB_CYBORG_MODULES + RND_SUBCATEGORY_MECHFAB_CYBORG_MODULES_MINING
 	)
+*/

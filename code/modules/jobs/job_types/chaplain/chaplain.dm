@@ -119,12 +119,11 @@
 
 	id_trim = /datum/id_trim/job/chaplain
 	uniform = /obj/item/clothing/under/rank/civilian/chaplain
-	backpack_contents = list(
-		/obj/item/camera/spooky = 1,
-		/obj/item/stamp/chap = 1,
-		)
+
 	belt = /obj/item/modular_computer/pda/chaplain
 	ears = /obj/item/radio/headset/headset_srv
+	l_pocket = /obj/item/stamp/chap
+	r_pocket = /obj/item/camera/spooky
 
 	backpack = /obj/item/storage/backpack/cultpack
 	satchel = /obj/item/storage/backpack/cultpack
