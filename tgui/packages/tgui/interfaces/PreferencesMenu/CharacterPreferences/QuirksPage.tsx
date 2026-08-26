@@ -1,4 +1,5 @@
 import { filter } from 'es-toolkit/compat';
+import { BackgroundsAndSuchPage } from './BackgroundsAndSuchPage';
 import { useState } from 'react';
 import { useBackend } from 'tgui/backend';
 import {
@@ -550,7 +551,7 @@ function QuirkPage() {
 }
 
 export function QuirkPersonalityPage() {
-  const [contentPage, setContentPage] = useState<'quirks' | 'personality' | 'temperaments_and_builds'>(
+  const [contentPage, setContentPage] = useState<'quirks' | 'personality' | 'temperaments_and_builds' | 'backgrounds'>(
     'quirks',
   );
 
@@ -591,6 +592,17 @@ export function QuirkPersonalityPage() {
               Temperaments & Builds
             </Button>
           </Stack.Item>
+          <Stack.Item grow>
+            <Button
+              selected={contentPage === 'backgrounds'}
+              onClick={() => setContentPage('backgrounds')}
+              fluid
+              align="center"
+              fontSize="14px"
+            >
+              Backgrounds
+            </Button>
+          </Stack.Item>
         </Stack>
       </Stack.Item>
       <Stack.Item grow>
@@ -598,7 +610,9 @@ export function QuirkPersonalityPage() {
           ? <PersonalityPage />
           : contentPage === 'temperaments_and_builds'
             ? <TemperamentsAndBuildsPage />
-            : <QuirkPage />}
+            : contentPage === 'backgrounds'
+              ? <BackgroundsAndSuchPage />
+              : <QuirkPage />}
       </Stack.Item>
     </Stack>
   );

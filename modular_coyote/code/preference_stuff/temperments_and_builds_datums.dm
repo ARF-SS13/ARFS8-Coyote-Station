@@ -1,102 +1,10 @@
-/// FORMAT: list("/datum/temperament_build/<type>" = instantiated singleton of that)
-GLOBAL_LIST_INIT(all_temperaments_and_builds_datums, init_tnb())//←═╕
-// format: list(instantiated singleton of each /datum/tnb_verbset)  │
-GLOBAL_LIST_INIT(all_verbsets, init_verbsets()) // set by ╞═══════════not really
-GLOBAL_DATUM_INIT(cutie_cat_boy, /mob/living/carbon/human/cutiecat, new(null)) // cutie cat who lives in nullspace
-GLOBAL_DATUM_INIT(cutie_cat_girl, /mob/living/carbon/human/cutiecat/girl, new(null)) // cutie cat who lives in nullspace
-GLOBAL_DATUM_INIT(cutie_cat_nb, /mob/living/carbon/human/cutiecat/nb, new(null)) // cutie cat who lives in nullspace
-
-/// temperament and build types by name
-/proc/cmp_tnb(datum/temperament_build/a, datum/temperament_build/b)
-	return sorttext(b.name, a.name)
-
-/proc/init_tnb()
-	GLOB.all_temperaments_and_builds_datums = list()
-	var/list/tnbs = list()
-	var/list/tnb2 = list()
-	for(var/tnb_string_path in typesof(/datum/temperament_build))
-		var/datum/temperament_build/tnb_path_pro = tnb_string_path
-		if(tnb_path_pro == tnb_path_pro::abstract_type)
-			continue
-		tnbs += new tnb_path_pro()
-	// sort!
-	sort_list(tnbs, /proc/cmp_tnb)
-	for(var/datum/temperament_build/tnb as anything in tnbs)
-		tnb2["[tnb.type]"] = tnb
-	return tnb2
-
-/proc/init_verbsets()
-	var/list/verbies = list()
-	for(var/tnb_verbset_path in typesof(/datum/tnb_verbset))
-		var/datum/tnb_verbset/tnb_verbset_pro = tnb_verbset_path
-		if(tnb_verbset_pro == tnb_verbset_pro::abstract_type)
-			continue
-		verbies += new tnb_verbset_pro()
-	return verbies
-
-/proc/get_mob_tnb_text(mob/haver)
-	var/list/translated = list("temperaments" = list(), "builds" = list())
-	if(!ishuman(haver))
-		return
-	var/mob/living/carbon/human/humaver = haver
-	var/list/tnb_paths = humaver?.dna?.features["temperaments_and_builds"]
-	if(!LAZYLEN(tnb_paths))
-		return
-	// divy into T and B datums
-	for(var/tnb_cat in tnb_paths)
-		for(var/tnb in tnb_paths[tnb_cat])
-			var/datum/temperament_build/tnb_datum = GLOB.all_temperaments_and_builds_datums["[tnb]"]
-			if(!tnb_datum)
-				continue
-			switch(tnb_datum.tnb_category)
-				if(TNB_TEMPERAMENT)
-					translated["[TNB_TEMPERAMENT]"] += tnb_datum
-				if(TNB_BUILD)
-					translated["[TNB_BUILD]"] += tnb_datum
-	return translated
-
-/mob/living/carbon/human/cutiecat
-	name = "Mr. Cutie Cat"
-	gender = MALE
-
-/mob/living/carbon/human/cutiecat/create_dna()
-	dna = new /datum/dna(src)
-	var/datum/species/cool = pick(
-		/datum/species/skeleton,
-		/datum/species/vulpkanin,
-		/datum/species/lizard,
-		/datum/species/vulpkanin,
-		/datum/species/tajaran,
-		/datum/species/unathi,
-		/datum/species/teshari,
-		/datum/species/akula,
-	)
-	dna.species = new cool()
-
-/mob/living/carbon/human/cutiecat/girl
-	name = "Ms. Cutie Cat"
-	gender = FEMALE
-
-/mob/living/carbon/human/cutiecat/nb
-	name = "Mx. Cutie Cat"
-	gender = PLURAL
-
-/proc/get_mob_tnb_paths(mob/haver)
-	if(!ishuman(haver))
-		return list()
-	var/mob/living/carbon/human/humaver = haver
-	var/list/tnb_paths = humaver?.dna?.features["temperaments_and_builds"]
-	if(!LAZYLEN(tnb_paths))
-		return list()
-	return tnb_paths
-
 
 /*
- * TNB (Temperament and Build)
- * A system for attaching certain descriptors to characters, describing their temperament and build.
- * Shows up in examine!
+ * CS (Character Snippet) System
+ * A system for attaching certain descriptors to characters, describing their characters with character descriptors.
+ * Shows up in examine! Most of them at least!
  *
- * ANATOMY OF A TEMPERAMENT AND BUILD
+ * ANATOMY OF A Character Snippet
  * Tokenized for dynamic pronoun and verb form replacement.
  * - "$THEY $LOOK like $THEYD | enjoy taking $THEIR time riding $THEIR wife into work."
  * - "$THEY $SEEM like the sort to | like to eat $THEIR favorite friends."
@@ -104,11 +12,13 @@ GLOBAL_DATUM_INIT(cutie_cat_nb, /mob/living/carbon/human/cutiecat/nb, new(null))
  * The "|" character delineates what is the main clause from the additional descriptive clause.
  * For the purpose of colorization! also its gotta be there
  * it also supports stringing multiple descriptors together! sorta
+ * also if theres no init_desc, it just uses the desc field and verbifies that
  *
  *  */
 
-/datum/temperament_build
-	var/tnb_category = TNB_TEMPERAMENT
+/datum/character_snippet
+	var/category_csnip = CSNIP_TEMPERAMENT
+	var/subcategory_csnip
 	/// the display name of the temperament or build, in prefs
 	var/name = ""
 	/// description for the menu thing
@@ -127,58 +37,69 @@ GLOBAL_DATUM_INIT(cutie_cat_nb, /mob/living/carbon/human/cutiecat/nb, new(null))
 	var/set_key = ""
 	/// order for sorting in the menu, lower is higher
 	var/order = 0
-	abstract_type = /datum/temperament_build
+	var/list/cached = list()
+	abstract_type = /datum/character_snippet
 
-/datum/temperament_build/New()
-	var/list/prepost = splittext(init_desc, "|")
-	preamble = trim(prepost[1])
-	main_clause = trim(prepost[2])
+/datum/character_snippet/New()
+	if(init_desc)
+		var/list/prepost = splittext(init_desc, "|")
+		preamble = trim(prepost[1])
+		main_clause = trim(prepost[2])
 	. = ..()
 
-/datum/temperament_build/proc/get_desc_text(mob/haver)
+/datum/character_snippet/proc/get_desc_text(mob/haver)
+	if(cached[haver.gender])
+		return cached[haver.gender]
+	if(!preamble || !main_clause)
+		return verbify(haver, desc)
 	var/list/verbified = verbify(haver)
 	if(preamble_text_color)
 		verbified[1] = "<color=" + preamble_text_color + ">" + verbified[1] + "</color>"
 	if(main_clause_text_color)
 		verbified[2] = "<color=" + main_clause_text_color + ">" + verbified[2] + "</color>"
-	return "[verbified[1]] [verbified[2]]"
+	cached[haver.gender] = "[verbified[1]] [verbified[2]]"
+	return cached[haver.gender]
 
-/datum/temperament_build/proc/get_example(gendre, nombre = "Cutie Cat")
+/datum/character_snippet/proc/get_example(gendre, nombre = "Cutie Cat")
+	var/mob/living/carbon/human/pretend
 	switch(gendre)
 		if(MALE)
-			GLOB.cutie_cat_boy.name = nombre
-			return get_desc_text(GLOB.cutie_cat_boy)
+			pretend = SSdans_cool_prefs.cutie_cats[MALE]
 		if(FEMALE)
-			GLOB.cutie_cat_girl.name = nombre
-			return get_desc_text(GLOB.cutie_cat_girl)
+			pretend = SSdans_cool_prefs.cutie_cats[FEMALE]
 		else
-			GLOB.cutie_cat_nb.name = nombre
-			return get_desc_text(GLOB.cutie_cat_nb)
+			pretend = SSdans_cool_prefs.cutie_cats[PLURAL]
+	pretend.name = nombre
+	return get_desc_text(pretend)
 
-/datum/temperament_build/proc/verbify(mob/haver)
+/datum/character_snippet/proc/verbify(mob/haver, override)
+	if(override)
+		for(var/datum/csnip_verbset/verbset in SSdans_cool_prefs.verbsets)
+			override = verbset.replace_token(override, haver)
+		return override
 	var/preamble_treated = preamble
 	var/main_clause_treated = main_clause
-	for(var/datum/tnb_verbset/verbset in GLOB.all_verbsets)
-		var/form = verbset.get_form(haver.gender, haver)
-		preamble_treated = replacetextEx(preamble_treated, verbset.verbset_token, form)
-		main_clause_treated = replacetextEx(main_clause_treated, verbset.verbset_token, form)
+	for(var/datum/csnip_verbset/verbset in SSdans_cool_prefs.verbsets)
+		preamble_treated = verbset.replace_token(preamble_treated, haver)
+		main_clause_treated = verbset.replace_token(main_clause_treated, haver)
 	return list(
 		preamble_treated,
 		main_clause_treated
 	)
 
-
-/datum/tnb_verbset
+/datum/csnip_verbset
 	var/verbset_token
 	var/male_form
 	var/female_form
 	var/nonbinary_form
 	/// if a verb has a multi-word form, check this first to see if it applies instead
-	var/datum/tnb_verbset/check_first
-	abstract_type = /datum/tnb_verbset
+	abstract_type = /datum/csnip_verbset
 
-/datum/tnb_verbset/proc/get_form(gend, mob/haver)
-	switch(gend)
+/datum/csnip_verbset/proc/replace_token(tex, mob/haver)
+	return replacetextEx(tex, verbset_token, get_form(haver))
+
+/datum/csnip_verbset/proc/get_form(mob/haver)
+	switch(haver.gender)
 		if(MALE)
 			return male_form
 		if(FEMALE)
@@ -188,124 +109,124 @@ GLOBAL_DATUM_INIT(cutie_cat_nb, /mob/living/carbon/human/cutiecat/nb, new(null))
 		else
 			return nonbinary_form
 
-/datum/tnb_verbset/they
+/datum/csnip_verbset/they
 	verbset_token = "$THEY"
 	male_form = "he"
 	female_form = "she"
 	nonbinary_form = "they"
 
-/datum/tnb_verbset/theyd
+/datum/csnip_verbset/theyd
 	verbset_token = "$THEYD"
 	male_form = "he'd"
 	female_form = "she'd"
 	nonbinary_form = "they'd"
 
-/datum/tnb_verbset/their
+/datum/csnip_verbset/their
 	verbset_token = "$THEIR"
 	male_form = "his"
 	female_form = "her"
 	nonbinary_form = "their"
 
-/datum/tnb_verbset/them
+/datum/csnip_verbset/them
 	verbset_token = "$THEM"
 	male_form = "him"
 	female_form = "her"
 	nonbinary_form = "them"
 
-/datum/tnb_verbset/themself
+/datum/csnip_verbset/themself
 	verbset_token = "$THEYSELF"
 	male_form = "himself"
 	female_form = "herself"
 	nonbinary_form = "themself"
 
-/datum/tnb_verbset/theyre
+/datum/csnip_verbset/theyre
 	verbset_token = "$THEYRE"
 	male_form = "he's"
 	female_form = "she's"
 	nonbinary_form = "they're"
 
-/datum/tnb_verbset/look
+/datum/csnip_verbset/look
 	verbset_token = "$LOOK"
 	male_form = "looks"
 	female_form = "looks"
 	nonbinary_form = "look"
 
-/datum/tnb_verbset/seem
+/datum/csnip_verbset/seem
 	verbset_token = "$SEEM"
 	male_form = "seems"
 	female_form = "seems"
 	nonbinary_form = "seem"
 
-/datum/tnb_verbset/appear
+/datum/csnip_verbset/appear
 	verbset_token = "$APPEAR"
 	male_form = "appears"
 	female_form = "appears"
 	nonbinary_form = "appear"
 
-/datum/tnb_verbset/present
+/datum/csnip_verbset/present
 	verbset_token = "$PRESENT"
 	male_form = "presents"
 	female_form = "presents"
 	nonbinary_form = "present"
 
-/datum/tnb_verbset/give
+/datum/csnip_verbset/give
 	verbset_token = "$GIVE"
 	male_form = "gives"
 	female_form = "gives"
 	nonbinary_form = "give"
 
-/datum/tnb_verbset/like
+/datum/csnip_verbset/like
 	verbset_token = "$LIKE"
 	male_form = "likes"
 	female_form = "likes"
 	nonbinary_form = "like"
 
-/datum/tnb_verbset/want
+/datum/csnip_verbset/want
 	verbset_token = "$WANT"
 	male_form = "wants"
 	female_form = "wants"
 	nonbinary_form = "want"
 
-/datum/tnb_verbset/need
+/datum/csnip_verbset/need
 	verbset_token = "$NEED"
 	male_form = "needs"
 	female_form = "needs"
 	nonbinary_form = "need"
 
-/datum/tnb_verbset/have
+/datum/csnip_verbset/have
 	verbset_token = "$HAVE"
 	male_form = "has"
 	female_form = "has"
 	nonbinary_form = "have"
 
-/datum/tnb_verbset/do
+/datum/csnip_verbset/do
 	verbset_token = "$DO"
 	male_form = "does"
 	female_form = "does"
 	nonbinary_form = "do"
 
-/datum/tnb_verbset/dont
+/datum/csnip_verbset/dont
 	verbset_token = "$DONT"
 	male_form = "doesn't"
 	female_form = "doesn't"
 	nonbinary_form = "don't"
 
-/datum/tnb_verbset/are
+/datum/csnip_verbset/are
 	verbset_token = "$ARE"
 	male_form = "is"
 	female_form = "is"
 	nonbinary_form = "are"
 
-/datum/tnb_verbset/species
+/datum/csnip_verbset/species
 	verbset_token = "$SPECIES"
 	// this is a special one, it just returns the species name of the mob
 
-/datum/tnb_verbset/species/get_form(gend, mob/haver)
+/datum/csnip_verbset/species/get_form(mob/haver)
 	if(!ishuman(haver))
 		return "critter"
 	var/spename = get_species_name(haver)
 	if(findtext(spename, "human"))
-		switch(gend)
+		switch(haver.gender)
 			if(MALE)
 				spename = "guy"
 			if(FEMALE)
