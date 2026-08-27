@@ -399,6 +399,10 @@
 		slapcraft_recipes = slapcraft_recipe_list,\
 	)
 
+/obj/item/clothing/glasses/sunglasses/helmetvision
+	name = "helmet vision prototype"
+	tint = TINT_COOL_OVERLAY_GLASSHELMET
+
 /obj/item/clothing/glasses/sunglasses/reagent
 	name = "beer goggles"
 	icon_state = "sunhudbeer"

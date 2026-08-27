@@ -8,7 +8,10 @@
 		// doesn't need to be updated
 		return screen
 
-	screen.icon_state = "[initial(screen.icon_state)][severity]"
+	if(isnull(severity))
+		screen.icon_state = "[initial(screen.icon_state)]"
+	else
+		screen.icon_state = "[initial(screen.icon_state)][severity]"
 	screen.severity = severity
 	if (client && screen.should_show_to(src))
 		screen.update_for_view(client.view)

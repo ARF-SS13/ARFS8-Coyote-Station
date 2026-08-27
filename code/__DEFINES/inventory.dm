@@ -227,6 +227,7 @@ DEFINE_BITFIELD(no_equip_flags, list(
 
 #define TINT_DARKENED 2 //Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3 //Threshold of tint level to obscure vision fully
+#define TINT_COOL_OVERLAY_GLASSHELMET 1000 // encoding a bitfield into a non-bitfield? what a country!
 
 // defines for AFK theft
 /// How many messages you can remember while logged out before you stop remembering new ones

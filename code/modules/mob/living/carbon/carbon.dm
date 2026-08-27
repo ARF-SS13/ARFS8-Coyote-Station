@@ -510,6 +510,11 @@
 	for(var/obj/item/clothing/worn_item in get_equipped_items(INCLUDE_ABSTRACT))
 		tint += worn_item.tint
 
+	var/coolverlay = FALSE
+	if(tint >= TINT_COOL_OVERLAY_GLASSHELMET)
+		coolverlay = TRUE
+		tint %= TINT_COOL_OVERLAY_GLASSHELMET
+
 	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
 	if(eyes)
 		tint += eyes.tint
@@ -524,6 +529,17 @@
 	else
 		cure_blind(EYES_COVERED)
 		clear_fullscreen("tint", 0 SECONDS)
+
+	if(coolverlay)
+		overlay_fullscreen("coolverlay", /atom/movable/screen/fullscreen/hemlet_thing, null)
+	else
+		clear_fullscreen("coolverlay", 1 SECONDS)
+
+
+/atom/movable/screen/fullscreen/hemlet_thing
+	icon_state = "glasshelmet"
+	layer = UI_DAMAGE_LAYER
+	plane = FULLSCREEN_PLANE
 
 //this handles hud updates
 /mob/living/carbon/update_damage_hud()
