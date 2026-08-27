@@ -51,8 +51,8 @@
 	if(cached[haver.gender])
 		return cached[haver.gender]
 	if(!preamble || !main_clause)
-		return verbify(haver, desc)
-	var/list/verbified = verbify(haver)
+		return verbulate(haver, desc)
+	var/list/verbified = verbulate(haver)
 	if(preamble_text_color)
 		verbified[1] = "<color=" + preamble_text_color + ">" + verbified[1] + "</color>"
 	if(main_clause_text_color)
@@ -72,16 +72,12 @@
 	pretend.name = nombre
 	return get_desc_text(pretend)
 
-/datum/character_snippet/proc/verbify(mob/haver, override)
+/datum/character_snippet/proc/verbulate(mob/haver, override)
 	if(override)
-		for(var/datum/csnip_verbset/verbset in SSdans_cool_prefs.verbsets)
-			override = verbset.replace_token(override, haver)
+		override = verbify(haver, override)
 		return override
-	var/preamble_treated = preamble
-	var/main_clause_treated = main_clause
-	for(var/datum/csnip_verbset/verbset in SSdans_cool_prefs.verbsets)
-		preamble_treated = verbset.replace_token(preamble_treated, haver)
-		main_clause_treated = verbset.replace_token(main_clause_treated, haver)
+	var/preamble_treated = verbify(haver, preamble)
+	var/main_clause_treated = verbify(haver, main_clause)
 	return list(
 		preamble_treated,
 		main_clause_treated
@@ -234,3 +230,22 @@
 			if(PLURAL)
 				spename = "critter"
 	return spename
+
+/datum/csnip_verbset/nombre
+	verbset_token = "$NAME"
+
+/datum/csnip_verbset/nombre/get_form(mob/haver)
+	. = "Iosef Mama" // it rantimed
+	if(!ismob(haver))
+		return "Joe Joename"
+	return haver.name
+
+/datum/csnip_verbset/prefs_nombre
+	verbset_token = "$PREFS_NAME"
+
+/datum/csnip_verbset/prefs_nombre/get_form(mob/haver)
+	. = "Iosef Mama" // it rantimed
+	if(!haver.client || !haver.client.prefs)
+		return "Joe Joename"
+	var/datum/prefs_holder/prefs = haver.client.prefs
+	return prefs.read_preference(/datum/preference/name/real_name) || "Joe Joename"

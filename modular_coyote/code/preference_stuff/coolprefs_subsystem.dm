@@ -51,17 +51,17 @@ SUBSYSTEM_DEF(dans_cool_prefs)
 	var/max_builds = 2
 	var/min_builds = 1
 
-	var/max_early_backgrounds = 25
+	var/max_early_backgrounds = 151
 	var/min_early_backgrounds = 2
 
-	var/max_adult_backgrounds = 25
+	var/max_adult_backgrounds = 151
 	var/min_adult_backgrounds = 2
-
-
 
 	/// all of them!
 	/// format: list("/datum/character_snippet" = datum/character_snippet, etc)
 	var/list/all_snippets = list()
+
+	var/max_rumors = 50
 
 /datum/controller/subsystem/dans_cool_prefs/Initialize(start_timeofday)
 	generate_verbsets()

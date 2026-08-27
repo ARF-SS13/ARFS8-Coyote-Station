@@ -55,6 +55,12 @@
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
 	sound = 'modular_zubbers/code/modules/emotes/sound/voice/foxgecker.ogg'
+/datum/emote/living/gecker/gekker
+	key = "gekker"
+/datum/emote/living/gecker/geck
+	key = "geck"
+/datum/emote/living/gecker/gekk
+	key = "gekk"
 
 /datum/emote/living/mar //all shadekin players will love me
 	key = "mar"
