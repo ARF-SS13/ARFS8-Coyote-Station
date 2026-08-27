@@ -1,3 +1,6 @@
+/mob/living/carbon/human//coyote add
+	move_intent = MOVE_INTENT_WALK //coyote add end
+
 /mob/living/carbon/human/get_movespeed_modifiers()
 	var/list/considering = ..()
 	if(HAS_TRAIT(src, TRAIT_IGNORESLOWDOWN))
