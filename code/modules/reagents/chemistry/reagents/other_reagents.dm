@@ -1458,8 +1458,19 @@
 	var/obj/item/organ/liver/liver = exposed_mob.get_organ_slot(ORGAN_SLOT_LIVER)
 	if(liver && HAS_TRAIT(liver, TRAIT_HUMAN_AI_METABOLISM))
 		return
-	if((methods & (PATCH|INGEST|INJECT|INHALE)) || ((methods & (VAPOR|TOUCH)) && prob(min(reac_volume,100)*(1 - touch_protection))))
-		exposed_mob.ForceContractDisease(new /datum/disease/transformation/robot(), FALSE, TRUE)
+	exposed_mob.emote("scream", forced = TRUE)
+	// if((methods & (PATCH|INGEST|INJECT|INHALE)) || ((methods & (VAPOR|TOUCH)) && prob(min(reac_volume,100)*(1 - touch_protection))))
+	// 	exposed_mob.ForceContractDisease(new /datum/disease/transformation/robot(), FALSE, TRUE)
+
+/datum/reagent/cyborg_mutation_nanomachines/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, metabolization_ratio)
+	. = ..()
+	var/obj/item/organ/liver/liver = affected_mob.get_organ_slot(ORGAN_SLOT_LIVER)
+	if(liver && HAS_TRAIT(liver, TRAIT_HUMAN_AI_METABOLISM))
+		return
+	if(prob(1))
+		affected_mob.emote("gekker", forced = TRUE)
+	else
+		affected_mob.emote("scream", forced = TRUE)
 
 /datum/reagent/xenomicrobes
 	name = "Xenomicrobes"

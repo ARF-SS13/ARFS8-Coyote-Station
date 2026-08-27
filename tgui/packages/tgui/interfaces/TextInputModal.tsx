@@ -58,12 +58,15 @@ export const TextInputModal = (props) => {
     (message.length > 30 ? Math.ceil(message.length / 4) : 0) +
     (visualMultiline ? 75 : 0) +
     (message.length && large_buttons ? 5 : 0) +
-    (message.length > 400 ? message.length / 10 : 0);
+    (message.length > 400 ? message.length / 10 : 0) +
+    (message.length > 800 ? message.length / 10 : 0);
   const windowWidth =
     325 +
     (large_buttons ? 50 : 0) +
     (message.length > 30 ? 50 : 0) +
-    (message.length > 60 ? 50 : 0);
+    (message.length > 60 ? 50 : 0) +
+    (message.length > 100 ? 50 : 0) +
+    (message.length > 200 ? 50 : 0);
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
     if (event.key === KEY.Enter && (!visualMultiline || !event.shiftKey)) {

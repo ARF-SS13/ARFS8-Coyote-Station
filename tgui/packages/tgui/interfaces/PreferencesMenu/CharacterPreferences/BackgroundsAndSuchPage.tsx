@@ -541,28 +541,23 @@ function BackgroundCard({ background }: { background: TemperamentBuild }) {
     cursor: adultCounterState === ButtState.AtMax ? 'not-allowed' : 'pointer',
   };
 
-  const EarlyTT = earlySelected
-    ? TTips[TTipCategory.TTEarlyInfo]
-    : TTips[TTipCategory.TTAdultInfo];
   const EarlyButton = (
     <Button
       fluid
       style={buttonEarlyStyle}
       onClick={() => clickBoy(EarlyAdult.Early, earlyCounterState)}
-      tooltip={EarlyTT}
+      tooltip={TTips[TTipCategory.TTEarlyInfo]}
     >
       {MakeVerticallyAlignedText(earlyButtonText)}
     </Button>
   );
-  const AdultTT = adultSelected
-    ? TTips[TTipCategory.TTAdultInfo]
-    : TTips[TTipCategory.TTEarlyInfo];
+
   const AdultButton = (
     <Button
       fluid
       style={buttonAdultStyle}
       onClick={() => clickBoy(EarlyAdult.Adult, adultCounterState)}
-      tooltip={AdultTT}
+      tooltip={TTips[TTipCategory.TTAdultInfo]}
     >
       {MakeVerticallyAlignedText(adultButtonText)}
     </Button>

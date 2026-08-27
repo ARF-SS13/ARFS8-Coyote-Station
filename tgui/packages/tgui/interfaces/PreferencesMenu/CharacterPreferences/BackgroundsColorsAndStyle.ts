@@ -378,7 +378,7 @@ const GetColorMapOperations = (colorName: ColorMap): ColorMapOperations[] => {
     // selecteds?
     case ColorMap.CardSelectedBackground:
     case ColorMap.TabSelectedBackground:
-      return [ColorMapOperations.Brighten2, ColorMapOperations.Saturate];
+      return [ColorMapOperations.Brighten, ColorMapOperations.Desaturate];
     // Borders
     case ColorMap.WindowBorder:
     case ColorMap.HeaderBorder:
