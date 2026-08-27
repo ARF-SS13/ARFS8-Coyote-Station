@@ -434,6 +434,11 @@
 /obj/structure/table/glass,
 /obj/item/xenoarch/tape_measure,
 /obj/item/xenoarch/hammer/cm6,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "anc" = (
@@ -3669,6 +3674,11 @@
 /obj/structure/table/glass,
 /obj/item/xenoarch/hammer/cm4,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "cax" = (
@@ -4373,6 +4383,11 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table_frame,
 /obj/item/shard,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "czC" = (
@@ -7365,6 +7380,15 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/engine,
 /area/station/science/explab)
+"ekg" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/trimline/purple/filled/corner{
+	color = "#6a3182";
+	alpha = 160;
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/mine/xenoarch/science/xenoarch)
 "ekp" = (
 /turf/open/floor/iron/smooth,
 /area/station/engineering/engine_room)
@@ -7834,6 +7858,20 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos)
+"exk" = (
+/obj/machinery/firealarm/directional/south,
+/obj/machinery/light_switch/directional/west,
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 10
+	},
+/turf/open/floor/iron/dark,
+/area/mine/xenoarch/science/xenoarch)
 "exr" = (
 /obj/effect/turf_decal/plaque{
 	icon_state = "L4"
@@ -11212,6 +11250,10 @@
 "gty" = (
 /obj/structure/table/glass,
 /obj/item/xenoarch/hammer/cm1,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182"
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "gug" = (
@@ -11595,6 +11637,14 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
 /turf/open/floor/circuit/green,
 /area/station/ai/upload/chamber)
+"gCX" = (
+/obj/effect/turf_decal/trimline/purple/filled/corner{
+	color = "#6a3182";
+	alpha = 160;
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/mine/xenoarch/science/xenoarch)
 "gCY" = (
 /obj/machinery/button/door/directional/north{
 	id = "interlink_cabin_5";
@@ -15682,6 +15732,10 @@
 /obj/structure/table/glass,
 /obj/item/storage/belt/utility/xenoarch,
 /obj/item/xenoarch/hammer/cm5,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182"
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "iRM" = (
@@ -16034,9 +16088,6 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "jel" = (
@@ -17228,6 +17279,11 @@
 /obj/structure/table/glass,
 /obj/item/xenoarch/hammer/cm3,
 /obj/item/xenoarch/strange_rock,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 6
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "jJY" = (
@@ -18202,6 +18258,15 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/plating,
 /area/station/command/bridge)
+"kin" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/mine/xenoarch/science/xenoarch)
 "kiZ" = (
 /obj/machinery/door/airlock/external{
 	name = "Mining Shuttle Airlock";
@@ -18384,14 +18449,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
-"knl" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/structure/cable,
-/turf/open/floor/iron/dark,
-/area/mine/xenoarch/science/xenoarch)
 "knF" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
@@ -19919,6 +19976,11 @@
 /obj/structure/table/glass,
 /obj/item/xenoarch/strange_rock,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "lgu" = (
@@ -21864,6 +21926,11 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 8
 	},
+/obj/effect/turf_decal/trimline/purple/filled/corner{
+	color = "#6a3182";
+	alpha = 160;
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "mkg" = (
@@ -23453,6 +23520,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/medical/chemistry)
+"mYh" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/trimline/purple/filled/corner{
+	color = "#6a3182";
+	alpha = 160;
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/mine/xenoarch/science/xenoarch)
 "mZn" = (
 /obj/structure/chair/stool,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -24984,11 +25060,18 @@
 /turf/open/floor/iron/dark,
 /area/station/maintenance/department/security)
 "nLU" = (
-/obj/machinery/firealarm/directional/south,
-/obj/machinery/light_switch/directional/west,
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 1
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/cable,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
@@ -26869,6 +26952,11 @@
 /area/station/hallway/primary/central)
 "oHH" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
+/obj/effect/turf_decal/trimline/purple/filled/corner{
+	color = "#6a3182";
+	alpha = 160;
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "oIr" = (
@@ -27320,6 +27408,11 @@
 "oUy" = (
 /obj/structure/table/glass,
 /obj/item/xenoarch/hammer/cm10,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "oUN" = (
@@ -28017,6 +28110,15 @@
 /obj/machinery/light/directional/west,
 /turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
+"pqm" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/mine/xenoarch/science/xenoarch)
 "pqE" = (
 /obj/effect/turf_decal/trimline/yellow/filled/line{
 	dir = 5
@@ -28204,6 +28306,11 @@
 /obj/structure/table/glass,
 /obj/item/xenoarch/hammer/cm2,
 /obj/item/storage/belt/utility/xenoarch,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 9
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "pwU" = (
@@ -30098,6 +30205,11 @@
 /area/station/commons/dorms/room5)
 "qut" = (
 /obj/machinery/airalarm/directional/north,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 9
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "quD" = (
@@ -31218,6 +31330,11 @@
 /area/station/engineering/atmos)
 "qXl" = (
 /obj/structure/table/glass,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "qXw" = (
@@ -31461,6 +31578,13 @@
 	},
 /turf/open/floor/wood/large,
 /area/station/commons/dorms/apartment1)
+"rdI" = (
+/obj/effect/turf_decal/trimline/purple/filled/corner{
+	color = "#6a3182";
+	alpha = 160
+	},
+/turf/open/floor/iron/dark,
+/area/mine/xenoarch/science/xenoarch)
 "rej" = (
 /obj/machinery/airalarm/directional/north,
 /obj/effect/turf_decal/tile/dark_green/half/contrasted{
@@ -34367,6 +34491,10 @@
 /area/station/command/heads_quarters/hos)
 "sKX" = (
 /obj/machinery/light,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182"
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "sLd" = (
@@ -38495,6 +38623,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos)
+"uUl" = (
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182"
+	},
+/turf/open/floor/iron/dark,
+/area/mine/xenoarch/science/xenoarch)
 "uUw" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/visible,
@@ -40804,6 +40939,11 @@
 	pixel_x = 7;
 	pixel_y = -3
 	},
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 5
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "wdt" = (
@@ -41080,6 +41220,11 @@
 "wjv" = (
 /obj/structure/chalkboard,
 /obj/structure/sign/poster/official/science/directional/west,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 10
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "wjB" = (
@@ -41522,6 +41667,11 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/displaycase/trophy,
 /obj/structure/chair/old,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "wuT" = (
@@ -42243,6 +42393,11 @@
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "wVP" = (
@@ -42699,6 +42854,15 @@
 	},
 /turf/open/floor/wood/tile,
 /area/station/security/prison)
+"xjW" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/mine/xenoarch/science/xenoarch)
 "xkb" = (
 /obj/machinery/atmospherics/pipe/bridge_pipe/scrubbers/visible{
 	dir = 4
@@ -43115,6 +43279,11 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/kirbyplants/random,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "xxk" = (
@@ -43983,6 +44152,11 @@
 /area/station/medical/storage)
 "xRN" = (
 /obj/item/kirbyplants/random,
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	alpha = 160;
+	color = "#6a3182";
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
 "xRR" = (
@@ -220220,8 +220394,8 @@ wzv
 wzv
 rTD
 qut
-jdu
 nLU
+exk
 rTD
 xqz
 nLw
@@ -220477,7 +220651,7 @@ rTD
 rTD
 rTD
 wVv
-knl
+jdu
 sKX
 rTD
 rTD
@@ -220735,7 +220909,7 @@ qXl
 xwQ
 oHH
 vmm
-qWZ
+mYh
 wjv
 rTD
 wzv
@@ -220989,11 +221163,11 @@ wzv
 mmj
 lfO
 pCQ
-vxk
-qWZ
+rdI
+xjW
 mjH
 qWZ
-vxk
+uUl
 rTD
 wzv
 skT
@@ -221246,9 +221420,9 @@ wzv
 mmj
 amP
 qWZ
-vxk
+uUl
 tpr
-qWZ
+kin
 vxk
 iRg
 rTD
@@ -221503,9 +221677,9 @@ wzv
 mmj
 can
 qWZ
-vxk
-qWZ
-qWZ
+gCX
+pqm
+ekg
 oeP
 gty
 rTD
