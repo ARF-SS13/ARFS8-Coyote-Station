@@ -272,6 +272,7 @@ enum ColorMapOperations {
   Brighten2,
   Brighten3,
   Darken,
+  Darken2,
   Saturate,
   Desaturate,
   Desaturate2,
@@ -374,11 +375,17 @@ const GetColorMapOperations = (colorName: ColorMap): ColorMapOperations[] => {
       ];
     // Base Backgrounds
     case ColorMap.WindowBackground:
-      return [ColorMapOperations.Darken, ColorMapOperations.Desaturate];
+      return [ColorMapOperations.Darken2, ColorMapOperations.Desaturate];
     // selecteds?
     case ColorMap.CardSelectedBackground:
     case ColorMap.TabSelectedBackground:
-      return [ColorMapOperations.Brighten, ColorMapOperations.Desaturate];
+      return [
+        ColorMapOperations.Brighten,
+        ColorMapOperations.Desaturate,
+        ColorMapOperations.Desaturate,
+        ColorMapOperations.Desaturate,
+        ColorMapOperations.Transparify,
+      ];
     // Borders
     case ColorMap.WindowBorder:
     case ColorMap.HeaderBorder:
@@ -393,7 +400,7 @@ const GetColorMapOperations = (colorName: ColorMap): ColorMapOperations[] => {
     case ColorMap.CardBackground:
     case ColorMap.TabBackground:
     case ColorMap.HeaderBackground:
-      return [ColorMapOperations.Desaturate2];
+      return [ColorMapOperations.Desaturate2, ColorMapOperations.Transparify];
     case ColorMap.CardSelectedBorder:
     case ColorMap.TabSelectedBorder:
       return [
@@ -437,7 +444,12 @@ const GetColorMapOperations = (colorName: ColorMap): ColorMapOperations[] => {
       ];
     case ColorMap.CardAdultButtonSelectedBackground:
     case ColorMap.CardEarlyButtonSelectedBackground:
-      return [ColorMapOperations.Brighten, ColorMapOperations.Saturate];
+      return [
+        ColorMapOperations.Saturate,
+        ColorMapOperations.Saturate,
+        ColorMapOperations.Brighten,
+        ColorMapOperations.Transparify,
+      ];
     case ColorMap.CardAdultButtonSelectedBorder:
     case ColorMap.CardEarlyButtonSelectedBorder:
       return [
@@ -470,6 +482,9 @@ export function GetColorFromMap(colorName: ColorMap): string {
         break;
       case ColorMapOperations.Darken:
         modifiedColor = ModifyHSLA(modifiedColor, 0, 0, -10, 0);
+        break;
+      case ColorMapOperations.Darken2:
+        modifiedColor = ModifyHSLA(modifiedColor, 0, 0, -20, 0);
         break;
       case ColorMapOperations.Saturate:
         modifiedColor = ModifyHSLA(modifiedColor, 0, 10, 0, 0);
