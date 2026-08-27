@@ -30034,7 +30034,6 @@
 /area/station/hallway/secondary/entry)
 "qtE" = (
 /obj/machinery/door/airlock/external,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
