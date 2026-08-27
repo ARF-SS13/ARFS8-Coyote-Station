@@ -113,7 +113,6 @@
 		// Prevent readying up after the round has begun setting up or is already playing
 
 		if(!prerequisites_met(TRUE))
-			play_lobby_button_sound("cantreadyornot")
 			return FALSE
 
 		if(!unvetted_notified && !trigger_unvetted_warning())
@@ -133,7 +132,6 @@
 			play_lobby_button_sound("cantreadyornot")
 			return FALSE
 		if(!prerequisites_met())
-			play_lobby_button_sound("cantreadyornot")
 			return FALSE
 		play_lobby_button_sound("join")
 
@@ -190,6 +188,7 @@
 	if(amreadying)
 		if(SSticker.current_state >= GAME_STATE_SETTING_UP)
 			to_chat(src, span_notice("The round is starting. You cannot ready up at this time."))
+			play_lobby_button_sound("cantreadyornot")
 			return FALSE
 	var/am_admin = is_admin(client)
 	var/list/bads = list()
@@ -215,15 +214,15 @@
 	var/build_count             = LAZYLEN(builds)
 	var/early_background_count  = LAZYLEN(early_backgrounds)
 	var/adult_background_count  = LAZYLEN(adult_backgrounds)
-	var/list/maxes = SSdans_cool_prefs.get_max_for()
-	if(temperament_count < maxes[CSNIP_TEMPERAMENT])
-		bads["temperament"] = list(temperament_count, maxes[CSNIP_TEMPERAMENT])
-	if(build_count < maxes[CSNIP_BUILD])
-		bads["build"] = list(build_count, maxes[CSNIP_BUILD])
-	if(early_background_count < maxes[CSNIP_EARLY_BACKGROUND])
-		bads["early_background"] = list(early_background_count, maxes[CSNIP_EARLY_BACKGROUND])
-	if(adult_background_count < maxes[CSNIP_ADULT_BACKGROUND])
-		bads["adult_background"] = list(adult_background_count, maxes[CSNIP_ADULT_BACKGROUND])
+	var/list/mins = SSdans_cool_prefs.get_min_for()
+	if(temperament_count < mins[CSNIP_TEMPERAMENT])
+		bads["temperament"] = list(temperament_count, mins[CSNIP_TEMPERAMENT])
+	if(build_count < mins[CSNIP_BUILD])
+		bads["build"] = list(build_count, mins[CSNIP_BUILD])
+	if(early_background_count < mins[CSNIP_EARLY_BACKGROUND])
+		bads["early_background"] = list(early_background_count, mins[CSNIP_EARLY_BACKGROUND])
+	if(adult_background_count < mins[CSNIP_ADULT_BACKGROUND])
+		bads["adult_background"] = list(adult_background_count, mins[CSNIP_ADULT_BACKGROUND])
 
 	if(!LAZYLEN(bads))
 		return TRUE // okay have a good round!
@@ -234,46 +233,51 @@
 		"I understand!",
 	)
 
-	var/message = "Oh dear, your character needs some extra work before you can get into the round!\n"
-	message += "Here's what's missing:\n\n"
+	var/message = "Oh dear, your character needs some extra work before you can get into the round!<br>"
+	message += "Here's what's missing:<br><br>"
 	if("silicon_flavor_text" in bads)
-		message += "<b>Silicon Flavor Text</b>\n"
-		message += "Your flavor text is [bads["silicon_flavor_text"][1]] characters long./n"
-		message += "However, you need at least [bads["silicon_flavor_text"][2]] characters of Silicon Flavor Text to ready up for the round.\n\n"
+		message += "<b>Silicon Flavor Text</b><br>"
+		message += "Your flavor text is [bads["silicon_flavor_text"][1]] characters long.<br>"
+		message += "However, you need at least [bads["silicon_flavor_text"][2]] characters of Silicon Flavor Text to ready up for the round.<br><br>"
 	if("flavor_text" in bads)
-		message += "<b>Flavor Text</b>\n"
-		message += "Your flavor text is [bads["flavor_text"][1]] characters long.\n"
-		message += "However, you need at least [bads["flavor_text"][2]] characters of Flavor Text to ready up for the round.\n\n"
+		message += "<b>Flavor Text</b><br>"
+		message += "Your flavor text is [bads["flavor_text"][1]] characters long.<br>"
+		message += "However, you need at least [bads["flavor_text"][2]] characters of Flavor Text to ready up for the round.<br><br>"
 	if("temperament" in bads)
-		message += "<b>Temperament</b>\n"
-		message += "You have [bads["temperament"][1]] temperament(s) selected.\n"
-		message += "However, you need at least [bads["temperament"][2]] temperament(s) to ready up for the round.\n\n"
+		message += "<b>Temperament</b><br>"
+		message += "You have [bads["temperament"][1]] temperament(s) selected.<br>"
+		message += "However, you need at least [bads["temperament"][2]] temperament(s) to ready up for the round.<br><br>"
 	if("build" in bads)
-		message += "<b>Build</b>\n"
-		message += "You have [bads["build"][1]] build(s) selected.\n"
-		message += "However, you need at least [bads["build"][2]] build(s) to ready up for the round.\n\n"
+		message += "<b>Build</b><br>"
+		message += "You have [bads["build"][1]] build(s) selected.<br>"
+		message += "However, you need at least [bads["build"][2]] build(s) to ready up for the round.<br><br>"
 	if("early_background" in bads)
-		message += "<b>Early Background</b>\n"
-		message += "You have [bads["early_background"][1]] early background(s) selected.\n"
-		message += "However, you need at least [bads["early_background"][2]] early background(s) to ready up for the round.\n\n"
+		message += "<b>Early Background</b><br>"
+		message += "You have [bads["early_background"][1]] early background(s) selected.<br>"
+		message += "However, you need at least [bads["early_background"][2]] early background(s) to ready up for the round.<br><br>"
 	if("adult_background" in bads)
-		message += "<b>Adult Background</b>\n"
-		message += "You have [bads["adult_background"][1]] adult background(s) selected.\n"
-		message += "However, you need at least [bads["adult_background"][2]] adult background(s) to ready up for the round.\n\n"
+		message += "<b>Adult Background</b><br>"
+		message += "You have [bads["adult_background"][1]] adult background(s) selected.<br>"
+		message += "However, you need at least [bads["adult_background"][2]] adult background(s) to ready up for the round.<br><br>"
 	if(am_admin)
-		message += "\n...however, you're an admin! You can ignore these requirements and ready up anyway if you want."
+		message += "<br>...however, you're an admin! You can ignore these requirements and ready up anyway if you want."
 		chooses = list(
 			"Let me in anyway!",
 			"Okay ill go do that i guess!"
 		)
 	else
-		message += "\nPlease fix these issues before you can ready up for the round! ♥"
+		message += "<br>Please fix these issues before you can ready up for the round! ♥"
 	to_chat(src, span_abductor(message))
+	play_lobby_button_sound("cantreadyornot")
 	var/confirm = tgui_alert(
 		src,
 		message,
 		"Oh no!",
 		chooses,
+		null,
+		null,
+		null,
+		TRUE,
 	)
 	if(am_admin && confirm == "Let me in anyway!")
 		return TRUE
@@ -295,9 +299,9 @@
 /mob/dead/new_player/proc/play_lobby_button_sound(which)
 	var/snd = 'modular_coyote/sounds/menu/add_click.ogg'
 	switch(which)
-		if("preferences")
+		if("preferences", "join")
 			snd = 'modular_coyote/sounds/menu/save_click.ogg'
-		if("observe", "join", "ready")
+		if("observe", "ready")
 			snd = 'modular_coyote/sounds/menu/tab_click.ogg'
 		if("unready")
 			snd = 'modular_coyote/sounds/menu/remove_click.ogg'

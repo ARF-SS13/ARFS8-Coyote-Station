@@ -143,6 +143,7 @@
 	data["placeholder"] = default // Default is a reserved keyword
 	data["swapped_buttons"] = user.client.prefs.read_preference(/datum/preference/toggle/tgui_input_swapped)
 	data["title"] = title
+	data["forceHTML"] = forceHTML
 	return data
 
 /datum/tgui_input_text/ui_data(mob/user)

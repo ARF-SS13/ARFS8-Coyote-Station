@@ -232,7 +232,6 @@
 		/obj/item/pizzabox/mushroom = 2,
 		/obj/item/pizzabox/pineapple = 2,
 		/obj/item/pizzabox/vegetable = 2,
-		/obj/item/pizzabox/bomb/armed = 1,
 
 	)
 

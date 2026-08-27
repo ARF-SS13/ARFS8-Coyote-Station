@@ -608,8 +608,10 @@ Ignore_errors instructes mysql to continue inserting rows if some of them have e
 		// to_chat(usr, span_danger("A SQL error occurred during this operation, check the server logs.")) // what a useful error message
 		if(prob(1))
 			message_admins("Auuh~ oh nooooo~! A big thiiicc SQL ewwour haz come inside ur coode uwu~! *Notices SQL logs for more~*")
+			CRASH("MMMMmhhff~ what a big thiiicc SQL ewwour dats reawanging mai logs haz come inside ur coode uwu~! *Notices proc stack dump~* [dump_stack()] OWO WATS DIZ EWWOR: [last_error]")
 		else
 			message_admins("Oh no! An SQL error has occurred! Check the SQL logs for more!")
+			CRASH("Oh no! An SQL error has occurred! Check the SQL logs for more! [dump_stack()] error code: [last_error]")
 // #if defined(OPENDREAM) || defined(UNIT_TESTS)
 // 		return // linter no linting! linter no linting!
 // #else
