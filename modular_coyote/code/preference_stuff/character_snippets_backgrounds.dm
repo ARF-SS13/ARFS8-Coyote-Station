@@ -1577,6 +1577,7 @@ Secrets - Secrets your character holds dear and attempts to hide for whatever re
 	//records_type = GENERAL
 
 
+
 //Social Background
 /datum/character_snippet/background/social/isolated
 	name = "Isolated Childhood"
