@@ -1,6 +1,7 @@
 import type { BooleanLike } from 'tgui-core/react';
 
 import type { sendAct } from '../../events/act';
+import type { RumorSlotData } from '../RumorMuncher2000/types';
 import type {
   LoadoutCategory,
   LoadoutList,
@@ -297,6 +298,8 @@ export type PreferencesMenuData = {
   //format: {subcategory1: [background1, background2, background3], subcategory2: [background4, background5, background6], ...}
   server_tab_groups: Record<string, TemperamentBuild[]>;
   server_tabs: string[]; // coming from inferno, ts makes ts much easier
+
+  player_rumor_slot: RumorSlotData;
 
   window: PrefsWindow;
 };

@@ -8,6 +8,40 @@
 		return mub.client
 	return null
 
+/proc/extract_prefs_holder(something)
+	if(istype(something, /datum/prefs_holder))
+		return something
+	if(ismob(something))
+		var/mob/mub = something
+		return mub.client?.prefs
+	if(istype(something, /client))
+		var/client/cl = something
+		return cl.prefs
+	if(istext(something))
+		var/client/cl = LAZYACCESS(GLOB.directory, something)
+		return cl?.prefs
+	return null
+
+/proc/extract_mob(something)
+	if(ismob(something))
+		return something
+	if(istype(something, /client))
+		var/client/cl = something
+		return cl.mob
+	if(istext(something))
+		var/client/cl = LAZYACCESS(GLOB.directory, something)
+		return cl?.mob
+	return null
+
+/proc/extract_current_character_slot(mob/user)
+	var/datum/prefs_holder/preferences = extract_prefs_holder(user)
+	if(preferences)
+		return preferences.default_slot // default is current
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		return H.prefs_character_slot || 1
+	return 1
+
 /// takes in a screen_loc string, and shifts it by the given x and y offsets
 /// "EAST-4:22,SOUTH+1:7", x_offset = 3, y_offset = 2 would output "EAST-1:25,SOUTH+3:9"
 /// also makes sure theres always a : in each part, cus thats easier lol
@@ -46,4 +80,9 @@
 	if(!ishuman(critter))
 		return null
 	return critter?.dna?.species
+
+/proc/verbify(mob/focus, text)
+	for(var/datum/csnip_verbset/verbset in SSdans_cool_prefs.verbsets)
+		text = verbset.replace_token(text, focus)
+	return text
 

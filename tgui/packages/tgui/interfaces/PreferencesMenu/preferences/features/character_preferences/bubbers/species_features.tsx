@@ -7,6 +7,8 @@ import {
   type FeatureToggle,
 } from '../../base';
 import { FeatureDropdownInput } from '../../dropdowns';
+import type { FeatureRumorManager } from '../../RumorStuff';
+import { RumorManager } from '../../RumorStuff';
 
 export const emote_length: FeatureChoiced = {
   name: 'Preferred Emote Length',
@@ -185,4 +187,13 @@ export const art_ref_nsfw: FeatureToggle = {
   name: 'Art Reference (NSFW)',
   description: 'Is your reference picture NSFW?',
   component: CheckboxInput,
+};
+
+export const the_actual_rumors: FeatureRumorManager = {
+  name: 'Rumors',
+  description: `Write rumors about your character, whether or not they're true. \
+    Rumors are visible on your character's examine window, and could be randomly \
+    spread to other players... if flagged to be spreadable! You can also flag rumors to be NSFW, \
+    which will hide them from players who have NSFW content disabled in their preferences.`,
+  component: RumorManager as FeatureRumorManager['component'],
 };
