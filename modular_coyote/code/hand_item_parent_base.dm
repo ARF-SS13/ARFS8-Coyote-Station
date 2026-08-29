@@ -7,6 +7,7 @@
 	force = 0
 	throwforce = 0
 	item_flags = DROPDEL | ABSTRACT | HAND_ITEM
+	slot_flags = ITEM_SLOT_DONT_PUT_ANYWHERE
 	abstract_type = /obj/item/hand_item
 	// tap_uses_hitsound = TRUE
 	icon = 'icons/obj/weapons/hand.dmi'

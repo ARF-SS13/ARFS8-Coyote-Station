@@ -1,6 +1,6 @@
 import { sortBy } from 'es-toolkit';
 import { filter, map } from 'es-toolkit/compat';
-import { type ReactNode, useState, Fragment } from 'react';
+import { Fragment, type ReactNode, useState } from 'react';
 import { useBackend } from 'tgui/backend';
 import { sendAct } from 'tgui/events/act';
 import {
@@ -381,12 +381,18 @@ type PreferenceListProps = {
   preferences: Record<string, unknown>;
   randomizations: Record<string, RandomSetting>;
   maxHeight: string;
+  mixins?: Record<string, unknown>;
   children?: ReactNode;
 };
 
+// The main thing for character preferences! Its whats shown under the Character Tab
+// and filtered by whats in the search bar
 export function PreferenceList(props: PreferenceListProps) {
   const { act } = useBackend<PreferencesMenuData>();
-  const { preferences, randomizations, maxHeight, children } = props;
+  const { preferences, randomizations, maxHeight, mixins, children } = props;
+
+  // combines the preferences with the mixins, alphabetically sorts them, and returns the sorted array of entries
+  const mixed_in_prefs = mixins ? { ...preferences, ...mixins } : preferences;
 
   return (
     <Stack.Item
@@ -401,15 +407,13 @@ export function PreferenceList(props: PreferenceListProps) {
       maxHeight={maxHeight}
     >
       <LabeledList>
-        {sortPreferences(Object.entries(preferences)).map(
+        {sortPreferences(Object.entries(mixed_in_prefs)).map(
           ([featureId, value]) => {
             const feature = features[featureId];
             const randomSetting = randomizations[featureId];
 
             if (feature === undefined) {
-              return (
-                <Fragment key={featureId} />
-              );
+              return <Fragment key={featureId} />;
             }
 
             return (
@@ -417,6 +421,7 @@ export function PreferenceList(props: PreferenceListProps) {
                 key={featureId}
                 label={feature.name}
                 tooltip={feature.description}
+                tooltipPosition="right"
                 verticalAlign="middle"
               >
                 <Stack fill>
@@ -442,8 +447,6 @@ export function PreferenceList(props: PreferenceListProps) {
           },
         )}
       </LabeledList>
-
-      {children}
     </Stack.Item>
   );
 }

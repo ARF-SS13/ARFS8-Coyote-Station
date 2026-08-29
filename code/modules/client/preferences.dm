@@ -7,6 +7,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// Whether or not we allow saving/loading. Used for guests, if they're enabled
 	var/load_and_save = TRUE
 	/// Ensures that we always load the last used save, QOL
+	/// also the current slot that the player is using, for character preferences
 	var/default_slot = 1
 	/// The maximum number of slots we're allowed to contain
 	var/max_save_slots = 50 // BUBBER EDIT: original is 3
@@ -627,14 +628,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
  * * client/prefs_holder - the client to read the pref from
  * * datum/preference/pref_to_read - the type of preference datum to read.
  */
-/proc/safe_read_pref(client/prefs_holder, datum/preference/pref_to_read)
-	if(!prefs_holder)
+/proc/safe_read_pref(something, datum/preference/pref_to_read)
+	if(!something)
 		return FALSE
-	if(prefs_holder && !prefs_holder?.prefs)
-		stack_trace("[prefs_holder?.mob] ([prefs_holder?.ckey]) had null prefs, which shouldn't be possible!")
+	var/client/clint = extract_client(something)
+	if(!clint)
 		return FALSE
-
-	return prefs_holder?.prefs.read_preference(pref_to_read)
+	if(!clint.prefs)
+		stack_trace("[clint?.mob] ([clint?.ckey]) had null prefs, which shouldn't be possible!")
+		return FALSE
+	return clint.prefs.read_preference(pref_to_read)
 
 /**
  * Get the given client's chat toggle prefs.
@@ -695,6 +698,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	// SKYRAT EDIT ADDITION END
 
 	character.dna.real_name = character.real_name
+	character.prefs_character_slot = default_slot
 
 	if(icon_updates)
 		character.icon_render_keys = list()

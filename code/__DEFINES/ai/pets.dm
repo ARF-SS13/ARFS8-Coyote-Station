@@ -34,6 +34,10 @@
 #define BB_PARROT_REPEAT_STRING "BB_parrot_repeat_string"
 /// The odds that this parrot will repeat back a string
 #define BB_PARROT_REPEAT_PROBABILITY "BB_parrot_repeat_probability"
+/// The odds that this parrot will say a NetHack rumor
+#define BB_PARROT_SAY_NETHACK_RUMOR "BB_parrot_say_nethack_rumor"
+/// The odds that this parrot will say a non-saucy rumor
+#define BB_PARROT_SAY_NON_SAUCY_RUMOR "BB_parrot_say_non_saucy_rumor"
 /// The odds that this parrot will choose another string to repeat
 #define BB_PARROT_PHRASE_CHANGE_PROBABILITY "BB_parrot_phrase_change_probability"
 /// A copy of the string buffer that we end the shift with. DO NOT ACCESS THIS DIRECTLY - YOU SHOULD USE THE COMPONENT IN MOST CASES

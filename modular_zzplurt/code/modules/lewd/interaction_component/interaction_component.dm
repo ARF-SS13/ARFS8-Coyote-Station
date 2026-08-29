@@ -36,7 +36,9 @@
 		// Vore prefs
 		"vore_enable_pref" = /datum/preference/toggle/erp/vore_enable,
 		"vore_overlays" = /datum/preference/toggle/erp/vore_overlays,
-		"vore_overlay_options" = /datum/preference/toggle/erp/vore_overlay_options
+		"vore_overlay_options" = /datum/preference/toggle/erp/vore_overlay_options,
+		"hear_rumors" = /datum/preference/toggle/rumors/hear_rumors,
+		"hear_horny_rumors" = /datum/preference/toggle/rumors/hear_horny_rumors
 	)
 	/// List of character preference paths mapped to their types
 	var/static/list/character_preference_paths = list(

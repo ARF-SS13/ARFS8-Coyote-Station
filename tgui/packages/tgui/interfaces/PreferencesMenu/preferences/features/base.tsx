@@ -18,7 +18,6 @@ import {
   TextArea, // SKYRAT EDIT ADDITION
 } from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
-
 import {
   type CharacterPreferencesData,
   createSetPreference,
@@ -372,9 +371,7 @@ export const FeatureTwoButtonInput = (props: FeatureValueProps<string[]>) => {
           }}
         >
           <Stack align="center" fill>
-            <Stack.Item>
-              {props.value[index]}
-            </Stack.Item>
+            <Stack.Item>{props.value[index]}</Stack.Item>
           </Stack>
         </Button>
       </Stack.Item>
@@ -387,4 +384,3 @@ export const FeatureTwoButtonInput = (props: FeatureValueProps<string[]>) => {
     </Stack>
   );
 };
-

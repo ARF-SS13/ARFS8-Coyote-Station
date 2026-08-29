@@ -262,3 +262,6 @@
 
 	/// Lazy assoc list of currently applied fishing difficulty modifiers keyed to their source
 	var/list/fishing_difficulty_mods_by_source
+
+	/// into which slot in the prefs save file does this characters data comes from?
+	var/prefs_character_slot
