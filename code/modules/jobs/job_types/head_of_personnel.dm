@@ -96,14 +96,12 @@
 	id = /obj/item/card/id/advanced/platinum
 	id_trim = /datum/id_trim/job/head_of_personnel
 	uniform = /obj/item/clothing/under/rank/civilian/head_of_personnel
-	backpack_contents = list(
-		/obj/item/melee/baton/telescopic/silver = 1,
-		)
 	belt = /obj/item/modular_computer/pda/heads/hop
 	ears = /obj/item/radio/headset/heads/hop
 	head = /obj/item/clothing/head/hats/hopcap
 	shoes = /obj/item/clothing/shoes/laceup
 	suit = /obj/item/clothing/suit/armor/vest/hop
+	l_pocket = /obj/item/melee/baton/telescopic/silver
 
 	chameleon_extras = list(
 		/obj/item/gun/energy/e_gun,

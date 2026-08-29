@@ -113,7 +113,6 @@
 		// Prevent readying up after the round has begun setting up or is already playing
 
 		if(!prerequisites_met(TRUE))
-			play_lobby_button_sound("cantreadyornot")
 			return FALSE
 
 		if(!unvetted_notified && !trigger_unvetted_warning())
@@ -133,7 +132,6 @@
 			play_lobby_button_sound("cantreadyornot")
 			return FALSE
 		if(!prerequisites_met())
-			play_lobby_button_sound("cantreadyornot")
 			return FALSE
 		play_lobby_button_sound("join")
 
@@ -190,6 +188,7 @@
 	if(amreadying)
 		if(SSticker.current_state >= GAME_STATE_SETTING_UP)
 			to_chat(src, span_notice("The round is starting. You cannot ready up at this time."))
+			play_lobby_button_sound("cantreadyornot")
 			return FALSE
 	var/am_admin = is_admin(client)
 	var/list/bads = list()
@@ -269,6 +268,7 @@
 	else
 		message += "<br>Please fix these issues before you can ready up for the round! ♥"
 	to_chat(src, span_abductor(message))
+	play_lobby_button_sound("cantreadyornot")
 	var/confirm = tgui_alert(
 		src,
 		message,
@@ -299,9 +299,9 @@
 /mob/dead/new_player/proc/play_lobby_button_sound(which)
 	var/snd = 'modular_coyote/sounds/menu/add_click.ogg'
 	switch(which)
-		if("preferences")
+		if("preferences", "join")
 			snd = 'modular_coyote/sounds/menu/save_click.ogg'
-		if("observe", "join", "ready")
+		if("observe", "ready")
 			snd = 'modular_coyote/sounds/menu/tab_click.ogg'
 		if("unready")
 			snd = 'modular_coyote/sounds/menu/remove_click.ogg'

@@ -1,3 +1,4 @@
+/*
 /datum/orderable_item/mining/survival_bodybag
 	purchase_path = /obj/item/bodybag/environmental
 	cost_per_order = 500
@@ -5,7 +6,7 @@
 /datum/orderable_item/mining/suit_voucher
 	purchase_path = /obj/item/suit_voucher
 	cost_per_order = 2000
-
+*/
 /obj/item/kinetic_crusher/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_OBJ_RESKIN, PROC_REF(on_reskin))

@@ -61,6 +61,9 @@
 	accepted_magazine_type = /obj/item/ammo_box/magazine/internal/boltaction/mosin
 	bolt_type = BOLT_TYPE_STANDARD
 	need_bolt_lock_to_interact = TRUE
+	can_be_sawn_off = FALSE // maybe someday, once I got sprites and mechanics for how it might interact with cosmoline
+	slot_flags = ITEM_SLOT_BACK
+	weapon_weight = WEAPON_HEAVY
 	var/gum_chance = 50
 	var/cosmoline_level = 0
 	var/blood_level_per_clean = 0 // for the rag, from 0 to 10
@@ -99,7 +102,7 @@
 			worn_icon_state = "mosin"
 			gum_chance = 10
 			blood_level_per_clean = 1
-			clean_chance = 5
+			clean_chance = 5 // good luck getting the last little bit out
 			clean_success = "You finally got the last of the cosmoline out of the rifle's bolt!"
 			clean_fail = "You scrub the parts a little but there always seems to be a little more gunk in some small corner."
 		if(2)
@@ -110,7 +113,7 @@
 			worn_icon_state = "mosin"
 			gum_chance = 25
 			blood_level_per_clean = 2
-			clean_chance = 20
+			clean_chance = 30
 			clean_success = "You wipe down the rifle, removing all the cosmoline from its surfaces."
 			clean_fail = "You wipe down the rifle but it's still rather sticky."
 		if(3)
@@ -121,7 +124,7 @@
 			worn_icon_state = "mosin"
 			gum_chance = 50
 			blood_level_per_clean = 2
-			clean_chance = 15
+			clean_chance = 30
 			clean_success = "You wipe down the rifle, cleaning a fair amount of cosmoline off of it."
 			clean_fail = "You wipe down the rifle but it's still pretty thoroughly covered in cosmoline."
 		if(4)
@@ -132,7 +135,7 @@
 			worn_icon_state = "mosin"
 			gum_chance = 75
 			blood_level_per_clean = 3
-			clean_chance = 15
+			clean_chance = 30
 			clean_success = "You finally get most of the caked up cosmoline off."
 			clean_fail = "You wipe down the rifle but there's still cosmoline absolutely everywhere!"
 		if(5)
@@ -143,7 +146,7 @@
 			worn_icon_state = "cosmoline"
 			gum_chance = 95
 			blood_level_per_clean = 5
-			clean_chance = 10
+			clean_chance = 20
 			clean_success = "You clean enough cosmoline off to actually see the rifle now."
 			clean_fail = "The rag is drenched without a whole lot of visible progress."
 		if(6)
@@ -154,7 +157,7 @@
 			worn_icon_state = "cosmoline"
 			gum_chance = 99
 			blood_level_per_clean = 5
-			clean_chance = 10
+			clean_chance = 15
 			clean_success = "You've made some progress, the glob is now somewhat rifle shaped."
 			clean_fail = "The rag is soaked in a single pass but the glob remains largely unchanged."
 		if(7)

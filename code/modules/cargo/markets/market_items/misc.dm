@@ -41,7 +41,7 @@
 	price_max = CARGO_CRATE_VALUE * 4
 	stock_max = 8
 	availability_prob = 60
-
+/*
 /datum/market_item/misc/donk_recycler
 	name = "MOD Riot Foam Dart Recycler Module"
 	desc = "If you love toy guns, hate cleaning and got a MODsuit, this module is a must-have."
@@ -50,7 +50,7 @@
 	price_max = CARGO_CRATE_VALUE * 4.5
 	stock_max = 2
 	availability_prob = 30
-
+*/
 /datum/market_item/misc/atrocinator
 	name = "MOD Anti-Gravity Module"
 	desc = "We found this module in a maintenance tunnel, behind several warning cones and hazard signs, unlabeled. It's probably safe."
@@ -203,7 +203,7 @@
 	))
 		new type(C)
 	return C
-
+/*
 /datum/market_item/misc/self_surgery_skillchip
 	name = /obj/item/skillchip/self_surgery::name
 	desc = "Man, the insurance companies HATE this one. Damn fat-cats can't stand the idea of people treating their own illnesses - \
@@ -221,7 +221,7 @@
 	. = ..()
 	if(.)
 		availability_prob *= 0.5
-
+*/
 /datum/market_item/misc/tricktrickcigarettes
 	name = "Trick Trick Cigarettes"
 	desc = "Cigarettes filled with flash powder. Makes for a fun prank!"

@@ -4,10 +4,11 @@
 
 	family_heirlooms = list(/obj/item/book/manual/wiki/security_space_law, /obj/item/clothing/head/beret/sec)
 
-
+/*
 /datum/outfit/job/security
 	suit_store = /obj/item/gun/energy/e_gun/advtaser
 	glasses = /obj/item/clothing/glasses/hud/security
 	backpack_contents = list(
 		/obj/item/evidencebag = 1,
 		/obj/item/flashlight/seclite = 1)
+*/

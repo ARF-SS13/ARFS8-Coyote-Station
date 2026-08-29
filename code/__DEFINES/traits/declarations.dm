@@ -1645,4 +1645,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Makes the owner desensetized to death, but happy whenever someone gets blown to pieces (as a sacrifice to the necropolis) unless its another worshipper
 #define TRAIT_NECROPOLIS_WORSHIP "necropolis_worship"
 
+//coyote add
+/// Trait for human species that have feral shaped bodies. Will skip most icon generation and use simple_icon instead. Check creature_species.dm and creature_procs.dm
+#define TRAIT_FERAL "feral_body"
+//end coyote add
+
 // END TRAIT DEFINES

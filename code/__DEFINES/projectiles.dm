@@ -35,7 +35,7 @@
 /// The caliber used by [one revolver variant][/obj/item/gun/ballistic/revolver/nagant].
 #define CALIBER_N762 "n762"
 /// The caliber used by the mosin nagant.
-#define CALIBER_M762R "m762r"
+#define CALIBER_M762R "7.62x54mmR"
 /// The caliber used by the the M-90gl Carbine, and NT-ARG 'Boarder'.
 #define CALIBER_A223 "a223"
 /// The caliber used by bolt action rifles.

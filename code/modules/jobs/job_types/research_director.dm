@@ -60,16 +60,14 @@
 	id_trim = /datum/id_trim/job/research_director
 	uniform = /obj/item/clothing/under/rank/rnd/research_director/turtleneck
 	suit = /obj/item/clothing/suit/toggle/labcoat/research_director
-	backpack_contents = list(
-		/obj/item/melee/baton/telescopic/silver = 1,
-		)
+	suit_store = /obj/item/melee/baton/telescopic/silver
 	belt = /obj/item/modular_computer/pda/heads/rd
 	head = /obj/item/clothing/head/beret/science/rd
 	ears = /obj/item/radio/headset/heads/rd
 	shoes = /obj/item/clothing/shoes/jackboots
 	gloves = /obj/item/clothing/gloves/color/black
 	l_pocket = /obj/item/laser_pointer/purple
-	l_hand = /obj/item/clipboard
+	r_pocket = /obj/item/clipboard
 
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel/science
@@ -82,7 +80,6 @@
 /datum/outfit/job/rd/mod
 	name = "Research Director (MODsuit)"
 
-	suit_store = /obj/item/tank/internals/oxygen
 	back = /obj/item/mod/control/pre_equipped/research
 	suit = null
 	head = null

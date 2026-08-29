@@ -1,3 +1,4 @@
+/*
 /datum/armament_entry/company_import/nri_surplus
 	category = COMPANY_NAME_NRI_SURPLUS
 	company_bitflag = CARGO_COMPANY_NRI_SURPLUS
@@ -162,4 +163,5 @@
 	item_type = /obj/item/ammo_box/magazine/wylom
 	contraband = TRUE
 	cost = PAYCHECK_CREW * 3
+*/
 */

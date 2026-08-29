@@ -577,7 +577,7 @@ function BackgroundCard({ background }: { background: TemperamentBuild }) {
     ? data.player_backgrounds[background.path]
     : null;
 
-  const xtraButt = isSelected ? (
+  const xtraButt = (
     <Button
       style={{
         backgroundColor: GetColorFromMap(ColorMap.CardBackground),
@@ -602,7 +602,7 @@ function BackgroundCard({ background }: { background: TemperamentBuild }) {
     >
       {MakeVerticallyAlignedText(<Icon name="pen" size={0.8} />)}
     </Button>
-  ) : null;
+  );
 
   return (
     <Box

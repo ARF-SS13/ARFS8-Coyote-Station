@@ -92,7 +92,6 @@
 	new /obj/item/storage/bag/garment/warden(src)
 	new /obj/item/storage/box/zipties(src)
 	new /obj/item/storage/box/flashbangs(src)
-	new /obj/item/storage/belt/security/full(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/storage/belt/bandolier(src)
@@ -115,9 +114,11 @@
 	new /obj/item/clothing/head/helmet/sec(src)
 	new /obj/item/radio/headset/headset_sec(src)
 	new /obj/item/radio/headset/headset_sec/alt(src)
-	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
+	new /obj/item/clothing/glasses/hud/security(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/gloves/tackler/security(src) // SKYRAT EDIT CHANGE - Gives Them The Blue Ones - ORIGINAL: new /obj/item/clothing/gloves/tackler(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/restraints/handcuffs(src)
 
 /obj/structure/closet/secure_closet/security/sec
 
@@ -183,6 +184,7 @@
 
 /obj/structure/closet/secure_closet/detective/PopulateContents()
 	..()
+	new /obj/item/storage/box/evidence(src)
 	new /obj/item/storage/box/evidence(src)
 	new /obj/item/radio/headset/headset_sec(src)
 	new /obj/item/detective_scanner(src)

@@ -229,7 +229,7 @@
 	storage_type = /datum/storage/cartridge_box
 
 /obj/item/storage/box/large_dart/PopulateContents()
-	for(var/i in 1 to 12)
+	for(var/i in 1 to 6)
 		new /obj/item/ammo_casing/shotgun/dart/large(src)
 
 // arfs: .38 ammo boxes. old style so you gotta handle your cartridges one by one
@@ -304,6 +304,11 @@
 /obj/item/storage/box/m762r/PopulateContents()
 	for(var/i in 1 to 12)
 		new /obj/item/ammo_casing/m762r(src)
+
+/obj/item/storage/box/m762r/surplus
+/obj/item/storage/box/m762r/surplus/PopulateContents()
+	for(var/i in 1 to 12)
+		new /obj/item/ammo_casing/m762r/surplus(src)
 
 /obj/item/storage/box/emptysandbags
 	name = "box of empty sandbags"

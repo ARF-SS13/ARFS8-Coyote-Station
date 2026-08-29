@@ -198,6 +198,13 @@
 	pickup_sound = 'sound/items/handling/toolbelt_pickup.ogg'
 	storage_type = /datum/storage/medical_belt
 
+/obj/item/storage/belt/medical/psych/PopulateContents()
+	new /obj/item/storage/pill_bottle/happinesspsych(src)
+	new /obj/item/storage/pill_bottle/lsdpsych(src)
+	new /obj/item/storage/pill_bottle/mannitol(src)
+	new /obj/item/storage/pill_bottle/paxpsych(src)
+	new /obj/item/storage/pill_bottle/psicodine(src)
+
 /obj/item/storage/belt/medical/paramedic
 	name = "EMT belt"
 	icon_state = "emt"
@@ -266,7 +273,24 @@
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/melee/baton/security/loaded(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/assembly/flash/handheld(src)
 	update_appearance()
+
+/obj/item/storage/belt/security/full_hos/PopulateContents()
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/grenade/flashbang(src)
+	new /obj/item/melee/baton/security/loaded/hos(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/assembly/flash/handheld(src)
+	update_appearance()
+
+/obj/item/storage/belt/security/orderly/PopulateContents()
+	new /obj/item/grenade/chem_grenade/cleaner(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/melee/baton/security/loaded(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/gun/energy/civilian_taser(src)
 
 /obj/item/storage/belt/security/webbing
 	name = "security webbing"
@@ -289,6 +313,13 @@
 
 /obj/item/storage/belt/mining/vendor/PopulateContents()
 	new /obj/item/survivalcapsule(src)
+
+/obj/item/storage/belt/mining/miner/PopulateContents()
+	new /obj/item/stack/marker_beacon/ten(src)
+	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/flashlight/seclite(src)
+	new /obj/item/knife/combat/survival(src)
+	new /obj/item/mining_voucher(src)
 
 /obj/item/storage/belt/mining/alt
 	icon_state = "explorer2"
@@ -525,6 +556,11 @@
 	for(var/i in 1 to 2)
 		new /obj/item/ammo_casing/shotgun/breacher(src) // be responsible with these
 
+/obj/item/storage/belt/shotgun_bandolier/bar/PopulateContents()
+	for(var/i in 1 to 8)
+		new /obj/item/ammo_casing/shotgun/beanbag(src)
+	for(var/i in 1 to 4)
+		new /obj/item/ammo_casing/shotgun/rubbershot(src)
 
 /obj/item/storage/belt/fannypack
 	name = "fannypack"
@@ -605,6 +641,20 @@
 	new /obj/item/food/drug/saturnx(src)
 	new /obj/item/reagent_containers/cup/blastoff_ampoule(src)
 	new /obj/item/reagent_containers/hypospray/medipen/methamphetamine(src)
+
+/obj/item/storage/belt/funnypack
+	name = "funnypack"
+	desc = "The perfect place to store all your funny things, guaranteed to bring out laughs in any crewmember. Laughter causation not guaranteed"
+	icon_state = "fannypack_pink"
+	inhand_icon_state = null
+	worn_icon_state = "fannypack_pink"
+	dying_key = DYE_REGISTRY_FANNYPACK
+	storage_type = /datum/storage/funny_pack
+
+/obj/item/storage/belt/funnypack/PopulateContents()
+	new /obj/item/reagent_containers/spray/waterflower(src)
+	new /obj/item/storage/box/balloons(src)
+	new /obj/item/stamp/clown(src)
 
 /obj/item/storage/belt/sheath
 	desc = "holds like, blades and stuff. You should not be seeing this."

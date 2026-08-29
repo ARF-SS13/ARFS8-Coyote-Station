@@ -63,6 +63,7 @@
 	generate_items_inside(list(
 		/obj/item/ammo_box/speedloader/c38 = 2,
 		/obj/item/gun/ballistic/revolver/c38/detective = 1,
+		/obj/item/lighter = 1, // tucked in here to make room
 	), src)
 
 /obj/item/storage/belt/holster/detective/full/ert

@@ -1,3 +1,4 @@
+/*
 /datum/outfit/job/roboticist
 	backpack = /obj/item/storage/backpack/science/robo
 	satchel = /obj/item/storage/backpack/satchel/science/robo
@@ -17,7 +18,7 @@
 
 	LAZYINITLIST(backpack_contents)
 	backpack_contents[/obj/item/clothing/head/utility/welding] = 1
-
+*/
 /datum/job/roboticist/New()
 	. = ..()
 
@@ -36,13 +37,13 @@
 		/obj/item/reagent_containers/spray/dinitrogen_plasmide = 8,
 	)
 
-
+/* Coding care pamphlet: if you need a piece of paper explaining how something works, you did a bad job designing the mechanic, its descriptors, and your wiki.
 /datum/outfit/job/roboticist/New()
 	. = ..()
 
 	LAZYINITLIST(backpack_contents)
 	backpack_contents[/obj/item/paper/pamphlet/roboticist_reminder] = 1
-
+*/
 /obj/item/paper/pamphlet/roboticist_reminder
 	name = "synthetic care pamphlet"
 	default_raw_text = "Your duties include treating the synthetic and protean lifeforms aboard the station! Heres some tips and tricks to get you started...<hr><br> \n\

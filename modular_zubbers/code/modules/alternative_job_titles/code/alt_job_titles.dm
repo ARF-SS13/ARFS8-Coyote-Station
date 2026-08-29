@@ -12,14 +12,8 @@
 		"Brig Physician",
 		"Combat Medic",
 		"Special Operations Medic",
+		"Novice Security Medic",
 	)
-
-/datum/job/orderly/New()
-	alt_titles |= list(
-		"Medical Attendant",
-		"Medical Support Technician",
-	)
-	. = ..()
 
 //New titles for Blacksmith
 /datum/job/blacksmith
