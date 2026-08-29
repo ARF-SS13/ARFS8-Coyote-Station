@@ -1646,7 +1646,8 @@ toggle_rumor_specifiable
 	var/new_text = tgui_input_text(
 		user,
 		"Edit the details of this rumor. Maximum length is 512 characters. \
-		Special characters may be clipped, multiline should be okay.",
+		Special characters may be clipped, multiline should be okay. \
+		Note: Rumors should only relate directly to your character, and no one elses.",
 		"Edit rumor: [rumor_text]",
 		rumor_text,
 		512,
