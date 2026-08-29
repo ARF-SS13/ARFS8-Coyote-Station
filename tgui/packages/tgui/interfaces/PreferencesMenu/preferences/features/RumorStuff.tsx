@@ -8,7 +8,7 @@ import {
   RumorPosition,
   type RumorSlotData,
   RumorTooltipCategory,
-} from '../../../RumorMuncher2000/types';
+} from '../../../../CoolTypes/types';
 import type { PreferencesMenuData } from '../../types';
 import type { Feature, FeatureValueProps } from './base';
 
@@ -28,57 +28,89 @@ export function RumorManager(
   const myRumorSlot: RumorSlotData = data.player_rumor_slot;
   const rumors: RumorData[] = myRumorSlot?.rumors;
 
-  const chungusblockStyle = {
-    display: 'flex',
-    flexDirection: 'column' as const,
-    gap: '0.5em',
-    margin: '0.5em 0px',
+  const bigButtonStyle: React.CSSProperties = {
+    ...MiniButtonStyle,
+    width: '100%',
   };
+
+  const cuteButtonStyle: React.CSSProperties = {
+    ...bigButtonStyle,
+    paddingLeft: '0.5em',
+    paddingRight: '0.5em',
+    width: 'auto',
+  };
+
+  const buttonBarContainerStyle: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '0.5em',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: RumorColorSet.Border,
+    borderRadius: '5px',
+    padding: '0.5em',
+    marginBottom: '0.5em',
+  };
+
+  const addButton = (
+    <Button
+      style={bigButtonStyle}
+      onClick={() => {
+        act(RumorActKeys.Invoke, {
+          [RumorActKeys.Action]: RumorActKeys.Add,
+        });
+      }}
+    >
+      Add New Rumor
+    </Button>
+  );
 
   const copyAllButton = (
     <Button
-      style={MiniButtonStyle}
+      style={cuteButtonStyle}
       onClick={() => {
         act(RumorActKeys.Invoke, {
           [RumorActKeys.Action]: RumorActKeys.CopyAll,
         });
       }}
     >
-      📋
+      📋 Copy
     </Button>
   );
 
   const pasteButton = (
     <Button
-      style={MiniButtonStyle}
+      style={cuteButtonStyle}
       onClick={() => {
         act(RumorActKeys.Invoke, {
           [RumorActKeys.Action]: RumorActKeys.Paste,
         });
       }}
     >
-      📋
+      📥 Paste
     </Button>
+  );
+
+  const buttonBar = (
+    <div style={buttonBarContainerStyle}>
+      {addButton}
+      {copyAllButton}
+      {pasteButton}
+    </div>
   );
 
   return (
     <div>
       <Stack vertical fill>
-        <Stack.Item>
-          <div style={{ display: 'flex', flexDirection: 'row', gap: '0.5em' }}>
-            <div>Copy All:</div>
-            {copyAllButton}
-            <div>Paste:</div>
-            {pasteButton}
-          </div>
-        </Stack.Item>
+        <Stack.Item>{buttonBar}</Stack.Item>
         {rumors?.length === 0 && (
           <Stack.Item>
             <Box>
-              Word around the station is quiet about this character, though that
-              may change if you add some rumors! Rumors are visible on your
-              examine window, and may be spread to other players via the event
-              system.
+              Make some rumors about yourself, someone else, or just stuff in
+              general! Rumors, if set to be public, will appear in your
+              character's examine window, and may be spread to other players by
+              the RumorMill event system. Check the buttons in a new rumor for
+              more details!
             </Box>
           </Stack.Item>
         )}
@@ -87,19 +119,6 @@ export function RumorManager(
             <RumorItem rumham={rumor} />
           </Stack.Item>
         ))}
-        <Stack.Item>
-          <Button
-            style={chungusblockStyle}
-            fluid
-            onClick={() => {
-              act(RumorActKeys.Invoke, {
-                [RumorActKeys.Action]: RumorActKeys.Add,
-              });
-            }}
-          >
-            + Add Rumor
-          </Button>
-        </Stack.Item>
       </Stack>
     </div>
   );
@@ -107,9 +126,10 @@ export function RumorManager(
 
 type RumorTTprops = {
   category: RumorTooltipCategory;
-  isHorny?: boolean;
-  isPublic?: boolean;
-  isSpecifiable?: boolean;
+  isHorny?: number;
+  isSecret?: number;
+  isPublic?: number;
+  isSpecifiable?: number;
   position?: RumorPosition;
 };
 
@@ -141,13 +161,13 @@ function RumorItem({ rumham }: { rumham: RumorData }) {
   });
   const specifiableTT = GetRumorTooltipText({
     category: RumorTooltipCategory.ToggleSpecifiable,
-    isSpecifiable: rumham.specifiable,
+    isSpecifiable: rumham.specificable,
   });
   const editTT = GetRumorTooltipText({
     category: RumorTooltipCategory.EditText,
   });
 
-  const isHorny = horny === true;
+  const isHorny = horny === 1;
   function UpDownButton(pos: RumorPosition, dir: 'up' | 'down') {
     let isDisabled = false;
     switch (pos) {
@@ -184,8 +204,8 @@ function RumorItem({ rumham }: { rumham: RumorData }) {
           ...MiniButtonStyle,
           ...styleOverrides,
         }}
-        tooltip={dir === 'up' ? upTT : downTT}
-        tooltipPosition="right"
+        // tooltip={dir === 'up' ? upTT : downTT}
+        // tooltipPosition="right"
         onClick={() => {
           !isDisabled &&
             act(RumorActKeys.Invoke, {
@@ -206,6 +226,10 @@ function RumorItem({ rumham }: { rumham: RumorData }) {
           justifyContent: 'space-between',
           height: '100%',
         }}
+        onClick={(event) => {
+          // don't let clicks on these buttons bubble up to the text box's edit-text onClick
+          event.stopPropagation();
+        }}
       >
         {UpDownButton(position, 'up')}
         {UpDownButton(position, 'down')}
@@ -215,8 +239,12 @@ function RumorItem({ rumham }: { rumham: RumorData }) {
 
   const hornyButton = (
     <Button
-      style={MiniButtonStyle}
-      backgroundColor={isHorny ? RumorColorSet.Horny : RumorColorSet.NotHorny}
+      style={{
+        ...MiniButtonStyle,
+        backgroundColor: isHorny
+          ? RumorColorSet.Horny
+          : RumorColorSet.ButtonBackground,
+      }}
       tooltip={hornyTT}
       tooltipPosition="left"
       onClick={() => {
@@ -232,9 +260,11 @@ function RumorItem({ rumham }: { rumham: RumorData }) {
 
   const deleteButton = (
     <Button
-      style={MiniButtonStyle}
-      color="red"
-      backgroundColor={RumorColorSet.Delete}
+      style={{
+        ...MiniButtonStyle,
+        color: 'red',
+        backgroundColor: RumorColorSet.Delete,
+      }}
       tooltip={deleteTT}
       tooltipPosition="left"
       onClick={() => {
@@ -250,10 +280,12 @@ function RumorItem({ rumham }: { rumham: RumorData }) {
 
   const specifiableButton = (
     <Button
-      style={MiniButtonStyle}
-      backgroundColor={
-        rumham.specifiable ? RumorColorSet.Horny : RumorColorSet.NotHorny
-      }
+      style={{
+        ...MiniButtonStyle,
+        backgroundColor: rumham.specificable
+          ? RumorColorSet.Horny
+          : RumorColorSet.ButtonBackground,
+      }}
       tooltip={specifiableTT}
       tooltipPosition="left"
       onClick={() => {
@@ -263,26 +295,61 @@ function RumorItem({ rumham }: { rumham: RumorData }) {
         });
       }}
     >
-      {rumham.specifiable ? 'S' : 's'}
+      ✉️
     </Button>
   );
 
   const publicButton = (
     <Button
-      style={MiniButtonStyle}
-      backgroundColor={RumorColorSet.ButtonBackground}
+      style={{
+        ...MiniButtonStyle,
+        backgroundColor: rumham.public
+          ? RumorColorSet.Horny
+          : RumorColorSet.ButtonBackground,
+      }}
+      onClick={() => {
+        act(RumorActKeys.Invoke, {
+          [RumorActKeys.Action]: RumorActKeys.TogglePublic,
+          [RumorActKeys.Uid]: uid,
+        });
+      }}
       tooltip={publicTT}
       tooltipPosition="left"
-      disabled
     >
-      {}
+      📢
+    </Button>
+  );
+
+  const secretButton = (
+    <Button
+      style={{
+        ...MiniButtonStyle,
+        backgroundColor: rumham.secret
+          ? RumorColorSet.Horny
+          : RumorColorSet.ButtonBackground,
+      }}
+      onClick={() => {
+        act(RumorActKeys.Invoke, {
+          [RumorActKeys.Action]: RumorActKeys.ToggleSecret,
+          [RumorActKeys.Uid]: uid,
+        });
+      }}
+      tooltip={GetRumorTooltipText({
+        category: RumorTooltipCategory.ToggleSecret,
+        isSecret: rumham.secret,
+      })}
+      tooltipPosition="left"
+    >
+      🔒
     </Button>
   );
 
   const copySingleButton = (
     <Button
-      style={MiniButtonStyle}
-      backgroundColor={RumorColorSet.ButtonBackground}
+      style={{
+        ...MiniButtonStyle,
+        backgroundColor: RumorColorSet.ButtonBackground,
+      }}
       tooltip={GetRumorTooltipText({
         category: RumorTooltipCategory.CopySingle,
       })}
@@ -302,50 +369,34 @@ function RumorItem({ rumham }: { rumham: RumorData }) {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(2, 1fr)',
-        justifyContent: 'space-between',
+        gridTemplateColumns: 'repeat(6, 1fr)',
         alignItems: 'center',
-        gap: '0.5em',
+        gap: '0.1em',
+        float: 'right',
+        marginLeft: '0.5em',
+      }}
+      onClick={(event) => {
+        // don't let clicks on these buttons bubble up to the text box's edit-text onClick
+        event.stopPropagation();
       }}
     >
-      {deleteButton}
       {hornyButton}
       {specifiableButton}
       {publicButton}
       {copySingleButton}
+      {secretButton}
+      {deleteButton}
     </div>
   );
 
   const MainContainerProps = {
-    backgroundColor: RumorColorSet.Background,
+    backgroundColor: isHorny
+      ? RumorColorSet.BackgroundHorny
+      : RumorColorSet.Background,
     color: RumorColorSet.Text,
     border: `1px solid ${RumorColorSet.Border}`,
     borderRadius: '5px',
   };
-
-  const internalTextHolderSortabutton = (
-    <Box
-      style={{
-        width: '100%',
-        height: '100%',
-        padding: '1px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-        textAlign: 'left',
-        backgroundColor: '#00000000',
-      }}
-      onClick={() => {
-        act(RumorActKeys.Invoke, {
-          [RumorActKeys.Action]: RumorActKeys.EditText,
-          [RumorActKeys.Uid]: uid,
-        });
-      }}
-    >
-      {text}
-    </Box>
-  );
 
   // ╔═══╦══════════════════╦═══╗
   // ║ ^ ║ i ate fenny's    ║ X ║
@@ -356,27 +407,37 @@ function RumorItem({ rumham }: { rumham: RumorData }) {
     <Box
       style={{ ...MainContainerProps, display: 'flex', flexDirection: 'row' }}
     >
-      {uppydownyHolder}
-      <div
+      <Box
         style={{
           flex: 1,
-          display: 'flex',
           flexDirection: 'row',
-          justifyContent: 'space-between',
+          display: 'flex',
+          height: '100%',
+          padding: '0px',
+          textAlign: 'left',
+          backgroundColor: '#00000000',
+          cursor: 'text',
+        }}
+        onClick={() => {
+          act(RumorActKeys.Invoke, {
+            [RumorActKeys.Action]: RumorActKeys.EditText,
+            [RumorActKeys.Uid]: uid,
+          });
         }}
       >
-        {internalTextHolderSortabutton}
+        {uppydownyHolder}
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
+            flex: 1,
+            padding: '0px',
+            overflowWrap: 'break-word',
+            wordBreak: 'break-word',
           }}
         >
-          {hornyButton}
-          {deleteButton}
+          {rightSideButtonHolder}
+          <div style={{ padding: '5px' }}>{text}</div>
         </div>
-      </div>
+      </Box>
     </Box>
   );
 }
@@ -395,53 +456,57 @@ function RumorItem({ rumham }: { rumham: RumorData }) {
 function GetRumorTooltipText(props: RumorTTprops): React.ReactNode {
   switch (props.category) {
     case RumorTooltipCategory.ToggleNSFW:
-      return props.isHorny
-        ? 'Mark this rumor as SFW'
-        : 'Mark this rumor as NSFW';
+      return (
+        <div>
+          {`This rumor is considered ${props.isHorny ? 'Horny' : 'Not Horny'}.`}
+          <br />
+          {`Click here to flag this rumor as ${props.isHorny ? 'Not Horny' : 'Horny'}.`}
+          <br />
+          <br />
+          {`Horny rumors are rumors that contain explicit sexual content, such as `}
+          {`your (or someone else's) kinks, horny happenings, or anything else of a sexual nature.`}
+          <br />
+          {`Horny rumors will not be shown to players who have opted out of seeing `}
+          {`horny rumors, so don't worry about that!`}
+        </div>
+      );
     case RumorTooltipCategory.TogglePublic:
-      if (props.isPublic) {
-        return (
-          <div>
-            This rumor is eligible for the event system to randomly spread to
-            others.
-            <br />
-            Note: NSFW rumors are still eligible for the event system, but they
-            will only be spread to other players who have opted in to see NSFW
-            rumors.
-          </div>
-        );
-      } else {
-        return (
-          <div>
-            This rumor is not eligible for the event system to randomly spread
-            to others.
-            <br />
-            Note: It will be visible on your examine window.
-          </div>
-        );
-      }
+      return (
+        <div>
+          {`This rumor is ${props.isPublic ? 'Public' : 'Private'}.`}
+          <br />
+          {`Click here to make this rumor ${props.isPublic ? 'Private' : 'Public'}.`}
+          <br />
+          <br />
+          {`Public rumors will be eligible to be spread via the RumorMill.`}
+        </div>
+      );
     case RumorTooltipCategory.ToggleSpecifiable:
-      if (props.isSpecifiable) {
-        return (
-          <div>
-            If spread by the event system, this rumor may include additional
-            identifiable info about your character.
-            <br />
-            Note: This does not affect the rumor's visibility on your examine
-            window.
-          </div>
-        );
-      } else {
-        return (
-          <div>
-            If spread by the event system, this rumor will not include any
-            additional identifiable info about your character.
-            <br />
-            Note: This does not affect the rumor's visibility on your examine
-            window.
-          </div>
-        );
-      }
+      return (
+        <div>
+          {`This rumor is ${props.isSpecifiable ? 'Specifiable' : 'Not Specifiable'}.`}
+          <br />
+          {`Click here to make this rumor ${props.isSpecifiable ? 'Not Specifiable' : 'Specifiable'}.`}
+          <br />
+          <br />
+          {`Specifiable rumors, when spread via the RumorMill, will include information `}
+          {`about your character. Otherwise, the rumor will not include any additional `}
+          {`information about your character.`}
+          <br />
+          {`Do note, it won't remove any identifiable information you write into the rumor!`}
+        </div>
+      );
+    case RumorTooltipCategory.ToggleSecret:
+      return (
+        <div>
+          {`This rumor is ${props.isSecret ? 'Secret' : 'Not Secret'}.`}
+          <br />
+          {`Click here to toggle the secret status of this rumor.`}
+          <br />
+          <br />
+          {`Secret rumors will not appear in your examine window.`}
+        </div>
+      );
     case RumorTooltipCategory.MoveUp:
       if (props.position === RumorPosition.Top) {
         return 'This rumor is already at the top of your list.';
@@ -459,11 +524,38 @@ function GetRumorTooltipText(props: RumorTTprops): React.ReactNode {
     case RumorTooltipCategory.EditText:
       return 'Click here to change the text of this rumor about your character!';
     case RumorTooltipCategory.CopySingle:
-      return 'Copy this rumor to your clipboard, so you can paste it to another character!';
+      return (
+        <div>
+          Copy this rumor to your clipboard!
+          <br />
+          <br />
+          {`This is useful if you want to copy a rumor from one character to another, `}
+          {`like such as for instance if you have multiple character slots that are the `}
+          {`same character (but with different styles or something) and you want each one `}
+          {`to have the same rumors about them!`}
+        </div>
+      );
     case RumorTooltipCategory.CopyAll:
-      return 'Copy all rumors from this character to your clipboard, so you can paste them to another character!';
+      return (
+        <div>
+          Copy all these rumors to your clipboard!
+          <br />
+          <br />
+          {`This is useful if you want to copy all rumors from one character to another, `}
+          {`like such as for instance if you have multiple character slots that are the `}
+          {`same character (but with different styles or something) and you want each one `}
+          {`to have the same rumors about them!`}
+        </div>
+      );
     case RumorTooltipCategory.Paste:
-      return 'Paste the rumors from your clipboard to this character!';
+      return (
+        <div>
+          Paste rumors from your clipboard!
+          <br />
+          <br />
+          {`This will also clear your clipboard.`}
+        </div>
+      );
     default:
       return '';
   }

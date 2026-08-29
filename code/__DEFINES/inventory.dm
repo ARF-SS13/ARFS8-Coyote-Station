@@ -62,6 +62,8 @@
 #define ITEM_SLOT_HANDCUFFED (1<<17)
 /// Legcuff slot (bolas, beartraps)
 #define ITEM_SLOT_LEGCUFFED (1<<18)
+/// this thing doesnt go ANYWHERE
+#define ITEM_SLOT_DONT_PUT_ANYWHERE (1<<31)
 
 /// Total amount of slots
 #define SLOTS_AMT 27 // Keep this up to date! //SPLURT EDIT - Original: 19

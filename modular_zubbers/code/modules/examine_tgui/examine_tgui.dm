@@ -134,16 +134,6 @@
 			ooc_notes += "Round Removal Opt-In Status: [rr_prefs ? "Yes" : "No"]\n"
 			ooc_notes += "\n"
 
-		// FORMAT: list("rumor text" = "horny" or "not horny")
-		var/list/rumors = preferences.read_preference(/datum/preference/rumors) || list()
-		data["rumors"] = list()
-		for(var/list/rumordat in rumors)
-			var/list/roomer = list()
-			roomer["rumor_text"] = rumordat["txt"]
-			roomer["is_nsfw"] = rumordat["horny"]
-			roomer["unique_id"] = rumordat["uid"]
-			data["rumors"] += list(roomer)
-
 	if(ishuman(holder))
 		var/mob/living/carbon/human/holder_human = holder
 		obscured = (holder_human.covered_slots & HIDEFACE) && obscurity_examine_pref
@@ -181,6 +171,7 @@
 
 	var/atom/movable/screen/map_view/examine_panel_screen/viewer_screen = LAZYACCESS(viewer_screens, user)
 
+	data["rumors"] = SSrumormill.get_examine_rumor_display_text_for_tgui(holder)
 	data["obscured"] = obscured ? TRUE : FALSE
 	data["character_name"] = name
 	data["assigned_map"] = viewer_screen?.assigned_map

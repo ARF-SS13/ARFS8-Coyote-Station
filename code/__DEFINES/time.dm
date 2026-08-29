@@ -71,6 +71,9 @@ When using time2text(), please use "DDD" to find the weekday. Refrain from using
 #define HOURS MINUTES*60
 
 #define DAYS HOURS*24
+
+#define WEEKS DAYS*7
+
 #define YEARS DAYS*365 //fuck leap days, they were removed in 2069
 
 #define TICKS *world.tick_lag

@@ -741,6 +741,8 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 ///Returns a list of strings for a given slot flag.
 /proc/parse_slot_flags(slot_flags)
 	var/list/slot_strings = list()
+	if(slot_flags & ITEM_SLOT_DONT_PUT_ANYWHERE)
+		slot_strings += "nowhere"
 	if(slot_flags & ITEM_SLOT_BACK)
 		slot_strings += "back"
 	if(slot_flags & ITEM_SLOT_MASK)

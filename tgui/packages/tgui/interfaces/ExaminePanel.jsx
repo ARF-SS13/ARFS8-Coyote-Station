@@ -1,4 +1,4 @@
-// THIS IS A SKYRAT UI FILE
+// THIS IS A SKYRAT UI FILE // coyote too
 import { useState } from 'react';
 import {
   Box,
@@ -12,6 +12,25 @@ import {
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+
+// export type RumorData = {
+//   uid: string;
+//   text: string;
+//   horny: number;
+//   public: number;
+//   secret: number;
+//   specificable: number;
+//   position: RumorPosition;
+//   times_spread: number;
+//   deleted_time: number | null;
+//   created_time: number;
+//   modified_time: number;
+// };
+
+// export type RumorExamineData = {
+//   horny_ones: RumorData[];
+//   tame_ones: RumorData[];
+// };
 
 // no enums? no problem! any struct is an enum if you believe hard enough!
 const ExaminePanelTabs = Object.freeze({
@@ -73,74 +92,42 @@ export const ExaminePanel = () => {
     custom_species,
     custom_species_lore,
     character_ad,
-    rumors, // [{ rumor_text: "text", is_nsfw: "yes"/"no", unique_id: "uid" }, ...]
+    rumors,
     headshot,
     headshot_nsfw,
     art_ref,
     art_ref_nsfw,
   } = data;
+  const { rumor_examine } = rumors; // <RumorExamineData>
 
   const handlePageChange = (page, newPage) => {
     setPage(newPage);
   };
 
-  const Rumor = ({ rumor_text, rumor_nsfw }) => {
+  const rumorStyle = {
+    marginBottom: '10px',
+    padding: '5px',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '#00f0fd60',
+    borderRadius: '5px',
+    backgroundColor: '#00f0fd28',
+  };
+  const rumorHornyStyle = {
+    ...rumorStyle,
+    borderColor: '#ff00ff60',
+    backgroundColor: '#ff00ff28',
+  };
+
+  const makeRumor = (rumor) => {
+    // <RumorData>
+    const { uid, text, horny } = rumor;
     return (
-      <div style={{ marginBottom: '5px', width: '100%' }}>
-        {rumor_nsfw ? (
-          <>
-            <span style={{ color: 'pink' }}>• </span>
-            <span>{formatURLs(rumor_text)}</span>
-          </>
-        ) : (
-          <>
-            <span>• </span>
-            <span>{formatURLs(rumor_text)}</span>
-          </>
-        )}
-        ;
+      <div key={uid} style={horny ? rumorHornyStyle : rumorStyle}>
+        <div>{formatURLs(text)}</div>
       </div>
     );
   };
-
-  const has_at_least_one_visible_rumor = rumors.some(
-    (rumor) => !rumor.is_nsfw || (showRumorsNSFW && rumor.is_nsfw),
-  );
-  const rumorsDisplay =
-    rumors.length > 0 ? (
-      <Stack fill vertical>
-        <Stack.Item shrink>
-          <div
-            style={{
-              fontSize: '10px',
-              lineHeight: '1.5',
-              fontFamily: 'cursive',
-              fontStyle: 'italic',
-            }}
-          >
-            Rumor has it...
-          </div>
-        </Stack.Item>
-        {rumors.map((rumor, index) =>
-          rumor.is_nsfw && !showRumorsNSFW ? null : (
-            <Rumor
-              key={index}
-              rumor_text={rumor.rumor_text}
-              rumor_nsfw={rumor.is_nsfw}
-            />
-          ),
-        )}
-      </Stack>
-    ) : (
-      <div>
-        {formatURLs(
-          `No common gossip or rumors are yet known to you ` +
-            `about ${character_name}, ` +
-            `maybe go ask around about them? Surely there's something ` +
-            `interesting (or salacious) to discover!`,
-        )}
-      </div>
-    );
 
   //This does not fix the problem, however, it does make it work right now. I am so sorry.
   const [previewKey, setPreviewKey] = useState(0);
@@ -149,6 +136,17 @@ export const ExaminePanel = () => {
       setPreviewKey(1);
     }, 200);
   }
+
+  // show horny rumors?
+  const [showHornyRumors, setShowHornyRumors] = useState(false);
+  const rumorsNormal =
+    rumor_examine?.tame_ones?.map((rumor) => makeRumor(rumor)) || [];
+  const rumorsHorny = showHornyRumors
+    ? rumor_examine?.horny_ones?.map((rumor) => makeRumor(rumor)) || []
+    : [];
+  const rumorsDisplay = showHornyRumors
+    ? [...rumorsNormal, ...rumorsHorny]
+    : rumorsNormal;
 
   return (
     <Window
@@ -344,9 +342,9 @@ export const ExaminePanel = () => {
                     </Tabs.Tab>
                     <Tabs.Tab
                       selected={lowerTabIndex === ExaminePanelLowerTabs.Rumors}
-                      onClick={() =>
-                        setLowerTabIndex(ExaminePanelLowerTabs.Rumors)
-                      }
+                      onClick={(event) => {
+                        setLowerTabIndex(ExaminePanelLowerTabs.Rumors);
+                      }}
                     >
                       <Section
                         fitted
@@ -354,14 +352,17 @@ export const ExaminePanel = () => {
                         style={{ textAlign: 'center' }}
                         buttons={
                           <Button
-                            color={rumors_nsfw ? 'pink' : 'default'}
+                            backgroundColor={
+                              showHornyRumors ? 'pink' : 'default'
+                            }
                             tooltip={
-                              rumors_nsfw
+                              showHornyRumors
                                 ? 'Hide NSFW Rumors'
                                 : 'Show NSFW Rumors'
                             }
-                            onClick={() => {
-                              act('toggleShowRumorsNSFW');
+                            onClick={(event) => {
+                              setShowHornyRumors(!showHornyRumors);
+                              event.stopPropagation();
                             }}
                           >
                             🍆
@@ -406,7 +407,11 @@ export const ExaminePanel = () => {
                       fontSize="14px"
                       lineHeight="1.5"
                     >
-                      <Stack.Item>{formatURLs(rumorsDisplay)}</Stack.Item>
+                      {rumorsDisplay.length > 0 ? (
+                        rumorsDisplay
+                      ) : (
+                        <div>No rumors here! At least not yet =3</div>
+                      )}
                     </Section>
                   )}
                 </Box>

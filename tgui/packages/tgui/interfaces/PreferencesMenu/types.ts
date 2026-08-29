@@ -1,7 +1,6 @@
 import type { BooleanLike } from 'tgui-core/react';
-
+import type { RumorSlotData } from '../../CoolTypes/types';
 import type { sendAct } from '../../events/act';
-import type { RumorSlotData } from '../RumorMuncher2000/types';
 import type {
   LoadoutCategory,
   LoadoutList,

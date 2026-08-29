@@ -2,9 +2,10 @@
 export type RumorData = {
   uid: string;
   text: string;
-  horny: boolean;
-  public: boolean;
-  specifiable: boolean;
+  horny: number;
+  public: number;
+  secret: number;
+  specificable: number;
   position: RumorPosition;
   times_spread: number;
   deleted_time: number | null;
@@ -15,7 +16,7 @@ export type RumorData = {
 // Data for a character slot, which is held in a RumorHolderData object
 export type RumorSlotData = {
   slot: number;
-  character_name: string;
+  character_name: Record<string, unknown>; // this is a list of names, because you can have multiple characters in a single slot, and they all share the same rumor list
   rumors: RumorData[];
   // only really used for the RumorMuncher2000, but we can keep it here for now
   rumor_keys?: string[];
@@ -32,6 +33,11 @@ export type RumorHolderData = {
 export type RumorMuncher2000Data = {
   // ckey to RumorHolderData
   rumor_database: Record<string, RumorHolderData>;
+};
+
+export type RumorExamineData = {
+  horny_ones: RumorData[];
+  tame_ones: RumorData[];
 };
 
 // Keys that are sent back from TGUI to BYOND to mess with the rumor mill
@@ -51,6 +57,11 @@ export enum RumorActKeys {
   CopySingle = 'rumor_copy_single',
   CopyAll = 'rumor_copy_all',
   Paste = 'rumor_paste',
+  ToggleSecret = 'rumor_toggle_secret',
+  Ckey = 'rumor_ckey',
+  Slot = 'rumor_slot',
+  AmAdmin = 'rumor_am_admin',
+  AllRumors = 'rumor_uid_list',
   // always needed
   Uid = 'rumor_uid',
 }
@@ -126,4 +137,5 @@ export enum RumorTooltipCategory {
   CopySingle = 'Copy Single',
   CopyAll = 'Copy All',
   Paste = 'Paste',
+  ToggleSecret = 'Toggle Secret',
 }

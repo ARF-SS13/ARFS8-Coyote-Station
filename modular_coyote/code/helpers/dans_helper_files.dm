@@ -33,14 +33,14 @@
 		return cl?.mob
 	return null
 
-/proc/extract_current_character_slot(mob/user)
+/proc/extract_current_character_slot(mob/user, null_is_ok)
 	var/datum/prefs_holder/preferences = extract_prefs_holder(user)
 	if(preferences)
 		return preferences.default_slot // default is current
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		return H.prefs_character_slot || 1
-	return 1
+	return null_is_ok ? null : 1
 
 /// takes in a screen_loc string, and shifts it by the given x and y offsets
 /// "EAST-4:22,SOUTH+1:7", x_offset = 3, y_offset = 2 would output "EAST-1:25,SOUTH+3:9"

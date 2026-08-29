@@ -96,9 +96,12 @@
 		if("rumor_copy_single")
 			SSrumormill.CopyRumor(user, user.ckey, params["rumor_uid"], d_slot)
 		if("rumor_copy_all")
-			SSrumormill.CopyRumor(user, user.ckey, params["rumor_uid_list"], d_slot)
+			SSrumormill.CopyRumor(user, user.ckey, null, d_slot)
 		if("rumor_paste")
 			SSrumormill.PasteRumor(user, user.ckey, d_slot)
+		if("rumor_toggle_secret")
+			if(!SSrumormill.toggle_rumor_secret(user, params["rumor_uid"], d_slot))
+				return FALSE
 		else
 			return FALSE
 	SSrumormill.update_rumor_person(user, d_slot)

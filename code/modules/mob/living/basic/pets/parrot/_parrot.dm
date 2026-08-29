@@ -54,6 +54,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	var/speech_probability_rate = 5
 	/// The generic probability odds we have to switch out our speech string
 	var/speech_shuffle_rate = 30
+	var/speech_rumor_rate = 35
+	var/speech_nethack_rumor_rate = 35
 
 	/// Contains all of the perches that parrots will generally sit on until something catches their eye.
 	var/static/list/desired_perches = typecacheof(list(
@@ -417,6 +419,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 /// Updates our speech blackboards mob-side to reflect the current speech on the controller to ensure everything is synchronized.
 /mob/living/basic/parrot/proc/update_speech_blackboards()
 	ai_controller.set_blackboard_key(BB_PARROT_REPEAT_PROBABILITY, speech_probability_rate)
+	ai_controller.set_blackboard_key(BB_PARROT_SAY_NETHACK_RUMOR, speech_nethack_rumor_rate)
+	ai_controller.set_blackboard_key(BB_PARROT_SAY_NON_SAUCY_RUMOR, speech_rumor_rate)
 	ai_controller.set_blackboard_key(BB_PARROT_PHRASE_CHANGE_PROBABILITY, speech_shuffle_rate)
 
 /// Will simply set up the headset for the parrot to use. Stub, implemented on subtypes.

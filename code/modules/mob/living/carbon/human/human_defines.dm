@@ -105,6 +105,3 @@
 	var/obj/effect/abstract/held_tk_effect/right/held_right
 	var/held_hover_color
 	// BUBBER EDIT END
-
-	/// into which slot in the prefs save file does this characters data comes from?
-	var/prefs_character_slot
