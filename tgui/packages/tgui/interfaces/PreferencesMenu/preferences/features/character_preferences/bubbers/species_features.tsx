@@ -191,7 +191,7 @@ export const art_ref_nsfw: FeatureToggle = {
 
 export const the_actual_rumors: FeatureRumorManager = {
   name: 'Rumors',
-  description: `Write rumors about yourself or others, or just to start rumors in general! \
+  description: `Write rumors about yourself.  Not others.  \
     Rumors can be set as public or private, horny or not, and directly traceable to your character or not. \
     These will, if set to public, show up in your examine window for others to see, and can be spread to \
     other characters via the RumorMill, if set as Spreadable!`,
