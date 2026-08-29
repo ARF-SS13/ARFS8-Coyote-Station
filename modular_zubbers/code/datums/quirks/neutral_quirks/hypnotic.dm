@@ -84,7 +84,7 @@
 	return
 
 /datum/preference/text/hypnotic_text/create_default_value()
-	return "Their eyes are inciticing to stare at."
+	return "Their eyes are enticing to stare at." //Sharknet PLEASE ~Fenny
 
 /datum/preference/choiced/hypnotic_span/create_default_value()
 	return "Hypnophrase"
