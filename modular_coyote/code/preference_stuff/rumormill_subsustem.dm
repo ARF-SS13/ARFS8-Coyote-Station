@@ -924,7 +924,6 @@ toggle_rumor_specifiable
 		var/client/C = LAZYACCESS(GLOB.directory, ckey)
 		var/yay = TRUE
 		output_debug("RumorMill: Saved rumors for [ckey] to disk at [filename]!")
-		output_debug("RumorMill: Saved rumors for [ckey] to disk at [filename]!")
 		var/datta2 = rustg_file_read(filename)
 		if(!datta2)
 			yay = FALSE
@@ -950,7 +949,8 @@ toggle_rumor_specifiable
 		else
 			rholder.set_durty(FALSE) // we just saved it, so its not durty anymore
 			if(C)
-				to_chat(C, span_notice("RumorMill: Saved your rumors to disk!"))
+				if(isnewplayer(C.mob))
+					to_chat(C, span_notice("RumorMill: Saved your rumors to disk!"))
 
 	var/ghoulyay = TRUE
 	if(graveyard_durty)
@@ -967,8 +967,8 @@ toggle_rumor_specifiable
 
 /datum/controller/subsystem/rumormill/proc/SaveMetrix()
 	if(!round_identifier)
-		var/now = time2text(world.realtime, "YYYY-MM-DD HH:MM:SS", -8) // PST timezone
-		round_identifier = "[now]-[GLOB.round_id]"
+		var/now = time2text(world.realtime, "YYYY-MM-DD_HH-MM", -8) // PST timezone
+		round_identifier = "[now]-[GLOB.round_id]-fuzzys_cute_butt"
 	if(next_metrix_save_time > world.realtime)
 		return TRUE
 	next_metrix_save_time = world.realtime + metrix_save_interval
@@ -996,12 +996,14 @@ toggle_rumor_specifiable
 	metrix2save["total_private_rumors"]      = LAZYLEN(total_private_rumors)
 	var/datta = json_encode(metrix2save, JSON_PRETTY_PRINT)
 	var/filename = RUMOR_METRIX(round_identifier)
-	var/yay = rustg_file_write(datta, filename)
-	if(!yay)
-		output_debug("RumorMill: Failed to save the rumor metrix to disk at [filename]!", TRUE)
-	else
-		output_debug("RumorMill: Saved the rumor metrix to disk at [filename]!")
-	return yay
+	rustg_file_write(datta, filename)
+	if(debug)
+		var/readback = rustg_file_read(filename)
+		if(readback != datta)
+			output_debug("RumorMill: Failed to save the rumor metrix to disk at [filename]!", TRUE)
+		else
+			output_debug("RumorMill: Saved the rumor metrix to disk at [filename]!")
+	return TRUE
 
 /datum/controller/subsystem/rumormill/proc/get_most_often_sent_rumor(list/rumors_sent)
 	var/biggestest = 0
@@ -1670,6 +1672,8 @@ toggle_rumor_specifiable
 	if(new_text == rumor_text)
 		to_chat(user, span_notice("Okay never mind!!"))
 		return TRUE
+	new_text = "[new_text]" // just in case
+	new_text = STRIP_HTML_SIMPLE(new_text, 512) // there sanitized probably
 	rumor_text = new_text
 	set_holder_durty(TRUE)
 	to_chat(user, span_notice("Okay! Updated rumor text to: [new_text]"))
