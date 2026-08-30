@@ -1,3 +1,4 @@
+/*
 /datum/design/c9mm_sec
 	name = "Ammo Box (9x19m Murphy) (Lethal)" //SKYRAT EDIT: Calibre rename - Original: name = "Ammo Box (9mm)"
 	id = "c9mm_sec"
@@ -9,4 +10,4 @@
 		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO,
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
-
+*/

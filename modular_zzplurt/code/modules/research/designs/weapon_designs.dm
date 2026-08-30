@@ -1,3 +1,4 @@
+/* arfs: dont need a bunch of ballistic junk
 /datum/design/m9x17mm_mag
 	name = "9x17mm MP-S5 Magazine (Lethal)"
 	desc = "A standard magazine for the MP-S5 VIG, made to hold 30 bullets of 9x17mm."
@@ -99,3 +100,4 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
 	autolathe_exportable = FALSE
+*/

@@ -138,6 +138,7 @@
 	new /obj/item/clothing/suit/jacket/straight_jacket(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/storage/bag/garment/secmed(src)
+	new /obj/item/bodycam_upgrade(src)
 
 //Prevents secmed hours from counting towards HoS
 /datum/controller/subsystem/job/setup_occupations()

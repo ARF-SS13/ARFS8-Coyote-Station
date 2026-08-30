@@ -94,14 +94,7 @@
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/door_remote/head_of_security(src)
-	new /obj/item/storage/belt/bandolier(src)
-
-
-/obj/structure/closet/secure_closet/warden/populate_contents_immediate()
-	. = ..()
-
-	// Traitor steal objective
-	new /obj/item/gun/ballistic/shotgun/automatic/combat/compact(src)
+	new /obj/item/bodycam_upgrade(src)
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
@@ -119,6 +112,7 @@
 	new /obj/item/clothing/gloves/tackler/security(src) // SKYRAT EDIT CHANGE - Gives Them The Blue Ones - ORIGINAL: new /obj/item/clothing/gloves/tackler(src)
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/bodycam_upgrade(src)
 
 /obj/structure/closet/secure_closet/security/sec
 
@@ -197,6 +191,7 @@
 	new /obj/item/binoculars(src)
 	new /obj/item/storage/box/rxglasses/spyglasskit(src)
 	new /obj/item/clothing/head/fedora/inspector_hat(src)
+	new /obj/item/bodycam_upgrade(src)
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections locker"

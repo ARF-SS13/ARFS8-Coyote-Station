@@ -6,7 +6,7 @@
 
 /obj/item/ammo_box/magazine/internal/cylinder/toz_mars
 	name = "TOZ-81 Mars cylinder"
-	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
 	caliber = CALIBER_SHOTGUN
 	max_ammo = 3
 

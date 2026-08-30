@@ -31,3 +31,16 @@
 		RND_CATEGORY_HACKED,
 		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO,
 	)
+
+/datum/design/m762r_lethal
+	name = "7.62mmR Bullet"
+	id = "m762r_lethal"
+	build_type = AUTOLATHE
+	materials = list(
+		/datum/material/iron = SMALL_MATERIAL_AMOUNT * 7.5,
+	)
+	build_path = /obj/item/ammo_casing/m762r
+	category = list(
+		RND_CATEGORY_HACKED,
+		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO,
+	)

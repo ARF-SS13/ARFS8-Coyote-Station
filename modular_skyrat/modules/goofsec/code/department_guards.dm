@@ -285,7 +285,7 @@
 /datum/job/orderly
 	title = JOB_ORDERLY
 	rpg_title = "Praetorian"
-	description = "Defend the medical department, hold down idiots who refuse the vaccine, assist medical with prep and/or cleanup."
+	description = "Keep the medical department orderly. Clean up messes, prep surgery wards, ensure all the doctors are alive and well fed, throw out scoundrels."
 	faction = FACTION_STATION
 	total_positions = 2
 	spawn_positions = 2

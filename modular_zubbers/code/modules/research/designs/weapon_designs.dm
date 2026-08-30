@@ -1,3 +1,4 @@
+/* arfs: don't need any of this right now.
 /datum/design/kiboko_mag
 	name = "Kiboko Grenade Magazine"
 	desc = "A standard magazine for compatible grenade launcher."
@@ -270,3 +271,4 @@
 		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
+*/

@@ -17,7 +17,7 @@
 	new /obj/item/circuitboard/machine/ore_silo(src)
 	new /obj/item/storage/bag/garment/quartermaster(src)
 	new /obj/item/storage/toolbox/guncase/skyrat/pistol/toz_mars(src)
-	new /obj/item/storage/box/lethalshot(src)
+	new /obj/item/storage/box/rubbershot(src)
 	new /obj/item/storage/box/m762r(src)
 
 /obj/structure/closet/secure_closet/quartermaster/populate_contents_immediate()
