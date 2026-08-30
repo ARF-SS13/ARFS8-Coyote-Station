@@ -19,13 +19,14 @@
 	var/slime_mood
 	/// Set to a path, and this'll count as a category for all its children
 	/// it'll show up in the list, but not actually make you be that species, like 'pokemon'
-	var/category
+	var/datum/species/category
 	/// same as category, but its a subspecies of a species, like a kind of pokemon
-	var/sub_species
+	var/datum/species/sub_category
+	var/datum/species/sub_sub_category
 	// ^^ if either of these are set, the species will show up in the prefs menu, BUT, and this is BUT
 	// BUT, they wont actually set your character to that species! it'll instead set it to whatevers set
-	// as default for the category or sub_species... or the first one in the list, or something
-	var/cat_default = FALSE
+	// as default for the category or sub_category... or the first one in the list, or something
+	var/datum/species/default_species
 
 /datum/species/feral
 	name = "REPORT THIS AS A BUG"
@@ -75,8 +76,9 @@
 	icon_dead_suffix = "_d"
 	icon_rest_suffix = "_rest"
 	icon_width = 64
-	ordering = 0
+	ordering = 20 // under the normal species, above the ones i dont like
 	category = /datum/species/feral/pokemon // propagation!
+	default_species = /datum/species/feral/pokemon/phox/braixen
 
 /datum/species/feral/pokemon/aerodactyl
 	name = "Aerodactyl" // Feral
@@ -88,14 +90,14 @@
 	name = "Absol" // Feral
 	id = "absolFolder"
 	ordering = 142
-	sub_species = /datum/species/feral/pokemon/absol
+	sub_category = /datum/species/feral/pokemon/absol
 
 /datum/species/feral/pokemon/absol/normal
 	name = "Absol" // Feral
 	id = "absol"
 	simple_icon_state = "absol"
 	ordering = 359
-	cat_default = TRUE
+	default_species = TRUE
 
 /datum/species/feral/pokemon/absol/megaabsol
 	name = "Mega Absol" // Feral
@@ -109,14 +111,14 @@
 	name = "Phox" // Feral
 	id = "phoxFolder"
 	ordering = 653
-	sub_species = /datum/species/feral/pokemon/phox
+	sub_category = /datum/species/feral/pokemon/phox
+	default_species = /datum/species/feral/pokemon/phox/braixen
 
 /datum/species/feral/pokemon/phox/fennekin
 	name = "Fennekin" // Feral
 	id = "fennekin"
 	simple_icon_state = "fennekin"
 	ordering = 653
-	cat_default = TRUE
 
 /datum/species/feral/pokemon/phox/braixen
 	name = "Braixen" // Feral
@@ -129,7 +131,8 @@
 /datum/species/feral/pokemon/eeveelution
 	name = "Eeveelution" // Feral
 	id = "eeveelutionsFolder"
-	sub_species = /datum/species/feral/pokemon/eeveelution
+	sub_category = /datum/species/feral/pokemon/eeveelution
+	default_species = /datum/species/feral/pokemon/eeveelution/eevee
 	ordering = 132
 
 /datum/species/feral/pokemon/eeveelution/eevee
@@ -138,7 +141,6 @@
 	simple_icon_state = "eevee"
 	ordering = 133
 	alt_prefixes = list("Old Color" = "old")
-	cat_default = TRUE
 
 /datum/species/feral/pokemon/eeveelution/vaporeon
 	name = "Vaporeon" // Feral
@@ -229,15 +231,15 @@
 /datum/species/feral/pokemon/charmander
 	name = "Charmander" // Feral
 	id = "charmanderFolder"
-	sub_species = /datum/species/feral/pokemon/charmander
+	sub_category = /datum/species/feral/pokemon/charmander
 	ordering = 4
+	default_species = /datum/species/feral/pokemon/charmander/charmander
 
 /datum/species/feral/pokemon/charmander/charmander
 	name = "Charmander" // Feral
 	id = "charmander"
 	simple_icon_state = "charmander"
 	ordering = 4
-	cat_default = TRUE
 
 /datum/species/feral/pokemon/charmander/charizard
 	name = "Charizard" // Feral
@@ -262,7 +264,8 @@
 /datum/species/feral/pokemon/dragonair
 	name = "Dragonair" // Feral
 	id = "dragonairFolder"
-	sub_species = /datum/species/feral/pokemon/dragonair
+	sub_category = /datum/species/feral/pokemon/dragonair
+	default_species = /datum/species/feral/pokemon/dragonair/dratini
 	ordering = 147
 
 /datum/species/feral/pokemon/dragonair/dratini
@@ -270,7 +273,6 @@
 	id = "dratini"
 	simple_icon_state = "dratini"
 	ordering = 147
-	cat_default = TRUE
 
 /datum/species/feral/pokemon/dragonair/dragonair
 	name = "Dragonair" // Feral
@@ -307,7 +309,8 @@
 /datum/species/feral/pokemon/furret
 	name = "Furret" // Feral
 	id = "furretFolder"
-	sub_species = /datum/species/feral/pokemon/furret
+	sub_category = /datum/species/feral/pokemon/furret
+	default_species = /datum/species/feral/pokemon/furret/furret
 	ordering = 162
 
 /datum/species/feral/pokemon/furret/furret
@@ -315,7 +318,6 @@
 	id = "furret"
 	simple_icon_state = "furret"
 	ordering = 162
-	cat_default = TRUE
 
 /datum/species/feral/pokemon/furret/shiny
 	name = "Shiny Furret" // Feral
@@ -328,7 +330,8 @@
 /datum/species/feral/pokemon/gardevoir
 	name = "Gardevoir" // Feral
 	id = "gardevoirFolder"
-	sub_species = /datum/species/feral/pokemon/gardevoir
+	sub_category = /datum/species/feral/pokemon/gardevoir
+	default_species = /datum/species/feral/pokemon/gardevoir/gardevoir
 	ordering = 282
 
 /datum/species/feral/pokemon/gardevoir/gallade
@@ -336,7 +339,6 @@
 	id = "gallade"
 	simple_icon_state = "gallade"
 	ordering = 475
-	cat_default = TRUE
 
 /datum/species/feral/pokemon/gardevoir/gardevoir
 	name = "Gardevoir" // Feral
@@ -349,7 +351,8 @@
 /datum/species/feral/pokemon/ghost
 	name = "Ghostly" // Feral
 	id = "ghostFolder"
-	sub_species = /datum/species/feral/pokemon/ghost
+	sub_category = /datum/species/feral/pokemon/ghost
+	default_species = /datum/species/feral/pokemon/ghost/gastly
 	ordering = 92
 
 /datum/species/feral/pokemon/ghost/gastly
@@ -357,7 +360,6 @@
 	id = "gastly"
 	simple_icon_state = "gastly"
 	ordering = 92
-	cat_default = TRUE
 
 /datum/species/feral/pokemon/ghost/haunter
 	name = "Haunter" // Feral
@@ -438,7 +440,8 @@
 /datum/species/feral/pokemon/mareep
 	name = "Mareep" // Feral
 	id = "mareepFolder"
-	sub_species = /datum/species/feral/pokemon/mareep
+	sub_category = /datum/species/feral/pokemon/mareep
+	default_species = /datum/species/feral/pokemon/mareep/mareep
 	ordering = 179
 
 /datum/species/feral/pokemon/mareep/mareep
@@ -446,7 +449,6 @@
 	id = "mareep"
 	simple_icon_state = "mareep"
 	ordering = 179
-	cat_default = TRUE
 
 /datum/species/feral/pokemon/mareep/flaaffy
 	name = "Flaaffy" // Feral
@@ -477,7 +479,8 @@
 /datum/species/feral/pokemon/poochyena
 	name = "Poochyena" // Feral
 	id = "poochyenaFolder"
-	sub_species = /datum/species/feral/pokemon/poochyena
+	sub_category = /datum/species/feral/pokemon/poochyena
+	default_species = /datum/species/feral/pokemon/poochyena/poochyena
 	ordering = 261
 
 /datum/species/feral/pokemon/poochyena/poochyena
@@ -485,7 +488,6 @@
 	id = "poochyena"
 	simple_icon_state = "poochyena"
 	ordering = 261
-	cat_default = TRUE
 
 /datum/species/feral/pokemon/poochyena/mightyena
 	name = "Mightyena" // Feral
@@ -504,7 +506,8 @@
 /datum/species/feral/pokemon/vulpix
 	name = "Vulpix" // Feral
 	id = "vulpixFolder"
-	sub_species = /datum/species/feral/pokemon/vulpix
+	sub_category = /datum/species/feral/pokemon/vulpix
+	default_species = /datum/species/feral/pokemon/vulpix/vulpix
 	ordering = 37
 
 /datum/species/feral/pokemon/vulpix/vulpix
@@ -512,7 +515,6 @@
 	id = "vulpix"
 	simple_icon_state = "vulpix"
 	ordering = 37
-	cat_default = TRUE
 
 /datum/species/feral/pokemon/vulpix/alolanvulpix
 	name = "Alolan Vulpix" // Feral
@@ -537,7 +539,8 @@
 /datum/species/feral/pokemon/pikachu
 	name = "Pikachu" // Feral
 	id = "pikachuFolder"
-	sub_species = /datum/species/feral/pokemon/pikachu
+	sub_category = /datum/species/feral/pokemon/pikachu
+	default_species = /datum/species/feral/pokemon/pikachu/pikachu
 	ordering = 25
 
 /datum/species/feral/pokemon/pikachu/pikachu
@@ -547,7 +550,6 @@
 	ordering = 25
 	alt_prefixes = list("Female" = "f")
 	simple_icon = 'modular_coyote/icons/mob/pmon/pikachu.dmi'
-	cat_default = TRUE
 
 /datum/species/feral/pokemon/pikachu/raichu
 	name = "Raichu" // Feral
@@ -575,7 +577,8 @@
 /datum/species/feral/pokemon/purrloin
 	name = "Purrloin" // Feral
 	id = "purrloinFolder"
-	sub_species = /datum/species/feral/pokemon/purrloin
+	sub_category = /datum/species/feral/pokemon/purrloin
+	default_species = /datum/species/feral/pokemon/purrloin/purrloin
 	ordering = 509
 
 /datum/species/feral/pokemon/purrloin/purrloin
@@ -583,7 +586,6 @@
 	id = "purrloin"
 	simple_icon_state = "purrloin"
 	ordering = 509
-	cat_default = TRUE
 
 /datum/species/feral/pokemon/purrloin/liepard
 	name = "Liepard" // Feral
@@ -602,7 +604,8 @@
 /datum/species/feral/pokemon/rattata
 	name = "Rattata" // Feral
 	id = "rattataFolder"
-	sub_species = /datum/species/feral/pokemon/rattata
+	sub_category = /datum/species/feral/pokemon/rattata
+	default_species = /datum/species/feral/pokemon/rattata/rattata
 	ordering = 19
 
 /datum/species/feral/pokemon/rattata/rattata
@@ -610,7 +613,6 @@
 	id = "rattata"
 	simple_icon_state = "rattata"
 	ordering = 19
-	cat_default = TRUE
 
 /datum/species/feral/pokemon/rattata/raticate
 	name = "Raticate" // Feral
@@ -680,7 +682,8 @@
 /datum/species/feral/pokemon/zorua
 	name = "Zorua" // Feral
 	id = "zoruaFolder"
-	sub_species = /datum/species/feral/pokemon/zorua
+	sub_category = /datum/species/feral/pokemon/zorua
+	default_species = /datum/species/feral/pokemon/zorua/zorua
 	ordering = 570
 
 /datum/species/feral/pokemon/zorua/zorua
@@ -688,7 +691,6 @@
 	id = "zorua"
 	simple_icon_state = "zorua"
 	ordering = 570
-	cat_default = TRUE
 
 /datum/species/feral/pokemon/zorua/zorua_hisuian
 	name = "Hisuian Zorua" // Feral

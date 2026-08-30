@@ -46,23 +46,50 @@
 
 /datum/preference/choiced/species/compile_constant_data()
 	var/list/data = list()
+	data["species_list"] = list()
+	data["category_map"] = list()
 
 	for (var/species_id in (get_selectable_species() + get_customizable_races())) //SKYRAT EDIT CHANGE
 		var/species_type = GLOB.species_list[species_id]
 		var/datum/species/species = GLOB.species_prototypes[species_type]
-
-		data[species_id] = list()
-		data[species_id]["name"] = species.name
-		var/spedesc = species.get_species_description()
-		data[species_id]["desc"] = LAZYLISTIFY(spedesc)
-		var/spelore = species.get_species_lore()
-		data[species_id]["lore"] = LAZYLISTIFY(spelore)
-		data[species_id]["icon"] = sanitize_css_class_name(species.name)
-		data[species_id]["use_skintones"] = (TRAIT_USES_SKINTONES in species.inherent_traits)
-		data[species_id]["sexes"] = species.sexes
-		data[species_id]["enabled_features"] = species.get_features()
-		data[species_id]["perks"] = species.get_species_perks()
-		data[species_id]["diet"] =  species.get_species_diet()
-		data[species_id]["sort_bottom"] = species.sort_bottom //BUBBER EDIT ADDITION: Do we sort the species to the bottom?
-
+		data["species_list"][species_id] = get_species_data(species)
+		var/list/tree = speciespath2map_ids(species_type)
+		data["category_map"][species_id] = tree
 	return data
+
+/datum/preference/choiced/species/ui_static_data(mob/user)
+	var/list/data = list()
+	data["species"] = list()
+	data["species"]["species_list"] = list()
+	data["species"]["category_map"] = list()
+
+	for (var/species_id in (get_selectable_species() + get_customizable_races())) //SKYRAT EDIT CHANGE
+		var/species_type = GLOB.species_list[species_id]
+		var/datum/species/species = GLOB.species_prototypes[species_type]
+		data["species"]["species_list"][species_id] = get_species_data(species)
+		var/list/tree = speciespath2map_ids(species_type)
+		data["species"]["category_map"][species_id] = tree
+	return data
+
+/proc/get_species_data(datum/species/species)
+	var/list/spedat = list()
+	var/spedesc = species.get_species_description()
+	var/spelore = species.get_species_lore()
+	spedat["name"]              = species.name
+	spedat["id"]                = species.id
+	spedat["desc"]              = LAZYLISTIFY(spedesc)
+	spedat["lore"]              = LAZYLISTIFY(spelore)
+	spedat["icon"]              = sanitize_css_class_name(species.name)
+	spedat["use_skintones"]     = (TRAIT_USES_SKINTONES in species.inherent_traits)
+	spedat["sexes"]             = species.sexes
+	spedat["enabled_features"]  = species.get_features()
+	spedat["perks"]             = species.get_species_perks()
+	spedat["diet"]              = species.get_species_diet()
+	spedat["sort_bottom"]       = species.sort_bottom //BUBBER EDIT ADDITION: Do we sort the species to the bottom?
+	spedat["alt_prefixes"]      = species.alt_prefixes
+	spedat["order"]             = species.ordering
+	spedat["category"]          = species.category
+	spedat["sub_category"]      = species.sub_category
+	spedat["sub_sub_category"]  = species.sub_sub_category
+	spedat["default_species"]   = species.default_species
+	return spedat

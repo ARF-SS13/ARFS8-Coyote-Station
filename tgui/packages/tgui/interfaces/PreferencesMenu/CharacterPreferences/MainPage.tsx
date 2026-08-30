@@ -45,7 +45,7 @@ const CLOTHING_SELECTION_CELL_SIZE = 48;
 const CLOTHING_SELECTION_WIDTH = 5.4;
 const CLOTHING_SELECTION_MULTIPLIER = 5.2;
 
-type CharacterControlsProps = {
+export type CharacterControlsProps = {
   handleRotate: (backwards: boolean) => void; // BUBBER EDIT CHANGE - Original: handleRotate: () => void;
   handleOpenSpecies: () => void;
   handleFood: () => void; // BUBBER EDIT ADDITION
@@ -54,9 +54,11 @@ type CharacterControlsProps = {
   showGender: boolean;
   canDeleteCharacter: boolean;
   handleDeleteCharacter: () => void;
+  showSpecies: boolean; // BUBBER EDIT ADDITION
+  showDelete: boolean; // BUBBER EDIT ADDITION
 };
 
-function CharacterControls(props: CharacterControlsProps) {
+export function CharacterControls(props: CharacterControlsProps) {
   return (
     <Stack>
       <Stack.Item>
@@ -81,15 +83,17 @@ function CharacterControls(props: CharacterControlsProps) {
       </Stack.Item>
       {/* BUBBER EDIT ADDITION END */}
 
-      <Stack.Item>
-        <Button
-          onClick={props.handleOpenSpecies}
-          fontSize="22px"
-          icon="paw"
-          tooltip="Species"
-          tooltipPosition="top"
-        />
-      </Stack.Item>
+      {props.showSpecies && (
+        <Stack.Item>
+          <Button
+            onClick={props.handleOpenSpecies}
+            fontSize="22px"
+            icon="paw"
+            tooltip="Species"
+            tooltipPosition="top"
+          />
+        </Stack.Item>
+      )}
 
       {props.showGender && (
         <Stack.Item>
@@ -100,15 +104,17 @@ function CharacterControls(props: CharacterControlsProps) {
         </Stack.Item>
       )}
       {/* BUBBER EDIT ADDITION START */}
-      <Stack.Item>
-        <Button
-          onClick={props.handleFood}
-          fontSize="22px"
-          icon="drumstick-bite"
-          tooltip="Edit Food Preferences"
-          tooltipPosition="top"
-        />
-      </Stack.Item>
+      {props.showDelete && (
+        <Stack.Item>
+          <Button
+            onClick={props.handleFood}
+            fontSize="22px"
+            icon="drumstick-bite"
+            tooltip="Edit Food Preferences"
+            tooltipPosition="top"
+          />
+        </Stack.Item>
+      )}
       {/* BUBBER EDIT ADDITION END */}
 
       <Stack.Item>
@@ -684,6 +690,8 @@ export function MainPage(props: MainPageProps) {
                   ).length > 1
                 }
                 handleDeleteCharacter={() => setDeleteCharacterPopupOpen(true)}
+                showSpecies={true}
+                showDelete={true}
               />
             </Stack.Item>
 

@@ -47,6 +47,7 @@ export type Name = {
 
 export type Species = {
   name: string;
+  id: string;
   desc: string[];
   lore: string[];
   icon: string;
@@ -69,6 +70,20 @@ export type Species = {
     disliked_food: Food[];
     toxic_food: Food[];
   };
+
+  alt_prefixes: string[];
+  order: number;
+  category: string;
+  sub_category: string;
+  sub_sub_category: string;
+  default_species: string;
+};
+
+export type SpeciesCatTree = {
+  slot_1: string; // always something, either species, or a category
+  slot_2?: string; // can be a sub-category, or a species, or nothing
+  slot_3?: string; // can be a sub-sub-category, or a species, or nothing. unused
+  default_species?: string;
 };
 
 export type Perk = {
@@ -298,6 +313,11 @@ export type PreferencesMenuData = {
   server_tab_groups: Record<string, TemperamentBuild[]>;
   server_tabs: string[]; // coming from inferno, ts makes ts much easier
 
+  species: {
+    species_data: Record<string, Species>;
+    category_map: Record<string, SpeciesCatTree>;
+  };
+
   player_rumor_slot: RumorSlotData;
 
   window: PrefsWindow;
@@ -322,7 +342,10 @@ export type ServerData = {
   loadout: {
     loadout_tabs: LoadoutCategory[];
   };
-  species: Record<string, Species>;
+  species: {
+    species_data: Record<string, Species>;
+    category_map: Record<string, SpeciesCatTree>;
+  };
   background_state: { choices: string[] }; // BUBBER EDIT ADDITION
   [otheyKey: string]: unknown;
 };
