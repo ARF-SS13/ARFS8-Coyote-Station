@@ -14,6 +14,7 @@ import {
 } from 'tgui-core/components';
 import { createSearch } from 'tgui-core/string';
 import type { PreferencesMenuData, TemperamentBuild } from '../types';
+import { useServerPrefs } from '../useServerPrefs';
 import {
   BorderMap,
   ColorMap,
@@ -39,6 +40,9 @@ type BackgroundsLocalStateHolder = {
 const BackgroundsUIContext =
   React.createContext<BackgroundsLocalStateHolder | null>(null);
 
+// Cache response so it's only sent once
+let fetchServerData: Promise<CsnipData> | undefined;
+
 function useBackgroundsUI(): BackgroundsLocalStateHolder {
   const ctx = React.useContext(BackgroundsUIContext);
   if (!ctx) {
@@ -50,11 +54,14 @@ function useBackgroundsUI(): BackgroundsLocalStateHolder {
 }
 
 export function BackgroundsAndSuchPage() {
-  const { data } = useBackend<PreferencesMenuData>();
-  const [activeTab, setActiveTab] = React.useState<string>(
-    data.server_tabs[0] || 'your_backgrounds',
-  );
   const [searchQuery, setSearchQuery] = React.useState<string>('');
+  const serverData = useServerPrefs();
+  if (!serverData) {
+    return 'Just getting everything ready!';
+  }
+  const [activeTab, setActiveTab] = React.useState<string>(
+    serverData.server_tabs[0] || 'your_backgrounds',
+  );
 
   const uiState: BackgroundsLocalStateHolder = {
     activeTab,
@@ -280,7 +287,11 @@ function BackgroundsTabs() {
     //   setActiveTab,
     // ),
   ];
-  for (const tab of data.server_tabs) {
+  const serverData = useServerPrefs();
+  if (!serverData) {
+    return 'Just getting everything ready!';
+  }
+  for (const tab of serverData.server_tabs) {
     const tab_name = tab.replace(/_/g, ' ');
     const tab_slug = tab;
     const tab_tooltip = `This tab shows all of the ${tab_name} backgrounds available to you!`;
@@ -327,6 +338,10 @@ const Num2WhichGot = (num: number): EarlyAdultOrBoth => {
 function BackgroundsStuff() {
   const { data } = useBackend<PreferencesMenuData>();
   const { activeTab, searchQuery, setSearchQuery } = useBackgroundsUI();
+  const serverData = useServerPrefs();
+  if (!serverData) {
+    return 'Just getting everything ready!';
+  }
 
   const bgSearch = createSearch(
     searchQuery,
@@ -336,7 +351,7 @@ function BackgroundsStuff() {
   // yeah hey i dont know how memoization works but tyhe internet says this is how you do it so i did it
   const backgroundsToDisplay: TemperamentBuild[] = (() => {
     if (activeTab === 'your_backgrounds') {
-      const playerBackgrounds = data.server_backgrounds.filter(
+      const playerBackgrounds = serverData.server_backgrounds.filter(
         (bg) =>
           data.player_early_backgrounds.some(
             (pbg: TemperamentBuild) => pbg.path === bg.path,
@@ -347,10 +362,10 @@ function BackgroundsStuff() {
       );
       return playerBackgrounds;
     } else if (searchQuery) {
-      const allBackgrounds = [...data.server_backgrounds];
+      const allBackgrounds = [...serverData.server_backgrounds];
       return allBackgrounds.filter(bgSearch).slice(0, 30);
     } else {
-      return data.server_backgrounds.filter(
+      return serverData.server_backgrounds.filter(
         (bg) => bg.subcategory === activeTab,
       );
     }

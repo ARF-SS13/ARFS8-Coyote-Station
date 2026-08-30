@@ -31,6 +31,13 @@ export const ServerPrefs = createContext<ServerData | undefined>({
     /* BUBBER EDIT ADDITION: Background Selection - LINES 26 - 29 */
     choices: [],
   },
+
+  server_temperaments: [],
+  server_builds: [],
+  server_backgrounds: [],
+  server_backgrounds_paginated: [],
+  server_tab_groups: {},
+  server_tabs: [],
 });
 export function useServerPrefs() {
   return useContext(ServerPrefs);

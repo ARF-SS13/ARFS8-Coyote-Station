@@ -255,6 +255,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	_abstract = /datum/asset/json
 	/// The filename, will be suffixed with ".json"
 	var/name
+	var/debug = TRUE
 
 /datum/asset/json/send(client)
 	return SSassets.transport.send_assets(client, "[name].json")
@@ -267,9 +268,13 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/json/register()
 	var/filename = "data/[name].json"
 	fdel(filename)
-	rustg_file_write(json_encode(generate()), filename)
+	if(debug)
+		rustg_file_write(json_encode(generate(), JSON_PRETTY_PRINT), filename)
+	else
+		rustg_file_write(json_encode(generate()), filename)
 	SSassets.transport.register_asset("[name].json", fcopy_rsc(filename))
-	fdel(filename)
+	if(!debug)
+		fdel(filename)
 
 /// Returns the data that will be JSON encoded
 /datum/asset/json/proc/generate()

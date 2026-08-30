@@ -58,6 +58,8 @@
 	savefile_key = "adult_backgrounds"
 /datum/preference/character_snippets/background_extras
 	savefile_key = "background_extras"
+/datum/preference/character_snippets/csnip_data_holder_thing
+	savefile_key = "csnip_data_holder_thing"
 
 /datum/preference/character_snippets/background_extras/sanitize_csnip(input)
 	if(!SSdans_cool_prefs.initialized)
@@ -77,3 +79,5 @@
 			continue
 		cleaned["[key]"] = value
 	return cleaned
+
+

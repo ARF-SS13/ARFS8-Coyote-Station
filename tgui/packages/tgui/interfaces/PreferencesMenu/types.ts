@@ -289,15 +289,6 @@ export type PreferencesMenuData = {
   //format: "/path/to/background" = "cool text stuff"
   player_backgrounds: Record<string, string>;
 
-  server_temperaments: TemperamentBuild[];
-  server_builds: TemperamentBuild[];
-  server_backgrounds: TemperamentBuild[];
-  //format: [[background1, background2, background3], [background4, background5, background6], ...]
-  server_backgrounds_paginated: TemperamentBuild[][];
-  //format: {subcategory1: [background1, background2, background3], subcategory2: [background4, background5, background6], ...}
-  server_tab_groups: Record<string, TemperamentBuild[]>;
-  server_tabs: string[]; // coming from inferno, ts makes ts much easier
-
   player_rumor_slot: RumorSlotData;
 
   window: PrefsWindow;
@@ -337,4 +328,15 @@ export type TemperamentBuild = {
   path: string; // sent in as string, sent back as string
   set_key: string | null;
   order: number; // BUBBER EDIT ADDITION: order for sorting in the menu, lower is higher
+};
+
+export type CsnipData = {
+  server_temperaments: TemperamentBuild[];
+  server_builds: TemperamentBuild[];
+  server_backgrounds: TemperamentBuild[];
+  //format: [[background1, background2, background3], [background4, background5, background6], ...]
+  server_backgrounds_paginated: TemperamentBuild[][];
+  //format: {subcategory1: [background1, background2, background3], subcategory2: [background4, background5, background6], ...}
+  server_tab_groups: Record<string, TemperamentBuild[]>;
+  server_tabs: string[]; // coming from inferno, ts makes ts much easier
 };
