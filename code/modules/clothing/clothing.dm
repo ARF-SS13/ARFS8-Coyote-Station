@@ -667,3 +667,6 @@ BLIND     // can't see anything
 		blood_overlay.overlays += emissive_overlay
 
 	return blood_overlay
+
+/obj/item/clothing/proc/allow_goliath_armor()
+	AddComponent(/datum/component/armor_plate)
