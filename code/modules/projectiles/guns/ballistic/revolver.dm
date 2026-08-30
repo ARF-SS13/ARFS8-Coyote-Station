@@ -272,7 +272,7 @@
 /obj/item/storage/toolbox/guncase/skyrat/pistol/toz_mars
 	name = "Quartermaster's pistol case"
 	weapon_to_spawn = /obj/item/gun/ballistic/revolver/toz_mars
-	extra_to_spawn = /obj/item/ammo_casing/shotgun/buckshot
+	extra_to_spawn = /obj/item/ammo_casing/shotgun/rubbershot
 
 // A gun to play Russian Roulette!
 // You can spin the chamber to randomize the position of the bullet.

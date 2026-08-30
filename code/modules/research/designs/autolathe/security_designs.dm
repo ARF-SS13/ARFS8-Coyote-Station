@@ -1,3 +1,5 @@
+/* arfs: get your ammo from cargo, they're right across the hall
+
 /datum/design/beanbag_slug
 	name = "Beanbag Slug (Less Lethal)"
 	id = "beanbag_slug"
@@ -21,6 +23,7 @@
 		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO,
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
+*/
 /* arfs: removed for now to choke access to speedloaders and encourage security to get its ammo from cargo as currently intended
 /datum/design/c38
 	name = "Speed Loader (.38) (Lethal)"
@@ -125,7 +128,7 @@
 		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_PARTS,
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
-
+/*
 /datum/design/shotgun_dart
 	name = "Shotgun Dart (Lethal)"
 	id = "shotgun_dart"
@@ -149,7 +152,7 @@
 		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO,
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
-
+*/
 /datum/design/riot_dart
 	name = "Foam Riot Dart (Nonlethal)"
 	id = "riot_dart"
@@ -173,7 +176,7 @@
 		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO,
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
-
+/*
 /datum/design/a357
 	name = ".357 Casing (VERY Lethal)"
 	id = "a357"
@@ -185,7 +188,7 @@
 		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO,
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
-
+*/
 /datum/design/telescreen_interrogation
 	name = "Interrogation Telescreen"
 	id = "telescreen_interrogation"
