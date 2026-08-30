@@ -93,12 +93,22 @@
 		controller.clear_blackboard_key(blackboard_key)
 		return NO_NEW_PHRASE_AVAILABLE
 
-	var/selected_phrase = pick(speech_buffer)
+	var/selected_phrase
+
+	if(controller.blackboard[BB_PARROT_SAY_NON_SAUCY_RUMOR])
+		if(prob(controller.blackboard[BB_PARROT_SAY_NON_SAUCY_RUMOR]))
+			selected_phrase = SSrumormill.get_random_non_saucy_rumor(TRUE)
+	else if(controller.blackboard[BB_PARROT_SAY_NETHACK_RUMOR])
+		if(prob(controller.blackboard[BB_PARROT_SAY_NETHACK_RUMOR]))
+			selected_phrase = SSrumormill.get_random_nethack_rumor(TRUE)
+	if(!selected_phrase)
+		selected_phrase = pick(speech_buffer)
+
 	var/list/to_return = list(MESSAGE_LINE = selected_phrase)
 
-	if(islist(speech_buffer[selected_phrase]))
-		to_return[MESSAGE_VOICE] = speech_buffer[selected_phrase][MESSAGE_VOICE]
-		to_return[MESSAGE_PITCH] = speech_buffer[selected_phrase][MESSAGE_PITCH]
+	if(islist(speech_buffer.Find(selected_phrase)))
+		to_return[MESSAGE_VOICE] = speech_buffer.Find(selected_phrase)[MESSAGE_VOICE]
+		to_return[MESSAGE_PITCH] = speech_buffer.Find(selected_phrase)[MESSAGE_PITCH]
 
 	controller.override_blackboard_key(blackboard_key, to_return)
 

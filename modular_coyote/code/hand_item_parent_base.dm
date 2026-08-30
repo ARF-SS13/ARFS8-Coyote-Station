@@ -77,6 +77,8 @@
 	var/inventoryable = FALSE
 	/// Whether the game should check if you have one out already, and prevent you from equipping another if so
 	var/just_one = FALSE // if you should only have one at a time, so you cant dual wield your own butt
+	/// delete the existing one if you try to get another one, instead of just preventing it
+	var/del_on_existing = TRUE
 	/// Whether this hand item should be deleted if it fails to be given to the user
 	var/del_on_fail = TRUE
 	/// Whether this hand item can only be obtained in an outside area
@@ -345,6 +347,11 @@
 				existing = AM
 				break
 	if(existing)
+		if(del_on_existing)
+			qdel(existing)
+			return FALSE
+		else
+			return on_already_has_one(user, existing, just_checking)
 		return on_already_has_one(user, existing, just_checking)
 	else
 		return FALSE

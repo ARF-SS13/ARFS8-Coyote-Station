@@ -14,14 +14,7 @@
 	if(!SPT_PROB(controller.blackboard[BB_PARROT_REPEAT_PROBABILITY], seconds_per_tick))
 		return
 
-	var/potential_string
-	if(SPT_PROB(controller.blackboard[BB_PARROT_SAY_NON_SAUCY_RUMOR], seconds_per_tick))
-		if(SPT_PROB(controller.blackboard[BB_PARROT_SAY_NETHACK_RUMOR], seconds_per_tick))
-			potential_string = SSrumormill.get_random_nethack_rumor(TRUE)
-		else
-			potential_string = SSrumormill.get_random_non_saucy_rumor(TRUE)
-	else
-		potential_string = controller.blackboard[BB_PARROT_REPEAT_STRING]
+	var/potential_string = controller.blackboard[BB_PARROT_REPEAT_STRING]
 
 	if(isnull(potential_string))
 		stack_trace("Parrot As In Repeat Subtree somehow is getting a null potential string while not getting `NO_NEW_PHRASE_AVAILABLE`!")
