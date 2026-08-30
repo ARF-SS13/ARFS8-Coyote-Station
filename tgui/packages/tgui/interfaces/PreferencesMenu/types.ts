@@ -274,21 +274,6 @@ export type PreferencesMenuData = {
   active_slot: number;
   name_to_use: string;
 
-  max_temperaments: number;
-  max_builds: number;
-  max_early_backgrounds: number;
-  max_adult_backgrounds: number;
-
-  min_temperaments: number;
-  min_builds: number;
-  min_early_backgrounds: number;
-  min_adult_backgrounds: number;
-
-  player_temperaments: TemperamentBuild[];
-  player_builds: TemperamentBuild[];
-  //format: "/path/to/background" = "cool text stuff"
-  player_backgrounds: Record<string, string>;
-
   player_rumor_slot: RumorSlotData;
 
   window: PrefsWindow;
@@ -331,6 +316,16 @@ export type TemperamentBuild = {
 };
 
 export type CsnipData = {
+  max_temperaments: number;
+  max_builds: number;
+  max_early_backgrounds: number;
+  max_adult_backgrounds: number;
+
+  min_temperaments: number;
+  min_builds: number;
+  min_early_backgrounds: number;
+  min_adult_backgrounds: number;
+
   server_temperaments: TemperamentBuild[];
   server_builds: TemperamentBuild[];
   server_backgrounds: TemperamentBuild[];

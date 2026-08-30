@@ -12,9 +12,15 @@ import {
   Stack,
   Tooltip,
 } from 'tgui-core/components';
+import { fetchRetry } from 'tgui-core/http';
 import { createSearch } from 'tgui-core/string';
-import type { PreferencesMenuData, TemperamentBuild } from '../types';
-import { useServerPrefs } from '../useServerPrefs';
+import { LoadingScreen } from '../../common/LoadingScreen';
+import { resolveAsset } from '../../../assets';
+import type {
+  CsnipData,
+  PreferencesMenuData,
+  TemperamentBuild,
+} from '../types';
 import {
   BorderMap,
   ColorMap,
@@ -34,14 +40,28 @@ type BackgroundsLocalStateHolder = {
   setSearchQuery: (nextQuery: string) => void;
 };
 
+let staticBackgroundCatalog: Promise<CsnipData> | undefined;
+
+function useStaticBackgroundCatalog() {
+  const [staticCatalog, setStaticCatalog] = React.useState<CsnipData | null>(
+    null,
+  );
+  React.useEffect(() => {
+    if (!staticBackgroundCatalog) {
+      staticBackgroundCatalog = fetchRetry(resolveAsset('csnip.json')).then(
+        (res) => res.json(),
+      ) as Promise<CsnipData>;
+    }
+    staticBackgroundCatalog.then(setStaticCatalog);
+  }, []);
+  return staticCatalog;
+}
+
 // hey i learned somethign cool today, you can use react context to
 // pass states and setters down to children without having to mash
 // them through props, which is pretty nice cus i hate doins that
 const BackgroundsUIContext =
   React.createContext<BackgroundsLocalStateHolder | null>(null);
-
-// Cache response so it's only sent once
-let fetchServerData: Promise<CsnipData> | undefined;
 
 function useBackgroundsUI(): BackgroundsLocalStateHolder {
   const ctx = React.useContext(BackgroundsUIContext);
@@ -54,14 +74,15 @@ function useBackgroundsUI(): BackgroundsLocalStateHolder {
 }
 
 export function BackgroundsAndSuchPage() {
-  const [searchQuery, setSearchQuery] = React.useState<string>('');
-  const serverData = useServerPrefs();
-  if (!serverData) {
-    return 'Just getting everything ready!';
+  const serverStaticData = useStaticBackgroundCatalog();
+  if (!serverStaticData) {
+    return <LoadingScreen />;
   }
+
   const [activeTab, setActiveTab] = React.useState<string>(
-    serverData.server_tabs[0] || 'your_backgrounds',
+    serverStaticData?.server_tabs[0] || 'your_backgrounds',
   );
+  const [searchQuery, setSearchQuery] = React.useState<string>('');
 
   const uiState: BackgroundsLocalStateHolder = {
     activeTab,
@@ -115,7 +136,11 @@ enum ButtState {
 ╚═══╩══════════════════════╩══════╝
 */
 function BackstoryAndSuchHeader() {
-  const { data, act } = useBackend<PreferencesMenuData>();
+  const { data } = useBackend<PreferencesMenuData>();
+  const serverStaticData = useStaticBackgroundCatalog();
+  if (!serverStaticData) {
+    return <LoadingScreen />;
+  }
 
   const plr_early_bg = data.player_early_backgrounds || [];
   const plr_adult_bg = data.player_adult_backgrounds || [];
@@ -125,13 +150,13 @@ function BackstoryAndSuchHeader() {
 
   const early_counter_state = GetCounterState(
     early_bg_count,
-    data.min_early_backgrounds,
-    data.max_early_backgrounds,
+    serverStaticData.min_early_backgrounds,
+    serverStaticData.max_early_backgrounds,
   );
   const adult_counter_state = GetCounterState(
     adult_bg_count,
-    data.min_adult_backgrounds,
-    data.max_adult_backgrounds,
+    serverStaticData.min_adult_backgrounds,
+    serverStaticData.max_adult_backgrounds,
   );
 
   const TTips: Record<TTipCategory, ReactNode> = LoadToolTips(
@@ -155,14 +180,14 @@ function BackstoryAndSuchHeader() {
 
   const early_counter = MakeCounterBox(
     early_bg_count,
-    data.max_early_backgrounds,
+    serverStaticData.max_early_backgrounds,
     early_counter_state,
     TTips[TTipCategory.TTCountEarly],
   );
 
   const adult_counter = MakeCounterBox(
     adult_bg_count,
-    data.max_adult_backgrounds,
+    serverStaticData.max_adult_backgrounds,
     adult_counter_state,
     TTips[TTipCategory.TTCountAdult],
   );
@@ -262,6 +287,10 @@ function BackstoryAndSuchContent() {
 }
 
 function BackgroundsTabs() {
+  const serverStaticData = useStaticBackgroundCatalog();
+  if (!serverStaticData) {
+    return <LoadingScreen />;
+  }
   const { data } = useBackend<PreferencesMenuData>();
   const { activeTab, setActiveTab } = useBackgroundsUI();
 
@@ -287,11 +316,7 @@ function BackgroundsTabs() {
     //   setActiveTab,
     // ),
   ];
-  const serverData = useServerPrefs();
-  if (!serverData) {
-    return 'Just getting everything ready!';
-  }
-  for (const tab of serverData.server_tabs) {
+  for (const tab of serverStaticData.server_tabs) {
     const tab_name = tab.replace(/_/g, ' ');
     const tab_slug = tab;
     const tab_tooltip = `This tab shows all of the ${tab_name} backgrounds available to you!`;
@@ -336,12 +361,12 @@ const Num2WhichGot = (num: number): EarlyAdultOrBoth => {
 };
 
 function BackgroundsStuff() {
+  const serverStaticData = useStaticBackgroundCatalog();
+  if (!serverStaticData) {
+    return <LoadingScreen />;
+  }
   const { data } = useBackend<PreferencesMenuData>();
   const { activeTab, searchQuery, setSearchQuery } = useBackgroundsUI();
-  const serverData = useServerPrefs();
-  if (!serverData) {
-    return 'Just getting everything ready!';
-  }
 
   const bgSearch = createSearch(
     searchQuery,
@@ -351,7 +376,7 @@ function BackgroundsStuff() {
   // yeah hey i dont know how memoization works but tyhe internet says this is how you do it so i did it
   const backgroundsToDisplay: TemperamentBuild[] = (() => {
     if (activeTab === 'your_backgrounds') {
-      const playerBackgrounds = serverData.server_backgrounds.filter(
+      const playerBackgrounds = serverStaticData.server_backgrounds.filter(
         (bg) =>
           data.player_early_backgrounds.some(
             (pbg: TemperamentBuild) => pbg.path === bg.path,
@@ -362,10 +387,10 @@ function BackgroundsStuff() {
       );
       return playerBackgrounds;
     } else if (searchQuery) {
-      const allBackgrounds = [...serverData.server_backgrounds];
+      const allBackgrounds = [...serverStaticData.server_backgrounds];
       return allBackgrounds.filter(bgSearch).slice(0, 30);
     } else {
-      return serverData.server_backgrounds.filter(
+      return serverStaticData.server_backgrounds.filter(
         (bg) => bg.subcategory === activeTab,
       );
     }
@@ -468,6 +493,10 @@ function MakeVerticallyAlignedText(text: ReactNode) {
 }
 
 function BackgroundCard({ background }: { background: TemperamentBuild }) {
+  const serverStaticData = useStaticBackgroundCatalog();
+  if (!serverStaticData) {
+    return <LoadingScreen />;
+  }
   const { data, act } = useBackend<PreferencesMenuData>();
 
   const earlySelected = data.player_early_backgrounds.some(
@@ -485,15 +514,15 @@ function BackgroundCard({ background }: { background: TemperamentBuild }) {
     ? ButtState.Selected
     : GetCounterState(
         data.player_early_backgrounds.length,
-        data.min_early_backgrounds,
-        data.max_early_backgrounds,
+        serverStaticData.min_early_backgrounds,
+        serverStaticData.max_early_backgrounds,
       );
   const adultCounterState = adultSelected
     ? ButtState.Selected
     : GetCounterState(
         data.player_adult_backgrounds.length,
-        data.min_adult_backgrounds,
-        data.max_adult_backgrounds,
+        serverStaticData.min_adult_backgrounds,
+        serverStaticData.max_adult_backgrounds,
       );
 
   enum EarlyAdult {
@@ -823,6 +852,10 @@ function LoadToolTips(
   butt_state?: ButtState,
   butt_state2?: ButtState,
 ): Record<TTipCategory, ReactNode> {
+  const serverStaticData = useStaticBackgroundCatalog();
+  if (!serverStaticData) {
+    return { [TTipCategory.TTGenInfo]: '?' } as Record<TTipCategory, ReactNode>;
+  }
   const { data } = useBackend<PreferencesMenuData>();
 
   const TTips: Record<TTipCategory, ReactNode> = {} as Record<
@@ -832,12 +865,12 @@ function LoadToolTips(
 
   const extraData: TTipExtraData = {
     earlyCount: data.player_early_backgrounds?.length || 0,
-    earlyMaxCount: data.max_early_backgrounds || 0,
-    earlyMinCount: data.min_early_backgrounds || 0,
+    earlyMaxCount: serverStaticData.max_early_backgrounds || 0,
+    earlyMinCount: serverStaticData.min_early_backgrounds || 0,
 
     adultCount: data.player_adult_backgrounds?.length || 0,
-    adultMaxCount: data.max_adult_backgrounds || 0,
-    adultMinCount: data.min_adult_backgrounds || 0,
+    adultMaxCount: serverStaticData.max_adult_backgrounds || 0,
+    adultMinCount: serverStaticData.min_adult_backgrounds || 0,
 
     count:
       data.player_early_backgrounds?.length +

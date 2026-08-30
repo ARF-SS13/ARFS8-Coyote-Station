@@ -12,7 +12,7 @@ import { AntagsPage } from './AntagsPage';
 import { JobsPage } from './JobsPage';
 import { LoadoutPage } from './loadout';
 import { MainPage } from './MainPage';
-// import { QuirkPersonalityPage } from './QuirksPage';
+import { QuirkPersonalityPage } from './QuirksPage';
 import { SpeciesPage } from './SpeciesPage';
 
 enum Page {
@@ -112,7 +112,7 @@ export function CharacterPreferenceWindow(props) {
     // BUBBER EDIT ADDITION END
 
     case Page.Quirks:
-      pageContents = null; // <QuirkPersonalityPage />;
+      pageContents = <QuirkPersonalityPage />;
       break;
 
     case Page.Loadout:
