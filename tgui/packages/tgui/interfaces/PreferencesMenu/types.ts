@@ -77,13 +77,7 @@ export type Species = {
   sub_category: string;
   sub_sub_category: string;
   default_species: string;
-};
-
-export type SpeciesCatTree = {
-  slot_1: string; // always something, either species, or a category
-  slot_2?: string; // can be a sub-category, or a species, or nothing
-  slot_3?: string; // can be a sub-sub-category, or a species, or nothing. unused
-  default_species?: string;
+  is_folder: boolean;
 };
 
 export type Perk = {
@@ -224,12 +218,38 @@ export type CharacterPreferencesData = {
   misc: {
     gender: Gender;
     joblessrole: JoblessRole;
-    species: string;
     loadout_lists: LoadoutList; // BUBBER EDIT: Multiple loadout presets: ORIGINAL: loadout_list: LoadoutList;
+    species: string; // id
     job_clothes: BooleanLike;
     loadout_index: string; // BUBBER EDIT ADDITION: Multiple loadout presets
     background_state: string; // BUBBER EDIT ADDITION: Swappable character editor backgrounds
   };
+
+  max_temperaments: number;
+  max_builds: number;
+  max_early_backgrounds: number;
+  max_adult_backgrounds: number;
+
+  min_temperaments: number;
+  min_builds: number;
+  min_early_backgrounds: number;
+  min_adult_backgrounds: number;
+
+  player_temperaments: TemperamentBuild[];
+  player_builds: TemperamentBuild[];
+  //format: "/path/to/background" = "cool text stuff"
+  player_backgrounds: Record<string, string>;
+
+  server_temperaments: TemperamentBuild[];
+  server_builds: TemperamentBuild[];
+  server_backgrounds: TemperamentBuild[];
+  //format: [[background1, background2, background3], [background4, background5, background6], ...]
+  server_backgrounds_paginated: TemperamentBuild[][];
+  //format: {subcategory1: [background1, background2, background3], subcategory2: [background4, background5, background6], ...}
+  server_tab_groups: Record<string, TemperamentBuild[]>;
+  server_tabs: string[]; // coming from inferno, ts makes ts much easier
+
+  player_rumor_slot: RumorSlotData;
 
   randomization: Record<string, RandomSetting>;
 };
@@ -289,36 +309,13 @@ export type PreferencesMenuData = {
   active_slot: number;
   name_to_use: string;
 
-  max_temperaments: number;
-  max_builds: number;
-  max_early_backgrounds: number;
-  max_adult_backgrounds: number;
+  background_choices: string[]; // BUBBER EDIT ADDITION
 
-  min_temperaments: number;
-  min_builds: number;
-  min_early_backgrounds: number;
-  min_adult_backgrounds: number;
-
-  player_temperaments: TemperamentBuild[];
-  player_builds: TemperamentBuild[];
-  //format: "/path/to/background" = "cool text stuff"
-  player_backgrounds: Record<string, string>;
-
-  server_temperaments: TemperamentBuild[];
-  server_builds: TemperamentBuild[];
-  server_backgrounds: TemperamentBuild[];
-  //format: [[background1, background2, background3], [background4, background5, background6], ...]
-  server_backgrounds_paginated: TemperamentBuild[][];
-  //format: {subcategory1: [background1, background2, background3], subcategory2: [background4, background5, background6], ...}
-  server_tab_groups: Record<string, TemperamentBuild[]>;
-  server_tabs: string[]; // coming from inferno, ts makes ts much easier
-
-  species: {
-    species_data: Record<string, Species>;
-    category_map: Record<string, SpeciesCatTree>;
+  server_species_data: {
+    species_list: Record<string, Species>;
+    slot_1: string[];
+    slot_maps: Record<string, { slot_2?: string[]; slot_3?: string[] }>;
   };
-
-  player_rumor_slot: RumorSlotData;
 
   window: PrefsWindow;
 };
@@ -341,10 +338,6 @@ export type ServerData = {
   };
   loadout: {
     loadout_tabs: LoadoutCategory[];
-  };
-  species: {
-    species_data: Record<string, Species>;
-    category_map: Record<string, SpeciesCatTree>;
   };
   background_state: { choices: string[] }; // BUBBER EDIT ADDITION
   [otheyKey: string]: unknown;

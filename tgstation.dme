@@ -7062,7 +7062,6 @@
 #include "modular_coyote\code\helpers\dans_helper_files.dm"
 #include "modular_coyote\code\mob\creature_procs.dm"
 #include "modular_coyote\code\mob\creature_species.dm"
-#include "modular_coyote\code\mob\species_foldered_map.dm"
 #include "modular_coyote\code\mob\species_orderizing.dm"
 #include "modular_coyote\code\preference_stuff\character_snippets_backgrounds.dm"
 #include "modular_coyote\code\preference_stuff\coolprefs_subsystem.dm"

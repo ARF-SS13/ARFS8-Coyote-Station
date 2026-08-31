@@ -1,10 +1,8 @@
 /datum/species/human
 	ordering = 9999 // BEGONE TO THE SHADOW bottom
-/datum/species/felinid
+/datum/species/human/felinid
 	ordering = 70
 /datum/species/lizard
-	ordering = 70
-/datum/species/felinid
 	ordering = 70
 /datum/species/fly
 	ordering = 70
@@ -56,33 +54,19 @@
 	ordering = 70
 /datum/species/xeno
 	ordering = 70
-/datum/species/slimeperson
-	ordering = 70
-/datum/species/podweak
-	ordering = 70
-/datum/species/dwarf
-	ordering = 70
 /datum/species/vox
 	ordering = 70
 /datum/species/aquatic
 	ordering = 70
 /datum/species/insect
 	ordering = 70
-/datum/species/synth
+/datum/species/synthetic
 	ordering = 70
 /datum/species/ghoul
 	ordering = 70
 /datum/species/shadekin
 	ordering = 6
-/datum/species/lesser_abductor
-	ordering = 70
-/datum/species/zombie
-	ordering = 70
 /datum/species/protean
-	ordering = 70
-/datum/species/cursekin
-	ordering = 70
-/datum/species/serpentid
 	ordering = 70
 /datum/species/arachnid
 	ordering = 70

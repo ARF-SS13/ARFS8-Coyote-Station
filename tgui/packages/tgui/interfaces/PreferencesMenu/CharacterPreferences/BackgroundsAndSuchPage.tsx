@@ -13,7 +13,7 @@ import {
   Tooltip,
 } from 'tgui-core/components';
 import { createSearch } from 'tgui-core/string';
-import type { PreferencesMenuData, TemperamentBuild } from '../types';
+import type { CharacterPreferencesData, TemperamentBuild } from '../types';
 import {
   BorderMap,
   ColorMap,
@@ -50,7 +50,7 @@ function useBackgroundsUI(): BackgroundsLocalStateHolder {
 }
 
 export function BackgroundsAndSuchPage() {
-  const { data } = useBackend<PreferencesMenuData>();
+  const { data } = useBackend<CharacterPreferencesData>();
   const [activeTab, setActiveTab] = React.useState<string>(
     data.server_tabs[0] || 'your_backgrounds',
   );
@@ -108,7 +108,7 @@ enum ButtState {
 ╚═══╩══════════════════════╩══════╝
 */
 function BackstoryAndSuchHeader() {
-  const { data, act } = useBackend<PreferencesMenuData>();
+  const { data, act } = useBackend<CharacterPreferencesData>();
 
   const plr_early_bg = data.player_early_backgrounds || [];
   const plr_adult_bg = data.player_adult_backgrounds || [];
@@ -255,7 +255,7 @@ function BackstoryAndSuchContent() {
 }
 
 function BackgroundsTabs() {
-  const { data } = useBackend<PreferencesMenuData>();
+  const { data } = useBackend<CharacterPreferencesData>();
   const { activeTab, setActiveTab } = useBackgroundsUI();
 
   const TTips: Record<TTipCategory, ReactNode> = LoadToolTips([
@@ -325,7 +325,7 @@ const Num2WhichGot = (num: number): EarlyAdultOrBoth => {
 };
 
 function BackgroundsStuff() {
-  const { data } = useBackend<PreferencesMenuData>();
+  const { data } = useBackend<CharacterPreferencesData>();
   const { activeTab, searchQuery, setSearchQuery } = useBackgroundsUI();
 
   const bgSearch = createSearch(
@@ -453,7 +453,7 @@ function MakeVerticallyAlignedText(text: ReactNode) {
 }
 
 function BackgroundCard({ background }: { background: TemperamentBuild }) {
-  const { data, act } = useBackend<PreferencesMenuData>();
+  const { data, act } = useBackend<CharacterPreferencesData>();
 
   const earlySelected = data.player_early_backgrounds.some(
     (pbg: TemperamentBuild) => pbg.path === background.path,
@@ -808,7 +808,7 @@ function LoadToolTips(
   butt_state?: ButtState,
   butt_state2?: ButtState,
 ): Record<TTipCategory, ReactNode> {
-  const { data } = useBackend<PreferencesMenuData>();
+  const { data } = useBackend<CharacterPreferencesData>();
 
   const TTips: Record<TTipCategory, ReactNode> = {} as Record<
     TTipCategory,

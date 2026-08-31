@@ -27,7 +27,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	 *  Ex "[Plasmamen] are weak", "[Mothmen] are strong", "[Lizardpeople] don't like", "[Golems] hate"
 	 */
 	var/plural_form
-	var/ordering = 999
 
 	///Whether or not the race has sexual characteristics (biological genders). At the moment this is only FALSE for skeletons and shadows
 	var/sexes = TRUE
@@ -197,6 +196,18 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 
 /datum/species/New()
+	if(isnull(id))
+		id = "[type]"
+	if(category_master == type)
+		is_folder = TRUE
+	else if(sub_category_master == type)
+		is_folder = TRUE
+	else if(sub_sub_category_master == type)
+		is_folder = TRUE
+	if(is_folder && !ispath(default_species))
+		default_species = pick(subtypesof(type))
+		if(!ispath(default_species))
+			default_species = /datum/species/vulpkanin
 	if(!plural_form)
 		plural_form = "[name]\s"
 	if(!examine_limb_id)

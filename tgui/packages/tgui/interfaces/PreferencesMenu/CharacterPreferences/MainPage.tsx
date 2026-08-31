@@ -104,7 +104,6 @@ export function CharacterControls(props: CharacterControlsProps) {
         </Stack.Item>
       )}
       {/* BUBBER EDIT ADDITION START */}
-      {props.showDelete && (
         <Stack.Item>
           <Button
             onClick={props.handleFood}
@@ -114,9 +113,9 @@ export function CharacterControls(props: CharacterControlsProps) {
             tooltipPosition="top"
           />
         </Stack.Item>
-      )}
-      {/* BUBBER EDIT ADDITION END */}
 
+      {/* BUBBER EDIT ADDITION END */}
+      {props.showDelete && (
       <Stack.Item>
         <Button
           onClick={props.handleDeleteCharacter}
@@ -128,6 +127,7 @@ export function CharacterControls(props: CharacterControlsProps) {
           disabled={!props.canDeleteCharacter}
         />
       </Stack.Item>
+      )}
     </Stack>
   );
 }
@@ -496,7 +496,9 @@ export function MainPage(props: MainPageProps) {
   const serverData = useServerPrefs();
 
   const currentSpeciesData =
-    serverData?.species[data.character_preferences.misc.species];
+    data.server_species_data?.species_list[
+      data.character_preferences.misc.species
+    ];
 
   const contextualPreferences =
     data.character_preferences.secondary_features || [];

@@ -1,17 +1,9 @@
 import { useState } from 'react';
 import { useBackend } from 'tgui/backend';
-import {
-  Box,
-  Button,
-  Dropdown,
-  Icon,
-  Section,
-  Stack,
-} from 'tgui-core/components';
+import { Box, Button, Icon, Section, Stack } from 'tgui-core/components';
 import { classes } from 'tgui-core/react';
 import { SideDropdown } from '../../../bubber_components/SideDropdown'; // BUBBER EDIT ADDITION
 import { CharacterPreview } from '../../common/CharacterPreview';
-import { LoadingScreen } from '../../common/LoadingScreen';
 import {
   createSetPreference,
   Food,
@@ -19,9 +11,7 @@ import {
   type PreferencesMenuData,
   type ServerData,
   type Species,
-  type SpeciesCatTree,
 } from '../types';
-import { useServerPrefs } from '../useServerPrefs';
 import { CharacterControls } from './MainPage';
 
 type SpeciesPageInnerProps = {
@@ -29,164 +19,141 @@ type SpeciesPageInnerProps = {
   species: ServerData['species'];
 };
 
-function SpeciesPageInner(props: SpeciesPageInnerProps) {
+type SpeciesPageProps = {
+  closeSpecies: () => void;
+};
+
+export function SpeciesPage(props: SpeciesPageProps) {
   const { act, data } = useBackend<PreferencesMenuData>();
-  const setSpecies = createSetPreference(act, 'species');
+  const { closeSpecies } = props;
   const [currentTab, setCurrentTab] = useState(1);
-  const serverData = useServerPrefs();
-  if (!serverData) {
-    return <LoadingScreen />;
-  }
+  const speciesList: Record<string, Species> =
+    data.server_species_data.species_list;
+  const currentSpecies: Species =
+    speciesList[data.character_preferences.misc.species] ||
+    Object.values(speciesList)[0];
 
-  const speciesList: [string, Species][] = Object.entries(
-    props.species.species_data,
-  ).map(([species, data]) => {
-    return [species, data];
-  });
-  const categoryMap: [string, SpeciesCatTree][] = Object.entries(
-    props.species.category_map,
-  ).map(([species, data]) => {
-    return [species, data];
-  });
+  const slot1: string[] = Object.values(speciesList)
+    .filter(
+      (species) => !species.category || (species.category && species.is_folder),
+    )
+    .map((species) => species.id);
 
-  // categories! we got 3 slots, well, 2 slots, 3 will be for a todo
-  const slot1: Species[] = [];
-  const slot2: Species[] = [];
-  const slot3: Species[] = [];
+  const slot2: string[] = Object.values(speciesList)
+    .filter((species) => species.category === currentSpecies.category)
+    .map((species) => species.id);
 
-  for (const [speciesKey, species] of speciesList) {
-    const categoryTree = categoryMap.find(([key]) => key === speciesKey)?.[1];
+  const slot3: string[] = Object.values(speciesList)
+    .filter((species) => species.sub_category === currentSpecies.sub_category)
+    .map((species) => species.id);
 
-    if (!categoryTree) {
-      continue;
-    }
-
-    if (categoryTree.slot_1) {
-      slot1.push(species);
-    } else if (categoryTree.slot_2) {
-      slot2.push(species);
-    } else if (categoryTree.slot_3) {
-      slot3.push(species);
-    }
-  }
-
-  // then sort the slots by order
-  slot1.sort((a, b) => {
-    return a.order - b.order;
-  });
-  slot2.sort((a, b) => {
-    return a.order - b.order;
-  });
-  slot3.sort((a, b) => {
-    return a.order - b.order;
-  });
-
-  const currentSpecies = speciesList.filter(([speciesKey]) => {
-    return speciesKey === data.character_preferences.misc.species;
-  })[0][1]; // we'll get to it!
+  //the proper displayed selected things for each visible slot, based on the current species
+  const slot1Selected: string = currentSpecies.category
+    ? Object.values(speciesList).filter(
+        (species) =>
+          species.category === currentSpecies.category && species.is_folder,
+      )[0]?.name || currentSpecies.name
+    : currentSpecies.name;
+  const slot2Selected: string = currentSpecies.sub_category
+    ? Object.values(speciesList).filter(
+        (species) =>
+          species.sub_category === currentSpecies.sub_category &&
+          species.is_folder,
+      )[0]?.name || currentSpecies.name
+    : currentSpecies.name;
+  const slot3Selected: string = currentSpecies.sub_sub_category
+    ? Object.values(speciesList).filter(
+        (species) =>
+          species.sub_sub_category === currentSpecies.sub_sub_category &&
+          species.is_folder,
+      )[0]?.name || currentSpecies.name
+    : currentSpecies.name;
 
   type DropdownEntry = {
     displayText: React.ReactNode;
     value: string;
   };
 
-  function makeDropdownMenu(options: Species[]): React.ReactNode {
-    const menuOptions: DropdownEntry[] = options.map((species) => {
+  function makeDropdownMenu(
+    options: string[],
+    selected: string,
+  ): React.ReactNode {
+    if (!options || options.length === 0) {
+      return null;
+    }
+    const menuOptions: DropdownEntry[] = options.map((speciesId) => {
+      const species = speciesList[speciesId];
       return { displayText: species.name, value: species.id };
     });
     return (
-      <div style={{ display: 'flex', flexDirection: 'row', gap: '0.5rem' }}>
-        <Dropdown
-          options={menuOptions}
-          selected={data.character_preferences.misc.species}
-          onSelected={setSpecies}
-        />
-      </div>
+      <SideDropdown
+        options={menuOptions}
+        selected={selected}
+        onSelected={(value) => act('handle_species_thing', { species: value })}
+      />
     );
   }
 
-  const dropdownMenu1 = makeDropdownMenu(slot1);
-  const dropdownMenu2 = makeDropdownMenu(slot2);
-  const dropdownMenu3 = makeDropdownMenu(slot3);
-  const dropdownCluster = (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-      {dropdownMenu1}
-      {dropdownMenu2}
-      {dropdownMenu3}
-    </div>
-  );
   const leftsideContainer = (
-    <Stack fill vertical>
-      <Stack.Item>{dropdownCluster}</Stack.Item>
-      <Stack.Item>
-        <CharacterPreview
-          height="100%"
-          width="270px"
-          id={data.character_preview_view}
-        />
-      </Stack.Item>
-      <Stack.Item position="relative">
-        <SideDropdown
-          selected={data.character_preferences.misc.background_state}
-          options={serverData?.background_state.choices || []}
-          onSelected={(value) =>
-            act('update_background', {
-              new_background: value,
-            })
-          }
-        />
-      </Stack.Item>
-      <Stack.Item>
-        <CharacterControls
-          gender={data.character_preferences.misc.gender}
-          handleOpenSpecies={() => {}}
-          handleDeleteCharacter={() => {}}
-          handleRotate={(value) => {
-            act('rotate', { backwards: value }); // BUBBER EDIT CHANGE - Original: handleRotate={() => { act('rotate'); }}
-          }}
-          // BUBBER EDIT ADDITION BEGIN
-          handleFood={() => {
-            act('open_food');
-          }}
-          // BUBBER EDIT ADDITION END
-          setGender={createSetPreference(act, 'gender')}
-          showGender={currentSpecies ? !!currentSpecies.sexes : true}
-          canDeleteCharacter={false}
-          showSpecies={false}
-          showDelete={false}
-        />
-      </Stack.Item>
-      <Stack.Item>
-        {/* BUBBER EDIT ADDITION BEGIN: Preview Selection */}
-        <SideDropdown
-          selected={data.preview_selection}
-          options={data.preview_options}
-          onSelected={(value) =>
-            act('update_preview', {
-              updated_preview: value,
-            })
-          }
-        />
-      </Stack.Item>
-      <Stack.Item position="relative">
-        <SideDropdown
-          selected={data.character_preferences.misc.background_state}
-          options={serverData?.background_state.choices || []}
-          onSelected={(value) =>
-            act('update_background', {
-              new_background: value,
-            })
-          }
-        />
-      </Stack.Item>
-      <Stack.Item>
-        <Box
-          className={classes(['species64x64', currentSpecies.icon])}
-          style={{ height: '100%', width: '100%' }}
-          ml={-1}
-        />
-      </Stack.Item>
-    </Stack>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+      {makeDropdownMenu(slot1, slot1Selected)}
+      {makeDropdownMenu(slot2, slot2Selected)}
+      {makeDropdownMenu(slot3, slot3Selected)}
+      <SideDropdown
+        selected={data.preview_selection}
+        options={data.preview_options}
+        onSelected={(value) =>
+          act('update_preview', {
+            updated_preview: value,
+          })
+        }
+      />
+      <SideDropdown
+        selected={data.character_preferences.misc.background_state}
+        options={data.background_choices || []}
+        onSelected={(value) =>
+          act('update_background', {
+            new_background: value,
+          })
+        }
+      />
+      <CharacterPreview
+        height="250px"
+        width="calc(100% - 1rem)" // SKYRAT EDIT
+        id={data.character_preview_view}
+      />
+
+      <CharacterControls
+        gender={data.character_preferences.misc.gender}
+        handleOpenSpecies={() => {}}
+        handleDeleteCharacter={() => {}}
+        handleRotate={(value) => {
+          act('rotate', { backwards: value }); // BUBBER EDIT CHANGE - Original: handleRotate={() => { act('rotate'); }}
+        }}
+        // BUBBER EDIT ADDITION BEGIN
+        handleFood={() => {
+          act('open_food');
+        }}
+        // BUBBER EDIT ADDITION END
+        setGender={createSetPreference(act, 'gender')}
+        showGender={currentSpecies ? !!currentSpecies.sexes : true}
+        canDeleteCharacter={false}
+        showSpecies={false}
+        showDelete={false}
+      />
+      <Box
+        // its a sproite sheet, but we want to scale it up so tyhe
+        // 64x64px sprite fills a larger box
+        className={classes(['species64x64', currentSpecies.icon])}
+        style={{
+          transform: 'scale(4)',
+          transformOrigin: 'top left',
+          width: '100%',
+          height: '100%',
+        }}
+        ml={-1}
+      />
+    </div>
   );
 
   const tabbuttonStyle = {
@@ -268,9 +235,12 @@ function SpeciesPageInner(props: SpeciesPageInnerProps) {
 
   return (
     <Section
+      fill
+      position="relative"
+      fitted
       title="Species Selector PRO"
       buttons={
-        <Button icon="arrow-left" onClick={props.handleClose}>
+        <Button icon="arrow-left" onClick={closeSpecies}>
           Save and Close
         </Button>
       }
@@ -374,24 +344,6 @@ function SpeciesPageInner(props: SpeciesPageInnerProps) {
 //     </Stack>
 //   </Stack.Item>
 // </Stack>
-
-type SpeciesPageProps = {
-  closeSpecies: () => void;
-};
-
-export function SpeciesPage(props: SpeciesPageProps) {
-  const serverData = useServerPrefs();
-  if (!serverData) {
-    return <LoadingScreen />;
-  }
-
-  return (
-    <SpeciesPageInner
-      handleClose={props.closeSpecies}
-      species={serverData.species}
-    />
-  );
-}
 
 const FOOD_ICONS = {
   [Food.Bugs]: 'bug',
