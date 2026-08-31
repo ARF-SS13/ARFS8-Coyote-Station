@@ -87,7 +87,7 @@ GLOBAL_LIST_EMPTY(species_static_tgui)
 		var/species_type = GLOB.species_list[species_id]
 		var/datum/species/species = GLOB.species_prototypes[species_type]
 		list_of_species_obj += species
-	list_of_species_obj = sort_list(list_of_species_obj, /proc/cmp_name_asc)
+	list_of_species_obj = sort_list(list_of_species_obj, /proc/cmp_species_name_or_key_asc)
 	var/datum/species/vulpkanin/vulp = GLOB.species_prototypes[/datum/species/vulpkanin]
 	data["species_list"][vulp.id] = get_species_data(vulp) // i like foxes
 	for (var/datum/species/species as anything in list_of_species_obj)
@@ -123,14 +123,10 @@ GLOBAL_LIST_EMPTY(species_static_tgui)
 	spedat["is_folder"]         = species.is_folder
 	return spedat
 
-/proc/cmp_species_ordering(datum/species/species1, datum/species/species2)
-	if(species1.ordering < species2.ordering)
-		return -1
-	else if(species1.ordering > species2.ordering)
-		return 1
-	else
-		return 0
-
+/proc/cmp_species_name_or_key_asc(datum/species/species1, datum/species/species2)
+	var/test1 = species1.sort_key || species1.name
+	var/test2 = species2.sort_key || species2.name
+	return sorttext(test2, test1)
 
 /datum/asset/spritesheet/species
 	name = "species"

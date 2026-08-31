@@ -6,7 +6,7 @@ import type {
   LoadoutList,
   typePath,
 } from './CharacterPreferences/loadout/base';
-import type { Gender } from './preferences/gender';
+import { Gender } from './preferences/gender';
 
 export enum Food {
   Alcohol = 'ALCOHOL',
