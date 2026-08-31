@@ -1,6 +1,6 @@
 /datum/map_generator/cave_generator/coyote_assteroid
 	weighted_open_turf_types = list(
-		/turf/open/misc/asteroid/coyote/freon = 1,
+		/turf/open/misc/asteroid = 1,
 	)
 	weighted_closed_turf_types = list(
 		/turf/closed/mineral/random/coyote              = 120,
@@ -50,7 +50,7 @@
 		/obj/structure/ore_vent/boss         = 1,
 	)
 
-	initial_closed_chance  = 40
+	initial_closed_chance  = 49
 	smoothing_iterations   = 50
 	birth_limit            = 4
 	death_limit            = 3
@@ -82,13 +82,12 @@
 
 /datum/map_generator/cave_generator/coyote_assteroid/lower_risk
 	weighted_open_turf_types = list(
-		/turf/open/misc/asteroid/coyote = 1,
+		/turf/open/misc/asteroid/airless = 1,
 	)
 	weighted_closed_turf_types = list(
 		/turf/closed/mineral/random/coyote              = 77,
 		/turf/closed/mineral/random/coyote/high_chance  = 25,
 		/turf/closed/mineral/random/coyote/low_chance   = 48,
-		/turf/closed/mineral/gibtonite/coyote           = 1,
 	)
 
 	weighted_mob_spawn_list = list(
@@ -102,16 +101,6 @@
 		/obj/structure/flora/rock/style_random       = 2,
 		/obj/structure/flora/rock/pile               = 2,
 		/obj/structure/flora/scrap                   = 2,
-		/obj/structure/flora/lunar_plant             = 2,
-		/obj/structure/flora/ocean                   = 2,
-		/obj/structure/flora/biolumi/coyote          = 2,
-		/obj/structure/flora/biolumi/coyote/flower   = 2,
-		/obj/structure/flora/biolumi/coyote/plant    = 2,
-		/obj/structure/flora/biolumi/coyote/lamp     = 2,
-		/obj/structure/flora/ocean/seaweed           = 2,
-		/obj/structure/flora/ocean/longseaweed       = 2,
-		/obj/structure/flora/ocean/glowweed          = 2,
-		/obj/structure/flora/bush/stalky             = 2,
 	)
 
 	///Note that this spawn list is also in the icemoon generator
@@ -125,24 +114,23 @@
 		/obj/structure/ore_vent/boss         = 1,
 	)
 
-	initial_closed_chance  = 40
+	initial_closed_chance  = 44
 	smoothing_iterations   = 50
 	birth_limit            = 4
 	death_limit            = 3
-	mob_spawn_chance       = 5
+	mob_spawn_chance       = 8
 	flora_spawn_chance     = 40
-	feature_spawn_chance   = 1
+	feature_spawn_chance   = 0
 
 
 /datum/map_generator/cave_generator/coyote_assteroid/lowest_risk
 	weighted_open_turf_types = list(
-		/turf/open/misc/asteroid/coyote = 1,
+		/turf/open/misc/asteroid/airless = 1,
 	)
 	weighted_closed_turf_types = list(
 		/turf/closed/mineral/random/coyote              = 90,
 		/turf/closed/mineral/random/coyote/high_chance  = 20,
 		/turf/closed/mineral/random/coyote/low_chance   = 40,
-		/turf/closed/mineral/gibtonite/coyote           = 1,
 	)
 
 	weighted_mob_spawn_list = list(
@@ -154,17 +142,7 @@
 		/obj/structure/spacevine                     = 2,
 		/obj/structure/flora/rock/style_random       = 2,
 		/obj/structure/flora/rock/pile               = 2,
-		/obj/structure/flora/scrap                   = 2,
-		/obj/structure/flora/lunar_plant             = 2,
-		/obj/structure/flora/ocean                   = 2,
-		/obj/structure/flora/biolumi/coyote          = 2,
-		/obj/structure/flora/biolumi/coyote/flower   = 2,
-		/obj/structure/flora/biolumi/coyote/plant    = 2,
-		/obj/structure/flora/biolumi/coyote/lamp     = 2,
-		/obj/structure/flora/ocean/seaweed           = 2,
-		/obj/structure/flora/ocean/longseaweed       = 2,
-		/obj/structure/flora/ocean/glowweed          = 2,
-		/obj/structure/flora/bush/stalky             = 2,
+		/obj/structure/flora/scrap                   = 1,
 	)
 
 	///Note that this spawn list is also in the icemoon generator
@@ -178,13 +156,13 @@
 		/obj/structure/ore_vent/boss         = 1,
 	)
 
-	initial_closed_chance  = 48
+	initial_closed_chance  = 44
 	smoothing_iterations   = 50
 	birth_limit            = 4
 	death_limit            = 3
-	mob_spawn_chance       = 5
-	flora_spawn_chance     = 60
-	feature_spawn_chance   = 1
+	mob_spawn_chance       = 3
+	flora_spawn_chance     = 10
+	feature_spawn_chance   = 0
 
 ////////////////////COYOTE ROCKS
 
@@ -221,7 +199,7 @@
 		/obj/item/stack/ore/silver = 12,
 		/obj/item/stack/ore/titanium = 11,
 		/obj/item/stack/ore/uranium = 5,
-		/turf/closed/mineral/gibtonite/volcanic = 4,
+		/turf/closed/mineral/gibtonite/volcanic = 1,
 	)
 
 /turf/closed/mineral/gibtonite/coyote
@@ -335,7 +313,7 @@
 
 /datum/map_generator/cave_generator/coyote_assteroid/untitled_document
 	weighted_open_turf_types = list(
-		/turf/open/misc/asteroid/coyote/freon = 1,
+		/turf/open/misc/asteroid = 1,
 	)
 	weighted_closed_turf_types = list(
 		/turf/closed/mineral/random/coyote              = 100,
