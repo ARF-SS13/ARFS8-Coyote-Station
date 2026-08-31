@@ -84,13 +84,19 @@ GLOBAL_LIST_INIT_TYPED(species_prototypes, /datum/species, init_species_prototyp
 /proc/init_species_list()
 	var/list/species_list = list()
 	for(var/datum/species/species_path as anything in subtypesof(/datum/species))
-		species_list[initial(species_path.id)] = species_path
+		var/datum/species/species = new species_path()
+		species_list[species.id] = species.type
+		qdel(species)
 	return species_list
 
 /proc/init_species_prototypes()
 	var/list/species_list = list()
 	for(var/species_type in subtypesof(/datum/species))
 		species_list[species_type] = new species_type()
+		if(!species_list[species_type])
+			message_admins("Failed to create species prototype for [species_type]")
+			stack_trace("Failed to create species prototype for [species_type]")
+			species_list -= species_type
 	return species_list
 
 GLOBAL_LIST_EMPTY(latejoin_ai_cores)

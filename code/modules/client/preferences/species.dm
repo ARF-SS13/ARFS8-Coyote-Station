@@ -43,26 +43,3 @@
 			gent.aroused = prefs.arousal_preview
 			gent.update_sprite_suffix()
 	//SKYRAT EDIT END
-
-/datum/preference/choiced/species/compile_constant_data()
-	var/list/data = list()
-
-	for (var/species_id in (get_selectable_species() + get_customizable_races())) //SKYRAT EDIT CHANGE
-		var/species_type = GLOB.species_list[species_id]
-		var/datum/species/species = GLOB.species_prototypes[species_type]
-
-		data[species_id] = list()
-		data[species_id]["name"] = species.name
-		var/spedesc = species.get_species_description()
-		data[species_id]["desc"] = LAZYLISTIFY(spedesc)
-		var/spelore = species.get_species_lore()
-		data[species_id]["lore"] = LAZYLISTIFY(spelore)
-		data[species_id]["icon"] = sanitize_css_class_name(species.name)
-		data[species_id]["use_skintones"] = (TRAIT_USES_SKINTONES in species.inherent_traits)
-		data[species_id]["sexes"] = species.sexes
-		data[species_id]["enabled_features"] = species.get_features()
-		data[species_id]["perks"] = species.get_species_perks()
-		data[species_id]["diet"] =  species.get_species_diet()
-		data[species_id]["sort_bottom"] = species.sort_bottom //BUBBER EDIT ADDITION: Do we sort the species to the bottom?
-
-	return data

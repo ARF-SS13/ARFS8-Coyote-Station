@@ -8,7 +8,7 @@ import {
   Stack,
   Tooltip,
 } from 'tgui-core/components';
-import type { PreferencesMenuData, TemperamentBuild } from '../types';
+import type { CharacterPreferencesData, TemperamentBuild } from '../types';
 
 export function TemperamentsAndBuildsPage() {
   // the actual menu
@@ -30,7 +30,7 @@ type SetReplacementThing = {
 };
 
 function tnbColumn(category: 'Temperaments' | 'Builds') {
-  const { act, data } = useBackend<PreferencesMenuData>();
+  const { act, data } = useBackend<CharacterPreferencesData>();
 
   // serverside static-ish data
   const sys_tnbs_raw =
