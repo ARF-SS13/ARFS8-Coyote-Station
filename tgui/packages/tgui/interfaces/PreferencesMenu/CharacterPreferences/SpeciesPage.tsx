@@ -559,6 +559,8 @@ function SpeciesPerk(props: SpeciesPerkProps) {
   const { kind, perk } = props;
 
   const sectStyle: React.CSSProperties = {
+    flex: 1,
+    boxSizing: 'border-box',
     gap: '0.5rem',
     borderRadius: '0.25rem',
     border: '2px solid hsl(210, 37.5%, 45%)',
@@ -663,10 +665,17 @@ function SpeciesPerks(props: SpeciesPerksProps) {
     ) : null;
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        alignItems: 'stretch',
+        gap: '0.5rem',
+      }}
+    >
       {goodPerks}
-      {badPerks}
       {neutralPerks}
+      {badPerks}
     </div>
   );
 }
