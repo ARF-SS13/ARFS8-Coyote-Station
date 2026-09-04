@@ -2810,6 +2810,15 @@
 	},
 /turf/open/floor/iron,
 /area/station/cargo/storage)
+"bDI" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/station/commons/dorms)
 "bDR" = (
 /obj/machinery/camera/directional/east{
 	c_tag = "Psychology";
@@ -7518,6 +7527,18 @@
 	},
 /turf/open/floor/stone,
 /area/station/service/hydroponics/park)
+"ehm" = (
+/obj/machinery/light_switch/directional/north,
+/obj/effect/turf_decal/tile/dark_green{
+	dir = 4
+	},
+/obj/effect/turf_decal,
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/station/commons/dorms)
 "ehG" = (
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/locked,
@@ -8023,10 +8044,13 @@
 /turf/open/floor/engine,
 /area/station/science/ordnance/burnchamber)
 "evk" = (
-/obj/machinery/airalarm/directional/north,
-/obj/machinery/recharge_station,
+/obj/effect/turf_decal/trimline/brown/filled/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
-/area/station/commons/dorms)
+/area/station/command/heads_quarters/qm)
 "evx" = (
 /obj/structure/chair/wood,
 /obj/effect/turf_decal/siding/wood,
@@ -17913,10 +17937,11 @@
 /turf/open/floor/iron/smooth,
 /area/station/engineering/engine_room)
 "jMh" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/dark_green/fourcorners,
-/turf/open/floor/iron,
-/area/station/commons/dorms)
+/obj/machinery/vending/dorms{
+	shut_up = 1
+	},
+/turf/open/floor/stone,
+/area/station/service/hydroponics/park)
 "jMn" = (
 /obj/machinery/light/warm/directional/east,
 /obj/effect/turf_decal/siding/wood{
@@ -23458,11 +23483,8 @@
 /turf/open/floor/plating,
 /area/station/maintenance/fore)
 "mCP" = (
-/obj/machinery/cafe_condo_teleporter{
-	name = "Residential Teleporter"
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/delivery/blue,
+/obj/machinery/airalarm/directional/north,
+/obj/machinery/recharge_station,
 /turf/open/floor/iron,
 /area/station/commons/dorms)
 "mDd" = (
@@ -38298,6 +38320,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos)
+"uev" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/tile/dark_green/fourcorners,
+/turf/open/floor/iron,
+/area/station/commons/dorms)
 "uex" = (
 /obj/item/radio/intercom/directional/east,
 /obj/effect/turf_decal/trimline/yellow/filled/line{
@@ -43024,15 +43051,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/break_room)
-"wzL" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/station/commons/dorms)
 "wAw" = (
 /obj/effect/turf_decal/siding/purple{
 	dir = 8
@@ -44345,13 +44363,14 @@
 /turf/open/floor/stone,
 /area/station/service/hydroponics/park)
 "xqB" = (
-/obj/effect/turf_decal/trimline/brown/filled/line{
-	dir = 8
+/obj/structure/railing{
+	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron,
-/area/station/command/heads_quarters/qm)
+/obj/machinery/vending/dorms{
+	shut_up = 1
+	},
+/turf/open/floor/stone,
+/area/station/service/hydroponics/park)
 "xqK" = (
 /obj/machinery/requests_console/directional/north,
 /obj/effect/turf_decal/trimline/red/filled/line{
@@ -45339,15 +45358,11 @@
 /turf/open/floor/stone,
 /area/station/service/hydroponics/park)
 "xPJ" = (
-/obj/machinery/light_switch/directional/north,
-/obj/effect/turf_decal/tile/dark_green{
-	dir = 4
+/obj/machinery/cafe_condo_teleporter{
+	name = "Residential Teleporter"
 	},
-/obj/effect/turf_decal,
-/obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
-	},
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/blue,
 /turf/open/floor/iron,
 /area/station/commons/dorms)
 "xQh" = (
@@ -75956,8 +75971,8 @@ ejC
 bha
 tQl
 huB
+ehm
 xPJ
-mCP
 huB
 kPn
 iZK
@@ -76727,7 +76742,7 @@ ejC
 kzU
 agC
 tNV
-wzL
+bDI
 bMG
 huB
 eyc
@@ -77752,7 +77767,7 @@ jQg
 qow
 mGI
 huB
-evk
+mCP
 rej
 evd
 bTH
@@ -78010,7 +78025,7 @@ ugo
 fDv
 mGI
 huB
-jMh
+uev
 vgL
 lee
 huB
@@ -137373,7 +137388,7 @@ pJr
 sAK
 sAK
 hbR
-xqB
+evk
 iCS
 fDV
 kET
@@ -138927,7 +138942,7 @@ dNs
 sHR
 lrZ
 ilw
-rjk
+jMh
 wna
 wmJ
 wna
@@ -203692,7 +203707,7 @@ dXZ
 tyS
 lsj
 dXZ
-idO
+xqB
 hjs
 jJZ
 hjs
