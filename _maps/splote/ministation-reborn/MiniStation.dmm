@@ -4427,11 +4427,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/eva)
-"cvD" = (
-/obj/machinery/airalarm/directional/north,
-/obj/machinery/recharge_station,
-/turf/open/floor/iron,
-/area/station/commons/dorms)
 "cvY" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -4581,6 +4576,7 @@
 "cAa" = (
 /obj/structure/chair/stool,
 /obj/effect/landmark/start/atmospheric_technician,
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "cAC" = (
@@ -6454,6 +6450,14 @@
 	},
 /turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
+"dAl" = (
+/obj/machinery/cafe_condo_teleporter{
+	name = "Residential Teleporter"
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/blue,
+/turf/open/floor/iron,
+/area/station/commons/dorms)
 "dAA" = (
 /turf/open/floor/wood,
 /area/station/service/chapel)
@@ -8028,13 +8032,10 @@
 /turf/open/floor/engine,
 /area/station/science/ordnance/burnchamber)
 "evk" = (
-/obj/effect/turf_decal/trimline/brown/filled/line{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/tile/dark_green/fourcorners,
 /turf/open/floor/iron,
-/area/station/command/heads_quarters/qm)
+/area/station/commons/dorms)
 "evx" = (
 /obj/structure/chair/wood,
 /obj/effect/turf_decal/siding/wood,
@@ -9314,14 +9315,6 @@
 /obj/structure/table/glass,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/science/auxlab)
-"fhG" = (
-/obj/machinery/cafe_condo_teleporter{
-	name = "Residential Teleporter"
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/delivery/blue,
-/turf/open/floor/iron,
-/area/station/commons/dorms)
 "fib" = (
 /obj/machinery/air_sensor/mix_tank,
 /turf/open/floor/engine/vacuum,
@@ -9785,6 +9778,7 @@
 /area/station/maintenance/department/security)
 "fsI" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "ftb" = (
@@ -13889,15 +13883,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/station/cargo/storage)
-"hBN" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/landmark/start/assistant{
-	icon_state = "Assistant"
-	},
-/turf/open/floor/iron,
-/area/station/commons/dorms)
 "hBY" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/effect/turf_decal/trimline/white/filled/line{
@@ -17728,6 +17713,11 @@
 "jGw" = (
 /turf/closed/wall,
 /area/station/engineering/power_station/upper)
+"jGK" = (
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/station/engineering/atmos)
 "jGU" = (
 /obj/effect/turf_decal/trimline/yellow/filled/line{
 	dir = 9;
@@ -17990,6 +17980,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "jNb" = (
@@ -22020,6 +22011,14 @@
 	dir = 8
 	},
 /area/station/science/research)
+"lVD" = (
+/obj/effect/turf_decal/trimline/brown/filled/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron,
+/area/station/command/heads_quarters/qm)
 "lVE" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -28167,6 +28166,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "oRY" = (
@@ -31044,6 +31044,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/engineering/atmos)
 "qsy" = (
@@ -32054,6 +32055,11 @@
 /obj/structure/closet/wardrobe/cargotech,
 /turf/open/floor/iron,
 /area/station/cargo/storage)
+"qQH" = (
+/obj/machinery/airalarm/directional/north,
+/obj/machinery/recharge_station,
+/turf/open/floor/iron,
+/area/station/commons/dorms)
 "qQQ" = (
 /obj/structure/stairs/north,
 /turf/open/floor/iron,
@@ -33398,6 +33404,7 @@
 /obj/effect/landmark/navigate_destination/atmos,
 /obj/machinery/door/airlock/atmos/glass,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
+/obj/structure/cable,
 /turf/open/floor/iron/smooth,
 /area/station/engineering/atmos)
 "rCI" = (
@@ -44362,8 +44369,12 @@
 /turf/open/floor/stone,
 /area/station/service/hydroponics/park)
 "xqB" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/dark_green/fourcorners,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/landmark/start/assistant{
+	icon_state = "Assistant"
+	},
 /turf/open/floor/iron,
 /area/station/commons/dorms)
 "xqK" = (
@@ -75971,7 +75982,7 @@ bha
 tQl
 huB
 xPJ
-fhG
+dAl
 huB
 kPn
 iZK
@@ -77512,7 +77523,7 @@ huB
 kru
 hKp
 tNV
-hBN
+xqB
 ilH
 huB
 weY
@@ -77766,7 +77777,7 @@ jQg
 qow
 mGI
 huB
-cvD
+qQH
 rej
 evd
 bTH
@@ -78024,7 +78035,7 @@ ugo
 fDv
 mGI
 huB
-xqB
+evk
 vgL
 lee
 huB
@@ -80628,7 +80639,7 @@ eDN
 gkZ
 umb
 jMZ
-wpV
+jGK
 cAa
 fsI
 jNa
@@ -137387,7 +137398,7 @@ pJr
 sAK
 sAK
 hbR
-evk
+lVD
 iCS
 fDV
 kET
