@@ -2810,15 +2810,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/cargo/storage)
-"bDI" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/station/commons/dorms)
 "bDR" = (
 /obj/machinery/camera/directional/east{
 	c_tag = "Psychology";
@@ -4436,6 +4427,11 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/eva)
+"cvD" = (
+/obj/machinery/airalarm/directional/north,
+/obj/machinery/recharge_station,
+/turf/open/floor/iron,
+/area/station/commons/dorms)
 "cvY" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -7527,18 +7523,6 @@
 	},
 /turf/open/floor/stone,
 /area/station/service/hydroponics/park)
-"ehm" = (
-/obj/machinery/light_switch/directional/north,
-/obj/effect/turf_decal/tile/dark_green{
-	dir = 4
-	},
-/obj/effect/turf_decal,
-/obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/station/commons/dorms)
 "ehG" = (
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/locked,
@@ -9330,6 +9314,14 @@
 /obj/structure/table/glass,
 /turf/open/floor/iron/dark/textured_large,
 /area/station/science/auxlab)
+"fhG" = (
+/obj/machinery/cafe_condo_teleporter{
+	name = "Residential Teleporter"
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/blue,
+/turf/open/floor/iron,
+/area/station/commons/dorms)
 "fib" = (
 /obj/machinery/air_sensor/mix_tank,
 /turf/open/floor/engine/vacuum,
@@ -13897,6 +13889,15 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/station/cargo/storage)
+"hBN" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/landmark/start/assistant{
+	icon_state = "Assistant"
+	},
+/turf/open/floor/iron,
+/area/station/commons/dorms)
 "hBY" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/effect/turf_decal/trimline/white/filled/line{
@@ -16935,7 +16936,6 @@
 	},
 /obj/structure/table/wood,
 /obj/item/pen,
-/obj/structure/cable,
 /turf/open/floor/carpet/blue,
 /area/station/service/lawoffice)
 "jms" = (
@@ -23483,10 +23483,14 @@
 /turf/open/floor/plating,
 /area/station/maintenance/fore)
 "mCP" = (
-/obj/machinery/airalarm/directional/north,
-/obj/machinery/recharge_station,
-/turf/open/floor/iron,
-/area/station/commons/dorms)
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/machinery/vending/dorms{
+	shut_up = 1
+	},
+/turf/open/floor/stone,
+/area/station/service/hydroponics/park)
 "mDd" = (
 /obj/item/radio/intercom/directional/west{
 	name = "Common Channel";
@@ -38320,11 +38324,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/station/engineering/atmos)
-"uev" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/dark_green/fourcorners,
-/turf/open/floor/iron,
-/area/station/commons/dorms)
 "uex" = (
 /obj/item/radio/intercom/directional/east,
 /obj/effect/turf_decal/trimline/yellow/filled/line{
@@ -44294,8 +44293,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/start/assistant{
-	icon_state = "Assistant"
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/station/commons/dorms)
@@ -44363,14 +44362,10 @@
 /turf/open/floor/stone,
 /area/station/service/hydroponics/park)
 "xqB" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/machinery/vending/dorms{
-	shut_up = 1
-	},
-/turf/open/floor/stone,
-/area/station/service/hydroponics/park)
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/tile/dark_green/fourcorners,
+/turf/open/floor/iron,
+/area/station/commons/dorms)
 "xqK" = (
 /obj/machinery/requests_console/directional/north,
 /obj/effect/turf_decal/trimline/red/filled/line{
@@ -45358,11 +45353,15 @@
 /turf/open/floor/stone,
 /area/station/service/hydroponics/park)
 "xPJ" = (
-/obj/machinery/cafe_condo_teleporter{
-	name = "Residential Teleporter"
+/obj/machinery/light_switch/directional/north,
+/obj/effect/turf_decal/tile/dark_green{
+	dir = 4
 	},
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/delivery/blue,
+/obj/effect/turf_decal,
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/station/commons/dorms)
 "xQh" = (
@@ -75971,8 +75970,8 @@ ejC
 bha
 tQl
 huB
-ehm
 xPJ
+fhG
 huB
 kPn
 iZK
@@ -76742,7 +76741,7 @@ ejC
 kzU
 agC
 tNV
-bDI
+xps
 bMG
 huB
 eyc
@@ -77513,7 +77512,7 @@ huB
 kru
 hKp
 tNV
-xps
+hBN
 ilH
 huB
 weY
@@ -77767,7 +77766,7 @@ jQg
 qow
 mGI
 huB
-mCP
+cvD
 rej
 evd
 bTH
@@ -78025,7 +78024,7 @@ ugo
 fDv
 mGI
 huB
-uev
+xqB
 vgL
 lee
 huB
@@ -149206,13 +149205,13 @@ fZt
 fZt
 fZt
 fZt
-nxR
-nxR
-nxR
-imJ
-imJ
-imJ
-imJ
+fZt
+fZt
+fZt
+uMP
+uMP
+uMP
+uMP
 rjk
 tMU
 wna
@@ -203707,7 +203706,7 @@ dXZ
 tyS
 lsj
 dXZ
-xqB
+mCP
 hjs
 jJZ
 hjs
