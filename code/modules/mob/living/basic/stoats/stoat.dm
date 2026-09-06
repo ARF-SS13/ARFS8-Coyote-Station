@@ -48,6 +48,7 @@
 	ai_controller.set_blackboard_key(BB_BASIC_FOODS, typecacheof(eatable_food))
 	AddElement(/datum/element/wears_collar)
 	AddComponent(/datum/component/obeys_commands, pet_commands)
+	AddComponent(/datum/component/swarming, 16, 16)
 	if(can_breed)
 		add_breeding_component()
 
