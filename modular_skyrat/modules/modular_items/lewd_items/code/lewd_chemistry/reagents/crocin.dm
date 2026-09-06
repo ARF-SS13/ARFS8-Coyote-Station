@@ -15,7 +15,7 @@
 	var/thought_probability = 2
 
 	/// A list of possible emotes the chem is able to trigger
-	var/list/possible_aroused_emotes = list("moan", "blush")
+	var/list/possible_aroused_emotes = list()
 
 	/// A list of possible to_chat messages the chem is able to trigger
 	var/list/possible_aroused_thoughts = list(
