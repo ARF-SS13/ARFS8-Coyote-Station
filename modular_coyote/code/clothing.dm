@@ -225,6 +225,15 @@
 	greyscale_config_worn = null
 	greyscale_colors = null
 
+/obj/item/clothing/under/dress/coyote/diner/mint
+	icon = 'icons/obj/clothing/under/dress.dmi'
+	icon_state = "dinerdress-mint"
+	body_parts_covered = CHEST|ARMS|GROIN|LEGS
+	worn_icon = 'icons/mob/clothing/under/dress.dmi'
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
+
 //HoP modsuit
 /obj/item/mod/control/pre_equipped/hop
 	theme = /datum/mod_theme/hop
