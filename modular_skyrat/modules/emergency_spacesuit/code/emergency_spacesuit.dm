@@ -42,6 +42,8 @@
 		playsound(src, 'sound/effects/refill.ogg', 50, TRUE)
 		update_appearance()
 
+//This is great and all, but can we get a proc to fix the tearing with duct tape or something?  - Fenny
+// /obj/item/stack/sticky_tape/duct
 
 /obj/item/clothing/suit/space/emergency/update_name(updates)
 	. = ..()
