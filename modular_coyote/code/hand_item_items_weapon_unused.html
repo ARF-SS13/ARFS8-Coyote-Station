@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../../"><link rel="stylesheet" href="dmdoc.css"><title>modular_coyote/code/hand_item_items_weapon_unused.txt - /tg/ Station 13</title></head><body><header><a href="index.html">/tg/ Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a></header><main><h1>modular_coyote/code/hand_item_items_weapon_unused.txt <a href="https://github.com/ARF-SS13/ARFS8-Coyote-Station/blob/835e4066385f2027d65c1e3cd89d8204054f9c73/modular_coyote/code/hand_item_items_weapon_unused.txt"><img src="git.png" width="16" height="16" title="modular_coyote/code/hand_item_items_weapon_unused.txt"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><pre><code>
+
+/// BIG BITER
+/obj/item/hand_item/weapon/biter/big
+	name = &quot;Big Biter&quot;
+	desc = &quot;Talk shit, get BIG bit.&quot;
+	color = &quot;#884444&quot;
+	force = 40
+	// force_wielded = 50
+	// force_unwielded = 40
+	attack_speed = CLICK_CD_MELEE
+
+/obj/item/hand_item/weapon/biter/big/on_successful_give(mob/living/user, reason)
+	to_chat(user, span_notice(&quot;Your lips part, revealing a set of massive, razor-sharp fangs!&quot;))
+
+
+/// SABRE TOOTHED BITER
+/obj/item/hand_item/weapon/biter/sabre
+	name = &quot;Sabre Toothed Biter&quot;
+	desc = &quot;Damn bitch, you eat with them teeth?&quot;
+	color = &quot;#FF4444&quot;
+	force = 45
+	// force_wielded = 55
+	// force_unwielded = 45
+	attack_speed = CLICK_CD_MELEE * 1.2
+
+/obj/item/hand_item/weapon/biter/sabre/on_successful_give(mob/living/user, reason)
+	to_chat(user, span_notice(&quot;You slide your long sabreteeth against your lower lip, ready to impale whatever crosses your path!&quot;))
+
+
+/// FAST BITER
+/obj/item/hand_item/weapon/biter/fast
+	name = &quot;Fast Biter&quot;
+	desc = &quot;Talk shit, get SPEED bit.&quot;
+	color = &quot;#448844&quot;
+	force = 25
+	// force_wielded = 30
+	// force_unwielded = 25
+	attack_speed = CLICK_CD_MELEE * 0.5
+
+/obj/item/hand_item/weapon/biter/fast/on_successful_give(mob/living/user, reason)
+	to_chat(user, span_notice(&quot;You click your teeth together, ready to strike with lightning speed!&quot;))
+
+
+/// PLAY BITER
+/obj/item/hand_item/weapon/biter/play
+	name = &quot;Play Biter&quot;
+	desc = &quot;Someone really should just muzzle you.&quot;
+	color = &quot;#ff44ff&quot;
+	force = 0
+	// force_wielded = 0
+	// force_unwielded = 0
+	attack_speed = 1
+	wound_bonus = -999
+	exposed_wound_bonus = -999
+
+/obj/item/hand_item/weapon/biter/play/on_successful_give(mob/living/user, reason)
+	to_chat(user, span_notice(&quot;You bare your teeth with such ferocity! Such a mighty killer!&quot;))
+
+
+/// SPICY BITER
+/obj/item/hand_item/weapon/biter/spicy
+	name = &quot;Spicy Biter&quot;
+	desc = &quot;Your sickly little nibbler, good for dropping fools.&quot;
+	color = &quot;#44FF44&quot;
+	force = 35
+	// force_wielded = 45
+	// force_unwielded = 35
+	extra_damage = 30
+	extra_damage_type = STAMINA
+
+/obj/item/hand_item/weapon/biter/spicy/on_successful_give(mob/living/user, reason)
+	to_chat(user, span_notice(&quot;You bare your fangs, dripping with venom!&quot;))
+
+
+/obj/item/hand_item/weapon/tail/fast
+	name = &quot;fast tail&quot;
+	desc = &quot;A speedy tail that's very good at whackin' fast.&quot;
+	color = &quot;#448844&quot;
+	force = 18
+	attack_speed = CLICK_CD_MELEE * 0.6
+	// associated_trait = TRAIT_TAILWHIP
+	// required_trait = TRAIT_TAILWHIP
+
+/obj/item/hand_item/weapon/tail/fast/on_successful_give(mob/living/user, reason)
+	to_chat(user, span_notice(&quot;You swish your tail! It moves gracefully through the air.&quot;))
+
+/obj/item/hand_item/weapon/tail/big
+	name = &quot;big tail&quot;
+	desc = &quot;A big tail that whacks hard.&quot;
+	color = &quot;#884444&quot;
+	force = 25
+	// associated_trait = TRAIT_TAILSMASH
+	// required_trait = TRAIT_TAILSMASH
+
+/obj/item/hand_item/weapon/tail/big/on_successful_give(mob/living/user, reason)
+	to_chat(user, span_notice(&quot;You give your tail a wiggle, rippling with brute force!&quot;))
+
+/obj/item/hand_item/weapon/tail/spicy
+	name = &quot;spicy tail&quot;
+	desc = &quot;A tail with something that can inject venom on it.&quot;
+	color = &quot;#44FF44&quot;
+	force = 15
+	extra_damage = 30
+	extra_damage_type = STAMINA
+	// associated_trait = TRAIT_TAILSPICY
+	// required_trait = TRAIT_TAILSPICY
+
+/obj/item/hand_item/weapon/tail/spicy/on_successful_give(mob/living/user, reason)
+	to_chat(user, span_notice(&quot;You extend your tail's venomous tip, ready to inject.&quot;))
+
+/obj/item/hand_item/weapon/tail/thago
+	name = &quot;dangerous tail&quot;
+	desc = &quot;A god damn mighty tail that would kill an allosaurus.  Maybe.&quot;
+	color = &quot;#FF4444&quot;
+	force = 40
+	attack_speed = CLICK_CD_MELEE * 1.2
+	// associated_trait = TRAIT_TAILTHAGO
+	// required_trait = TRAIT_TAILTHAGO
+
+/obj/item/hand_item/weapon/tail/thago/on_successful_give(mob/living/user, reason)
+	to_chat(user, span_notice(&quot;Your mighty tail thumps against the ground with a dull thud, ready to pulverize anything in its path!&quot;))
+
+
+
+/// BIG CLAWER
+/obj/item/hand_item/weapon/clawer/big
+	name = &quot;Big Clawer&quot;
+	desc = &quot;Thems some BIG ASS claws.&quot;
+	color = &quot;#884444&quot;
+	force = 35
+	// force_wielded = 45
+	// force_unwielded = 35
+	attack_speed = CLICK_CD_MELEE * 1.5
+
+/obj/item/hand_item/weapon/clawer/big/on_successful_give(mob/living/user, reason)
+	to_chat(user, span_notice(&quot;You ready your long deadly claws! Goodness they're heavy!&quot;))
+
+
+/// RAZOR CLAWER
+/obj/item/hand_item/weapon/clawer/razor
+	name = &quot;Razor Sharp Clawers&quot;
+	desc = &quot;RIP AND TEAR.&quot;
+	color = &quot;#FF4444&quot;
+	force = 40
+	// force_wielded = 50
+	// force_unwielded = 40
+	attack_speed = CLICK_CD_MELEE * 1.2
+
+/obj/item/hand_item/weapon/clawer/razor/on_successful_give(mob/living/user, reason)
+	to_chat(user, span_notice(&quot;You ready your razor sharp claws! The wind whistles through them.&quot;))
+
+
+/// FAST CLAWER
+/obj/item/hand_item/weapon/clawer/fast
+	name = &quot;Fast Clawer&quot;
+	desc = &quot;Thems some FAST ASS claws.&quot;
+	color = &quot;#448844&quot;
+	force = 30
+	// force_wielded = 40
+	// force_unwielded = 30
+	attack_speed = CLICK_CD_MELEE * 0.5
+
+/obj/item/hand_item/weapon/clawer/fast/on_successful_give(mob/living/user, reason)
+	to_chat(user, span_notice(&quot;You ready your claws, light and agile!&quot;))
+
+
+
+
+/// SPICY CLAWER
+/obj/item/hand_item/weapon/clawer/spicy
+	name = &quot;Spicy Clawer&quot;
+	desc = &quot;My gross little litter box rakes, good for puttings idiots on the ground.&quot;
+	color = &quot;#44FF44&quot;
+	force = 30
+	// force_wielded = 40
+	// force_unwielded = 30
+	extra_damage = 30
+	extra_damage_type = STAMINA
+	// associated_trait = TRAIT_SPICYCLAW
+
+/obj/item/hand_item/weapon/clawer/spicy/on_successful_give(mob/living/user, reason)
+	to_chat(user, span_notice(&quot;You ready your claws, dripping with venom!&quot;))
+
+/// / / / / / / ///
+/// ARM BLADES  ///
+// /obj/item/hand_item/weapon/arm_blade
+// 	name = &quot;arm blade&quot;
+// 	desc = &quot;A grotesque blade made out of bone and flesh that cleaves through people as a hot knife through butter.&quot;
+// 	icon = 'icons/obj/items_and_weapons.dmi'
+// 	icon_state = &quot;arm_blade&quot;
+// 	inhand_icon_state = &quot;arm_blade&quot;
+// 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
+// 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
+// 	w_class = WEIGHT_CLASS_HUGE
+// 	force = 40
+	force_wielded = 50
+	force_unwielded = 40
+// 	hitsound = 'sound/weapons/bladeslice.ogg'
+// 	attack_verb_simple = list(&quot;attacked&quot;, &quot;slashed&quot;, &quot;stabbed&quot;, &quot;sliced&quot;, &quot;torn&quot;, &quot;ripped&quot;, &quot;diced&quot;, &quot;cut&quot;)
+// 	sharpness = SHARP_EDGED
+	// associated_trait = TRAIT_ARMBLADE
+	// required_trait = TRAIT_ARMBLADE
+
+// /obj/item/hand_item/weapon/arm_blade/on_successful_give(mob/living/user, reason)
+// 	to_chat(user, span_notice(&quot;Your arm crunches into a horrifying, deadly blade!&quot;))
+
+// /obj/item/hand_item/weapon/arm_blade/cyber
+// 	name = &quot;Cyber blade&quot;
+// 	desc = &quot;A advanced cybernetic blade made out of numerous materials that cleaves through people as a hot knife through butter.&quot;
+// 	icon = 'icons/obj/items_and_weapons.dmi'
+// 	icon_state = &quot;cyber_blade&quot;
+// 	inhand_icon_state = &quot;cyber_blade&quot;
+// 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
+// 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
+	// associated_trait = TRAIT_CYBERKNIFE
+	// required_trait = TRAIT_CYBERKNIFE
+
+// /obj/item/hand_item/weapon/arm_blade/cyber/on_successful_give(mob/living/user, reason)
+// 	to_chat(user, span_notice(&quot;Your arm re-forges itself into a sleek cybernetic blade!&quot;))
+
+/// / / / / ///
+/// SHOVERS ///
+// /obj/item/hand_item/weapon/shover // pak chooie unf
+// 	name = &quot;shover&quot;
+// 	desc = &quot;Stay back!&quot;
+// 	icon = 'icons/obj/items_and_weapons.dmi'
+// 	icon_state = &quot;latexballon&quot;
+// 	inhand_icon_state = &quot;nothing&quot;
+// 	attack_verb_simple = list(&quot;shoved&quot;, &quot;pushed&quot;)
+// 	hitsound = &quot;sound/weapons/thudswoosh.ogg&quot;
+// 	force = 0
+	force_wielded = 0
+// 	throwforce = 0
+// 	wound_bonus = 0
+// 	can_knockback = TRUE
+// 	hud_use = FALSE
+
+// /obj/item/hand_item/weapon/shover/on_successful_give(mob/living/user, reason)
+// 	to_chat(user, span_notice(&quot;You hold a hand up, ready to shove something around!&quot;))
+</code></pre></td></tr></table></main><footer>tgstation.dme <a href="https://github.com/ARF-SS13/ARFS8-Coyote-Station/tree/835e4066385f2027d65c1e3cd89d8204054f9c73">835e406</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>

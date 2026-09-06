@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../../../"><link rel="stylesheet" href="dmdoc.css"><title>modular_coyote/code/preference_stuff/Untitled-1.txt - /tg/ Station 13</title></head><body><header><a href="index.html">/tg/ Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a></header><main><h1>modular_coyote/code/preference_stuff/Untitled-1.txt <a href="https://github.com/ARF-SS13/ARFS8-Coyote-Station/blob/835e4066385f2027d65c1e3cd89d8204054f9c73/modular_coyote/code/preference_stuff/Untitled-1.txt"><img src="git.png" width="16" height="16" title="modular_coyote/code/preference_stuff/Untitled-1.txt"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><pre><code>	// clear it
+	switch(params[&quot;rumor_act&quot;])
+		if(&quot;rumor_add&quot;)
+			var/uid = generate_rumor_uid()
+			rumors[&quot;[uid]&quot;] = list(&quot;txt&quot; = &quot;[get_random_rumor(user)]&quot;, &quot;horny&quot; = &quot;no&quot;)
+			preferences.write_preference(GLOB.preference_entries[/datum/preference/rumors/the_actual_rumors], rumors)
+			to_chat(user, span_notice(&quot;Okay! Added a new rumor with uid [uid]!&quot;))
+			return TRUE
+		if(&quot;rumor_edit_text&quot;)
+			var/rumor_uid = params[&quot;rumor_uid&quot;]
+			var/list/rumordat = rumors[&quot;[rumor_uid]&quot;]
+			if(LAZYLEN(rumordat))
+				var/thetext = rumordat[&quot;txt&quot;]
+				var/new_text = tgui_input_text(
+					user,
+					&quot;Edit the text of this rumor. Maximum length is 512 characters. Special characters may be clipped, multiline should be okay.&quot;,
+					&quot;Edit rumor: [thetext]&quot;,
+					thetext,
+					512,
+					TRUE,
+					TRUE,
+					null,
+					null,
+					TRUE,
+				)
+				if(new_text == TGUI_TEXT_MODAL_CANCEL_TOKEN)
+					to_chat(user, span_notice(&quot;Okay never mind!!&quot;))
+					return TRUE
+				if(!new_text)
+					var/r_u_sure = tgui_alert(
+						user,
+						&quot;Are you sure you want to clear the flavor text for this background?&quot;,
+						&quot;Clear Flavor Text?&quot;,
+						list(&quot;Yes, clear it&quot;, &quot;No, cancel!&quot;),
+					)
+					if(r_u_sure != &quot;Yes, clear it&quot;)
+						to_chat(user, span_notice(&quot;Okay never mind!!&quot;))
+						return TRUE
+				if(new_text != thetext)
+					rumors[&quot;[rumor_uid]&quot;][&quot;txt&quot;] = new_text
+					preferences.write_preference(GLOB.preference_entries[/datum/preference/rumors/the_actual_rumors], rumors)
+					to_chat(user, span_notice(&quot;Okay! Updated rumor text to: [new_text]&quot;))
+				return TRUE
+		if(&quot;rumor_toggle_nsfw&quot;)
+			var/rumor_uid = params[&quot;rumor_uid&quot;]
+			var/list/rumordat = rumors[&quot;[rumor_uid]&quot;]
+			if(LAZYLEN(rumordat))
+				var/old_horny = rumordat[&quot;horny&quot;]
+				var/new_horny = (old_horny == &quot;yes&quot;) ? &quot;no&quot; : &quot;yes&quot;
+				rumors[&quot;[rumor_uid]&quot;][&quot;horny&quot;] = new_horny
+				preferences.write_preference(GLOB.preference_entries[/datum/preference/rumors/the_actual_rumors], rumors)
+				to_chat(user, span_notice(&quot;Okay! Updated rumor horny status to: [new_horny]&quot;))
+			return TRUE
+		if(&quot;rumor_delete&quot;)
+			var/rumor_uid = params[&quot;rumor_uid&quot;]
+			if(rumors[&quot;[rumor_uid]&quot;])
+				rumors -= &quot;[rumor_uid]&quot;
+				preferences.write_preference(GLOB.preference_entries[/datum/preference/rumors/the_actual_rumors], rumors)
+				to_chat(user, span_notice(&quot;Okay! Deleted rumor with uid: [rumor_uid]&quot;))
+			return TRUE
+		if(&quot;rumor_move_up&quot;, &quot;rumor_move_down&quot;)
+			var/go_up = (params[&quot;rumor_act&quot;] == &quot;rumor_move_up&quot;)
+			var/rumor_uid = params[&quot;rumor_uid&quot;]
+			var/my_index = 1
+			for(var/rumorkey in rumors)
+				if(rumorkey == rumor_uid)
+					break
+				my_index += 1
+			var/swap_index = (go_up ? my_index - 1 : my_index + 1)
+			if(swap_index &lt; 1 || swap_index &gt; LAZYLEN(rumors))
+				to_chat(user, span_notice(&quot;Cannot move rumor [rumor_uid] [go_up ? &quot;up&quot; : &quot;down&quot;] any further!&quot;))
+				return TRUE
+			var/swap_with = LAZYACCESS(rumors, swap_index)
+			if(!swap_with)
+				to_chat(user, span_notice(&quot;Cannot move rumor [rumor_uid] [go_up ? &quot;up&quot; : &quot;down&quot;] any further!&quot;))
+				return TRUE
+			var/list/current = rumors[&quot;[rumor_uid]&quot;]
+			var/list/target = rumors[&quot;[swap_with]&quot;]
+			rumors[&quot;[rumor_uid]&quot;] = target
+			rumors[&quot;[swap_with]&quot;] = current
+			preferences.write_preference(GLOB.preference_entries[/datum/preference/rumors/the_actual_rumors], rumors)
+			to_chat(user, span_notice(&quot;Okay! Moved rumor [rumor_uid] [go_up ? &quot;up&quot; : &quot;down&quot;]!&quot;))
+			return TRUE
+		if(&quot;rumor_toggle_public&quot;)
+			var/rumor_uid = params[&quot;rumor_uid&quot;]
+			var/list/rumordat = rumors[&quot;[rumor_uid]&quot;]
+			if(LAZYLEN(rumordat))
+				var/old_public = rumordat[&quot;public&quot;]
+				var/new_public = (old_public == &quot;yes&quot;) ? &quot;no&quot; : &quot;yes&quot;
+				rumors[&quot;[rumor_uid]&quot;][&quot;public&quot;] = new_public
+				preferences.write_preference(GLOB.preference_entries[/datum/preference/rumors/the_actual_rumors], rumors)
+				to_chat(user, span_notice(&quot;Okay! Updated rumor public status to: [new_public]&quot;))
+			return TRUE
+</code></pre></td></tr></table></main><footer>tgstation.dme <a href="https://github.com/ARF-SS13/ARFS8-Coyote-Station/tree/835e4066385f2027d65c1e3cd89d8204054f9c73">835e406</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>

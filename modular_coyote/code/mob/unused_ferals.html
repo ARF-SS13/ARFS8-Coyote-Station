@@ -1,0 +1,1148 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../../../"><link rel="stylesheet" href="dmdoc.css"><title>modular_coyote/code/mob/unused_ferals.txt - /tg/ Station 13</title></head><body><header><a href="index.html">/tg/ Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a></header><main><h1>modular_coyote/code/mob/unused_ferals.txt <a href="https://github.com/ARF-SS13/ARFS8-Coyote-Station/blob/835e4066385f2027d65c1e3cd89d8204054f9c73/modular_coyote/code/mob/unused_ferals.txt"><img src="git.png" width="16" height="16" title="modular_coyote/code/mob/unused_ferals.txt"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><pre><code>//^^^ Please keep these alphabetical. Don't just add to the bottom of the list. ^^^//
+//End Pokemon//
+
+//Start Other//
+/*
+/datum/species/feral/catslug
+	name = &quot;Catslug&quot;
+	id = &quot;catslug&quot;
+	simple_icon = 'modular_coyote/icons/mob/slugcat.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = MEAT | RAW
+	default_color = &quot;FFFFFF&quot;
+	mutant_bodyparts = list(&quot;mcolor&quot; = &quot;FFFFFF&quot;, &quot;legs&quot; = &quot;Digitigrade&quot;, &quot;meat_type&quot; = &quot;Mammalian&quot;)
+	species_traits = list(FERAL,NOZOMBIE,NO_UNDERWEAR,LIPS,NOEYES,CAN_SCAR,HAS_FLESH,HAS_BONE,MUTCOLORS)
+
+/datum/species/feral/werewolf
+	name = &quot;Feral Werewolf&quot;
+	id = &quot;playerwolf&quot;
+	simple_icon = 'modular_splurt/icons/mob/werewolf.dmi'
+	icon_width = 64
+	alt_prefixes = list(&quot;Skull Headed&quot; = &quot;skull_&quot;, &quot;Ice&quot; = &quot;ice_&quot;)
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = MEAT | RAW
+	default_color = &quot;FFFFFF&quot;
+	mutant_bodyparts = list(&quot;mcolor&quot; = &quot;FFFFFF&quot;, &quot;legs&quot; = &quot;Digitigrade&quot;, &quot;meat_type&quot; = &quot;Mammalian&quot;)
+	species_traits = list(FERAL,NOZOMBIE,NO_UNDERWEAR,LIPS,NOEYES,CAN_SCAR,HAS_FLESH,HAS_BONE,MUTCOLORS)
+
+/datum/species/feral/chocobo
+	name = &quot;Feral Chocobo&quot;
+	id = &quot;chocobo&quot;
+	simple_icon = 'modular_coyote/icons/mob/raptor.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	rotate_on_lying = FALSE
+	liked_food = MEAT | RAW
+	default_color = &quot;FFFFFF&quot;
+	mutant_bodyparts = list(&quot;mcolor&quot; = &quot;FFFFFF&quot;, &quot;legs&quot; = &quot;Digitigrade&quot;, &quot;meat_type&quot; = &quot;Mammalian&quot;)
+	species_traits = list(FERAL,NOZOMBIE,NO_UNDERWEAR,LIPS,NOEYES,CAN_SCAR,HAS_FLESH,HAS_BONE,MUTCOLORS)
+
+/datum/species/feral/nightstalker
+	name = &quot;Feral Nightstalker&quot;
+	id = &quot;nightstalker&quot;
+	simple_icon = 'icons/fallout/mobs/animals/nightstalker.dmi'
+	icon_width = 64
+	icon_dead_suffix = &quot;-dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = MEAT | RAW
+
+/datum/species/feral/cat
+	name = &quot;Feral Cat&quot;
+	id = &quot;cat2&quot;
+	simple_icon = 'icons/mob/pets.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = MEAT | RAW
+
+/datum/species/feral/black_cat
+	name = &quot;Feral Black Cat&quot;
+	id = &quot;cat&quot;
+	simple_icon = 'icons/mob/pets.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = MEAT | RAW
+
+/datum/species/feral/striped_cat
+	name = &quot;Feral Striped Cat&quot;
+	id = &quot;pancake&quot;
+	simple_icon = 'icons/mob/pets.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = MEAT | RAW
+
+/datum/species/feral/space_cat
+	name = &quot;Feral Space Cat&quot;
+	id = &quot;spacecat&quot;
+	simple_icon = 'icons/mob/pets.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = MEAT | RAW
+
+/datum/species/feral/wolf
+	name = &quot;Feral Wolf&quot;
+	id = &quot;wolf&quot;
+	simple_icon = 'icons/fallout/mobs/animals/dogs.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	rotate_on_lying = TRUE
+	liked_food = MEAT | RAW
+
+/datum/species/feral/shepard
+	name = &quot;Feral Shepard&quot;
+	id = &quot;shepherd&quot;
+	simple_icon = 'icons/fallout/mobs/animals/dogs.dmi'
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_width = 32
+	icon_rest_suffix = &quot;_rest&quot;
+	rotate_on_lying = TRUE
+	liked_food = MEAT | RAW
+
+/datum/species/feral/raccoon
+	name = &quot;Feral Raccoon&quot;
+	id = &quot;raccoon_darkgrey&quot;
+	simple_icon = 'modular_coyote/icons/mob/raccoon.dmi'
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_width = 32
+	icon_rest_suffix = &quot;_rest&quot;
+	rotate_on_lying = FALSE
+	liked_food = MEAT | RAW
+
+/datum/species/feral/dog
+	name = &quot;Feral Dog&quot;
+	id = &quot;dog_feral&quot;
+	simple_icon = 'icons/fallout/mobs/animals/dogs.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	rotate_on_lying = TRUE
+	liked_food = MEAT | RAW
+
+/datum/species/feral/hyotie
+	name = &quot;Feral Hyotie&quot;
+	id = &quot;andrews&quot;
+	simple_icon = 'modular_coyote/icons/mob/vore64x32.dmi'
+	icon_width = 64
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = MEAT | RAW
+
+/datum/species/feral/otie
+	name = &quot;Feral Otie&quot;
+	id = &quot;otie&quot;
+	simple_icon = 'modular_coyote/icons/mob/vore64x32.dmi'
+	icon_width = 64
+	icon_dead_suffix = &quot;-dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	alt_prefixes = list(&quot;Collared Otie&quot; = &quot;c_&quot;, &quot;Security Otie&quot; = &quot;s_&quot;, &quot;Security Hyotie&quot; = &quot;sech_&quot;, &quot;Hyotie&quot; = &quot;h_&quot;, &quot;Fat Otie&quot; = &quot;fat_&quot;)
+	liked_food = MEAT | RAW
+
+/datum/species/feral/scrotie
+	name = &quot;Feral Scrotie&quot;
+	id = &quot;scrotie&quot;
+	simple_icon = 'modular_coyote/icons/mob/vore64x32.dmi'
+	icon_width = 64
+	icon_dead_suffix = &quot;-dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	alt_prefixes = list(&quot;Collared Scrotie&quot; = &quot;c_&quot;, &quot;Security Scrotie&quot; = &quot;s_&quot;, &quot;Fat Scrotie&quot; = &quot;fat_&quot;, &quot;Fyrotie&quot; = &quot;h_&quot;, &quot;Fun Sized&quot; = &quot;cup_&quot;, &quot;Fun Sized Security&quot; = &quot;scup_&quot;)
+	liked_food = MEAT | RAW
+
+/datum/species/feral/otiepede
+	name = &quot;Feral Otiepede&quot;
+	id = &quot;otiepede&quot;
+	simple_icon = 'modular_coyote/icons/mob/vore64x32.dmi'
+	icon_width = 64
+	icon_dead_suffix = &quot;-dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	alt_prefixes = list()
+	liked_food = MEAT | RAW
+
+/datum/species/feral/snotie
+	name = &quot;Feral Snotie&quot;
+	id = &quot;snotie&quot;
+	simple_icon = 'modular_coyote/icons/mob/vore64x32.dmi'
+	icon_width = 64
+	icon_dead_suffix = &quot;-dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	alt_prefixes = list()
+	liked_food = MEAT | RAW
+
+/datum/species/feral/scrotiepede
+	name = &quot;Feral Scrotiepede&quot;
+	id = &quot;scrotiepede&quot;
+	simple_icon = 'modular_coyote/icons/mob/vore64x32.dmi'
+	icon_width = 64
+	icon_dead_suffix = &quot;-dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	alt_prefixes = list()
+	liked_food = MEAT | RAW
+
+/datum/species/feral/direwolf
+	name = &quot;Feral Direwolf&quot;
+	id = &quot;direwolf&quot;
+	simple_icon = 'modular_coyote/icons/mob/vore64x32.dmi'
+	icon_width = 64
+	alt_prefixes = list(&quot;Armored&quot; = &quot;armored_&quot;)
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = MEAT | RAW
+	species_traits = list(FERAL,NOZOMBIE,NO_UNDERWEAR,LIPS,NOEYES,CAN_SCAR,HAS_FLESH,HAS_BONE,NO_INHAND,MUTCOLORS)
+
+/datum/species/feral/giantrat
+	name = &quot;Feral Giant Rat&quot;
+	id = &quot;rous&quot;
+	simple_icon = 'modular_coyote/icons/mob/vore64x32.dmi'
+	icon_width = 64
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = MEAT | RAW
+
+/datum/species/feral/mousebrown
+	name = &quot;Feral Brown Mouse&quot;
+	id = &quot;mouse_brown&quot;
+	simple_icon = 'icons/mob/animal.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = VEGETABLES
+
+/datum/species/feral/mousegrey
+	name = &quot;Feral Grey Mouse&quot;
+	id = &quot;mouse_gray&quot;
+	simple_icon = 'icons/mob/animal.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = VEGETABLES
+
+/datum/species/feral/mousewhite
+	name = &quot;Feral White Mouse&quot;
+	id = &quot;mouse_white&quot;
+	simple_icon = 'icons/mob/animal.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = VEGETABLES
+
+/datum/species/feral/wisp
+	name = &quot;Feral Wisp&quot;
+	id = &quot;wisp&quot;
+	simple_icon = 'modular_roguetown/items/lighting.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = VEGETABLES
+	footstep_type = FOOTSTEP_MOB_CRAWL
+	species_traits = list(FERAL,NOZOMBIE,NO_UNDERWEAR,LIPS,NOEYES,CAN_SCAR,HAS_FLESH,HAS_BONE,NO_INHAND,MUTCOLORS)
+
+/datum/species/feral/slime
+	name = &quot;Feral Slime&quot;
+	id = &quot;player slime&quot;
+	simple_icon = 'icons/mob/slimes.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = VEGETABLES
+	footstep_type = FOOTSTEP_MOB_CRAWL
+	species_traits = list(FERAL,NOZOMBIE,NO_UNDERWEAR,LIPS,NOEYES,CAN_SCAR,HAS_FLESH,HAS_BONE,NO_INHAND,MUTCOLORS)
+
+/datum/species/feral/slug
+	name = &quot;Feral Slug&quot;
+	id = &quot;slug&quot;
+	simple_icon = 'icons/mob/slimes.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;-dead&quot;
+	icon_rest_suffix = &quot;-rest&quot;
+
+/datum/species/feral/bat
+	name = &quot;Feral Bat&quot;
+	id = &quot;bat&quot;
+	simple_icon = 'modular_coyote/icons/mob/bat.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = FRUIT
+
+/datum/species/feral/featherraptor
+	name = &quot;Feral Feathered Raptor&quot;
+	id = &quot;fraptor&quot;
+	simple_icon = 'modular_coyote/icons/mob/raptor_big_56x32.dmi'
+	icon_width = 56
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_dead&quot;
+	alt_prefixes = list(&quot;Black Feathers&quot; = &quot;black_&quot;,
+	&quot;White Feathers&quot; = &quot;white_&quot;,
+	&quot;Purple Feathers&quot; = &quot;purple_&quot;,
+	&quot;Red Feathers&quot; = &quot;red_&quot;,
+	&quot;Green Feathers&quot; = &quot;green_&quot;,
+	&quot;Blue Feathers&quot; = &quot;blue_&quot;)
+	liked_food = MEAT
+
+/datum/species/feral/plantmouth
+	name = &quot;Venus Human Trap&quot;
+	id = &quot;venus_human_trap&quot;
+	simple_icon = 'icons/effects/spacevines.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;_rest&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = MEAT
+
+/datum/species/feral/gecko
+	name = &quot;Feral Gecko&quot;
+	id = &quot;gekko&quot;
+	simple_icon = 'icons/fallout/mobs/animals/wasteanimals.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = MEAT | RAW
+
+/datum/species/feral/gecko_villager
+	name = &quot;Feral Gecko Villager&quot;
+	id = &quot;gekko_tribe_villager&quot;
+	simple_icon = 'icons/fallout/mobs/animals/gecktribe.dmi'
+	icon_width = 32
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	liked_food = MEAT | RAW
+
+//start aliens
+
+/datum/species/feral/xeno
+	roundstart = FALSE //This is just the parent type, don't let players actually select it.
+	exotic_blood_color = BLOOD_COLOR_XENO
+	meat = /obj/item/reagent_containers/food/snacks/meat/slab/xeno
+	gib_types = list(/obj/effect/gibspawner/xeno/xenoperson, /obj/effect/gibspawner/xeno/xenoperson/bodypartless)
+	skinned_type = /obj/item/stack/sheet/animalhide/xeno
+	exotic_bloodtype = &quot;X*&quot;
+	liked_food = MEAT | RAW
+	default_color = &quot;00FF00&quot;
+	species_type = &quot;alien&quot;
+	say_mod = &quot;hisses&quot;
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+
+/datum/species/feral/xeno/drone
+	name = &quot;Feral Xenomorph Drone&quot;
+	id = &quot;aliend&quot;
+	simple_icon = 'icons/mob/alien.dmi'
+	icon_width = 32
+	rotate_on_lying = TRUE
+	icon_rest_suffix = &quot;_sleep&quot;
+
+/datum/species/feral/xeno/hunter
+	name = &quot;Feral Xenomorph Hunter&quot;
+	id = &quot;alienh&quot;
+	simple_icon = 'icons/mob/alien.dmi'
+	icon_width = 32
+	rotate_on_lying = TRUE
+	icon_rest_suffix = &quot;_sleep&quot;
+
+/datum/species/feral/xeno/sentry
+	name = &quot;Feral Xenomorph Sentry&quot;
+	id = &quot;aliens&quot;
+	simple_icon = 'icons/mob/alien.dmi'
+	icon_width = 32
+	rotate_on_lying = TRUE
+	icon_rest_suffix = &quot;_sleep&quot;
+
+/datum/species/feral/xeno/praetorian
+	name = &quot;Feral Xenomorph Praetorian&quot;
+	id = &quot;alienp&quot;
+	simple_icon = 'icons/mob/alienqueen.dmi'
+	icon_width = 64
+	alt_prefixes = list(&quot;TGMC Praetorian&quot; = &quot;tgmc_&quot;)
+
+/datum/species/feral/xeno/queen
+	name = &quot;Feral Xenomorph Queen&quot;
+	id = &quot;alienq&quot;
+	simple_icon = 'icons/mob/alienqueen.dmi'
+	icon_width = 64
+	alt_prefixes = list(&quot;TGMC Queen&quot; = &quot;tgmc_&quot;)
+
+/datum/species/feral/xeno/maid
+	name = &quot;Feral Xenomorph Maid&quot;
+	id = &quot;maid&quot;
+	simple_icon = 'icons/mob/alien.dmi'
+	icon_width = 32
+
+//tgmc aliens
+/datum/species/feral/xeno/beetle
+	name = &quot;Feral Xenomorph Beetle&quot;
+	id = &quot;xeno_beetle&quot;
+	default_color = &quot;302239&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/beetle.dmi'
+	icon_width = 64
+
+/datum/species/feral/xeno/bull
+	name = &quot;Feral Xenomorph Bull&quot;
+	id = &quot;xeno_bull&quot;
+	default_color = &quot;710E13&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/bull.dmi'
+	icon_width = 64
+
+/datum/species/feral/xeno/crusher
+	name = &quot;Feral Xenomorph Crusher&quot;
+	id = &quot;xeno_crusher&quot;
+	default_color = &quot;710E13&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/crusher.dmi'
+	icon_width = 64
+
+/datum/species/feral/xeno/behemoth
+	name = &quot;Feral Xenomorph Behemoth&quot;
+	id = &quot;xeno_behemoth&quot;
+	default_color = &quot;BC2929&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/behemoth.dmi'
+	icon_width = 96
+
+/datum/species/feral/xeno/boiler
+	name = &quot;Feral Xenomorph Boiler&quot;
+	id = &quot;xeno_boiler&quot;
+	default_color = &quot;BC2929&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/boiler.dmi'
+	icon_width = 64
+
+/datum/species/feral/xeno/puppeteer
+	name = &quot;Feral Xenomorph Puppeteer&quot;
+	id = &quot;xeno_puppeteer&quot;
+	default_color = &quot;BC2929&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/puppeteer.dmi'
+	icon_width = 64
+
+/datum/species/feral/xeno/carrier
+	name = &quot;Feral Xenomorph Carrier&quot;
+	id = &quot;xeno_carrier&quot;
+	default_color = &quot;BC2929&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/carrier.dmi'
+	icon_width = 64
+
+/datum/species/feral/xeno/ravager
+	name = &quot;Feral Xenomorph Ravager&quot;
+	id = &quot;xeno_ravager&quot;
+	default_color = &quot;BC2929&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/ravager.dmi'
+	icon_width = 64
+
+/datum/species/feral/xeno/gorger
+	name = &quot;Feral Xenomorph Gorger&quot;
+	id = &quot;xeno_gorger&quot;
+	default_color = &quot;BC2929&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/gorger.dmi'
+	icon_width = 64
+
+/datum/species/feral/xeno/hivelord
+	name = &quot;Feral Xenomorph Hivelord&quot;
+	id = &quot;xeno_hivelord&quot;
+	default_color = &quot;BC2929&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/hivelord.dmi'
+	icon_width = 64
+
+/datum/species/feral/xeno/defender
+	name = &quot;Feral Xenomorph Defender&quot;
+	id = &quot;xeno_defender&quot;
+	default_color = &quot;302239&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/defender.dmi'
+	icon_width = 64
+
+/datum/species/feral/xeno/defiler
+	name = &quot;Feral Xenomorph Defiler&quot;
+	id = &quot;xeno_defiler&quot;
+	default_color = &quot;2C212B&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/defiler.dmi'
+	icon_width = 64
+
+/datum/species/feral/xeno/nymph
+	name = &quot;Feral Xenomorph Nymph&quot;
+	id = &quot;xeno_nymph&quot;
+	default_color = &quot;710E13&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/nymph.dmi'
+	icon_width = 64
+
+/datum/species/feral/xeno/runner
+	name = &quot;Feral Xenomorph Runner&quot;
+	id = &quot;xeno_runner&quot;
+	default_color = &quot;BC2929&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/runner.dmi'
+	icon_width = 64
+
+/datum/species/feral/xeno/warlock
+	name = &quot;Feral Xenomorph Warlock&quot;
+	id = &quot;xeno_warlock&quot;
+	default_color = &quot;514643&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/warlock.dmi'
+	icon_width = 64
+	footstep_type = FOOTSTEP_MOB_CRAWL
+
+/datum/species/feral/xeno/warrior
+	name = &quot;Feral Xenomorph Warrior&quot;
+	id = &quot;xeno_warrior&quot;
+	default_color = &quot;302239&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/warrior.dmi'
+	icon_width = 64
+
+/datum/species/feral/xeno/widow
+	name = &quot;Feral Xenomorph Widow&quot;
+	id = &quot;xeno_widow&quot;
+	default_color = &quot;514643&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/widow.dmi'
+	icon_width = 64
+
+/datum/species/feral/xeno/wraith
+	name = &quot;Feral Xenomorph Wraith&quot;
+	id = &quot;xeno_wraith&quot;
+	default_color = &quot;302239&quot;
+	simple_icon = 'modular_coyote/icons/mob/tgmc/wraith.dmi'
+	icon_width = 64
+
+//end aliens
+
+//Mimics! No special code here, I wish I could make the morph mob's gimmick a trait, but this is for all you crate pilled people
+/datum/species/feral/mimic
+	name = &quot;Mimic Chest&quot;
+	simple_icon = 'modular_roguetown/topadd/takyon/Mimics.dmi'
+	id = &quot;newmimic&quot;
+	icon_width = 64
+	alt_prefixes = list(
+		&quot;Inverted&quot; = &quot;oginvert_&quot;,
+		&quot;Hybrid&quot; = &quot;gnorm_&quot;,
+		&quot;Hybrid Inverted&quot; = &quot;gnorminvert_&quot;,
+		&quot;Subtle&quot; = &quot;gsubtle_&quot;,
+		&quot;Silver&quot; = &quot;os_&quot;,
+		&quot;Silver Inverted&quot; = &quot;osinvert_&quot;,
+		&quot;Silver Hybrid&quot; = &quot;snorm_&quot;,
+		&quot;Silver Hybrid Inverted&quot; = &quot;snorminvert_&quot;,
+		&quot;Silver Subtle&quot; = &quot;ssubtle_&quot;) //Yeah I went a little wild with how many alt sprites they have
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	rotate_on_lying = FALSE
+	footstep_type = FOOTSTEP_MOB_HEAVY
+
+// No more mimics
+
+/datum/species/feral/scel
+	name = &quot;Feral Scel&quot;
+	id = &quot;scel&quot;
+	simple_icon = 'modular_coyote/icons/mob/vore_scel.dmi'
+	alt_prefixes = list(
+		&quot;Blue&quot; = &quot;blue_&quot;,
+		&quot;Purple&quot; = &quot;purple_&quot;,
+		&quot;Red&quot; = &quot;red_&quot;,
+		&quot;Green&quot; = &quot;green_&quot;,)
+	icon_width = 128
+	rotate_on_lying = FALSE
+	icon_dead_suffix = &quot;-dead&quot;
+	icon_rest_suffix = &quot;-rest&quot;
+
+/datum/species/feral/bigwolfblack
+	name = &quot;Feral Giant Black Wolf&quot;
+	id = &quot;blackwolf&quot;
+	simple_icon = 'modular_coyote/icons/mob/vore128x64.dmi'
+	icon_width = 128
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+
+/datum/species/feral/bigwolfsilver
+	name = &quot;Feral Giant Silver Wolf&quot;
+	id = &quot;sifwolf&quot;
+	simple_icon = 'modular_coyote/icons/mob/vore128x64.dmi'
+	icon_width = 128
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+
+/datum/species/feral/bigwolfwhite
+	name = &quot;Feral Giant White Wolf&quot;
+	id = &quot;whitewolf&quot;
+	simple_icon = 'modular_coyote/icons/mob/vore128x64.dmi'
+	icon_width = 128
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+
+/datum/species/feral/darkgreytanuki
+	name = &quot;Tanuki&quot;
+	id = &quot;tanuki&quot;
+	simple_icon = 'modular_coyote/icons/mob/tanuki.dmi'
+	alt_prefixes = list(&quot;Dark Brown&quot; = &quot;dark_&quot;)
+	icon_width = 128
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+
+//start deathclaws
+/datum/species/feral/deathclaw
+//start aethergiests
+/datum/species/feral/aethergiest
+	roundstart = FALSE //This is just the parent type, don't let players actually select it.
+	meat = /obj/item/reagent_containers/food/snacks/meat/slab/aethergiest
+	gib_types = list(/obj/effect/gibspawner/generic)
+	skinned_type = /obj/item/stack/sheet/animalhide/aethergiest
+	liked_food = MEAT | RAW
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	simple_icon = 'modular_coyote/icons/mob/deathclaw.dmi'
+	icon_width = 64
+	footstep_type = FOOTSTEP_MOB_HEAVY
+
+/datum/species/feral/aethergiest/original
+	name = &quot;Feral Deathclaw&quot;
+	id = &quot;aethergiest&quot;
+	icon_rest_suffix = &quot;&quot;
+	rotate_on_lying = TRUE
+	simple_icon = 'icons/mob/deathclaw.dmi'
+
+/datum/species/feral/aethergiest/purple
+	name = &quot;Purple Cloaked Deathclaw&quot;
+	id = &quot;pur&quot;
+
+/datum/species/feral/aethergiest/white
+	name = &quot;White Cloaked Deathclaw&quot;
+	id = &quot;whi&quot;
+
+/datum/species/feral/aethergiest/red
+	name = &quot;Red Cloaked Deathclaw&quot;
+	id = &quot;red&quot;
+
+/datum/species/feral/aethergiest/grey
+	name = &quot;Grey Cloaked Deathclaw&quot;
+	id = &quot;gry&quot;
+
+/datum/species/feral/aethergiest/black
+	name = &quot;Black Cloaked Deathclaw&quot;
+	id = &quot;hub&quot;
+
+/datum/species/feral/aethergiest/brown
+	name = &quot;Brown Cloaked Deathclaw&quot;
+	id = &quot;bro&quot;
+
+/datum/species/feral/aethergiest/maid
+	name = &quot;Maid Deathclaw&quot;
+	id = &quot;maidclaw&quot;
+
+/datum/species/feral/aethergiest/queen
+	name = &quot;Queen Deathclaw&quot;
+	id = &quot;deathclaw_queen&quot;
+	rotate_on_lying = TRUE
+	icon_rest_suffix = &quot;&quot;
+
+/datum/species/feral/aethergiest/geist
+	name = &quot;Cavern Geist&quot;
+	id = &quot;geist&quot;
+	rotate_on_lying = FALSE
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	alt_prefixes = list(&quot;Cyber&quot; = &quot;cyber_&quot;)
+
+/datum/species/feral/aethergiest/broodmother
+	name = &quot;Brood Mother&quot;
+	id = &quot;broodmother&quot;
+	rotate_on_lying = TRUE
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+
+/datum/species/feral/femdigo
+	name = &quot;Female Wendigo&quot;
+	id = &quot;femdigo&quot;
+	simple_icon = 'icons/mob/wendigo.dmi'
+	icon_width = 32
+	rotate_on_lying = TRUE
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_r&quot;
+
+
+/datum/species/feral/bugs
+	name = &quot;Feral Sectdrone&quot;
+	id = &quot;bug&quot;
+	simple_icon = 'modular_coyote/icons/mob/sectdrones.dmi'
+	icon_width = 64
+	rotate_on_lying = FALSE
+	alt_prefixes = list(&quot;Queen&quot; = &quot;queen_&quot;)
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+
+
+//End Other//
+
+//Start Synthetic Creatures//
+/datum/species/adapted
+	name = &quot;REPORT THIS AS A BUG&quot;
+	//The id is the living and standing icon state of the creature.
+	simple_icon = 'icons/mob/splurtbot.dmi'
+	say_mod = &quot;beeps&quot;
+	mutant_bodyparts = list(&quot;legs&quot; = &quot;Digitigrade&quot;, &quot;meat_type&quot; = &quot;Mammalian&quot;)
+	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/ipc
+	gib_types = list(/obj/effect/gibspawner/ipc, /obj/effect/gibspawner/ipc/bodypartless)
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;&quot;
+	species_traits = list(FERAL,NOZOMBIE,NO_UNDERWEAR,MUTCOLORS,NOTRANSSTING,EYECOLOR,ROBOTIC_LIMBS,NO_DNA_COPY,NOEYES,LIPS,)
+	inherent_traits = list(TRAIT_NODISMEMBER,TRAIT_LIMBATTACHMENT,TRAIT_RADIMMUNE,TRAIT_NOBREATH,TRAIT_CLONEIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_MUTATION_STASIS,)
+	inherent_biotypes = MOB_ROBOTIC|MOB_HUMANOID|MOB_BEAST|MOB_SYNTH
+	//Just robo looking parts.
+	mutant_heart = /obj/item/organ/heart/ipc
+	mutantlungs = /obj/item/organ/lungs/ipc
+	mutantliver = /obj/item/organ/liver/ipc
+	mutantstomach = /obj/item/organ/stomach/ipc
+	mutanteyes = /obj/item/organ/eyes/ipc
+	mutantears = /obj/item/organ/ears/ipc
+	mutanttongue = /obj/item/organ/tongue/robot/ipc
+	mutant_brain = /obj/item/organ/brain/ipc
+	icon_width = 32
+	roundstart = FALSE
+	footstep_type = FOOTSTEP_MOB_CLAW
+	attack_verb = &quot;claw&quot;
+	attack_sound = 'sound/weapons/slash.ogg'
+	miss_sound = 'sound/weapons/slashmiss.ogg'
+	tail_type = &quot;mam_tail&quot;
+	wagging_type = &quot;mam_waggingtail&quot;
+	allowed_limb_ids = list(&quot;mammal&quot;,&quot;aquatic&quot;,&quot;avian&quot;, &quot;human&quot;, &quot;shadekin&quot;)
+	rotate_on_lying = TRUE
+	damage_overlay_type = null
+	exotic_bloodtype = &quot;S&quot;
+	exotic_blood_color = BLOOD_COLOR_OIL
+	species_type = &quot;robotic&quot; // It was just missing this little thing, I found it in ipc.dm. Hopefully this stops mechs from bleeding/getting wounds
+
+/datum/species/adapted/handle_mutations_and_radiation(mob/living/carbon/human/H)
+	return TRUE
+
+/datum/species/adapted/spec_life(mob/living/carbon/human/H)
+	/*if(H.nutrition &lt; NUTRITION_LEVEL_FED)
+		H.nutrition = NUTRITION_LEVEL_FED
+	if(H.nutrition &gt; NUTRITION_LEVEL_FED)
+		H.nutrition = NUTRITION_LEVEL_FED*/
+	if(H.losebreath != 0)
+		H.losebreath = 0 // just in case
+	if(H.toxloss)
+		H.adjustToxLoss(-H.toxloss)
+
+/datum/species/adapted/thicktron_standard
+	name = &quot;Adapted Assaultron(modified)&quot;
+	id = &quot;assaultronstandard&quot;
+
+/datum/species/adapted/simplebot
+	name = &quot;REPORT THIS AS A BUG&quot;
+	simple_icon = 'icons/mob/robots.dmi'
+	roundstart = FALSE
+
+/datum/species/adapted/simplebot/handy
+	name = &quot;Adapted Handy Unit&quot;
+	id = &quot;robot&quot;
+
+/datum/species/adapted/simplebot/assaultron_med
+	name = &quot;Adapted Meditron&quot;
+	id = &quot;assaultron_sase&quot;
+
+/datum/species/adapted/simplebot/robobrain
+	name = &quot;Adapted Robobrain&quot;
+	id = &quot;robobrain&quot;
+	icon_dead_suffix = &quot;_d&quot;
+
+/datum/species/adapted/simplebot/motile
+	name = &quot;Adapted Gunbot&quot;
+	id = &quot;motile-syndie&quot;
+	icon_dead_suffix = &quot;-dead&quot;
+	icon_rest_suffix = &quot;-rest&quot;
+	rotate_on_lying = FALSE
+
+/datum/species/adapted/simplebot/droid
+	name = &quot;Adapted Droid&quot;
+	id = &quot;droid-combat&quot;
+	icon_dead_suffix = &quot;-dead&quot;
+	icon_rest_suffix = &quot;-rest&quot;
+	rotate_on_lying = FALSE
+
+/datum/species/adapted/simplebot/sentrybot
+	name = &quot;Adapted Sentrybot&quot;
+	id = &quot;sentrybot&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	rotate_on_lying = FALSE
+	simple_icon = 'icons/fallout/mobs/robots/wasterobots.dmi'
+
+/datum/species/adapted/simplebot/flyingfortress
+	name = &quot;Adapted Flying Fortress&quot;
+	id = &quot;netguardian&quot;
+	icon_rest_suffix = &quot;-rest&quot;
+	icon_dead_suffix = &quot;-crash&quot;
+	alt_prefixes = list(&quot;No Scanner&quot; = &quot;noscan_&quot;)
+	rotate_on_lying = FALSE
+	simple_icon = 'icons/mob/netguardian.dmi'
+	icon_width = 48
+
+/datum/species/adapted/simplebot/swarmer
+	name = &quot;Adapted Swarmer&quot;
+	simple_icon = 'icons/mob/playerswarmer.dmi'
+	id = &quot;swarmer&quot;
+	alt_prefixes = list(&quot;Ranged&quot; = &quot;ranged_&quot;, &quot;Melee&quot; = &quot;melee_&quot;)
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;-rest&quot;
+	rotate_on_lying = FALSE
+	attack_sound = 'sound/weapons/sear.ogg'
+
+/datum/species/adapted/simplebot/swarmer/hivebot
+	name = &quot;Adapted Hivebot&quot;
+	id = &quot;hivebot&quot;
+	alt_prefixes = list(
+		&quot;Small&quot; = &quot;small_&quot;,
+		&quot;Small Alt&quot; = &quot;smallarm_&quot;,
+		&quot;Medium&quot; = &quot;medium_&quot;,
+		&quot;Medium Alt&quot; = &quot;mediumarm_&quot;,
+		&quot;Ranged&quot; = &quot;ranged_&quot;,
+		&quot;Ranged Elite&quot; = &quot;rangedarm_&quot;,
+		&quot;Factory&quot; = &quot;factory_&quot;,
+		&quot;Hunter Killer&quot; = &quot;hunter_&quot;,
+		&quot;Custodian&quot; = &quot;keeper_&quot;,
+		&quot;Mythical&quot; = &quot;crystal_&quot;,
+		&quot;Cephalopod&quot; = &quot;cepha_&quot;,)
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	rotate_on_lying = FALSE
+	attack_sound = 'sound/weapons/sear.ogg'
+
+/datum/species/adapted/simplebot/probe
+	name = &quot;Adapted Probe&quot;
+	simple_icon = 'icons/obj/mining.dmi'
+	id = &quot;constructiondrone&quot;
+	icon_dead_suffix = &quot;-wreck&quot;
+	icon_rest_suffix = &quot;_off&quot;
+	rotate_on_lying = FALSE
+	footstep_type = FOOTSTEP_MOB_CRAWL
+
+/datum/species/adapted/simplebot/swoopie
+	name = &quot;Adapted Swoopie&quot;
+	simple_icon = 'icons/mob/swoopie64x64_ch.dmi'
+	id = &quot;swoopie&quot;
+	icon_width = 64
+	icon_dead_suffix = &quot;_dead&quot;
+	icon_rest_suffix = &quot;_rest&quot;
+	rotate_on_lying = FALSE
+	footstep_type = FOOTSTEP_MOB_HEAVY
+
+/datum/species/adapted/simplebot/tallborg
+	name = &quot;Adapted Tall Synthetic&quot;
+	id = &quot;tallborg&quot;
+	simple_icon = 'icons/mob/tallrobot.dmi'
+// This is going to be quite long... Theres alot
+	alt_prefixes = list(
+		&quot;Default Feminine&quot; = &quot;fem_&quot;,
+		&quot;Default Alt Fem&quot; = &quot;femalt_&quot;,
+		&quot;Default K4T&quot; = &quot;k4t_&quot;,
+		&quot;Cargo&quot; = &quot;cargo_&quot;,
+		&quot;Feminine Cargo&quot; = &quot;femcargo_&quot;,
+		&quot;Alt Fem Cargo&quot; = &quot;altfemcargo_&quot;,
+		&quot;K4T Cargo&quot; = &quot;k4tcargo_&quot;,
+		&quot;Alt K4T Cargo&quot; = &quot;altk4tcargo_&quot;,
+		&quot;Advanced Cargo&quot; = &quot;dullahancargo_&quot;,
+		&quot;Miner&quot; = &quot;mine_&quot;,
+		&quot;Feminine Miner&quot; = &quot;femmine_&quot;,
+		&quot;Alt Fem Miner&quot; = &quot;altfemmine_&quot;,
+		&quot;K4T Miner&quot; = &quot;k4tmine_&quot;,
+		&quot;Alt K4T Miner&quot; = &quot;altk4tmine_&quot;,
+		&quot;Advanced Miner&quot; = &quot;dullahanmine_&quot;,
+		&quot;Medical&quot; = &quot;medi_&quot;,
+		&quot;Feminine Medical&quot; = &quot;femmedi_&quot;,
+		&quot;Alt Fem Medical&quot; = &quot;altfemmedi_&quot;,
+		&quot;K4T Medical&quot; = &quot;k4tmedi_&quot;,
+		&quot;Alt K4T Medical&quot; = &quot;altk4tmed_&quot;,
+		&quot;Advanced Medical&quot; = &quot;dullahanmed_&quot;,
+		&quot;Janitor&quot; = &quot;jani_&quot;,
+		&quot;Feminine Janitor&quot; = &quot;femjani_&quot;,
+		&quot;Alt Fem Janitor&quot; = &quot;altfemjani_&quot;,
+		&quot;K4T Janitor&quot; = &quot;k4tjani_&quot;,
+		&quot;Alt K4T Janitor&quot; = &quot;altk4tjani_&quot;,
+		&quot;Advanced Janitor&quot; = &quot;dullahanjani_&quot;,
+		&quot;Engineer&quot; = &quot;engi_&quot;,
+		&quot;Feminine Engineer&quot; = &quot;engifem_&quot;,
+		&quot;Alt Fem Engineer&quot; = &quot;altengifem_&quot;,
+		&quot;K4T Engineer&quot; = &quot;k4tengi_&quot;,
+		&quot;Alt K4T Engineer&quot; = &quot;altk4tengi_&quot;,
+		&quot;Advanced Engineer&quot; = &quot;dullahaneng_&quot;,
+		&quot;Security&quot; = &quot;sec_&quot;,
+		&quot;Feminine Security&quot; = &quot;femsec_&quot;,
+		&quot;Alt Fem Security&quot; = &quot;femsecalt_&quot;,
+		&quot;K4T Security&quot; = &quot;k4tsec_&quot;,
+		&quot;Advanced Security&quot; = &quot;dullahansec_&quot;,
+		&quot;Service&quot; = &quot;serve_&quot;,
+		&quot;Feminine Service&quot; = &quot;femserve_&quot;,
+		&quot;Alt Fem Service&quot; = &quot;altfemserve_&quot;,
+		&quot;K4T Service&quot; = &quot;k4tserve_&quot;,
+		&quot;Alt K4T Service&quot; = &quot;altk4tserve_&quot;,
+		&quot;Advanced Service&quot; = &quot;dullahanserv_&quot;,
+		&quot;Advanced Religious&quot; = &quot;dullahanchurch_&quot;,
+		&quot;Ninja&quot; = &quot;ninja_&quot;,
+		&quot;Feminine Ninja&quot; = &quot;femninja_&quot;,
+		&quot;Alt Fem Ninja&quot; = &quot;altfemninja_&quot;,
+		&quot;K4T Ninja&quot; = &quot;k4tninja_&quot;,
+		&quot;Advanced Ninja&quot; = &quot;dullahanexplo_&quot;,
+		&quot;Syndicate&quot; = &quot;syndi_&quot;,
+		&quot;Feminine Syndicate&quot; = &quot;femsyndi_&quot;,
+		&quot;Alt Fem Syndicate&quot; = &quot;realv1fromultrakill_&quot;,
+		&quot;K4T Syndicate&quot; = &quot;k4tsyndi_&quot;,
+		&quot;Advanced Syndicate&quot; = &quot;dullahansyndi_&quot;,
+	)
+	icon_dead_suffix = &quot;-wreck&quot;
+	icon_rest_suffix = &quot;-rest&quot;
+	rotate_on_lying = FALSE
+	attack_sound = 'sound/weapons/sear.ogg'
+
+// Lets just seperate all the feral robot animal robots from the pure, normal robots this time that totally arent thicc
+
+/datum/species/adapted/dogborg
+	name = &quot;REPORT THIS AS A BUGGY&quot;
+	simple_icon = 'modular_coyote/icons/mob/dogborg.dmi'
+	roundstart = FALSE
+	rotate_on_lying = FALSE
+	icon_width = 62
+	icon_rest_suffix = &quot;_rest&quot;
+	icon_dead_suffix = &quot;-wreck&quot;
+
+/datum/species/adapted/dogborg/zoid
+	name = &quot;Adapted Zoid&quot;
+	id = &quot;zoid&quot;
+	simple_icon = 'modular_coyote/icons/mob/zoids.dmi'
+	alt_prefixes = list(&quot;Zaber&quot; = &quot;zaber_&quot;)
+	icon_width = 32
+	icon_rest_suffix = &quot;_rest&quot;
+	icon_dead_suffix = &quot;_dead&quot;
+
+/datum/species/adapted/dogborg/sechound
+	name = &quot;Adapted Sechound&quot;
+	id = &quot;valesec&quot;
+	alt_prefixes = list(&quot;Blocky&quot; = &quot;blocky_&quot;, &quot;Dark&quot; = &quot;dark_&quot;)
+
+/datum/species/adapted/dogborg/medihound
+	name = &quot;Adapted Medhound&quot;
+	id = &quot;valemed&quot;
+	alt_prefixes = list(&quot;Light&quot; = &quot;light_&quot;, &quot;Dark&quot; = &quot;dark_&quot;)
+
+/datum/species/adapted/dogborg/scrubpup
+	name = &quot;Adapted Scrubhound&quot;
+	id = &quot;scrubpup&quot;
+
+/datum/species/adapted/dogborg/engihound
+	name = &quot;Adapted Engihound&quot;
+	id = &quot;valeeng&quot;
+	alt_prefixes = list(&quot;Blocky&quot; = &quot;pupdozer_&quot;)
+
+/datum/species/adapted/dogborg/minehound
+	name = &quot;Adapted Minehound&quot;
+	id = &quot;valemine&quot;
+
+/datum/species/adapted/dogborg/scihound
+	name = &quot;Adapted Scihound&quot;
+	id = &quot;valesci&quot;
+
+/datum/species/adapted/dogborg/servihound
+	name = &quot;Adapted Servihound&quot;
+	id = &quot;valeserv&quot;
+	alt_prefixes = list(&quot;Blocky&quot; = &quot;blocky_&quot;, &quot;Dark&quot; = &quot;dark_&quot;)
+
+/datum/species/adapted/dogborg/badboi
+	name = &quot;Adapted Corrupted Hound&quot;
+	id = &quot;badboi&quot;
+	simple_icon = 'modular_coyote/icons/mob/vore64x32.dmi'
+	alt_prefixes = list(&quot;Girly&quot; = &quot;pretty_&quot;)
+	icon_dead_suffix = &quot;-dead&quot;
+
+/datum/species/adapted/dogborg/otieborg
+	name = &quot;Fenny please be nice to them&quot;
+	simple_icon = 'modular_splurt/icons/mob/widerobot.dmi'
+	icon_rest_suffix = &quot;-rest&quot;
+	icon_dead_suffix = &quot;-wreck&quot;
+	roundstart = FALSE
+
+/datum/species/adapted/dogborg/otieborg/otiee
+	name = &quot;Engineering Otieborg&quot;
+	id = &quot;otiee&quot;
+
+/datum/species/adapted/dogborg/otieborg/otiej
+	name = &quot;Janitor Otieborg&quot;
+	id = &quot;otiej&quot;
+
+/datum/species/adapted/dogborg/otieborg/otiec
+	name = &quot;Cargo Otieborg&quot;
+	id = &quot;otiec&quot;
+
+/datum/species/adapted/dogborg/otieborg/oties
+	name = &quot;Security Otieborg&quot;
+	id = &quot;oties&quot;
+
+/datum/species/adapted/raptorborg
+	name = &quot;REPORT THIS AS A BUG&quot;
+	simple_icon = 'modular_coyote/icons/mob/newraptorborg.dmi'
+	roundstart = FALSE
+	rotate_on_lying = FALSE
+	icon_width = 64
+	icon_rest_suffix = &quot;-rest&quot;
+	icon_dead_suffix = &quot;-wreck&quot;
+
+/datum/species/adapted/raptorborg/secraptor
+	name = &quot;Adapted Secraptor&quot;
+	id = &quot;secraptor&quot;
+	alt_prefixes = list(&quot;White Sec&quot; = &quot;white_&quot;)
+
+/datum/species/adapted/raptorborg/sciraptor
+	name = &quot;Adapted Sciraptor&quot;
+	id = &quot;sciraptor&quot;
+
+/datum/species/adapted/raptorborg/medraptor
+	name = &quot;Adapted Medraptor&quot;
+	id = &quot;medraptor&quot;
+
+/datum/species/adapted/raptorborg/syndiraptor
+	name = &quot;Adapted Syndiraptor&quot;
+	id = &quot;syndiraptor&quot;
+	alt_prefixes = list(&quot;Medical&quot; = &quot;medi_&quot;, &quot;Mech&quot; = &quot;mech_&quot;)
+
+/datum/species/adapted/raptorborg/engiraptor
+	name = &quot;Adapted Engiraptor&quot;
+	id = &quot;engiraptor&quot;
+
+/datum/species/adapted/raptorborg/energyraptor
+	name = &quot;Adapted Energyraptor&quot;
+	id = &quot;energyraptor&quot;
+
+/datum/species/adapted/raptorborg/mineraptor
+	name = &quot;Adapted Mineraptor&quot;
+	id = &quot;mineraptor&quot;
+
+/datum/species/adapted/raptorborg/churchraptor
+	name = &quot;Adapted Churchraptor&quot;
+	id = &quot;churchraptor&quot;
+
+/datum/species/adapted/raptorborg/janiraptor
+	name = &quot;Adapted Janiraptor&quot;
+	id = &quot;janiraptor&quot;
+
+/datum/species/adapted/raptorborg/serviraptor
+	name = &quot;Adapted Serviraptor&quot;
+	id = &quot;serviraptor&quot;
+
+/datum/species/adapted/raptorborg/fancyraptor
+	name = &quot;Adapted Fancyraptor&quot;
+	id = &quot;fancyraptor&quot;
+
+/datum/species/adapted/raptorborg/wreckraptor
+	name = &quot;Adapted Wreckedraptor&quot;
+	id = &quot;wreckraptor&quot;
+
+/datum/species/adapted/raptorborg/smolraptor
+	name = &quot;Adapted Smolraptor&quot;
+	id = &quot;smolraptor&quot;
+	simple_icon = 'modular_coyote/icons/mob/microraptor.dmi'
+	rotate_on_lying = TRUE
+	alt_prefixes = list(
+	&quot;Central Command&quot; = &quot;cc_&quot;,
+	&quot;Science&quot; = &quot;sci_&quot;,
+	&quot;White&quot; = &quot;white_&quot;,
+	&quot;Mining&quot; = &quot;mine_&quot;,
+	&quot;Medical&quot; = &quot;med_&quot;,
+	&quot;White&quot; = &quot;white_&quot;,
+	&quot;Janitor&quot; = &quot;jani_&quot;,
+	&quot;Engineer&quot; = &quot;eng_&quot;,
+	&quot;Service&quot; = &quot;serv_&quot;,
+	&quot;Cargo&quot; = &quot;car_&quot;)
+
+/datum/species/adapted/raptorborg/microraptor
+	name = &quot;Adapted Microraptor&quot;
+	id = &quot;raptor&quot;
+	simple_icon = 'modular_coyote/icons/mob/paramob.dmi'
+	icon_width = 32
+	icon_rest_suffix = &quot;_rest&quot;
+	icon_dead_suffix = &quot;_dead&quot;
+	alt_prefixes = list(&quot;Blue&quot; = &quot;blue_&quot;, &quot;Red&quot; = &quot;red_&quot;, &quot;White&quot; = &quot;white_&quot;)
+
+// End of the silly raptors
+
+/datum/species/adapted/drakeborg
+	name = &quot;REPORT THIS AS A BUGGY&quot;
+	simple_icon = 'modular_coyote/code/drakeborgs/drakeborg_vr.dmi'
+	roundstart = FALSE
+	rotate_on_lying = FALSE
+	icon_width = 64
+	icon_rest_suffix = &quot;_rest&quot;
+	icon_dead_suffix = &quot;-wreck&quot;
+
+/datum/species/adapted/drakeborg/drakesec //haha more like adapted/drakeborg/drakesex am I right
+	name = &quot;Adapted Sec Drake&quot;
+	id = &quot;drakesec&quot;
+
+/datum/species/adapted/drakeborg/drakemed
+	name = &quot;Adapted Med Drake&quot;
+	id = &quot;drakemed&quot;
+
+/datum/species/adapted/drakeborg/drakeeng
+	name = &quot;Adapted Eng Drake&quot;
+	id = &quot;drakeeng&quot;
+
+/datum/species/adapted/drakeborg/drakemine
+	name = &quot;Adapted Mine Drake&quot;
+	id = &quot;drakemine&quot;
+
+/datum/species/adapted/drakeborg/drakesci
+	name = &quot;Adapted Sci Drake&quot;
+	id = &quot;drakesci&quot;
+
+/datum/species/adapted/drakeborg/drakejanit
+	name = &quot;Adapted Janitor Drake&quot;
+	id = &quot;drakejanit&quot;
+
+
+//get in the mech, shinji
+/datum/species/adapted/mechs
+	name = &quot;REPORT THIS AS A BUG&quot;
+	simple_icon = 'icons/mecha/mecha.dmi'
+	icon_dead_suffix = &quot;-broken&quot;
+	footstep_type = FOOTSTEP_MOB_HEAVY
+	roundstart = FALSE
+
+/datum/species/adapted/mechs/gygax
+	name = &quot;Adapted Gygax&quot;
+	id = &quot;gygax&quot;
+
+/datum/species/adapted/mechs/darkgygax
+	name = &quot;Adapted Darkgygax&quot;
+	id = &quot;darkgygax&quot;
+
+/datum/species/adapted/mechs/ripley
+	name = &quot;Adapted Ripley&quot;
+	id = &quot;ripley&quot;
+
+/datum/species/adapted/mechs/marauder
+	name = &quot;Adapted Marauder&quot;
+	id = &quot;marauder&quot;
+
+/datum/species/adapted/mechs/seraph
+	name = &quot;Adapted Seraph&quot;
+	id = &quot;seraph&quot;
+
+/datum/species/adapted/mechs/phazon
+	name = &quot;Adapted Phazon&quot;
+	id = &quot;phazon&quot;
+
+/datum/species/adapted/mechs/mauler
+	name = &quot;Adapted Mauler&quot;
+	id = &quot;mauler&quot;
+
+/datum/species/adapted/mechs/odysseus
+	name = &quot;Adapted Odysseus&quot;
+	id = &quot;odysseus&quot;
+
+/datum/species/adapted/mechs/durand
+	name = &quot;Adapted Durand&quot;
+	id = &quot;durand&quot;
+
+/datum/species/adapted/mechs/medigax
+	name = &quot;Adapted Medigax&quot;
+	id = &quot;medigax&quot;
+
+/datum/species/adapted/mechs/tachi
+	name = &quot;Adapted Tachi&quot;
+	id = &quot;tachi&quot;
+
+
+//End Synthetic Creatures
+*/
+</code></pre></td></tr></table></main><footer>tgstation.dme <a href="https://github.com/ARF-SS13/ARFS8-Coyote-Station/tree/835e4066385f2027d65c1e3cd89d8204054f9c73">835e406</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>

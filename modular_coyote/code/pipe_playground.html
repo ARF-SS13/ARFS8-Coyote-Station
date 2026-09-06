@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../../"><link rel="stylesheet" href="dmdoc.css"><title>modular_coyote/code/pipe_playground.txt - /tg/ Station 13</title></head><body><header><a href="index.html">/tg/ Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a></header><main><h1>modular_coyote/code/pipe_playground.txt <a href="https://github.com/ARF-SS13/ARFS8-Coyote-Station/blob/835e4066385f2027d65c1e3cd89d8204054f9c73/modular_coyote/code/pipe_playground.txt"><img src="git.png" width="16" height="16" title="modular_coyote/code/pipe_playground.txt"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><pre><code>PIPE PLAYGROUND@!
+
+A handy palate of these sorts to things:═╕│═╛
+
+─│┌┐└┘├┤┬┴┼═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟╠╡╢╣╤╥╦╧╨╩╪╫╬
+
+arrows: ↑ ↓ ← → ↖ ↗ ↘ ↙
+smilies: ☺ ☻ ♥ ♦ ♣ ♠
+dice: ⚀ ⚁ ⚂ ⚃ ⚄ ⚅
+
+here's a more visually appealing arrangement of the pipe characters:
+
+═══════════════════════════════════════════════════════════════
+  QUICK REFERENCE PALETTE — ALL BOX-DRAWING CHARACTERS
+═══════════════════════════════════════════════════════════════
+
+  SINGLE LINES               DOUBLE LINES
+  ───┬───   ┌───┐             ═══╦═══   ╔═══╗
+     │      │   │                ║      ║   ║
+  ───┼───   ├───┤             ═══╬═══   ╠═══╣
+     │      │   │                ║      ║   ║
+  ───┴───   └───┘             ═══╩═══   ╚═══╝
+
+  CORNERS: ┌ ┐ └ ┘        DOUBLE CORNERS: ╔ ╗ ╚ ╝
+  T-JUNCTIONS: ┬ ┴ ├ ┤    DOUBLE T-JUNCTIONS: ╦ ╩ ╠ ╣
+  CROSS: ┼                DOUBLE CROSS: ╬
+
+───────────────────────────────────────────────────────────────
+  MIXED SINGLE/DOUBLE TRANSITIONS
+───────────────────────────────────────────────────────────────
+
+  Vertical-double meets horizontal-single:
+    ╒═══╕     ╓───╖     ╒═══╕
+    │   │     ║   ║     │   │
+    ╞═══╡     ╟───╢     ╞═══╡
+    │   │     ║   ║     │   │
+    ╘═══╛     ╙───╜     ╘═══╛
+
+  All mixed junctions in a row:
+    ╞  ╟  ╡  ╢  ╤  ╥  ╧  ╨  ╪  ╫
+
+───────────────────────────────────────────────────────────────
+  DESIGN 1 — Simple Bordered Box (double outer, single inner)
+───────────────────────────────────────────────────────────────
+
+╔═══════════════════════════════════╗
+║                                   ║
+║   ┌───────────┬───────────────┐   ║
+║   │           │               │   ║
+║   ├───────────┼───────────────┤   ║
+║   │           │               │   ║
+║   └───────────┴───────────────┘   ║
+║                                   ║
+╚═══════════════════════════════════╝
+
+───────────────────────────────────────────────────────────────
+  DESIGN 2 — Nested Panel with Mixed Border Junctions
+───────────────────────────────────────────────────────────────
+
+╔═════╦═════════════════════╦═════╗
+║     │                     │     ║
+╟─────┼─────────────────────┼─────╢
+║     │                     │     ║
+║     │   ┌───────────┐     │     ║
+║     │   │           │     │     ║
+║     │   │           │     │     ║
+║     │   └───────────┘     │     ║
+║     │                     │     ║
+╟─────┼─────────────────────┼─────╢
+║     │                     │     ║
+╚═════╩═════════════════════╩═════╝
+
+───────────────────────────────────────────────────────────────
+  DESIGN 3 — Full Character Showcase Grid
+───────────────────────────────────────────────────────────────
+
+┌──┬──┬──┬──┐  ╔══╦══╦══╦══╗  ╒══╤══╤══╤══╕
+│  │  │  │  │  ║  ║  ║  ║  ║  │  │  │  │  │
+├──┼──┼──┼──┤  ╠══╬══╬══╬══╣  ╞══╪══╪══╪══╡
+│  │  │  │  │  ║  ║  ║  ║  ║  │  │  │  │  │
+└──┴──┴──┴──┘  ╚══╩══╩══╩══╝  ╘══╧══╧══╧══╛
+
+╓──╥──╥──╥──╖  ┌──┬──┬──┬──┐
+║  ║  ║  ║  ║  │  │  │  │  │
+╟──╫──╫──╫──╢  ├──┼──┼──┼──┤
+║  ║  ║  ║  ║  │  │  │  │  │
+╙──╨──╨──╨──╜  └──┴──┴──┴──┘
+
+───────────────────────────────────────────────────────────────
+  DESIGN 4 — Cross-Junction Sampler (every ╪-type character)
+───────────────────────────────────────────────────────────────
+
+      │        ║        │        ║
+   ───┼───  ═══╪═══  ───╫───  ═══╬═══
+      │        ║        │        ║
+
+      ╤        ╥      ──┬──    ══╤══
+    ──┴──    ══╧══      ╧        ╨
+
+────────────────────────────────────────────────────────────────
+  DESIGN 6 ─ Simple boxes with rounded corners
+─────────────────────────────────────────────────────────────────
+╭───────────────╮
+│               │
+│   ┌───────┐   │
+│   │       │   │
+│   └───────┘   │
+│               │
+╰───────────────╯
+
+// ╔══════════════════════════════════╗
+// ║ ╔══════════════════════════════╗ ║
+// ║ ║                              ║ ║
+// ║ ║ RUMOR HOLDER                 ║ ║
+// ║ ║                              ║ ║
+// ║ ╚══════════════════════════════╝ ║
+// ╚══════════════════════════════════╝
+
+
+
+
+
+
+
+
+
+</code></pre></td></tr></table></main><footer>tgstation.dme <a href="https://github.com/ARF-SS13/ARFS8-Coyote-Station/tree/835e4066385f2027d65c1e3cd89d8204054f9c73">835e406</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>
