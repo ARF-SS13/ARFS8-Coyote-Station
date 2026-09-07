@@ -276,6 +276,23 @@
 /obj/effect/landmark/start/cargo_technician,
 /turf/open/floor/iron/textured_large,
 /area/station/cargo/storage)
+"aiY" = (
+/obj/structure/table/reinforced{
+	pixel_y = -5
+	},
+/obj/machinery/door/window/left/directional/east{
+	req_access = list("brig");
+	name = s
+	},
+/obj/machinery/door/window/left/directional/west{
+	name = "Brig Desk"
+	},
+/obj/machinery/door/window/left/directional/east{
+	req_access = list("brig");
+	name = "Brig Desk"
+	},
+/turf/open/floor/iron/dark,
+/area/station/security/brig)
 "ajc" = (
 /obj/structure/destructible/cult/item_dispenser/archives/library,
 /obj/item/book/codex_gigas{
@@ -1672,8 +1689,9 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 10
 	},
-/obj/structure/closet/wardrobe/red,
-/obj/effect/turf_decal/delivery/red,
+/obj/structure/chair/office{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "aYk" = (
@@ -1837,12 +1855,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/central)
-"bct" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/incinerator_input{
-	dir = 8
-	},
-/turf/closed/wall/r_wall,
-/area/station/security/brig)
 "bcN" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -1927,6 +1939,14 @@
 /obj/structure/chair/sofa/left/brown,
 /turf/open/floor/carpet/blue,
 /area/station/medical/psychology)
+"bfb" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 1
+	},
+/obj/machinery/computer/secure_data,
+/obj/structure/table/reinforced,
+/turf/open/floor/iron/dark,
+/area/station/security/brig)
 "bfh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -4240,13 +4260,22 @@
 	},
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/rack/shelf,
-/obj/item/clothing/shoes/magboots,
-/obj/item/clothing/shoes/magboots,
-/obj/item/clothing/shoes/magboots,
-/obj/item/clothing/shoes/magboots,
 /obj/machinery/camera/motion/directional/north,
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
+	},
+/obj/item/storage/box/patrol_practice/brown,
+/obj/item/storage/box/patrol/brown,
+/obj/item/storage/box/patrol/brown,
+/obj/item/knife/combat/survival,
+/obj/item/knife/combat/survival,
+/obj/item/gun/ballistic/rifle/patrol{
+	pixel_x = 0;
+	pixel_y = 3
+	},
+/obj/item/gun/ballistic/rifle/patrol{
+	pixel_x = 0;
+	pixel_y = 0
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/eva)
@@ -22235,10 +22264,8 @@
 /area/station/service/hydroponics/park)
 "lZI" = (
 /obj/machinery/light,
-/obj/machinery/computer/prisoner{
-	dir = 1
-	},
 /obj/effect/turf_decal/trimline/red/filled/line,
+/obj/structure/closet/wardrobe/red,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "lZM" = (
@@ -24218,6 +24245,10 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 8
 	},
+/obj/machinery/computer/prisoner{
+	dir = 1
+	},
+/obj/structure/table/reinforced,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "mUh" = (
@@ -26253,22 +26284,34 @@
 /area/station/commons/dorms/room6)
 "nSP" = (
 /obj/machinery/airalarm/directional/north,
-/obj/structure/closet/crate/rcd,
-/obj/item/stack/rods{
-	amount = 50
-	},
-/obj/item/stack/rods{
-	amount = 50
-	},
-/obj/item/stack/sheet/rglass{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
+	},
+/obj/structure/rack,
+/obj/item/clothing/shoes/magboots{
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/obj/item/clothing/shoes/magboots{
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/obj/item/clothing/shoes/magboots{
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/obj/item/clothing/shoes/magboots{
+	pixel_x = -1;
+	pixel_y = -5
+	},
+/obj/item/clothing/shoes/magboots{
+	pixel_x = -1;
+	pixel_y = -5
+	},
+/obj/item/clothing/shoes/magboots{
+	pixel_x = -1;
+	pixel_y = -5
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/eva)
@@ -27598,13 +27641,11 @@
 /turf/open/floor/iron/dark,
 /area/station/security/prison)
 "oyd" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
+/obj/effect/turf_decal/tile/dark_green/half/contrasted{
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
+/obj/machinery/power/apc/auto_name/directional/west,
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "oyx" = (
@@ -31318,12 +31359,22 @@
 /turf/open/floor/iron/white,
 /area/station/science/ordnance)
 "qvU" = (
-/obj/item/clothing/shoes/magboots,
-/obj/item/clothing/shoes/magboots,
 /obj/effect/turf_decal/siding/dark{
 	dir = 6
 	},
-/obj/structure/rack,
+/obj/structure/closet/crate/rcd,
+/obj/item/stack/rods{
+	amount = 50
+	},
+/obj/item/stack/rods{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/eva)
 "qvW" = (
@@ -31558,11 +31609,10 @@
 /turf/open/floor/plating,
 /area/station/maintenance/fore)
 "qCU" = (
-/obj/machinery/computer/secure_data{
-	dir = 1
-	},
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/structure/sign/poster/contraband/the_griffin/directional/south,
+/obj/effect/turf_decal/delivery/red,
+/obj/machinery/rnd/production/techfab/department/security,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "qCV" = (
@@ -32278,6 +32328,10 @@
 /area/station/command/heads_quarters/hop)
 "qVw" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 8
+	},
+/obj/machinery/light{
+	icon_state = "tube1";
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
@@ -33908,10 +33962,8 @@
 	pixel_x = 5;
 	pixel_y = -32
 	},
-/obj/machinery/computer/security{
-	dir = 1
-	},
 /obj/effect/turf_decal/trimline/red/filled/line,
+/obj/structure/filingcabinet,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "rNs" = (
@@ -36167,7 +36219,15 @@
 /turf/open/floor/iron,
 /area/station/hallway/secondary/entry)
 "sYW" = (
-/obj/structure/chair/office,
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/left/directional/east{
+	req_access = list("brig");
+	name = "Brig Desk"
+	},
+/obj/machinery/door/window/left/directional/west{
+	name = "Brig Desk"
+	},
+/obj/structure/desk_bell,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "sZj" = (
@@ -37549,8 +37609,21 @@
 /turf/open/floor/wood/large,
 /area/station/commons/dorms/room5)
 "tHH" = (
-/obj/structure/filingcabinet,
 /obj/effect/turf_decal/trimline/red/filled/line,
+/obj/structure/rack,
+/obj/item/storage/box/patrol_practice,
+/obj/item/storage/box/patrol,
+/obj/item/storage/box/patrol,
+/obj/item/knife/combat/survival,
+/obj/item/knife/combat/survival,
+/obj/item/gun/ballistic/rifle/patrol/sec{
+	pixel_x = 0;
+	pixel_y = 3
+	},
+/obj/item/gun/ballistic/rifle/patrol/sec{
+	pixel_x = 0;
+	pixel_y = 0
+	},
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "tHS" = (
@@ -38264,6 +38337,7 @@
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 10
 	},
+/obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "tZQ" = (
@@ -40095,8 +40169,6 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/directional/east,
-/obj/structure/cable,
 /turf/open/floor/iron,
 /area/station/hallway/primary/fore)
 "uZe" = (
@@ -43307,15 +43379,11 @@
 /turf/open/floor/engine/vacuum,
 /area/station/science/ordnance/burnchamber)
 "wCH" = (
-/obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
-	},
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 9
 	},
-/obj/machinery/rnd/production/techfab/department/security,
-/obj/effect/turf_decal/delivery/red,
+/obj/machinery/computer/security,
+/obj/structure/table/reinforced,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "wDe" = (
@@ -78421,7 +78489,7 @@ kvr
 iPn
 kvr
 mCD
-mCD
+oyd
 qTN
 mCD
 pbp
@@ -78932,7 +79000,7 @@ hZZ
 oXO
 jPm
 uZa
-oyd
+kkQ
 nVR
 kkQ
 kkQ
@@ -79188,8 +79256,8 @@ hgt
 iSz
 cwK
 hJX
-hJX
-bct
+aiY
+sYW
 hJX
 nmN
 doZ
@@ -79702,7 +79770,7 @@ lAZ
 jKL
 fPk
 iSz
-lAZ
+bfb
 rPI
 mTB
 ipO
@@ -80219,7 +80287,7 @@ qVw
 sOv
 htu
 htu
-sYW
+iQe
 qCU
 hJX
 ayK

@@ -12,6 +12,12 @@
 	caliber = CALIBER_M762R
 	max_ammo = 5
 
+/obj/item/ammo_box/magazine/internal/boltaction/patrol
+	name = "patrol rifle internal magazine"
+	ammo_type = /obj/item/ammo_casing/patrol
+	caliber = CALIBER_PATROL
+	max_ammo = 3
+
 /obj/item/ammo_box/magazine/internal/boltaction/surplus
 	ammo_type = /obj/item/ammo_casing/strilka310/surplus
 

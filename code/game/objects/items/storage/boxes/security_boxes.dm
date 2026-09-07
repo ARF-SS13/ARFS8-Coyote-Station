@@ -310,6 +310,37 @@
 	for(var/i in 1 to 12)
 		new /obj/item/ammo_casing/m762r/surplus(src)
 
+/obj/item/storage/box/patrol
+	name = "box of patrol rifle ammunition"
+	desc = "A box full of patrol rifle cartridges."
+	icon = 'modular_skyrat/modules/aesthetics/storage/storage.dmi'
+	icon_state = "secbox_xl"
+	illustration = "cartridge_patrol"
+	storage_type = /datum/storage/cartridge_box
+
+/obj/item/storage/box/patrol/PopulateContents()
+	for(var/i in 1 to 12)
+		new /obj/item/ammo_casing/patrol(src)
+
+// for the service version
+/obj/item/storage/box/patrol/brown
+	icon_state = "brownbox_xl"
+
+/obj/item/storage/box/patrol_practice
+	name = "box of patrol rifle practice ammunition"
+	desc = "A box full of nonlethal patrol rifle practice cartridges."
+	icon = 'modular_skyrat/modules/aesthetics/storage/storage.dmi'
+	icon_state = "secbox_xl"
+	illustration = "cartridge_patrol_d"
+	storage_type = /datum/storage/cartridge_box
+
+/obj/item/storage/box/patrol_practice/PopulateContents()
+	for(var/i in 1 to 12)
+		new /obj/item/ammo_casing/patrol/practice(src)
+
+/obj/item/storage/box/patrol_practice/brown
+	icon_state = "brownbox_xl"
+
 /obj/item/storage/box/emptysandbags
 	name = "box of empty sandbags"
 	illustration = "sandbag"

@@ -271,7 +271,7 @@
 
 /obj/item/storage/belt/security/full/PopulateContents()
 	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/grenade/flashbang(src)
+	new /obj/item/knife/combat/survival(src)
 	new /obj/item/melee/baton/security/loaded(src)
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/assembly/flash/handheld(src)
@@ -279,18 +279,18 @@
 
 /obj/item/storage/belt/security/full_hos/PopulateContents()
 	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/grenade/flashbang(src)
+	new /obj/item/knife/combat/survival(src)
 	new /obj/item/melee/baton/security/loaded/hos(src)
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/assembly/flash/handheld(src)
 	update_appearance()
 
 /obj/item/storage/belt/security/orderly/PopulateContents()
-	new /obj/item/grenade/chem_grenade/cleaner(src)
-	new /obj/item/restraints/handcuffs(src)
-	new /obj/item/melee/baton/security/loaded(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/gun/energy/civilian_taser(src)
+	new /obj/item/knife/combat/survival(src)
+	new /obj/item/melee/baton/security/loaded(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/grenade/chem_grenade/cleaner(src)
 
 /obj/item/storage/belt/security/webbing
 	name = "security webbing"

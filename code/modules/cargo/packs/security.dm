@@ -472,7 +472,21 @@
 
 /datum/supply_pack/security/armory/mosin_ammo
 	name = "Mosin Nagant Ammo Crate"
-	desc = "Contains six boxes of ammunition for the mosin nagant. Nanotrassen does not supply stripper clips, because a very confused shareholder wants to preserve the company's family friendly image."
+	desc = "Contains six boxes of ammunition for the mosin nagant. Nanotrassen does not supply stripper clips because a very confused shareholder wants to preserve the company's family friendly image."
 	cost = CARGO_CRATE_VALUE * 2.5
 	contains = list(/obj/item/storage/box/m762r = 6)
 	crate_name = "mosin nagant ammo crate"
+
+/datum/supply_pack/security/patrol_ammo
+	name = "Patrol Rifle Ammo Crate"
+	desc = "Contains two boxes of ammo for the patrol rifle. The cartridges are non-rechargeable and proprietary in design, for YOUR safety."
+	cost = CARGO_CRATE_VALUE * 2
+	contains = list(/obj/item/storage/box/patrol = 2)
+	crate_name = "patrol rifle ammo crate"
+
+/datum/supply_pack/security/patrol_ammo_practice
+	name = "Patrol Rifle Practice Ammo Crate"
+	desc = "Contains two boxes of nonlethal training ammo for the patrol rifle. The cartridges are non-rechargeable and proprietary in design, for YOUR safety."
+	cost = CARGO_CRATE_VALUE * 2
+	contains = list(/obj/item/storage/box/patrol_practice = 2)
+	crate_name = "patrol rifle ammo crate"
