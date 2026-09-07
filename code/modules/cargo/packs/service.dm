@@ -314,3 +314,17 @@
 	cost = CARGO_CRATE_VALUE * 2
 	contains = list(/obj/item/storage/box/mousetraps = 3)
 	crate_name = "mousetraps crate"
+
+/datum/supply_pack/service/patrol_ammo
+	name = "Patrol Rifle Ammo Crate"
+	desc = "Contains two boxes of ammo for the patrol rifle. The cartridges are non-rechargeable and proprietary in design, for YOUR safety."
+	cost = CARGO_CRATE_VALUE * 2
+	contains = list(/obj/item/storage/box/patrol/brown = 2)
+	crate_name = "patrol rifle ammo crate"
+
+/datum/supply_pack/service/patrol_ammo_practice
+	name = "Patrol Rifle Practice Ammo Crate"
+	desc = "Contains two boxes of nonlethal training ammo for the patrol rifle. The cartridges are non-rechargeable and proprietary in design, for YOUR safety."
+	cost = CARGO_CRATE_VALUE * 2
+	contains = list(/obj/item/storage/box/patrol_practice/brown = 2)
+	crate_name = "patrol rifle ammo crate"

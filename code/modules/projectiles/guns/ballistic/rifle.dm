@@ -4,6 +4,7 @@
 	icon = 'icons/obj/weapons/guns/wide_guns.dmi'
 	icon_state = "sakhno"
 	w_class = WEIGHT_CLASS_BULKY
+	force = 13 // it's a heavy baseball bat basically
 	accepted_magazine_type = /obj/item/ammo_box/magazine/internal/boltaction
 	bolt_wording = "bolt"
 	bolt_type = BOLT_TYPE_LOCKING
@@ -45,6 +46,44 @@
 /obj/item/gun/ballistic/rifle/examine(mob/user)
 	. = ..()
 	. += "The bolt is [bolt_locked ? "open" : "closed"]."
+
+////////////////////////////
+// LOW POWER PATROL RIFLE ///
+// Don't you fucking dare make these more available by putting them in cargo or adding a bunch of them to the map. they are limited by design so that they have to be shared.
+// Don't you fucking dare add antag modifications or upgrades to these as it undermines the trust needed to issue them to players.
+// Don't you fucking dare make these more powerful or streamlined, as their finnicky nature adds an extra sliver of depth and makes lower power engagements more intense.
+// Don't you fucking dare make these shoot bullets because issuing a weapon that inflicts bleeding and breaks windows makes no goddamn sense for a civilian rifle.
+// Don't you fucking dare restrict these behind a special job or automate issuing them to crew, as that undercuts character to character interaction and means people will bum rush and hoard them
+
+/obj/item/gun/ballistic/rifle/patrol
+	name = "militia patrol rifle"
+	desc = "A low-powered rifle made for hunting hazardous space creatures. To be loaned to volunteering crewmembers to patrol the solar arrays and other external areas of the station. Its underpowered design means it can be carried without a weapons permit and on green alert by civilians and security alike."
+	icon = 'icons/obj/weapons/guns/ballistic.dmi'
+	icon_state = "patrol_rifle_cargo" // decided I like the brown color better with green energy highlights
+	w_class = WEIGHT_CLASS_BULKY
+	bolt_type = BOLT_TYPE_STANDARD
+	accepted_magazine_type = /obj/item/ammo_box/magazine/internal/boltaction/patrol
+	fire_sound = 'sound/items/weapons/resonator_fire.ogg'
+	fire_sound_volume = 90
+	cartridge_wording = "cartridge"
+	need_bolt_lock_to_interact = TRUE
+	slot_flags = ITEM_SLOT_BACK
+	weapon_weight = WEAPON_HEAVY
+	item_flags = null //no permit needed
+
+/obj/item/gun/ballistic/rifle/patrol/update_overlays()
+	. = ..()
+	if(!bolt_locked && chambered?.loaded_projectile)
+		. += "patrol_rifle_ready"
+	else if(bolt_locked)
+		. += "patrol_rifle_unbolt"
+	else
+		. += "patrol_rifle_empty"
+
+// to match security's style and distinguish the militia style as NOT security property
+/obj/item/gun/ballistic/rifle/patrol/sec
+	name = "security patrol rifle"
+	icon_state = "patrol_rifle_sec"
 
 ////////////////////////////
 /// Mosin: Fuzzy edition ///
@@ -639,7 +678,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BACK
 	mag_display = TRUE
-	tac_reloads = TRUE
+	tac_reloads = FALSE
 	rack_delay = 1 SECONDS
 	can_suppress = TRUE
 	can_unsuppress = TRUE
