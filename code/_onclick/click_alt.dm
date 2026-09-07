@@ -85,6 +85,9 @@
 	if(SEND_SIGNAL(target, COMSIG_CLICK_ALT_SECONDARY, src) & COMPONENT_CANCEL_CLICK_ALT_SECONDARY)
 		return
 
+	if(target.click_alt_secondary_coolcheck(src))
+		return
+
 	// If it has a custom click_alt_secondary then do that
 	if(can_perform_action(target, target.interaction_flags_click | SILENT_ADJACENCY))
 		target.click_alt_secondary(src)
@@ -97,6 +100,11 @@
  * Consider adding `interaction_flags_click` before adding unique guard clauses.
  **/
 /atom/proc/click_alt_secondary(mob/user)
+	SHOULD_CALL_PARENT(FALSE)
+	return NONE
+
+/// allows per-proc checks for actions, or something
+/atom/proc/click_alt_secondary_coolcheck(mob/user)
 	SHOULD_CALL_PARENT(FALSE)
 	return NONE
 

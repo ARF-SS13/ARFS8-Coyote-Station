@@ -1784,3 +1784,17 @@
  */
 /mob/proc/get_access() as /list
 	return list()
+
+
+//Splurt Backnab via Coyote
+/mob/living/verb/check_out(mob/living/A in view())
+	set name = "Show Interest"
+	set category = "IC"
+
+	if(!isliving(A))
+		return
+	to_chat(src, span_notice("You pass an interested glance over at [A]."))
+	to_chat(A, span_notice("[src] seems to be subtly showing you interest?"))
+	playsound_local(src, 'modular_coyote/sounds/barks/blush.ogg', 80, TRUE)
+	A.playsound_local(A, 'modular_coyote/sounds/barks/blush.ogg', 80, TRUE)
+

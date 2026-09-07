@@ -18,6 +18,15 @@
 	update_fov()
 	gravity_setup()
 
+/mob/living/click_alt_secondary_coolcheck(mob/living/user)
+	if(!client)
+		return
+	if(isliving(user))
+		return
+	if(!user.can_perform_action(src, BYPASS_ADJACENCY|ALLOW_RESTING|ALLOW_PAI))
+		return
+	user.check_out(src)
+
 /mob/living/prepare_huds()
 	..()
 	prepare_data_huds()
