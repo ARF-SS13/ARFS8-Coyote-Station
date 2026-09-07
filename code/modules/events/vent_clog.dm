@@ -8,6 +8,11 @@
 	category = EVENT_CATEGORY_JANITORIAL
 	description = "Harmless mobs climb out of a vent."
 
+//Notation For Event Awareness
+/*
+Should seek likely janitors and sec.  More serious spawns should be forewarned before they skitter out, to give players warning.
+*/
+
 /datum/round_event_control/vent_clog/can_spawn_event(players_amt, allow_magic = FALSE)
 	. = ..()
 	if(!.)

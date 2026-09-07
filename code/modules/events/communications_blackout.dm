@@ -7,6 +7,11 @@
 	min_wizard_trigger_potency = 0
 	max_wizard_trigger_potency = 3
 
+//Notation For Event Awareness
+/*
+Should consider Telecomms specialists (can they even fix this?) and engineers in general.
+*/
+
 /datum/round_event/communications_blackout
 	announce_when = 1
 

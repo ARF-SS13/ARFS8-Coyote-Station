@@ -39,6 +39,11 @@
 	///Admin setable override to spawn a specific cargo pack type
 	var/admin_override_contents
 
+//Notation For Event Awareness
+/*
+Should maybe check for engineers and cargo?  Unsure.  Gotta see how it works in full.
+*/
+
 /datum/round_event/stray_cargo/announce(fake)
 	if(fake)
 		impact_area = find_event_area()

@@ -9,6 +9,11 @@
 	min_wizard_trigger_potency = 3
 	max_wizard_trigger_potency = 7
 
+//Notation For Event Awareness
+/*
+Definitely requires engineers to be active.
+*/
+
 /datum/round_event/radiation_leak
 	start_when = 1 // 2 seconds in
 	announce_when = 10 // 20 seconds in

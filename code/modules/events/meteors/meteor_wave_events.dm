@@ -11,6 +11,11 @@
 	description = "A regular meteor wave."
 	map_flags = EVENT_SPACE_ONLY
 
+//Notation For Event Awareness
+/*
+Should require large engineering team.  Multiple engineers/atmos techs and CE.
+*/
+
 /datum/round_event/meteor_wave
 	start_when = 6
 	end_when = 66

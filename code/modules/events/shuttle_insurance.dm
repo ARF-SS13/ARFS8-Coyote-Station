@@ -7,6 +7,11 @@
 	category = EVENT_CATEGORY_BUREAUCRATIC
 	description = "A sketchy but legit insurance offer."
 
+//Notation For Event Awareness
+/*
+Requires heads of staff?
+*/
+
 /datum/round_event_control/shuttle_insurance/can_spawn_event(players, allow_magic = FALSE)
 	. = ..()
 	if(!.)
