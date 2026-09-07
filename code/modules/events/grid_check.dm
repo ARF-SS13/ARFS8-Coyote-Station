@@ -15,6 +15,11 @@
 	announce_when = 1
 	start_when = 1
 
+//Notation For Event Awareness
+/*
+Should req engineering
+*/
+
 /datum/round_event/grid_check/announce(fake)
 	var/datum/round_event_control/grid_check/controller = control
 	if(!fake)

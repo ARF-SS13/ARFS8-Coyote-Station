@@ -25,6 +25,10 @@
 		/obj/item/storage/fancy/heart_box,
 		/obj/item/food/candyheart,
 	)
+//Notation For Event Awareness
+/*
+let it happen homie
+*/
 
 /datum/round_event/valentines/proc/is_valid_valentine(mob/living/guy)
 	if(guy.stat == DEAD)
