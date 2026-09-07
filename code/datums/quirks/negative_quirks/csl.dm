@@ -79,10 +79,10 @@
 	if(say_args[SPEECH_FORCED] || isnull(native_language) || quirk_holder.mob_mood?.sanity > 75)
 		return
 	// init this list if nothing else has
-	LAZYINITLIST(say_args[SPEECH_MODS][LANGUAGE_MUTUAL_BONUS])
+	LAZYINITLIST(say_args[SPEECH_MODS][SATA_LANGUAGE_MUTUAL_BONUS])
 	// force speak language, add mutual bonuses so everyone else can understand
 	say_args[SPEECH_LANGUAGE] = native_language
-	say_args[SPEECH_MODS][LANGUAGE_MUTUAL_BONUS][native_language] = max(round(8 * sqrt(quirk_holder.mob_mood?.sanity), 5), say_args[SPEECH_MODS][LANGUAGE_MUTUAL_BONUS][native_language])
+	say_args[SPEECH_MODS][SATA_LANGUAGE_MUTUAL_BONUS][native_language] = max(round(8 * sqrt(quirk_holder.mob_mood?.sanity), 5), say_args[SPEECH_MODS][SATA_LANGUAGE_MUTUAL_BONUS][native_language])
 
 /datum/quirk_constant_data/csl
 	associated_typepath = /datum/quirk/csl

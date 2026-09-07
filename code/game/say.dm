@@ -44,7 +44,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
  * * message_range - The range of the message. Defaults to 7
  * * saymode - Saymode passed to the speech
  * This is usually set automatically and is only relevant for living mobs.
- * * message_mods - A list of message modifiers, i.e. whispering/singing.
+ * * message_data - A list of message modifiers, i.e. whispering/singing.
  * Most of these are set automatically but you can pass in your own pre-say.
  */
 /atom/movable/proc/say(
@@ -58,23 +58,59 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	filterproof = FALSE,
 	message_range = 7,
 	datum/saymode/saymode,
-	list/message_mods = list(),
+	list/message_data = list(),
 )
+	message_data |= list(
+		SATA_BUBBLE_TYPE       = bubble_type,
+		SATA_LANGUAGE          = language,
+		SATA_MESSAGE_SPOKEN    = message,
+		SATA_MESSAGE_RANGE     = message_range,
+		SATA_SAYMODE_DATUM     = saymode,
+		SATA_SAYMODE           = SAYMODE_SAY,
+		SATA_SPANS             = spans,
+		SATA_SPEAKER           = src,
+		SATA_ORIGIN            = src,
+	)
 	if(!try_speak(message, ignore_spam, forced, filterproof))
 		return
 	if(sanitize)
 		message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
+		message_data[SATA_MESSAGE_SPOKEN] = message
 	if(!message || message == "")
 		return
 	spans |= speech_span
+	message_data[SATA_SPANS] = spans
 	language ||= get_selected_language()
-	if(!message_mods[SAY_MOD_VERB])
-		message_mods[SAY_MOD_VERB] = say_mod(message, message_mods)
-	send_speech(message, message_range, src, bubble_type, spans, language, message_mods, forced = forced)
+	message_data[SATA_LANGUAGE] = language
+	if(!message_data[SATA_VERB])
+		message_data[SATA_VERB] = say_mod(message, message_data)
+	else
+		message_data[SATA_SAYMODE] = SAYMODE_SAY
+	send_speech(message, message_range, src, bubble_type, spans, language, message_data, forced = forced)
 
 /// Called when this movable hears a message from a source.
 /// Returns TRUE if the message was received and understood.
-/atom/movable/proc/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, list/spans, list/message_mods = list(), message_range=0)
+/atom/movable/proc/Hear(
+	atom/movable/speaker,
+	message_language,
+	raw_message,
+	radio_freq,
+	radio_freq_name,
+	radio_freq_color,
+	list/spans,
+	list/message_data = list(),
+	message_range=0
+)
+	if(message_data[SATA_ORIGIN_OVERRIDE])
+		message_data[SATA_ORIGIN] = message_data[SATA_ORIGIN_OVERRIDE]
+	else
+		message_data[SATA_ORIGIN] = speaker
+	if(isnull(message_data[SATA_MESSAGE_SPOKEN]))
+		message_data[SATA_MESSAGE_SPOKEN] = raw_message
+	message_data[SATA_MESSAGE_HEARD] = raw_message
+	message_data[SATA_MESSAGE_RANGE] = message_range
+	message_data[SATA_SPANS] |= spans
+
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, args)
 	return TRUE
 
@@ -117,7 +153,31 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	SHOULD_BE_PURE(TRUE)
 	return !HAS_TRAIT(src, TRAIT_MUTE)
 
-/atom/movable/proc/send_speech(message, range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language, list/message_mods = list(), forced = FALSE, tts_message, list/tts_filter)
+/atom/movable/proc/send_speech(
+	message,
+	range = 7,
+	obj/source = src,
+	bubble_type,
+	list/spans,
+	datum/language/message_language,
+	list/message_data = list(),
+	forced = FALSE,
+	tts_message,
+	list/tts_filter
+)
+	message_data |= list(
+		SATA_BUBBLE_TYPE       = bubble_type,
+		SATA_MESSAGE_SPOKEN    = message,
+		SATA_MESSAGE_RANGE     = range,
+		SATA_LANGUAGE          = message_language,
+		SATA_SPANS             = spans,
+		SATA_SPEAKER           = source,
+		SATA_ORIGIN            = source,
+		SATA_IS_PLAYER         = length(source.client_mobs_in_contents) > 0,
+		SATA_FORCED            = forced,
+		SATA_TTS_MESSAGE       = tts_message,
+		SATA_TTS_FILTER        = tts_filter,
+	)
 	var/found_client = FALSE
 	var/list/listeners = get_hearers_in_view(range, source)
 	var/list/listened = list()
@@ -125,7 +185,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		if(!hearing_movable)//theoretically this should use as anything because it shouldnt be able to get nulls but there are reports that it does.
 			stack_trace("somehow theres a null returned from get_hearers_in_view() in send_speech!")
 			continue
-		if(hearing_movable.Hear(src, message_language, message, null, null, null, spans, message_mods, range))
+		if(hearing_movable.Hear(src, message_language, message, null, null, null, spans, message_data.Copy(), range))
 			listened += hearing_movable
 		if(!found_client && length(hearing_movable.client_mobs_in_contents))
 			found_client = TRUE
@@ -142,14 +202,43 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		filter += tts_filter.Join(",")
 
 	if(voice && found_client)
-		if (!CONFIG_GET(flag/tts_no_whisper) || (CONFIG_GET(flag/tts_no_whisper) && !message_mods[WHISPER_MODE]))
+		if (!CONFIG_GET(flag/tts_no_whisper) || (CONFIG_GET(flag/tts_no_whisper) && !message_data[WHISPER_MODE]))
 			INVOKE_ASYNC(SStts, TYPE_PROC_REF(/datum/controller/subsystem/tts, queue_tts_message), src, html_decode(tts_message_to_use), message_language, voice, filter.Join(","), listened, message_range = range, pitch = pitch)
 
-/atom/movable/proc/compose_message(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, list/spans, list/message_mods = list(), visible_name = FALSE)
+/*
+ * Builds the message to be sent to the player, fully formatted with spans, speaker name, and other relevant information.
+ *
+ *  */
+/atom/movable/proc/compose_message(
+	atom/movable/speaker,
+	datum/language/message_language,
+	raw_message,
+	radio_freq,
+	radio_freq_name,
+	radio_freq_color,
+	list/spans,
+	list/message_data = list(),
+	visible_name = FALSE
+)
+	message_data |= list(
+		SATA_SPEAKER           = speaker,
+		SATA_ORIGIN            = speaker,
+		SATA_LANGUAGE          = message_language,
+		SATA_MESSAGE_HEARD     = raw_message,
+		SATA_MESSAGE_SPOKEN    = raw_message,
+		SATA_RADIO_FREQ        = radio_freq,
+		SATA_RADIO_FREQ_COLOR  = radio_freq_color,
+		SATA_RADIO_FREQ_NAME   = radio_freq_name,
+		SATA_SPANS             = spans,
+		SATA_VISIBLE_NAME      = visible_name,
+	)
+
 	//This proc uses [] because it is faster than continually appending strings. Thanks BYOND.
 	//Basic span
 	var/freq_color = get_radio_color(radio_freq, radio_freq_color)
-	var/spanpart1 = "<span class='[radio_freq ? get_radio_span(radio_freq) : "game say"]' [freq_color ? "style='color:[freq_color];'" : ""]>"
+	var/spanp1_class = radio_freq ? get_radio_span(radio_freq) : "game say"
+	var/spanp1_radio_color = freq_color ? "style='color:[freq_color];'" : ""
+	var/spanpart1 = "<span class='[spanp1_class]' [spanp1_radio_color]>"
 	//Start name span.
 	var/spanpart2 = "<span class='name'>"
 	//Radio freq/name display
@@ -157,21 +246,31 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	//Speaker name
 	var/namepart = speaker.get_message_voice(visible_name)
 
+	message_data[SATA_RADIO_TAG] = freqpart
+	message_data[SATA_BODY_SPAN_CLASS] = spanp1_class
+	message_data[SATA_BODY_SPAN_COLOR] = spanp1_radio_color
+	message_data[SATA_DISPLAYED_NAME] = namepart
+
 	//End name span.
 	var/endspanpart = "</span>"
 
 	// Language icon.
 	var/languageicon = ""
-	if(!message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
+	if(!message_data[MODE_CUSTOM_SAY_ERASE_INPUT])
 		var/datum/language/dialect = GLOB.language_datum_instances[message_language]
 		if(istype(dialect) && dialect.display_icon(src))
 			languageicon = "[dialect.get_icon()] "
 
+	message_data[SATA_LANGUAGE_ICON] = languageicon
+
 	// The actual message part.
-	var/messagepart = speaker.generate_messagepart(raw_message, spans, message_mods)
+	var/messagepart = speaker.generate_messagepart(raw_message, spans, message_data)
 	messagepart = " <span class='message'>[messagepart]</span></span>"
 
-	return "[spanpart1][spanpart2][freqpart][languageicon][compose_track_href(speaker, namepart)][namepart][compose_job(speaker, message_language, raw_message, radio_freq)][endspanpart][messagepart]"
+	var/trackref = compose_track_href(speaker, namepart)
+	var/composedjob = compose_job(speaker, message_language, raw_message, radio_freq)
+
+	return "[spanpart1][spanpart2][freqpart][languageicon][trackref][namepart][composedjob][endspanpart][messagepart]"
 
 /atom/movable/proc/compose_track_href(atom/movable/speaker, message_langs, raw_message, radio_freq)
 	return ""
@@ -183,21 +282,27 @@ GLOBAL_LIST_INIT(freqtospan, list(
  * Works out and returns which prefix verb the passed message should use.
  *
  * input - The message for which we want the verb.
- * message_mods - A list of message modifiers, i.e. whispering/singing.
+ * message_data - A list of message modifiers, i.e. whispering/singing.
  */
-/atom/movable/proc/say_mod(input, list/message_mods = list())
+/atom/movable/proc/say_mod(input, list/message_data = list())
 	var/ending = copytext_char(input, -1)
 	if(copytext_char(input, -2) == "!!")
+		message_data[SATA_SAYMODE] = SAYMODE_YELL
 		return verb_yell
-	else if(message_mods[MODE_SING])
+	else if(message_data[MODE_SING])
+		message_data[SATA_SAYMODE] = SAYMODE_SING
 		. = verb_sing
-	else if(message_mods[WHISPER_MODE])
+	else if(message_data[WHISPER_MODE])
+		message_data[SATA_SAYMODE] = SAYMODE_WHISPER
 		. = verb_whisper
 	else if(ending == "?")
+		message_data[SATA_SAYMODE] = SAYMODE_ASK
 		return verb_ask
 	else if(ending == "!")
+		message_data[SATA_SAYMODE] = SAYMODE_EXCLAIM
 		return verb_exclaim
 	else
+		message_data[SATA_SAYMODE] = SAYMODE_SAY
 		return get_default_say_verb()
 
 /**
@@ -215,23 +320,25 @@ GLOBAL_LIST_INIT(freqtospan, list(
  *
  * input - The message to be said
  * spans - A list of spans to attach to the message. Includes the atom's speech span by default
- * message_mods - A list of message modifiers, i.e. whispering/singing
+ * message_data - A list of message modifiers, i.e. whispering/singing
  */
-/atom/movable/proc/generate_messagepart(input, list/spans = list(speech_span), list/message_mods = list())
+/atom/movable/proc/generate_messagepart(input, list/spans = list(speech_span), list/message_data = list())
 	// If we only care about the emote part, early return.
-	if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
-		return apply_message_emphasis(message_mods[MODE_CUSTOM_SAY_EMOTE])
+	if(message_data[MODE_CUSTOM_SAY_ERASE_INPUT])
+		return apply_message_emphasis(message_data[MODE_CUSTOM_SAY_EMOTE])
 
 	// Otherwise, we format our full quoted message.
 	if(!input)
 		input = "..."
 
-	var/say_mod = message_mods[MODE_CUSTOM_SAY_EMOTE] || message_mods[SAY_MOD_VERB] || say_mod(input, message_mods)
+	var/say_mod = message_data[MODE_CUSTOM_SAY_EMOTE] || message_data[SATA_VERB] || say_mod(input, message_data)
+	message_data[SATA_DISPLAYED_SAYMODE] = say_mod
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_SAY_QUOTE, args)
 
 	if(copytext_char(input, -2) == "!!")
 		spans |= SPAN_YELL
+		message_data[SATA_SPANS] |= SAYMODE_YELL
 
 	/* all inputs should be fully figured out past this point */
 
@@ -239,6 +346,8 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	processed_input = attach_spans(processed_input, spans)
 
 	var/processed_say_mod = apply_message_emphasis(say_mod)
+	message_data[SATA_DISPLAYED_SAYMODE] = processed_say_mod
+	message_data[SATA_MESSAGE_HEARD] = processed_input
 
 	return "[processed_say_mod], \"[processed_input]\""
 
@@ -259,23 +368,28 @@ GLOBAL_LIST_INIT(freqtospan, list(
 #undef ENCODE_HTML_EMPHASIS
 
 /// Modifies the message by comparing the languages of the speaker with the languages of the hearer. Called on the hearer.
-/atom/movable/proc/translate_language(atom/movable/speaker, datum/language/language, raw_message, list/spans, list/message_mods)
+/atom/movable/proc/translate_language(atom/movable/speaker, datum/language/language, raw_message, list/spans, list/message_data)
 	if(!language)
 		return "makes a strange sound."
 
-	if(!has_language(language))
-		var/list/mutual_languages
-		// Get what we can kinda understand, factor in any bonuses passed in from say mods
-		var/list/partially_understood_languages = get_partially_understood_languages()
-		if(LAZYLEN(partially_understood_languages))
-			mutual_languages = partially_understood_languages.Copy()
-			for(var/bonus_language in message_mods[LANGUAGE_MUTUAL_BONUS])
-				mutual_languages[bonus_language] = max(message_mods[LANGUAGE_MUTUAL_BONUS][bonus_language], mutual_languages[bonus_language])
+	if(has_language(language))
+		message_data[SATA_LANGUAGE_UNDERSTOOD] = TRUE
+		return raw_message
 
-		var/datum/language/dialect = GLOB.language_datum_instances[language]
-		raw_message = dialect.scramble_paragraph(raw_message, mutual_languages)
-
+	message_data[SATA_LANGUAGE_UNDERSTOOD] = FALSE
+	var/list/mutual_languages
+	// Get what we can kinda understand, factor in any bonuses passed in from say mods
+	var/list/partially_understood_languages = get_partially_understood_languages()
+	if(LAZYLEN(partially_understood_languages))
+		mutual_languages = partially_understood_languages.Copy()
+		for(var/bonus_language in message_data[SATA_LANGUAGE_MUTUAL_BONUS])
+			var/bonus = message_data[SATA_LANGUAGE_MUTUAL_BONUS][bonus_language]
+			mutual_languages[bonus_language] = max(bonus, mutual_languages[bonus_language])
+	var/datum/language/dialect = GLOB.language_datum_instances[language]
+	raw_message = dialect.scramble_paragraph(raw_message, mutual_languages)
+	message_data[SATA_MESSAGE_HEARD] = raw_message
 	return raw_message
+
 
 /proc/get_radio_span(freq)
 	var/returntext = GLOB.freqtospan["[freq]"]

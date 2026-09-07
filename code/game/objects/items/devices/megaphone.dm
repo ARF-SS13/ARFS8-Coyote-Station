@@ -27,7 +27,7 @@
 	. = ..()
 	UnregisterSignal(dropper, list(COMSIG_MOB_SAY, COMSIG_LIVING_TREAT_MESSAGE))
 
-/obj/item/megaphone/proc/handle_speech(mob/living/user, list/speech_args)
+/obj/item/megaphone/proc/handle_speech(mob/living/user, list/speech_args, list/message_data)
 	SIGNAL_HANDLER
 	if(HAS_TRAIT(user, TRAIT_SIGN_LANG) || user.get_active_held_item() != src)
 		return
@@ -36,6 +36,7 @@
 	else
 		playsound(loc, 'sound/items/megaphone.ogg', 100, FALSE, TRUE)
 		speech_args[SPEECH_SPANS] |= voicespan
+		message_data[SATA_SPANS] |= voicespan
 
 /obj/item/megaphone/proc/add_tts_filter(mob/living/carbon/user, list/message_args)
 	SIGNAL_HANDLER

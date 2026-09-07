@@ -33,10 +33,11 @@
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
-/datum/mutation/wacky/proc/handle_speech(datum/source, list/speech_args)
+/datum/mutation/wacky/proc/handle_speech(datum/source, list/speech_args, list/message_data)
 	SIGNAL_HANDLER
 
 	speech_args[SPEECH_SPANS] |= SPAN_SANS
+	message_data[SATA_SPANS] |= SPAN_SANS
 
 /datum/mutation/heckacious
 	name = "Heckacious Larincks"

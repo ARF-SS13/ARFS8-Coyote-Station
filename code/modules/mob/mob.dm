@@ -226,7 +226,7 @@
 /**
  * Show a message to this mob (visual or audible)
  */
-/mob/proc/show_message(msg, type, alt_msg, alt_type, avoid_highlighting = FALSE)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
+/mob/proc/show_message(msg, type, alt_msg, alt_type, avoid_highlighting = FALSE, list/message_data = list())//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
 	if(!client)
 		return FALSE
 
@@ -252,12 +252,13 @@
 				. = FALSE
 				if(type & MSG_VISUAL && is_blind())
 					return FALSE
+	message_data[SATA_LISTENER] = src
 	// voice muffling
 	if(stat == UNCONSCIOUS || stat == HARD_CRIT)
 		if(type & MSG_AUDIBLE) //audio
-			to_chat(src, "<I>... You can almost hear something ...</I>")
+			to_chat(src, "<I>... You can almost hear something ...</I>", extra_data = message_data)
 		return FALSE
-	to_chat(src, msg, avoid_highlighting = avoid_highlighting)
+	to_chat(src, msg, avoid_highlighting = avoid_highlighting, extra_data = message_data)
 	return .
 
 /**

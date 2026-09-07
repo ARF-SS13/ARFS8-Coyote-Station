@@ -7074,6 +7074,8 @@
 #include "modular_coyote\code\preference_stuff\temperments_and_builds_middleware.dm"
 #include "modular_coyote\code\preference_stuff\temperments_and_builds_preference.dm"
 #include "modular_coyote\code\preference_stuff\temperments_and_builds_temperments.dm"
+#include "modular_coyote\code\visualchat\visualchat_preview_texts.dm"
+#include "modular_coyote\code\visualchat\visualchat_subsystem.dm"
 #include "modular_coyote\sprite_accessories\curvy_shirt_underwear.dm"
 #include "modular_nova\peering.dm"
 #include "modular_skyrat\master_files\code\_globalvars\configuration.dm"

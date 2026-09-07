@@ -22,7 +22,7 @@
 
 	return ..()
 
-/mob/living/silicon/ai/radio(message, list/message_mods = list(), list/spans, language)
+/mob/living/silicon/ai/radio(message, list/message_data = list(), list/spans, language)
 	if(incapacitated)
 		return FALSE
 	if(!radio_enabled) //AI cannot speak if radio is disabled (via intellicard) or depowered.
@@ -31,18 +31,18 @@
 	. = ..()
 	if(.)
 		return .
-	if(message_mods[MODE_HEADSET])
+	if(message_data[MODE_HEADSET])
 		if(radio)
-			radio.talk_into(src, message, , spans, language, message_mods)
+			radio.talk_into(src, message, , spans, language, message_data)
 		return NOPASS
-	else if(message_mods[RADIO_EXTENSION] in GLOB.default_radio_channels)
+	else if(message_data[SATA_RADIO_EXTENSION] in GLOB.default_radio_channels)
 		if(radio)
-			radio.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
+			radio.talk_into(src, message, message_data[SATA_RADIO_EXTENSION], spans, language, message_data)
 			return NOPASS
 	return FALSE
 
 //For holopads only. Usable by AI.
-/mob/living/silicon/ai/proc/holopad_talk(message, list/spans = list(), language, list/message_mods = list())
+/mob/living/silicon/ai/proc/holopad_talk(message, list/spans = list(), language, list/message_data = list())
 	message = trim(message)
 
 	if (!message)
@@ -58,8 +58,9 @@
 	var/turf/pad_turf = get_turf(active_pad)
 	var/pad_loc = pad_turf ? AREACOORD(pad_turf) : "(UNKNOWN)"
 
-	log_sayverb_talk(message, message_mods, tag = "HOLOPAD in [pad_loc]")
-	ai_holo.say(message, spans = spans, sanitize = FALSE, language = language, message_mods = message_mods)
+	log_sayverb_talk(message, message_data, tag = "HOLOPAD in [pad_loc]")
+	message_data[SATA_ORIGIN_OVERRIDE] = src
+	ai_holo.say(message, spans = spans, sanitize = FALSE, language = language, message_data = message_data)
 
 /* SKYRAT EDIT REMOVAL - MOVED TO: MODULAR_SKYRAT/MODULES/ALT_VOX/CODE/VOX_PROCS.DM
 // Make sure that the code compiles with AI_VOX undefined

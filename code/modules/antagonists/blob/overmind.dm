@@ -325,7 +325,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	filterproof = FALSE,
 	message_range = 7,
 	datum/saymode/saymode,
-	list/message_mods = list(),
+	list/message_data = list(),
 )
 	if (!message)
 		return
@@ -349,10 +349,10 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	if (!message)
 		return
 
-	var/list/message_mods = list()
-	var/adjusted_message = check_for_custom_say_emote(message, message_mods)
-	log_sayverb_talk(message, message_mods, tag = "blob hivemind telepathy")
-	var/messagepart = generate_messagepart(adjusted_message, message_mods = message_mods)
+	var/list/message_data = list()
+	var/adjusted_message = check_for_custom_say_emote(message, message_data)
+	log_sayverb_talk(message, message_data, tag = "blob hivemind telepathy")
+	var/messagepart = generate_messagepart(adjusted_message, message_data = message_data)
 	var/rendered = span_big(span_blob("<b>\[Blob Telepathy\] [name](<font color=\"[blobstrain.color]\">[blobstrain.name]</font>)</b> [messagepart]"))
 	relay_to_list_and_observers(rendered, GLOB.blob_telepathy_mobs, src, MESSAGE_TYPE_RADIO)
 

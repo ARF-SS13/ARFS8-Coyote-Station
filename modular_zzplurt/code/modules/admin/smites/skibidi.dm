@@ -137,7 +137,7 @@
 		AddElement(/datum/element/connect_loc, loc_connections)
 	name = initial(name)
 
-/obj/structure/toilet/skibidi/proc/handle_speech(datum/source, list/speech_args)
+/obj/structure/toilet/skibidi/proc/handle_speech(datum/source, list/speech_args, list/message_data)
 	SIGNAL_HANDLER
 
 	if(!cover_open)
@@ -151,6 +151,7 @@
 		return
 
 	speech_args[SPEECH_SPANS] |= SPAN_SANS
+	message_data[SATA_SPANS] |= SPAN_SANS
 	if(prob(50))
 		message = pick(\
 			"Dob dob!",\

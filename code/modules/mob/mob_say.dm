@@ -207,9 +207,9 @@
  * * MODE_WHISPER (Quiet speech)
  * * MODE_SING (Singing)
  * * MODE_HEADSET (Common radio channel)
- * * RADIO_EXTENSION the extension we're using (lots of values here)
- * * RADIO_KEY the radio key we're using, to make some things easier later (lots of values here)
- * * LANGUAGE_EXTENSION the language we're trying to use (lots of values here)
+ * * SATA_RADIO_EXTENSION the extension we're using (lots of values here)
+ * * SATA_RADIO_KEY the radio key we're using, to make some things easier later (lots of values here)
+ * * SATA_LANGUAGE_EXTENSION the language we're trying to use (lots of values here)
  */
 /mob/proc/get_message_mods(message, list/mods)
 	for(var/I in 1 to MESSAGE_MODS_LENGTH)
@@ -226,20 +226,20 @@
 		else if(key == ";" && !mods[MODE_HEADSET])
 			if(stat == CONSCIOUS) //necessary indentation so it gets stripped of the semicolon anyway.
 				mods[MODE_HEADSET] = TRUE
-		else if((key in GLOB.department_radio_prefixes) && length(message) > length(key) + 1 && !mods[RADIO_EXTENSION])
-			mods[RADIO_KEY] = LOWER_TEXT(message[1 + length(key)])
-			mods[RADIO_EXTENSION] = GLOB.department_radio_keys[mods[RADIO_KEY]]
+		else if((key in GLOB.department_radio_prefixes) && length(message) > length(key) + 1 && !mods[SATA_RADIO_EXTENSION])
+			mods[SATA_RADIO_KEY] = LOWER_TEXT(message[1 + length(key)])
+			mods[SATA_RADIO_EXTENSION] = GLOB.department_radio_keys[mods[SATA_RADIO_KEY]]
 			chop_to = length(key) + 2
-		else if(key == "," && !mods[LANGUAGE_EXTENSION])
+		else if(key == "," && !mods[SATA_LANGUAGE_EXTENSION])
 			for(var/ld in GLOB.all_languages)
 				var/datum/language/LD = ld
 				if(initial(LD.key) == message[1 + length(message[1])])
 					// No, you cannot speak in xenocommon just because you know the key
 					if(!can_speak_language(LD))
 						return message
-					mods[LANGUAGE_EXTENSION] = LD
+					mods[SATA_LANGUAGE_EXTENSION] = LD
 					chop_to = length(key) + length(initial(LD.key)) + 1
-			if(!mods[LANGUAGE_EXTENSION])
+			if(!mods[SATA_LANGUAGE_EXTENSION])
 				return message
 		else
 			return message

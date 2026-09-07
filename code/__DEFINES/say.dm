@@ -2,14 +2,63 @@
 	Defines for use in saycode and text formatting.
 	Currently contains speech spans and message modes
 */
-#define RADIO_EXTENSION "department specific"
-#define RADIO_KEY "department specific key"
-#define LANGUAGE_EXTENSION "language specific"
+#define SATA_RADIO_EXTENSION "department specific"
+#define SATA_RADIO_KEY "department specific key"
+#define SATA_LANGUAGE_EXTENSION "language specific"
 ///This is a mob that is forcing us to say something, so we can use the mob typing the text for bans rather than the one speaking.
-#define MANNEQUIN_CONTROLLED "mannequin controlled"
+#define SATA_MANNEQUIN_CONTROLLED "mannequin controlled"
 /// Message mod which contains a list of bonus "mutual understanding" to allow arbitrary understanding of any speech
-#define LANGUAGE_MUTUAL_BONUS "language mutual bonus"
-#define SAY_MOD_VERB "say_mod_verb"
+#define SATA_LANGUAGE_MUTUAL_BONUS "language mutual bonus"
+#define SATA_VERB "say_mod_verb"
+
+/// datas set by the speaker
+#define SATA_ORIGIN_OVERRIDE        "origin_override"
+#define SATA_SPEAKER                "speaker"
+#define SATA_ORIGIN                 "origin"
+#define SATA_MESSAGE                "message"
+#define SATA_MESSAGE_SPOKEN         "message_spoken"
+#define SATA_LANGUAGE               "language"
+#define SATA_SAYMODE                "saymode"
+		#define SAYMODE_SAY          1
+		#define SAYMODE_WHISPER      2
+		#define SAYMODE_ASK          3
+		#define SAYMODE_EXCLAIM      4
+		#define SAYMODE_YELL         5
+		#define SAYMODE_SING         6
+		#define SAYMODE_EMOTE        7
+		#define SAYMODE_EMOTE_QUICK  8
+		#define SAYMODE_RADIO        9
+		#define SAYMODE_SUCCUMB      10
+#define SATA_SAYMODE_MODS           "saymode_mods"
+		#define SAYMODE_MODIFIER_SLURRING    (1<<0)
+		#define SAYMODE_MODIFIER_STUTTERING  (1<<1)
+		#define SAYMODE_MODIFIER_SIGN        (1<<2)
+#define SATA_IS_RADIO               "is_radio"
+#define SATA_IS_EMOTE               "is_emote"
+#define SATA_IS_EMOTE_QUICK         "is_emote_quick"
+#define SATA_SPEAKER_IS_PLAYER      "speaker_is_player"
+#define SATA_RADIO_FREQ             "radio_freq"
+#define SATA_MESSAGE_RANGE          "message_range"
+#define SATA_MESSAGE_IS_SIGNED       "message_is_signed"
+
+/// datas set by the listener
+#define SATA_LISTENER               "listener" // technicaly set by the speaker
+#define SATA_MESSAGE_HEARD          "message_heard"
+#define SATA_DISPLAYED_SAYMODE       "saymode_composed"
+#define SATA_DISPLAYED_NAME         "displayed_name"
+#define SATA_RADIO_FREQ_COLOR       "radio_freq_color"
+#define SATA_RADIO_FREQ_NAME        "radio_freq_name"
+#define SATA_HEARER_IS_GHOST        "hearer_is_ghost"
+#define SATA_LANGUAGE_ICON          "language_icon"
+#define SATA_LANGUAGE_UNDERSTOOD    "language_understood"
+#define SATA_LINK                   "link"
+
+/// datas set by both (shared, usually)
+#define SATA_MESSAGE_DATA           "message_data"
+#define SATA_SPANS                  "spans"
+#define SATA_RADIO_TAG              "radio_tag"
+#define SATA_BODY_SPAN_CLASS        "body_span_class"
+#define SATA_BODY_SPAN_COLOR        "body_span_color"
 
 //Message modes. Each one defines a radio channel, more or less.
 //if you use ! as a mode key for some ungodly reason, change the first character for ion_num() so get_message_mode() doesn't freak out with state law prompts - shiz.

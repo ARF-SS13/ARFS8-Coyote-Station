@@ -36,7 +36,7 @@
 	RegisterSignal(affected_mob, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 
-/datum/disease/pierrot_throat/proc/handle_speech(datum/source, list/speech_args)
+/datum/disease/pierrot_throat/proc/handle_speech(datum/source, list/speech_args, list/message_data)
 	SIGNAL_HANDLER
 
 	var/message = speech_args[SPEECH_MESSAGE]
@@ -51,6 +51,7 @@
 				break
 	if (applied)
 		speech_args[SPEECH_SPANS] |= SPAN_CLOWN // a little bonus
+		message_data[SATA_SPANS] |= SPAN_CLOWN
 	message = jointext(split_message, " ")
 	speech_args[SPEECH_MESSAGE] = message
 

@@ -16,7 +16,8 @@
 	// FIXME: These flags are now pointless and have no effect
 	handle_whitespace = TRUE,
 	trailing_newline = TRUE,
-	confidential = FALSE // does nothing
+	confidential = FALSE, // does nothing
+	extra_data = list()
 )
 	// Useful where the integer 0 is the entire message. Use case is enabling to_chat(target, some_boolean) while preventing to_chat(target, "")
 	html = "[html]"
@@ -34,6 +35,7 @@
 	if(type) message["type"] = type
 	if(text) message["text"] = text
 	if(html) message["html"] = html
+	if(extra_data) message["extraData"] = extra_data
 	if(avoid_highlighting) message["avoidHighlighting"] = avoid_highlighting
 
 	// send it immediately
@@ -58,7 +60,8 @@
 	// FIXME: These flags are now pointless and have no effect
 	handle_whitespace = TRUE,
 	trailing_newline = TRUE,
-	confidential = FALSE // does nothing
+	confidential = FALSE, // does nothing
+	extra_data = list()
 )
 	if(isnull(Master) || !SSchat?.initialized || !MC_RUNNING(SSchat.init_stage))
 		to_chat_immediate(target, html, type, text, avoid_highlighting)
@@ -80,5 +83,6 @@
 	if(type) message["type"] = type
 	if(text) message["text"] = text
 	if(html) message["html"] = html
+	if(extra_data) message["extraData"] = SSvisualchat.Hornify(target, extra_data)
 	if(avoid_highlighting) message["avoidHighlighting"] = avoid_highlighting
 	SSchat.queue(target, message)

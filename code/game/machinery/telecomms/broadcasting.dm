@@ -78,7 +78,7 @@
 	datum/language/language,  // the language of the message
 	message,  // the text content of the message
 	spans,  // the list of spans applied to the message
-	list/message_mods, // the list of modification applied to the message. Whispering, singing, ect
+	list/message_data, // the list of modification applied to the message. Whispering, singing, ect
 )
 	src.source = source
 	src.frequency = frequency
@@ -92,7 +92,7 @@
 		"compression" = rand(COMPRESSION_VOCAL_SIGNAL_MIN, COMPRESSION_VOCAL_SIGNAL_MAX),
 		"language" = lang_instance.name,
 		"spans" = spans,
-		"mods" = message_mods,
+		"mods" = message_data,
 	)
 	levels = SSmapping.get_connected_levels(get_turf(source))
 
@@ -173,14 +173,16 @@
 	// Render the message and have everybody hear it.
 	// Always call this on the virtualspeaker to avoid issues.
 	var/spans = data["spans"]
-	var/list/message_mods = data["mods"]
+	var/list/message_data = data["mods"]
 
 	for(var/atom/movable/hearer as anything in receive)
 		if(!hearer)
 			stack_trace("null found in the hearers list returned by the spatial grid. this is bad")
 			continue
 		spans -= blacklisted_spans
-		hearer.Hear(virt, language, message, frequency, data["frequency_name"], data["frequency_color"], spans, message_mods, message_range = INFINITY)
+		var/list/radio_data = message_data.Copy()
+		radio_data[SATA_ORIGIN] = source
+		hearer.Hear(virt, language, message, frequency, data["frequency_name"], data["frequency_color"], spans, radio_data, message_range = INFINITY)
 
 	// This following recording is intended for research and feedback in the use of department radio channels
 	if(length(receive))

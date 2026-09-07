@@ -41,7 +41,7 @@
 	if(shrink_time >= 0) // negative shrink time is permanent
 		QDEL_IN(src, shrink_time)
 
-/datum/component/shrink/proc/handle_shrunk_speech(mob/living/little_guy, list/speech_args)
+/datum/component/shrink/proc/handle_shrunk_speech(mob/living/little_guy, list/speech_args, list/message_data)
 	SIGNAL_HANDLER
 	speech_args[SPEECH_SPANS] |= SPAN_SMALL_VOICE
 

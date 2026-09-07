@@ -11,7 +11,7 @@
 	filterproof = FALSE,
 	message_range = 7,
 	datum/saymode/saymode,
-	list/message_mods = list(),
+	list/message_data = list(),
 )
 	if(!HAS_TRAIT(src, TRAIT_SPEAKS_CLEARLY))
 		var/static/regex/tongueless_lower = new("\[gdntke]+", "g")
@@ -65,26 +65,26 @@
 		return FALSE
 	return dongle.special_channels & RADIO_SPECIAL_BINARY
 
-/mob/living/carbon/human/radio(message, list/message_mods = list(), list/spans, language) //Poly has a copy of this, lazy bastard
+/mob/living/carbon/human/radio(message, list/message_data = list(), list/spans, language) //Poly has a copy of this, lazy bastard
 	. = ..()
 	if(.)
 		return
 
 	//SPLURT EDIT - Extra inventory
-	if(message_mods[MODE_HEADSET])
-		if(ears && ears.talk_into(src, message, , spans, language, message_mods))
+	if(message_data[MODE_HEADSET])
+		if(ears && ears.talk_into(src, message, , spans, language, message_data))
 			return ITALICS | REDUCE_RANGE
-		if(ears_extra && ears_extra.talk_into(src, message, , spans, language, message_mods))
+		if(ears_extra && ears_extra.talk_into(src, message, , spans, language, message_data))
 			return ITALICS | REDUCE_RANGE
-	else if(message_mods[RADIO_EXTENSION] == MODE_DEPARTMENT)
-		if(ears && ears.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods))
+	else if(message_data[SATA_RADIO_EXTENSION] == MODE_DEPARTMENT)
+		if(ears && ears.talk_into(src, message, message_data[SATA_RADIO_EXTENSION], spans, language, message_data))
 			return ITALICS | REDUCE_RANGE
-		if(ears_extra && ears_extra.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods))
+		if(ears_extra && ears_extra.talk_into(src, message, message_data[SATA_RADIO_EXTENSION], spans, language, message_data))
 			return ITALICS | REDUCE_RANGE
-	else if(GLOB.default_radio_channels[message_mods[RADIO_EXTENSION]])
-		if(ears && ears.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods))
+	else if(GLOB.default_radio_channels[message_data[SATA_RADIO_EXTENSION]])
+		if(ears && ears.talk_into(src, message, message_data[SATA_RADIO_EXTENSION], spans, language, message_data))
 			return ITALICS | REDUCE_RANGE
-		if(ears_extra && ears_extra.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods))
+		if(ears_extra && ears_extra.talk_into(src, message, message_data[SATA_RADIO_EXTENSION], spans, language, message_data))
 			return ITALICS | REDUCE_RANGE
 
 	return FALSE

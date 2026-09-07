@@ -506,19 +506,19 @@ GLOBAL_LIST_INIT(command_strings, list(
 		return
 	pa_system.announce(message, channel)
 
-/mob/living/basic/bot/radio(message, list/message_mods = list(), list/spans, language)
+/mob/living/basic/bot/radio(message, list/message_data = list(), list/spans, language)
 	. = ..()
 	if(.)
 		return
 
-	if(message_mods[MODE_HEADSET])
-		internal_radio.talk_into(src, message, , spans, language, message_mods)
+	if(message_data[MODE_HEADSET])
+		internal_radio.talk_into(src, message, , spans, language, message_data)
 		return REDUCE_RANGE
-	if(message_mods[RADIO_EXTENSION] == MODE_DEPARTMENT)
-		internal_radio.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
+	if(message_data[SATA_RADIO_EXTENSION] == MODE_DEPARTMENT)
+		internal_radio.talk_into(src, message, message_data[SATA_RADIO_EXTENSION], spans, language, message_data)
 		return REDUCE_RANGE
-	if(message_mods[RADIO_EXTENSION] in GLOB.default_radio_channels)
-		internal_radio.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
+	if(message_data[SATA_RADIO_EXTENSION] in GLOB.default_radio_channels)
+		internal_radio.talk_into(src, message, message_data[SATA_RADIO_EXTENSION], spans, language, message_data)
 		return REDUCE_RANGE
 
 /mob/living/basic/bot/proc/drop_part(obj/item/drop_item, dropzone)

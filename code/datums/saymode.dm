@@ -18,14 +18,14 @@
  * message - The message to be said.
  * spans - A list of spans to attach to the message.
  * language - The language the message was said in.
- * message_mods - A list of message modifiers, i.e. whispering/singing.
+ * message_data - A list of message modifiers, i.e. whispering/singing.
  */
 /datum/saymode/proc/handle_message(
 	mob/living/user,
 	message,
 	list/spans = list(),
 	datum/language/language,
-	list/message_mods = list()
+	list/message_data = list()
 )
 	return NONE
 
@@ -53,11 +53,19 @@
 	message,
 	list/spans = list(),
 	datum/language/language,
-	list/message_mods = list()
+	list/message_data = list()
 )
 	var/datum/antagonist/changeling/ling_sender = IS_CHANGELING(user)
 	user.log_talk(message, LOG_SAY, tag = "changeling [ling_sender.changelingID]")
 	var/msg = span_changeling("<b>[ling_sender.changelingID]:</b> [message]")
+	message_data[SATA_MESSAGE_SPOKEN] = message
+	message_data[SATA_MESSAGE_HEARD] = message
+	message_data[SATA_SPANS] = spans
+	message_data[SATA_DISPLAYED_NAME] = ling_sender.changelingID
+	message_data[SATA_ORIGIN] = ling_sender.owner.current
+	message_data[SATA_SPEAKER] = ling_sender.owner.current
+	user.say_mod(message, message_data)
+	message_data[SATA_DISPLAYED_SAYMODE] = "projects over the hivemind..."
 
 	// Send the message to our other changelings.
 	for(var/datum/antagonist/changeling/ling_receiver in GLOB.antagonists)
@@ -70,12 +78,17 @@
 		// can't receive messages on the hivemind right now
 		if(HAS_TRAIT(ling_mob, TRAIT_CHANGELING_HIVEMIND_MUTE))
 			continue
-		to_chat(ling_mob, msg, type = MESSAGE_TYPE_RADIO, avoid_highlighting = ling_mob == user)
+		var/list/recipient_data = message_data.Copy()
+		recipient_data[SATA_LISTENER] = ling_mob
+		to_chat(ling_mob, msg, type = MESSAGE_TYPE_RADIO, avoid_highlighting = ling_mob == user, extra_data = message_data)
 
 	for(var/mob/dead/ghost as anything in GLOB.dead_mob_list)
-		to_chat(ghost, "[FOLLOW_LINK(ghost, user)] [msg]", type = MESSAGE_TYPE_RADIO)
+		var/linkie = FOLLOW_LINK(ghost, user)
+		var/list/ghost_message_data = message_data.Copy()
+		ghost_message_data[SATA_HEARER_IS_GHOST] = TRUE
+		ghost_message_data[SATA_LINK] = linkie
+		to_chat(ghost, "[linkie] [msg]", type = MESSAGE_TYPE_RADIO, extra_data = ghost_message_data)
 	return SAYMODE_MESSAGE_HANDLED
-
 
 /datum/saymode/xeno
 	key = MODE_KEY_ALIEN
@@ -92,9 +105,9 @@
 	message,
 	list/spans = list(),
 	datum/language/language,
-	list/message_mods = list()
+	list/message_data = list()
 )
-	user.alien_talk(message, spans, message_mods)
+	user.alien_talk(message, spans, message_data)
 	return SAYMODE_MESSAGE_HANDLED
 
 
@@ -112,7 +125,7 @@
 	message,
 	list/spans = list(),
 	datum/language/language,
-	list/message_mods = list()
+	list/message_data = list()
 )
 	var/mob/living/carbon/carbon_user = user
 	var/obj/item/organ/vocal_cords/our_vocal_cords = carbon_user.get_organ_slot(ORGAN_SLOT_VOICE)
@@ -137,13 +150,13 @@
 	message,
 	list/spans = list(),
 	datum/language/language,
-	list/message_mods = list()
+	list/message_data = list()
 )
 	if(isdrone(user))
 		var/mob/living/basic/drone/drone_user = user
-		drone_user.drone_chat(message, spans, message_mods)
+		drone_user.drone_chat(message, spans, message_data)
 	else if(user.binarycheck())
-		user.robot_talk(message, spans, message_mods)
+		user.robot_talk(message, spans, message_data)
 	return SAYMODE_MESSAGE_HANDLED
 
 
@@ -162,8 +175,8 @@
 	message,
 	list/spans = list(),
 	datum/language/language,
-	list/message_mods = list()
+	list/message_data = list()
 )
 	var/mob/living/silicon/ai/ai_user = user
-	ai_user.holopad_talk(message, spans, language, message_mods)
+	ai_user.holopad_talk(message, spans, language, message_data)
 	return SAYMODE_MESSAGE_HANDLED

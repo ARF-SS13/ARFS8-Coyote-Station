@@ -280,7 +280,7 @@
 		set_broadcasting(FALSE, actual_setting = FALSE)//fake set them to off
 		set_listening(FALSE, actual_setting = FALSE)
 
-/obj/item/radio/talk_into(atom/movable/talking_movable, message, channel, list/spans, datum/language/language, list/message_mods)
+/obj/item/radio/talk_into(atom/movable/talking_movable, message, channel, list/spans, datum/language/language, list/message_data)
 	if(SEND_SIGNAL(talking_movable, COMSIG_MOVABLE_USING_RADIO, src) & COMPONENT_CANNOT_USE_RADIO)
 		return NONE
 	if(SEND_SIGNAL(src, COMSIG_RADIO_NEW_MESSAGE, talking_movable, message, channel) & COMPONENT_CANNOT_USE_RADIO)
@@ -290,22 +290,22 @@
 		spans = list(talking_movable.speech_span)
 	if(!language)
 		language = talking_movable.get_selected_language()
-	INVOKE_ASYNC(src, PROC_REF(talk_into_impl), talking_movable, message, channel, LAZYLISTDUPLICATE(spans), language, LAZYLISTDUPLICATE(message_mods))
+	INVOKE_ASYNC(src, PROC_REF(talk_into_impl), talking_movable, message, channel, LAZYLISTDUPLICATE(spans), language, LAZYLISTDUPLICATE(message_data))
 	return ITALICS | REDUCE_RANGE
 
 /**
  * Handles talking into the radio
  *
- * Unlike most speech related procs, spans and message_mods are not guaranteed to be lists
+ * Unlike most speech related procs, spans and message_data are not guaranteed to be lists
  *
  * * talking_movable - the atom that is talking
  * * message - the message to be spoken
  * * channel - the channel to be spoken on
  * * spans - the spans to be used, lazylist
  * * language - the language to be spoken in. (Should) never be null
- * * message_mods - the message mods to be used, lazylist
+ * * message_data - the message mods to be used, lazylist (defaults to an empty list)
  */
-/obj/item/radio/proc/talk_into_impl(atom/movable/talking_movable, message, channel, list/spans, datum/language/language, list/message_mods)
+/obj/item/radio/proc/talk_into_impl(atom/movable/talking_movable, message, channel, list/spans, datum/language/language, list/message_data = list())
 	if(!on)
 		return // the device has to be on
 	if(!talking_movable || !message)
@@ -317,12 +317,14 @@
 
 	if(use_command)
 		spans |= SPAN_COMMAND
+		message_data[SATA_SPANS] |= SPAN_COMMAND
 
 	var/radio_message = message
-	if(LAZYACCESS(message_mods, WHISPER_MODE))
+	if(LAZYACCESS(message_data, WHISPER_MODE))
 		// Radios don't pick up whispers very well
 		radio_message = stars(radio_message)
 		spans |= SPAN_ITALICS
+		message_data[SATA_SPANS] |= SPAN_ITALICS
 
 	flick_overlay_view(overlay_mic_active, 5 SECONDS)
 
@@ -356,10 +358,20 @@
 	var/atom/movable/virtualspeaker/speaker = new(null, talking_movable, src)
 
 	// Construct the signal
-	var/datum/signal/subspace/vocal/signal = new(src, freq, speaker, language, radio_message, spans, message_mods)
+	var/datum/signal/subspace/vocal/signal = new(src, freq, speaker, language, radio_message, spans, message_data)
 
 	// Independent radios, on the CentCom frequency, reach all independent radios
-	if ((special_channels & RADIO_SPECIAL_CENTCOM) && (freq == FREQ_CENTCOM || freq == FREQ_STATUS_DISPLAYS || freq == FREQ_FACTION || freq == FREQ_CYBERSUN || freq == FREQ_INTERDYNE || freq == FREQ_GUILD || freq == FREQ_TARKON || freq == FREQ_TERRAGOV)) //SKYRAT EDIT CHANGE - FACTION, MAPPING, TERRAGOV
+	var/static/alist/centcom_frequencies = alist(
+		FREQ_CENTCOM          = TRUE,
+		FREQ_STATUS_DISPLAYS  = TRUE,
+		FREQ_FACTION          = TRUE,
+		FREQ_CYBERSUN         = TRUE,
+		FREQ_INTERDYNE        = TRUE,
+		FREQ_GUILD            = TRUE,
+		FREQ_TARKON           = TRUE,
+		FREQ_TERRAGOV         = TRUE,
+		)
+	if ((special_channels & RADIO_SPECIAL_CENTCOM) && centcom_frequencies[freq]) //SKYRAT EDIT CHANGE - FACTION, MAPPING, TERRAGOV
 		signal.data["compression"] = 0
 		signal.transmission_method = TRANSMISSION_SUPERSPACE
 		signal.levels = list(0)
@@ -369,11 +381,16 @@
 	if(isliving(talking_movable))
 		var/mob/living/talking_living = talking_movable
 		var/volume_modifier = (talking_living.client?.prefs.read_preference(/datum/preference/numeric/volume/sound_radio_noise))
-		if(radio_noise && !HAS_TRAIT(talking_living, TRAIT_DEAF) && volume_modifier && signal.frequency != FREQ_COMMON && !LAZYACCESS(message_mods, MODE_SEQUENTIAL) && COOLDOWN_FINISHED(src, audio_cooldown))
-			COOLDOWN_START(src, audio_cooldown, 0.5 SECONDS)
-			var/sound/radio_noise = sound('sound/items/radio/radio_talk.ogg', volume = volume_modifier)
-			radio_noise.frequency = get_rand_frequency_low_range()
-			SEND_SOUND(talking_living, radio_noise)
+		if(radio_noise)
+			if(!HAS_TRAIT(talking_living, TRAIT_DEAF))
+				if(volume_modifier)
+					if(signal.frequency != FREQ_COMMON)
+						if(!LAZYACCESS(message_data, MODE_SEQUENTIAL))
+							if(COOLDOWN_FINISHED(src, audio_cooldown))
+								COOLDOWN_START(src, audio_cooldown, 0.5 SECONDS)
+								var/sound/radio_noise = sound('sound/items/radio/radio_talk.ogg', volume = volume_modifier)
+								radio_noise.frequency = get_rand_frequency_low_range()
+								SEND_SOUND(talking_living, radio_noise)
 
 	// All radios make an attempt to use the subspace system first
 	signal.send_to_receivers()
@@ -397,9 +414,9 @@
 	signal.levels = SSmapping.get_connected_levels(T)
 	signal.broadcast()
 
-/obj/item/radio/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, list/spans, list/message_mods = list(), message_range)
+/obj/item/radio/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, list/spans, list/message_data = list(), message_range)
 	. = ..()
-	if(radio_freq || !broadcasting || get_dist(src, speaker) > canhear_range || message_mods[MODE_RELAY])
+	if(radio_freq || !broadcasting || get_dist(src, speaker) > canhear_range || message_data[MODE_RELAY])
 		return
 	// BUBBER Edit Start - the worst snowflake code for vore
 	if(istype(speaker.loc, /obj/vore_belly))
@@ -409,24 +426,24 @@
 	// BUBBER Edit End
 	var/list/filtered_mods = list()
 
-	if (message_mods[MODE_SING])
-		filtered_mods[MODE_SING] = message_mods[MODE_SING]
-	if (message_mods[WHISPER_MODE])
-		filtered_mods[WHISPER_MODE] = message_mods[WHISPER_MODE]
-	if (message_mods[SAY_MOD_VERB])
-		filtered_mods[SAY_MOD_VERB] = message_mods[SAY_MOD_VERB]
-	if (message_mods[MODE_CUSTOM_SAY_EMOTE])
-		filtered_mods[MODE_CUSTOM_SAY_EMOTE] = message_mods[MODE_CUSTOM_SAY_EMOTE]
-		filtered_mods[MODE_CUSTOM_SAY_ERASE_INPUT] = message_mods[MODE_CUSTOM_SAY_ERASE_INPUT]
-	if(message_mods[RADIO_EXTENSION] == MODE_L_HAND || message_mods[RADIO_EXTENSION] == MODE_R_HAND)
+	if (message_data[MODE_SING])
+		filtered_mods[MODE_SING] = message_data[MODE_SING]
+	if (message_data[WHISPER_MODE])
+		filtered_mods[WHISPER_MODE] = message_data[WHISPER_MODE]
+	if (message_data[SATA_VERB])
+		filtered_mods[SATA_VERB] = message_data[SATA_VERB]
+	if (message_data[MODE_CUSTOM_SAY_EMOTE])
+		filtered_mods[MODE_CUSTOM_SAY_EMOTE] = message_data[MODE_CUSTOM_SAY_EMOTE]
+		filtered_mods[MODE_CUSTOM_SAY_ERASE_INPUT] = message_data[MODE_CUSTOM_SAY_ERASE_INPUT]
+	if(message_data[SATA_RADIO_EXTENSION] == MODE_L_HAND || message_data[SATA_RADIO_EXTENSION] == MODE_R_HAND)
 		// try to avoid being heard double
 		if (loc == speaker && ismob(speaker))
 			var/mob/mob_speaker = speaker
 			var/idx = mob_speaker.get_held_index_of_item(src)
 			// left hands are odd slots
-			if (idx && (idx % 2) == (message_mods[RADIO_EXTENSION] == MODE_L_HAND))
+			if (idx && (idx % 2) == (message_data[SATA_RADIO_EXTENSION] == MODE_L_HAND))
 				return
-	talk_into(speaker, raw_message, spans=spans, language=message_language, message_mods=filtered_mods)
+	talk_into(speaker, raw_message, spans=spans, language=message_language, message_data=filtered_mods)
 
 /// Checks if this radio can receive on the given frequency.
 /obj/item/radio/proc/can_receive(input_frequency, list/levels)

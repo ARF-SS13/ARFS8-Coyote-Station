@@ -95,11 +95,11 @@
 		/datum/language/nekomimetic,
 	)
 
-/obj/item/organ/tongue/proc/handle_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/proc/handle_speech(datum/source, list/speech_args, list/message_data)
 	SIGNAL_HANDLER
 
 	if(should_modify_speech(source, speech_args))
-		modify_speech(source, speech_args)
+		modify_speech(source, speech_args, message_data)
 
 /obj/item/organ/tongue/proc/should_modify_speech(datum/source, list/speech_args)
 	if(speech_args[SPEECH_LANGUAGE] in languages_native) // Speaking a native language?
@@ -108,7 +108,7 @@
 		return FALSE // Don't modify speech
 	return TRUE
 
-/obj/item/organ/tongue/proc/modify_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/proc/modify_speech(datum/source, list/speech_args, list/message_data)
 	return speech_args[SPEECH_MESSAGE]
 
 /**
@@ -403,7 +403,7 @@
 		else
 			. += span_notice("It is attuned to [mothership].")
 
-/obj/item/organ/tongue/abductor/modify_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/abductor/modify_speech(datum/source, list/speech_args, list/message_data)
 	//Hacks
 	var/message = speech_args[SPEECH_MESSAGE]
 	var/mob/living/carbon/human/user = source
@@ -414,6 +414,7 @@
 		if(!istype(tongue))
 			continue
 		if(mothership == tongue.mothership)
+			//? todo: Visualchat for abductors
 			to_chat(living_mob, rendered, type = MESSAGE_TYPE_RADIO, avoid_highlighting = user == living_mob)
 
 	for(var/mob/dead_mob in GLOB.dead_mob_list)
@@ -450,7 +451,7 @@
 			add_word_to_translations(english_word, zombie_word)
 	english_to_zombie = sort_list(english_to_zombie) // Alphabetizes the list (for debugging)
 
-/obj/item/organ/tongue/zombie/modify_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/zombie/modify_speech(datum/source, list/speech_args, list/message_data)
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		// setup the global list for translation if it hasn't already been done
@@ -507,7 +508,7 @@
 		/datum/language/monkey,
 	)
 
-/obj/item/organ/tongue/alien/modify_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/alien/modify_speech(datum/source, list/speech_args, list/message_data)
 	var/datum/saymode/xeno/hivemind = speech_args[SPEECH_SAYMODE]
 	if(hivemind)
 		return
@@ -537,7 +538,7 @@
 /obj/item/organ/tongue/bone/get_possible_languages()
 	return ..() + /datum/language/calcic
 
-/obj/item/organ/tongue/bone/modify_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/bone/modify_speech(datum/source, list/speech_args, list/message_data)
 	if (chattering)
 		chatter(speech_args[SPEECH_MESSAGE], phomeme_type, source)
 	switch(phomeme_type)
@@ -545,6 +546,7 @@
 			speech_args[SPEECH_SPANS] |= SPAN_SANS
 		if("papyrus")
 			speech_args[SPEECH_SPANS] |= SPAN_PAPYRUS
+	message_data[SATA_SPANS] |= speech_args[SPEECH_SPANS]
 
 /obj/item/organ/tongue/bone/plasmaman
 	name = "plasma bone \"tongue\""
@@ -572,8 +574,9 @@
 /obj/item/organ/tongue/robot/could_speak_language(datum/language/language_path)
 	return TRUE // THE MAGIC OF ELECTRONICS
 
-/obj/item/organ/tongue/robot/modify_speech(datum/source, list/speech_args)
+/obj/item/organ/tongue/robot/modify_speech(datum/source, list/speech_args, list/message_data)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT
+	message_data[SATA_SPANS] |= speech_args[SPEECH_SPANS]
 
 /obj/item/organ/tongue/robot/on_mob_insert(mob/living/carbon/receiver)
 	. = ..()

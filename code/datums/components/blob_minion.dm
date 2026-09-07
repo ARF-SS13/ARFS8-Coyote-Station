@@ -178,11 +178,11 @@
 	return COMPONENT_CANNOT_SPEAK
 
 /datum/component/blob_minion/proc/send_blob_telepathy(mob/living/minion, message)
-	var/list/message_mods = list()
+	var/list/message_data = list()
 	// Note: check_for_custom_say_emote can sleep.
-	var/adjusted_message = minion.check_for_custom_say_emote(message, message_mods)
-	minion.log_sayverb_talk(message, message_mods, tag = "blob hivemind telepathy")
-	var/spanned_message = minion.generate_messagepart(adjusted_message, message_mods = message_mods)
+	var/adjusted_message = minion.check_for_custom_say_emote(message, message_data)
+	minion.log_sayverb_talk(message, message_data, tag = "blob hivemind telepathy")
+	var/spanned_message = minion.generate_messagepart(adjusted_message, message_data = message_data)
 	var/rendered = span_blob("<b>\[Blob Telepathy\] [minion.real_name]</b> [spanned_message]")
 	relay_to_list_and_observers(rendered, GLOB.blob_telepathy_mobs, minion, MESSAGE_TYPE_RADIO)
 

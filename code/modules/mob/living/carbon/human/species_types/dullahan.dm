@@ -204,7 +204,7 @@
 				var/obj/head = dullahan_species.my_head.loc
 				if(speech_args[SPEECH_MODS][WHISPER_MODE]) // whisper away
 					speech_args[SPEECH_SPANS] |= SPAN_ITALICS
-				head.say(speech_args[SPEECH_MESSAGE], spans = speech_args[SPEECH_SPANS], sanitize = FALSE, language = speech_args[SPEECH_LANGUAGE], message_range = speech_args[SPEECH_RANGE], message_mods = speech_args[SPEECH_MODS])
+				head.say(speech_args[SPEECH_MESSAGE], spans = speech_args[SPEECH_SPANS], sanitize = FALSE, language = speech_args[SPEECH_LANGUAGE], message_range = speech_args[SPEECH_RANGE], message_data = speech_args[SPEECH_MODS])
 	speech_args[SPEECH_MESSAGE] = ""
 
 /obj/item/organ/ears/dullahan
@@ -276,7 +276,7 @@
 	detached_head.copy_appearance_from(headless, overwrite_eyes = TRUE)
 	detached_head.update_icon_dropped()
 
-/obj/item/dullahan_relay/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, list/spans, list/message_mods = list(), message_range)
+/obj/item/dullahan_relay/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, list/spans, list/message_data = list(), message_range)
 	. = ..()
 	var/dist = get_dist(speaker, src) - message_range
 	if(dist > 0 && dist <= EAVESDROP_EXTRA_RANGE)
@@ -285,7 +285,7 @@
 		return FALSE
 	if(!owner)
 		return FALSE
-	return owner.Hear(speaker, message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, spans, message_mods, message_range = INFINITY)
+	return owner.Hear(speaker, message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, spans, message_data, message_range = INFINITY)
 
 ///Stops dullahans from gibbing when regenerating limbs
 /obj/item/dullahan_relay/proc/unlist_head(datum/source, list/excluded_zones)

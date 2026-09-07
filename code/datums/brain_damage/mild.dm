@@ -244,6 +244,9 @@
 		message = jointext(new_message, " ")
 
 	speech_args[SPEECH_MESSAGE] = trim(message)
+	if(!islist(speech_args[SPEECH_MODS]))
+		return
+	speech_args[SPEECH_MODS][SATA_MESSAGE_SPOKEN] = speech_args[SPEECH_MESSAGE]
 
 /datum/brain_trauma/mild/mind_echo
 	name = "Mind Echo"
@@ -277,6 +280,9 @@
 		if(prob(25))
 			var/deja_vu = pick_n_take(speak_dejavu)
 			speech_args[SPEECH_MESSAGE] = deja_vu
+			if(!islist(speech_args[SPEECH_MODS]))
+				return
+			speech_args[SPEECH_MODS][SATA_MESSAGE_SPOKEN] = speech_args[SPEECH_MESSAGE]
 			return
 	if(speak_dejavu.len >= 15)
 		if(prob(50))

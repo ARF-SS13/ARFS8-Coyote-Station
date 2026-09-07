@@ -16,13 +16,13 @@
 	. = ..()
 	UnregisterSignal(source, COMSIG_ITEM_TALK_INTO)
 
-/datum/element/toy_talk/proc/do_talk(obj/item/source, mob/speaker, message, channel, list/spans, language, list/message_mods)
+/datum/element/toy_talk/proc/do_talk(obj/item/source, mob/speaker, message, channel, list/spans, language, list/message_data)
 	SIGNAL_HANDLER
 
-	if(!ismob(speaker) || message_mods[MODE_HEADSET] || message_mods[MODE_RELAY])
+	if(!ismob(speaker) || message_data[MODE_HEADSET] || message_data[MODE_RELAY])
 		return NONE
 
-	message_mods[MODE_RELAY] = TRUE // Redundant (given NOPASS) but covers our bases
+	message_data[MODE_RELAY] = TRUE // Redundant (given NOPASS) but covers our bases
 	speaker.log_talk(message, LOG_SAY, tag = "toy talk ([source])")
-	source.say(message, language = language, sanitize = FALSE, message_mods = list(MODE_RELAY = TRUE))
+	source.say(message, language = language, sanitize = FALSE, message_data = list(MODE_RELAY = TRUE))
 	return NOPASS

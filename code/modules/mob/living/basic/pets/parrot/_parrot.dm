@@ -160,22 +160,22 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	. = ..()
 	. += "Held Item: [held_item]"
 
-/mob/living/basic/parrot/radio(message, list/message_mods = list(), list/spans, language) //literally copied from human/radio(), but there's no other way to do this. at least it's better than it used to be.
+/mob/living/basic/parrot/radio(message, list/message_data = list(), list/spans, language) //literally copied from human/radio(), but there's no other way to do this. at least it's better than it used to be.
 	. = ..()
 	if(. != NONE)
 		return
 
-	if(message_mods[MODE_HEADSET])
+	if(message_data[MODE_HEADSET])
 		if(ears)
-			ears.talk_into(src, message, , spans, language, message_mods)
+			ears.talk_into(src, message, , spans, language, message_data)
 		return ITALICS | REDUCE_RANGE
-	else if(message_mods[RADIO_EXTENSION] == MODE_DEPARTMENT)
+	else if(message_data[SATA_RADIO_EXTENSION] == MODE_DEPARTMENT)
 		if(ears)
-			ears.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
+			ears.talk_into(src, message, message_data[SATA_RADIO_EXTENSION], spans, language, message_data)
 		return ITALICS | REDUCE_RANGE
-	else if(message_mods[RADIO_EXTENSION] in GLOB.default_radio_channels)
+	else if(message_data[SATA_RADIO_EXTENSION] in GLOB.default_radio_channels)
 		if(ears)
-			ears.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
+			ears.talk_into(src, message, message_data[SATA_RADIO_EXTENSION], spans, language, message_data)
 			return ITALICS | REDUCE_RANGE
 
 	return NONE

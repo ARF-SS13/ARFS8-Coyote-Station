@@ -117,11 +117,11 @@
 /obj/item/mod/control/proc/delete_link_visual(mob/living/old_user)
 	return delete_link_visual_generic(mod_link, old_user)
 
-/obj/item/mod/control/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, list/spans, list/message_mods, message_range)
+/obj/item/mod/control/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, list/spans, list/message_data, message_range)
 	. = ..()
 	if(speaker != wearer && speaker != ai_assistant)
 		return
-	mod_link.visual.say(raw_message, spans = spans, sanitize = FALSE, language = message_language, message_range = 2, message_mods = message_mods)
+	mod_link.visual.say(raw_message, spans = spans, sanitize = FALSE, language = message_language, message_range = 2, message_data = message_data)
 
 /obj/item/mod/control/proc/on_overlay_change(atom/source, cache_index, overlay)
 	SIGNAL_HANDLER
@@ -300,11 +300,11 @@
 		old_user.update_worn_neck()
 	return delete_link_visual_generic(mod_link, old_user)
 
-/obj/item/clothing/neck/link_scryer/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, list/spans, list/message_mods, message_range)
+/obj/item/clothing/neck/link_scryer/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, list/spans, list/message_data, message_range)
 	. = ..()
 	if(speaker != loc)
 		return
-	mod_link.visual.say(raw_message, spans = spans, sanitize = FALSE, language = message_language, message_range = 3, message_mods = message_mods)
+	mod_link.visual.say(raw_message, spans = spans, sanitize = FALSE, language = message_language, message_range = 3, message_data = message_data)
 
 /obj/item/clothing/neck/link_scryer/proc/on_overlay_change(atom/source, cache_index, overlay)
 	SIGNAL_HANDLER

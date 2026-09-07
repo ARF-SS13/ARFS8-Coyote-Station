@@ -21,13 +21,14 @@
 	. = ..()
 	UnregisterSignal(user, COMSIG_MOB_SAY)
 
-/obj/item/skillchip/musical/proc/make_music(mob/living/carbon/source, list/say_args)
+/obj/item/skillchip/musical/proc/make_music(mob/living/carbon/source, list/say_args, list/message_data)
 	SIGNAL_HANDLER
 
 	var/raw_message = say_args[SPEECH_MESSAGE]
 	var/list/words = splittext(raw_message, " ")
 	if(length(words) <= 1)
 		say_args[SPEECH_MODS][MODE_SING] = TRUE
+		message_data[SATA_SAYMODE] = MODE_SING
 		return
 	var/last_word = words[length(words)]
 	var/num_chars = length_char(last_word)
@@ -67,6 +68,7 @@
 	// now we siiiiiiing
 	say_args[SPEECH_MESSAGE] = jointext(words, " ")
 	say_args[SPEECH_MODS][MODE_SING] = TRUE
+	message_data[SATA_SAYMODE] = MODE_SING
 
 /obj/item/skillchip/musical/examine(mob/user)
 	. = ..()

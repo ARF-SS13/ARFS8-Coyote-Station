@@ -1,5 +1,9 @@
-/mob/living/proc/robot_talk(message, list/spans = list(), list/message_mods = list())
-	log_sayverb_talk(message, message_mods, tag="binary")
+/mob/living/proc/robot_talk(message, list/spans = list(), list/message_data = list())
+	log_sayverb_talk(message, message_data, tag="binary")
+	message_data[SATA_MESSAGE_SPOKEN] = message
+	message_data[SATA_MESSAGE_HEARD] = message
+	message_data[SATA_ORIGIN] = src
+	message_data[SATA_SPEAKER] = src
 
 	var/designation = "Default Cyborg"
 	spans |= SPAN_ROBOT
@@ -18,7 +22,7 @@
 	var/messagepart = generate_messagepart(
 		message,
 		spans,
-		message_mods,
+		message_data,
 	)
 
 	var/namepart = name
@@ -85,17 +89,17 @@
 		return FALSE
 	return TRUE
 
-/mob/living/silicon/radio(message, list/message_mods = list(), list/spans, language)
+/mob/living/silicon/radio(message, list/message_data = list(), list/spans, language)
 	. = ..()
 	if(.)
 		return
-	if(message_mods[MODE_HEADSET])
+	if(message_data[MODE_HEADSET])
 		if(radio)
-			radio.talk_into(src, message, , spans, language, message_mods)
+			radio.talk_into(src, message, , spans, language, message_data)
 		return NOPASS
-	else if(message_mods[RADIO_EXTENSION] in GLOB.default_radio_channels)
+	else if(message_data[SATA_RADIO_EXTENSION] in GLOB.default_radio_channels)
 		if(radio)
-			radio.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
+			radio.talk_into(src, message, message_data[SATA_RADIO_EXTENSION], spans, language, message_data)
 			return NOPASS
 
 	return FALSE

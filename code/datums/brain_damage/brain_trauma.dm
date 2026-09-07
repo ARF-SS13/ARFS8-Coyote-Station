@@ -70,7 +70,7 @@
 	UnregisterSignal(owner, COMSIG_MOVABLE_HEAR)
 
 //Called when speaking
-/datum/brain_trauma/proc/handle_speech(datum/source, list/speech_args)
+/datum/brain_trauma/proc/handle_speech(datum/source, list/speech_args, list/message_data)
 	SIGNAL_HANDLER
 
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
