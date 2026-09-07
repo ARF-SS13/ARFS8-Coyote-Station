@@ -1797,4 +1797,5 @@
 	to_chat(A, span_notice("[src] seems to be subtly showing you interest?"))
 	playsound_local(src, 'modular_coyote/sounds/barks/blush.ogg', 80, TRUE)
 	A.playsound_local(A, 'modular_coyote/sounds/barks/blush.ogg', 80, TRUE)
+	return TRUE
 
