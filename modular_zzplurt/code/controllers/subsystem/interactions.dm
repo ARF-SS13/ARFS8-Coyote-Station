@@ -218,3 +218,6 @@ PROCESSING_SUBSYSTEM_DEF(interactions)
 		fluid_paths[initial(R.name)] = reagent_path
 
 	genital_fluids_paths = fluid_paths
+
+/mob/living/AltMiddleClickOn(atom/target)
+
