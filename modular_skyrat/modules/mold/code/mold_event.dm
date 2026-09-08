@@ -6,6 +6,11 @@
 #define EVENT_MIDPOP_THRESHOLD 75
 #define EVENT_HIGHPOP_THRESHOLD 90
 
+//Notation For Event Awareness
+/*
+Should req security at a minimum.  Preferably a warden/armory access.
+*/
+
 /datum/round_event_control/mold
 	name = "Moldies"
 	description = "A mold outbreak on the station. The mold will spread across the station if not contained."

@@ -18,6 +18,11 @@
 		// SKYRAT EDIT ADD END
 		fake_virus_victims += victim
 
+//Notation For Event Awareness
+/*
+Definitely still make this req medical
+*/
+
 	//first we do hard status effect victims
 	var/defacto_min = min(3, length(fake_virus_victims))
 	if(defacto_min <= 0)// event will hit 1-3 people by default, but will do 1-2 or just 1 if only those many candidates are available

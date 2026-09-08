@@ -7,6 +7,11 @@
 	description = "Fakes an event announcement."
 	admin_setup = list(/datum/event_admin_setup/listed_options/false_alarm)
 
+//Notation For Event Awareness
+/*
+This should have no requirements behind it, to give the illusion that things aren't fully controlled by who's online.  Fake them the fuck out.
+*/
+
 /datum/round_event_control/falsealarm/can_spawn_event(players_amt, allow_magic = FALSE)
 	. = ..()
 	if(!.)

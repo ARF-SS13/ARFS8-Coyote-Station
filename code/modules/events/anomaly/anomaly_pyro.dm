@@ -2,6 +2,11 @@
 	name = "Anomaly: Pyroclastic"
 	typepath = /datum/round_event/anomaly/anomaly_pyro
 
+//Notation For Event Awareness
+/*
+Check for atmos techs/engineers, as well as science and med.  If just engineers, then just fire.  If just sci then the slime. If both, then both.
+*/
+
 	max_occurrences = 5
 	weight = 20
 	description = "This anomaly sets things on fire, and creates a pyroclastic slime."

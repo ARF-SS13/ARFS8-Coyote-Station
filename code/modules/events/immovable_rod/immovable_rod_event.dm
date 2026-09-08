@@ -11,6 +11,11 @@
 	max_wizard_trigger_potency = 7
 	admin_setup = list(/datum/event_admin_setup/set_location/immovable_rod, /datum/event_admin_setup/question/immovable_rod)
 
+//Notation For Event Awareness
+/*
+This should require a nearly full engineering team.  At least likely 2 or 3 engineers and a CE.
+*/
+
 /datum/round_event/immovable_rod
 	announce_when = 5
 	/// Admins can pick a spot the rod will aim for.

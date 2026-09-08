@@ -11,6 +11,11 @@ GLOBAL_LIST_EMPTY(all_wormholes) // So we can pick wormholes to teleport to
 	min_wizard_trigger_potency = 3
 	max_wizard_trigger_potency = 7
 
+//Notation For Event Awareness
+/*
+Should req heads of staff - and also come with a pretty beefy warning before it happens.
+*/
+
 /datum/round_event/wormholes
 	announce_when = 10
 	end_when = 60

@@ -99,6 +99,11 @@
 	category = EVENT_CATEGORY_ENTITIES
 	description = "A cortical borer has appeared on station. It will also attempt to produce eggs, and will attempt to gather willing hosts and learn chemicals through the blood."
 
+//Notation For Event Awareness
+/*
+Bro this is hella turned off, why?
+*/
+
 /datum/round_event/ghost_role/cortical_borer
 	announce_when = 400
 
