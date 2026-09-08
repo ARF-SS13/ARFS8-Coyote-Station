@@ -1785,6 +1785,7 @@
 /mob/proc/get_access() as /list
 	return list()
 
+/mob/living/var/checkout_next_allowed = 0
 
 //Splurt Backnab via Coyote
 /mob/living/verb/check_out(mob/living/A in view())
@@ -1793,6 +1794,10 @@
 
 	if(!isliving(A))
 		return
+	if(checkout_next_allowed > world.time)
+		to_chat(src, span_alert("You're still checking someone out!"))
+		return
+	checkout_next_allowed = world.time + 5 SECONDS
 	to_chat(src, span_notice("You pass an interested glance over at [A]."))
 	to_chat(A, span_notice("[src] seems to be subtly showing you interest?"))
 	playsound_local(src, 'modular_coyote/sounds/barks/blush.ogg', 80, TRUE)

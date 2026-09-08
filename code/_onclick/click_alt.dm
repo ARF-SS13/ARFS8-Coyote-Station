@@ -108,6 +108,14 @@
 	SHOULD_CALL_PARENT(FALSE)
 	return NONE
 
+///Main proc for secondary alt click
+/mob/proc/AltMiddleClickOn(atom/target)
+	target.click_alt_middle(src)
+
+/atom/proc/click_alt_middle(mob/user)
+	SHOULD_CALL_PARENT(FALSE)
+	return NONE
+
 /**
  * ## No-op for unambiguous loot panel bind as a non-living mob.
  **/

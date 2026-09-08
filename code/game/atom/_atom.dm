@@ -899,13 +899,21 @@
 				// LMB and RMB on one line...
 				var/lmb_text = build_context(context, SCREENTIP_CONTEXT_LMB, screentip_images)
 				var/rmb_text = build_context(context, SCREENTIP_CONTEXT_RMB, screentip_images)
+				var/mmb_text = build_context(context, SCREENTIP_CONTEXT_MMB, screentip_images)
 
 				if (lmb_text != "")
 					lmb_rmb_line = lmb_text
 					if (rmb_text != "")
 						lmb_rmb_line += " | [rmb_text]"
+						if (mmb_text != "")
+							lmb_rmb_line += " | [mmb_text]"
 				else if (rmb_text != "")
 					lmb_rmb_line = rmb_text
+					if (mmb_text != "")
+						lmb_rmb_line += " | [mmb_text]"
+				else if (mmb_text != "")
+					lmb_rmb_line += "[mmb_text]"
+
 
 				// Ctrl-LMB, Ctrl-RMB on one line...
 				if (lmb_rmb_line != "")
@@ -919,6 +927,11 @@
 						ctrl_lmb_ctrl_rmb_line += " | "
 					ctrl_lmb_ctrl_rmb_line += build_context(context, SCREENTIP_CONTEXT_CTRL_RMB, screentip_images)
 
+				if (SCREENTIP_CONTEXT_CTRL_MMB in context)
+					if (ctrl_lmb_ctrl_rmb_line != "")
+						ctrl_lmb_ctrl_rmb_line += " | "
+					ctrl_lmb_ctrl_rmb_line += build_context(context, SCREENTIP_CONTEXT_CTRL_MMB, screentip_images)
+
 				// Alt-LMB, Alt-RMB on one line...
 				if (ctrl_lmb_ctrl_rmb_line != "")
 					ctrl_lmb_ctrl_rmb_line += "<br>"
@@ -929,6 +942,10 @@
 					if (alt_lmb_alt_rmb_line != "")
 						alt_lmb_alt_rmb_line += " | "
 					alt_lmb_alt_rmb_line += build_context(context, SCREENTIP_CONTEXT_ALT_RMB, screentip_images)
+				if (SCREENTIP_CONTEXT_ALT_MMB in context)
+					if (alt_lmb_alt_rmb_line != "" || alt_lmb_alt_rmb_line != "")
+						alt_lmb_alt_rmb_line += " | "
+					alt_lmb_alt_rmb_line += build_context(context, SCREENTIP_CONTEXT_ALT_MMB, screentip_images)
 
 				// Shift-LMB, Ctrl-Shift-LMB on one line...
 				if (alt_lmb_alt_rmb_line != "")
@@ -940,6 +957,10 @@
 					if (shift_lmb_ctrl_shift_lmb_line != "")
 						shift_lmb_ctrl_shift_lmb_line += " | "
 					shift_lmb_ctrl_shift_lmb_line += build_context(context, SCREENTIP_CONTEXT_CTRL_SHIFT_LMB, screentip_images)
+				if (SCREENTIP_CONTEXT_CTRL_SHIFT_MMB in context)
+					if (shift_lmb_ctrl_shift_lmb_line != "" || shift_lmb_ctrl_shift_lmb_line != "")
+						shift_lmb_ctrl_shift_lmb_line += " | "
+					shift_lmb_ctrl_shift_lmb_line += build_context(context, SCREENTIP_CONTEXT_CTRL_SHIFT_MMB, screentip_images)
 
 				if (shift_lmb_ctrl_shift_lmb_line != "")
 					extra_lines++
