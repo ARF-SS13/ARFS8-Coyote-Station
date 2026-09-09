@@ -133,6 +133,9 @@
 	/// List of accesses needed to use this object: The user must possess at least one access in this list in order to use the object.
 	/// Example: If req_one_access = list(ACCESS_ENGINE, ACCESS_CE)- then the user must have either ACCESS_ENGINE or ACCESS_CE in order to use the object.
 	var/list/req_one_access
+	var/lowpop_count = 0
+	var/list/lowpop_access_all
+	var/list/lowpop_access_any
 
 /mutable_appearance/emissive_blocker
 
