@@ -66,7 +66,7 @@
 /datum/job/barber
 	alt_titles = list(
 		"Barber",
-		"Aethestician",
+		"Aesthetician",
 		"Colorist",
 		"Masseuse",
 		"Salon Manager",
@@ -204,6 +204,10 @@
 		"Alchemist",
 		"Pharmacist",
 		"Pharmacologist",
+		"Chemical Ordnance Technician",
+		"Ordnance Chemist",
+		"Pyrotechnics Chemist",
+		"Floor Pill Manufactor",
 		"Trainee Pharmacist",
 		"Novice Pharmacist",
 	)
@@ -213,9 +217,8 @@
 		"Chief Engineer",
 		"Chief Technical Officer",
 		"Engineering Foreman",
-		"Head Crystallomancer",
 		"Head of Engineering",
-		"Newly Appointed Chielf Engineer",
+		"Newly Appointed Chief Engineer",
 	)
 
 /datum/job/chief_medical_officer
@@ -324,7 +327,6 @@
 	alt_titles = list(
 		"Geneticist",
 		"Gene Tailor",
-		"Genemancer",
 		"Genetic Engineer",
 		"Genetics Researcher",
 		"Mutation Researcher",
@@ -369,11 +371,22 @@
 /datum/job/lawyer
 	alt_titles = list(
 		"Lawyer",
+		"Businessman",
+		"Insurance Salesman",
+		"Billionaire Philanthropist",
+		"Safety Inspector",
+		"Investment Banker",
+		"Banker",
+		"Shareholder",
+		"Loan Officer",
+		"Auditor",
+		"Accountant",
 		"Barrister",
 		"Defense Attorney",
 		"Human Resources Agent",
 		"Internal Affairs Agent",
 		"Legal Clerk",
+		"Legal Assistant",
 		"Magistrate",
 		"Prosecutor",
 		"Public Defender",
@@ -385,7 +398,6 @@
 /datum/job/mime
 	alt_titles = list(
 		"Mime",
-		"Mummer",
 		"Pantomimist",
 	)
 
@@ -452,7 +464,7 @@
 /datum/job/quartermaster
 	alt_titles = list(
 		"Quartermaster",
-		"Deck Chief",
+		"Supply Chief",
 		"Head of Supply",
 		"Logistics Coordinator",
 		"Supply Foreman",
@@ -511,7 +523,6 @@
 /datum/job/security_officer
 	alt_titles = list(
 		"Security Officer",
-		"Defense Contractor",
 		"Guard",
 		"Junior Officer",
 		"Peacekeeper",
@@ -567,13 +578,9 @@
 	alt_titles = list(
 		"Warden",
 		"Armory Superintendent",
-		"Brig Governor",
-		"Brig Sentry",
 		"Brig Sergeant",
-		"Deputy Commissioner of Security",
-		"Deputy Commissioner",
+		"Commissioner of Security",
+		"Commissioner",
 		"Dispatch Officer",
-		"Jailer",
-		"Master-at-Arms",
 		"Newly Appointed Warden",
 	)

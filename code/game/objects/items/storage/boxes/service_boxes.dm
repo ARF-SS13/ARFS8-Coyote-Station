@@ -45,6 +45,18 @@
 	for(var/i in 1 to 7)
 		new /obj/item/card/id/advanced/silver(src)
 
+/obj/item/storage/box/money_orders
+	name = "portfolio of money orders"
+	desc = "A set of prepaid money orders for awarding deserving crew."
+	illustration = "money"
+
+/obj/item/storage/box/money_orders/PopulateContents()
+	for(var/i in 1 to 4)
+		new /obj/item/card/lawyer_check/twofifty(src)
+	new /obj/item/card/lawyer_check/fivehundred(src)
+	new /obj/item/card/lawyer_check/fivehundred(src)
+	new /obj/item/card/lawyer_check/onethousand(src)
+
 /obj/item/storage/box/mousetraps
 	name = "box of Pest-B-Gon mousetraps"
 	desc = span_alert("Keep out of reach of children.")
