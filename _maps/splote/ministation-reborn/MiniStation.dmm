@@ -1389,7 +1389,7 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Ordnance Lab"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/ordnance,
+/obj/effect/mapping_helpers/airlock/access/any/medsci,
 /turf/open/floor/iron/dark/airless,
 /area/station/science/ordnance/freezerchamber)
 "aPH" = (
@@ -1816,7 +1816,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/access/any/science/ordnance,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
 	dir = 4
 	},
@@ -1824,6 +1823,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/any/medsci,
 /turf/open/floor/iron/white,
 /area/station/science/ordnance)
 "bcf" = (
@@ -3918,8 +3918,8 @@
 /obj/machinery/door/airlock/research{
 	name = "Ordnance Launch Room"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science/ordnance,
 /obj/structure/cable,
+/obj/effect/mapping_helpers/airlock/access/any/medsci,
 /turf/open/floor/iron,
 /area/station/science/ordnance/testlab)
 "ccE" = (
@@ -5012,7 +5012,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/yellow/full,
 /obj/machinery/door/airlock/research,
-/obj/effect/mapping_helpers/airlock/access/all/science/research,
+/obj/effect/mapping_helpers/airlock/access/any/medsci,
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/medical/chemistry)
 "cKm" = (
@@ -25175,7 +25175,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/any/science,
+/obj/effect/mapping_helpers/airlock/access/any/medsci,
 /turf/open/floor/plating,
 /area/mine/xenoarch/science/xenoarch)
 "ntd" = (
@@ -26398,9 +26398,9 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Ordnance Lab"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/ordnance,
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/violet/visible,
+/obj/effect/mapping_helpers/airlock/access/any/medsci,
 /turf/open/floor/iron/dark,
 /area/station/science/ordnance/freezerchamber)
 "nVA" = (
@@ -29119,10 +29119,10 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Ordnance Lab"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/ordnance,
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/violet/visible,
 /obj/effect/mapping_helpers/airlock/locked,
+/obj/effect/mapping_helpers/airlock/access/any/medsci,
 /turf/open/floor/iron/dark,
 /area/station/science/ordnance/freezerchamber)
 "prF" = (
@@ -34231,7 +34231,7 @@
 "rUY" = (
 /obj/machinery/door/firedoor/heavy,
 /obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/any/science,
+/obj/effect/mapping_helpers/airlock/access/any/medsci,
 /turf/open/floor/plating,
 /area/mine/xenoarch/science/xenoarch)
 "rVo" = (
@@ -40895,8 +40895,8 @@
 	},
 /obj/structure/cable,
 /obj/machinery/duct,
-/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /obj/machinery/door/airlock/research,
+/obj/effect/mapping_helpers/airlock/access/any/medsci,
 /turf/open/floor/iron,
 /area/station/medical/chemistry)
 "vqW" = (
