@@ -85,6 +85,9 @@
 	if(attacking_id.registered_account.money_order_cashed)
 		balloon_alert(user, "transfer denied")
 		return
+	if(attacking_id.registered_account.account_job.config_tag == "LAWYER")
+		balloon_alert(user, "transfer denied")
+		return
 	balloon_alert(user, "starting transfer")
 	if(do_after(user, 3 SECONDS, target = attacking_item))
 		if(!points)
