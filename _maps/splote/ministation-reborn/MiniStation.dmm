@@ -280,10 +280,6 @@
 /obj/structure/table/reinforced{
 	pixel_y = -5
 	},
-/obj/machinery/door/window/left/directional/east{
-	req_access = list("brig");
-	name = s
-	},
 /obj/machinery/door/window/left/directional/west{
 	name = "Brig Desk"
 	},
