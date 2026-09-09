@@ -28,6 +28,9 @@
 	damage = 25
 	exposed_wound_bonus = 40
 
+/obj/projectile/beam/laser/patrol
+	damage = 30
+
 /obj/projectile/beam/laser/rapid
 	name = "rapid fire laser"
 	icon_state = "carbine_laser"
@@ -180,6 +183,9 @@
 	tracer_type = /obj/effect/projectile/tracer/disabler
 	muzzle_type = /obj/effect/projectile/muzzle/disabler
 	impact_type = /obj/effect/projectile/impact/disabler
+
+/obj/projectile/beam/disabler/patrol
+	damage = 40
 
 /obj/projectile/beam/disabler/weak
 	damage = 15

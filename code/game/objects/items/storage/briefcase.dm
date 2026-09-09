@@ -35,6 +35,7 @@
 	folder_path = /obj/item/folder/blue
 
 /obj/item/storage/briefcase/lawyer/PopulateContents()
+	new /obj/item/storage/box/money_orders(src)
 	new /obj/item/stamp/law(src)
 	..()
 

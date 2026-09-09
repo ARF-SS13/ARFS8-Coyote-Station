@@ -11,7 +11,6 @@
 /datum/job/captain/New()
 	var/list/extra_titles = list(
 		"Station Director",
-		"Station Governor",
 		"Station Overseer",
 	)
 	LAZYADD(alt_titles, extra_titles)
@@ -30,7 +29,6 @@
 
 /datum/job/head_of_personnel/New()
 	var/list/extra_titles = list(
-		"Headpat Of Personnel",
 		"Human Resources",
 		"Personnel Coordinator",
 		"Personnel Manager",
@@ -75,10 +73,7 @@
 
 /datum/job/bridge_assistant/New()
 	var/list/extra_titles = list(
-		"Assistant of the Day",
-		"Command Freeloader",
 		"Command Mascot",
-		"Folder Manager",
 	)
 	LAZYADD(alt_titles, extra_titles)
 	. = ..()
@@ -134,6 +129,7 @@
 	var/list/extra_titles = list(
 		"Cleanliness Technician",
 		"Mess Manager",
+		"Stoat Wrangler",
 	)
 	LAZYADD(alt_titles, extra_titles)
 	. = ..()
@@ -203,6 +199,8 @@
 		"Explosion Scientist",
 		"Ordnance Calibration Technician",
 		"Xenoarchaeologist",
+		"Cytostoat Proginator",
+		"Slime Proginator",
 	)
 	LAZYADD(alt_titles, extra_titles)
 	. = ..()
@@ -211,18 +209,11 @@
 	var/list/extra_titles = list(
 		"Exo-Suit Mechanic",
 		"MOD Mechanic",
-		"Ripperdoc",
 		"Synth Technician",
 	)
 	LAZYADD(alt_titles, extra_titles)
 	. = ..()
 
-/datum/job/chemist/New()
-	var/list/extra_titles = list(
-		"Apothecarist",
-	)
-	LAZYADD(alt_titles, extra_titles)
-	. = ..()
 
 /datum/job/coroner/New()
 	var/list/extra_titles = list(
@@ -236,7 +227,6 @@
 	var/list/extra_titles = list(
 		"Medical Intern",
 		"Medical Resident",
-		"Medtech",
 	)
 	LAZYADD(alt_titles, extra_titles)
 	. = ..()
@@ -273,7 +263,6 @@
 
 /datum/job/warden/New()
 	var/list/extra_titles = list(
-		"Brig Overwatch",
 		"Brig Superintendent",
 		"Marshal",
 		"Security Sergeant",

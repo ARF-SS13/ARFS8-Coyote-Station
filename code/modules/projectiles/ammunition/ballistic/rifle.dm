@@ -18,14 +18,14 @@
 	desc = "A proprietary capacitor cartidge designed for the militia patrol rifle."
 	icon_state = "patrol-casing"
 	caliber = CALIBER_PATROL
-	projectile_type = /obj/projectile/beam/laser //25 damage
+	projectile_type = /obj/projectile/beam/laser/patrol //30 damage
 
 /obj/item/ammo_casing/patrol/practice
 	name = "patrol rifle practice cartridge"
 	desc = "A nonlethal capacitor cartidge designed for training with the militia patrol rifle."
 	icon_state = "patrol_d-casing"
 	caliber = CALIBER_PATROL
-	projectile_type = /obj/projectile/beam/disabler
+	projectile_type = /obj/projectile/beam/disabler/patrol // 40 stamina damage. must hit with all three shots to down
 
 
 

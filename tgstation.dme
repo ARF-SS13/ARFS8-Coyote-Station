@@ -10615,7 +10615,6 @@
 #include "modular_zzplurt\code\modules\jobs\job_types\stowaway.dm"
 #include "modular_zzplurt\code\modules\language\_language_holder.dm"
 #include "modular_zzplurt\code\modules\language\buzzwords.dm"
-#include "modular_zzplurt\code\modules\lewd\pain.dm"
 #include "modular_zzplurt\code\modules\lewd\verbs.dm"
 #include "modular_zzplurt\code\modules\lewd\interaction_component\interaction_component.dm"
 #include "modular_zzplurt\code\modules\lewd\interaction_menu\interaction_datum.dm"

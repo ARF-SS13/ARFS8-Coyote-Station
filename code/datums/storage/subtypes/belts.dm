@@ -286,6 +286,7 @@
 	set_holdable(list(
 		/obj/item/ammo_casing/strilka310,
 		/obj/item/ammo_casing/shotgun,
+		/obj/item/ammo_casing/patrol,
 		/obj/item/ammo_casing/c357,
 		/obj/item/ammo_casing/junk,
 		/obj/item/ammo_casing/m762r,
@@ -303,6 +304,7 @@
 	. = ..()
 	set_holdable(list(
 		/obj/item/ammo_casing/shotgun,
+		/obj/item/ammo_casing/patrol,
 		/obj/item/ammo_casing/junk,
 	))
 
