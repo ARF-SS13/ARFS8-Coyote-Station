@@ -190,6 +190,16 @@
 	access_list += ACCESS_PARAMEDIC
 	return access_list
 
+
+//Medsci General//
+/obj/effect/mapping_helpers/airlock/access/any/medsci/get_access()
+	var/list/access_list = ..()
+	access_list += list(ACCESS_SCIENCE, ACCESS_MEDICAL)
+	return access_list
+
+
+
+
 // -------------------- Science access helpers
 /obj/effect/mapping_helpers/airlock/access/any/science
 	icon_state = "access_helper_sci"

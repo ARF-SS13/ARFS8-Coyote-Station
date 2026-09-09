@@ -4,7 +4,7 @@
 	name = "Set Pose"
 	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "pose"
-	screen_loc = "EAST-1:28,SOUTH+1:35"
+	screen_loc = "EAST-1:28,SOUTH+2:35"
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/posebutton/Click()
