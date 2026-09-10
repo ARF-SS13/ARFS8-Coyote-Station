@@ -84,8 +84,8 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/solarslowpop/get_access(obj/machinery/door/airlock/airlock)
 	var/list/access_list = ..()
 	airlock.lowpop_count = 10
-	LAZYLISTIFY(airlock.lowpop_access_any)
-	LAZYLISTIFY(airlock.lowpop_access_all)
+	LAZYINITLIST(airlock.lowpop_access_any)
+	LAZYINITLIST(airlock.lowpop_access_all)
 	airlock.lowpop_access_any |= ACCESS_MAINT_TUNNELS
 	access_list += ACCESS_ENGINEERING
 	return access_list
@@ -210,8 +210,8 @@
 /obj/effect/mapping_helpers/airlock/access/any/medsci/lowpop/get_access(obj/machinery/door/airlock/airlock)
 	var/list/access_list = ..()
 	airlock.lowpop_count = 10
-	LAZYLISTIFY(airlock.lowpop_access_any)
-	LAZYLISTIFY(airlock.lowpop_access_all)
+	LAZYINITLIST(airlock.lowpop_access_any)
+	LAZYINITLIST(airlock.lowpop_access_all)
 	airlock.lowpop_access_any |= ACCESS_MAINT_TUNNELS
 	return access_list
 
