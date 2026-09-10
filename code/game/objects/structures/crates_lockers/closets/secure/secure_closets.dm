@@ -22,6 +22,11 @@
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_GREY_TIDE, PROC_REF(grey_tide))
 
+/obj/structure/closet/secure_closet/examine(mob/user)
+	. = ..()
+	if(lowpop_count > 0)
+		. += span_notice("The lock is tied into the station manifest, defaulting its access requirements to 'Maintenance' while fewer than [lowpop_count] crew are present and alive on station.")
+
 /obj/structure/closet/secure_closet/proc/grey_tide(datum/source, list/grey_tide_areas)
 	SIGNAL_HANDLER
 
