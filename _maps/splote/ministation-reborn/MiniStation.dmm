@@ -1685,6 +1685,7 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
+/obj/machinery/light/small/red/dim/directional/south,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "aYk" = (
@@ -13400,7 +13401,6 @@
 /turf/open/floor/iron,
 /area/station/tcommsat/computer)
 "hmU" = (
-/obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /obj/item/storage/part_replacer,
 /obj/item/storage/box/stockparts/basic,
@@ -13412,9 +13412,6 @@
 /obj/machinery/door/window/left/directional/east{
 	req_access = list("eva");
 	name = "Parts Storage"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
-	dir = 4
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
@@ -15751,8 +15748,6 @@
 /turf/open/floor/iron/textured,
 /area/station/engineering/atmos)
 "izV" = (
-/obj/structure/rack,
-/obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/plating,
 /area/station/maintenance/fore)
 "iAw" = (
@@ -21078,6 +21073,7 @@
 "lpQ" = (
 /obj/structure/cable,
 /obj/effect/landmark/start/hangover,
+/obj/effect/spawner/random/trash/moisture_trap,
 /turf/open/floor/plating,
 /area/station/maintenance/fore)
 "lpS" = (
@@ -27159,6 +27155,11 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/floor2/aft)
+"oiX" = (
+/obj/structure/rack,
+/obj/effect/spawner/random/maintenance/three,
+/turf/open/floor/plating,
+/area/station/command/eva)
 "oiY" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -44663,7 +44664,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/structure/cable,
 /obj/structure/table/reinforced,
 /obj/item/storage/box/smart_metal_foam,
 /obj/item/storage/box/smart_metal_foam,
@@ -79922,7 +79922,7 @@ ayK
 lEN
 wPL
 sVH
-sVH
+oiX
 sVH
 sVH
 sVH
