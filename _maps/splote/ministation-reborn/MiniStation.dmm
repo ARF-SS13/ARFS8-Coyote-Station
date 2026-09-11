@@ -27159,10 +27159,6 @@
 	},
 /turf/open/floor/iron,
 /area/station/hallway/floor2/aft)
-"oiX" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/station/command/heads_quarters/ce)
 "oiY" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -74047,7 +74043,7 @@ sYl
 gFC
 wjd
 ihk
-oiX
+dSc
 dSc
 dSc
 tyr
