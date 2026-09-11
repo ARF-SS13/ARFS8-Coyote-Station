@@ -13057,9 +13057,11 @@
 /obj/structure/table/optable,
 /obj/structure/cable,
 /obj/machinery/light/directional/north,
-/obj/machinery/defibrillator_mount/directional/north,
 /obj/effect/turf_decal/tile/blue/full,
 /obj/machinery/power/apc/auto_name/directional/east,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = 20
+	},
 /turf/open/floor/iron/large,
 /area/station/medical/surgery)
 "hbu" = (
@@ -24111,7 +24113,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/bridge)
 "mNM" = (
-/obj/structure/table/glass,
+/obj/structure/closet/crate/freezer/blood,
 /turf/open/floor/iron/white,
 /area/station/medical/storage)
 "mNO" = (
@@ -37830,9 +37832,11 @@
 /obj/structure/table/optable,
 /obj/structure/cable,
 /obj/machinery/light/directional/north,
-/obj/machinery/defibrillator_mount/directional/north,
 /obj/effect/turf_decal/tile/blue/full,
 /obj/machinery/power/apc/auto_name/directional/east,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = 20
+	},
 /turf/open/floor/iron/large,
 /area/station/medical/surgery/fore)
 "tKC" = (
