@@ -271,7 +271,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	desc = "A headset with a commanding channel."
 	icon_state = "com_headset"
 	worn_icon_state = "com_headset"
-	keyslot = /obj/item/encryptionkey/headset_com
+	keyslot = /obj/item/encryptionkey/heads/captain
 
 /obj/item/radio/headset/heads
 	command = TRUE

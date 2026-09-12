@@ -5,7 +5,7 @@
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "allow_mismatched_parts_toggle"
-	default_value = FALSE
+	default_value = TRUE
 
 /datum/preference/toggle/allow_mismatched_parts/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return // we dont actually want this to do anything
@@ -39,7 +39,7 @@
 	category = PREFERENCE_CATEGORY_CHARACTER_BASICS
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "allow_emissives_toggle" // no 'e' so it goes right after allow_mismatched_parts, not before
-	default_value = FALSE
+	default_value = TRUE
 
 /datum/preference/toggle/allow_emissives/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return TRUE // we dont actually want this to do anything
@@ -51,9 +51,9 @@
 	check_mode = TRICOLOR_NO_CHECK
 
 /datum/preference/tri_color/mutant_colors/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features[FEATURE_MUTANT_COLOR] = sanitize_hexcolor(value[1])
-	target.dna.features[FEATURE_MUTANT_COLOR_TWO] = sanitize_hexcolor(value[2])
-	target.dna.features[FEATURE_MUTANT_COLOR_THREE] = sanitize_hexcolor(value[3])
+	target.dna.features[FEATURE_MUTANT_COLOR] = "#777777"
+	target.dna.features[FEATURE_MUTANT_COLOR_TWO] = "#999999"
+	target.dna.features[FEATURE_MUTANT_COLOR_THREE] = "#555555"
 
 /datum/preference/toggle/eye_emissives
 	savefile_key = "eye_emissives"
@@ -143,13 +143,14 @@
 	category = PREFERENCE_CATEGORY_CHARACTER_BASICS
 	savefile_key = "tail_toggle"
 	relevant_mutant_bodypart = "tail"
+	default_value = TRUE
 
 /datum/preference/choiced/mutant_choice/tail
 	category = PREFERENCE_CATEGORY_CHARACTER_BASICS
 	savefile_key = "feature_tail"
 	relevant_mutant_bodypart = "tail"
 	type_to_check = /datum/preference/toggle/mutant_toggle/tail
-	default_accessory_type = /datum/sprite_accessory/tails/none
+	default_accessory_type = /datum/sprite_accessory/tails/mammal/wagging/vulpkanin/fox
 
 /datum/preference/tri_color/tail
 	category = PREFERENCE_CATEGORY_CHARACTER_BASICS
@@ -171,13 +172,14 @@
 	category = PREFERENCE_CATEGORY_CHARACTER_BASICS
 	savefile_key = "snout_toggle"
 	relevant_mutant_bodypart = "snout"
+	default_value = TRUE
 
 /datum/preference/choiced/mutant_choice/snout
 	category = PREFERENCE_CATEGORY_CHARACTER_BASICS
 	savefile_key = "feature_snout"
 	relevant_mutant_bodypart = "snout"
 	type_to_check = /datum/preference/toggle/mutant_toggle/snout
-	default_accessory_type = /datum/sprite_accessory/snouts/none
+	default_accessory_type = /datum/sprite_accessory/ears/mutant/vulpkanin/fox
 
 /datum/preference/choiced/mutant_choice/snout/apply_to_human(mob/living/carbon/human/target, value)
 	. = ..()
@@ -241,13 +243,14 @@
 	category = PREFERENCE_CATEGORY_CHARACTER_BASICS
 	savefile_key = "ears_toggle"
 	relevant_mutant_bodypart = "ears"
+	default_value = TRUE
 
 /datum/preference/choiced/mutant_choice/ears
 	category = PREFERENCE_CATEGORY_CHARACTER_BASICS
 	savefile_key = "feature_ears"
 	relevant_mutant_bodypart = "ears"
 	type_to_check = /datum/preference/toggle/mutant_toggle/ears
-	default_accessory_type = /datum/sprite_accessory/ears/none
+	default_accessory_type = /datum/sprite_accessory/ears/fox
 
 /datum/preference/tri_color/ears
 	category = PREFERENCE_CATEGORY_CHARACTER_BASICS

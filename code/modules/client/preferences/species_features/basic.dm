@@ -71,18 +71,18 @@
 	return /datum/sprite_accessory/facial_hair/shaved::name
 
 /datum/preference/choiced/facial_hairstyle/create_informed_default_value(datum/prefs_holder/preferences)
-	var/gender = preferences.read_preference(/datum/preference/choiced/gender)
-	var/species_type = preferences.read_preference(/datum/preference/choiced/species)
-	var/datum/species/species_real = GLOB.species_prototypes[species_type]
-	if(!gender || !species_real || !species_real.sexes)
-		return ..()
+	// var/gender = preferences.read_preference(/datum/preference/choiced/gender)
+	// var/species_type = preferences.read_preference(/datum/preference/choiced/species)
+	// var/datum/species/species_real = GLOB.species_prototypes[species_type]
+	// if(!gender || !species_real || !species_real.sexes)
+	// 	return ..()
 
-	var/picked_beard = random_facial_hairstyle(gender)
-	var/datum/sprite_accessory/beard_style = SSaccessories.facial_hairstyles_list[picked_beard]
-	if(!beard_style || !beard_style.natural_spawn || beard_style.locked) // Invalid, go with god(bald)
-		return ..()
+	// var/picked_beard = random_facial_hairstyle(gender)
+	// var/datum/sprite_accessory/beard_style = SSaccessories.facial_hairstyles_list[picked_beard]
+	// if(!beard_style || !beard_style.natural_spawn || beard_style.locked) // Invalid, go with god(bald)
+	// 	return ..()
 
-	return picked_beard
+	return /datum/sprite_accessory/facial_hair/shaved::name
 
 /datum/preference/choiced/facial_hairstyle/compile_constant_data()
 	var/list/data = ..()
@@ -102,7 +102,7 @@
 	target.set_facial_haircolor(value, update = FALSE)
 
 /datum/preference/color/facial_hair_color/create_informed_default_value(datum/prefs_holder/preferences)
-	return preferences.read_preference(/datum/preference/color/hair_color) || random_hair_color()
+	return preferences.read_preference(/datum/preference/color/hair_color) || "#593029"
 
 /datum/preference/choiced/facial_hair_gradient
 	priority = PREFERENCE_PRORITY_LATE_BODY_TYPE
@@ -150,7 +150,7 @@
 	target.set_haircolor(value, update = FALSE)
 
 /datum/preference/color/hair_color/create_informed_default_value(datum/prefs_holder/preferences)
-	return random_hair_color()
+	return "#593029"
 
 /datum/preference/choiced/hairstyle
 	priority = PREFERENCE_PRIORITY_BODY_TYPE // Happens after gender so we can picka hairstyle based on that
@@ -178,18 +178,18 @@
 	return /datum/sprite_accessory/hair/bald::name
 
 /datum/preference/choiced/hairstyle/create_informed_default_value(datum/prefs_holder/preferences)
-	var/gender = preferences.read_preference(/datum/preference/choiced/gender)
-	var/species_type = preferences.read_preference(/datum/preference/choiced/species)
-	var/datum/species/species_real = GLOB.species_prototypes[species_type]
-	if(!gender || !species_real || !species_real.sexes)
-		return ..()
+	// var/gender = preferences.read_preference(/datum/preference/choiced/gender)
+	// var/species_type = preferences.read_preference(/datum/preference/choiced/species)
+	// var/datum/species/species_real = GLOB.species_prototypes[species_type]
+	// if(!gender || !species_real || !species_real.sexes)
+	// 	return ..()
 
-	var/picked_hair = random_hairstyle(gender)
-	var/datum/sprite_accessory/hair_style = SSaccessories.hairstyles_list[picked_hair]
-	if(!hair_style || !hair_style.natural_spawn || hair_style.locked) // Invalid, go with god(bald)
-		return ..()
+	// var/picked_hair = random_hairstyle(gender)
+	// var/datum/sprite_accessory/hair_style = SSaccessories.hairstyles_list[picked_hair]
+	// if(!hair_style || !hair_style.natural_spawn || hair_style.locked) // Invalid, go with god(bald)
+	// 	return ..()
 
-	return picked_hair
+	return /datum/sprite_accessory/hair/bald::name
 
 /datum/preference/choiced/hairstyle/compile_constant_data()
 	var/list/data = ..()

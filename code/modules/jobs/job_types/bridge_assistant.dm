@@ -76,7 +76,7 @@
 	uniform = /obj/item/clothing/under/trek/command/next
 	neck = /obj/item/clothing/neck/large_scarf/blue
 	belt = /obj/item/storage/belt/utility/full/inducer
-	ears = /obj/item/radio/headset/headset_com
+	ears = /obj/item/radio/headset/headset_com/bridgebunny
 	glasses = /obj/item/clothing/glasses/sunglasses
 	gloves = /obj/item/clothing/gloves/fingerless
 	head = /obj/item/clothing/head/soft/black
