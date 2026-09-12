@@ -241,7 +241,8 @@
 		if(!coil)
 			return
 
-		coil.place_turf(the_turf, user)
+		// i promise it wont sleep
+		UNLINT(coil.place_turf(the_turf, user, null, TRUE))
 		delta_cable(1, decrement = TRUE)
 		update_appearance(UPDATE_ICON_STATE)
 
