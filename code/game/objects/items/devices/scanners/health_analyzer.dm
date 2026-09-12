@@ -94,7 +94,7 @@
 		to_chat(user, span_info("[M]'s biological structure is too complex for the health analyzer."))
 		return
 
-	user.visible_message(span_notice("[user] analyzes [M]'s vitals."))
+	EZ_DOAFTER_RETURN_ON_FAIL(user, M, null, DOAFTER_USE_HEALTH_ANALYZER)
 	balloon_alert(user, "analyzing vitals")
 	playsound(user.loc, 'sound/items/healthanalyzer.ogg', 50)
 
@@ -115,6 +115,7 @@
 /obj/item/healthanalyzer/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
 	if(!isliving(interacting_with))
 		return NONE
+	EZ_DOAFTER_RETURN_ON_FAIL(user, interacting_with, null, DOAFTER_USE_HEALTH_ANALYZER_CHEM)
 	if(user.can_read(src)) // SKYRAT EDIT CHANGE - Blind people can analyze again - ORIGINAL: if(user.can_read(src) && !user.is_blind())
 		chemscan(user, interacting_with)
 	return ITEM_INTERACT_SUCCESS
