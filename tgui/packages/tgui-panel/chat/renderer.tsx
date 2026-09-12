@@ -25,6 +25,7 @@ import {
   MESSAGE_TYPES,
 } from './constants';
 import { canPageAcceptType, createMessage, isSameMessage } from './model';
+import { VisualChatify } from './visualchat_procs';
 import { highlightNode, linkifyNode } from './replaceInTextNode';
 
 const logger = createLogger('chatRenderer');
@@ -383,9 +384,10 @@ class ChatRenderer {
         // Payload is plain text
         if (message.text) {
           node.textContent = message.text;
-        }
-        // Payload is HTML
-        else if (message.html) {
+        } else if (message.visualChatData) {
+          node.innerHTML = VisualChatify(message);
+          // Payload is HTML
+        } else if (message.html) {
           node.innerHTML = message.html;
         } else {
           logger.error('Error: message is missing text payload', message);

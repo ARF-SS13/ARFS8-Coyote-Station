@@ -6,6 +6,33 @@
 	if(ismob(something))
 		var/mob/mub = something
 		return mub.client
+	if(isatom(something))
+		var/atom/thing = something
+		var/list/its_complicated = list()
+		var/smth = SEND_SIGNAL(thing, COMSIG_EXTRACT_CLIENT, its_complicated)
+		if(!smth)
+			return null
+		if(LAZYLEN(its_complicated))
+			return its_complicated[its_complicated.len]
+	return null
+
+/proc/extract_ckey(something)
+	if(istext(something))
+		return ckey(something)
+	if(ismob(something))
+		var/mob/mub = something
+		return mub.ckey
+	if(istype(something, /client))
+		var/client/cl = something
+		return cl.ckey
+	if(isatom(something))
+		var/atom/thing = something
+		var/list/its_complicated = list()
+		var/smth = SEND_SIGNAL(thing, COMSIG_EXTRACT_CKEY, its_complicated)
+		if(!smth)
+			return null
+		if(LAZYLEN(its_complicated))
+			return its_complicated[its_complicated.len]
 	return null
 
 /proc/extract_prefs_holder(something)

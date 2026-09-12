@@ -3,10 +3,12 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
+/** biome-ignore-all assist/source/organizeImports: eat a dick */
 
 import { createUuid } from 'tgui-core/uuid';
 
 import { MESSAGE_TYPE_INTERNAL, MESSAGE_TYPES } from './constants';
+import type { VCDataPack } from './visualchat_types';
 import type { Page } from './types';
 
 export function canPageAcceptType(page: Page, type: string): boolean {
@@ -60,6 +62,7 @@ export function serializeMessage(
     html: message.html,
     times: message.times,
     createdAt: message.createdAt,
+    visualChatData: message.visualChatData,
   };
 }
 
@@ -73,7 +76,7 @@ export function isSameMessage(
   );
 }
 
-type SerializedMessage = {
+export type SerializedMessage = {
   type: string;
   createdAt: number;
 } & Partial<{
@@ -82,4 +85,5 @@ type SerializedMessage = {
   times: number;
   node: HTMLElement;
   avoidHighlighting: boolean;
+  visualChatData: VCDataPack;
 }>;

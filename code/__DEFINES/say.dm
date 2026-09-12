@@ -19,16 +19,16 @@
 #define SATA_MESSAGE_SPOKEN         "message_spoken"
 #define SATA_LANGUAGE               "language"
 #define SATA_SAYMODE                "saymode"
-		#define SAYMODE_SAY          1
-		#define SAYMODE_WHISPER      2
-		#define SAYMODE_ASK          3
-		#define SAYMODE_EXCLAIM      4
-		#define SAYMODE_YELL         5
-		#define SAYMODE_SING         6
-		#define SAYMODE_EMOTE        7
-		#define SAYMODE_EMOTE_QUICK  8
-		#define SAYMODE_RADIO        9
-		#define SAYMODE_SUCCUMB      10
+		#define SAYMODE_SAY          "saymode_say"
+		#define SAYMODE_WHISPER      "saymode_whisper"
+		#define SAYMODE_ASK          "saymode_ask"
+		#define SAYMODE_EXCLAIM      "saymode_exclaim"
+		#define SAYMODE_YELL         "saymode_yell"
+		#define SAYMODE_SING         "saymode_sing"
+		#define SAYMODE_EMOTE        "saymode_emote"
+		#define SAYMODE_EMOTE_QUICK  "saymode_emote_quick"
+		#define SAYMODE_RADIO        "saymode_radio"
+		#define SAYMODE_SUCCUMB      "saymode_succumb"
 #define SATA_SAYMODE_MODS           "saymode_mods"
 		#define SAYMODE_MODIFIER_SLURRING    (1<<0)
 		#define SAYMODE_MODIFIER_STUTTERING  (1<<1)
@@ -44,7 +44,7 @@
 /// datas set by the listener
 #define SATA_LISTENER               "listener" // technicaly set by the speaker
 #define SATA_MESSAGE_HEARD          "message_heard"
-#define SATA_DISPLAYED_SAYMODE       "saymode_composed"
+#define SATA_DISPLAYED_SAYMODE      "saymode_composed"
 #define SATA_DISPLAYED_NAME         "displayed_name"
 #define SATA_RADIO_FREQ_COLOR       "radio_freq_color"
 #define SATA_RADIO_FREQ_NAME        "radio_freq_name"
