@@ -130,11 +130,11 @@ PROCESSING_SUBSYSTEM_DEF(interactions)
 		/datum/reagent/consumable/ethanol/hotlime_miami,
 		/datum/reagent/consumable/ethanol/crevice_spike,
 		/datum/reagent/consumable/ethanol/isolation_cell/morphine,
-		/datum/reagent/consumable/ethanol/chemical_ex,
+		// /datum/reagent/consumable/ethanol/chemical_ex,
 		/datum/reagent/consumable/ethanol/heart_of_gold,
-		/datum/reagent/consumable/ethanol/moth_in_chief,
-		/datum/reagent/consumable/ethanol/skullfucker_deluxe,
-		/datum/reagent/consumable/ethanol/ionstorm,
+		// /datum/reagent/consumable/ethanol/moth_in_chief,
+		// /datum/reagent/consumable/ethanol/skullfucker_deluxe,
+		// /datum/reagent/consumable/ethanol/ionstorm,
 
 		// Effect drink reagents
 		/datum/reagent/consumable/poisonberryjuice,
