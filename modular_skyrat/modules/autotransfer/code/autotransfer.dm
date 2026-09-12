@@ -5,10 +5,13 @@ SUBSYSTEM_DEF(autotransfer)
 	flags = SS_KEEP_TIMING | SS_BACKGROUND
 	wait = 1 MINUTES
 
+	var/rigid_length = TRUE
+	var/targt_round_length = 3 HOURS
+	var/can_vote_to_extend = FALSE
 	var/starttime
 	var/targettime
-	var/voteinterval
-	var/maxvotes
+	var/voteinterval = 2 MINUTES
+	var/maxvotes = 0
 	var/curvotes = 0
 
 /datum/controller/subsystem/autotransfer/Initialize()
@@ -16,11 +19,8 @@ SUBSYSTEM_DEF(autotransfer)
 		can_fire = FALSE
 		return SS_INIT_NO_NEED
 
-	var/init_vote = CONFIG_GET(number/vote_autotransfer_initial)
 	starttime = REALTIMEOFDAY
-	targettime = starttime + init_vote
-	voteinterval = CONFIG_GET(number/vote_autotransfer_interval)
-	maxvotes = CONFIG_GET(number/vote_autotransfer_maximum)
+	targettime = starttime + targt_round_length
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/autotransfer/Recover()
@@ -33,7 +33,7 @@ SUBSYSTEM_DEF(autotransfer)
 		return
 	if(!isnull(SSvote.current_vote))
 		return
-	if(maxvotes == NO_MAXVOTES_CAP || maxvotes > curvotes)
+	if(can_vote_to_extend && (maxvotes == NO_MAXVOTES_CAP || maxvotes > curvotes))
 		SSvote.initiate_vote(/datum/vote/transfer_vote, "automatic transfer", forced = TRUE)
 		targettime = targettime + voteinterval
 		curvotes++
@@ -47,6 +47,8 @@ SUBSYSTEM_DEF(autotransfer)
  * * real_round_shift_time - World time the round left the pregame lobby
  */
 /datum/controller/subsystem/autotransfer/proc/new_shift(real_round_start_time)
+	if(rigid_length)
+		return
 	var/init_vote = CONFIG_GET(number/vote_autotransfer_initial) // Check if an admin has manually set an override in the pre-game lobby
 	starttime = real_round_start_time
 	targettime = starttime + init_vote
