@@ -94,7 +94,8 @@
 		to_chat(user, span_info("[M]'s biological structure is too complex for the health analyzer."))
 		return
 
-	EZ_DOAFTER_RETURN_ON_FAIL(user, M, null, DOAFTER_USE_HEALTH_ANALYZER)
+	if(!advanced)
+		EZ_DOAFTER_RETURN_ON_FAIL(user, M, null, DOAFTER_USE_HEALTH_ANALYZER)
 	balloon_alert(user, "analyzing vitals")
 	playsound(user.loc, 'sound/items/healthanalyzer.ogg', 50)
 
