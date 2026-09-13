@@ -6,7 +6,6 @@
 		TRAIT_CAN_STRIP,
 		TRAIT_LITERATE,
 		TRAIT_MUTANT_COLORS,
-		TRAIT_FAST_METABOLISM,
 		TRAIT_HARD_SOLES,
 		TRAIT_NIGHT_VISION,
 	)
@@ -59,13 +58,6 @@
 		SPECIES_PERK_ICON = "biohazard",
 		SPECIES_PERK_NAME = "Chocolate Allergy",
 		SPECIES_PERK_DESC = "Vulpkanin will start rapidly taking toxic damage when consuming coco",
-	))
-
-	to_add += list(list(
-		SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
-		SPECIES_PERK_ICON = "stomach",
-		SPECIES_PERK_NAME = "Hunger",
-		SPECIES_PERK_DESC = "Vulpkanin will get hungrier 50% faster than most species",
 	))
 
 	return to_add

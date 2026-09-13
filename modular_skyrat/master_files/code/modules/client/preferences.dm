@@ -1,4 +1,8 @@
 #define MAX_MUTANT_ROWS 4
+#define MUTORMB_A "#CD7921"
+#define MUTORMB_B "#EEDDAA"
+#define MUTORMB_C "#985533"
+GLOBAL_LIST_INIT(cool_mcolors, list(MUTORMB_A, MUTORMB_B, MUTORMB_C))
 
 /datum/prefs_holder
 	/// Associative list, keyed by language typepath, pointing to UNDERSTOOD_LANGUAGE, or UNDERSTOOD_LANGUAGE | SPOKEN_LANGUAGE, for whether we understand or speak the language
@@ -14,7 +18,17 @@
 	/// A list containing all of our mutant bodparts
 	var/list/list/mutant_bodyparts = list()
 	/// A list of all bodymarkings
-	var/list/list/body_markings = list()
+	var/list/list/body_markings = list(
+		"chest" =   list("Fox" = list(MUTORMB_B,0)),
+		"head" =    list("Fox" = list(MUTORMB_B,0)),
+		"l_leg" =   list("Fox" = list(MUTORMB_B,0), list("Fox Sock" = list(MUTORMB_C,0))),
+		"r_leg" =   list("Fox" = list(MUTORMB_B,0), list("Fox Sock" = list(MUTORMB_C,0))),
+		"l_hand" =  list("Fox" = list(MUTORMB_C,0), list("Fox Sock" = list(MUTORMB_C,0))),
+		"r_hand" =  list("Fox" = list(MUTORMB_C,0), list("Fox Sock" = list(MUTORMB_C,0))),
+		"l_arm" =   list("Fox" = list(MUTORMB_C,0)),
+		"r_arm" =   list("Fox" = list(MUTORMB_C,0)),
+	)
+
 
 	/// Will the person see accessories not meant for their species to choose from
 	var/mismatched_customization = FALSE
