@@ -150,7 +150,7 @@
 	target.set_haircolor(value, update = FALSE)
 
 /datum/preference/color/hair_color/create_informed_default_value(datum/prefs_holder/preferences)
-	return "#593029"
+	return "#B25A63"
 
 /datum/preference/choiced/hairstyle
 	priority = PREFERENCE_PRIORITY_BODY_TYPE // Happens after gender so we can picka hairstyle based on that
@@ -162,7 +162,7 @@
 	relevant_head_flag = HEAD_HAIR
 
 /datum/preference/choiced/hairstyle/has_relevant_feature(datum/prefs_holder/preferences)
-	return ..() || (/datum/quirk/item_quirk/bald::name in preferences.all_quirks)
+	return ..() || (/datum/sprite_accessory/hair/bald::name in preferences.all_quirks)
 
 /datum/preference/choiced/hairstyle/init_possible_values()
 	return assoc_to_keys_features(SSaccessories.hairstyles_list)
@@ -175,7 +175,7 @@
 	target.set_hairstyle(value, update = FALSE)
 
 /datum/preference/choiced/hairstyle/create_default_value()
-	return /datum/sprite_accessory/hair/bald::name
+	return /datum/sprite_accessory/hair/bob2::name
 
 /datum/preference/choiced/hairstyle/create_informed_default_value(datum/prefs_holder/preferences)
 	// var/gender = preferences.read_preference(/datum/preference/choiced/gender)
@@ -189,7 +189,7 @@
 	// if(!hair_style || !hair_style.natural_spawn || hair_style.locked) // Invalid, go with god(bald)
 	// 	return ..()
 
-	return /datum/sprite_accessory/hair/bald::name
+	return /datum/sprite_accessory/hair/bob2::name
 
 /datum/preference/choiced/hairstyle/compile_constant_data()
 	var/list/data = ..()

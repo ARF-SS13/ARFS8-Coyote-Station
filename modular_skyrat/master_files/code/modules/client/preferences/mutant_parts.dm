@@ -51,9 +51,9 @@
 	check_mode = TRICOLOR_NO_CHECK
 
 /datum/preference/tri_color/mutant_colors/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features[FEATURE_MUTANT_COLOR] = "#777777"
-	target.dna.features[FEATURE_MUTANT_COLOR_TWO] = "#999999"
-	target.dna.features[FEATURE_MUTANT_COLOR_THREE] = "#555555"
+	target.dna.features[FEATURE_MUTANT_COLOR] = GLOB.cool_mcolors[1]
+	target.dna.features[FEATURE_MUTANT_COLOR_TWO] = GLOB.cool_mcolors[2]
+	target.dna.features[FEATURE_MUTANT_COLOR_THREE] = GLOB.cool_mcolors[3]
 
 /datum/preference/toggle/eye_emissives
 	savefile_key = "eye_emissives"
@@ -88,6 +88,7 @@
 /datum/preference/toggle/mutant_toggle/body_markings
 	savefile_key = "body_markings_toggle"
 	relevant_mutant_bodypart = "body_markings"
+	default_value = TRUE
 
 /datum/preference/toggle/mutant_toggle/body_markings/is_accessible(datum/prefs_holder/preferences)
 	. = ..() // Got to do this because of linters.
@@ -179,7 +180,7 @@
 	savefile_key = "feature_snout"
 	relevant_mutant_bodypart = "snout"
 	type_to_check = /datum/preference/toggle/mutant_toggle/snout
-	default_accessory_type = /datum/sprite_accessory/ears/mutant/vulpkanin/fox
+	default_accessory_type = /datum/sprite_accessory/snouts/mammal/top/vulpkanin/flcanid
 
 /datum/preference/choiced/mutant_choice/snout/apply_to_human(mob/living/carbon/human/target, value)
 	. = ..()
@@ -201,6 +202,9 @@
 	savefile_key = "snout_color"
 	relevant_mutant_bodypart = "snout"
 	type_to_check = /datum/preference/toggle/mutant_toggle/snout
+
+/datum/preference/tri_color/create_default_value()
+	return list("#[random_color()]", "#[random_color()]", "#[random_color()]")
 
 /datum/preference/tri_bool/snout
 	category = PREFERENCE_CATEGORY_CHARACTER_BASICS
