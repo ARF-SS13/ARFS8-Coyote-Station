@@ -1,3 +1,13 @@
+/atom/movable/proc/update_dynamic_access(access_list, list/required_all, list/required_any)
+	if(lowpop_count && LAZYLEN(GLOB.alive_player_list) < lowpop_count)
+		if(islist(lowpop_access_all) && islist(required_all))
+			required_all.Cut()
+			required_all |= lowpop_access_all
+		if(islist(lowpop_access_any) && islist(required_any))
+			required_any.Cut()
+			required_any |= lowpop_access_any
+
+
 /**
  * Returns TRUE if this mob has sufficient access to use this object
  *
@@ -37,18 +47,23 @@
 	return check_access_list(I ? I.GetAccess() : null)
 
 /atom/movable/proc/check_access_list(list/access_list)
-	if(!length(req_access) && !length(req_one_access))
+	var/list/required_all = LAZYCOPY(req_access)
+	var/list/required_any = LAZYCOPY(req_one_access)
+
+	update_dynamic_access(access_list, required_all, required_any)
+
+	if(!length(required_all) && !length(required_any))
 		return TRUE
 
 	if(!length(access_list) || !islist(access_list))
 		return FALSE
 
-	for(var/req in req_access)
+	for(var/req in required_all)
 		if(!(req in access_list)) //doesn't have this access
 			return FALSE
 
-	if(length(req_one_access))
-		for(var/req in req_one_access)
+	if(length(required_any))
+		for(var/req in required_any)
 			if(req in access_list) //has an access from the single access list
 				return TRUE
 		return FALSE

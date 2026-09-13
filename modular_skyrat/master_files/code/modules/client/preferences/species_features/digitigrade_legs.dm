@@ -7,7 +7,7 @@
 
 
 /datum/preference/choiced/digitigrade_legs/create_default_value()
-	return NORMAL_LEGS
+	return DIGITIGRADE_LEGS
 
 /datum/preference/choiced/digitigrade_legs/init_possible_values()
 	return list(NORMAL_LEGS, DIGITIGRADE_LEGS)

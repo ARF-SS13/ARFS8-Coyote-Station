@@ -1,111 +1,111 @@
 // Parents and Economic Backgrounds
 /datum/character_snippet/background/economy/old_money
-    name = "Old Money"
-    desc = "Your family has been wealthy for generations, and nobody remembers exactly how the fortune originally began."
+	name = "Old Money"
+	desc = "Your family has been wealthy for generations, and nobody remembers exactly how the fortune originally began."
 
 /datum/character_snippet/background/economy/new_money
-    name = "New Money"
-    desc = "Your family became wealthy within your parents' lifetime, often through business, technology, mining, or speculation."
+	name = "New Money"
+	desc = "Your family became wealthy within your parents' lifetime, often through business, technology, mining, or speculation."
 
 /datum/character_snippet/background/parents/corporate_executives
-    name = "Corporate Executives"
-    desc = "Your parents held senior positions within a major interstellar corporation."
+	name = "Corporate Executives"
+	desc = "Your parents held senior positions within a major interstellar corporation."
 
 /datum/character_snippet/background/parents/corporate_owners
-    name = "Corporate Owners"
-    desc = "Your family owned a substantial business or significant share of a corporation."
+	name = "Corporate Owners"
+	desc = "Your family owned a substantial business or significant share of a corporation."
 
 /datum/character_snippet/background/parents/industrialists
-    name = "Industrial Family"
-    desc = "Your family's wealth came from factories, mining operations, shipyards, or other large industrial concerns."
+	name = "Industrial Family"
+	desc = "Your family's wealth came from factories, mining operations, shipyards, or other large industrial concerns."
 
 /datum/character_snippet/background/parents/landowners
-    name = "Landowners"
-    desc = "Your family owned extensive amounts of land or property."
+	name = "Landowners"
+	desc = "Your family owned extensive amounts of land or property."
 
 /datum/character_snippet/background/parents/real_estate
-    name = "Property Dynasty"
-    desc = "Your family made its fortune owning residential habitats, commercial districts, or orbital real estate."
+	name = "Property Dynasty"
+	desc = "Your family made its fortune owning residential habitats, commercial districts, or orbital real estate."
 
 /datum/character_snippet/background/parents/investors
-    name = "Investment Family"
-    desc = "Your parents lived comfortably from investments and rarely needed conventional employment."
+	name = "Investment Family"
+	desc = "Your parents lived comfortably from investments and rarely needed conventional employment."
 
 /datum/character_snippet/background/parents/bankers
-    name = "Banking Family"
-    desc = "Your family was deeply involved in interstellar finance."
+	name = "Banking Family"
+	desc = "Your family was deeply involved in interstellar finance."
 
 /datum/character_snippet/background/parents/political_family
-    name = "Political Family"
-    desc = "Your family held considerable political influence."
+	name = "Political Family"
+	desc = "Your family held considerable political influence."
 
 /datum/character_snippet/background/parents/diplomatic_family
-    name = "Diplomatic Family"
-    desc = "Your parents were diplomats or otherwise moved among the political elite."
+	name = "Diplomatic Family"
+	desc = "Your parents were diplomats or otherwise moved among the political elite."
 
 /datum/character_snippet/background/parents/academic_elite
-    name = "Academic Elite"
-    desc = "Your family consisted of highly respected academics, researchers, or university administrators."
+	name = "Academic Elite"
+	desc = "Your family consisted of highly respected academics, researchers, or university administrators."
 
 /datum/character_snippet/background/parents/military_officers
-    name = "Officer Family"
-    desc = "Your parents were senior military officers with considerable social status."
+	name = "Officer Family"
+	desc = "Your parents were senior military officers with considerable social status."
 
 /datum/character_snippet/background/parents/noble_family
-    name = "Noble Family"
-    desc = "Your family possesses a hereditary title recognized by at least one government."
+	name = "Noble Family"
+	desc = "Your family possesses a hereditary title recognized by at least one government."
 
 /datum/character_snippet/background/parents/planetary_nobility
-    name = "Planetary Nobility"
-    desc = "Your family belongs to the hereditary elite of a particular planet."
+	name = "Planetary Nobility"
+	desc = "Your family belongs to the hereditary elite of a particular planet."
 
 /datum/character_snippet/background/parents/colonial_nobility
-    name = "Colonial Nobility"
-    desc = "Your ancestors were among the founders of an important colony, granting your family unusual social privileges."
+	name = "Colonial Nobility"
+	desc = "Your ancestors were among the founders of an important colony, granting your family unusual social privileges."
 
 /datum/character_snippet/background/parents/space_nobility
-    name = "Space Nobility"
-    desc = "Your family holds a recognized noble title associated with orbital territories, stations, or spacecraft."
+	name = "Space Nobility"
+	desc = "Your family holds a recognized noble title associated with orbital territories, stations, or spacecraft."
 
 /datum/character_snippet/background/parents/aristocracy
-    name = "Aristocracy"
-    desc = "Your family belongs to an established aristocratic class with centuries of accumulated wealth and influence."
+	name = "Aristocracy"
+	desc = "Your family belongs to an established aristocratic class with centuries of accumulated wealth and influence."
 
 /datum/character_snippet/background/parents/royal_family
-    name = "Royal Family"
-    desc = "You were born into a family with direct ties to a hereditary ruling house."
+	name = "Royal Family"
+	desc = "You were born into a family with direct ties to a hereditary ruling house."
 
 /datum/character_snippet/background/parents/corporate_nobility
-    name = "Corporate Nobility"
-    desc = "Your family's social status comes from a long history of controlling corporate interests."
+	name = "Corporate Nobility"
+	desc = "Your family's social status comes from a long history of controlling corporate interests."
 
 /datum/character_snippet/background/parents/celebrity_family
-    name = "Celebrity Family"
-    desc = "Your family was wealthy and famous, making privacy difficult to come by."
+	name = "Celebrity Family"
+	desc = "Your family was wealthy and famous, making privacy difficult to come by."
 
 /datum/character_snippet/background/parents/famous_ancestors
-    name = "Famous Ancestors"
-    desc = "Your family history includes people whose names are still taught in schools and history books."
+	name = "Famous Ancestors"
+	desc = "Your family history includes people whose names are still taught in schools and history books."
 
 /datum/character_snippet/background/parents/influential_relatives
-    name = "Influential Relatives"
-    desc = "Several members of your extended family occupy powerful positions."
+	name = "Influential Relatives"
+	desc = "Several members of your extended family occupy powerful positions."
 
 /datum/character_snippet/background/parents/wealthy_adoptive_family
-    name = "Wealthy Adoptive Family"
-    desc = "You were adopted into a wealthy family and raised with privileges you were not born into."
+	name = "Wealthy Adoptive Family"
+	desc = "You were adopted into a wealthy family and raised with privileges you were not born into."
 
 /datum/character_snippet/background/parents/inherited_estate
-    name = "Inherited Estate"
-    desc = "Your family possesses a large property, estate, station section, or other substantial holding."
+	name = "Inherited Estate"
+	desc = "Your family possesses a large property, estate, station section, or other substantial holding."
 
 /datum/character_snippet/background/parents/family_company
-    name = "Family Company"
-    desc = "Your family owns a business large enough to employ hundreds or thousands of people."
+	name = "Family Company"
+	desc = "Your family owns a business large enough to employ hundreds or thousands of people."
 
 /datum/character_snippet/background/parents/family_legacy
-    name = "Family Legacy"
-    desc = "Your family expects you to eventually take responsibility for its wealth and reputation."
+	name = "Family Legacy"
+	desc = "Your family expects you to eventually take responsibility for its wealth and reputation."
 
 // Childhood
 /datum/character_snippet/background/childhood/quiet_childhood

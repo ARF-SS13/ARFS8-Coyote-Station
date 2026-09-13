@@ -4,6 +4,18 @@
 /// Context applied to RMB actions
 #define SCREENTIP_CONTEXT_RMB "RMB"
 
+/// Context applied to MMB actions
+#define SCREENTIP_CONTEXT_MMB "MMB"
+
+/// Context applied to MMB actions
+#define SCREENTIP_CONTEXT_CTRL_MMB "Ctrl-MMB"
+
+/// Context applied to MMB actions
+#define SCREENTIP_CONTEXT_ALT_MMB "Alt-MMB"
+
+/// Context applied to MMB actions
+#define SCREENTIP_CONTEXT_CTRL_SHIFT_MMB "Ctrl-Shift-MMB"
+
 /// Context applied to Shift-LMB actions
 #define SCREENTIP_CONTEXT_SHIFT_LMB "Shift-LMB"
 

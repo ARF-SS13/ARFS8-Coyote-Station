@@ -31,3 +31,24 @@
 	faction = list(ROLE_SYNDICATE)
 	death_message = "beeps, its mechanical parts hissing before the chassis collapses in a loud thud."
 	gold_core_spawnable = FRIENDLY_SPAWN
+
+/mob/living/basic/pet/syndifox/cyberfox
+	name = "Zoey the Cyberfox"
+	real_name = "Zoey the Cyberfox"
+	gender = FEMALE
+	ai_controller = /datum/ai_controller/basic_controller/fox
+	desc = "It's Zoey! She's the adorable robot fox that lives in the pipes and helps with the endless waves of vermin that seem to infest the station."
+	butcher_results = list(
+		/obj/item/bodypart/arm/left/robot = 1,
+		/obj/item/bodypart/arm/right/robot = 1,
+		/obj/item/bodypart/leg/left/robot = 1,
+		/obj/item/bodypart/leg/right/robot = 1,
+		/obj/item/bodypart/head/robot = 1)
+	speak_emote = list("geckers", "barks")
+	can_be_held = TRUE
+	melee_damage_lower = 20 //same damage as a carp would make - reference to Paradise Station's Syndifox
+	melee_damage_upper = 20
+	maxHealth = 200
+	health = 200
+	faction = list(FACTION_NEUTRAL)
+	gold_core_spawnable = FRIENDLY_SPAWN

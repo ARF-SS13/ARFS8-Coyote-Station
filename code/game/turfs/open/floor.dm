@@ -155,6 +155,9 @@
 	P.attackby(T, user, modifiers)
 
 /turf/open/floor/proc/pry_tile(obj/item/I, mob/user, silent = FALSE)
+	if(I.toolspeed >= 0.9)
+		I.play_tool_sound(src)
+		EZ_DOAFTER_RETURN_ON_FAIL(user, src, null, DOAFTER_PRYING_FLOORTILE)
 	I.play_tool_sound(src, 80)
 	return remove_tile(user, silent)
 

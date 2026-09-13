@@ -10,6 +10,10 @@
 #define PEER_MIN_DISTANCE 3
 
 /mob/living/AltClickSecondaryOn(atom/target)
+	if(can_perform_action(target, BYPASS_ADJACENCY|ALLOW_RESTING|ALLOW_PAI))
+		if(check_out(target))
+			return
+
 	if(peer_into_distance(get_turf(target)))
 		return
 	return ..()

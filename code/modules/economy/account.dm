@@ -5,6 +5,8 @@
 	var/account_holder = "Rusty Venture"
 	///How many credits are currently held in the bank account.
 	var/account_balance = 0
+	///Whether the account has already cashed a money order and will be prevented from cashing any more.
+	var/money_order_cashed = FALSE
 	///How many mining points (shaft miner credits) is held in the bank account, used for mining vendors.
 	var/mining_points = 0
 	/// Points for bit runner's vendor. Awarded for completing virtual domains.

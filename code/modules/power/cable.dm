@@ -212,6 +212,11 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
 	if (our_turf.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 		return NONE
 
+	if(tool.toolspeed >= 0.9)
+		tool.play_tool_sound(src)
+		EZ_DOAFTER_RETURN_ON_FAIL(user, src, null, DOAFTER_CUTTING_CABLE)
+	tool.play_tool_sound(src)
+
 	if (shock(user, 50))
 		return ITEM_INTERACT_BLOCKING
 
@@ -693,7 +698,7 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
 //////////////////////////////////////////////
 
 // called when cable_coil is clicked on a turf
-/obj/item/stack/cable_coil/proc/place_turf(turf/T, mob/user, dirnew)
+/obj/item/stack/cable_coil/proc/place_turf(turf/T, mob/user, dirnew, skip_doafter)
 	if(!isturf(user.loc))
 		return
 
@@ -713,6 +718,11 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
 		if(C.cable_layer & target_layer)
 			to_chat(user, span_warning("There's already a cable at that position!"))
 			return
+
+	if(skip_doafter)
+		goto skipit
+	EZ_DOAFTER_RETURN_ON_FAIL(user, T, null, DOAFTER_LAY_CABLE)
+	skipit:
 
 	var/obj/structure/cable/C = new target_type(T)
 

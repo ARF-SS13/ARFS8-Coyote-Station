@@ -250,7 +250,7 @@
 	mag_display_ammo = TRUE
 	semi_auto = TRUE
 	internal_magazine = FALSE
-	tac_reloads = TRUE
+	tac_reloads = FALSE
 	burst_fire_selection = TRUE
 	/// The type of secondary magazine for the bulldog
 	var/secondary_magazine_type

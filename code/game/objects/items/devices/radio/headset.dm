@@ -273,6 +273,13 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	worn_icon_state = "com_headset"
 	keyslot = /obj/item/encryptionkey/headset_com
 
+/obj/item/radio/headset/headset_com/bridgebunny
+	name = "bridge assistant radio headset"
+	desc = "A headset for the most helpful of bridge bunnies."
+	icon_state = "com_headset"
+	worn_icon_state = "com_headset"
+	keyslot = /obj/item/encryptionkey/heads/captain/bridgebunny
+
 /obj/item/radio/headset/heads
 	command = TRUE
 	icon_state = "com_headset"

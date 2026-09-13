@@ -3,7 +3,9 @@
 /// can have as many different checks as you desire to prevent people from doing the deed to themselves.
 /mob/living/verb/suicide()
 	set hidden = TRUE
-	handle_suicide()
+	to_chat(src, span_warning("Suicide is disabled on this server."))
+	message_admins(span_warning("[ADMIN_LOOKUPFLW(src)] has attempted the suicide verb."))
+//	handle_suicide()
 
 /// Actually handles the bare basics of the suicide process. Message type is the message we want to dispatch in the world regarding the suicide, using the defines in this file.
 /// Override this ENTIRELY if you want to add any special behavior to your suicide handling, if you fuck up the order of operations then shit will break.

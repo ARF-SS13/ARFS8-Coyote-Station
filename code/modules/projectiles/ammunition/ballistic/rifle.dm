@@ -12,6 +12,23 @@
 	misfire_increment = 2
 	integrity_damage = 4
 
+// patrol rifle ammo, shoots lasers!
+/obj/item/ammo_casing/patrol
+	name = "patrol rifle energy cartridge"
+	desc = "A proprietary capacitor cartidge designed for the militia patrol rifle."
+	icon_state = "patrol-casing"
+	caliber = CALIBER_PATROL
+	projectile_type = /obj/projectile/beam/laser/patrol //30 damage
+
+/obj/item/ammo_casing/patrol/practice
+	name = "patrol rifle practice cartridge"
+	desc = "A nonlethal capacitor cartidge designed for training with the militia patrol rifle."
+	icon_state = "patrol_d-casing"
+	caliber = CALIBER_PATROL
+	projectile_type = /obj/projectile/beam/disabler/patrol // 40 stamina damage. must hit with all three shots to down
+
+
+
 // .310 Strilka (Sakhno Rifle)
 
 /obj/item/ammo_casing/strilka310

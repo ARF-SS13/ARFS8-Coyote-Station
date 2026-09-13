@@ -75,7 +75,7 @@
 	return TRUE
 
 /datum/keybinding/living/rest
-	hotkey_keys = list("U")
+	hotkey_keys = list("V")
 	name = "rest"
 	full_name = "Rest"
 	description = "Lay down, or get up."
@@ -169,7 +169,7 @@
 	return TRUE
 
 /datum/keybinding/living/toggle_throw_mode
-	hotkey_keys = list("Southwest") // END
+	hotkey_keys = list("R") // END
 	name = "toggle_throw_mode"
 	full_name = "Toggle throw mode"
 	description = "Toggle throwing the current item or not."

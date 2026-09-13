@@ -14,6 +14,9 @@
 	speak_emote = list("hisses")
 	health = 10
 	maxHealth = 10
+	pass_flags = TINY_CREATURE_PASS
+	layer = TINY_CREATURE_LAYER
+
 	faction = list(FACTION_LIZARD)
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"

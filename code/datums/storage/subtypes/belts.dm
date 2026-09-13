@@ -105,6 +105,7 @@
 		/obj/item/grenade,
 		/obj/item/holosign_creator/security,
 		/obj/item/knife/combat,
+		/obj/item/knife/combat/survival,
 		/obj/item/melee/baton,
 		/obj/item/radio,
 		/obj/item/reagent_containers/spray/pepper,
@@ -285,6 +286,7 @@
 	set_holdable(list(
 		/obj/item/ammo_casing/strilka310,
 		/obj/item/ammo_casing/shotgun,
+		/obj/item/ammo_casing/patrol,
 		/obj/item/ammo_casing/c357,
 		/obj/item/ammo_casing/junk,
 		/obj/item/ammo_casing/m762r,
@@ -302,6 +304,7 @@
 	. = ..()
 	set_holdable(list(
 		/obj/item/ammo_casing/shotgun,
+		/obj/item/ammo_casing/patrol,
 		/obj/item/ammo_casing/junk,
 	))
 

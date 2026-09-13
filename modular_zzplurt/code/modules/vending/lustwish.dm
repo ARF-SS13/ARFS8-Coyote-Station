@@ -1,7 +1,7 @@
 #define STOCK_NIFSOFT 6
 
 // Based on Skyrat's vending overrides
-/obj/machinery/vending/dorms
+/obj/machinery/vending/dorms //Vending dorms.  You mother fuckers are cute.  I hate you for this.  Perish.  Perish in the fires of hell.  Name the path something REASONABLE GOD DAMN IT. ~Fenny
 	zzplurt_product_categories = list(
 		list(
 			"name" = "Toys",

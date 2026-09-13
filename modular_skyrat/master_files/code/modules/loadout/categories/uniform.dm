@@ -1030,6 +1030,9 @@
 	name = "half skirt"
 	item_path = /obj/item/clothing/under/dress/coyote/halfskirt
 
+/datum/loadout_item/uniform/diner/mint
+	name = "diner dress, mint"
+	item_path = /obj/item/clothing/under/dress/coyote/diner/mint
 
 
 

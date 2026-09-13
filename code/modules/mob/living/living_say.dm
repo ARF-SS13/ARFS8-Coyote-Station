@@ -174,8 +174,8 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 			return
 
 	if(HAS_TRAIT(src, TRAIT_SOFTSPOKEN) && !HAS_TRAIT(src, TRAIT_SIGN_LANG)) // softspoken trait only applies to spoken languages
-		message_data[WHISPER_MODE] = MODE_WHISPER
-		message_data[SATA_SAYMODE] = SAYMODE_WHISPER
+		spans |= SPAN_SMALL_VOICE
+		message_data[SATA_SPANS] = spans
 
 	if(client && SSlag_switch.measures[SLOWMODE_SAY] && !HAS_TRAIT(src, TRAIT_BYPASS_MEASURES) && !forced && src == usr)
 		if(!COOLDOWN_FINISHED(client, say_slowmode))

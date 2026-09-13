@@ -135,6 +135,12 @@
 	var/list/req_one_access
 	/// just here so fenny's stupid doors stop runtiming on init. does nothimng. do not use. --- IGNORE ---
 	var/req_access_txt
+	var/lowpop_count = 0
+	var/list/lowpop_access_all
+	var/list/lowpop_access_any
+	// this gonna mergeconflict
+	/// halfassed implementation of goon's TRACK_CAT system
+	var/tracking_category
 
 /mutable_appearance/emissive_blocker
 
@@ -145,6 +151,8 @@
 	color = EM_BLOCK_COLOR
 
 /atom/movable/Initialize(mapload, ...)
+	if(tracking_category)
+		SScat_tracker.TrackCategory(src, list(tracking_category))
 	if(LAZYLEN(faction))
 		faction = string_list(faction)
 
@@ -211,6 +219,8 @@
 			AddComponent(/datum/component/overlay_lighting, is_directional = TRUE, is_beam = TRUE)
 
 /atom/movable/Destroy(force)
+	if(tracking_category)
+		SScat_tracker.StopTracking(src)
 	QDEL_NULL(language_holder)
 	QDEL_NULL(em_block)
 	QDEL_NULL(drift_handler)

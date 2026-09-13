@@ -1,3 +1,11 @@
+/mob/living/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if (!isliving(user))
+		return .
+
+	context[SCREENTIP_CONTEXT_ALT_RMB] = "Check Out"
+	context[SCREENTIP_CONTEXT_CTRL_SHIFT_LMB] = "'Interact' with"
+
 /mob/living/carbon/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()
 

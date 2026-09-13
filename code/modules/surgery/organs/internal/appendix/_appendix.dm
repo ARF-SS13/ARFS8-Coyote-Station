@@ -2,6 +2,10 @@
 #define APPENDICITIS_PROB 100 * (0.1 * (1 / 25) / 3600)
 #define INFLAMATION_ADVANCEMENT_PROB 2
 
+GLOBAL_VAR_INIT(appendicitis_next, -1)
+#define APPENDICITIS_GLOBAL_COOLDOWN 1 HOURS
+#define APPENDICITIS_GLOBAL_COOLDOWN_ADD_IF_NO_MEDDIES 20 MINUTES
+
 /obj/item/organ/appendix
 	name = "appendix"
 	icon_state = "appendix"
@@ -33,17 +37,36 @@
 	. = ..()
 	if(!owner)
 		return
+	try_to_become_inflamed(seconds_per_tick)
 
 	if(organ_flags & ORGAN_FAILING)
 		// forced to ensure people don't use it to gain tox as slime person
 		owner.adjust_tox_loss(2 * seconds_per_tick, forced = TRUE)
 	else if(inflamation_stage)
 		inflamation(seconds_per_tick)
-	else if(SPT_PROB(APPENDICITIS_PROB, seconds_per_tick) && !HAS_TRAIT(owner, TRAIT_TEMPORARY_BODY))
+
+/obj/item/organ/appendix/proc/try_to_become_inflamed(seconds_per_tick)
+	if(inflamation_stage)
+		return
+	if(isnull(owner))
+		goto inflame_em
+	if(istype(owner) && !owner.ckey)
+		goto inflame_em // skip the global stuff if theyre not a player
+	if(GLOB.appendicitis_next == -1)
+		GLOB.appendicitis_next = world.time + APPENDICITIS_GLOBAL_COOLDOWN
+	if(world.time < GLOB.appendicitis_next)
+		return
+	if(SSgamemode.med_crew < 1)
+		GLOB.appendicitis_next += APPENDICITIS_GLOBAL_COOLDOWN_ADD_IF_NO_MEDDIES
+		return
+	GLOB.appendicitis_next = world.time + APPENDICITIS_GLOBAL_COOLDOWN
+	inflame_em:
+	if(SPT_PROB(APPENDICITIS_PROB, seconds_per_tick) && !HAS_TRAIT(owner, TRAIT_TEMPORARY_BODY))
 		become_inflamed()
 
 /obj/item/organ/appendix/proc/become_inflamed()
 	inflamation_stage = 1
+	GLOB.appendicitis_next = world.time
 	update_appearance()
 	if(isnull(owner))
 		return

@@ -1110,6 +1110,9 @@
 /obj/effect/turf_decal/siding/white/corner{
 	dir = 1
 	},
+/obj/effect/turf_decal{
+	dir = 4
+	},
 /turf/open/floor/carpet/black,
 /area/centcom/interlink)
 "azT" = (
@@ -1622,11 +1625,13 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 4
 	},
-/obj/structure/chair/comfy{
-	color = "#596479";
-	dir = 8
+/obj/machinery/computer{
+	dir = 8;
+	name = "Residential Teleportation Console";
+	desc = "A locked out and tagged out computer for the nearby teleporters - you should use the teleporters themselves."
 	},
-/turf/open/floor/carpet/black,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
 /area/centcom/interlink)
 "aOp" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -4619,11 +4624,8 @@
 	},
 /area/cruiser_dock)
 "dIM" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Interlink Shuttle"
-	},
 /obj/structure/disposalpipe/segment,
-/turf/open/floor/iron/dark,
+/turf/closed/indestructible/riveted,
 /area/centcom/interlink)
 "dIN" = (
 /obj/structure/table/wood,
@@ -4997,6 +4999,9 @@
 /area/centcom/holding/cafe/ruin/ash_walkers)
 "eeP" = (
 /obj/effect/turf_decal/siding/white,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/carpet/black,
 /area/centcom/interlink)
 "efb" = (
@@ -6943,10 +6948,11 @@
 /turf/open/indestructible/carpet,
 /area/centcom/interlink)
 "gkJ" = (
-/obj/machinery/door/airlock/multi_tile/public/glass{
-	name = "Interlink Locker Room"
+/obj/effect/turf_decal/siding/white{
+	dir = 8
 	},
-/turf/open/floor/iron/dark,
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/carpet/black,
 /area/centcom/interlink)
 "gkL" = (
 /obj/structure/chair/sofa/corp/right{
@@ -11507,11 +11513,15 @@
 /turf/open/floor/iron/showroomfloor,
 /area/centcom/interlink)
 "laN" = (
-/obj/machinery/door/airlock/multi_tile/public/glass{
-	name = "Interlink Longue"
+/obj/effect/turf_decal/siding/white{
+	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood,
-/turf/open/floor/iron/dark,
+/obj/machinery/cafe_condo_teleporter{
+	name = "Residential Teleporter"
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/blue,
+/turf/open/floor/iron,
 /area/centcom/interlink)
 "laX" = (
 /obj/structure/fans/tiny/invisible,
@@ -14090,7 +14100,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/open/floor/iron/dark,
+/turf/closed/indestructible/riveted,
 /area/centcom/interlink)
 "nMw" = (
 /obj/structure/fence{
@@ -14751,6 +14761,10 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 6
 	},
+/obj/effect/turf_decal{
+	dir = 1
+	},
+/obj/structure/closet/crate/bin,
 /turf/open/floor/carpet/black,
 /area/centcom/interlink)
 "owK" = (
@@ -14967,10 +14981,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/admin/general,
 /turf/open/floor/wood/large,
 /area/centcom/central_command_areas/admin/interlink)
-"oNk" = (
-/obj/effect/turf_decal/siding/wood,
-/turf/open/floor/iron/dark,
-/area/centcom/interlink)
 "oNx" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -15526,10 +15536,10 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/cruiser_dock)
 "ptt" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 1
+/obj/effect/turf_decal{
+	dir = 4
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/carpet/black,
 /area/centcom/interlink)
 "ptG" = (
 /obj/structure/sign/painting/library_secure,
@@ -17260,13 +17270,6 @@
 /obj/structure/dresser,
 /turf/open/floor/wood/large,
 /area/centcom/interlink/dorm_rooms)
-"reM" = (
-/obj/machinery/door/airlock/multi_tile/public/glass{
-	dir = 4;
-	name = "Interlink Locker Room"
-	},
-/turf/open/floor/iron/dark,
-/area/centcom/interlink)
 "reT" = (
 /obj/effect/turf_decal/plaque{
 	icon_state = "L12"
@@ -17680,11 +17683,12 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 4
 	},
-/obj/structure/chair/comfy{
-	color = "#596479";
-	dir = 8
+/obj/machinery/cafe_condo_teleporter{
+	name = "Residential Teleporter"
 	},
-/turf/open/floor/carpet/black,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/red,
+/turf/open/floor/iron,
 /area/centcom/interlink)
 "rGb" = (
 /obj/structure/disposalpipe/segment,
@@ -20064,15 +20068,6 @@
 	icon_state = "darkfull"
 	},
 /area/centcom/holding/cafe/station/service/hydroponics)
-"una" = (
-/obj/machinery/door/airlock/multi_tile/public/glass{
-	name = "Interlink Public Garden"
-	},
-/obj/effect/turf_decal/siding/white{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/centcom/interlink)
 "unc" = (
 /obj/effect/light_emitter/interlink,
 /obj/effect/turf_decal/siding/thinplating{
@@ -22514,6 +22509,7 @@
 	dir = 4
 	},
 /obj/machinery/light/directional/east,
+/obj/effect/turf_decal,
 /turf/open/floor/carpet/black,
 /area/centcom/interlink)
 "wJQ" = (
@@ -22552,13 +22548,11 @@
 	},
 /area/centcom/holding/cafe/station/command)
 "wLA" = (
+/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/airlock/public/glass{
-	name = "Interlink Dormitories Wing"
-	},
-/turf/open/floor/iron/dark,
+/turf/closed/indestructible/riveted,
 /area/centcom/interlink)
 "wLN" = (
 /obj/structure/railing{
@@ -23708,14 +23702,6 @@
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron,
 /area/centcom/holding/cafe/station/commons/fitness/locker_room)
-"xYp" = (
-/obj/machinery/door/airlock/multi_tile/public/glass{
-	name = "Interlink Cafe"
-	},
-/obj/effect/turf_decal/siding/wood,
-/obj/machinery/duct,
-/turf/open/floor/wood/tile,
-/area/centcom/interlink)
 "xYs" = (
 /obj/effect/light_emitter/interlink,
 /obj/effect/turf_decal/siding/wideplating,
@@ -31278,7 +31264,7 @@ hvQ
 aTS
 eKW
 hvQ
-tvw
+dCa
 aWb
 dkE
 tvw
@@ -31534,7 +31520,7 @@ hvQ
 deD
 tvw
 nMn
-reM
+tvw
 tvw
 kdy
 hIH
@@ -31789,7 +31775,7 @@ lPi
 hvQ
 hvQ
 hvQ
-gkJ
+tvw
 ayb
 wHJ
 tvw
@@ -32046,7 +32032,7 @@ lPi
 hvQ
 aTS
 hvQ
-aXG
+tvw
 wUm
 nJp
 tvw
@@ -32560,10 +32546,10 @@ sBH
 sBH
 sBH
 sBH
-una
+tvw
 wUm
 ykt
-dCa
+oqg
 hIH
 aYX
 aWb
@@ -32817,7 +32803,7 @@ sBH
 sBH
 sBH
 sBH
-ptt
+tvw
 wUm
 wck
 tvw
@@ -33331,7 +33317,7 @@ qDc
 rKy
 jGb
 quT
-lPi
+tvw
 hpl
 wck
 tvw
@@ -33588,7 +33574,7 @@ gKe
 xgz
 olE
 gZl
-lPi
+tvw
 hpl
 wck
 tvw
@@ -33845,7 +33831,7 @@ mfN
 xgz
 eqS
 xvb
-xYp
+oqg
 uym
 fEa
 tvw
@@ -34102,7 +34088,7 @@ blI
 lVL
 olE
 wtI
-wtI
+tvw
 wUm
 ghv
 mVc
@@ -34359,7 +34345,7 @@ hPK
 cRs
 vFU
 uOe
-lPi
+tvw
 jRq
 fEa
 tvw
@@ -34616,7 +34602,7 @@ olE
 olE
 vFU
 nbn
-lPi
+tvw
 hpl
 ghv
 pHe
@@ -34873,7 +34859,7 @@ vui
 vui
 fFN
 ygY
-lPi
+tvw
 hpl
 ghv
 xPZ
@@ -36666,12 +36652,12 @@ czB
 ihW
 ihW
 hoN
-hrn
+gkJ
 azO
-jMu
-jMu
+ptt
+ptt
 eeP
-laN
+tvw
 wUm
 hvQ
 nud
@@ -36926,9 +36912,9 @@ tjx
 wJI
 rFY
 aOn
-tjx
+laN
 ows
-oNk
+tvw
 wUm
 hvQ
 nud
@@ -37442,7 +37428,7 @@ kOZ
 kOZ
 kOZ
 wHJ
-qhz
+tvw
 wUm
 hvQ
 nud
@@ -37699,7 +37685,7 @@ hvQ
 hvQ
 hvQ
 cGt
-qhz
+tvw
 hhj
 fnX
 nud
@@ -38205,7 +38191,7 @@ lPi
 tvw
 jHw
 wLA
-oBN
+dIM
 tvw
 tvw
 tvw
@@ -39231,7 +39217,7 @@ oOn
 iPs
 iPs
 ugf
-fov
+tvw
 qWd
 hRG
 tvw
@@ -40259,7 +40245,7 @@ aqG
 aqG
 aqG
 aqG
-fov
+tvw
 qWd
 raz
 tvw
@@ -43083,7 +43069,7 @@ uHW
 tvw
 tvw
 tvw
-fov
+tvw
 tvw
 tvw
 tvw
@@ -43593,7 +43579,7 @@ tvw
 tvw
 tvw
 tvw
-fov
+tvw
 tvw
 xLV
 hvQ
