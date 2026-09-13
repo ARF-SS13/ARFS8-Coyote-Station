@@ -37,6 +37,7 @@
 	var/lid_z = 0
 	var/weld_w = 0
 	var/weld_z = 0
+	tracking_category = CATTRACK_CRATES
 
 /obj/structure/closet/crate/Initialize(mapload)
 	AddElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0) //add element in closed state before parent init opens it(if it does)
@@ -194,6 +195,7 @@
 	can_install_electronics = FALSE
 	paint_jobs = null
 	weld_z = 5
+	tracking_category = CATTRACK_TRASHCARTS
 
 /obj/structure/closet/crate/trashcart/laundry
 	name = "laundry cart"

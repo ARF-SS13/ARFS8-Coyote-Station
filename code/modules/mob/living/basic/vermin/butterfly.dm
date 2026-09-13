@@ -4,6 +4,8 @@
 	icon_state = "butterfly"
 	icon_living = "butterfly"
 	icon_dead = "butterfly_dead"
+	pass_flags = TINY_CREATURE_PASS
+	layer = TINY_CREATURE_LAYER
 
 	response_help_continuous = "shoos"
 	response_help_simple = "shoo"
