@@ -9,6 +9,7 @@
 	resistance_flags = FLAMMABLE
 	item_flags = NOBLUDGEON|SKIP_FANTASY_ON_SPAWN
 	custom_materials = list(/datum/material/plastic=SMALL_MATERIAL_AMOUNT*2)
+	tracking_category = CATTRACK_TRASH
 
 /obj/item/trash/Initialize(mapload)
 	var/turf/T = get_turf(src)
