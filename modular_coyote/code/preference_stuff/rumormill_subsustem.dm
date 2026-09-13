@@ -955,14 +955,30 @@ toggle_rumor_specifiable
 	var/ghoulyay = TRUE
 	if(graveyard_durty)
 		var/datta = json_encode(graveyard, JSON_PRETTY_PRINT)
-		var/yay = rustg_file_write(datta, RUMOR_GRAVE)
-		if(!yay)
+		rustg_file_write(datta, RUMOR_GRAVE)
+		output_debug("RumorMill: Saved rumor graveyard to disk at [RUMOR_GRAVE]!")
+		graveyard_durty = FALSE
+		var/datta2 = rustg_file_read(RUMOR_GRAVE)
+		if(!datta2)
 			ghoulyay = FALSE
-			output_debug("RumorMill: Failed to save the rumor graveyard to disk at [RUMOR_GRAVE]!")
+			output_debug("RumorMill: Failed to read back the file we just saved for rumor graveyard to disk at [RUMOR_GRAVE]!", TRUE)
 		else
-			output_debug("RumorMill: Saved the rumor graveyard to disk at [RUMOR_GRAVE]!")
+			if(datta2 != datta)
+				ghoulyay = FALSE
+				output_debug("RumorMill: The file we just saved for rumor graveyard to disk at [RUMOR_GRAVE] does not match the data we wrote to it!", TRUE)
+			var/list/rson = json_decode(datta2)
+			if(!rson || !islist(rson) || !LAZYLEN(rson))
+				ghoulyay = FALSE
+				output_debug("RumorMill: Failed to decode the file we just saved for rumor graveyard to disk at [RUMOR_GRAVE]!", TRUE)
+			var/list/rson2 = json_decode(datta)
+			if(!rson2 || !islist(rson2) || !LAZYLEN(rson2))
+				ghoulyay = FALSE
+				output_debug("RumorMill: Failed to decode the data we wrote to the file for rumor graveyard to disk at [RUMOR_GRAVE]!", TRUE)
+			if(ghoulyay)
+				output_debug("RumorMill: The file we just saved for rumor graveyard to disk at [RUMOR_GRAVE] matches the data we wrote to it, hooray!")
 		if(!ghoulyay)
 			coolyay = FALSE
+			output_debug("RumorMill: Failed to save rumors for rumor graveyard to disk at [RUMOR_GRAVE]!", TRUE)
 	return coolyay
 
 /datum/controller/subsystem/rumormill/proc/SaveMetrix()
