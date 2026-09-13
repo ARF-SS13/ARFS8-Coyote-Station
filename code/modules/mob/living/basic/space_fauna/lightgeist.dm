@@ -19,8 +19,8 @@
 	speak_emote = list("oscillates")
 	maxHealth = 2
 	health = 2
-	melee_damage_lower = 5
-	melee_damage_upper = 5
+	melee_damage_lower = 1
+	melee_damage_upper = 2
 	melee_attack_cooldown = 5 SECONDS
 	friendly_verb_continuous = "taps"
 	friendly_verb_simple = "tap"
@@ -58,7 +58,7 @@
 		/datum/component/healing_touch,\
 		heal_brute = melee_damage_upper,\
 		heal_burn = melee_damage_upper,\
-		heal_time = 0,\
+		heal_time = 5 SECONDS,\
 		valid_targets_typecache = typecacheof(list(/mob/living)),\
 		action_text = "%SOURCE% begins mending the wounds of %TARGET%",\
 		complete_text = "%TARGET%'s wounds mend together.",\
@@ -77,6 +77,7 @@
 /datum/ai_controller/basic_controller/lightgeist
 	blackboard = list(
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/lightgeist,
+		BB_BASIC_MOB_MELEE_DELAY = 5 SECONDS,
 	)
 
 	ai_traits = PASSIVE_AI_FLAGS

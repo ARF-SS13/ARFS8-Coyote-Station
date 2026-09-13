@@ -544,6 +544,14 @@
 	list_to_pick[.]--
 
 /**
+* Like pick_weight, but removes the picked element from the list
+*/
+/proc/pick_weight_remove(list/list_to_pick)
+	. = pick_weight(list_to_pick)
+	if(.)
+		list_to_pick -= .
+
+/**
 * Picks n items from a list. The same index will not be chosen more than once.
 * e.g. pick_n(list_of_stuff, 10) would return a list of 10 items from the list, chosen randomly.
 */
