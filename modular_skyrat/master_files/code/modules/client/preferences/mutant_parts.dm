@@ -51,9 +51,9 @@
 	check_mode = TRICOLOR_NO_CHECK
 
 /datum/preference/tri_color/mutant_colors/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features[FEATURE_MUTANT_COLOR] = GLOB.cool_mcolors[1]
-	target.dna.features[FEATURE_MUTANT_COLOR_TWO] = GLOB.cool_mcolors[2]
-	target.dna.features[FEATURE_MUTANT_COLOR_THREE] = GLOB.cool_mcolors[3]
+	target.dna.features[FEATURE_MUTANT_COLOR] = sanitize_hexcolor(value[1])
+	target.dna.features[FEATURE_MUTANT_COLOR_TWO] = sanitize_hexcolor(value[2])
+	target.dna.features[FEATURE_MUTANT_COLOR_THREE] = sanitize_hexcolor(value[3])
 
 /datum/preference/toggle/eye_emissives
 	savefile_key = "eye_emissives"
