@@ -203,8 +203,8 @@
 	relevant_mutant_bodypart = "snout"
 	type_to_check = /datum/preference/toggle/mutant_toggle/snout
 
-/datum/preference/tri_color/create_default_value()
-	return list("#[random_color()]", "#[random_color()]", "#[random_color()]")
+// /datum/preference/tri_color/create_default_value()
+// 	return list("#[random_color()]", "#[random_color()]", "#[random_color()]")
 
 /datum/preference/tri_bool/snout
 	category = PREFERENCE_CATEGORY_CHARACTER_BASICS
