@@ -83,6 +83,6 @@
 	if(type) message["type"] = type
 	if(text) message["text"] = text
 	if(html) message["html"] = html
-	if(extra_data) message["extraData"] = SSvisualchat.Hornify(target, extra_data)
+	if(LAZYLEN(extra_data)) message["extraData"] = SSvisualchat.Hornify(target, extra_data)
 	if(avoid_highlighting) message["avoidHighlighting"] = avoid_highlighting
 	SSchat.queue(target, message)

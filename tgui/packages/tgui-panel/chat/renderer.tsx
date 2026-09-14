@@ -25,8 +25,8 @@ import {
   MESSAGE_TYPES,
 } from './constants';
 import { canPageAcceptType, createMessage, isSameMessage } from './model';
-import { VisualChatify } from './visualchat_procs';
 import { highlightNode, linkifyNode } from './replaceInTextNode';
+import { VisualChatify } from './visualchat_procs';
 
 const logger = createLogger('chatRenderer');
 
@@ -384,7 +384,8 @@ class ChatRenderer {
         // Payload is plain text
         if (message.text) {
           node.textContent = message.text;
-        } else if (message.visualChatData) {
+        } else if (message.extraData) {
+          logger.log(VisualChatify(message));
           node.innerHTML = VisualChatify(message);
           // Payload is HTML
         } else if (message.html) {

@@ -43,7 +43,7 @@
 #define VC_PATH                  "data/visualchat"
 #define VC_LOGS                  VC_PATH + "/logs"
 #define VC_METRIX                VC_PATH + "/metrix"
-#define VC_SAVES                 VC_PATH + "/saves"
+#define VC_SAVES                 VC_PATH + "/saves/"
 SUBSYSTEM_DEF(visualchat)
 	name = "VisualChat"
 	wait = 10 SECONDS
@@ -144,11 +144,11 @@ SUBSYSTEM_DEF(visualchat)
 	if(!LAZYLEN(relevant_datpak))
 		return
 	var/datum/vc_account_prefs_manager/speaker_manager
-	var/override_path = relevant_datpak["overridepath"]
-	if(override_path) // its an npc or something, so we need to use the override path instead of the ckey
-		speaker_manager = GetVCAccountPrefsManager(override_path, FALSE, TRUE)
+	var/atom/override_atom = relevant_datpak["atom"]
+	if(override_atom) // its an npc or something, so we need to use the override path instead of the ckey
+		speaker_manager = GetVCAccountPrefsManager(override_atom, FALSE, TRUE)
 	else
-		speaker_manager = GetVCAccountPrefsManager(relevant_datpak["key"], FALSE, TRUE)
+		speaker_manager = GetVCAccountPrefsManager(relevant_datpak["atom"], FALSE, TRUE)
 	if(!speaker_manager)
 		return
 	if(speaker_manager.suppress_accountwide)
@@ -313,23 +313,18 @@ SUBSYSTEM_DEF(visualchat)
 		to_chat(usr, span_warning("The image must be hosted on one of the following sites: 'Catbox, Imgbox, Gyazo, Lensdump, F-List'"))
 		return
 
-
-
-
-
-ValidateURL
-ValidateColor
-
 /datum/controller/subsystem/visualchat/proc/GetTotalChatmen()
 	var/total = 0
 	var/list/ckey_folders = flist(VC_SAVES)
 	total = LAZYLEN(ckey_folders)
 	return total
 
-/datum/controller/subsystem/visualchat/proc/GetVCAccountPrefsManager(mob/user, replace_if_present = FALSE, make = TRUE)
-	if(!user || !user.ckey)
+/datum/controller/subsystem/visualchat/proc/GetVCAccountPrefsManager(smth, replace_if_present = FALSE, make = TRUE)
+	if(istext(smth))
+		smth = ckey(smth)
+	var/thekey = extract_ckey(smth) // aghosts cause @
+	if(!thekey)
 		return null
-	var/thekey = ckey(user.ckey) // aghosts cause @
 	var/datum/vc_account_prefs_manager/vapm = chatprefs[thekey]
 	if(vapm && replace_if_present)
 		// if we want to replace it, then we need to destroy the old one first
@@ -337,7 +332,7 @@ ValidateColor
 		vapm = null
 	if(!vapm && make)
 		//attempt a load, maybe its just not here yet
-		vapm = new /datum/vc_account_prefs_manager(user)
+		vapm = new /datum/vc_account_prefs_manager(smth)
 		chatprefs[thekey] = vapm
 		vapm.load_account() // load the data from disk, if it exists. otherwise it makes a new one, then saves it
 	return vapm

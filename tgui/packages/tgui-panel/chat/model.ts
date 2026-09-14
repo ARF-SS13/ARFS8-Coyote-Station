@@ -62,7 +62,7 @@ export function serializeMessage(
     html: message.html,
     times: message.times,
     createdAt: message.createdAt,
-    visualChatData: message.visualChatData,
+    extraData: message.extraData,
   };
 }
 
@@ -85,5 +85,5 @@ export type SerializedMessage = {
   times: number;
   node: HTMLElement;
   avoidHighlighting: boolean;
-  visualChatData: VCDataPack;
+  extraData: VCDataPack;
 }>;
