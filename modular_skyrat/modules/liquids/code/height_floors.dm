@@ -71,6 +71,8 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	steamy_percentage = 35
+	wavy = FALSE
 
 /turf/open/floor/iron/pool/cobble/side
 	base_icon_state = "cobble_side"
