@@ -275,6 +275,20 @@ at the cost of risking a vicious bite.**/
 	AddElement(/datum/element/connect_loc, loc_connections)
 	register_context()
 	update_icon_state()
+	if(vent_active)
+		make_steamy()
+
+/obj/structure/steam_vent/proc/make_steamy()
+	var/obj/effect/abstract/shared_particle_holder/holder = add_shared_particles(/particles/hotspring_steam, "steamvent_[GET_TURF_PLANE_OFFSET(src)]", pool_size = 4)
+	holder.vis_flags &= ~VIS_INHERIT_PLANE
+	holder.plane = MUTATE_PLANE(MASSIVE_OBJ_PLANE, src)
+
+/obj/structure/steam_vent/Destroy()
+	make_unsteamy()
+	. = ..()
+
+/obj/structure/steam_vent/proc/make_unsteamy()
+	remove_shared_particles("steamvent_[GET_TURF_PLANE_OFFSET(src)]")
 
 /obj/structure/steam_vent/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
@@ -284,8 +298,10 @@ at the cost of risking a vicious bite.**/
 	vent_active = !vent_active
 	update_icon_state()
 	if(vent_active)
+		make_steamy()
 		balloon_alert(user, "vent on")
 	else
+		make_unsteamy()
 		balloon_alert(user, "vent off")
 		return
 	blow_steam()

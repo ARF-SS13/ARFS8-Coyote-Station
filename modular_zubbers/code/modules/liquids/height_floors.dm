@@ -1,5 +1,7 @@
 /turf/open/floor/iron/pool
 	turf_height = -15
+	steamy_percentage = 50
+	wavy = FALSE
 
 /turf/open/floor/iron/lowered
 	turf_height = -15
