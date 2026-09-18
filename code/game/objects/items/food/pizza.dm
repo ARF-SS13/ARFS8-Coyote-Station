@@ -96,8 +96,8 @@
 /obj/item/food/pizza/proc/produce_slice(mob/user, no_update = FALSE)
 	var/turf/our_turf = get_turf(src)
 	var/obj/item/food/pizzaslice/slice = new slice_type(our_turf)
-	if(HAS_TRAIT(src, TRAIT_FOOD_SILVER))
-		ADD_TRAIT(slice, TRAIT_FOOD_SILVER, INNATE_TRAIT)
+	// if(HAS_TRAIT(src, TRAIT_FOOD_SILVER))
+	// 	ADD_TRAIT(slice, TRAIT_FOOD_SILVER, INNATE_TRAIT)
 	if(HAS_TRAIT(src, TRAIT_FOOD_CHEF_MADE))
 		ADD_TRAIT(slice, TRAIT_FOOD_CHEF_MADE, GET_TRAIT_SOURCES(src, TRAIT_FOOD_CHEF_MADE)[1]) // wack thing to inherit first source
 	slice.pixel_x += rand(-6, 6)

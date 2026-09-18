@@ -1,110 +1,48 @@
-/*
- * @file
+/**
+ * @file visualchat_chat_element_builder.tsx
  * @copyright 2026 Coyote ARFS (Fennicus hornificus)
- * @license Free Use Vixen
+ * @license You Break It You Bought It
  * @description Welcome to VisualChat, the gaudy thing that makes your chat
  * look like a silly anime visual novel! The way it works is that the backend
  * compiles a bunch of data about what was said, then this thing here turns that
  * into html clown vomit. its then directly injected into the chat message
  * payload in renderer.tsx. Enjoy!
  */
+/** biome-ignore-all assist/source/organizeImports: eat me */
 
-import { render } from '@testing-library/react';
-import { createLogger } from 'tgui/logging';
 import { Box, Stack } from 'tgui-core/components';
-import { resolveAsset } from '../../tgui/assets';
-import type { SerializedMessage } from './model';
-import type { VCDataPack } from './visualchat_types';
+import { resolveAsset } from 'tgui/assets';
+import type {
+  VCMessageData,
+  VCSettingDataPack,
+  VCSaymodeData,
+} from './visualchat_types';
+import { GetBgStyle, GetTextStyle } from './visualchat_utils';
 
-const logger = createLogger('chatRenderer');
-
-enum VisualChatClusterKind {
-  Outer = 'OuterBox',
-  PFP = 'PFPBox',
-  Name = 'NameBox',
-  Message = 'MessageBox',
-}
-enum VisualChatClusterType {
-  Border = 'Border',
-  Background = 'Background',
-  Text = 'Text',
-  Image = 'Image',
-  Gradient = 'Gradient',
-}
-type bgCluster = {
-  show: boolean;
-  bgColor: string;
-  bgGradAngle: number;
-  bgGradEnd: string;
-  bgGradStart: string;
-  bgGradUse: boolean;
-  bgOpacity: number;
-  bgPaddingBottom: number;
-  bgPaddingLeft: number;
-  bgPaddingRight: number;
-  bgPaddingTop: number;
-};
-
-type textCluster = {
-  align: string;
-  color: string;
-  decoration: string;
-  font: string;
-  letter_spacing: number;
-  line_height: number;
-  opacity: number;
-  padding_bottom: number;
-  padding_left: number;
-  padding_right: number;
-  padding_top: number;
-  shadow_blur: number;
-  shadow_blur2: number;
-  shadow_color: string;
-  shadow_color2: string;
-  shadow_offset_x: number;
-  shadow_offset_x2: number;
-  shadow_offset_y: number;
-  shadow_offset_y2: number;
-  shadow_use: boolean;
-  shadow_use2: boolean;
-  size: number;
-  transform: string;
-  word_spacing: number;
-};
-
-type borderCluster = {
-  bColor: string;
-  bRadius: number;
-  bStyle: string;
-  bWidth: number;
-};
+const DEFAULT_PROFILE_PICTURE = resolveAsset(
+  'https://files.catbox.moe/rblpt6.png',
+);
 
 // Sets the innerHTML of a chat message node (bscly a div) to a visual novel
 // style chat message. Super customizable, for better or worse
 // someday this'll have stuff like prefs to tone down the disco vomit nightmare!
-export function VisualChatify(message: SerializedMessage): string {
-  const vcData: VCDataPack = message.extraData as VCDataPack;
-  const saymodeData = vcData.saymode_data;
+export function VisualChatify(
+  saymodeData: VCSaymodeData,
+  settingsData: VCSettingDataPack,
+  messageData: VCMessageData,
+  // for external use
+  previewify: boolean = false,
+): React.ReactElement {
   const {
     body_text,
-    body_spans,
     used_verb,
     is_radio,
-    is_emote,
-    is_emote_quick,
-    am_ghost,
     displayed_name,
     radio_color,
     radio_freq_name,
     language_icon,
-    language_understood,
     ghost_link,
-    body_span_class,
-    body_span_color,
-    msg_splice_timeout,
-    msg_splice_last_saymode,
-  } = vcData.message_data;
-  const settingsData = vcData.saymode_data.settings;
+  } = messageData;
 
   const outerBoxStyle: React.CSSProperties = {
     // non-variable things (fills the width,fits the content, etc)
@@ -166,7 +104,7 @@ export function VisualChatify(message: SerializedMessage): string {
     : {};
   const pfpImageElement = (
     <img
-      src={resolveAsset('https://files.catbox.moe/rblpt6.png')}
+      src={DEFAULT_PROFILE_PICTURE}
       alt="A really cute furry profile picture!"
       style={pfpImageStyle}
     />
@@ -275,7 +213,11 @@ export function VisualChatify(message: SerializedMessage): string {
   const ghostLinkBit = ghost_link ? <span>{ghost_link}</span> : null;
   const nameFull = (
     <>
-      {radioBit} {languageBit} {ghostLinkBit} {displayed_name} {used_verb}
+      {radioBit}
+      {languageBit}
+      {ghostLinkBit}
+      {displayed_name}
+      {used_verb}
     </>
   );
 
@@ -297,18 +239,9 @@ export function VisualChatify(message: SerializedMessage): string {
         </Stack.Item>
       </Stack>
     </Box>
-
-    // <div style={outerBoxStyle}>
-    //   <div style={pfpBoxStyle}>{pfpImageElement}</div>
-    //   <div>
-    //     <div style={nameStyle}>{nameFull},</div>
-    //     <div style={messageStyle}>{body_text}</div>
-    //   </div>
-    // </div>
   );
   // however we need to return a string, so we gotta do some janky stuff to get the html out of the react element
-  const { container } = render(theElement);
-  return container.innerHTML;
+  return theElement;
 }
 
 /*
@@ -332,110 +265,3 @@ export function VisualChatify(message: SerializedMessage): string {
     msg_splice_last_saymode,
 
 */
-
-function AssembleImageUrl(host: string, filename: string): string {
-  if (!host || !filename) {
-    return '';
-  }
-  if (host.endsWith('/')) {
-    host = host.slice(0, -1);
-  }
-  if (filename.startsWith('/')) {
-    filename = filename.slice(1);
-  }
-  return `${host}/${filename}`;
-}
-
-function GetTextStyle(textData: textCluster): React.CSSProperties {
-  const {
-    align,
-    color,
-    decoration,
-    font,
-    letter_spacing,
-    line_height,
-    opacity,
-    padding_bottom,
-    padding_left,
-    padding_right,
-    padding_top,
-    shadow_blur,
-    shadow_blur2,
-    shadow_color,
-    shadow_color2,
-    shadow_offset_x,
-    shadow_offset_x2,
-    shadow_offset_y,
-    shadow_offset_y2,
-    shadow_use,
-    shadow_use2,
-    size,
-    transform,
-    word_spacing,
-  } = textData;
-  return {
-    textAlign: align as 'left' | 'right' | 'center' | 'justify',
-    color: color || '#ffffff',
-    textDecoration: decoration as
-      | 'none'
-      | 'underline'
-      | 'overline'
-      | 'line-through',
-    fontFamily: font || 'Arial, sans-serif',
-    letterSpacing: letter_spacing || 0,
-    lineHeight: line_height || 1.2,
-    wordSpacing: word_spacing || 0,
-    fontSize: size || 14,
-    textTransform: transform as
-      | 'none'
-      | 'capitalize'
-      | 'uppercase'
-      | 'lowercase',
-    opacity: opacity || 1,
-    paddingBottom: padding_bottom || 0,
-    paddingLeft: padding_left || 0,
-    paddingRight: padding_right || 0,
-    paddingTop: padding_top || 0,
-    textShadow:
-      (shadow_use
-        ? `${shadow_offset_x}px ${shadow_offset_y}px ${shadow_blur}px ${shadow_color}`
-        : '') +
-      (shadow_use2
-        ? `, ${shadow_offset_x2}px ${shadow_offset_y2}px ${shadow_blur2}px ${shadow_color2}`
-        : ''),
-  };
-}
-
-function GetBgStyle(bgData: bgCluster): React.CSSProperties {
-  const {
-    show,
-    bgColor,
-    bgGradAngle,
-    bgGradEnd,
-    bgGradStart,
-    bgGradUse,
-    bgOpacity,
-    bgPaddingBottom,
-    bgPaddingLeft,
-    bgPaddingRight,
-    bgPaddingTop,
-  } = bgData;
-  if (!show) {
-    return { display: 'none' };
-  }
-  // background color/gradient
-  const bgGradient = bgGradUse
-    ? `linear-gradient(${bgGradAngle}deg, ${bgGradStart}, ${bgGradEnd})`
-    : bgColor || '#ff00ea';
-  return {
-    background: bgGradient,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    paddingTop: bgPaddingTop,
-    paddingBottom: bgPaddingBottom,
-    paddingLeft: bgPaddingLeft,
-    paddingRight: bgPaddingRight,
-    opacity: bgOpacity,
-  };
-}

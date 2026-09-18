@@ -52,6 +52,7 @@ SUBSYSTEM_DEF(visualchat)
 	var/datum/vc_metrix/metrix
 	var/max_hearable_horny_dist = 300
 	var/debug_saving = TRUE
+	var/datum/vc_settings_ui_chungus/setzup
 	// most recent at the bottom, oldest at the top. for updates or something
 	var/list/versions = list(
 		"v0.1b - Initial release",
@@ -75,6 +76,7 @@ SUBSYSTEM_DEF(visualchat)
 	)
 
 /datum/controller/subsystem/visualchat/Initialize(start_timeofday)
+	setzup = new
 	LoadVCSettings()
 	var/num_accs = 0
 	var/num_saymodes = 0
@@ -161,7 +163,7 @@ SUBSYSTEM_DEF(visualchat)
 	if(!saymode) // null if something is suppressed
 		return
 	var/list/datapaquette = list()
-	datapaquette["saymode_data"] = saymode.serialize_saymode(TRUE)
+	datapaquette["saymode_data"] = saymode.serialize_saymode(FALSE) // smaller tgui means less plastic
 	var/list/msg_dat = list()
 	msg_dat["body_text"]               = message_data[SATA_MESSAGE_HEARD]
 	msg_dat["body_spans"]              = message_data[SATA_SPANS]
@@ -228,6 +230,7 @@ SUBSYSTEM_DEF(visualchat)
 	var/working = trim(imput)
 	if(!length(working))
 		return list("DISREGARD", "")
+	. = list("DISREGARD", "DISREGARD")
 
 	working = replacetext(working, "https://", "")
 	working = replacetext(working, "http://", "")
@@ -237,14 +240,18 @@ SUBSYSTEM_DEF(visualchat)
 		return list("DISREGARD", "")
 	if(LAZYLEN(parts) == 1)
 		// hol up, gotta be png, jpg, jpeg, gif, webp, or something
-		var/filename = parts[1]
-		var/list/splut = splittext(filename, ".")
-		if(LAZYLEN(splut) < 2)
-			return list("DISREGARD", "DISREGARD")
-		var/extension = splut[LAZYLEN(splut)]
+		var/file_thing = parts[1]
+		var/list/splut = splittext(file_thing, ".")
+		if(LAZYLEN(splut) != 2)
+			return .
+		if(!LAZYLEN(splut[1]) || !LAZYLEN(splut[2]))
+			return .
+		var/extension = splut[2]
 		if(!(extension in valid_extensions))
-			return list("DISREGARD", "DISREGARD")
-		return list("DISREGARD", parts[1])
+			return .
+		if(file_thing[1] == "/")
+			file_thing = copytext(file_thing, 1, LAZYLEN(file_thing) + 1)
+		return list("DISREGARD", file_thing)
 	var/filename = parts[LAZYLEN(parts)]
 	var/host_key = "DISREGARD"
 
@@ -255,6 +262,18 @@ SUBSYSTEM_DEF(visualchat)
 					host_key = valid_salid
 					break breakmecomplitely
 	return list(host_key, filename)
+
+/datum/controller/subsystem/visualchat/proc/ExtractProfilePicLink(host, filename)
+	if(!istext(host) || !istext(filename))
+		return ""
+	if(!(host in valid_hosts))
+		return ""
+	var/list/splitty = splittext(filename, ".")
+	if(LAZYLEN(splitty) != 2)
+		return ""
+	if(!(splitty[2] in valid_extensions))
+		return ""
+	return host + "/" + filename
 
 /datum/controller/subsystem/visualchat/proc/ValidateColor(maybecolor)
 	if(!istext(maybecolor))
@@ -288,31 +307,6 @@ SUBSYSTEM_DEF(visualchat)
 	else
 		return pick(preview_texts[SAYMODE_SAY])
 
-/datum/preference/text/headshot/is_valid(value)
-	if(!length(value)) // Just to get blank ones out of the way
-		return TRUE
-
-	var/find_index = findtext(value, "https://")
-	if(find_index != 1)
-		to_chat(usr, span_warning("Your link must be https!"))
-		return
-
-	if(!findtext(value, "."))
-		to_chat(usr, span_warning("Invalid link!"))
-		return
-	var/list/value_split = splittext(value, ".")
-
-	// extension will always be the last entry
-	var/extension = value_split[length(value_split)]
-	if(!(extension in valid_extensions))
-		to_chat(usr, span_warning("The image must be one of the following extensions: '[english_list(valid_extensions)]'"))
-		return
-
-	find_index = findtext(value, link_regex)
-	if(find_index != 9)
-		to_chat(usr, span_warning("The image must be hosted on one of the following sites: 'Catbox, Imgbox, Gyazo, Lensdump, F-List'"))
-		return
-
 /datum/controller/subsystem/visualchat/proc/GetTotalChatmen()
 	var/total = 0
 	var/list/ckey_folders = flist(VC_SAVES)
@@ -337,43 +331,60 @@ SUBSYSTEM_DEF(visualchat)
 		vapm.load_account() // load the data from disk, if it exists. otherwise it makes a new one, then saves it
 	return vapm
 
-/// clopboard
-/// Can be used to copy a nested set of things
-/// can copy individual saymode preference pieces, entire saymode preferences
-// /datum/controller/subsystem/visualchat/proc/CopyToClipboard(mob/reader, datum/vc_preference/source_pref)
-// 	if(!reader || !source_pref)
-// 		return
-
-/datum/controller/subsystem/visualchat/ui_state(mob/user)
-	return GLOB.always_state
-
-// im a small clever foxxie with a cute face, and a small butt, and my butt smells nice, and I like to kiss my own butt
-/datum/controller/subsystem/visualchat/ui_interact(mob/user, datum/tgui/ui)
-	. = ..()
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "VisualChatSetupWizard")
-		ui.open()
-
-/datum/controller/subsystem/visualchat/ui_data(mob/user)
-	. = ..()
-
-/datum/controller/subsystem/visualchat/ui_static_data(mob/user)
+/datum/controller/subsystem/visualchat/proc/GetStaticDataForSettingsUI(mob/user)
+	// beep, beep, beep, here comes the dumptruck of data backing into your client
 	var/list/dat = list()
-	var/datum/vc_account_prefs_manager/manager = GetVCAccountPrefsManager(user)
-	var/datum/prefs_holder/prefs = extract_prefs_holder(user)
-	// lists of character slots
-	dat["human_name"] = prefs.read_preference(/datum/preference/name/real_name) || user.name
-	/// same slots, but with different names
-	dat["silicon_name"] = prefs.read_preference(/datum/preference/name/cyborg) || "[user.name] bot"
-	// dat["slots_mob"] = list() // todo: per mob type
-	// for(var/slotpath in manager.prefs_per_mob)
-	// 	var/datum/vc_preference_holder/holder = manager.prefs_per_mob[slotpath]
-	// 	var/list/
-	// and package the datas
-	dat["human_data"] = manager.get_tgui_for_setup(prefs.default_slot, "human")
-	dat["silicon_data"] = manager.get_tgui_for_setup(prefs.default_slot, "silicon")
+	// hers what we need:
+	// - the saymode data for every saymode they have, for the current slot, of human and silicon
+	// - suppression toggles for account, character, and saymode
+	var/datum/prefs_holder/P = extract_prefs_holder(user)
+	var/datum/vc_account_prefs_manager/manager = GetVCAccountPrefsManager(user, FALSE, TRUE)
+	var/slut = extract_current_character_slot(user, FALSE)
+	var/datum/vc_preference_holder/holdiers_flavor_crystal = manager.get_prefs_holder_for_slot(slut)
+	dat["saymodes"] = holdiers_flavor_crystal.get_all_saymodes_for_tgui()
+	dat["suppress_account"] = manager.suppress_accountwide
+	dat["suppress_character"] = holdiers_flavor_crystal.suppress_characterwide
+	dat["see_visualchat"] = manager.see_visualchat
+	dat["see_visualchat_range"] = manager.see_visualchat_range
+	dat["see_visualchat_range_max"] = manager.see_visualchat_range_max
+	dat["see_visualchat_range_min"] = manager.see_visualchat_range_min
+	// individual saymode suppression toggles are in the saymode data itself
+	dat["human_or_silicon"] = holdiers_flavor_crystal.kind
+	dat["color_swatches"] = manager.color_swatches
+	dat["clipboard"] = manager.get_clipboard()
+	dat["changed_time"] = manager.changed_time
+	dat["valid_hosts"] = list()
+	for(var/host in SSvisualchat.valid_hosts)
+		dat["valid_hosts"] += host
+	dat["valid_extensions"] = SSvisualchat.valid_extensions
+	// and some stuff about the user theyself
+	var/maybename = user.real_name || user.name
+	if(ckey(maybename) == user.ckey)
+		if(holdiers_flavor_crystal == "human")
+			maybename = P.read_preference(/datum/preference/name/real_name) || user.name
+		else
+			maybename = P.read_preference(/datum/preference/name/cyborg) || user.name
+	dat["user_name"] = maybename
 	return dat
+
+/datum/controller/subsystem/visualchat/proc/PerformActForSettingsUI(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	// thingz it can do:
+	// - update saymode preferences
+	// --- slot taken from mob, human/silicon taken from params, everything else is params too
+	// - update suppression toggles for account, character, and saymode
+	// - update visualchat settings like see_visualchat and see_visualchat_range
+	// - update color swatches
+	// --- swatchify a color
+	// --- modify an existing swatch
+	// --- add/remove a swatch
+	// - operate clipboard
+	// --- copy three different things to the clipboard
+	// --- paste from the clipboard
+	if(!ui || !ui.user)
+		CRASH("Oh good golly gosh, UI or user is null! ERROR CODE: FAT-EXPIE-STUCK-IN-LIFEPOD")
+	var/mob/user = ui.user
+
+
 
 
 

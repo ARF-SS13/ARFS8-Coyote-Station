@@ -1,6 +1,6 @@
 const cachedModdedColors: Record<string, string> = {};
 
-function ModifyHSLA(
+export function ModifyHSLA(
   hsla: string,
   hDelta: number,
   sDelta: number,
@@ -34,7 +34,7 @@ function ModifyHSLA(
   return modifiedColor;
 }
 
-function ConvertToHSLA(color: string): string {
+export function ConvertToHSLA(color: string): string {
   // regex
   const hslaRegex = /^hsla\(\d+,\s*\d+%,\s*\d+%,\s*[\d.]+\)$/;
   if (hslaRegex.test(color)) {
@@ -101,7 +101,7 @@ function ConvertToHSLA(color: string): string {
   throw new Error('Idfk wtf color format this is');
 }
 
-function RGBAToHSLA(r: number, g: number, b: number, a: number): string {
+export function RGBAToHSLA(r: number, g: number, b: number, a: number): string {
   r /= 255;
   g /= 255;
   b /= 255;

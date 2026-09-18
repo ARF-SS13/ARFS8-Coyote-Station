@@ -26,7 +26,7 @@
 	for(var/datum/vc_saymode/smode as anything in subtypesof(/datum/vc_saymode/default))
 		saymode_prefs[smode::saymode] = new smode(src)
 
-/datum/vc_preference_holder/proc/prefholder_get_saymode(saymode_key)
+/datum/vc_preference_holder/proc/prefholder_get_saymode(saymode_key) as /datum/vc_saymode
 	var/datum/vc_saymode/saymode = saymode_prefs[saymode_key]
 	if(!saymode)
 		saymode = saymode_prefs[SAYMODE_SAY] // default to say if its not found
@@ -34,6 +34,21 @@
 			saymode = new /datum/vc_saymode/default/say(src, SAYMODE_SAY)
 			saymode_prefs[SAYMODE_SAY] = saymode
 	return saymode
+
+/datum/vc_preference_holder/proc/get_all_saymodes_for_tgui() as /list
+	var/list/all_saymodes = list()
+	for(var/smod in saymode_prefs)
+		all_saymodes[smod] = prefholder_get_saymode(smod).serialize_saymode(TRUE)
+	return all_saymodes
+
+/datum/vc_preference_holder/proc/copy_character_settings_from(datum/vc_preference_holder/source)
+	for(var/smod in source.saymode_prefs)
+		var/datum/vc_saymode/saymode = source.saymode_prefs[smod]
+		if(!saymode)
+			continue
+		prefholder_get_saymode(smod).copy_saymode_settings_from(saymode)
+	suppress_characterwide = source.suppress_characterwide
+	return TRUE
 
 /datum/vc_preference_holder/proc/save_character_prefs(super_durty)
 	// we have been judged durty at this point, but what of the saymodes?

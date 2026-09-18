@@ -2,12 +2,10 @@
 /// ║                        Visual Chat Settings Datum                          ║
 /// ╚════════════════════════════════════════════════════════════════════════════╝
 /datum/vc_setting
-	/// displays the name of the setting in the UI
-	var/st_name = ""
+	/// name is set in TGUI like a true pro
 	var/st_key = ""
+	var/st_name = ""
 	var/st_kind = "text" // text, color, number, angle, boolean, choose, url
-	var/st_category = ""
-	var/st_subgroup = ""
 	var/st_default_value = ""
 	/// numberlike: min and max values, textlike: min and max length, unused for other types
 	var/st_min_value = 0
@@ -17,6 +15,7 @@
 	var/list/st_choices = list() // for list kind only
 	var/datum/vc_saymode/parent_saymode
 	var/st_buddy_key // for buddy settings, this is the key of the setting it is a buddy to. if empty, it is not a buddy
+	var/st_no_send_chat = FALSE
 
 /datum/vc_setting/New(datum/vc_saymode/parent_saymode)
 	. = ..()
@@ -59,7 +58,7 @@
 				CRASH("Unhandled url file format for vc_setting: [new_value]!!! Expected a url with a filename. ERROR CODE: BEDBOUND-OVERFED-MILKY")
 			var/prefix = splitex[1]
 			var/filename = splitex[2]
-			if(filename != "DISREGARD")
+			if(filename != "DISREGARD") // disregard just makes we not update
 				st_value = filename
 			if(prefix != "DISREGARD")
 				parent_saymode.get_setting(st_buddy_key)?.update_terminal_setting(prefix) // i get to pretend im in c#
@@ -93,20 +92,26 @@
 		return
 	update_terminal_setting(seri["value"])
 
-/datum/vc_setting/proc/serialize_setting(for_tgui)
+/datum/vc_setting/proc/serialize_setting(for_tgui) as /list
 	var/list/seri = list()
-	seri["path"]  = "[type]" // some kind of error checking
-	seri["key"]  =  st_key // some kind of error checking
-	seri["value"] = st_value
 	if(for_tgui)
-		seri["kind"]      = st_kind
-		seri["name"]      = st_name
-		seri["min"]       = st_min_value
-		seri["max"]       = st_max_value
-		seri["choices"]   = st_choices
-		seri["category"]  = parent_saymode.saymode
-		seri["subgroup"]  = st_subgroup
+		seri["value"]   = st_value
+		seri["name"]    = st_name
+		seri["path"]    = "[type]" // some kind of error checking
+		seri["key"]     =  st_key // some kind of error checking
+		seri["kind"]    = st_kind
+		seri["min"]     = st_min_value
+		seri["max"]     = st_max_value
+		seri["choices"] = st_choices
+	else
+		if(st_no_send_chat)
+			seri["value"] = "'w'"
+		else
+			seri["value"] = st_value
 	return seri
+
+/datum/vc_setting/proc/get_terminal_value()
+	return st_value
 
 /datum/vc_setting/proc/is_empty_or_default()
 	if(st_value == "" || st_value == st_default_value)
@@ -116,23 +121,22 @@
 /// ╔════════════════════════════════════════════════════════════════════════════╗
 /// ║                        Visual Chat Settings Builders                       ║
 /// ╚════════════════════════════════════════════════════════════════════════════╝
-#define VC_SETTING_FULL(key, name, kind, category, subgroup, default_value, min_val, max_val, choices, buddy_key) ;\
+#define VC_SETTING_FULL(key, name, kind, default_value, min_val, max_val, choices, buddy_key, no_send_chat) ;\
 /datum/vc_setting/##key{; \
 	st_key = #key; \
 	st_name = name; \
 	st_kind = kind; \
-	st_category = category; \
-	st_subgroup = subgroup; \
 	st_default_value = default_value; \
 	st_min_value = min_val; \
 	st_max_value = max_val; \
 	st_value = default_value; \
 	st_choices = choices;\
 	st_buddy_key = buddy_key;\
+	st_no_send_chat = no_send_chat;\
 }
 
-#define VC_SETTING(key, name, kind, category, subgroup, default_value, min_val, max_val, choices)\
-VC_SETTING_FULL(key, name, kind, category, subgroup, default_value, min_val, max_val, choices, "")
+#define VC_SETTING(key, name, kind, default_value, min_val, max_val, choices)\
+VC_SETTING_FULL(key, name, kind, default_value, min_val, max_val, choices, "", FALSE)
 
 
 #define VCS_DEF_BORDER_WIDTH            1
@@ -219,95 +223,93 @@ VC_SETTING_FULL(key, name, kind, category, subgroup, default_value, min_val, max
 #define VCS_DEF_TEXT_SHADOW_BLUR_MAX          1
 
 
-#define VCS_SET_STRING(  key, name, category, subgroup, default_value                  ) VC_SETTING(##key, name, "text",    category, subgroup, default_value, 0,       1024,    list())
-#define VCS_SET_NUMBER(  key, name, category, subgroup, default_value, min_val, max_val) VC_SETTING(##key, name, "number",  category, subgroup, default_value, min_val, max_val, list())
-#define VCS_SET_COLOR(   key, name, category, subgroup, default_value                  ) VC_SETTING(##key, name, "color",   category, subgroup, default_value, 0,       0,       list())
-#define VCS_SET_ANGLE(   key, name, category, subgroup, default_value                  ) VC_SETTING(##key, name, "angle",   category, subgroup, default_value, 0,       360,     list())
-#define VCS_SET_BOOLEAN( key, name, category, subgroup, default_value                  ) VC_SETTING(##key, name, "boolean", category, subgroup, default_value, 0,       0,       list())
-#define VCS_SET_CHOOSE(  key, name, category, subgroup, default_value, choices         ) VC_SETTING(##key, name, "choose",  category, subgroup, default_value, 0,       0,       choices)
+#define VCS_SET_STRING(  key, name, default_value                  ) VC_SETTING(##key, name, "text",    default_value, 0,       1024,    list())
+#define VCS_SET_NUMBER(  key, name, default_value, min_val, max_val) VC_SETTING(##key, name, "number",  default_value, min_val, max_val, list())
+#define VCS_SET_COLOR(   key, name, default_value                  ) VC_SETTING(##key, name, "color",   default_value, 0,       0,       list())
+#define VCS_SET_ANGLE(   key, name, default_value                  ) VC_SETTING(##key, name, "angle",   default_value, 0,       360,     list())
+#define VCS_SET_BOOLEAN( key, name, default_value                  ) VC_SETTING(##key, name, "boolean", default_value, 0,       0,       list())
+#define VCS_SET_CHOOSE(  key, name, default_value, choices         ) VC_SETTING(##key, name, "choose",  default_value, 0,       0,       choices)
 
-#define VCS_SET_BORDER_CLUSTER(key, category) \
-VC_SETTING(##key##_border_style,  "Border Style",  "choose", category, "Border", VCS_DEF_BORDER_STYLE,  0, 0,                         VCS_DEF_BORDER_STYLE_CHOICES);\
-VC_SETTING(##key##_border_width,  "Border Width",  "number", category, "Border", VCS_DEF_BORDER_WIDTH,  0, VCS_DEF_BORDER_WIDTH_MAX,  list());\
-VC_SETTING(##key##_border_radius, "Border Radius", "number", category, "Border", VCS_DEF_BORDER_RADIUS, 0, VCS_DEF_BORDER_RADIUS_MAX, list());\
-VC_SETTING(##key##_border_color,  "Border Color",  "color",  category, "Border", VCS_DEF_BORDER_COLOR,  0, 0,                         list());
+#define VCS_SET_BORDER_CLUSTER(key) \
+VC_SETTING(##key##_border_style, "Border Style", "choose", VCS_DEF_BORDER_STYLE,  0, 0,                         VCS_DEF_BORDER_STYLE_CHOICES);\
+VC_SETTING(##key##_border_width,   "Border Width", "number", VCS_DEF_BORDER_WIDTH,  0, VCS_DEF_BORDER_WIDTH_MAX,  list());\
+VC_SETTING(##key##_border_radius,  "Border Radius", "number", VCS_DEF_BORDER_RADIUS, 0, VCS_DEF_BORDER_RADIUS_MAX, list());\
+VC_SETTING(##key##_border_color,   "Border Color", "color",  VCS_DEF_BORDER_COLOR,  0, 0,                         list());
 
-#define VCS_SET_BACKGROUND_CLUSTER(key, category) \
-VC_SETTING(##key##_background_grad_use,       "Use Gradient?",            "boolean", category, "Gradient",         TRUE,                           0,                                0,                                list());\
-VC_SETTING(##key##_background_grad_start,     "Gradient Start Color",     "color",   category, "Gradient",         VCS_DEF_BG_COLOR_1,             0,                                0,                                list());\
-VC_SETTING(##key##_background_grad_end,       "Gradient End Color",       "color",   category, "Gradient",         VCS_DEF_BG_COLOR_2,             0,                                0,                                list());\
-VC_SETTING(##key##_background_grad_angle,     "Gradient Angle",           "angle",   category, "Gradient",         VCS_DEF_BG_ANGLE,               0,                                360,                              list());\
-VC_SETTING(##key##_background_color,          "Background Color",         "color",   category, "Background",       VCS_DEF_BG_COLOR_1,             0,                                0,                                list());\
-VC_SETTING(##key##_background_opacity,        "Background Opacity",       "number",  category, "Background",       VCS_DEF_OPACITY,                VCS_DEF_OPACITY_MIN,              VCS_DEF_OPACITY_MAX,              list());\
-VC_SETTING(##key##_background_image,          "Background Image Link",    "url",     category, "Background Image", "",                             0,                                1024,                             list());\
-VC_SETTING(##key##_background_img_opacity,    "Background Image Opacity", "choose",  category, "Background Image", VCS_DEF_OPACITY,                VCS_DEF_OPACITY_MIN,              VCS_DEF_OPACITY_MAX,              list());\
-VC_SETTING(##key##_background_padding_top,    "Padding Top",              "number",  category, "Padding",          VCS_DEF_PADDING_TOP_DEFAULT,    VCS_DEF_PADDING_TOP_MIN,          VCS_DEF_PADDING_TOP_MAX,          list());\
-VC_SETTING(##key##_background_padding_bottom, "Padding Bottom",           "number",	category, "Padding",          VCS_DEF_PADDING_BOTTOM_DEFAULT, VCS_DEF_PADDING_BOTTOM_MIN,       VCS_DEF_PADDING_BOTTOM_MAX,       list());\
-VC_SETTING(##key##_background_padding_left,   "Padding Left",             "number",	category, "Padding",          VCS_DEF_PADDING_LEFT_DEFAULT,   VCS_DEF_PADDING_LEFT_MIN,         VCS_DEF_PADDING_LEFT_MAX,         list());\
-VC_SETTING(##key##_background_padding_right,  "Padding Right",            "number",	category, "Padding",          VCS_DEF_PADDING_RIGHT_DEFAULT,  VCS_DEF_PADDING_RIGHT_MIN,        VCS_DEF_PADDING_RIGHT_MAX,        list());
+#define VCS_SET_BACKGROUND_CLUSTER(key) \
+VC_SETTING(##key##_background_grad_use,       "Use Gradient?", "boolean",  TRUE,                           0,                                0,                                list());\
+VC_SETTING(##key##_background_grad_start,     "Gradient Start Color", "color",    VCS_DEF_BG_COLOR_1,             0,                                0,                                list());\
+VC_SETTING(##key##_background_grad_end,       "Gradient End Color", "color",    VCS_DEF_BG_COLOR_2,             0,                                0,                                list());\
+VC_SETTING(##key##_background_grad_angle,     "Gradient Angle", "angle",    VCS_DEF_BG_ANGLE,               0,                                360,                              list());\
+VC_SETTING(##key##_background_color,          "Background Color", "color",    VCS_DEF_BG_COLOR_1,             0,                                0,                                list());\
+VC_SETTING(##key##_background_opacity,        "Background Opacity", "number",   VCS_DEF_OPACITY,                VCS_DEF_OPACITY_MIN,              VCS_DEF_OPACITY_MAX,              list());\
+VC_SETTING(##key##_background_img_opacity,    "Background Image Opacity", "choose",   VCS_DEF_OPACITY,                VCS_DEF_OPACITY_MIN,              VCS_DEF_OPACITY_MAX,              list());\
+VC_SETTING(##key##_background_padding_top,    "Background Padding Top", "number",   VCS_DEF_PADDING_TOP_DEFAULT,    VCS_DEF_PADDING_TOP_MIN,          VCS_DEF_PADDING_TOP_MAX,          list());\
+VC_SETTING(##key##_background_padding_bottom, "Background Padding Bottom", "number",   VCS_DEF_PADDING_BOTTOM_DEFAULT, VCS_DEF_PADDING_BOTTOM_MIN,       VCS_DEF_PADDING_BOTTOM_MAX,       list());\
+VC_SETTING(##key##_background_padding_left,   "Background Padding Left", "number",   VCS_DEF_PADDING_LEFT_DEFAULT,   VCS_DEF_PADDING_LEFT_MIN,         VCS_DEF_PADDING_LEFT_MAX,         list());\
+VC_SETTING(##key##_background_padding_right,  "Background Padding Right", "number",   VCS_DEF_PADDING_RIGHT_DEFAULT,  VCS_DEF_PADDING_RIGHT_MIN,        VCS_DEF_PADDING_RIGHT_MAX,        list());
 
-#define VCS_SET_TEXT_CLUSTER(key, category) \
-VC_SETTING(##key##_text_font,             "Font",                   "choose",  category, "Appearance", VCS_DEF_FONT_DEFAULT,                 0,                                0,                                VCS_DEF_FONT_CHOICES);\
-VC_SETTING(##key##_text_size,             "Font Size",              "number",  category, "Appearance", VCS_DEF_FONT_SIZE_DEFAULT,            VCS_DEF_FONT_SIZE_MIN,            VCS_DEF_FONT_SIZE_MAX,            list());\
-VC_SETTING(##key##_text_color,            "Font Color",             "color",   category, "Appearance", VCS_DEF_FONT_COLOR_DEFAULT,           0,                                0,                                list());\
-VC_SETTING(##key##_text_transform,        "Text Transform",         "choose",  category, "Appearance", VCS_DEF_TEXT_TRANSFORM_DEFAULT,       0,                                0,                                VCS_DEF_TEXT_TRANSFORM_CHOICES);\
-VC_SETTING(##key##_text_decoration,       "Text Decoration",        "choose",  category, "Appearance", VCS_DEF_TEXT_DECORATION_DEFAULT,      0,                                0,                                VCS_DEF_TEXT_DECORATION_CHOICES);\
-VC_SETTING(##key##_text_opacity,          "Text Opacity",           "number",  category, "Appearance", VCS_DEF_OPACITY,                      VCS_DEF_OPACITY_MIN,              VCS_DEF_OPACITY_MAX,              list());\
-VC_SETTING(##key##_text_align,            "Text Alignment",         "choose",  category, "Formatting", VCS_DEF_TEXT_ALIGNMENT_DEFAULT,       0,                                0,                                VCS_DEF_TEXT_ALIGNMENT_CHOICES);\
-VC_SETTING(##key##_text_word_spacing,     "Word Spacing",           "number",  category, "Formatting", VCS_DEF_TEXT_WORD_SPACING_DEFAULT,    VCS_DEF_TEXT_WORD_SPACING_MIN,    VCS_DEF_TEXT_WORD_SPACING_MAX,    list());\
-VC_SETTING(##key##_text_letter_spacing,   "Letter Spacing",         "number",  category, "Formatting", VCS_DEF_TEXT_LETTER_SPACING_DEFAULT,  VCS_DEF_TEXT_LETTER_SPACING_MIN,  VCS_DEF_TEXT_LETTER_SPACING_MAX,  list());\
-VC_SETTING(##key##_text_line_height,      "Line Height",            "number",  category, "Formatting", VCS_DEF_TEXT_LINE_HEIGHT_DEFAULT,     VCS_DEF_TEXT_LINE_HEIGHT_MIN,     VCS_DEF_TEXT_LINE_HEIGHT_MAX,     list());\
-VC_SETTING(##key##_text_shadow_use,       "Use Text Shadow 1?",     "boolean", category, "Shadow #1",  FALSE,                                0,                                0,                                list());\
-VC_SETTING(##key##_text_shadow_color,     "Text Shadow 1 Color",    "color",   category, "Shadow #1",  VCS_DEF_TEXT_SHADOW_COLOR_DEFAULT,    0,                                0,                                list());\
-VC_SETTING(##key##_text_shadow_offset_x,  "Text Shadow 1 X Offset", "number",  category, "Shadow #1",  VCS_DEF_TEXT_SHADOW_OFFSET_X_DEFAULT, VCS_DEF_TEXT_SHADOW_OFFSET_X_MIN, VCS_DEF_TEXT_SHADOW_OFFSET_X_MAX, list());\
-VC_SETTING(##key##_text_shadow_offset_y,  "Text Shadow 1 Y Offset", "number",  category, "Shadow #1",  VCS_DEF_TEXT_SHADOW_OFFSET_Y_DEFAULT, VCS_DEF_TEXT_SHADOW_OFFSET_Y_MIN, VCS_DEF_TEXT_SHADOW_OFFSET_Y_MAX, list());\
-VC_SETTING(##key##_text_shadow_blur,      "Text Shadow 1 Blur",     "number",  category, "Shadow #1",  VCS_DEF_TEXT_SHADOW_BLUR_DEFAULT,     VCS_DEF_TEXT_SHADOW_BLUR_MIN,     VCS_DEF_TEXT_SHADOW_BLUR_MAX,     list());\
-VC_SETTING(##key##_text_shadow_use2,      "Use Text Shadow 2?",     "boolean", category, "Shadow #2",  FALSE,                                0,                                0,                                list());\
-VC_SETTING(##key##_text_shadow_color2,    "Text Shadow 2 Color",    "color",   category, "Shadow #2",  VCS_DEF_TEXT_SHADOW_COLOR_DEFAULT,    0,                                0,                                list());\
-VC_SETTING(##key##_text_shadow_offset_x2, "Text Shadow 2 X Offset", "number",  category, "Shadow #2",  VCS_DEF_TEXT_SHADOW_OFFSET_X_DEFAULT, VCS_DEF_TEXT_SHADOW_OFFSET_X_MIN, VCS_DEF_TEXT_SHADOW_OFFSET_X_MAX, list());\
-VC_SETTING(##key##_text_shadow_offset_y2, "Text Shadow 2 Y Offset", "number",  category, "Shadow #2",  VCS_DEF_TEXT_SHADOW_OFFSET_Y_DEFAULT, VCS_DEF_TEXT_SHADOW_OFFSET_Y_MIN, VCS_DEF_TEXT_SHADOW_OFFSET_Y_MAX, list());\
-VC_SETTING(##key##_text_shadow_blur2,     "Text Shadow 2 Blur",     "number",  category, "Shadow #2",  VCS_DEF_TEXT_SHADOW_BLUR_DEFAULT,     VCS_DEF_TEXT_SHADOW_BLUR_MIN,     VCS_DEF_TEXT_SHADOW_BLUR_MAX,     list());\
-VC_SETTING(##key##_text_padding_top,       "Padding Top",           "number",  category, "Padding",    VCS_DEF_PADDING_TOP_DEFAULT,          VCS_DEF_PADDING_TOP_MIN,          VCS_DEF_PADDING_TOP_MAX,          list());\
-VC_SETTING(##key##_text_padding_bottom,    "Padding Bottom",        "number",	category, "Padding",    VCS_DEF_PADDING_BOTTOM_DEFAULT,       VCS_DEF_PADDING_BOTTOM_MIN,       VCS_DEF_PADDING_BOTTOM_MAX,       list());\
-VC_SETTING(##key##_text_padding_left,      "Padding Left",          "number",	category, "Padding",    VCS_DEF_PADDING_LEFT_DEFAULT,         VCS_DEF_PADDING_LEFT_MIN,         VCS_DEF_PADDING_LEFT_MAX,         list());\
-VC_SETTING(##key##_text_padding_right,     "Padding Right",         "number",	category, "Padding",    VCS_DEF_PADDING_RIGHT_DEFAULT,        VCS_DEF_PADDING_RIGHT_MIN,        VCS_DEF_PADDING_RIGHT_MAX,        list());
+#define VCS_SET_TEXT_CLUSTER(key) \
+VC_SETTING(##key##_text_font,              "Text Font", "choose",  VCS_DEF_FONT_DEFAULT,                 0,                                0,                                VCS_DEF_FONT_CHOICES);\
+VC_SETTING(##key##_text_size,              "Text Size", "number",  VCS_DEF_FONT_SIZE_DEFAULT,            VCS_DEF_FONT_SIZE_MIN,            VCS_DEF_FONT_SIZE_MAX,            list());\
+VC_SETTING(##key##_text_color,             "Text Color", "color",   VCS_DEF_FONT_COLOR_DEFAULT,           0,                                0,                                list());\
+VC_SETTING(##key##_text_transform,         "Text Transform", "choose",  VCS_DEF_TEXT_TRANSFORM_DEFAULT,       0,                                0,                                VCS_DEF_TEXT_TRANSFORM_CHOICES);\
+VC_SETTING(##key##_text_decoration,        "Text Decoration", "choose",  VCS_DEF_TEXT_DECORATION_DEFAULT,      0,                                0,                                VCS_DEF_TEXT_DECORATION_CHOICES);\
+VC_SETTING(##key##_text_opacity,           "Text Opacity", "number",  VCS_DEF_OPACITY,                      VCS_DEF_OPACITY_MIN,              VCS_DEF_OPACITY_MAX,              list());\
+VC_SETTING(##key##_text_align,             "Text Align", "choose",  VCS_DEF_TEXT_ALIGNMENT_DEFAULT,       0,                                0,                                VCS_DEF_TEXT_ALIGNMENT_CHOICES);\
+VC_SETTING(##key##_text_word_spacing,      "Text Word Spacing", "number",  VCS_DEF_TEXT_WORD_SPACING_DEFAULT,    VCS_DEF_TEXT_WORD_SPACING_MIN,    VCS_DEF_TEXT_WORD_SPACING_MAX,    list());\
+VC_SETTING(##key##_text_letter_spacing,    "Text Letter Spacing", "number",  VCS_DEF_TEXT_LETTER_SPACING_DEFAULT,  VCS_DEF_TEXT_LETTER_SPACING_MIN,  VCS_DEF_TEXT_LETTER_SPACING_MAX,  list());\
+VC_SETTING(##key##_text_line_height,       "Text Line Height", "number",  VCS_DEF_TEXT_LINE_HEIGHT_DEFAULT,     VCS_DEF_TEXT_LINE_HEIGHT_MIN,     VCS_DEF_TEXT_LINE_HEIGHT_MAX,     list());\
+VC_SETTING(##key##_text_shadow_use,        "Use Text Shadow?", "boolean", FALSE,                                0,                                0,                                list());\
+VC_SETTING(##key##_text_shadow_color,      "Text Shadow Color", "color",   VCS_DEF_TEXT_SHADOW_COLOR_DEFAULT,    0,                                0,                                list());\
+VC_SETTING(##key##_text_shadow_offset_x,   "Text Shadow Offset X", "number",  VCS_DEF_TEXT_SHADOW_OFFSET_X_DEFAULT, VCS_DEF_TEXT_SHADOW_OFFSET_X_MIN, VCS_DEF_TEXT_SHADOW_OFFSET_X_MAX, list());\
+VC_SETTING(##key##_text_shadow_offset_y,   "Text Shadow Offset Y", "number",  VCS_DEF_TEXT_SHADOW_OFFSET_Y_DEFAULT, VCS_DEF_TEXT_SHADOW_OFFSET_Y_MIN, VCS_DEF_TEXT_SHADOW_OFFSET_Y_MAX, list());\
+VC_SETTING(##key##_text_shadow_blur,       "Text Shadow Blur", "number",  VCS_DEF_TEXT_SHADOW_BLUR_DEFAULT,     VCS_DEF_TEXT_SHADOW_BLUR_MIN,     VCS_DEF_TEXT_SHADOW_BLUR_MAX,     list());\
+VC_SETTING(##key##_text_shadow_use2,       "Use Second Text Shadow?", "boolean", FALSE,                                0,                                0,                                list());\
+VC_SETTING(##key##_text_shadow_color2,     "Second Text Shadow Color", "color",   VCS_DEF_TEXT_SHADOW_COLOR_DEFAULT,    0,                                0,                                list());\
+VC_SETTING(##key##_text_shadow_offset_x2,  "Second Text Shadow Offset X", "number",  VCS_DEF_TEXT_SHADOW_OFFSET_X_DEFAULT, VCS_DEF_TEXT_SHADOW_OFFSET_X_MIN, VCS_DEF_TEXT_SHADOW_OFFSET_X_MAX, list());\
+VC_SETTING(##key##_text_shadow_offset_y2,  "Second Text Shadow Offset Y", "number",  VCS_DEF_TEXT_SHADOW_OFFSET_Y_DEFAULT, VCS_DEF_TEXT_SHADOW_OFFSET_Y_MIN, VCS_DEF_TEXT_SHADOW_OFFSET_Y_MAX, list());\
+VC_SETTING(##key##_text_shadow_blur2,      "Second Text Shadow Blur", "number",  VCS_DEF_TEXT_SHADOW_BLUR_DEFAULT,     VCS_DEF_TEXT_SHADOW_BLUR_MIN,     VCS_DEF_TEXT_SHADOW_BLUR_MAX,     list());\
+VC_SETTING(##key##_text_padding_top,       "Text Padding Top", "number",  VCS_DEF_PADDING_TOP_DEFAULT,          VCS_DEF_PADDING_TOP_MIN,          VCS_DEF_PADDING_TOP_MAX,          list());\
+VC_SETTING(##key##_text_padding_bottom,    "Text Padding Bottom", "number",	VCS_DEF_PADDING_BOTTOM_DEFAULT,       VCS_DEF_PADDING_BOTTOM_MIN,       VCS_DEF_PADDING_BOTTOM_MAX,       list());\
+VC_SETTING(##key##_text_padding_left,      "Text Padding Left", "number",	VCS_DEF_PADDING_LEFT_DEFAULT,         VCS_DEF_PADDING_LEFT_MIN,         VCS_DEF_PADDING_LEFT_MAX,         list());\
+VC_SETTING(##key##_text_padding_right,     "Text Padding Right", "number",	VCS_DEF_PADDING_RIGHT_DEFAULT,        VCS_DEF_PADDING_RIGHT_MIN,        VCS_DEF_PADDING_RIGHT_MAX,        list());
 // you see, its complicated to make it seem more big brain developper than i really am
 
 /// surprised, its a cluster
 //the domain slector, and the write-in
-#define VCS_SET_URL(key, name, category, subgroup)\
-VC_SETTING_FULL(##key##_url_host, "URL Prefix", "url_choose", category, subgroup, "None!", 0, 0, list(), #key);\
-VC_SETTING_FULL(##key##_url_filename, "URL Filenix", "url_file", category, subgroup, "", 0, 0, list(), #key);
+#define VCS_SET_URL(key)\
+VC_SETTING_FULL(##key##_url_host, "PLACEHOLDER", "url_choose", "None!", 0, 0, list(), #key, FALSE);\
+VC_SETTING_FULL(##key##_url_filename, "PLACEHOLDER", "url_file", "", 0, 0, list(), #key, FALSE);
 
+/// heres some stuff
+VC_SETTING_FULL(preview_text, "PLACEHOLDER", "text",    "!!PREVIEWTEXT!!", 0, 99999, list(), "", TRUE)
+VC_SETTING(permutatio, "VisualChat Style", "choose",  "HyperSpace",      0, 0,     list("HyperSpace", "Integrated", "Slim"))
+VC_SETTING(show_pfp,    "Show Profile Picture?", "boolean", TRUE,              0, 0,     list())
 
-/// heres some stuff                name,      kind    category,  subgroup,  default_value
-VC_SETTING(preview_text,            "Preview", "text", "Preview", "Preview", "!!PREVIEWTEXT!!", 0, 99999, list())
 /// outer box
-VCS_SET_BORDER_CLUSTER(outer_box,     "Outer Box")
-VCS_SET_BACKGROUND_CLUSTER(outer_box, "Outer Box")
+VCS_SET_BORDER_CLUSTER(    outer_box)
+VCS_SET_BACKGROUND_CLUSTER(outer_box)
 
 /// profile picture box key, name, category, subgroup, default_value, choices
-VCS_SET_URL(pfp_image_link,         "Profile Picture", "Picture", "Picture")
-VCS_SET_CHOOSE(pfp_image_shape,     "Profile Picture", "Picture", "Picture Settings", VCS_DEF_IMG_SHAPE_DEFAULT,    VCS_DEF_IMG_SHAPE_CHOICES)
-VCS_SET_CHOOSE(pfp_image_scaling,   "Profile Picture", "Picture", "Picture Settings", VCS_DEF_IMG_SCALING_DEFAULT,  VCS_DEF_IMG_SCALING_CHOICES)
-VCS_SET_NUMBER(pfp_image_opacity,   "Profile Picture", "Picture", "Picture Settings", VCS_DEF_OPACITY,              VCS_DEF_OPACITY_MIN,       VCS_DEF_OPACITY_MAX)
-VCS_SET_NUMBER(pfp_image_width,     "Profile Picture", "Picture", "Picture Settings", VCS_DEF_IMAGE_WIDTH_DEFAULT,  VCS_DEF_IMAGE_WIDTH_MIN,   VCS_DEF_IMAGE_WIDTH_MAX)
-VCS_SET_NUMBER(pfp_image_height,    "Profile Picture", "Picture", "Picture Settings", VCS_DEF_IMAGE_HEIGHT_DEFAULT, VCS_DEF_IMAGE_HEIGHT_MIN,  VCS_DEF_IMAGE_HEIGHT_MAX)
-VCS_SET_BACKGROUND_CLUSTER(pfp,     "Profile Picture")
-VCS_SET_BORDER_CLUSTER(pfp,         "Profile Picture")
-VCS_SET_BOOLEAN(pfp_show,           "Show Profile Picture?", "Profile Picture", "Profile Picture", TRUE)
+VCS_SET_URL(pfp_image_link)
+VCS_SET_CHOOSE(pfp_image_shape,   "Shape",   VCS_DEF_IMG_SHAPE_DEFAULT,    VCS_DEF_IMG_SHAPE_CHOICES)
+VCS_SET_CHOOSE(pfp_image_scaling, "Scaling", VCS_DEF_IMG_SCALING_DEFAULT,  VCS_DEF_IMG_SCALING_CHOICES)
+VCS_SET_NUMBER(pfp_image_opacity, "Opacity", VCS_DEF_OPACITY,              VCS_DEF_OPACITY_MIN,       VCS_DEF_OPACITY_MAX)
+VCS_SET_NUMBER(pfp_image_width,   "Width",   VCS_DEF_IMAGE_WIDTH_DEFAULT,  VCS_DEF_IMAGE_WIDTH_MIN,   VCS_DEF_IMAGE_WIDTH_MAX)
+VCS_SET_NUMBER(pfp_image_height,  "Height",  VCS_DEF_IMAGE_HEIGHT_DEFAULT, VCS_DEF_IMAGE_HEIGHT_MIN,  VCS_DEF_IMAGE_HEIGHT_MAX)
+VCS_SET_BACKGROUND_CLUSTER(pfp)
+VCS_SET_BORDER_CLUSTER(pfp)
 
 /// name box
-VCS_SET_BACKGROUND_CLUSTER(name,    "Name")
-VCS_SET_BORDER_CLUSTER(name,        "Name")
-VCS_SET_TEXT_CLUSTER(name,          "Name")
-VCS_SET_BOOLEAN(name_show,          "Show Name Box?", "Name", "Name", TRUE)
+VCS_SET_BACKGROUND_CLUSTER(name)
+VCS_SET_BORDER_CLUSTER(name)
+VCS_SET_TEXT_CLUSTER(name)
 
 /// message box
-VCS_SET_BACKGROUND_CLUSTER(message, "Message")
-VCS_SET_BORDER_CLUSTER(message,     "Message")
-VCS_SET_TEXT_CLUSTER(message,       "Message")
-VCS_SET_BOOLEAN(message_show,       "Show Message Box?", "Message", "Message", TRUE)
+VCS_SET_BACKGROUND_CLUSTER(message)
+VCS_SET_BORDER_CLUSTER(message)
+VCS_SET_TEXT_CLUSTER(message)
 
 
 

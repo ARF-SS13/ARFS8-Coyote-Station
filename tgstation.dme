@@ -7081,6 +7081,7 @@
 #include "modular_coyote\code\preference_stuff\temperments_and_builds_temperments.dm"
 #include "modular_coyote\code\visualchat\vc_modular_proc_hellscape.dm"
 #include "modular_coyote\code\visualchat\vc_setting.dm"
+#include "modular_coyote\code\visualchat\vc_settings_ui_chungus.dm"
 #include "modular_coyote\code\visualchat\visualchat_account_prefs_manager.dm"
 #include "modular_coyote\code\visualchat\visualchat_preferences_holder.dm"
 #include "modular_coyote\code\visualchat\visualchat_preview_texts.dm"

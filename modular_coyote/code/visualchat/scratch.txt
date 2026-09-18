@@ -122,3 +122,99 @@ pfp_image_shape
 pfp_image_width
 pfp_show
 preview_text
+
+
+
+
+
+
+
+
+
+
+/**
+ * @returns {JSX.Element} The content for the saymode overview tab.
+ * @description a component that renders a saymode thing
+ * know what screw it, it renders the whole ass saymode
+ * @example
+ * <SaymodeOverview />
+ */
+function SaymodeOverview({
+  index,
+  total_items,
+  saymode_dat,
+  saymode_kind,
+}: {
+  index: number;
+  total_items: number;
+  saymode_dat: VCSaymodeData;
+  saymode_kind: string;
+}) {
+  const { act, data } = useBackend<VCWizardPack>();
+  const {
+    pfp_image_width,
+    pfp_image_height,
+    pfp_image_link_url_host,
+    pfp_image_link_url_filename,
+  } = saymode_dat.settings;
+
+  const bg_set: string[] = absoluteNonsense(index, total_items);
+  const bg_color = `linear-gradient(315deg, ${bg_set[0]}, ${bg_set[1]})`;
+  const bg_otherway = `linear-gradient(135deg, ${bg_set[1]}, ${bg_set[0]})`;
+  const gotpfp = saymode_dat.has_profile_pic_link;
+  const pfpWidth = gotpfp ? 150 : saymode_dat.settings.pfp_image_width.value;
+  const pfpHeight = gotpfp ? 150 : saymode_dat.settings.pfp_image_height.value;
+  const pfpElement = gotpfp ? (
+    <img
+      src={saymode_dat.profile_pic_link}
+      width={pfpWidth}
+      height={pfpHeight}
+    />
+  ) : (
+    <Box
+      style={{
+        width: pfpWidth,
+        height: pfpHeight,
+        backgroundColor: bg_otherway,
+      }}
+    />
+  );
+
+  const pfpSelector = (
+    <Stack fill>
+      <Stack.Item>
+        {Setting(VCSDPEnum.pfp_image_link_url_host, saymode_dat)}
+      </Stack.Item>
+      <Stack.Item>
+        {Setting(VCSDPEnum.pfp_image_link_url_filename, saymode_dat)}
+      </Stack.Item>
+    </Stack>
+  );
+
+  return (
+    <Box
+      style={{
+        ...VCStyle[VCStyleKeys.OverviewItem],
+        backgroundColor: bg_color,
+        width: '100%',
+        minHeight: pfpHeight,
+      }}
+    >
+      <Stack fill>
+        {/* Data for the saymode overview item */}
+        <Stack.Item grow>
+          <Stack fill vertical>
+            {/* the top line */}
+            <Stack.Item>
+              <Box>
+                {data.user_name} {saymode_dat.example_verb}
+              </Box>
+            </Stack.Item>
+            {/* PFP selector tool */}
+            <Stack.Item>{pfpSelector}</Stack.Item>
+          </Stack>
+        </Stack.Item>
+      </Stack>
+    </Box>
+  );
+}

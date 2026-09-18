@@ -6,8 +6,9 @@
 // ╚══════════════════════════════════════════════════════════════╝                                        ╔══╝
 /datum/vc_saymode    //                               ╔═══╗                ╔═══════════════════════════════╝
 	var/datum/vc_preference_holder/parent_holder //     ║   ╚═════════╗      ║
+	var/mode_name = "Cool Mode" //                      ║             ║      ║
 	var/saymode = SAYMODE_SAY // Braixen Brai!          ║             ║      ║
-	// Hey did u know that im ══════════════════════════╝             ╚══════╝
+	// Hey did u know that ur ══════════════════════════╝             ╚══════╝
 	var/list/settings = list() // format: "[setting]" = /datum/vc_setting
 	var/list/defaults = list()
 	var/durty_saymode = FALSE
@@ -87,15 +88,25 @@
 	for(var/key in settings2load["settings"])
 		if(settings[key])
 			update_saymode_setting(key, settings2load["settings"][key], FALSE)
+	set_durty_saymode()
 
-/datum/vc_saymode/proc/serialize_saymode(for_tgui)
+/datum/vc_saymode/proc/serialize_saymode(for_tgui) as /list
 	var/list/serialized = list()
-	serialized["saymode"] = saymode
+	serialized["example_verb"] = get_example_verb()
+	serialized["sayname"] = mode_name
+	serialized["saymode_kind"] = saymode
 	serialized["custom"] = custom
 	serialized["invoke_token"] = invoken
 	serialized["settings"] = list()
+	serialized["suppress"] = suppress
 	for(var/key in settings)
 		serialized["settings"][key] = get_setting(key).serialize_setting(for_tgui)
+	var/pfphost = get_setting("profile_pic_link_url_host").get_terminal_value()
+	var/pfpfname = get_setting("profile_pic_link_url_filename").get_terminal_value()
+	var/pfplink = SSvisualchat.ExtractProfilePicLink(pfphost, pfpfname)
+	if(LAZYLEN(pfplink) > 3)
+		serialized["profile_pic_link"] = pfplink
+		serialized["has_profile_pic_link"] = TRUE
 	if(for_tgui)
 		var/datum/vc_setting/preview_text_setting = get_setting("preview_text")
 		if(preview_text_setting.is_empty_or_default())
@@ -103,6 +114,37 @@
 			serialized["settings"]["preview_text"] = newtext
 			get_setting("preview_text").update_terminal_setting(newtext)
 	return serialized
+
+/datum/vc_saymode/proc/copy_saymode_settings_from(datum/vc_saymode/source)
+	if(!source)
+		return
+	for(var/key in source.settings)
+		var/datum/vc_setting/source_setting = source.get_setting(key)
+		var/datum/vc_setting/destination_setting = get_setting(key)
+		if(source_setting.st_kind == destination_setting.st_kind)
+			destination_setting.update_terminal_setting(source_setting.get_terminal_value())
+	set_durty_saymode()
+
+/datum/vc_saymode/proc/get_example_verb()
+	var/example = "yaps,"
+	switch(saymode)
+		if(SAYMODE_ASK)
+			example = "inquires,"
+		if(SAYMODE_WHISPER)
+			example = "murmurs,"
+		if(SAYMODE_EXCLAIM)
+			example = "yipes,"
+		if(SAYMODE_YELL)
+			example = "yowls,"
+		if(SAYMODE_SING)
+			example = "siiiings,"
+		if(SAYMODE_EMOTE)
+			example = "emotes,"
+		if(SAYMODE_EMOTE_QUICK)
+			example = "gekkers like a cute fox!"
+		if(SAYMODE_RADIO)
+			example = "broadcasts,"
+	return example
 
 /datum/vc_saymode/proc/is_custom_saymode()
 	return custom && invoken
@@ -114,30 +156,38 @@
 /datum/vc_saymode/default
 	var/order = 0
 /datum/vc_saymode/default/say
+	mode_name = "Say"
 	saymode = SAYMODE_SAY
 	order = 1
 /datum/vc_saymode/default/ask
+	mode_name = "Ask"
 	saymode = SAYMODE_ASK
 	order = 2
 /datum/vc_saymode/default/whisper
+	mode_name = "Whisper"
 	saymode = SAYMODE_WHISPER
 	order = 3
 /datum/vc_saymode/default/exclaim
+	mode_name = "Exclaim"
 	saymode = SAYMODE_EXCLAIM
 	order = 4
 /datum/vc_saymode/default/yell
+	mode_name = "Yell"
 	saymode = SAYMODE_YELL
 	order = 5
 /datum/vc_saymode/default/sing
+	mode_name = "Sing"
 	saymode = SAYMODE_SING
 	order = 6
 /datum/vc_saymode/default/emote
+	mode_name = "Emote (Full)"
 	saymode = SAYMODE_EMOTE
 	order = 7
 	defaults = list(
 		"name_show" = FALSE,
 	)
 /datum/vc_saymode/default/emote_quick
+	mode_name = "Emote (Quick)"
 	saymode = SAYMODE_EMOTE_QUICK
 	order = 8
 	defaults = list(
@@ -146,6 +196,7 @@
 		"message_show" = FALSE,
 	)
 /datum/vc_saymode/default/radio
+	mode_name = "Radio"
 	saymode = SAYMODE_RADIO
 	order = 9
 	defaults = list(

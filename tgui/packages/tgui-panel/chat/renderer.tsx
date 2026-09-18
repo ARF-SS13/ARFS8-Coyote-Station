@@ -5,6 +5,7 @@
  */
 
 import { createRoot } from 'react-dom/client';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { createLogger } from 'tgui/logging';
 import { Tooltip } from 'tgui-core/components';
 import { EventEmitter } from 'tgui-core/events';
@@ -26,7 +27,7 @@ import {
 } from './constants';
 import { canPageAcceptType, createMessage, isSameMessage } from './model';
 import { highlightNode, linkifyNode } from './replaceInTextNode';
-import { VisualChatify } from './visualchat_procs';
+import { VisualChatify } from './visualchat_chat_element_builder';
 
 const logger = createLogger('chatRenderer');
 
@@ -385,8 +386,12 @@ class ChatRenderer {
         if (message.text) {
           node.textContent = message.text;
         } else if (message.extraData) {
-          logger.log(VisualChatify(message));
-          node.innerHTML = VisualChatify(message);
+          const visualChatElement = VisualChatify(
+            message.extraData.saymode_data,
+            message.extraData.saymode_data.settings,
+            message.extraData.message_data,
+          );
+          node.innerHTML = renderToStaticMarkup(visualChatElement);
           // Payload is HTML
         } else if (message.html) {
           node.innerHTML = message.html;
