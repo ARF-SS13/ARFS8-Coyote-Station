@@ -2486,7 +2486,6 @@
 	pixel_y = 3;
 	anchored = 1
 	},
-/obj/machinery/light/floor,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/vault,
 /area/station/service/hydroponics/park)
@@ -15668,13 +15667,6 @@
 	},
 /turf/open/floor/plating,
 /area/station/engineering/main)
-"iMO" = (
-/obj/structure/closet/secure_closet/personal/wall{
-	pixel_x = 32
-	},
-/obj/structure/closet/secure_closet/personal,
-/turf/open/floor/wood/tile,
-/area/station/common/pool/sauna)
 "iNc" = (
 /obj/structure/ore_box,
 /turf/open/floor/plating/airless,
@@ -141021,7 +141013,7 @@ bTo
 sZm
 qZN
 yis
-iMO
+nOs
 sSP
 qZZ
 nEe
