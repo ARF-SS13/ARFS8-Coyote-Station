@@ -10,8 +10,7 @@ SUBSYSTEM_DEF(ez_pro_doafters)
 /datum/controller/subsystem/ez_pro_doafters/proc/InitEasyDoafters()
 	QDEL_LIST_ASSOC_VAL(easy_doings)
 	for(var/datum/ez_pro_doafter/epda as anything in subtypesof(/datum/ez_pro_doafter))
-		var/datum/ez_pro_doafter/fuzzbutt = new epda
-		easy_doings[fuzzbutt::key] = fuzzbutt
+		easy_doings[epda::key] = new epda
 
 /datum/controller/subsystem/ez_pro_doafters/proc/DoDoAfter(mob/doer, atom/target, mob/baroverride, kind)
 	. = FALSE
@@ -107,7 +106,7 @@ SUBSYSTEM_DEF(ez_pro_doafters)
 	already_doing_msg = "You're already snipping some cable!"
 
 /// THE ACTUAL ONES
-/datum/ez_pro_doafter/cutting_cable
+/datum/ez_pro_doafter/prying_floortile
 	key = DOAFTER_PRYING_FLOORTILE
 	doafter_time = 0.4 SECONDS
 	progbar = TRUE

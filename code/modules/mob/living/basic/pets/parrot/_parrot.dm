@@ -54,8 +54,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	var/speech_probability_rate = 5
 	/// The generic probability odds we have to switch out our speech string
 	var/speech_shuffle_rate = 30
-	var/speech_rumor_rate = 35
-	var/speech_nethack_rumor_rate = 35
+	var/speech_rumor_rate = 10
+	var/speech_nethack_rumor_rate = 10
 
 	/// Contains all of the perches that parrots will generally sit on until something catches their eye.
 	var/static/list/desired_perches = typecacheof(list(
