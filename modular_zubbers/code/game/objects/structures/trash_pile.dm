@@ -8,6 +8,7 @@
 	layer = TABLE_LAYER
 	obj_flags = CAN_BE_HIT
 	pass_flags = LETPASSTHROW
+	tracking_category = CATTRACK_TRASHPILES
 
 	max_integrity = 50
 

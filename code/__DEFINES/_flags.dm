@@ -191,6 +191,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 /// Allows you to pass over windows and window-adjacent stuff, like windows and windoors. Does not include airlocks with glass in them.
 #define PASSWINDOW (1<<14)
 
+#define TINY_CREATURE_PASS (PASSTABLE|PASSGRILLE|PASSMOB|PASSMACHINE|PASSSTRUCTURE|PASSFLAPS|PASSDOORS|PASSVEHICLE)
+
 //Movement Types
 #define GROUND (1<<0)
 #define FLYING (1<<1)
