@@ -84,7 +84,7 @@
 
 /// Signal proc for [COMSIG_LIVING_UNARMED_ATTACK] to hook into the appropriate proc
 /datum/martial_art/proc/unarmed_strike(mob/living/source, atom/attack_target, proximity, modifiers)
-	SIGNAL_HANDLER
+	// SIGNAL_HANDLER
 
 	if(!proximity || !isliving(attack_target))
 		return NONE

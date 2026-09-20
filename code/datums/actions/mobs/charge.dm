@@ -149,7 +149,7 @@
 			break
 
 /datum/action/cooldown/mob_cooldown/charge/proc/on_bump(atom/movable/source, atom/target)
-	SIGNAL_HANDLER
+	// SIGNAL_HANDLER
 	if(owner == target)
 		return
 	if(destroy_objects)
