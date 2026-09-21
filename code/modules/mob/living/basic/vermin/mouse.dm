@@ -9,7 +9,8 @@
 	maxHealth = 5
 	health = 5
 	density = FALSE
-	pass_flags = PASSTABLE|PASSGRILLE|PASSMOB
+	layer = TINY_CREATURE_LAYER
+	pass_flags = TINY_CREATURE_PASS
 	mob_size = MOB_SIZE_TINY
 	can_be_held = TRUE
 	held_w_class = WEIGHT_CLASS_TINY
