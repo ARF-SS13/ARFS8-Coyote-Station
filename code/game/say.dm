@@ -61,15 +61,13 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	list/message_data = list(),
 )
 	message_data |= list(
-		SATA_BUBBLE_TYPE       = bubble_type,
-		SATA_LANGUAGE          = language,
-		SATA_MESSAGE_SPOKEN    = message,
-		SATA_MESSAGE_RANGE     = message_range,
-		SATA_SAYMODE_DATUM     = saymode,
-		SATA_SAYMODE           = SAYMODE_SAY,
-		SATA_SPANS             = spans,
-		SATA_SPEAKER           = src,
-		SATA_ORIGIN            = src,
+		SATA_LANGUAGE          = message_data[SATA_LANGUAGE] || language,
+		SATA_MESSAGE_SPOKEN    = message_data[SATA_MESSAGE_SPOKEN] || message,
+		SATA_MESSAGE_RANGE     = message_data[SATA_MESSAGE_RANGE] || message_range,
+		SATA_SAYMODE           = message_data[SATA_SAYMODE] || SAYMODE_SAY,
+		SATA_SPANS             = message_data[SATA_SPANS] || spans,
+		SATA_SPEAKER           = message_data[SATA_SPEAKER] || src,
+		SATA_VC_SOURCE         = message_data[SATA_VC_SOURCE] || src,
 	)
 	if(!try_speak(message, ignore_spam, forced, filterproof))
 		return
@@ -101,14 +99,10 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	list/message_data = list(),
 	message_range=0
 )
-	if(message_data[SATA_ORIGIN_OVERRIDE])
-		message_data[SATA_ORIGIN] = message_data[SATA_ORIGIN_OVERRIDE]
-	else
-		message_data[SATA_ORIGIN] = speaker
-	if(isnull(message_data[SATA_MESSAGE_SPOKEN]))
-		message_data[SATA_MESSAGE_SPOKEN] = raw_message
-	message_data[SATA_MESSAGE_HEARD] = raw_message
-	message_data[SATA_MESSAGE_RANGE] = message_range
+	message_data[SATA_VC_SOURCE] = message_data[SATA_VC_SOURCE] || speaker
+	message_data[SATA_MESSAGE_SPOKEN] = message_data[SATA_MESSAGE_SPOKEN] || raw_message
+	message_data[SATA_MESSAGE_HEARD] = message_data[SATA_MESSAGE_HEARD] || raw_message
+	message_data[SATA_MESSAGE_RANGE] = message_data[SATA_MESSAGE_RANGE] || message_range
 	message_data[SATA_SPANS] |= spans
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, args)
@@ -172,8 +166,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		SATA_LANGUAGE          = message_language,
 		SATA_SPANS             = spans,
 		SATA_SPEAKER           = source,
-		SATA_ORIGIN            = source,
-		SATA_IS_PLAYER         = length(source.client_mobs_in_contents) > 0,
+		SATA_VC_SOURCE         = message_data[SATA_VC_SOURCE] || source,
 		SATA_FORCED            = forced,
 		SATA_TTS_MESSAGE       = tts_message,
 		SATA_TTS_FILTER        = tts_filter,
@@ -220,24 +213,24 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	list/message_data = list(),
 	visible_name = FALSE
 )
-	message_data |= list(
-		SATA_SPEAKER           = speaker,
-		SATA_ORIGIN            = speaker,
-		SATA_LANGUAGE          = message_language,
-		SATA_MESSAGE_HEARD     = raw_message,
-		SATA_MESSAGE_SPOKEN    = raw_message,
-		SATA_RADIO_FREQ        = radio_freq,
-		SATA_RADIO_FREQ_COLOR  = radio_freq_color,
-		SATA_RADIO_FREQ_NAME   = radio_freq_name,
-		SATA_SPANS             = spans,
-		SATA_VISIBLE_NAME      = visible_name,
-	)
+
+	message_data[SATA_SPEAKER]           = speaker
+	message_data[SATA_VC_SOURCE]         = message_data[SATA_VC_SOURCE] || speaker
+	message_data[SATA_LANGUAGE]          = message_language
+	message_data[SATA_MESSAGE_HEARD]     = message_data[SATA_MESSAGE_HEARD] || raw_message
+	message_data[SATA_MESSAGE_SPOKEN]    = message_data[SATA_MESSAGE_SPOKEN] || raw_message
+	message_data[SATA_RADIO_FREQ]        = radio_freq
+	message_data[SATA_RADIO_FREQ_COLOR]  = radio_freq_color
+	message_data[SATA_RADIO_FREQ_NAME]   = radio_freq_name
+	message_data[SATA_SPANS]             |= spans
+
 
 	//This proc uses [] because it is faster than continually appending strings. Thanks BYOND.
 	//Basic span
 	var/freq_color = get_radio_color(radio_freq, radio_freq_color)
 	var/spanp1_class = radio_freq ? get_radio_span(radio_freq) : "game say"
 	var/spanp1_radio_color = freq_color ? "style='color:[freq_color];'" : ""
+
 	var/spanpart1 = "<span class='[spanp1_class]' [spanp1_radio_color]>"
 	//Start name span.
 	var/spanpart2 = "<span class='name'>"
@@ -249,10 +242,10 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	message_data[SATA_RADIO_TAG] = freqpart
 	message_data[SATA_BODY_SPAN_CLASS] = spanp1_class
 	message_data[SATA_BODY_SPAN_COLOR] = spanp1_radio_color
-	message_data[SATA_DISPLAYED_NAME] = namepart
+	message_data[SATA_DISPLAYED_NAME] = namepart // Dan kelly
 
 	//End name span.
-	var/endspanpart = "</span>"
+	// var/endspanpart = "</span>"
 
 	// Language icon.
 	var/languageicon = ""
@@ -264,13 +257,23 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	message_data[SATA_LANGUAGE_ICON] = languageicon
 
 	// The actual message part.
-	var/messagepart = speaker.generate_messagepart(raw_message, spans, message_data)
-	messagepart = " <span class='message'>[messagepart]</span></span>"
+	var/messagepart = speaker.generate_messagepart(raw_message, spans, message_data) // says, "<span class='spannified'>sup</span>"
+	messagepart = "<span class='message'>[messagepart]</span>"
 
 	var/trackref = compose_track_href(speaker, namepart)
 	var/composedjob = compose_job(speaker, message_language, raw_message, radio_freq)
 
-	return "[spanpart1][spanpart2][freqpart][languageicon][trackref][namepart][composedjob][endspanpart][messagepart]"
+	//                  <span>     [101.5]    [=3]          link     Jimmy     ?            </span>
+	var/fullnameslug = "[spanpart2][freqpart][languageicon][trackref][namepart][composedjob]</span>"
+	var/msg_rendered = "[spanpart1][fullnameslug] [messagepart]</span>"
+	message_data[SATA_DISPLAYED_NAME] = fullnameslug
+	message_data[SATA_MESSAGE_COMPILED] = msg_rendered
+	return msg_rendered
+	// to the enterprising visualchat devs: if you want to reconstruct a simulacrum of the rendered message
+	// it'll look something like
+	// (all things in [] are message_data SATA_ keys)
+	// [SATA_DISPLAYED_NAME] [SATA_DISPLAYED_SAYMODE], \"[SATA_MESSAGE_HEARD]\"
+	// should get a rough approximation of what should be in [SATA_MESSAGE_COMPILED]
 
 /atom/movable/proc/compose_track_href(atom/movable/speaker, message_langs, raw_message, radio_freq)
 	return ""
@@ -332,7 +335,6 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		input = "..."
 
 	var/say_mod = message_data[MODE_CUSTOM_SAY_EMOTE] || message_data[SATA_VERB] || say_mod(input, message_data)
-	message_data[SATA_DISPLAYED_SAYMODE] = say_mod
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_SAY_QUOTE, args)
 
@@ -347,9 +349,9 @@ GLOBAL_LIST_INIT(freqtospan, list(
 
 	var/processed_say_mod = apply_message_emphasis(say_mod)
 	message_data[SATA_DISPLAYED_SAYMODE] = processed_say_mod
-	message_data[SATA_MESSAGE_HEARD] = processed_input
+	message_data[SATA_MESSAGE_HEARD] = processed_input // no quotes
 
-	return "[processed_say_mod], \"[processed_input]\""
+	return "[processed_say_mod], \"[processed_input]\"" // says, "<span class='spannified'>Hello world</span>"
 
 /// Transforms the message emphasis mods from [/atom/proc/apply_message_emphasis] into the appropriate HTML tags. Includes escaping.
 #define ENCODE_HTML_EMPHASIS(input, char, html, varname) \

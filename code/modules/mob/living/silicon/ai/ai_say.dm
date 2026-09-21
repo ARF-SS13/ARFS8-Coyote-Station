@@ -59,7 +59,8 @@
 	var/pad_loc = pad_turf ? AREACOORD(pad_turf) : "(UNKNOWN)"
 
 	log_sayverb_talk(message, message_data, tag = "HOLOPAD in [pad_loc]")
-	message_data[SATA_ORIGIN_OVERRIDE] = src
+	message_data[SATA_VC_SOURCE_OVERRIDE] = src
+	message_data[SATA_VERB] = say_mod(message, message_data)
 	ai_holo.say(message, spans = spans, sanitize = FALSE, language = language, message_data = message_data)
 
 /* SKYRAT EDIT REMOVAL - MOVED TO: MODULAR_SKYRAT/MODULES/ALT_VOX/CODE/VOX_PROCS.DM

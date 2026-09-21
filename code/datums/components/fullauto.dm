@@ -304,7 +304,7 @@
 
 
 /obj/item/gun/proc/do_autofire(datum/source, atom/target, mob/living/shooter, allow_akimbo, params)
-	SIGNAL_HANDLER
+	// SIGNAL_HANDLER
 	if(fire_cd || shooter.incapacitated)
 		return NONE
 	if(!can_shoot())

@@ -101,12 +101,12 @@
 	serialized["suppress"] = suppress
 	for(var/key in settings)
 		serialized["settings"][key] = get_setting(key).serialize_setting(for_tgui)
-	var/pfphost = get_setting("profile_pic_link_url_host").get_terminal_value()
-	var/pfpfname = get_setting("profile_pic_link_url_filename").get_terminal_value()
+	var/pfphost = get_setting("pfp_image_link_url_host").get_terminal_value()
+	var/pfpfname = get_setting("pfp_image_link_url_filename").get_terminal_value()
 	var/pfplink = SSvisualchat.ExtractProfilePicLink(pfphost, pfpfname)
 	if(LAZYLEN(pfplink) > 3)
-		serialized["profile_pic_link"] = pfplink
-		serialized["has_profile_pic_link"] = TRUE
+		serialized["pfp_image_link"] = pfplink
+		serialized["has_pfp_image_link"] = TRUE
 	if(for_tgui)
 		var/datum/vc_setting/preview_text_setting = get_setting("preview_text")
 		if(preview_text_setting.is_empty_or_default())
@@ -126,24 +126,24 @@
 	set_durty_saymode()
 
 /datum/vc_saymode/proc/get_example_verb()
-	var/example = "yaps,"
+	var/example = "yaps"
 	switch(saymode)
 		if(SAYMODE_ASK)
-			example = "inquires,"
+			example = "inquires"
 		if(SAYMODE_WHISPER)
-			example = "murmurs,"
+			example = "murmurs"
 		if(SAYMODE_EXCLAIM)
-			example = "yipes,"
+			example = "yipes"
 		if(SAYMODE_YELL)
-			example = "yowls,"
+			example = "yowls"
 		if(SAYMODE_SING)
-			example = "siiiings,"
+			example = "siiiings"
 		if(SAYMODE_EMOTE)
-			example = "emotes,"
+			example = "emotes"
 		if(SAYMODE_EMOTE_QUICK)
 			example = "gekkers like a cute fox!"
 		if(SAYMODE_RADIO)
-			example = "broadcasts,"
+			example = "broadcasts"
 	return example
 
 /datum/vc_saymode/proc/is_custom_saymode()
@@ -186,23 +186,21 @@
 	defaults = list(
 		"name_show" = FALSE,
 	)
+/datum/vc_saymode/default/subtle
+	mode_name = "Subtle"
+	saymode = SAYMODE_SUBTLE
+	order = 8
+
 /datum/vc_saymode/default/emote_quick
 	mode_name = "Emote (Quick)"
 	saymode = SAYMODE_EMOTE_QUICK
-	order = 8
-	defaults = list(
-		"pfp_show" = FALSE,
-		"name_show" = FALSE,
-		"message_show" = FALSE,
-	)
-/datum/vc_saymode/default/radio
-	mode_name = "Radio"
-	saymode = SAYMODE_RADIO
 	order = 9
-	defaults = list(
-		"pfp_show" = FALSE,
-		"message_show" = FALSE,
-	)
+
+// /datum/vc_saymode/default/radio
+// 	mode_name = "Radio"
+// 	saymode = SAYMODE_RADIO
+// 	order = 10
+
 
 /datum/vc_saymode/custom
 

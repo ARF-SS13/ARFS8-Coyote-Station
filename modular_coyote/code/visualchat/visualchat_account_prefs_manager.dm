@@ -29,7 +29,7 @@
 	var/last_saymode
 	var/last_saymode_time = 0
 	/// milliseconds!
-	var/saymode_cooldown = 15000
+	var/saymode_cooldown = 45000
 	/// player doesnt want their messages to be visualchat delivered to others, for whatrever reason
 	var/suppress_accountwide = FALSE
 	/// the almightly clipboard, because there is gonna be a LOT of copying and pasting of preferences
@@ -127,11 +127,11 @@
 				prefs_per_slot_silicon["[slot]"] = hold_out
 	return hold_out
 
-/datum/vc_account_prefs_manager/proc/manager_get_saymode(atom/movable/yap, slut, say_mode, tgui = FALSE) as /datum/vc_saymode
+/datum/vc_account_prefs_manager/proc/manager_get_saymode(atom/movable/yap, slut, say_mode, tgui = FALSE, bounce_if_default = FALSE) as /datum/vc_saymode
 	var/datum/vc_preference_holder/hold_out = get_prefs_holder_for_slot(slut, get_mob_kind_for_slot(slut))
 	if(!hold_out || (hold_out.suppress_characterwide && !tgui))
 		return null
-	return hold_out.prefholder_get_saymode(say_mode)
+	return hold_out.prefholder_get_saymode(say_mode, bounce_if_default)
 
 /datum/vc_account_prefs_manager/proc/get_mob_kind_for_slot(slot)
 	//! todo: Update to handle non-ckeyed atoms, and non-humanlike mobs (frickable owls)
@@ -339,12 +339,12 @@
 			if(!paste_saymode || !paste_setting || !paste_value || !paste_setting_kind)
 				CRASH("Attempted to deserialize clipboard data with an invalid SINGLE source_datakind '[source_datakind]'! ERROR CODE: SLENDER-EXPIE-TOES")
 			// destination isnt always the same as the source setting
-			var/datum/vc_setting/source_setting = source.prefholder_get_saymode(source_saymode)?.get_setting(source_setting)
+			var/datum/vc_setting/source_setting_foreal = source.prefholder_get_saymode(source_saymode)?.get_setting(source_setting)
 			var/datum/vc_setting/destination_setting = paste_to.prefholder_get_saymode(paste_saymode)?.get_setting(paste_setting)
-			if(!source_setting || !destination_setting)
+			if(!source_setting_foreal || !destination_setting)
 				clear_clipboard()
 				CRASH("Attempted to deserialize clipboard data with a null source or destination setting! ERROR CODE: NULL-SETTING")
-			if(source_setting.st_kind != destination_setting.st_kind)
+			if(source_setting_foreal.st_kind != destination_setting.st_kind)
 				return FALSE // cant paste a setting of one kind to a setting of another kind
 			destination_setting.update_terminal_setting(paste_value)
 			return TRUE

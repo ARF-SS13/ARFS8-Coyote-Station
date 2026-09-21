@@ -128,63 +128,93 @@ SUBSYSTEM_DEF(visualchat)
 	rustg_file_append(logtext, logfile)
 	message_admins("VisualChat Debug: [context]: [message] ([filename])")
 
+/*
+ * Some insight into what the message datas are the point of them and what they a
+ * Current system need the folloring:
+ * * the local atom that's making the message.
+ * * * though if this is the radio... idfk
+ * * the client that's responsible for making the message, for purposes of getting the damn stuff
+ * * the compiled message words and such. used to be like pieced out but thats for later DLC
+ * * The saymode, for purpose of determining which image and or style to use
+ * *
+ * */
 
 /datum/controller/subsystem/visualchat/proc/Hornify(mob/reader, list/message_data)
 	if(!reader || !reader.client || !LAZYLEN(message_data))
 		return
-	var/atom/spanker = message_data[SATA_SPEAKER]
-	if(get_dist(get_turf(reader), get_turf(spanker)) > max_hearable_horny_dist)
-		return
 	var/datum/vc_account_prefs_manager/reader_manager = GetVCAccountPrefsManager(reader, FALSE, TRUE)
 	if(!reader_manager.see_visualchat)
 		return
-	/// speaker's key, gotta go looking
-	var/list/relevant_datpak = \
-		GetRelevantDatPak(message_data[SATA_ORIGIN_OVERRIDE]) || \
-		GetRelevantDatPak(message_data[SATA_SPEAKER])         || \
-		GetRelevantDatPak(message_data[SATA_ORIGIN])
-	if(!LAZYLEN(relevant_datpak))
+	var/atom/spanker = message_data[SATA_SPEAKER]
+	if(get_dist(get_turf(reader), get_turf(spanker)) > reader_manager.see_visualchat_range)
 		return
+	// note: speaker and source arent necessarily the same thing!
+	/// speaker's key, gotta go looking
+	var/atom/vc_source_atom
+	var/char_slot = 1
+	var/char_key
 	var/datum/vc_account_prefs_manager/speaker_manager
-	var/atom/override_atom = relevant_datpak["atom"]
-	if(override_atom) // its an npc or something, so we need to use the override path instead of the ckey
-		speaker_manager = GetVCAccountPrefsManager(override_atom, FALSE, TRUE)
-	else
-		speaker_manager = GetVCAccountPrefsManager(relevant_datpak["atom"], FALSE, TRUE)
+	var/list/possible_sources = list(
+		message_data[SATA_VC_SOURCE_OVERRIDE],
+		message_data[SATA_VC_SOURCE],
+		message_data[SATA_SPEAKER]
+	)
+	for(var/atom/source_atom in possible_sources)
+		if(source_atom.vc_override_key)
+			vc_source_atom = source_atom
+			speaker_manager = GetVCAccountPrefsManager(source_atom, FALSE, TRUE)
+			break
+		char_key = extract_ckey(source_atom)
+		if(!char_key)
+			continue
+		speaker_manager = GetVCAccountPrefsManager(char_key, FALSE, TRUE)
+		char_slot = extract_current_character_slot(source_atom)
 	if(!speaker_manager)
 		return
 	if(speaker_manager.suppress_accountwide)
 		return
+	if(!message_data[SATA_MESSAGE_HEARD] && !message_data[SATA_MESSAGE_COMPILED])
+		return // say what, now?
 	// got it! extract the proper saymode
 	var/say_mode = ExtractSaymode(message_data)
-	var/slut = relevant_datpak["slot"]
-	var/atom/movable/yap = relevant_datpak["atom"]
-	var/datum/vc_saymode/saymode = speaker_manager.manager_get_saymode(yap, slut, say_mode)
+	var/datum/vc_saymode/saymode = speaker_manager.manager_get_saymode(vc_source_atom, char_slot, say_mode, bounce_if_default=TRUE)
 	if(!saymode) // null if something is suppressed
 		return
 	var/list/datapaquette = list()
-	datapaquette["saymode_data"] = saymode.serialize_saymode(FALSE) // smaller tgui means less plastic
+	datapaquette["saymode_data"] = saymode.serialize_saymode(FALSE) // smaller data means less plastic
 	var/list/msg_dat = list()
-	msg_dat["body_text"]               = message_data[SATA_MESSAGE_HEARD]
-	msg_dat["body_spans"]              = message_data[SATA_SPANS]
-	msg_dat["used_verb"]               = message_data[SATA_DISPLAYED_SAYMODE]
-	msg_dat["is_radio"]                = message_data[SATA_IS_RADIO]
-	msg_dat["is_emote"]                = message_data[SATA_IS_EMOTE]
-	msg_dat["is_emote_quick"]          = message_data[SATA_IS_EMOTE_QUICK]
-	msg_dat["am_ghost"]                = message_data[SATA_HEARER_IS_GHOST]
-	msg_dat["displayed_name"]          = message_data[SATA_DISPLAYED_NAME]
-	msg_dat["radio_color"]             = message_data[SATA_RADIO_FREQ_COLOR]
-	msg_dat["radio_freq_name"]         = message_data[SATA_RADIO_TAG]
-	msg_dat["language_icon"]           = message_data[SATA_LANGUAGE_ICON]
-	msg_dat["language_understood"]     = message_data[SATA_LANGUAGE_UNDERSTOOD]
-	msg_dat["ghost_link"]              = message_data[SATA_LINK]
-	msg_dat["body_span_class"]         = message_data[SATA_BODY_SPAN_CLASS]
-	msg_dat["body_span_color"]         = message_data[SATA_BODY_SPAN_COLOR]
-	msg_dat["msg_splice_timeout"]      = speaker_manager.saymode_cooldown
-	msg_dat["msg_splice_last_saymode"] = speaker_manager.last_saymode
+	if(!Sanify(message_data, spanker))
+		return
+	msg_dat["name_displayed"]          = message_data[SATA_DISPLAYED_NAME] || ""
+	msg_dat["displayed_saymode"]       = message_data[SATA_DISPLAYED_SAYMODE] || ""
+	msg_dat["body_text"]               = message_data[SATA_MESSAGE_HEARD] || ""
+	msg_dat["compiled_message"]        = message_data[SATA_MESSAGE_COMPILED] || ""
+	msg_dat["am_ghost"]                = message_data[SATA_HEARER_IS_GHOST] || FALSE
+	msg_dat["ghost_link"]              = message_data[SATA_LINK] || ""
+	msg_dat["msg_splice_timeout"]      = speaker_manager.saymode_cooldown || 0
+	msg_dat["msg_splice_last_saymode"] = speaker_manager.last_saymode || ""
 	datapaquette["message_data"] = msg_dat
+	speaker_manager.last_saymode = saymode.saymode
 	// and send
 	return datapaquette
+
+/datum/controller/subsystem/visualchat/proc/Sanify(list/message_data, atom/spanker)
+	if(!message_data)
+		return
+	if(!spanker)
+		return
+	// we need some things to always be present: a name, a displayed saymode, body text, compiled message
+	if(!message_data[SATA_DISPLAYED_NAME])
+		message_data[SATA_DISPLAYED_NAME] = spanker.name
+	if(!message_data[SATA_DISPLAYED_SAYMODE])
+		message_data[SATA_DISPLAYED_SAYMODE] = "says,"
+	if(message_data[SATA_MESSAGE_HEARD] && !message_data[SATA_MESSAGE_COMPILED])
+		message_data[SATA_MESSAGE_COMPILED] = message_data[SATA_MESSAGE_HEARD]
+	if(message_data[SATA_MESSAGE_COMPILED] && !message_data[SATA_MESSAGE_HEARD])
+		message_data[SATA_MESSAGE_HEARD] = message_data[SATA_MESSAGE_COMPILED]
+	message_data[SATA_HEARER_IS_GHOST] = message_data[SATA_HEARER_IS_GHOST] || FALSE
+	message_data[SATA_LINK]            = message_data[SATA_LINK] || ""
+	return TRUE
 
 /// extracts list: ("key", "slot", "kind", "overridepath")
 /datum/controller/subsystem/visualchat/proc/GetRelevantDatPak(atom/movable/yap)
@@ -215,7 +245,7 @@ SUBSYSTEM_DEF(visualchat)
 		return SAYMODE_EMOTE
 	if(message_data[SATA_IS_EMOTE_QUICK])
 		return SAYMODE_EMOTE_QUICK
-	return message_data[SATA_SAYMODE]
+	return message_data[SATA_SAYMODE] || SAYMODE_SAY
 
 /// takes in some kind of input (hipefully text) and splits it into a host and a filename.
 /// Returns list(host_key, filename) where host_key is a key from valid_hosts ("DISREGARD" if no match (it knows what to do)).
@@ -365,7 +395,13 @@ SUBSYSTEM_DEF(visualchat)
 		else
 			maybename = P.read_preference(/datum/preference/name/cyborg) || user.name
 	dat["user_name"] = maybename
+	dat["user_ckey"] = user.ckey
 	return dat
+
+/datum/controller/subsystem/visualchat/proc/OpenSettingsControlPanel(mob/user)
+	if(!user || !user.client)
+		return
+	setzup.open_settings_controlpanel(user)
 
 /datum/controller/subsystem/visualchat/proc/PerformActForSettingsUI(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	// thingz it can do:
@@ -382,7 +418,7 @@ SUBSYSTEM_DEF(visualchat)
 	// --- paste from the clipboard
 	if(!ui || !ui.user)
 		CRASH("Oh good golly gosh, UI or user is null! ERROR CODE: FAT-EXPIE-STUCK-IN-LIFEPOD")
-	var/mob/user = ui.user
+	// var/mob/user = ui.user
 
 
 

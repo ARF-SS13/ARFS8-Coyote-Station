@@ -62,9 +62,9 @@
 	message_data[SATA_MESSAGE_HEARD] = message
 	message_data[SATA_SPANS] = spans
 	message_data[SATA_DISPLAYED_NAME] = ling_sender.changelingID
-	message_data[SATA_ORIGIN] = ling_sender.owner.current
+	message_data[SATA_VC_SOURCE] = ling_sender.owner.current
 	message_data[SATA_SPEAKER] = ling_sender.owner.current
-	user.say_mod(message, message_data)
+	message_data[SATA_VERB] = user.say_mod(message, message_data)
 	message_data[SATA_DISPLAYED_SAYMODE] = "projects over the hivemind..."
 
 	// Send the message to our other changelings.
@@ -79,8 +79,7 @@
 		if(HAS_TRAIT(ling_mob, TRAIT_CHANGELING_HIVEMIND_MUTE))
 			continue
 		var/list/recipient_data = message_data.Copy()
-		recipient_data[SATA_LISTENER] = ling_mob
-		to_chat(ling_mob, msg, type = MESSAGE_TYPE_RADIO, avoid_highlighting = ling_mob == user, extra_data = message_data)
+		to_chat(ling_mob, msg, type = MESSAGE_TYPE_RADIO, avoid_highlighting = ling_mob == user, extra_data = recipient_data)
 
 	for(var/mob/dead/ghost as anything in GLOB.dead_mob_list)
 		var/linkie = FOLLOW_LINK(ghost, user)

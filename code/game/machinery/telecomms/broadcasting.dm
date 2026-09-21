@@ -181,7 +181,7 @@
 			continue
 		spans -= blacklisted_spans
 		var/list/radio_data = message_data.Copy()
-		radio_data[SATA_ORIGIN] = source
+		radio_data[SATA_VC_SOURCE] = source
 		hearer.Hear(virt, language, message, frequency, data["frequency_name"], data["frequency_color"], spans, radio_data, message_range = INFINITY)
 
 	// This following recording is intended for research and feedback in the use of department radio channels

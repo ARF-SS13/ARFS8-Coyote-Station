@@ -123,7 +123,7 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 
 	message_data |= list(
 		SATA_SPEAKER = src,
-		SATA_ORIGIN = src,
+		SATA_VC_SOURCE = message_data[SATA_VC_SOURCE] || src,
 		SATA_MESSAGE_SPOKEN = message,
 		SATA_MESSAGE_HEARD = message,
 		SATA_SPANS = spans,
@@ -580,7 +580,7 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 				return ITALICS | REDUCE_RANGE
 	var/list/broadcast_data = message_data.Copy()
 	broadcast_data[SATA_IS_RADIO] = TRUE
-	broadcast_data[SATA_ORIGIN_OVERRIDE] = src // just to be sure
+	broadcast_data[SATA_VC_SOURCE_OVERRIDE] = src // just to be sure
 	//SKYRAT EDIT END
 	var/obj/item/implant/radio/imp = locate() in src
 	if(imp?.radio.is_on())

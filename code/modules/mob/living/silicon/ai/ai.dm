@@ -854,8 +854,16 @@
 				jobpart = "[holo.Impersonation.job]"
 			else if(usr?.job) // not great, but AI holograms have no other usable ref
 				jobpart = "[usr.job]"
-
-	var/rendered = "<i><span class='game say'>[start][span_name("[hrefpart][namepart] ([jobpart])</a> ")]<span class='message'>[treated_message]</span></span></i>"
+	var/namechunk = "[start][span_name("[hrefpart][namepart] ([jobpart])</a>")]"
+	var/messagechunk = "<span class='message'>[treated_message]</span>"
+	var/rendered = "<i><span class='game say'>[namechunk][messagechunk]</span></i>"
+	message_data[SATA_SPEAKER] = speaker
+	message_data[SATA_VC_SOURCE] = source
+	message_data[SATA_MESSAGE_COMPILED] = rendered
+	message_data[SATA_DISPLAYED_NAME] = namechunk
+	message_data[SATA_MESSAGE_HEARD] = treated_message
+	message_data[SATA_VERB] = source.say_mod(raw_message, message_data)
+	//! coyote todo: An anonymize function for vchat
 
 	if (client?.prefs.read_preference(/datum/preference/toggle/enable_runechat) && (client.prefs.read_preference(/datum/preference/toggle/enable_runechat_non_mobs) || ismob(speaker)))
 		create_chat_message(speaker, message_language, raw_message, spans)

@@ -11,6 +11,7 @@ import { Tooltip } from 'tgui-core/components';
 import { EventEmitter } from 'tgui-core/events';
 import { classes } from 'tgui-core/react';
 import { store } from '../events/store';
+import { settingsAtom } from '../settings/atoms';
 import { scrollTrackingAtom } from './atom';
 import {
   COMBINE_MAX_MESSAGES,
@@ -25,9 +26,17 @@ import {
   MESSAGE_TYPE_UNKNOWN,
   MESSAGE_TYPES,
 } from './constants';
-import { canPageAcceptType, createMessage, isSameMessage } from './model';
+import {
+  canPageAcceptType,
+  createMessage,
+  isSameMessage,
+  type SerializedMessage,
+} from './model';
 import { highlightNode, linkifyNode } from './replaceInTextNode';
-import { VisualChatify } from './visualchat_chat_element_builder';
+import {
+  AssembleVisualChatElement,
+  VisualChatify,
+} from './visualchat_chat_element_builder';
 
 const logger = createLogger('chatRenderer');
 
@@ -105,6 +114,45 @@ function updateMessageBadge(message) {
   if (!foundBadge) {
     node.appendChild(badge);
   }
+}
+function updateVCMessage(
+  oldmsg: SerializedMessage,
+  newmsg: SerializedMessage,
+): SerializedMessage {
+  if (
+    !newmsg ||
+    !newmsg.extraData ||
+    !newmsg.extraData.message_data ||
+    !oldmsg ||
+    !oldmsg.extraData ||
+    !oldmsg.extraData.message_data
+  ) {
+    // Nothing to update
+    logger.log('no update. why?', oldmsg);
+    return oldmsg;
+  }
+  const newhtmlstuff = `<br>${newmsg.extraData?.message_data.body_text}`;
+  const newcompiled = `<div>${newmsg.extraData?.message_data.compiled_message}</div>`;
+
+  oldmsg.extraData.message_data.body_text += newhtmlstuff;
+  oldmsg.extraData.message_data.compiled_message += newcompiled;
+  oldmsg.extraData.message_data.msg_splice_timeout =
+    newmsg.extraData.message_data.msg_splice_timeout;
+  oldmsg.node = createMessageNode();
+  const settings = store.get(settingsAtom);
+  const theme = settings.theme || 'dark';
+  const vcAssData = VisualChatify(
+    oldmsg.extraData.saymode_data,
+    oldmsg.extraData.message_data,
+    theme,
+  );
+  if (!vcAssData) throw new Error('no vc data');
+  const visualChatElement = AssembleVisualChatElement(vcAssData, true);
+  if (!visualChatElement) throw new Error('no visual element');
+  const html = renderToStaticMarkup(visualChatElement);
+  if (!html) throw new Error('no html');
+  oldmsg.node.innerHTML = html;
+  return oldmsg;
 }
 
 class ChatRenderer {
@@ -339,6 +387,39 @@ class ChatRenderer {
     return null;
   }
 
+  getVCCombinableMessage(predicate) {
+    if (!predicate.extraData) return null;
+    const now = Date.now();
+    const len = this.messages.length;
+    const from = len - 1;
+    const to = Math.max(0, len - COMBINE_MAX_MESSAGES);
+    for (let i = from; i >= to; i--) {
+      const message = this.messages[i];
+      if (!message.extraData) break;
+      if (
+        message.extraData.message_data.name_displayed !==
+        predicate.extraData.message_data.name_displayed
+      )
+        break;
+      if (
+        message.extraData.saymode_data.saymode_kind !==
+        predicate.extraData.saymode_data.saymode_kind
+      )
+        break;
+
+      const matches =
+        !message.type.startsWith(MESSAGE_TYPE_INTERNAL) &&
+        // Text payload must fully match
+        now <
+          message.createdAt + message.extraData.message_data.msg_splice_timeout;
+      if (matches) {
+        return [message, i];
+      }
+    }
+    return null;
+  }
+
+  // region the actual part
   processBatch(
     batch,
     options: { prepend?: boolean; notifyListeners?: boolean } = {},
@@ -363,14 +444,29 @@ class ChatRenderer {
     const countByType = {};
     let node;
     for (const payload of batch) {
-      const message = createMessage(payload);
+      let message = createMessage(payload);
       // Combine messages
-      const combinable = this.getCombinableMessage(message);
-      if (combinable) {
-        combinable.times = (combinable.times || 1) + 1;
-        updateMessageBadge(combinable);
-        continue;
+      const vcCombinable = this.getVCCombinableMessage(message);
+      if (vcCombinable) {
+        this.rootNode!.removeChild(vcCombinable[0].node);
+        const coolmsg = updateVCMessage(vcCombinable[0], message);
+        this.visibleMessages.slice(
+          this.visibleMessages.indexOf(vcCombinable[0]),
+          1,
+        );
+        this.messages.slice(this.messages.indexOf(vcCombinable[0]), 1);
+        message = coolmsg;
+        // most of this is likely unneeded, i am a noob at js
+        // however it works, and takes out my frustrations on the poor messages
+      } else {
+        const combinable = this.getCombinableMessage(message);
+        if (combinable) {
+          combinable.times = (combinable.times || 1) + 1;
+          updateMessageBadge(combinable);
+          continue;
+        }
       }
+
       // Reuse message node
       if (message.node) {
         node = message.node;
@@ -386,12 +482,23 @@ class ChatRenderer {
         if (message.text) {
           node.textContent = message.text;
         } else if (message.extraData) {
-          const visualChatElement = VisualChatify(
-            message.extraData.saymode_data,
-            message.extraData.saymode_data.settings,
-            message.extraData.message_data,
-          );
-          node.innerHTML = renderToStaticMarkup(visualChatElement);
+          try {
+            const settings = store.get(settingsAtom);
+            const theme = settings.theme || 'dark';
+            const vcAssData = VisualChatify(
+              message.extraData.saymode_data,
+              message.extraData.message_data,
+              theme,
+            );
+            if (!vcAssData) throw new Error('no vc data');
+            const visualChatElement = AssembleVisualChatElement(vcAssData);
+            if (!visualChatElement) throw new Error('no visual element');
+            const html = renderToStaticMarkup(visualChatElement);
+            if (!html) throw new Error('no html');
+            node.innerHTML = html;
+          } catch (e) {
+            logger.error('VC error', e);
+          }
           // Payload is HTML
         } else if (message.html) {
           node.innerHTML = message.html;
@@ -496,7 +603,6 @@ class ChatRenderer {
         countByType[message.type] = 0;
       }
       countByType[message.type] += 1;
-      // TODO: Detect duplicates
       this.messages.push(message);
       if (canPageAcceptType(this.page, message.type)) {
         fragment.appendChild(node);

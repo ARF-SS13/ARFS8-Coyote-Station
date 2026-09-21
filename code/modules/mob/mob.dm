@@ -252,11 +252,13 @@
 				. = FALSE
 				if(type & MSG_VISUAL && is_blind())
 					return FALSE
-	message_data[SATA_LISTENER] = src
 	// voice muffling
 	if(stat == UNCONSCIOUS || stat == HARD_CRIT)
 		if(type & MSG_AUDIBLE) //audio
-			to_chat(src, "<I>... You can almost hear something ...</I>", extra_data = message_data)
+			var/messenge = "<I>... You can almost hear something ...</I>"
+			message_data[SATA_MESSAGE_HEARD] = messenge
+			message_data[SATA_MESSAGE_COMPILED] = messenge // i mean its kinda not much but whatevs
+			to_chat(src, messenge, extra_data = message_data)
 		return FALSE
 	to_chat(src, msg, avoid_highlighting = avoid_highlighting, extra_data = message_data)
 	return .
@@ -280,7 +282,15 @@
  * * ignored_mobs (optional) doesn't show any message to any mob in this list.
  * * visible_message_flags (optional) is the type of message being sent.
  */
-/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, visible_message_flags = NONE, separation = " ", pref_to_check) // SKYRAT EDIT ADDITION - separation, pref checks
+/atom/proc/visible_message(message,
+	self_message,
+	blind_message,
+	vision_distance = DEFAULT_MESSAGE_RANGE,
+	list/ignored_mobs,
+	visible_message_flags = NONE,
+	separation = " ",
+	pref_to_check,
+	list/message_data = list()) // SKYRAT EDIT ADDITION - separation, pref checks
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
@@ -306,6 +316,13 @@
 		message = apply_message_emphasis(message)
 	if(visible_message_flags & EMOTE_MESSAGE)
 		message = span_emote("<b>[src]</b>[separation][message]") // SKYRAT EDIT - Better emotes
+	// COYOTE EDIT: message data for horny purposes
+	if(!islist(message_data))
+		message_data = list()
+	message_data[SATA_MESSAGE_HEARD] = message
+	message_data[SATA_SPEAKER] = src
+	message_data[SATA_VC_SOURCE] = src
+	message_data[SATA_SAYMODE] = SAYMODE_EMOTE
 
 	for(var/mob/hearing_mob as anything in hearers)
 		if(!hearing_mob?.client)
@@ -342,11 +359,21 @@
 
 		if(visible_message_flags & EMOTE_MESSAGE && runechat_prefs_check(hearing_mob, visible_message_flags) && !hearing_mob.is_blind())
 			hearing_mob.create_chat_message(src, raw_message = raw_msg, runechat_flags = visible_message_flags)
+		var/list/hearing_message_data = message_data.Copy()
+		hearing_message_data[SATA_MESSAGE_HEARD] = msg
 
-		hearing_mob.show_message(msg, msg_type, blind_message, MSG_AUDIBLE)
+		hearing_mob.show_message(msg, msg_type, blind_message, MSG_AUDIBLE, message_data = hearing_message_data)
 
 ///Adds the functionality to self_message.
-/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, visible_message_flags = NONE, separation = " ", pref_to_check)  // SKYRAT EDIT ADDITION - Better emotes, pref checks
+/mob/visible_message(message,
+	self_message,
+	blind_message,
+	vision_distance = DEFAULT_MESSAGE_RANGE,
+	list/ignored_mobs,
+	visible_message_flags = NONE,
+	separation = " ",
+	pref_to_check,
+	list/message_data = list())  // SKYRAT EDIT ADDITION - Better emotes, pref checks
 	. = ..()
 	if(!self_message)
 		return
@@ -357,12 +384,17 @@
 		self_message = apply_message_emphasis(self_message)
 	if(visible_message_flags & EMOTE_MESSAGE)
 		self_message = span_emote("<b>[src]</b> [self_message]") // May make more sense as "You do x"
+	var/list/self_message_data = message_data.Copy()
+	self_message_data[SATA_MESSAGE_HEARD] = self_message
+	self_message_data[SATA_SPEAKER] = message_data[SATA_SPEAKER] || src
+	self_message_data[SATA_VC_SOURCE] = message_data[SATA_VC_SOURCE] || src
+	self_message_data[SATA_SAYMODE] = message_data[SATA_SAYMODE] || SAYMODE_EMOTE
 
 	if(visible_message_flags & ALWAYS_SHOW_SELF_MESSAGE)
-		to_chat(src, self_message, avoid_highlighting = block_self_highlight)
+		to_chat(src, self_message, avoid_highlighting = block_self_highlight, extra_data = self_message_data)
 		self_runechat = TRUE
 	else
-		self_runechat = show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE, avoid_highlighting = block_self_highlight)
+		self_runechat = show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE, avoid_highlighting = block_self_highlight, message_data = self_message_data)
 
 	if(self_runechat && (visible_message_flags & EMOTE_MESSAGE) && runechat_prefs_check(src, visible_message_flags))
 		create_chat_message(src, raw_message = raw_self_message, runechat_flags = visible_message_flags)
@@ -379,7 +411,14 @@
  * * self_message (optional) is what the src mob hears.
  * * audible_message_flags (optional) is the type of message being sent.
  */
-/atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, audible_message_flags = NONE, separation = " ", pref_to_check) // SKYRAT EDIT ADDITION - Better emotes, pref checks
+/atom/proc/audible_message(message,
+	deaf_message,
+	hearing_distance = DEFAULT_MESSAGE_RANGE,
+	self_message,
+	audible_message_flags = NONE,
+	separation = " ",
+	pref_to_check,
+	list/message_data = list()) // SKYRAT EDIT ADDITION - Better emotes, pref checks
 	var/list/hearers = mob_only_listeners(get_hearers_in_view(hearing_distance, src))
 	//SKYRAT EDIT ADDITION BEGIN - AI QoL
 	for(var/mob/eye/camera/ai/ai_eye in hearers)
@@ -390,12 +429,20 @@
 	for(var/obj/effect/overlay/holo_pad_hologram/holo in hearers)
 		if(holo.Impersonation?.client)
 			hearers |= holo.Impersonation
+	var/list/audible_data = list()
+	audible_data[SATA_MESSAGE_HEARD] = message_data[SATA_MESSAGE_HEARD] || message
+	audible_data[SATA_SPEAKER] = message_data[SATA_SPEAKER] || src
+	audible_data[SATA_VC_SOURCE] = message_data[SATA_VC_SOURCE] || src
+	audible_data[SATA_SAYMODE] = message_data[SATA_SAYMODE] || SAYMODE_EMOTE
+
 	//SKYRAT EDIT ADDITION END - AI QoL
 	var/raw_msg = message
 	if(audible_message_flags & WITH_EMPHASIS_MESSAGE)
 		message = apply_message_emphasis(message)
 	if(audible_message_flags & EMOTE_MESSAGE)
 		message = span_emote("<b>[src]</b>[separation][message]") //SKYRAT EDIT CHANGE
+		message_data[SATA_MESSAGE_HEARD] = message
+
 	for(var/mob/hearing_mob as anything in hearers)
 		if(!hearing_mob?.client)
 			continue
@@ -403,7 +450,7 @@
 			continue
 		if(audible_message_flags & EMOTE_MESSAGE && runechat_prefs_check(hearing_mob, audible_message_flags) && !HAS_TRAIT(hearing_mob, TRAIT_DEAF))
 			hearing_mob.create_chat_message(src, raw_message = raw_msg, runechat_flags = audible_message_flags)
-		hearing_mob.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+		hearing_mob.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL, message_data = audible_data)
 
 /**
  * Show a message to all mobs in earshot of this one
@@ -416,7 +463,14 @@
  * * deaf_message (optional) is what deaf people will see.
  * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
  */
-/mob/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, audible_message_flags = NONE, separation = " ", pref_to_check) // SKYRAT EDIT ADDITION - Better emotes, pref checks
+/mob/audible_message(message,
+	deaf_message,
+	hearing_distance = DEFAULT_MESSAGE_RANGE,
+	self_message,
+	audible_message_flags = NONE,
+	separation = " ",
+	pref_to_check,
+	list/message_data = list()) // SKYRAT EDIT ADDITION - Better emotes, pref checks
 	. = ..()
 	if(!self_message)
 		return
@@ -427,12 +481,17 @@
 		self_message = apply_message_emphasis(self_message)
 	if(audible_message_flags & EMOTE_MESSAGE)
 		self_message = span_emote("<b>[src]</b> [self_message]")
+	var/list/self_message_data = list()
+	self_message_data[SATA_MESSAGE_HEARD] = self_message
+	self_message_data[SATA_SPEAKER] = message_data[SATA_SPEAKER] || src
+	self_message_data[SATA_VC_SOURCE] = message_data[SATA_VC_SOURCE] || src
+	self_message_data[SATA_SAYMODE] = message_data[SATA_SAYMODE] || SAYMODE_EMOTE
 
 	if(audible_message_flags & ALWAYS_SHOW_SELF_MESSAGE)
-		to_chat(src, self_message, avoid_highlighting = block_self_highlight)
+		to_chat(src, self_message, avoid_highlighting = block_self_highlight, extra_data = self_message_data)
 		self_runechat = TRUE
 	else
-		self_runechat = show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL, avoid_highlighting = block_self_highlight)
+		self_runechat = show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL, avoid_highlighting = block_self_highlight, message_data = self_message_data)
 
 	if(self_runechat && (audible_message_flags & EMOTE_MESSAGE) && runechat_prefs_check(src, audible_message_flags))
 		create_chat_message(src, raw_message = raw_self_message, runechat_flags = audible_message_flags)

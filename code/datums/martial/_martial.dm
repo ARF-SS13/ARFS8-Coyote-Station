@@ -84,7 +84,7 @@
 
 /// Signal proc for [COMSIG_LIVING_UNARMED_ATTACK] to hook into the appropriate proc
 /datum/martial_art/proc/unarmed_strike(mob/living/source, atom/attack_target, proximity, modifiers)
-	SIGNAL_HANDLER
+	// SIGNAL_HANDLER
 
 	if(!proximity || !isliving(attack_target))
 		return NONE
@@ -108,7 +108,7 @@
 
 /// Signal proc for [COMSIG_LIVING_GRAB] to hook into the grab
 /datum/martial_art/proc/attempt_grab(mob/living/source, mob/living/grabbing)
-	SIGNAL_HANDLER
+	// SIGNAL_HANDLER
 
 	if(HAS_TRAIT(grabbing, TRAIT_MARTIAL_ARTS_IMMUNE))
 		return NONE

@@ -227,6 +227,11 @@
 
 /mob/eye/imaginary_friend/send_speech(message, range = IMAGINARY_FRIEND_SPEECH_RANGE, obj/source = src, bubble_type = bubble_icon, list/spans = list(), datum/language/message_language = null, list/message_data = list(), forced = null)
 	message = get_message_mods(message, message_data)
+	message_data[SATA_VC_SOURCE] = message_data[SATA_VC_SOURCE] || src
+	message_data[SATA_SPEAKER] = message_data[SATA_SPEAKER] || src
+	message_data[SATA_MESSAGE_HEARD] = message_data[SATA_MESSAGE_HEARD] || message
+	message_data[SATA_MESSAGE_SPOKEN] = message_data[SATA_MESSAGE_SPOKEN] || message
+	message_data[SATA_MESSAGE_RANGE] = message_data[SATA_MESSAGE_RANGE] || range
 
 	if(message_data[SATA_RADIO_EXTENSION] == MODE_ADMIN)
 		SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/cmd_admin_say, message)
@@ -264,6 +269,8 @@
 	var/dead_rendered = "[span_name("[name] (Imaginary friend of [owner])")] [messagepart]"
 
 	var/language = message_language || owner.get_selected_language()
+	message_data[SATA_LANGUAGE] = message_data[SATA_LANGUAGE] || language
+	message_data[SATA_SPANS] |= spans
 	Hear(src, language, message, null, null, null, spans, message_data) // We always hear what we say
 	var/group = owner.imaginary_group - src // The people in our group don't, so we have to exclude ourselves not to hear twice
 	for(var/mob/person in group)

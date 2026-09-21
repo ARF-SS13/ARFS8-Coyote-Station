@@ -13,6 +13,7 @@
 	key = "subtle"
 	message = null
 	mob_type_blacklist_typecache = list(/mob/living/brain)
+	emote_saymode = SAYMODE_SUBTLE
 
 /datum/emote/living/subtle/run_emote(mob/user, params, type_override = null)
 	if(!can_run_emote(user))
@@ -45,6 +46,11 @@
 	var/space = should_have_space_before_emote(html_decode(subtle_emote)[1]) ? " " : ""
 
 	subtle_message = span_subtle("<b>[user]</b>[space]<i>[user.apply_message_emphasis(subtle_message)]</i>")
+	var/list/subbybubby_data = list()
+	subbybubby_data[SATA_SAYMODE]       = emote_saymode
+	subbybubby_data[SATA_SPEAKER]       = user
+	subbybubby_data[SATA_VC_SOURCE]     = user
+	subbybubby_data[SATA_MESSAGE_HEARD] = subtle_message
 
 	var/list/viewers = get_hearers_in_view(SUBTLE_ONE_TILE, user)
 
@@ -61,12 +67,12 @@
 			to_chat(ghost, "[FOLLOW_LINK(ghost, user)] [subtle_message]")
 
 	for(var/mob/receiver in viewers)
-		receiver.show_message(subtle_message, alt_msg = subtle_message)
+		receiver.show_message(subtle_message, alt_msg = subtle_message, message_data = subbybubby_data)
 		// Optional sound notification
 		if(!isobserver(receiver))
 			var/datum/prefs_holder/prefs = receiver.client?.prefs
 			if(prefs && prefs.read_preference(/datum/preference/toggle/subtler_sound))
-				receiver.playsound_local(get_turf(receiver), 'sound/effects/achievement/glockenspiel_ping.ogg', 50)
+				receiver.playsound_local(get_turf(receiver), 'modular_coyote/sounds/barks/blush.ogg', 50)
 
 	return TRUE
 
@@ -78,6 +84,7 @@
 	key = "subtler"
 	message = null
 	mob_type_blacklist_typecache = list(/mob/living/brain)
+	emote_saymode = SAYMODE_SUBTLE
 
 /datum/emote/living/subtler/run_emote(mob/user, params, type_override = null)
 	if(!can_run_emote(user))
@@ -141,30 +148,43 @@
 
 	user.log_message(subtler_message, LOG_SUBTLER)
 
+
 	var/space = should_have_space_before_emote(html_decode(subtler_emote)[1]) ? " " : ""
 
 	subtler_message = span_subtler("<b>[user]</b>[space]<i>[user.apply_message_emphasis(subtler_message)]</i>")
 
+	var/list/subby_data = list()
+	subby_data[SATA_SAYMODE]       = emote_saymode
+	subby_data[SATA_SPEAKER]       = user
+	subby_data[SATA_VC_SOURCE]     = user
+	subby_data[SATA_MESSAGE_HEARD] = subtler_message
+
 	if(istype(target, /mob))
 		var/mob/target_mob = target
-		user.show_message(subtler_message, alt_msg = subtler_message)
+		user.show_message(subtler_message, alt_msg = subtler_message, message_data = subby_data)
 		var/obj/effect/overlay/holo_pad_hologram/hologram = GLOB.hologram_impersonators[user]
 		if((get_dist(user.loc, target_mob.loc) <= subtler_range) || (hologram && get_dist(hologram.loc, target_mob.loc) <= subtler_range))
-			target_mob.show_message(subtler_message, alt_msg = subtler_message)
+			target_mob.show_message(subtler_message, alt_msg = subtler_message, message_data = subby_data)
 			subtler_sound(target_mob)
 		else
 			to_chat(user, span_warning("Your emote was unable to be sent to your target: Too far away."))
 	else if(istype(target, /obj/effect/overlay/holo_pad_hologram))
 		var/obj/effect/overlay/holo_pad_hologram/hologram = target
 		if(hologram.Impersonation?.client)
-			hologram.Impersonation.show_message(subtler_message, alt_msg = subtler_message)
+			var/list/subby_holo_data = subby_data.Copy()
+			subby_holo_data[SATA_SPEAKER] = hologram.Impersonation
+			hologram.Impersonation.show_message(subtler_message, alt_msg = subtler_message, message_data = subby_holo_data)
 			subtler_sound(hologram.Impersonation)
 	else if(istype(target, /obj/lewd_portal_relay)) //Direct Message to a portal user
 		var/obj/lewd_portal_relay/portal_relay = target
-		user.show_message(subtler_message, alt_msg = subtler_message)
+		user.show_message(subtler_message, alt_msg = subtler_message, message_data = subby_data)
 		if(portal_relay.owner?.client)
+
 			subtler_message = span_subtler("<b>Unknown</b>[space]<i>[user.apply_message_emphasis(subtler_emote)]</i>")
-			portal_relay.owner.show_message(subtler_message, alt_msg = subtler_message)
+			var/list/subby_portal_data = subby_data.Copy()
+			subby_portal_data[SATA_SPEAKER] = portal_relay.owner
+			subby_portal_data[SATA_MESSAGE_HEARD] = subtler_message
+			portal_relay.owner.show_message(subtler_message, alt_msg = subtler_message, message_data = subby_portal_data)
 			subtler_sound(portal_relay.owner)
 	else
 		var/ghostless
@@ -177,8 +197,9 @@
 			var/obj/structure/lewd_portal/portal_reference = user.buckled
 			var/obj/lewd_portal_relay/output_portal = portal_reference?.relayed_body
 			ghostless = get_hearers_in_view(target, output_portal) //Broadcast message through portal
-			user.show_message(subtler_message, alt_msg = subtler_message)
+			user.show_message(subtler_message, alt_msg = subtler_message, message_data = subby_data)
 			subtler_message = span_subtler("<b>[output_portal]</b>[space]<i>[user.apply_message_emphasis(subtler_emote)]</i>")
+			subby_data[SATA_MESSAGE_HEARD] = subtler_message
 		else
 			ghostless = get_hearers_in_view(target, user) - GLOB.dead_mob_list
 
@@ -191,14 +212,16 @@
 				ghostless |= holo.Impersonation
 
 		for(var/mob/receiver in ghostless)
-			receiver.show_message(subtler_message, alt_msg = subtler_message)
+			receiver.show_message(subtler_message, alt_msg = subtler_message, message_data = subby_data)
 			// Optional sound notification
 			subtler_sound(receiver)
 
 		for(var/obj/lewd_portal_relay/portal in ghostless) //Message portal owners caught in range
 			if(portal?.owner?.client && portal.owner != user)
 				subtler_message = span_subtler("<b>Unknown</b>[space]<i>[user.apply_message_emphasis(subtler_emote)]</i>")
-				portal.owner.show_message(subtler_message, alt_msg = subtler_message)
+				var/list/subby_portal_2_data = subby_data.Copy()
+				subby_portal_2_data[SATA_MESSAGE_HEARD] = subtler_message
+				portal.owner.show_message(subtler_message, alt_msg = subtler_message, message_data = subby_portal_2_data)
 			subtler_sound(portal.owner)
 
 	return TRUE

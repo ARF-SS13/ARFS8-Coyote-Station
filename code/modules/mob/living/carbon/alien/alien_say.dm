@@ -3,10 +3,11 @@
 	message = trim(message)
 	if(!message)
 		return
-	message_data[SATA_ORIGIN] = src
+	message_data[SATA_VC_SOURCE] = src
 	message_data[SATA_SPEAKER] = src
 	message_data[SATA_MESSAGE_SPOKEN] = message
 	message_data[SATA_MESSAGE_HEARD] = message
+	message_data[SATA_VERB] = say_mod(message, message_data)
 
 	var/message_a = generate_messagepart(message, spans, message_data)
 	var/hivemind_spans = "alien"
@@ -15,9 +16,9 @@
 		hivemind_spans += " big"
 		message_data[SATA_SPANS] += "big"
 	var/rendered = "<i><span class='[hivemind_spans]'>Hivemind, [span_name("[shown_name]")] <span class='message'>[message_a]</span></span></i>"
+	message_data[SATA_MESSAGE_COMPILED] = rendered
 	for(var/mob/player in GLOB.player_list)
 		var/list/player_message_data = message_data.Copy()
-		player_message_data[SATA_LISTENER] = player
 		if(!player.stat && player.hivecheck())
 			to_chat(player, rendered, type = MESSAGE_TYPE_RADIO, avoid_highlighting = player == src, extra_data = player_message_data)
 		else if(player in GLOB.dead_mob_list)

@@ -1,13 +1,16 @@
 /** biome-ignore-all lint/correctness/noUnusedImports: sugma */
+/** biome-ignore-all lint/complexity/noUselessFragments: i like fragments okay */
 /** biome-ignore-all assist/source/organizeImports: biteme */
 import {
   type VCSettingData,
   VCSettingKind,
   VCSettingCluster,
   VCSDPEnum,
+  VCSettingRegion,
+  VCTT,
 } from 'tgui-panel/chat/visualchat_types';
 import type React from 'react';
-import { VCSettingRegion, VCTT } from 'tgui-panel/chat/visualchat_types';
+import { VCStyle } from './visualchat_styles';
 
 type VCSettingIdentifier = {
   key: VCSDPEnum;
@@ -15,26 +18,22 @@ type VCSettingIdentifier = {
   cluster: VCSettingCluster;
 };
 
-export function VCGetTooltip(
-  category: VCTT,
-  settingData: VCSettingData,
-): React.ReactNode {
+export function VCGetTooltip(category: VCTT, extrastuff: any): React.ReactNode {
   function Slugma(children: React.ReactNode): React.ReactNode {
-    return <div className="slugma-tooltip">{children}</div>;
+    return <div style={VCStyle.Tooltip}>{children}</div>;
   }
+  const settingData: VCSettingData | null = extrastuff;
 
   switch (category) {
-    case VCTT.CopySetting:
-      return Slugma('Copy Setting Tooltip');
     case VCTT.SwatchSnatch:
       return Slugma('Swatch Snatch Tooltip');
     case VCTT.SwatchApply:
       return Slugma('Swatch Apply Tooltip');
     case VCTT.SettingInfoString:
-      return Slugma(`Enter up to ${settingData.max as number} characters!`);
+      return Slugma(`Enter up to ${settingData?.max as number} characters!`);
     case VCTT.SettingInfoNumber:
       return Slugma(
-        `Select a number between ${settingData.min as number} and ${settingData.max as number}, inclusive!`,
+        `Select a number between ${settingData?.min as number} and ${settingData?.max as number}, inclusive!`,
       );
     case VCTT.SettingInfoBoolean:
       return Slugma(`Have/do/want this thing to perform its function?`);
@@ -61,8 +60,89 @@ export function VCGetTooltip(
           <p>{`Pretty clever huh?`}</p>
         </>,
       );
-    default:
-      return Slugma('This supposedly does something!');
+    case VCTT.CopySetting:
+      return Slugma(
+        <>
+          <p>{`Copy the current setting to the clipboard!`}</p>
+          <p>{`Whatever you copy will be available to paste in a compatible setting, even across characters and saymodes!`}</p>
+        </>,
+      );
+    case VCTT.CopyCluster:
+      return Slugma(
+        <>
+          <p>{`Copy everything in this setting cluster to the clipboard!`}</p>
+          <p>{`Whatever you copy will be available to paste in a compatible cluster, even across characters and saymodes!`}</p>
+        </>,
+      );
+    case VCTT.CopySaymode:
+      return Slugma(
+        <>
+          <p>{`Copy everything in the current saymode to the clipboard!`}</p>
+          <p>{`Whatever you copy will be available to paste in a compatible saymode, even across characters!`}</p>
+        </>,
+      );
+    case VCTT.CopyCharacter:
+      return Slugma(
+        <>
+          <p>{`Copy everything in the current character to the clipboard!`}</p>
+          <p>{`Whatever you copy will be available to paste in a compatible character, even across saymodes!`}</p>
+        </>,
+      );
+    case VCTT.PasteSetting:
+      return Slugma(
+        <>
+          <p>{`Paste the copied setting from the clipboard into this setting!`}</p>
+          <p>{`This will overwrite the current value with the copied one, if compatible.`}</p>
+        </>,
+      );
+    case VCTT.PasteCluster:
+      return Slugma(
+        <>
+          <p>{`Paste the copied cluster from the clipboard into this cluster!`}</p>
+          <p>{`This will overwrite the current values with the copied ones, if compatible.`}</p>
+        </>,
+      );
+    case VCTT.PasteSaymode:
+      return Slugma(
+        <>
+          <p>{`Paste the copied saymode from the clipboard into this saymode!`}</p>
+          <p>{`This will overwrite the current values with the copied ones, if compatible.`}</p>
+        </>,
+      );
+    case VCTT.PasteCharacter:
+      return Slugma(
+        <>
+          <p>{`Paste the copied character from the clipboard into this character!`}</p>
+          <p>{`This will overwrite the current values with the copied ones, if compatible.`}</p>
+        </>,
+      );
+    case VCTT.HostButton:
+      return Slugma(
+        <>
+          <p>{`Click here to take you to this host's webpage, in your browser!`}</p>
+        </>,
+      );
+    case VCTT.VCToggleSee:
+      return Slugma(
+        <>
+          <p>{`Toggle whether or not you will see VisualChat messages, from yourself or others!`}</p>
+          <p>{`Note that it won't stop *yourself* from sending VisualChat messages!`}</p>
+        </>,
+      );
+    case VCTT.VCToggleSend:
+      return Slugma(
+        <>
+          <p>{`Toggle whether or not you will send VisualChat messages, from yourself or others!`}</p>
+          <p>{`Note that it won't stop *yourself* from seeing VisualChat messages!`}</p>
+        </>,
+      );
+    case VCTT.VCRange:
+      return Slugma(
+        <>
+          <p>{`Adjust from how far away that VisualChat messages will be rendered as such in chat!`}</p>
+          <p>{`Outside this range, VisualChat messages will appear as normal-ass text in chat!`}</p>
+        </>,
+      );
   }
 }
 
@@ -75,8 +155,8 @@ function Setting2Identifier(settingData: VCSettingData): VCSettingIdentifier {
     case VCSDPEnum.message_background_grad_end:
     case VCSDPEnum.message_background_grad_start:
     case VCSDPEnum.message_background_grad_use:
-    case VCSDPEnum.message_background_image:
-    case VCSDPEnum.message_background_img_opacity:
+    // case VCSDPEnum.message_background_image:
+    // case VCSDPEnum.message_background_img_opacity:
     case VCSDPEnum.message_background_opacity:
     case VCSDPEnum.message_background_padding_bottom:
     case VCSDPEnum.message_background_padding_left:
@@ -92,8 +172,8 @@ function Setting2Identifier(settingData: VCSettingData): VCSettingIdentifier {
     case VCSDPEnum.name_background_grad_end:
     case VCSDPEnum.name_background_grad_start:
     case VCSDPEnum.name_background_grad_use:
-    case VCSDPEnum.name_background_image:
-    case VCSDPEnum.name_background_img_opacity:
+    // case VCSDPEnum.name_background_image:
+    // case VCSDPEnum.name_background_img_opacity:
     case VCSDPEnum.name_background_opacity:
     case VCSDPEnum.name_background_padding_bottom:
     case VCSDPEnum.name_background_padding_left:
@@ -109,8 +189,8 @@ function Setting2Identifier(settingData: VCSettingData): VCSettingIdentifier {
     case VCSDPEnum.outer_box_background_grad_end:
     case VCSDPEnum.outer_box_background_grad_start:
     case VCSDPEnum.outer_box_background_grad_use:
-    case VCSDPEnum.outer_box_background_image:
-    case VCSDPEnum.outer_box_background_img_opacity:
+    // case VCSDPEnum.outer_box_background_image:
+    // case VCSDPEnum.outer_box_background_img_opacity:
     case VCSDPEnum.outer_box_background_opacity:
     case VCSDPEnum.outer_box_background_padding_bottom:
     case VCSDPEnum.outer_box_background_padding_left:
@@ -126,8 +206,8 @@ function Setting2Identifier(settingData: VCSettingData): VCSettingIdentifier {
     case VCSDPEnum.pfp_background_grad_end:
     case VCSDPEnum.pfp_background_grad_start:
     case VCSDPEnum.pfp_background_grad_use:
-    case VCSDPEnum.pfp_background_image:
-    case VCSDPEnum.pfp_background_img_opacity:
+    // case VCSDPEnum.pfp_background_image:
+    // case VCSDPEnum.pfp_background_img_opacity:
     case VCSDPEnum.pfp_background_opacity:
     case VCSDPEnum.pfp_background_padding_bottom:
     case VCSDPEnum.pfp_background_padding_left:
@@ -234,19 +314,19 @@ function Setting2Identifier(settingData: VCSettingData): VCSettingIdentifier {
         cluster: VCSettingCluster.Text,
       };
     // shows
-    case VCSDPEnum.pfp_show:
+    case VCSDPEnum.show_pfp:
       return {
         key: settingData.key,
         region: VCSettingRegion.PFP,
         cluster: VCSettingCluster.Show,
       };
-    case VCSDPEnum.name_show:
+    case VCSDPEnum.show_name:
       return {
         key: settingData.key,
         region: VCSettingRegion.Name,
         cluster: VCSettingCluster.Show,
       };
-    case VCSDPEnum.message_show:
+    case VCSDPEnum.show_message:
       return {
         key: settingData.key,
         region: VCSettingRegion.Message,
@@ -274,7 +354,7 @@ function Setting2Identifier(settingData: VCSettingData): VCSettingIdentifier {
       };
     default:
       return {
-        key: VCSDPEnum.message_show,
+        key: VCSDPEnum.show_message,
         region: VCSettingRegion.Message,
         cluster: VCSettingCluster.Text,
       };

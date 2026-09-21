@@ -10,14 +10,25 @@
  */
 /** biome-ignore-all assist/source/organizeImports: eat me */
 
-import { Box, Stack } from 'tgui-core/components';
+import { Box, Stack, Image } from 'tgui-core/components';
 import { resolveAsset } from 'tgui/assets';
-import type {
-  VCMessageData,
-  VCSettingDataPack,
-  VCSaymodeData,
+import {
+  type VCMessageData,
+  type VCSettingDataPack,
+  type VCSaymodeData,
+  type VCAssemblerHolder,
+  VCSettingRegion,
+  VCSDPEnum,
+  VCSaymode,
 } from './visualchat_types';
-import { GetBgStyle, GetTextStyle } from './visualchat_utils';
+import { GetVCEBStyle } from 'tgui/interfaces/VisualChatSetupWizard/visualchat_styles';
+import {
+  VCStylePackEnum,
+  GetVCChatStylePack,
+} from 'tgui/interfaces/VisualChatSetupWizard/visualchat_styles_for_chat';
+import { createLogger } from 'tgui/logging';
+
+const logger = createLogger('chatRenderer');
 
 const DEFAULT_PROFILE_PICTURE = resolveAsset(
   'https://files.catbox.moe/rblpt6.png',
@@ -28,240 +39,289 @@ const DEFAULT_PROFILE_PICTURE = resolveAsset(
 // someday this'll have stuff like prefs to tone down the disco vomit nightmare!
 export function VisualChatify(
   saymodeData: VCSaymodeData,
-  settingsData: VCSettingDataPack,
   messageData: VCMessageData,
-  // for external use
-  previewify: boolean = false,
-): React.ReactElement {
-  const {
-    body_text,
-    used_verb,
-    is_radio,
-    displayed_name,
-    radio_color,
-    radio_freq_name,
-    language_icon,
-    ghost_link,
-  } = messageData;
+  theme: string = 'dark',
+): VCAssemblerHolder {
+  const { name_displayed, displayed_saymode, body_text, compiled_message } =
+    messageData;
+  const settingsData = saymodeData.settings;
 
-  const outerBoxStyle: React.CSSProperties = {
-    // non-variable things (fills the width,fits the content, etc)
-    // gonna just be one of these
-    width: '100%',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    // variable things (background color, border, etc)
-    ...GetBgStyle({
-      show: true, // outer box is always shown
-      bgColor: settingsData.outer_box_background_color.value,
-      bgGradAngle: settingsData.outer_box_background_grad_angle.value,
-      bgGradEnd: settingsData.outer_box_background_grad_end.value,
-      bgGradStart: settingsData.outer_box_background_grad_start.value,
-      bgGradUse: settingsData.outer_box_background_grad_use.value,
-      bgOpacity: settingsData.outer_box_background_opacity.value,
-      bgPaddingBottom: settingsData.outer_box_background_padding_bottom.value,
-      bgPaddingLeft: settingsData.outer_box_background_padding_left.value,
-      bgPaddingRight: settingsData.outer_box_background_padding_right.value,
-      bgPaddingTop: settingsData.outer_box_background_padding_top.value,
-    }),
-    borderColor: settingsData.outer_box_border_color.value,
-    borderRadius: settingsData.outer_box_border_radius.value,
-    borderStyle: settingsData.outer_box_border_style.value,
-    borderWidth: settingsData.outer_box_border_width.value,
+  const vcaOut: VCAssemblerHolder = {} as VCAssemblerHolder;
+
+  // oh yeah, strip out any script tags from the body text
+  const coolbody = body_text
+    .replace(/<script*?>.*?<\/script>/gi, '')
+    // and deactivate any inline event handlers by adding in a zero-width space before and after the 'on' part
+    .replace(/\son\w+=".*?"/gi, (match) => {
+      return `\u200B${match}\u200B`; // noob 2oob~
+    });
+  const coolname = name_displayed
+    .replace(/<script*?>.*?<\/script>/gi, '')
+    .replace(/\son\w+=".*?"/gi, (match) => {
+      return `\u200B${match}\u200B`;
+    });
+  const coolcompiled = compiled_message
+    .replace(/<script*?>.*?<\/script>/gi, '')
+    .replace(/\son\w+=".*?"/gi, (match) => {
+      return `\u200B${match}\u200B`;
+    });
+
+  vcaOut.pfpImageLink =
+    settingsData[VCSDPEnum.pfp_image_link]?.value || DEFAULT_PROFILE_PICTURE;
+
+  vcaOut.saymode = saymodeData.saymode_kind;
+  vcaOut.nameFull = `${coolname} ${displayed_saymode}, `; // WeedGoku says;
+  vcaOut.body_text = coolbody;
+  vcaOut.compiled_message = coolcompiled;
+
+  if (!messageData.use_settings) {
+    // use what we got, but good
+    const stylePack =
+      theme === 'light'
+        ? GetVCChatStylePack(VCStylePackEnum.light)
+        : GetVCChatStylePack(VCStylePackEnum.default);
+    logger.log(`using style pack ${theme === 'light' ? 'light' : 'def'}`);
+    vcaOut.outerBoxStyle = {
+      ...stylePack.Swag,
+      ...stylePack.OuterBackground,
+      ...stylePack.OuterBorders,
+      ...stylePack.Text,
+    };
+    vcaOut.nameStyle = {
+      ...stylePack.Swag,
+      ...stylePack.InnerBackgrounds,
+      ...stylePack.InnerBorders,
+      ...stylePack.Text,
+    };
+    vcaOut.messageStyle = {
+      ...stylePack.Swag,
+      ...stylePack.InnerBackgrounds,
+      ...stylePack.InnerBorders,
+      ...stylePack.Text,
+    };
+    vcaOut.pfpBoxStyle = {
+      ...stylePack.Swag,
+      ...stylePack.PFPBorders,
+      ...stylePack.PFPBackground,
+      ...stylePack.Text,
+    };
+    vcaOut.pfpImageStyle = { ...stylePack.PFPImageStyle };
+    logger.log('pack contents', stylePack);
+    return vcaOut;
+  }
+  logger.log('using settings');
+
+  vcaOut.outerBoxStyle = GetVCEBStyle(settingsData, VCSettingRegion.OuterBox);
+  vcaOut.pfpBoxStyle = GetVCEBStyle(settingsData, VCSettingRegion.PFP);
+  vcaOut.messageStyle = GetVCEBStyle(settingsData, VCSettingRegion.Message);
+  vcaOut.nameStyle = GetVCEBStyle(settingsData, VCSettingRegion.Name);
+
+  vcaOut.pfpImageStyle = {
+    width: `${settingsData[VCSDPEnum.pfp_image_width].value}px`,
+    height: `${settingsData[VCSDPEnum.pfp_image_height].value}px`,
+    opacity: `${settingsData[VCSDPEnum.pfp_image_opacity].value}%`,
+    objectFit: 'contain',
+    margin: '5px',
+    borderRadius:
+      settingsData[VCSDPEnum.pfp_image_shape].value === 'circle' ? '50%' : '0%',
   };
-  const pfpBoxStyle: React.CSSProperties = settingsData.pfp_show.value
-    ? {
-        ...GetBgStyle({
-          show: settingsData.pfp_show.value,
-          bgColor: settingsData.pfp_background_color.value,
-          bgGradAngle: settingsData.pfp_background_grad_angle.value,
-          bgGradEnd: settingsData.pfp_background_grad_end.value,
-          bgGradStart: settingsData.pfp_background_grad_start.value,
-          bgGradUse: settingsData.pfp_background_grad_use.value,
-          bgOpacity: settingsData.pfp_background_opacity.value,
-          bgPaddingBottom: settingsData.pfp_background_padding_bottom.value,
-          bgPaddingLeft: settingsData.pfp_background_padding_left.value,
-          bgPaddingRight: settingsData.pfp_background_padding_right.value,
-          bgPaddingTop: settingsData.pfp_background_padding_top.value,
-        }),
-      }
-    : {};
-  const pfpImageStyle: React.CSSProperties = settingsData.pfp_show.value
-    ? {
-        width: settingsData.pfp_image_width.value,
-        height: settingsData.pfp_image_height.value,
-        opacity: settingsData.pfp_image_opacity.value,
-        objectFit: settingsData.pfp_image_scaling.value as
-          | 'cover'
-          | 'contain'
-          | 'fill'
-          | 'none'
-          | 'scale-down',
-        borderRadius:
-          settingsData.pfp_image_shape.value === 'circle' ? '50%' : '0%',
-      }
-    : {};
-  const pfpImageElement = (
-    <img
-      src={DEFAULT_PROFILE_PICTURE}
-      alt="A really cute furry profile picture!"
-      style={pfpImageStyle}
-    />
-  );
-  const nameStyle: React.CSSProperties = settingsData.name_show.value
-    ? {
-        ...GetBgStyle({
-          show: settingsData.name_show.value,
-          bgColor: settingsData.name_background_color.value,
-          bgGradAngle: settingsData.name_background_grad_angle.value,
-          bgGradEnd: settingsData.name_background_grad_end.value,
-          bgGradStart: settingsData.name_background_grad_start.value,
-          bgGradUse: settingsData.name_background_grad_use.value,
-          bgOpacity: settingsData.name_background_opacity.value,
-          bgPaddingBottom: settingsData.name_background_padding_bottom.value,
-          bgPaddingLeft: settingsData.name_background_padding_left.value,
-          bgPaddingRight: settingsData.name_background_padding_right.value,
-          bgPaddingTop: settingsData.name_background_padding_top.value,
-        }),
-        borderColor: settingsData.name_border_color.value,
-        borderRadius: settingsData.name_border_radius.value,
-        borderStyle: settingsData.name_border_style.value,
-        borderWidth: settingsData.name_border_width.value,
-        ...GetTextStyle({
-          align: settingsData.name_text_align.value,
-          color: settingsData.name_text_color.value,
-          decoration: settingsData.name_text_decoration.value,
-          font: settingsData.name_text_font.value,
-          letter_spacing: settingsData.name_text_letter_spacing.value,
-          line_height: settingsData.name_text_line_height.value,
-          opacity: settingsData.name_text_opacity.value,
-          padding_bottom: settingsData.name_text_padding_bottom.value,
-          padding_left: settingsData.name_text_padding_left.value,
-          padding_right: settingsData.name_text_padding_right.value,
-          padding_top: settingsData.name_text_padding_top.value,
-          shadow_blur: settingsData.name_text_shadow_blur.value,
-          shadow_blur2: settingsData.name_text_shadow_blur2.value,
-          shadow_color: settingsData.name_text_shadow_color.value,
-          shadow_color2: settingsData.name_text_shadow_color2.value,
-          shadow_offset_x: settingsData.name_text_shadow_offset_x.value,
-          shadow_offset_x2: settingsData.name_text_shadow_offset_x2.value,
-          shadow_offset_y: settingsData.name_text_shadow_offset_y.value,
-          shadow_offset_y2: settingsData.name_text_shadow_offset_y2.value,
-          shadow_use: settingsData.name_text_shadow_use.value,
-          shadow_use2: settingsData.name_text_shadow_use2.value,
-          size: settingsData.name_text_size.value,
-          transform: settingsData.name_text_transform.value,
-          word_spacing: settingsData.name_text_word_spacing.value,
-        }),
-      }
-    : {};
-  // home stretch!
-  const messageStyle: React.CSSProperties = settingsData.message_show.value
-    ? {
-        // stretch!
-        ...GetTextStyle({
-          align: settingsData.message_text_align.value,
-          color: settingsData.message_text_color.value,
-          decoration: settingsData.message_text_decoration.value,
-          font: settingsData.message_text_font.value,
-          letter_spacing: settingsData.message_text_letter_spacing.value,
-          line_height: settingsData.message_text_line_height.value,
-          opacity: settingsData.message_text_opacity.value,
-          padding_bottom: settingsData.message_text_padding_bottom.value,
-          padding_left: settingsData.message_text_padding_left.value,
-          padding_right: settingsData.message_text_padding_right.value,
-          padding_top: settingsData.message_text_padding_top.value,
-          shadow_blur: settingsData.message_text_shadow_blur.value,
-          shadow_blur2: settingsData.message_text_shadow_blur2.value,
-          shadow_color: settingsData.message_text_shadow_color.value,
-          shadow_color2: settingsData.message_text_shadow_color2.value,
-          shadow_offset_x: settingsData.message_text_shadow_offset_x.value,
-          shadow_offset_x2: settingsData.message_text_shadow_offset_x2.value,
-          shadow_offset_y: settingsData.message_text_shadow_offset_y.value,
-          shadow_offset_y2: settingsData.message_text_shadow_offset_y2.value,
-          shadow_use: settingsData.message_text_shadow_use.value,
-          shadow_use2: settingsData.message_text_shadow_use2.value,
-          size: settingsData.message_text_size.value,
-          transform: settingsData.message_text_transform.value,
-          word_spacing: settingsData.message_text_word_spacing.value,
-        }),
-        ...GetBgStyle({
-          show: settingsData.message_show.value,
-          bgColor: settingsData.message_background_color.value,
-          bgGradAngle: settingsData.message_background_grad_angle.value,
-          bgGradEnd: settingsData.message_background_grad_end.value,
-          bgGradStart: settingsData.message_background_grad_start.value,
-          bgGradUse: settingsData.message_background_grad_use.value,
-          bgOpacity: settingsData.message_background_opacity.value,
-          bgPaddingBottom: settingsData.message_background_padding_bottom.value,
-          bgPaddingLeft: settingsData.message_background_padding_left.value,
-          bgPaddingRight: settingsData.message_background_padding_right.value,
-          bgPaddingTop: settingsData.message_background_padding_top.value,
-        }),
-        borderColor: settingsData.message_border_color.value,
-        borderRadius: settingsData.message_border_radius.value,
-        borderStyle: settingsData.message_border_style.value,
-        borderWidth: settingsData.message_border_width.value,
-      }
-    : {};
-  // some last minute adjustments
-  const radioBit = is_radio ? (
-    <span style={{ color: radio_color }}>{radio_freq_name}</span>
-  ) : null;
-  const languageBit = language_icon ? <span>{language_icon}</span> : null;
-  const ghostLinkBit = ghost_link ? <span>{ghost_link}</span> : null;
-  const nameFull = (
-    <>
-      {radioBit}
-      {languageBit}
-      {ghostLinkBit}
-      {displayed_name}
-      {used_verb}
-    </>
-  );
 
-  const theElement: React.ReactElement = (
-    <Box style={outerBoxStyle}>
-      <Stack fill>
-        {/* Profile picture */}
-        <Stack.Item style={pfpBoxStyle} shrink>
-          {pfpImageElement}
-        </Stack.Item>
-        {/* Name and message */}
-        <Stack.Item grow>
-          <Stack fill vertical>
-            <Stack.Item style={nameStyle}>{nameFull},</Stack.Item>
-            <Stack.Item style={messageStyle} grow>
-              <Box as="span" dangerouslySetInnerHTML={{ __html: body_text }} />
-            </Stack.Item>
-          </Stack>
-        </Stack.Item>
-      </Stack>
-    </Box>
-  );
-  // however we need to return a string, so we gotta do some janky stuff to get the html out of the react element
-  return theElement;
+  return vcaOut;
 }
 
-/*
+// wraps a piece of the assembled element with `wrapRegion` so callers (like
+// the setup wizard) can hang hover/click behavior off each region; the chat
+// renderer just leaves it as a no-op passthrough
+export function AssembleVisualChatElement(
+  vch: VCAssemblerHolder,
+  flash?: boolean,
+): React.ReactElement {
+  // so which builder do we use? yes it does matter
+  let displayMode: VCDisplayMode = DetermineDisplayMode(vch.saymode);
+  if (!IsPFPLink(vch.pfpImageLink)) {
+    switch (displayMode) {
+      case VCDisplayMode.Full:
+        displayMode = VCDisplayMode.FullWithoutImage;
+        break;
+      case VCDisplayMode.Combined:
+        displayMode = VCDisplayMode.CombinedWithoutImage;
+        break;
+      case VCDisplayMode.PreCompiled:
+        displayMode = VCDisplayMode.PreCompiledWithoutImage;
+        break;
+    }
+  }
 
-    body_text,
-    body_spans,
-    used_verb,
-    is_radio,
-    is_emote,
-    is_emote_quick,
-    am_ghost,
-    displayed_name,
-    radio_color,
-    radio_freq_name,
-    language_icon,
-    language_understood,
-    ghost_link,
-    body_span_class,
-    body_span_color,
-    msg_splice_timeout,
-    msg_splice_last_saymode,
+  // style inkection!
+  const injectedStyle = (
+    <style>{`
+      @keyframes coolFlash {
+        0% { color: inherit; }
+        50% {
+        filter: saturate(2);
+        text-shadow: 3px 3px 5px teal;
+        color: yellow; }
+        100% { color: inherit;
+        text-shadow: none; }
+      }
+      .coolcoolflash {
+        animation: coolFlash 1s;
+        filter: saturate(1);
+      }
+      `}</style>
+  );
 
-*/
+  const coolImage = (
+    <Stack.Item shrink style={{ ...vch.pfpBoxStyle }}>
+      <Image src={vch.pfpImageLink} style={{ ...vch.pfpImageStyle }} />
+    </Stack.Item>
+  );
+
+  switch (displayMode) {
+    case VCDisplayMode.FullWithoutImage:
+    case VCDisplayMode.Full:
+      return (
+        <Box style={{ ...vch.outerBoxStyle }}>
+          {injectedStyle}
+          <Stack fill>
+            {/* Profile picture */}
+            {displayMode !== VCDisplayMode.FullWithoutImage && coolImage}
+            {/* Name and message */}
+            <Stack.Item grow>
+              <Stack fill vertical>
+                {/* Name box */}
+                <Stack.Item style={vch.nameStyle}>
+                  <Box
+                    as="span"
+                    dangerouslySetInnerHTML={{
+                      __html: vch.nameFull,
+                    }}
+                  />
+                </Stack.Item>
+                {/* Message box */}
+
+                <Stack.Item
+                  style={{ ...vch.messageStyle }}
+                  className="coolcoolflash"
+                  grow
+                >
+                  <Box
+                    id="vcmsg"
+                    dangerouslySetInnerHTML={{ __html: vch.body_text }}
+                  />
+                </Stack.Item>
+              </Stack>
+            </Stack.Item>
+          </Stack>
+        </Box>
+      );
+    case VCDisplayMode.Combined:
+    case VCDisplayMode.CombinedWithoutImage:
+      return (
+        <Box style={{ ...vch.outerBoxStyle }}>
+          <Stack fill>
+            {/* Profile picture */}
+            {displayMode !== VCDisplayMode.CombinedWithoutImage && coolImage}
+            {/* Name and message */}
+            <Stack.Item
+              grow
+              style={{ ...vch.messageStyle }}
+              className="coolcoolflash"
+            >
+              <span>{vch.nameFull}</span>
+              <Box
+                id="vcmsg"
+                dangerouslySetInnerHTML={{ __html: vch.body_text }}
+              />
+            </Stack.Item>
+          </Stack>
+        </Box>
+      );
+    case VCDisplayMode.PreCompiled:
+    case VCDisplayMode.PreCompiledWithoutImage:
+      return (
+        <Box style={{ ...vch.outerBoxStyle }}>
+          <Stack fill style={{ gap: '0px' }}>
+            {/* Profile picture */}
+            {displayMode !== VCDisplayMode.PreCompiledWithoutImage && coolImage}
+            {/* Name and message */}
+            <Stack.Item
+              grow
+              style={{ ...vch.messageStyle }}
+              className="coolcoolflash"
+            >
+              <Box
+                id="vcmsg"
+                dangerouslySetInnerHTML={{ __html: vch.compiled_message }} // this one has everything
+              />
+            </Stack.Item>
+          </Stack>
+        </Box>
+      );
+
+    default:
+      return (
+        <div>
+          {vch.nameFull}
+          {vch.body_text}
+        </div>
+      );
+  }
+}
+
+function IsPFPLink(link: string): boolean {
+  try {
+    const url = new URL(link);
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  } catch {
+    return false;
+  }
+}
+
+enum VCDisplayMode {
+  Full = 'Full',
+  Combined = 'Combined',
+  PreCompiled = 'PreCompiled',
+  FullWithoutImage = 'FullWithoutImage',
+  CombinedWithoutImage = 'CombinedWithoutImage',
+  PreCompiledWithoutImage = 'PreCompiledWithoutImage',
+}
+
+function DetermineDisplayMode(saymode: VCSaymode): VCDisplayMode {
+  let displayMode: VCDisplayMode;
+  switch (saymode) {
+    case VCSaymode.Emote:
+    case VCSaymode.Subtle:
+      displayMode = VCDisplayMode.PreCompiled;
+      break;
+    case VCSaymode.EmoteQuick:
+      displayMode = VCDisplayMode.PreCompiledWithoutImage;
+      break;
+    case VCSaymode.Radio:
+      displayMode = VCDisplayMode.PreCompiledWithoutImage;
+      break;
+    default:
+      displayMode = VCDisplayMode.Full;
+      break;
+  }
+  return displayMode;
+}
+
+// goes through every single setting provided, and logs what settings are not present
+function DebugWhatsMissing(settingsData: VCSettingDataPack) {
+  for (const key in VCSDPEnum) {
+    if (settingsData[VCSDPEnum[key]] === undefined) {
+      logger.error(`Missing settingsData for key: ${VCSDPEnum[key]}`);
+      continue;
+    }
+    if (settingsData[VCSDPEnum[key]].value === undefined) {
+      logger.error(`Missing value for settingsData key: ${VCSDPEnum[key]}`);
+    }
+  }
+}
+
+function cssPropertiesToString(style: React.CSSProperties): string {
+  return Object.entries(style)
+    .map(([key, value]) => `${key}: ${value}`)
+    .join('; ');
+}

@@ -26,13 +26,22 @@
 	for(var/datum/vc_saymode/smode as anything in subtypesof(/datum/vc_saymode/default))
 		saymode_prefs[smode::saymode] = new smode(src)
 
-/datum/vc_preference_holder/proc/prefholder_get_saymode(saymode_key) as /datum/vc_saymode
+/datum/vc_preference_holder/proc/prefholder_get_saymode(saymode_key, bounce_if_default) as /datum/vc_saymode
+	var/datum/vc_saymode/def = saymode_prefs[SAYMODE_SAY]
 	var/datum/vc_saymode/saymode = saymode_prefs[saymode_key]
 	if(!saymode)
 		saymode = saymode_prefs[SAYMODE_SAY] // default to say if its not found
 		if(!saymode)
 			saymode = new /datum/vc_saymode/default/say(src, SAYMODE_SAY)
 			saymode_prefs[SAYMODE_SAY] = saymode
+	if(bounce_if_default)
+		// check if the current saymode's link is either missing or the same as say
+		var/defurl = def.get_setting("pfp_image_link_url_host").get_terminal_value()
+		var/curhost = saymode.get_setting("pfp_image_link_url_filename").get_terminal_value()
+		var/defhost = def.get_setting("pfp_image_link_url_filename").get_terminal_value()
+		var/cururl = saymode.get_setting("pfp_image_link_url_host").get_terminal_value()
+		if(!cururl || (cururl == defurl && curhost == defhost))
+			saymode = def
 	return saymode
 
 /datum/vc_preference_holder/proc/get_all_saymodes_for_tgui() as /list

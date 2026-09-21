@@ -67,6 +67,8 @@
 	var/specific_emote_audio_cooldown = 5 SECONDS
 	/// Does this emote's sound ignore walls?
 	var/sound_wall_ignore = FALSE
+	/// what saymode does this count as?
+	var/emote_saymode = SAYMODE_EMOTE_QUICK
 
 /datum/emote/New()
 	switch(mob_type_allowed_typecache)
@@ -129,6 +131,14 @@
 	var/additional_message_flags = get_message_flags(intentional)
 	var/space = should_have_space_before_emote(html_decode(msg)[1]) ? " " : "" // SKYRAT EDIT ADDITION
 
+	var/list/emossage_data = list()
+	emossage_data[SATA_SAYMODE]       = emote_saymode
+	emossage_data[SATA_SPEAKER]       = user
+	emossage_data[SATA_VC_SOURCE]     = user
+	emossage_data[SATA_MESSAGE_HEARD] = msg
+	var/e_msg = span_emote("<b>[user]</b> [msg]")
+	emossage_data[SATA_MESSAGE_COMPILED] = e_msg
+
 	// Emote doesn't get printed to chat, runechat only
 	if(running_emote_type & EMOTE_RUNECHAT)
 		for(var/mob/viewer as anything in viewers(user))
@@ -150,16 +160,17 @@
 					runechat_flags = EMOTE_MESSAGE,
 				)
 			else if(is_important)
-				to_chat(viewer, span_emote("<b>[user]</b> [msg]"))
+				to_chat(viewer, e_msg)
 			else if(is_audible && is_visual)
 				viewer.show_message(
-					span_emote("<b>[user]</b> [msg]"), MSG_AUDIBLE,
+					e_msg, MSG_AUDIBLE,
 					span_emote("You see how <b>[user]</b> [msg]"), MSG_VISUAL,
+					message_data = emossage_data
 				)
 			else if(is_audible)
-				viewer.show_message(span_emote("<b>[user]</b> [msg]"), MSG_AUDIBLE)
+				viewer.show_message(e_msg, MSG_AUDIBLE, message_data = emossage_data)
 			else if(is_visual)
-				viewer.show_message(span_emote("<b>[user]</b> [msg]"), MSG_VISUAL)
+				viewer.show_message(e_msg, MSG_VISUAL, message_data = emossage_data)
 		return // Early exit so no dchat message
 
 	// The emote has some important information, and should always be shown to the user
@@ -169,7 +180,7 @@
 			if(!pref_check_emote(viewer))
 				continue
 			// SKYRAT EDIT END
-			to_chat(viewer, span_emote("<b>[user]</b> [msg]"))
+			to_chat(viewer, e_msg)
 			if(user.runechat_prefs_check(viewer, EMOTE_MESSAGE))
 				viewer.create_chat_message(
 					speaker = user,
@@ -185,7 +196,8 @@
 			self_message = msg,
 			audible_message_flags = EMOTE_MESSAGE|ALWAYS_SHOW_SELF_MESSAGE|additional_message_flags,
 			separation = space, // SKYRAT EDIT ADDITION
-			pref_to_check = pref_to_check // SKYRAT EDIT ADDITION - Pref checked emotes
+			pref_to_check = pref_to_check, // SKYRAT EDIT ADDITION - Pref checked emotes
+			message_data = emossage_data
 		)
 	// Emote is entirely audible, no visible component
 	else if(is_audible)
@@ -194,7 +206,8 @@
 			self_message = msg,
 			audible_message_flags = EMOTE_MESSAGE|additional_message_flags,
 			separation = space, // SKYRAT EDIT ADDITION
-			pref_to_check = pref_to_check // SKYRAT EDIT ADDITION - Pref checked emotes
+			pref_to_check = pref_to_check, // SKYRAT EDIT ADDITION - Pref checked emotes
+			message_data = emossage_data
 		)
 	// Emote is entirely visible, no audible component
 	else if(is_visual)
@@ -203,7 +216,8 @@
 			self_message = msg,
 			visible_message_flags = EMOTE_MESSAGE|ALWAYS_SHOW_SELF_MESSAGE|additional_message_flags,
 			separation = space, // SKYRAT EDIT ADDITION
-			pref_to_check = pref_to_check // SKYRAT EDIT ADDITION - Pref checked emotes
+			pref_to_check = pref_to_check, // SKYRAT EDIT ADDITION - Pref checked emotes
+			message_data = emossage_data
 		)
 	else
 		CRASH("Emote [type] has no valid emote type set!")
@@ -224,6 +238,7 @@
 				audible_message_flags = EMOTE_MESSAGE|ALWAYS_SHOW_SELF_MESSAGE,
 				separation = space,
 				pref_to_check = pref_to_check,
+				message_data = emossage_data
 			)
 		else if(is_audible)
 			hologram.audible_message(
@@ -232,6 +247,7 @@
 				audible_message_flags = EMOTE_MESSAGE,
 				separation = space,
 				pref_to_check = pref_to_check,
+				message_data = emossage_data
 			)
 		else if(is_visual)
 			hologram.visible_message(
@@ -240,6 +256,7 @@
 				visible_message_flags = EMOTE_MESSAGE|ALWAYS_SHOW_SELF_MESSAGE,
 				separation = space,
 				pref_to_check = pref_to_check,
+				message_data = emossage_data
 			)
 	// SKYRAT EDIT -- END
 
@@ -470,9 +487,14 @@
 	if (!text)
 		CRASH("Someone passed nothing to manual_emote(), fix it")
 
+	var/message_data = list()
+	message_data[SATA_MESSAGE_HEARD] = text
+	message_data[SATA_SPEAKER] = src
+	message_data[SATA_VC_SOURCE] = src
+	message_data[SATA_SAYMODE] = SAYMODE_EMOTE
 	if (log_emote)
 		log_message(text, LOG_EMOTE)
-	visible_message(text, visible_message_flags = EMOTE_MESSAGE)
+	visible_message(text, visible_message_flags = EMOTE_MESSAGE, message_data = message_data)
 	return TRUE
 
 /mob/manual_emote(text, log_emote = null)

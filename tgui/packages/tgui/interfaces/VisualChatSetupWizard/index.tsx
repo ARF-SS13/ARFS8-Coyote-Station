@@ -8,7 +8,8 @@
  * from windows 98!
  */
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
+import { createLogger } from 'tgui/logging';
 import {
   Box,
   Button,
@@ -17,43 +18,34 @@ import {
   Input,
   Knob,
   NumberInput,
+  Section,
   Stack,
   Tooltip,
 } from 'tgui-core/components';
 import {
+  AssembleVisualChatElement,
+  VisualChatify,
+} from 'tgui-panel/chat/visualchat_chat_element_builder';
+import {
+  type VCAssemblerHolder,
   VCCopyMode,
+  type VCMessageData,
+  VCSaymode,
   type VCSaymodeData,
-  VCSDPEnum,
   type VCSettingData,
-  type VCSettingDataPack,
   VCSettingKind,
+  VCSettingRegion,
   VCTT,
   type VCWizardPack,
 } from '../../../tgui-panel/chat/visualchat_types';
-import { VCGetTooltip } from './visualchat_tooltep_nightmare';
 import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
-import { VCStyle, VCStyleKeys } from './visualchat_styles';
+import HelpContent from './visualchat_help_doc';
+import { SettingsControlPanel } from './visualchat_settings_control_panels';
+import { HorribleLaggyColorMangler, VCStyle } from './visualchat_styles';
+import { VCGetTooltip } from './visualchat_tooltep_nightmare';
 
-type VCLocalStateHolder = {
-  humanOrSilicon: HumanOrSilicon;
-  setHumanOrSilicon: (value: HumanOrSilicon) => void;
-  headerTabSelected: HeaderTab;
-  setHeaderTabSelected: (value: HeaderTab) => void;
-  selectedSwatchIndex: number;
-  setSelectedSwatchIndex: (value: number) => void;
-};
-
-const VCUIContext = React.createContext<VCLocalStateHolder | null>(null);
-
-function useLocalVC(): VCLocalStateHolder {
-  const ctx = React.useContext(VCUIContext);
-  if (!ctx) {
-    throw new Error('useVCUI must be used within VCUIContext.Provider');
-  }
-  return ctx;
-}
-
+const logger = createLogger('VisualChatSetupWizard');
 enum HeaderTab {
   Overview = 'Overview',
   Settings = 'Settings',
@@ -65,12 +57,80 @@ enum HumanOrSilicon {
   Silicon = 'Silicon',
 }
 
+type VCLocalStateHolder = {
+  humanOrSilicon: HumanOrSilicon;
+  setHumanOrSilicon: (value: HumanOrSilicon) => void;
+  currentHeaderTab: HeaderTab;
+  setCurrentHeaderTab: (value: HeaderTab) => void;
+  selectedSwatchIndex: number;
+  setSelectedSwatchIndex: (value: number) => void;
+  currentSaymodeSelected: VCSaymode;
+  setCurrentSaymodeSelected: (value: VCSaymode) => void;
+  currentRegion: VCSettingRegion;
+  setCurrentRegion: (value: VCSettingRegion) => void;
+};
+
+// fallback so anything reading this context never has to null-check; only
+// matters if a consumer somehow renders outside the wizard's own provider
+const DEFAULT_VC_STATE: VCLocalStateHolder = {
+  humanOrSilicon: HumanOrSilicon.Human,
+  setHumanOrSilicon: () => {},
+  currentHeaderTab: HeaderTab.Overview,
+  setCurrentHeaderTab: () => {},
+  selectedSwatchIndex: 0,
+  setSelectedSwatchIndex: () => {},
+  currentSaymodeSelected: VCSaymode.Say,
+  setCurrentSaymodeSelected: () => {},
+  currentRegion: VCSettingRegion.PFP,
+  setCurrentRegion: () => {},
+};
+
+const VCUIContext = React.createContext<VCLocalStateHolder>(DEFAULT_VC_STATE);
+
+function useLocalVC(): VCLocalStateHolder {
+  return React.useContext(VCUIContext);
+}
+
 export function VisualChatSetupWizard() {
-  const vcUIstate = useLocalVC();
+  const [humanOrSilicon, setHumanOrSilicon] = useState(
+    DEFAULT_VC_STATE.humanOrSilicon,
+  );
+  const [currentHeaderTab, setCurrentHeaderTab] = useState(
+    DEFAULT_VC_STATE.currentHeaderTab,
+  );
+  const [selectedSwatchIndex, setSelectedSwatchIndex] = useState(
+    DEFAULT_VC_STATE.selectedSwatchIndex,
+  );
+  const [currentRegion, setCurrentRegion] = useState(
+    DEFAULT_VC_STATE.currentRegion,
+  );
+  const [currentSaymodeSelected, setCurrentSaymodeSelected] = useState(
+    DEFAULT_VC_STATE.currentSaymodeSelected,
+  );
+
+  const vcUIstate: VCLocalStateHolder = {
+    humanOrSilicon,
+    setHumanOrSilicon,
+    currentHeaderTab,
+    setCurrentHeaderTab,
+    selectedSwatchIndex,
+    setSelectedSwatchIndex,
+    currentRegion,
+    setCurrentRegion,
+    currentSaymodeSelected,
+    setCurrentSaymodeSelected,
+  };
+  const bg_hell = [
+    HorribleLaggyColorMangler(0),
+    HorribleLaggyColorMangler(1),
+    HorribleLaggyColorMangler(2),
+    HorribleLaggyColorMangler(3),
+  ];
+  const gradientio = `linear-gradient(38deg, ${bg_hell.join(', ')})`;
 
   return (
-    <Window width={500} height={600} title={`Visual Chat Setup Wizard`}>
-      <Window.Content style={VCStyle[VCStyleKeys.Window]}>
+    <Window width={1024} height={768} title={`Visual Chat Setup Wizard`}>
+      <Window.Content style={{ background: gradientio }}>
         <VCUIContext.Provider value={vcUIstate}>
           <Stack fill vertical>
             <Stack.Item shrink>
@@ -100,7 +160,7 @@ function HeaderControls() {
   const vcUIstate = useLocalVC();
 
   return (
-    <Box style={VCStyle[VCStyleKeys.HeaderContainer]}>
+    <Box style={VCStyle.HeaderContainer}>
       <Stack fill>
         <Stack.Item shrink>
           <HumanOrSiliconSelector />
@@ -122,7 +182,7 @@ function HumanOrSiliconSelector() {
 
   return (
     <Dropdown
-      style={VCStyle[VCStyleKeys.HeaderDropdown]}
+      style={VCStyle.HeaderDropdown}
       options={[HumanOrSilicon.Human, HumanOrSilicon.Silicon]}
       selected={humanOrSilicon}
       onSelected={(e) => setHumanOrSilicon(e)}
@@ -131,14 +191,14 @@ function HumanOrSiliconSelector() {
 }
 
 function TabsForMain() {
-  const { headerTabSelected, setHeaderTabSelected } = useLocalVC();
+  const { currentHeaderTab, setCurrentHeaderTab } = useLocalVC();
 
   function tabButton(tab: HeaderTab) {
     return (
       <Button
-        style={VCStyle[VCStyleKeys.HeaderTab]}
-        selected={headerTabSelected === tab}
-        onClick={() => setHeaderTabSelected(tab)}
+        style={VCStyle.HeaderTab}
+        selected={currentHeaderTab === tab}
+        onClick={() => setCurrentHeaderTab(tab)}
       >
         {tab}
       </Button>
@@ -156,17 +216,17 @@ function TabsForMain() {
 }
 
 function HelpPlease() {
-  const { headerTabSelected, setHeaderTabSelected } = useLocalVC();
+  const { currentHeaderTab, setCurrentHeaderTab } = useLocalVC();
 
   const clickact =
-    headerTabSelected === HeaderTab.Help
-      ? () => setHeaderTabSelected(HeaderTab.Overview)
-      : () => setHeaderTabSelected(HeaderTab.Help);
+    currentHeaderTab === HeaderTab.Help
+      ? () => setCurrentHeaderTab(HeaderTab.Overview)
+      : () => setCurrentHeaderTab(HeaderTab.Help);
 
   return (
     <Button
-      style={VCStyle[VCStyleKeys.HeaderHelp]}
-      selected={headerTabSelected === HeaderTab.Help}
+      style={VCStyle.HeaderHelp}
+      selected={currentHeaderTab === HeaderTab.Help}
       onClick={clickact}
     >
       <Icon name="question" />
@@ -179,20 +239,26 @@ function HelpPlease() {
  * @description A holder of what should be displayed as the main content in the visual chat setup wizard.
  * @example
  * <KissMyButt />
+ // region MainContent
  */
 function MainContent() {
-  const { headerTabSelected } = useLocalVC();
+  const { currentHeaderTab } = useLocalVC();
 
-  switch (headerTabSelected) {
+  let cuntent = <div>hi</div>;
+  switch (currentHeaderTab) {
     case HeaderTab.Overview:
-      return <OverviewContent />;
+      cuntent = <OverviewContent />;
+      break;
     case HeaderTab.Settings:
-      return <SettingsContent />;
+      cuntent = <SettingsSkeleton />;
+      break;
     case HeaderTab.Help:
-      return <HelpContent />;
+      cuntent = <HelpContent />;
+      break;
     default:
       return <div>hi!</div>;
   }
+  return <Section fill>{cuntent}</Section>;
 }
 
 /**
@@ -200,44 +266,396 @@ function MainContent() {
  * @description generates and holds a frickhuge list of SaymodeOverview items.
  * @example
  * <KissMe />
+ // endregion MainContent
+ // region OverviewContent
  */
 function OverviewContent() {
   const { act, data } = useBackend<VCWizardPack>();
   const { humanOrSilicon } = useLocalVC();
   const saymodes: Record<string, VCSaymodeData> = data.saymodes;
   // memo!
-  const saymodeOverviewItems = useMemo(() => {
-    // generate the list of SaymodeOverview items based on data
-    return Object.keys(saymodes).map((item) => (
-      <SaymodeOverview
-        key={item}
-        index={Object.keys(saymodes).indexOf(item)}
-        total_items={Object.keys(saymodes).length}
-        saymode_dat={saymodes[item]}
-        saymode_kind={item}
-      />
-    ));
-  }, [data.changed_time, humanOrSilicon]);
+  const saymodeOverviewItems = Object.values(saymodes).map((item) => {
+    return <BuildPreviewBingus key={item.sayname} saymode_dat={item} />;
+  });
 
   return (
-    <Box style={VCStyle[VCStyleKeys.OverviewContent]}>
+    <Section
+      fill
+      fitted
+      scrollable
+      overflowX="auto"
+      overflowY="auto"
+      style={VCStyle.OverviewContent}
+    >
       {saymodeOverviewItems}
+    </Section>
+  );
+}
+
+/**
+ * @returns {JSX.Element} The holder for the hellmess, and the other stuff
+ * @description layout layouter for the unholy settings glontchpile.
+ * @example
+ * <SettingsSkeleton />
+ // endregion OverviewContent
+ // region SettingsContent
+ */
+function SettingsSkeleton(): React.ReactElement {
+  const { act, data } = useBackend<VCWizardPack>();
+  const { saymodes, changed_time } = data;
+  const {
+    currentRegion,
+    setCurrentRegion,
+    humanOrSilicon,
+    setHumanOrSilicon,
+    currentSaymodeSelected,
+    setCurrentSaymodeSelected,
+  } = useLocalVC();
+
+  const previewPanel = useMemo(() => {
+    return (
+      <BuildPreviewBingus
+        key={'hi'}
+        saymode_dat={saymodes[currentSaymodeSelected]}
+      />
+    );
+  }, [currentSaymodeSelected, humanOrSilicon, changed_time]);
+  // check if clipboard has a saymode clipboarded
+  const clipboardHasSaymode = data.clipboard.valid_contents?.some((content) =>
+    content
+      .toLowerCase()
+      .includes(currentSaymodeSelected.toString().toLowerCase()),
+  );
+
+  const saymodeTabs: React.ReactElement = (
+    <>
+      {Object.values(saymodes).map((item) => (
+        <React.Fragment key={`saymode-tab-${item.saymode_kind}`}>
+          <Button
+            icon="copy"
+            tooltip={VCGetTooltip(VCTT.CopySaymode, null)}
+            onClick={() =>
+              act('copy', {
+                human_or_silicon: data.human_or_silicon,
+                saymode: item.saymode_kind,
+                copy_mode: VCCopyMode.Saymode,
+              })
+            }
+          />
+          {clipboardHasSaymode && (
+            <Button
+              icon="paste"
+              tooltip={VCGetTooltip(VCTT.PasteSaymode, null)}
+              onClick={() =>
+                act('paste', {
+                  human_or_silicon: data.human_or_silicon,
+                  saymode: item.saymode_kind,
+                  paste_mode: VCCopyMode.Saymode,
+                })
+              }
+            />
+          )}
+          <Button
+            fluid
+            style={
+              item.saymode_kind === currentSaymodeSelected
+                ? VCStyle.SaymodeTabSelected
+                : VCStyle.SaymodeTab
+            }
+            key={item.sayname}
+            onClick={() => setCurrentSaymodeSelected(item.saymode_kind)}
+          >
+            {item.sayname}
+          </Button>
+        </React.Fragment>
+      ))}
+    </>
+  );
+  function regionButton(region: VCSettingRegion, label: string) {
+    return (
+      <Stack.Item shrink>
+        <Button
+          fluid
+          style={
+            currentRegion === region
+              ? VCStyle.RegionTabSelected
+              : VCStyle.RegionTab
+          }
+          key={`region-tab-${region}`}
+          onClick={() => setCurrentRegion(region)}
+        >
+          {label}
+        </Button>
+      </Stack.Item>
+    );
+  }
+  const regionTabs: React.ReactElement = (
+    <>
+      <Stack fill>
+        {regionButton(VCSettingRegion.PFP, 'PFP')}
+        {regionButton(VCSettingRegion.OuterBox, 'OuterBox')}
+        {regionButton(VCSettingRegion.Name, 'Name')}
+        {regionButton(VCSettingRegion.Message, 'Message')}
+        {regionButton(VCSettingRegion.Preview, 'Preview')}
+      </Stack>
+    </>
+  );
+
+  return (
+    <Box
+      style={{
+        ...VCStyle.MainContent,
+        display: 'flex-inline',
+        flexDirection: 'column',
+        justifyContent: 'stretch',
+        alignItems: 'stretch',
+        height: '100%',
+      }}
+    >
+      <Stack fill>
+        <Stack.Item basis="150px">
+          {/* tabs! */}
+          <Section fill fitted scrollable style={VCStyle.SaymodeTabsSection}>
+            {saymodeTabs}
+          </Section>
+        </Stack.Item>
+        <Stack.Item grow>
+          <Stack fill vertical>
+            <Stack.Item shrink>
+              {/* region tabs! */}
+              {regionTabs}
+            </Stack.Item>
+            {/* settings! */}
+            <Stack.Item grow>
+              <Section fill fitted scrollable style={VCStyle.SettingsSection}>
+                <SettingsControlPanel // gonna have to be an import
+                  saymode={currentSaymodeSelected}
+                  saymode_dat={saymodes[currentSaymodeSelected]}
+                  currentRegion={currentRegion}
+                />
+              </Section>
+            </Stack.Item>
+            {/* preview! */}
+            <Stack.Item shrink>{previewPanel}</Stack.Item>
+          </Stack>
+        </Stack.Item>
+      </Stack>
     </Box>
   );
 }
 
-// we'll get to these
-function FooterControls() {}
-
-// stuff
-
-function Setting(whichsetting: VCSDPEnum, saydat: VCSaymodeData) {
+/**
+ * The stuff at the bottom of the thing
+ * has some buttons! links to catbox, gyazo, f-list
+ * tooglebuttons for
+ // region Footer Controls
+ */
+function FooterControls() {
   const { act, data } = useBackend<VCWizardPack>();
-  const { humanOrSilicon, selectedSwatchIndex } = useLocalVC();
-  //depenging on how which setting is being requested, we would render the appropriate control
+  const { valid_hosts } = data;
 
-  const settingData: VCSettingData = saydat[whichsetting];
-  const { path, name, key, value, kind, min, max, choices } = settingData;
+  function hostButton(host: string): React.ReactElement {
+    return (
+      <Button
+        style={VCStyle.MainButton}
+        tooltip={VCGetTooltip(VCTT.HostButton, null)}
+        onClick={() =>
+          act('open_host', {
+            clicked_host: host,
+          })
+        }
+      >
+        {host}
+      </Button>
+    );
+  }
+  return (
+    <Section fill style={VCStyle.FooterSection}>
+      <Stack fill>
+        {valid_hosts.map((host) => (
+          <Stack.Item shrink key={host}>
+            {hostButton(host)}
+          </Stack.Item>
+        ))}
+        <Stack.Item grow />
+        {/* VC toggles */}
+        <Stack.Item shrink>
+          <Button
+            style={VCStyle.MainButton}
+            tooltip={VCGetTooltip(VCTT.VCToggleSend, null)}
+            onClick={() =>
+              act('toggle_vc_send', {
+                ckey: data.user_ckey,
+                human_or_silicon: data.human_or_silicon,
+              })
+            }
+          >
+            Send Visualchat? {data.send_visualchat ? 'Yes' : 'No'}
+          </Button>
+        </Stack.Item>
+        <Stack.Item shrink>
+          <Button
+            style={VCStyle.MainButton}
+            tooltip={VCGetTooltip(VCTT.VCToggleSee, null)}
+            onClick={() =>
+              act('toggle_vc', {
+                ckey: data.user_ckey,
+                human_or_silicon: data.human_or_silicon,
+              })
+            }
+          >
+            See Visualchat? {data.see_visualchat ? 'Yes' : 'No'}
+          </Button>
+        </Stack.Item>
+        {data.see_visualchat === true && (
+          <Stack.Item shrink>
+            <Tooltip content={VCGetTooltip(VCTT.VCRange, null)}>
+              Max Distance:
+              <NumberInput
+                value={data.see_visualchat_range}
+                step={1}
+                minValue={data.see_visualchat_range_min}
+                maxValue={data.see_visualchat_range_max}
+                onChange={(value) =>
+                  act('set_see_visualchat_range', {
+                    ckey: data.user_ckey,
+                    human_or_silicon: data.human_or_silicon,
+                    range: value,
+                  })
+                }
+              />
+            </Tooltip>
+          </Stack.Item>
+        )}
+      </Stack>
+    </Section>
+  );
+}
+
+// region Builder of PREVUE
+function BuildPreviewBingus(props: {
+  key: string;
+  saymode_dat: VCSaymodeData;
+}): React.ReactElement {
+  // so this'll end up making a cool preview of the saymode
+  // more or less identical to that in chat, but with some... changes!
+  // for that we need three things:
+  // VCSaymodeData ( got this )
+  // VCMessageData ( gotta make it ourselves )
+  const messageData: VCMessageData = GenerateMessageData(props.saymode_dat);
+
+  // then visualchatify it
+  const vcParts: VCAssemblerHolder = VisualChatify(
+    props.saymode_dat,
+    messageData,
+  );
+  const { setCurrentRegion } = useLocalVC();
+
+  // tracks which region (if any) is currently moused over, so only that
+  // element gets the highlight overlay
+  const [hoveredRegion, setHoveredRegion] = useState<VCSettingRegion | null>(
+    null,
+  );
+
+  // wraps an element so it highlights on mouseover and jumps to its settings
+  //  on click // turns out it sucks
+  // function coolWrap(
+  //   element: React.ReactElement,
+  //   region: VCSettingRegion,
+  // ): React.ReactElement {
+  //   return (
+  //     <div
+  //       style={{ position: 'relative', display: 'inline-block' }}
+  //       onMouseEnter={(e) => {
+  //         setHoveredRegion(region);
+  //         e.stopPropagation();
+  //       }}
+  //       onMouseLeave={(e) => {
+  //         setHoveredRegion((current) => (current === region ? null : current));
+  //         e.stopPropagation();
+  //       }}
+  //       onClick={(e) => {
+  //         setCurrentRegion(region);
+  //         e.stopPropagation();
+  //       }}
+  //     >
+  //       {element}
+  //       {hoveredRegion === region && <div style={VCStyle.RegionHoverOverlay} />}
+  //     </div>
+  //   );
+  // }
+  //! todo: turn this into a control panel thing, for where u put ur pfp link
+
+  // package it all up and let coolWrap slap a hover/click layer on each region
+  const assembledElephant = AssembleVisualChatElement(vcParts);
+
+  const tabbleStyle: React.CSSProperties = {
+    border: '1px solid #ccc',
+    textAlign: 'center',
+  };
+
+  const framehoker = (
+    <Box style={{ marginBottom: '1rem', ...tabbleStyle }}>
+      <Stack fill vertical>
+        <Stack.Item shrink style={{ ...tabbleStyle }}>
+          <span>{props.saymode_dat.sayname}</span>
+        </Stack.Item>
+        <Stack.Item shrink style={{ ...tabbleStyle }}>
+          {assembledElephant}
+        </Stack.Item>
+        <Stack.Item shrink style={{ ...tabbleStyle }}>
+          <Button icon="cog" />
+        </Stack.Item>
+      </Stack>
+    </Box>
+  );
+
+  return framehoker;
+}
+
+function GenerateMessageData(saydat: VCSaymodeData): VCMessageData {
+  const { data } = useBackend<VCWizardPack>();
+  // generate a VCMessageData object based on the saymode_dat
+  let preview = saydat.settings.preview_text.toString();
+  let named = data.user_name;
+  let smode = saydat.example_verb as string;
+  if (saydat.saymode_kind === VCSaymode.EmoteQuick) {
+    preview = `${data.user_name} gekkers like a cute fox!`;
+    named = '';
+    smode = '';
+  }
+  const ourMessageData: VCMessageData = {
+    body_text: preview,
+    compiled_message: preview,
+    displayed_saymode: smode,
+    am_ghost: false,
+    name_displayed: named,
+    ghost_link: '',
+    msg_splice_timeout: 0,
+    msg_splice_last_saymode: '',
+    use_settings: false,
+  };
+  return ourMessageData; // ya know i was expecting a lot more stuff
+}
+// name_displayed
+// displayed_saymode
+// body_text
+// compiled_message
+// am_ghost
+// ghost_link
+// msg_splice_timeout
+// msg_splice_last_saymode
+
+// region Setting
+export function Setting(
+  setting: VCSettingData,
+  saydat: VCSaymodeData,
+  data: VCWizardPack,
+  act,
+): React.ReactElement | null {
+  const { selectedSwatchIndex } = useLocalVC();
+
+  const { path, name, key, value, kind, min, max, choices } = setting;
   // clibbord the big red clipboard
   const cbord = data.clipboard;
   const { valid_contents: vc, has_stuff } = cbord;
@@ -253,13 +671,13 @@ function Setting(whichsetting: VCSDPEnum, saydat: VCSaymodeData) {
     setting_kind: kind,
     setting_oldvalue: value,
     saymode: saydat.saymode_kind,
-    h_or_s: humanOrSilicon,
+    h_or_s: data.human_or_silicon,
   };
 
   function CopyButton() {
     return (
       <Button
-        tooltip={VCGetTooltip(VCTT.CopySetting, settingData)}
+        tooltip={VCGetTooltip(VCTT.CopySetting, setting)}
         icon="copy"
         onClick={() => {
           act('copy', {
@@ -274,6 +692,7 @@ function Setting(whichsetting: VCSDPEnum, saydat: VCSaymodeData) {
   function PasteButton() {
     return (
       <Button
+        tooltip={VCGetTooltip(VCTT.PasteSetting, null)}
         icon="paste"
         onClick={() => {
           act('paste', {
@@ -292,7 +711,7 @@ function Setting(whichsetting: VCSDPEnum, saydat: VCSaymodeData) {
       <Stack fill>
         <Stack.Item shrink>
           <Button
-            tooltip={VCGetTooltip(VCTT.SwatchSnatch, settingData)}
+            tooltip={VCGetTooltip(VCTT.SwatchSnatch, setting)}
             icon="eyedropper"
             onClick={() => {
               act('swatch_snatch', {
@@ -303,7 +722,7 @@ function Setting(whichsetting: VCSDPEnum, saydat: VCSaymodeData) {
         </Stack.Item>
         <Stack.Item shrink>
           <Button
-            tooltip={VCGetTooltip(VCTT.SwatchApply, settingData)}
+            tooltip={VCGetTooltip(VCTT.SwatchApply, setting)}
             icon="paint-brush"
             onClick={() => {
               act('swatch_apply', {
@@ -318,9 +737,22 @@ function Setting(whichsetting: VCSDPEnum, saydat: VCSaymodeData) {
     );
   }
 
-  function SetupBaseBox(settingElement: React.ReactNode) {
+  function SetupBaseBox(
+    settingElement: React.ReactElement,
+  ): React.ReactElement {
     return (
-      <Box style={VCStyle[VCStyleKeys.Setting]}>
+      <Box
+        style={{
+          ...VCStyle.Setting,
+          width: '100%',
+          flexDirection: 'row',
+          display: 'flex-inline',
+          justifyContent: 'stretch',
+          alignItems: 'stretch',
+          verticalAlign: 'middle',
+          border: '1px solid black',
+        }}
+      >
         <Stack fill>
           <Stack.Item shrink>
             <CopyButton />
@@ -330,8 +762,8 @@ function Setting(whichsetting: VCSDPEnum, saydat: VCSaymodeData) {
               <PasteButton />
             </Stack.Item>
           )}
-          <Stack.Item shrink>
-            <Tooltip content={VCGetTooltip(VCTT.SettingInfo, settingData)}>
+          <Stack.Item shrink style={{ verticalAlign: 'middle' }}>
+            <Tooltip content={VCGetTooltip(VCTT.SettingInfo, setting)}>
               <strong>{name}</strong>
             </Tooltip>
           </Stack.Item>
@@ -348,11 +780,7 @@ function Setting(whichsetting: VCSDPEnum, saydat: VCSaymodeData) {
   }
   function doAct(newValue: any) {
     act('change_setting', {
-      setting_path: path,
-      setting_key: key,
-      setting_kind: kind,
-      saymode: saydat.saymode_kind,
-      h_or_s: humanOrSilicon,
+      ...identSlug,
       new_value: newValue, // <-- thats the new one!
     });
   }
@@ -360,7 +788,7 @@ function Setting(whichsetting: VCSDPEnum, saydat: VCSaymodeData) {
   switch (kind) {
     case VCSettingKind.String:
       return SetupBaseBox(
-        <Tooltip content={VCGetTooltip(VCTT.SettingInfoString, settingData)}>
+        <Tooltip content={VCGetTooltip(VCTT.SettingInfoString, setting)}>
           <Input
             placeholder={value as string}
             value={value as string}
@@ -371,7 +799,7 @@ function Setting(whichsetting: VCSDPEnum, saydat: VCSaymodeData) {
       );
     case VCSettingKind.Number:
       return SetupBaseBox(
-        <Tooltip content={VCGetTooltip(VCTT.SettingInfoNumber, settingData)}>
+        <Tooltip content={VCGetTooltip(VCTT.SettingInfoNumber, setting)}>
           <NumberInput
             maxValue={max}
             minValue={min}
@@ -383,7 +811,7 @@ function Setting(whichsetting: VCSDPEnum, saydat: VCSaymodeData) {
       );
     case VCSettingKind.Boolean:
       return SetupBaseBox(
-        <Tooltip content={VCGetTooltip(VCTT.SettingInfoBoolean, settingData)}>
+        <Tooltip content={VCGetTooltip(VCTT.SettingInfoBoolean, setting)}>
           <Button
             selected={value as boolean}
             onClick={() => doAct(!(value as boolean))}
@@ -394,7 +822,7 @@ function Setting(whichsetting: VCSDPEnum, saydat: VCSaymodeData) {
       );
     case VCSettingKind.Choice:
       return SetupBaseBox(
-        <Tooltip content={VCGetTooltip(VCTT.SettingInfoChoice, settingData)}>
+        <Tooltip content={VCGetTooltip(VCTT.SettingInfoChoice, setting)}>
           <Dropdown
             onSelected={(value) => doAct(value)}
             options={choices}
@@ -406,7 +834,7 @@ function Setting(whichsetting: VCSDPEnum, saydat: VCSaymodeData) {
       );
     case VCSettingKind.Color:
       return SetupBaseBox(
-        <Tooltip content={VCGetTooltip(VCTT.SettingInfoColor, settingData)}>
+        <Tooltip content={VCGetTooltip(VCTT.SettingInfoColor, setting)}>
           <Button
             fluid
             style={{ backgroundColor: value as string }}
@@ -418,7 +846,7 @@ function Setting(whichsetting: VCSDPEnum, saydat: VCSaymodeData) {
       );
     case VCSettingKind.Angle:
       return SetupBaseBox(
-        <Tooltip content={VCGetTooltip(VCTT.SettingInfoAngle, settingData)}>
+        <Tooltip content={VCGetTooltip(VCTT.SettingInfoAngle, setting)}>
           <Knob
             maxValue={360}
             minValue={0}
@@ -431,7 +859,7 @@ function Setting(whichsetting: VCSDPEnum, saydat: VCSaymodeData) {
       );
     case VCSettingKind.URLChoose:
       return SetupBaseBox(
-        <Tooltip content={VCGetTooltip(VCTT.SettingInfoUrlChoose, settingData)}>
+        <Tooltip content={VCGetTooltip(VCTT.SettingInfoUrlChoose, setting)}>
           <Dropdown
             onSelected={(value) => doAct(value)}
             options={choices}
@@ -443,7 +871,7 @@ function Setting(whichsetting: VCSDPEnum, saydat: VCSaymodeData) {
       );
     case VCSettingKind.URLFile:
       return SetupBaseBox(
-        <Tooltip content={VCGetTooltip(VCTT.SettingInfoUrlFile, settingData)}>
+        <Tooltip content={VCGetTooltip(VCTT.SettingInfoUrlFile, setting)}>
           <Input
             placeholder="Enter URL"
             value={value as string}
@@ -460,54 +888,4 @@ function Setting(whichsetting: VCSDPEnum, saydat: VCSaymodeData) {
   }
 }
 
-/**
- * @returns {string} A background color based on the index.
- * @description uses an absolutely nonsense unreadable obfuscated hellscape of
- * functions and mathematical wizardry to determine the color.
- * somehow deterministic
- * @example
- * const bgColor = absoluteNonsense(0);
- */
-function absoluteNonsense(index: number, total_items: number): string[] {
-  // gonna turn this thing into two colors somehow
-  const colorstart = '#0f33a1';
-  const bindex = (index + 1) / total_items;
-  // unpack into an enormous number
-  let enormousNumber = 0;
-  for (let i = 0; i < colorstart.length; i++) {
-    for (let j = 0; j < colorstart.length; j++) {
-      enormousNumber +=
-        colorstart.charCodeAt(i) * colorstart.charCodeAt(j) * bindex;
-    }
-  }
-
-  // we're not even close to done
-  // swap numbers in the enormous number to add more chaos
-  for (let i = 0; i < colorstart.length; i++) {
-    for (let j = 0; j < colorstart.length; j++) {
-      enormousNumber =
-        (enormousNumber << 5) -
-        enormousNumber +
-        colorstart.charCodeAt(i) * colorstart.charCodeAt(j) * bindex;
-    }
-  }
-  const hexlist = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  let hendex = 0;
-  while (enormousNumber > 0) {
-    if (hendex > 10) hendex = 0;
-    const numbo = index ** hendex * 15;
-    enormousNumber -= numbo;
-    hexlist[hendex] = numbo % 16;
-    hendex++;
-  }
-  return [
-    `#${hexlist
-      .slice(0, 6)
-      .map((n) => n.toString(16))
-      .join('')}`,
-    `#${hexlist
-      .slice(6, 12)
-      .map((n) => n.toString(16))
-      .join('')}`,
-  ];
-}
+// endregion Helper Procs

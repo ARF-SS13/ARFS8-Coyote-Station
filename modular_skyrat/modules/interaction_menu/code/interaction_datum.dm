@@ -117,18 +117,27 @@ GLOBAL_LIST_EMPTY_TYPED(interaction_instances, /datum/interaction)
 		user.emote("subtle", null, span_lewd(msg), TRUE)
 	else
 		user.manual_emote(msg)
+	var/list/message_data = list()
+	message_data[SATA_MESSAGE_HEARD] = msg
+	message_data[SATA_SPEAKER] = user
+	message_data[SATA_VC_SOURCE] = user
+	message_data[SATA_SAYMODE] = SAYMODE_EMOTE
 	if(user_messages.len)
 		var/user_msg = pick(user_messages)
 		if(!isnull(body_relay))
 			user_msg = replacetext(user_msg, "%TARGET%", "\the [body_relay.name]")
 		user_msg = replacetext(replacetext(replacetext(user_msg, "%TARGET%", "[target]"), "%USER%", "[user]"), "%KNOT%", "[knot]")
-		to_chat(user, user_msg)
+		var/list/message_data_user = message_data.Copy()
+		message_data_user[SATA_MESSAGE_HEARD] = user_msg
+		to_chat(user, user_msg, extra_data = message_data_user)
 	if(target_messages.len)
 		var/target_msg = pick(target_messages)
 		if(!isnull(body_relay))
 			target_msg = replacetext(target_msg, "%USER%", "Unknown")
 		target_msg = replacetext(replacetext(replacetext(target_msg, "%TARGET%", "[target]"), "%USER%", "[user]"), "%KNOT%", "[knot]")
-		to_chat(target, target_msg)
+		var/list/message_data_target = message_data.Copy()
+		message_data_target[SATA_MESSAGE_HEARD] = target_msg
+		to_chat(target, target_msg, extra_data = message_data_target)
 	if(sound_use)
 		if(!sound_possible)
 			message_admins("Interaction has sound_use set to TRUE but does not set sound! '[name]'")

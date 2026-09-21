@@ -9,13 +9,16 @@
 #define SATA_MANNEQUIN_CONTROLLED "mannequin controlled"
 /// Message mod which contains a list of bonus "mutual understanding" to allow arbitrary understanding of any speech
 #define SATA_LANGUAGE_MUTUAL_BONUS "language mutual bonus"
+/// This is the verb associated with the say action, like 'whines' or 'yells'
 #define SATA_VERB "say_mod_verb"
 
 /// datas set by the speaker
-#define SATA_ORIGIN_OVERRIDE        "origin_override"
+/// this is the atom emitting the message (usually the speaker), could be a radio or something
 #define SATA_SPEAKER                "speaker"
-#define SATA_ORIGIN                 "origin"
-#define SATA_MESSAGE                "message"
+/// the atom to pull the visualchat client prefs from (also usually the speaker)
+#define SATA_VC_SOURCE             "origin"
+/// something to override the above, without changing the original source atom... somehow
+#define SATA_VC_SOURCE_OVERRIDE    "origin_override"
 #define SATA_MESSAGE_SPOKEN         "message_spoken"
 #define SATA_LANGUAGE               "language"
 #define SATA_SAYMODE                "saymode"
@@ -25,10 +28,12 @@
 		#define SAYMODE_EXCLAIM      "saymode_exclaim"
 		#define SAYMODE_YELL         "saymode_yell"
 		#define SAYMODE_SING         "saymode_sing"
+		#define SAYMODE_SUBTLE       "saymode_subtle"
 		#define SAYMODE_EMOTE        "saymode_emote"
 		#define SAYMODE_EMOTE_QUICK  "saymode_emote_quick"
 		#define SAYMODE_RADIO        "saymode_radio"
 		#define SAYMODE_SUCCUMB      "saymode_succumb"
+		#define SAYMODE_CUSTOM       "saymode_custom"
 #define SATA_SAYMODE_MODS           "saymode_mods"
 		#define SAYMODE_MODIFIER_SLURRING    (1<<0)
 		#define SAYMODE_MODIFIER_STUTTERING  (1<<1)
@@ -42,8 +47,8 @@
 #define SATA_MESSAGE_IS_SIGNED       "message_is_signed"
 
 /// datas set by the listener
-#define SATA_LISTENER               "listener" // technicaly set by the speaker
 #define SATA_MESSAGE_HEARD          "message_heard"
+#define SATA_MESSAGE_COMPILED       "heard_composed_message"
 #define SATA_DISPLAYED_SAYMODE      "saymode_composed"
 #define SATA_DISPLAYED_NAME         "displayed_name"
 #define SATA_RADIO_FREQ_COLOR       "radio_freq_color"

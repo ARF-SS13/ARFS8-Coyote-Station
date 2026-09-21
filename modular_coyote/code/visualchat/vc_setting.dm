@@ -168,7 +168,7 @@ VC_SETTING_FULL(key, name, kind, default_value, min_val, max_val, choices, "", F
 #define VCS_DEF_IMG_SHAPE_CHOICES       list("square", "circle", "rounded")
 #define VCS_DEF_IMG_SHAPE_DEFAULT       "square"
 
-#define VCS_DEF_IMG_SCALING_CHOICES     list("cover", "contain", "stretch")
+#define VCS_DEF_IMG_SCALING_CHOICES     list("fill", "contain", "cover", "none", "scale-down")
 #define VCS_DEF_IMG_SCALING_DEFAULT     "cover"
 
 #define VCS_DEF_FONT_CHOICES        list("Arial", "Verdana", "Times New Roman", "Courier New", "Comic Sans MS")
@@ -305,11 +305,13 @@ VCS_SET_BORDER_CLUSTER(pfp)
 VCS_SET_BACKGROUND_CLUSTER(name)
 VCS_SET_BORDER_CLUSTER(name)
 VCS_SET_TEXT_CLUSTER(name)
+VC_SETTING(show_name,    "Show Name Block?", "boolean", TRUE,              0, 0,     list())
 
 /// message box
 VCS_SET_BACKGROUND_CLUSTER(message)
 VCS_SET_BORDER_CLUSTER(message)
 VCS_SET_TEXT_CLUSTER(message)
+VC_SETTING(show_message, "Show Message Block?", "boolean", TRUE, 0, 0, list())
 
 
 

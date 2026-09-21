@@ -702,6 +702,7 @@
 	key_third_person = "custom"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 	message = null
+	emote_saymode = SAYMODE_EMOTE
 
 /datum/emote/living/custom/can_run_emote(mob/user, status_check, intentional, params)
 	. = ..()
@@ -730,7 +731,8 @@
 
 	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
 	if(stop_bad_mime.Find(input, 1, 1))
-		to_chat(user, span_danger("Invalid emote."))
+		to_chat(user, span_danger("Oh no, you tripped the Stop Bad Mime filter, which prevents you from making your emote look like speech! Your message was:"))
+		to_chat(user, span_notice("\"[input]\""))
 		return FALSE
 
 	var/list/filter_result = is_ic_filtered(input)
