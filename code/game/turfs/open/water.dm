@@ -160,6 +160,8 @@
 	immerse_overlay_alpha = 190
 	fishing_datum = /datum/fish_source/hot_spring
 	reagent_to_extract = /datum/reagent/water/mineral
+	steamy_percentage = 70
+	wavy = TRUE
 
 /turf/open/water/hot_spring/Initialize(mapload)
 	. = ..()
@@ -171,19 +173,8 @@
 		AddElement(/datum/element/immerse, immerse_overlay, immerse_overlay_alpha)
 		immerse_added = TRUE
 	icon_state = "pool_[rand(1, 4)]"
-	var/obj/effect/abstract/shared_particle_holder/holder = add_shared_particles(/particles/hotspring_steam, "hot_springs_[GET_TURF_PLANE_OFFSET(src)]", pool_size = 4)
-	// Render the steam over mobs and objects on the game plane
-	holder.vis_flags &= ~VIS_INHERIT_PLANE
-	// And be unaffected by ambient occlusions, which would render the steam grey
-	holder.plane = MUTATE_PLANE(MASSIVE_OBJ_PLANE, src)
-	add_filter("hot_spring_waves", 1, wave_filter(y = 1, size = 1, offset = 0, flags = WAVE_BOUNDED))
-	var/filter = get_filter("hot_spring_waves")
-	animate(filter, offset = 1, time = 3 SECONDS, loop = -1, easing = QUAD_EASING)
-	animate(offset = 0, time = 3 SECONDS, easing = QUAD_EASING)
 
 /turf/open/water/hot_spring/Destroy()
-	remove_shared_particles("hot_springs_[GET_TURF_PLANE_OFFSET(src)]")
-	remove_filter("hot_spring_waves")
 	for(var/atom/movable/movable as anything in contents)
 		exit_hot_spring(movable)
 	return ..()

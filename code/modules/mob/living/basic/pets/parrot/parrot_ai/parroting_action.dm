@@ -6,6 +6,9 @@
 /datum/ai_planning_subtree/parrot_as_in_repeat/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
 	var/atom/speaking_pawn = controller.pawn
 
+	if(controller.blackboard[BB_PARROT_NEXT_SAY] > world.time)
+		return
+
 	var/switch_up_probability = controller.blackboard[BB_PARROT_PHRASE_CHANGE_PROBABILITY]
 	if(SPT_PROB(switch_up_probability, seconds_per_tick) || isnull(controller.blackboard[BB_PARROT_REPEAT_STRING]))
 		if(SEND_SIGNAL(speaking_pawn, COMSIG_NEEDS_NEW_PHRASE) & NO_NEW_PHRASE_AVAILABLE)
@@ -26,6 +29,9 @@
 	if(isnull(potential_string))
 		stack_trace("Parrot As In Repeat Subtree somehow is getting a null potential string while not getting `NO_NEW_PHRASE_AVAILABLE`!")
 		return
+
+	var/cd_r = rand(controller.blackboard[BB_PARROT_SAY_COOLDOWN_MIN], controller.blackboard[BB_PARROT_SAY_COOLDOWN_MAX])
+	controller.set_blackboard_key(BB_PARROT_NEXT_SAY, cd_r)
 
 	controller.queue_behavior(/datum/ai_behavior/perform_speech/parrot, potential_string)
 
