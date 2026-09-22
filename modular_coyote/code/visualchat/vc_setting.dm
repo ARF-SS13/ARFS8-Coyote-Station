@@ -16,6 +16,7 @@
 	var/datum/vc_saymode/parent_saymode
 	var/st_buddy_key // for buddy settings, this is the key of the setting it is a buddy to. if empty, it is not a buddy
 	var/st_no_send_chat = FALSE
+	var/st_actually_used = FALSE // some day...
 
 /datum/vc_setting/New(datum/vc_saymode/parent_saymode)
 	. = ..()
@@ -61,7 +62,8 @@
 			if(filename != "DISREGARD") // disregard just makes we not update
 				st_value = filename
 			if(prefix != "DISREGARD")
-				parent_saymode.get_setting(st_buddy_key)?.update_terminal_setting(prefix) // i get to pretend im in c#
+				var/buddy_key = "[st_buddy_key]_url_host" // yes
+				parent_saymode.get_setting(buddy_key)?.update_terminal_setting(prefix) // i get to pretend im in c#
 		if("angle")
 			if(!isnum(new_value))
 				return
@@ -92,9 +94,13 @@
 		return
 	update_terminal_setting(seri["value"])
 
-/datum/vc_setting/proc/serialize_setting(for_tgui) as /list
+/datum/vc_setting/proc/serialize_setting(everything, saving) as /list
 	var/list/seri = list()
-	if(for_tgui)
+	if(saving)
+		seri["key"] = st_key
+		seri["value"] = st_value
+		return seri
+	if(everything)
 		seri["value"]   = st_value
 		seri["name"]    = st_name
 		seri["path"]    = "[type]" // some kind of error checking
@@ -121,7 +127,7 @@
 /// ╔════════════════════════════════════════════════════════════════════════════╗
 /// ║                        Visual Chat Settings Builders                       ║
 /// ╚════════════════════════════════════════════════════════════════════════════╝
-#define VC_SETTING_FULL(key, name, kind, default_value, min_val, max_val, choices, buddy_key, no_send_chat) ;\
+#define VC_SETTING_FULL(key, name, kind, default_value, min_val, max_val, choices, buddy_key, actually_used) ;\
 /datum/vc_setting/##key{; \
 	st_key = #key; \
 	st_name = name; \
@@ -132,7 +138,7 @@
 	st_value = default_value; \
 	st_choices = choices;\
 	st_buddy_key = buddy_key;\
-	st_no_send_chat = no_send_chat;\
+	st_actually_used = actually_used;\
 }
 
 #define VC_SETTING(key, name, kind, default_value, min_val, max_val, choices)\
@@ -279,11 +285,12 @@ VC_SETTING(##key##_text_padding_right,     "Text Padding Right", "number",	VCS_D
 /// surprised, its a cluster
 //the domain slector, and the write-in
 #define VCS_SET_URL(key)\
-VC_SETTING_FULL(##key##_url_host, "PLACEHOLDER", "url_choose", "None!", 0, 0, list(), #key, FALSE);\
-VC_SETTING_FULL(##key##_url_filename, "PLACEHOLDER", "url_file", "", 0, 0, list(), #key, FALSE);
+VC_SETTING_FULL(##key##_url_host, "PLACEHOLDER", "url_choose", "None!", 0, 0, list(), #key, TRUE);\
+VC_SETTING_FULL(##key##_url_filename, "PLACEHOLDER", "url_file", "", 0, 0, list(), #key, TRUE);\
+VC_SETTING_FULL(##key, "Full URL", "text", "", 0, 0, list(), #key, TRUE);
 
 /// heres some stuff
-VC_SETTING_FULL(preview_text, "PLACEHOLDER", "text",    "!!PREVIEWTEXT!!", 0, 99999, list(), "", TRUE)
+VC_SETTING_FULL(preview_text, "PLACEHOLDER", "text",    "!!PREVIEWTEXT!!", 0, 99999, list(), "", FALSE)
 VC_SETTING(permutatio, "VisualChat Style", "choose",  "HyperSpace",      0, 0,     list("HyperSpace", "Integrated", "Slim"))
 VC_SETTING(show_pfp,    "Show Profile Picture?", "boolean", TRUE,              0, 0,     list())
 
@@ -312,7 +319,7 @@ VCS_SET_BACKGROUND_CLUSTER(message)
 VCS_SET_BORDER_CLUSTER(message)
 VCS_SET_TEXT_CLUSTER(message)
 VC_SETTING(show_message, "Show Message Block?", "boolean", TRUE, 0, 0, list())
-
+// cool stuff, coming soon, spring 2099
 
 
 

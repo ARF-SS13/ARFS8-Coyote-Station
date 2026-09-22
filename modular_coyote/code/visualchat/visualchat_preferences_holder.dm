@@ -13,8 +13,10 @@
 	var/suppress_characterwide = FALSE
 	var/durty_character = FALSE
 
-/datum/vc_preference_holder/New(parent)
+/datum/vc_preference_holder/New(parent, thekind = "human", theslot = "0")
 	parent_manager = parent
+	kind = thekind
+	slot = theslot
 	setup_default_saymode_prefs()
 
 /datum/vc_preference_holder/Destroy()
@@ -27,21 +29,21 @@
 		saymode_prefs[smode::saymode] = new smode(src)
 
 /datum/vc_preference_holder/proc/prefholder_get_saymode(saymode_key, bounce_if_default) as /datum/vc_saymode
-	var/datum/vc_saymode/def = saymode_prefs[SAYMODE_SAY]
+	// var/datum/vc_saymode/def = saymode_prefs[SAYMODE_SAY]
 	var/datum/vc_saymode/saymode = saymode_prefs[saymode_key]
 	if(!saymode)
 		saymode = saymode_prefs[SAYMODE_SAY] // default to say if its not found
 		if(!saymode)
 			saymode = new /datum/vc_saymode/default/say(src, SAYMODE_SAY)
 			saymode_prefs[SAYMODE_SAY] = saymode
-	if(bounce_if_default)
-		// check if the current saymode's link is either missing or the same as say
-		var/defurl = def.get_setting("pfp_image_link_url_host").get_terminal_value()
-		var/curhost = saymode.get_setting("pfp_image_link_url_filename").get_terminal_value()
-		var/defhost = def.get_setting("pfp_image_link_url_filename").get_terminal_value()
-		var/cururl = saymode.get_setting("pfp_image_link_url_host").get_terminal_value()
-		if(!cururl || (cururl == defurl && curhost == defhost))
-			saymode = def
+	// if(bounce_if_default && saymode.saymode != SAYMODE_SAY)
+	// 	// check if the current saymode's link is either missing or the same as say
+	// 	var/defurl = def.get_setting("pfp_image_link_url_host").get_terminal_value()
+	// 	var/curhost = saymode.get_setting("pfp_image_link_url_filename").get_terminal_value()
+	// 	var/defhost = def.get_setting("pfp_image_link_url_filename").get_terminal_value()
+	// 	var/cururl = saymode.get_setting("pfp_image_link_url_host").get_terminal_value()
+	// 	if(!cururl || (cururl == defurl && curhost == defhost))
+	// 		saymode = def
 	return saymode
 
 /datum/vc_preference_holder/proc/get_all_saymodes_for_tgui() as /list
@@ -61,7 +63,7 @@
 
 /datum/vc_preference_holder/proc/save_character_prefs(super_durty)
 	// we have been judged durty at this point, but what of the saymodes?
-	var/pafth = "[SSvisualchat.GetSavesFolder()]/[parent_manager.owner_ckey]/slot_[slot]/[kind]"
+	var/pafth = "[SSvisualchat.GetSavesFolder()][parent_manager.owner_ckey]/slot_[slot]/[kind]"
 	for(var/smode in saymode_prefs)
 		var/datum/vc_saymode/saymode = saymode_prefs[smode]
 		saymode.save_saymode_prefs(pafth, super_durty)
@@ -79,7 +81,7 @@
 	return TRUE
 
 /datum/vc_preference_holder/proc/load_character_prefs()
-	var/pafth = "[SSvisualchat.GetSavesFolder()]/[parent_manager.owner_ckey]/slot_[slot]/[kind]/"
+	var/pafth = "[SSvisualchat.GetSavesFolder()][parent_manager.owner_ckey]/slot_[slot]/[kind]/"
 	var/filename = "[pafth]character_prefs.json"
 	var/datacontent = rustg_file_read(filename)
 	if(datacontent)
@@ -93,17 +95,24 @@
 		var/list/split = splittext(sayfilename, "___")
 		if(LAZYLEN(split) != 2)
 			stack_trace("Invalid saymode file name: [sayfilename]")
-		var/saymode_text = replacetext(split[1], ".json", "")
+		var/saymode_text = replacetext(split[2], ".json", "")
 		var/datum/vc_saymode/saymode = saymode_prefs[saymode_text]
 		if(!saymode) // probably a custom! make one!
 			saymode = new /datum/vc_saymode/custom(src, saymode_text)
 			saymode_prefs[saymode_text] = saymode
-		var/truepath = "[pafth]/[sayfilename]"
+		var/truepath = "[pafth][sayfilename]"
 		saymode.load_saymode_prefs(truepath)
 
 /datum/vc_preference_holder/proc/set_durty_character()
 	durty_character = TRUE
 	parent_manager?.set_durty_account()
+
+/datum/vc_preference_holder/proc/set_un_durty()
+	durty_character = FALSE
+	for(var/smod in saymode_prefs)
+		var/datum/vc_saymode/saymode = saymode_prefs[smod]
+		saymode?.set_un_durty()
+
 
 /datum/vc_preference_holder/proc/am_durty_character() // im such a durty character uwu~
 	if(durty_character)

@@ -42,7 +42,7 @@ import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
 import HelpContent from './visualchat_help_doc';
 import { SettingsControlPanel } from './visualchat_settings_control_panels';
-import { HorribleLaggyColorMangler, VCStyle } from './visualchat_styles';
+import { VCStyle } from './visualchat_styles';
 import { VCGetTooltip } from './visualchat_tooltep_nightmare';
 
 const logger = createLogger('VisualChatSetupWizard');
@@ -120,28 +120,28 @@ export function VisualChatSetupWizard() {
     currentSaymodeSelected,
     setCurrentSaymodeSelected,
   };
-  const bg_hell = [
-    HorribleLaggyColorMangler(0),
-    HorribleLaggyColorMangler(1),
-    HorribleLaggyColorMangler(2),
-    HorribleLaggyColorMangler(3),
-  ];
-  const gradientio = `linear-gradient(38deg, ${bg_hell.join(', ')})`;
+  // const bg_hell = [
+  //   HorribleLaggyColorMangler(0),
+  //   HorribleLaggyColorMangler(1),
+  //   HorribleLaggyColorMangler(2),
+  //   HorribleLaggyColorMangler(3),
+  // ];
+  const gradientio = `linear-gradient(38deg, #000, #111, #222, #333)`;
 
   return (
-    <Window width={1024} height={768} title={`Visual Chat Setup Wizard`}>
+    <Window width={768} height={600} title={`Visual Chat Setup Wizard`}>
       <Window.Content style={{ background: gradientio }}>
         <VCUIContext.Provider value={vcUIstate}>
           <Stack fill vertical>
-            <Stack.Item shrink>
+            <Stack.Item shrink style={VCStyle.MainBlock}>
               <HeaderControls />
             </Stack.Item>
-            <Stack.Item grow>
+            <Stack.Item grow style={VCStyle.MainContent}>
               <MainContent />
             </Stack.Item>
-            <Stack.Item shrink>
+            {/* <Stack.Item shrink style={VCStyle.MainBlock}>
               <FooterControls />
-            </Stack.Item>
+            </Stack.Item> */}
           </Stack>
         </VCUIContext.Provider>
       </Window.Content>
@@ -156,18 +156,97 @@ export function VisualChatSetupWizard() {
  * human/silicon selector box, the tabs for Overview and Settings, and the
  * all important wtf is this whole viseual chat garbage?
  */
+// region header controls
 function HeaderControls() {
   const vcUIstate = useLocalVC();
+  const { act, data } = useBackend<VCWizardPack>();
+  const { valid_hosts } = data;
+
+  const buttstyle: React.CSSProperties = { ...VCStyle.MainButton };
+  const selstyle: React.CSSProperties = {
+    ...buttstyle,
+    ...VCStyle.MainButtonSelected,
+  };
+
+  function hostButton(host: string): React.ReactElement {
+    return (
+      <Button
+        style={buttstyle}
+        tooltip={VCGetTooltip(VCTT.HostButton, null)}
+        onClick={() =>
+          act('open_host', {
+            clicked_host: host,
+          })
+        }
+      >
+        {host}
+      </Button>
+    );
+  }
 
   return (
     <Box style={VCStyle.HeaderContainer}>
       <Stack fill>
-        <Stack.Item shrink>
-          <HumanOrSiliconSelector />
-        </Stack.Item>
-        <Stack.Item shrink>
-          <TabsForMain />
-        </Stack.Item>
+        <Stack fill>
+          {/* {valid_hosts.map((host) => (
+            <Stack.Item shrink key={host}>
+              {hostButton(host)}
+            </Stack.Item>
+          ))} */}
+          <Stack.Item grow />
+          {/* VC toggles */}
+          <Stack.Item shrink>
+            <Button
+              style={!data.suppress_account ? selstyle : buttstyle}
+              selected={!data.suppress_account}
+              tooltip={VCGetTooltip(VCTT.VCToggleSend, null)}
+              onClick={() =>
+                act('toggle_vc_send', {
+                  ckey: data.user_ckey,
+                  human_or_silicon: data.human_or_silicon,
+                })
+              }
+            >
+              Send Visualchat? {!data.suppress_account ? 'Yes' : 'No'}
+            </Button>
+          </Stack.Item>
+          <Stack.Item shrink>
+            <Button
+              style={data.see_visualchat ? selstyle : buttstyle}
+              selected={data.see_visualchat}
+              tooltip={VCGetTooltip(VCTT.VCToggleSee, null)}
+              onClick={() =>
+                act('toggle_vc', {
+                  ckey: data.user_ckey,
+                  human_or_silicon: data.human_or_silicon,
+                })
+              }
+            >
+              See Visualchat? {data.see_visualchat ? 'Yes' : 'No'}
+            </Button>
+          </Stack.Item>
+          {data.see_visualchat ? (
+            <Stack.Item shrink>
+              <Tooltip content={VCGetTooltip(VCTT.VCRange, null)}>
+                Max Distance:
+                <NumberInput
+                  value={data.see_visualchat_range}
+                  step={1}
+                  stepPixelSize={10}
+                  minValue={data.see_visualchat_range_min}
+                  maxValue={data.see_visualchat_range_max}
+                  onChange={(value) =>
+                    act('set_see_visualchat_range', {
+                      ckey: data.user_ckey,
+                      human_or_silicon: data.human_or_silicon,
+                      range: value,
+                    })
+                  }
+                />
+              </Tooltip>
+            </Stack.Item>
+          ) : null}
+        </Stack>
         <Stack.Item grow />
         <Stack.Item shrink>
           <HelpPlease />
@@ -249,16 +328,16 @@ function MainContent() {
     case HeaderTab.Overview:
       cuntent = <OverviewContent />;
       break;
-    case HeaderTab.Settings:
-      cuntent = <SettingsSkeleton />;
-      break;
+    // case HeaderTab.Settings:
+    //   cuntent = <SettingsSkeleton />;
+    //   break;
     case HeaderTab.Help:
       cuntent = <HelpContent />;
       break;
     default:
       return <div>hi!</div>;
   }
-  return <Section fill>{cuntent}</Section>;
+  return <>{cuntent}</>;
 }
 
 /**
@@ -274,9 +353,6 @@ function OverviewContent() {
   const { humanOrSilicon } = useLocalVC();
   const saymodes: Record<string, VCSaymodeData> = data.saymodes;
   // memo!
-  const saymodeOverviewItems = Object.values(saymodes).map((item) => {
-    return <BuildPreviewBingus key={item.sayname} saymode_dat={item} />;
-  });
 
   return (
     <Section
@@ -287,7 +363,11 @@ function OverviewContent() {
       overflowY="auto"
       style={VCStyle.OverviewContent}
     >
-      {saymodeOverviewItems}
+      {Object.values(saymodes)
+        .filter((m) => m.saymode_kind !== VCSaymode.EmoteQuick)
+        .map((item) => {
+          return <BuildPreviewBingus key={item.sayname} saymode_dat={item} />;
+        })}
     </Section>
   );
 }
@@ -321,17 +401,22 @@ function SettingsSkeleton(): React.ReactElement {
     );
   }, [currentSaymodeSelected, humanOrSilicon, changed_time]);
   // check if clipboard has a saymode clipboarded
-  const clipboardHasSaymode = data.clipboard.valid_contents?.some((content) =>
-    content
-      .toLowerCase()
-      .includes(currentSaymodeSelected.toString().toLowerCase()),
-  );
+  const clipboardHasSaymode = data.clipboard?.source_kind
+    ?.toLowerCase()
+    .includes(currentSaymodeSelected.toString().toLowerCase());
+
+  const buttstyle: React.CSSProperties = { ...VCStyle.MainButton };
+  const selstyle: React.CSSProperties = {
+    ...buttstyle,
+    ...VCStyle.MainButtonSelected,
+  };
 
   const saymodeTabs: React.ReactElement = (
     <>
       {Object.values(saymodes).map((item) => (
         <React.Fragment key={`saymode-tab-${item.saymode_kind}`}>
           <Button
+            style={buttstyle}
             icon="copy"
             tooltip={VCGetTooltip(VCTT.CopySaymode, null)}
             onClick={() =>
@@ -345,6 +430,7 @@ function SettingsSkeleton(): React.ReactElement {
           {clipboardHasSaymode && (
             <Button
               icon="paste"
+              style={buttstyle}
               tooltip={VCGetTooltip(VCTT.PasteSaymode, null)}
               onClick={() =>
                 act('paste', {
@@ -359,8 +445,8 @@ function SettingsSkeleton(): React.ReactElement {
             fluid
             style={
               item.saymode_kind === currentSaymodeSelected
-                ? VCStyle.SaymodeTabSelected
-                : VCStyle.SaymodeTab
+                ? selstyle
+                : buttstyle
             }
             key={item.sayname}
             onClick={() => setCurrentSaymodeSelected(item.saymode_kind)}
@@ -376,11 +462,8 @@ function SettingsSkeleton(): React.ReactElement {
       <Stack.Item shrink>
         <Button
           fluid
-          style={
-            currentRegion === region
-              ? VCStyle.RegionTabSelected
-              : VCStyle.RegionTab
-          }
+          style={currentRegion === region ? selstyle : buttstyle}
+          onMouseOver={() => {}}
           key={`region-tab-${region}`}
           onClick={() => setCurrentRegion(region)}
         >
@@ -451,85 +534,7 @@ function SettingsSkeleton(): React.ReactElement {
  // region Footer Controls
  */
 function FooterControls() {
-  const { act, data } = useBackend<VCWizardPack>();
-  const { valid_hosts } = data;
-
-  function hostButton(host: string): React.ReactElement {
-    return (
-      <Button
-        style={VCStyle.MainButton}
-        tooltip={VCGetTooltip(VCTT.HostButton, null)}
-        onClick={() =>
-          act('open_host', {
-            clicked_host: host,
-          })
-        }
-      >
-        {host}
-      </Button>
-    );
-  }
-  return (
-    <Section fill style={VCStyle.FooterSection}>
-      <Stack fill>
-        {valid_hosts.map((host) => (
-          <Stack.Item shrink key={host}>
-            {hostButton(host)}
-          </Stack.Item>
-        ))}
-        <Stack.Item grow />
-        {/* VC toggles */}
-        <Stack.Item shrink>
-          <Button
-            style={VCStyle.MainButton}
-            tooltip={VCGetTooltip(VCTT.VCToggleSend, null)}
-            onClick={() =>
-              act('toggle_vc_send', {
-                ckey: data.user_ckey,
-                human_or_silicon: data.human_or_silicon,
-              })
-            }
-          >
-            Send Visualchat? {data.send_visualchat ? 'Yes' : 'No'}
-          </Button>
-        </Stack.Item>
-        <Stack.Item shrink>
-          <Button
-            style={VCStyle.MainButton}
-            tooltip={VCGetTooltip(VCTT.VCToggleSee, null)}
-            onClick={() =>
-              act('toggle_vc', {
-                ckey: data.user_ckey,
-                human_or_silicon: data.human_or_silicon,
-              })
-            }
-          >
-            See Visualchat? {data.see_visualchat ? 'Yes' : 'No'}
-          </Button>
-        </Stack.Item>
-        {data.see_visualchat === true && (
-          <Stack.Item shrink>
-            <Tooltip content={VCGetTooltip(VCTT.VCRange, null)}>
-              Max Distance:
-              <NumberInput
-                value={data.see_visualchat_range}
-                step={1}
-                minValue={data.see_visualchat_range_min}
-                maxValue={data.see_visualchat_range_max}
-                onChange={(value) =>
-                  act('set_see_visualchat_range', {
-                    ckey: data.user_ckey,
-                    human_or_silicon: data.human_or_silicon,
-                    range: value,
-                  })
-                }
-              />
-            </Tooltip>
-          </Stack.Item>
-        )}
-      </Stack>
-    </Section>
-  );
+  return <Section fill style={VCStyle.FooterSection} />;
 }
 
 // region Builder of PREVUE
@@ -549,68 +554,127 @@ function BuildPreviewBingus(props: {
     props.saymode_dat,
     messageData,
   );
-  const { setCurrentRegion } = useLocalVC();
-
-  // tracks which region (if any) is currently moused over, so only that
-  // element gets the highlight overlay
-  const [hoveredRegion, setHoveredRegion] = useState<VCSettingRegion | null>(
-    null,
-  );
-
-  // wraps an element so it highlights on mouseover and jumps to its settings
-  //  on click // turns out it sucks
-  // function coolWrap(
-  //   element: React.ReactElement,
-  //   region: VCSettingRegion,
-  // ): React.ReactElement {
-  //   return (
-  //     <div
-  //       style={{ position: 'relative', display: 'inline-block' }}
-  //       onMouseEnter={(e) => {
-  //         setHoveredRegion(region);
-  //         e.stopPropagation();
-  //       }}
-  //       onMouseLeave={(e) => {
-  //         setHoveredRegion((current) => (current === region ? null : current));
-  //         e.stopPropagation();
-  //       }}
-  //       onClick={(e) => {
-  //         setCurrentRegion(region);
-  //         e.stopPropagation();
-  //       }}
-  //     >
-  //       {element}
-  //       {hoveredRegion === region && <div style={VCStyle.RegionHoverOverlay} />}
-  //     </div>
-  //   );
-  // }
-  //! todo: turn this into a control panel thing, for where u put ur pfp link
 
   // package it all up and let coolWrap slap a hover/click layer on each region
   const assembledElephant = AssembleVisualChatElement(vcParts);
 
-  const tabbleStyle: React.CSSProperties = {
-    border: '1px solid #ccc',
-    textAlign: 'center',
-  };
-
   const framehoker = (
-    <Box style={{ marginBottom: '1rem', ...tabbleStyle }}>
+    <Box style={{ ...VCStyle.OverviewContainer }}>
       <Stack fill vertical>
-        <Stack.Item shrink style={{ ...tabbleStyle }}>
+        <Stack.Item
+          shrink
+          style={{ ...VCStyle.OverviewTopBottom, textAlign: 'center' }}
+        >
           <span>{props.saymode_dat.sayname}</span>
         </Stack.Item>
-        <Stack.Item shrink style={{ ...tabbleStyle }}>
+        <Stack.Item shrink style={{ ...VCStyle.OverviewMiddle }}>
           {assembledElephant}
         </Stack.Item>
-        <Stack.Item shrink style={{ ...tabbleStyle }}>
-          <Button icon="cog" />
+        <Stack.Item
+          shrink
+          style={{ ...VCStyle.OverviewTopBottom, textAlign: 'center' }}
+        >
+          <UnderBarrelSettingChunk saydat={props.saymode_dat} />
         </Stack.Item>
       </Stack>
     </Box>
   );
 
   return framehoker;
+}
+
+function UnderBarrelSettingChunk({
+  saydat,
+}: {
+  saydat: VCSaymodeData;
+}): React.ReactElement {
+  const { data, act } = useBackend<VCWizardPack>();
+  const { human_or_silicon } = data;
+
+  const buttstyle = { ...VCStyle.MainButton };
+  const selstyle = { ...buttstyle, ...VCStyle.MainButtonSelected };
+
+  const identSlug = {
+    saymode: saydat.saymode_kind,
+    h_or_s: human_or_silicon,
+  };
+  const showPaste = !!data.clipboard;
+  return (
+    <Stack fill style={{ alignItems: 'center', gap: '2px' }}>
+      <Stack.Item shrink>
+        <Box style={{ cursor: 'pointer' }}>
+          <Button
+            tooltip={VCGetTooltip(VCTT.CopySaymode, null)}
+            icon="copy"
+            style={buttstyle}
+            onClick={() => {
+              act('copy', {
+                ...identSlug,
+                copy_mode: VCCopyMode.Saymode, // <-- thats the new one!
+              });
+            }}
+          />
+        </Box>
+      </Stack.Item>
+      {showPaste && (
+        <Stack.Item shrink>
+          <Button
+            tooltip={VCGetTooltip(VCTT.PasteSaymode, null)}
+            icon="paste"
+            style={buttstyle}
+            onClick={() => {
+              act('paste', {
+                ...identSlug,
+              });
+            }}
+          />
+        </Stack.Item>
+      )}
+      <Stack.Item shrink>
+        <Tooltip content={VCGetTooltip(VCTT.SettingInfoUrlChoose, saydat)}>
+          <Dropdown
+            style={buttstyle}
+            onSelected={(value) =>
+              act('set_host', {
+                ...identSlug,
+                host: value,
+              })
+            }
+            options={['None!', ...data.valid_hosts]}
+            selected={
+              saydat?.settings?.pfp_image_link_url_host?.value as string
+            }
+            width="125px"
+            fluid
+          />
+        </Tooltip>
+      </Stack.Item>
+      <Stack.Item shrink>
+        <Tooltip content={VCGetTooltip(VCTT.SettingInfoUrlFile, saydat)}>
+          <Input
+            fluid
+            style={buttstyle}
+            placeholder="Enter a link to a cute picture!"
+            value={saydat.settings.pfp_image_link_url_filename.value as string}
+            onBlur={(value) =>
+              act('set_link', {
+                ...identSlug,
+                link: value,
+              })
+            }
+          />
+        </Tooltip>
+      </Stack.Item>
+      <Stack.Item shrink>
+        <Button // doesnt actually do anything, it just gets players to click out of the input thing
+          style={buttstyle}
+          onClick={() => act('update', {})} // """"update""""
+        >
+          Update!
+        </Button>
+      </Stack.Item>
+    </Stack>
+  );
 }
 
 function GenerateMessageData(saydat: VCSaymodeData): VCMessageData {
@@ -634,6 +698,7 @@ function GenerateMessageData(saydat: VCSaymodeData): VCMessageData {
     msg_splice_timeout: 0,
     msg_splice_last_saymode: '',
     use_settings: false,
+    merge_name_too: false,
   };
   return ourMessageData; // ya know i was expecting a lot more stuff
 }
@@ -658,11 +723,10 @@ export function Setting(
   const { path, name, key, value, kind, min, max, choices } = setting;
   // clibbord the big red clipboard
   const cbord = data.clipboard;
-  const { valid_contents: vc, has_stuff } = cbord;
   const showPaste =
-    has_stuff &&
-    vc &&
-    vc.some((content) => content.toLowerCase().includes(kind.toLowerCase()));
+    cbord.haz &&
+    cbord.source_kind &&
+    cbord.source_kind.toLowerCase().includes(kind.toLowerCase());
   const showSwatchButt = kind === VCSettingKind.Color;
   const swatches = data.color_swatches;
   const identSlug = {
@@ -674,10 +738,14 @@ export function Setting(
     h_or_s: data.human_or_silicon,
   };
 
+  const buttstyle = { ...VCStyle.MainButton };
+  const selstyle = { ...buttstyle, ...VCStyle.MainButtonSelected };
+
   function CopyButton() {
     return (
       <Button
         tooltip={VCGetTooltip(VCTT.CopySetting, setting)}
+        style={buttstyle}
         icon="copy"
         onClick={() => {
           act('copy', {
@@ -694,6 +762,7 @@ export function Setting(
       <Button
         tooltip={VCGetTooltip(VCTT.PasteSetting, null)}
         icon="paste"
+        style={buttstyle}
         onClick={() => {
           act('paste', {
             ...identSlug, // backend knows what pasting
@@ -711,6 +780,7 @@ export function Setting(
       <Stack fill>
         <Stack.Item shrink>
           <Button
+            style={buttstyle}
             tooltip={VCGetTooltip(VCTT.SwatchSnatch, setting)}
             icon="eyedropper"
             onClick={() => {
@@ -722,6 +792,7 @@ export function Setting(
         </Stack.Item>
         <Stack.Item shrink>
           <Button
+            style={buttstyle}
             tooltip={VCGetTooltip(VCTT.SwatchApply, setting)}
             icon="paint-brush"
             onClick={() => {
@@ -813,6 +884,7 @@ export function Setting(
       return SetupBaseBox(
         <Tooltip content={VCGetTooltip(VCTT.SettingInfoBoolean, setting)}>
           <Button
+            style={value ? selstyle : buttstyle}
             selected={value as boolean}
             onClick={() => doAct(!(value as boolean))}
           >
@@ -824,6 +896,7 @@ export function Setting(
       return SetupBaseBox(
         <Tooltip content={VCGetTooltip(VCTT.SettingInfoChoice, setting)}>
           <Dropdown
+            style={VCStyle.MainDropdown}
             onSelected={(value) => doAct(value)}
             options={choices}
             selected={value as string}
@@ -861,6 +934,7 @@ export function Setting(
       return SetupBaseBox(
         <Tooltip content={VCGetTooltip(VCTT.SettingInfoUrlChoose, setting)}>
           <Dropdown
+            style={VCStyle.MainDropdown}
             onSelected={(value) => doAct(value)}
             options={choices}
             selected={value as string}
@@ -887,5 +961,3 @@ export function Setting(
       );
   }
 }
-
-// endregion Helper Procs

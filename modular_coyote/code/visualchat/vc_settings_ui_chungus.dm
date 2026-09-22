@@ -20,7 +20,9 @@
 
 /datum/vc_settings_ui_chungus/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
-	return SSvisualchat.PerformActForSettingsUI(action, params, ui, state)
+	. = SSvisualchat.PerformActForSettingsUI(action, params, ui, state)
+	if(.)
+		ui.update_static_data(usr, ui, TRUE)
 
 ADMIN_VERB(admin_open_visualchat_ui, R_ADMIN, "VisualChat settings UI", "VisualChat settings UI.", ADMIN_CATEGORY_MAIN)
 	SSvisualchat.OpenSettingsControlPanel(extract_mob(user)) // user is a client i guess?

@@ -21,8 +21,14 @@ export type VCWizardPack = {
 };
 
 export type VCClipboardData = {
-  valid_contents: string[];
-  has_stuff: boolean;
+  haz: boolean;
+  source_datakind: string;
+  source_kind: string;
+  source_slot: string;
+  source_saymode: string;
+  source_setting: string;
+  source_value: string;
+  source_setting_kind: string;
 };
 
 // ------------------------------------------------------------------
@@ -101,7 +107,7 @@ export type VCSaymodeData = {
   custom: boolean;
   invoke_token: string;
   settings: VCSettingDataPack;
-  profile_pic_link: string;
+  pfp_image_link: string;
   has_profile_pic_link: boolean;
   style_pack_name: string;
 };
@@ -120,6 +126,7 @@ export type VCMessageData = {
   msg_splice_timeout: number;
   msg_splice_last_saymode: string;
   use_settings: boolean; // if to use custom style settings... in a later build
+  merge_name_too: boolean; // merge into oncoming traffic BEEP BEEP *ded*
 };
 
 export type VCDataPack = {

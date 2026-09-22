@@ -119,7 +119,7 @@
 		else
 			CRASH("Attempted to get a prefs holder for an unsupported kind '[kind]' for ckey '[owner_ckey]'! ERROR CODE: SOFT-BEANBAG-MILKY")
 	if(!hold_out) // make one!
-		hold_out = new /datum/vc_preference_holder(src)
+		hold_out = new /datum/vc_preference_holder(src, kind, slot)
 		switch(kind)
 			if("human")
 				prefs_per_slot_human["[slot]"] = hold_out
@@ -139,16 +139,24 @@
 	if(!thing)
 		CRASH("Attempted to get mob kind for a null mob!")
 	// are we human...
-	if(ishuman(thing))
-		return "human"
-	// ...or are we dancers
-	else if(issilicon(thing))
+	if(issilicon(thing))
 		return "silicon"
+	// ...or are we dancer
 	else
-		CRASH("Attempted to get mob kind for an unsupported mob type for ckey '[owner_ckey]'! ERROR CODE: SOFT-BEANBAG-MILKY")
+		return "human" // whatever close enough
 
 /datum/vc_account_prefs_manager/proc/set_durty_account()
 	durty_account = TRUE
+
+/datum/vc_account_prefs_manager/proc/set_un_durty()
+	durty_account = FALSE
+	super_durty_account = FALSE
+	for(var/holderkey in prefs_per_slot_human)
+		var/datum/vc_preference_holder/holder = prefs_per_slot_human[holderkey]
+		holder?.set_un_durty()
+	for(var/holderkey in prefs_per_slot_silicon)
+		var/datum/vc_preference_holder/holder = prefs_per_slot_silicon[holderkey]
+		holder?.set_un_durty()
 
 /// Save the account data to disk, if it has been marked as durty
 /datum/vc_account_prefs_manager/proc/save_account(super_durty_account)
@@ -168,7 +176,7 @@
 		if(isnull(succ))
 			stack_trace("Failed to save silicon slot [holderkey] for ckey [owner_ckey]!")
 			message_admins("Failed to save silicon slot [holderkey] for ckey [owner_ckey]!")
-	durty_account = FALSE
+	set_un_durty()
 	var/client/user_probably = GLOB.directory[owner_ckey]
 	if(user_probably)
 		to_chat(user_probably, span_notice("Visual Chat preferences saved!"))
@@ -179,17 +187,17 @@
 		make_brand_new_account(GLOB.directory[owner_ckey]) // welcome to visual chat, you horny doggo
 		return
 	// saves -> ckey -> slot_1 thru slot_n -> human or silicon -> other stuff
-	var/filename = "[SSvisualchat.GetSavesFolder()]/[owner_ckey]/"
+	var/filename = "[SSvisualchat.GetSavesFolder()][owner_ckey]/"
 	var/list/sluts = flist("[filename]")
 	for(var/slotfile in sluts)
-		var/list/humansluts = flist("[filename]/[slotfile]/human/")
-		for(var/humanfile in humansluts)
-			var/datum/vc_preference_holder/holder = get_prefs_holder_for_slot(slotfile, "human")
-			holder.load_character_prefs()
-		var/list/siliconsluts = flist("[filename]/[slotfile]/silicon/")
-		for(var/siliconfile in siliconsluts)
-			var/datum/vc_preference_holder/holder = get_prefs_holder_for_slot(slotfile, "silicon")
-			holder.load_character_prefs()
+		if(slotfile == "chatman.json")
+			continue
+		slotfile = replacetext(slotfile, "slot_", "") // get just the number
+		slotfile = replacetext(slotfile, "/", "") // get just the number!
+		var/datum/vc_preference_holder/humholder = get_prefs_holder_for_slot(slotfile, "human")
+		humholder.load_character_prefs()
+		var/datum/vc_preference_holder/siliholder = get_prefs_holder_for_slot(slotfile, "silicon")
+		siliholder.load_character_prefs()
 
 /datum/vc_account_prefs_manager/proc/am_durty()
 	if(durty_account || super_durty_account)
@@ -211,15 +219,15 @@
 /// - singular settings
 /// - whole saymode settings
 /// - character slots (human or silicon, but not both at once)
-/datum/vc_account_prefs_manager/proc/copy_to_clipboard(prefkind, slot, datakind, saymode, setting, value, setting_kind)
+/datum/vc_account_prefs_manager/proc/copy_to_clipboard(datakind, saymode, slot, setting, value, setting_kind)
 	var/humanordancer = get_mob_kind_for_slot(slot)
-	var/datum/vc_preference_holder/holder = get_prefs_holder_for_slot(slot, humanordancer)
-	if(!holder)
+	var/datum/vc_preference_holder/source_holder = get_prefs_holder_for_slot(slot, humanordancer)
+	if(!source_holder)
 		CRASH("Attempted to copy clipboard data from a null prefs holder for ckey '[owner_ckey]' and slot '[slot]' and humanordancer '[humanordancer]'! ERROR CODE: OVERSTUFFED-TUBEFED-DUNE")
 	// clear the clibbord
-	return clipboard.copy_to_clipboard(holder, datakind, saymode, setting, value, setting_kind)
+	return clipboard.copy_to_clipboard(source_holder, datakind, humanordancer, slot, saymode, setting, value, setting_kind)
 
-/datum/vc_account_prefs_manager/proc/paste_from_clipboard(prefkind, slot, paste_saymode, paste_setting, paste_value, paste_setting_kind)
+/datum/vc_account_prefs_manager/proc/paste_from_clipboard(slot, paste_saymode, paste_setting, paste_value, paste_setting_kind)
 	var/humanordancer = get_mob_kind_for_slot(slot)
 	var/datum/vc_preference_holder/target_holder = get_prefs_holder_for_slot(slot, humanordancer)
 	if(!target_holder)
@@ -240,7 +248,6 @@
 		clipdata["source_value"]         = clipboard.source_value
 		clipdata["source_setting_kind"]  = clipboard.source_setting_kind
 	return clipdata
-
 
 /// swatches
 /datum/vc_account_prefs_manager/proc/add_color_swatch(clyouler)
@@ -290,7 +297,7 @@
 		return TRUE
 	return FALSE
 
-/datum/vc_clipboard_data/proc/copy_to_clipboard(var/datum/vc_preference_holder/source_holder, datakind, pref_kind, pref_slot, pref_saymode, pref_setting, pref_value, pref_setting_kind)
+/datum/vc_clipboard_data/proc/copy_to_clipboard(datum/vc_preference_holder/source_holder, datakind, pref_kind, pref_slot, pref_saymode, pref_setting, pref_value, pref_setting_kind)
 	clear_clipboard()
 	if(!source_holder)
 		CRASH("Attempted to copy clipboard data from a null prefs holder! ERROR CODE: OVERWEIGHT-EXPIE-HIPS")

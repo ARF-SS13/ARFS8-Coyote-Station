@@ -34,6 +34,18 @@ const DEFAULT_PROFILE_PICTURE = resolveAsset(
   'https://files.catbox.moe/rblpt6.png',
 );
 
+export function Nameify(name, saymode) {
+  return Sanitate(`${name} ${saymode}, `);
+}
+
+export function Sanitate(str) {
+  return str
+    .replace(/<script*?>.*?<\/script>/gi, '')
+    .replace(/\son\w+=".*?"/gi, (match) => {
+      return `\u200B${match}\u200B`;
+    });
+}
+
 // Sets the innerHTML of a chat message node (bscly a div) to a visual novel
 // style chat message. Super customizable, for better or worse
 // someday this'll have stuff like prefs to tone down the disco vomit nightmare!
@@ -48,31 +60,12 @@ export function VisualChatify(
 
   const vcaOut: VCAssemblerHolder = {} as VCAssemblerHolder;
 
-  // oh yeah, strip out any script tags from the body text
-  const coolbody = body_text
-    .replace(/<script*?>.*?<\/script>/gi, '')
-    // and deactivate any inline event handlers by adding in a zero-width space before and after the 'on' part
-    .replace(/\son\w+=".*?"/gi, (match) => {
-      return `\u200B${match}\u200B`; // noob 2oob~
-    });
-  const coolname = name_displayed
-    .replace(/<script*?>.*?<\/script>/gi, '')
-    .replace(/\son\w+=".*?"/gi, (match) => {
-      return `\u200B${match}\u200B`;
-    });
-  const coolcompiled = compiled_message
-    .replace(/<script*?>.*?<\/script>/gi, '')
-    .replace(/\son\w+=".*?"/gi, (match) => {
-      return `\u200B${match}\u200B`;
-    });
-
-  vcaOut.pfpImageLink =
-    settingsData[VCSDPEnum.pfp_image_link]?.value || DEFAULT_PROFILE_PICTURE;
+  vcaOut.pfpImageLink = saymodeData.pfp_image_link || ''; // || DEFAULT_PROFILE_PICTURE; // it remains here, waiting...
 
   vcaOut.saymode = saymodeData.saymode_kind;
-  vcaOut.nameFull = `${coolname} ${displayed_saymode}, `; // WeedGoku says;
-  vcaOut.body_text = coolbody;
-  vcaOut.compiled_message = coolcompiled;
+  vcaOut.nameFull = Nameify(name_displayed, displayed_saymode); // WeedGoku says;
+  vcaOut.body_text = Sanitate(body_text);
+  vcaOut.compiled_message = Sanitate(compiled_message);
 
   if (!messageData.use_settings) {
     // use what we got, but good
@@ -80,7 +73,7 @@ export function VisualChatify(
       theme === 'light'
         ? GetVCChatStylePack(VCStylePackEnum.light)
         : GetVCChatStylePack(VCStylePackEnum.default);
-    logger.log(`using style pack ${theme === 'light' ? 'light' : 'def'}`);
+    // logger.log(`using style pack ${theme === 'light' ? 'light' : 'def'}`);
     vcaOut.outerBoxStyle = {
       ...stylePack.Swag,
       ...stylePack.OuterBackground,
@@ -106,10 +99,8 @@ export function VisualChatify(
       ...stylePack.Text,
     };
     vcaOut.pfpImageStyle = { ...stylePack.PFPImageStyle };
-    logger.log('pack contents', stylePack);
     return vcaOut;
   }
-  logger.log('using settings');
 
   vcaOut.outerBoxStyle = GetVCEBStyle(settingsData, VCSettingRegion.OuterBox);
   vcaOut.pfpBoxStyle = GetVCEBStyle(settingsData, VCSettingRegion.PFP);
@@ -172,8 +163,12 @@ export function AssembleVisualChatElement(
   );
 
   const coolImage = (
-    <Stack.Item shrink style={{ ...vch.pfpBoxStyle }}>
-      <Image src={vch.pfpImageLink} style={{ ...vch.pfpImageStyle }} />
+    <Stack.Item shrink style={{ ...vch.pfpBoxStyle, height: '100cqv' }}>
+      <Image
+        src={vch.pfpImageLink}
+        style={{ ...vch.pfpImageStyle }}
+        objectFit="contain"
+      />
     </Stack.Item>
   );
 
@@ -190,14 +185,14 @@ export function AssembleVisualChatElement(
             <Stack.Item grow>
               <Stack fill vertical>
                 {/* Name box */}
-                <Stack.Item style={vch.nameStyle}>
+                {/* <Stack.Item style={vch.nameStyle}>
                   <Box
                     as="span"
                     dangerouslySetInnerHTML={{
                       __html: vch.nameFull,
                     }}
                   />
-                </Stack.Item>
+                </Stack.Item> */}
                 {/* Message box */}
 
                 <Stack.Item
@@ -205,6 +200,10 @@ export function AssembleVisualChatElement(
                   className="coolcoolflash"
                   grow
                 >
+                  <Box
+                    id="vsname"
+                    dangerouslySetInnerHTML={{ __html: vch.nameFull }}
+                  />
                   <Box
                     id="vcmsg"
                     dangerouslySetInnerHTML={{ __html: vch.body_text }}

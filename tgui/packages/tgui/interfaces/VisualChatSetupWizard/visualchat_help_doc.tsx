@@ -9,8 +9,11 @@ export default function HelpContent() {
       title="Welcome to the Visual Chat Setup Wizard!"
     >
       <p>
-        Here you can find information on how to configure the visual chat
-        settings.
+        Here is where you'll find all the info on what Visual Chat is and how to
+        set it up and like how its the future of furry RP chat stuff... if i
+        wrote it! I'll get around to it at some point. Until then, everything
+        should be self explanatory enough, you'll figure it out, i believe in
+        you!
       </p>
     </Section>
   );
