@@ -57,6 +57,10 @@
 /// key that holds items we arent interested in hoarding
 #define BB_IGNORE_ITEMS "ignore_items"
 
+#define BB_PARROT_NEXT_SAY "BB_PARROT_NEXT_SAY"
+#define BB_PARROT_SAY_COOLDOWN_MIN "BB_PARROT_SAY_COOLDOWN_MIN"
+#define BB_PARROT_SAY_COOLDOWN_MAX "BB_PARROT_SAY_COOLDOWN_MAX"
+
 // Cultist pet keys
 ///our ability to summon runes
 #define BB_RUNE_ABILITY "rune_ability"

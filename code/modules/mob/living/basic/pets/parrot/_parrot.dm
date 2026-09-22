@@ -54,8 +54,12 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	var/speech_probability_rate = 5
 	/// The generic probability odds we have to switch out our speech string
 	var/speech_shuffle_rate = 30
-	var/speech_rumor_rate = 35
-	var/speech_nethack_rumor_rate = 35
+	var/speech_rumor_rate = 10
+	var/speech_nethack_rumor_rate = 10
+
+	var/last_speak = 0
+	var/speak_cooldown_min = 1 MINUTES
+	var/speak_cooldown_max = 10 MINUTES
 
 	/// Contains all of the perches that parrots will generally sit on until something catches their eye.
 	var/static/list/desired_perches = typecacheof(list(
@@ -353,11 +357,11 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 	if(health < maxHealth)
 		adjust_brute_loss(-10)
+	last_speak = 0 // talk nowish!
 	speech_probability_rate *= 1.27
 	speech_shuffle_rate += 10
 	update_speech_blackboards()
 	return TRUE
-
 /// Handles special behavior whenever we are injured.
 /mob/living/basic/parrot/proc/on_injured(mob/living/basic/source, mob/living/attacker, attack_flags)
 	SIGNAL_HANDLER
@@ -422,6 +426,9 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	ai_controller.set_blackboard_key(BB_PARROT_SAY_NETHACK_RUMOR, speech_nethack_rumor_rate)
 	ai_controller.set_blackboard_key(BB_PARROT_SAY_NON_SAUCY_RUMOR, speech_rumor_rate)
 	ai_controller.set_blackboard_key(BB_PARROT_PHRASE_CHANGE_PROBABILITY, speech_shuffle_rate)
+	ai_controller.set_blackboard_key(BB_PARROT_NEXT_SAY, last_speak)
+	ai_controller.set_blackboard_key(BB_PARROT_SAY_COOLDOWN_MIN, speak_cooldown_min)
+	ai_controller.set_blackboard_key(BB_PARROT_SAY_COOLDOWN_MAX, speak_cooldown_max)
 
 /// Will simply set up the headset for the parrot to use. Stub, implemented on subtypes.
 /mob/living/basic/parrot/proc/setup_headset()
