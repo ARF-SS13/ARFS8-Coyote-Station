@@ -35,6 +35,7 @@ import {
 import { highlightNode, linkifyNode } from './replaceInTextNode';
 import {
   AssembleVisualChatElement,
+  Nameify,
   VisualChatify,
 } from './visualchat_chat_element_builder';
 
@@ -131,8 +132,17 @@ function updateVCMessage(
     logger.log('no update. why?', oldmsg);
     return oldmsg;
   }
-  const newhtmlstuff = `<br>${newmsg.extraData?.message_data.body_text}`;
-  const newcompiled = `<div>${newmsg.extraData?.message_data.compiled_message}</div>`;
+  const nameToo = newmsg.extraData?.message_data.merge_name_too;
+  const newName = `<br>${Nameify(newmsg.extraData?.message_data.name_displayed, newmsg.extraData?.message_data.displayed_saymode)}`;
+  const newBody = `<br>${newmsg.extraData?.message_data.body_text}`;
+  const newComp = `<div>${newmsg.extraData?.message_data.compiled_message}</div>`;
+  logger.log('new name', newName);
+  logger.log('name too', nameToo);
+  logger.log('new body', newBody);
+  logger.log('new comp', newComp);
+
+  const newhtmlstuff = `${nameToo ? newName : ''}${newBody}`;
+  const newcompiled = `${nameToo ? newName : ''}${newComp}`;
 
   oldmsg.extraData.message_data.body_text += newhtmlstuff;
   oldmsg.extraData.message_data.compiled_message += newcompiled;
@@ -387,24 +397,22 @@ class ChatRenderer {
     return null;
   }
 
-  getVCCombinableMessage(predicate) {
+  getVCCombinableMessage(predicate: SerializedMessage) {
     if (!predicate.extraData) return null;
     const now = Date.now();
     const len = this.messages.length;
     const from = len - 1;
-    const to = Math.max(0, len - COMBINE_MAX_MESSAGES);
+    const to = Math.max(0, len - 2);
+    const ourpfp = predicate.extraData.saymode_data.pfp_image_link;
+    const ourSay = predicate.extraData.saymode_data.saymode_kind;
     for (let i = from; i >= to; i--) {
       const message = this.messages[i];
-      if (!message.extraData) break;
+      if (!message.extraData) continue;
       if (
         message.extraData.message_data.name_displayed !==
         predicate.extraData.message_data.name_displayed
       )
-        break;
-      if (
-        message.extraData.saymode_data.saymode_kind !==
-        predicate.extraData.saymode_data.saymode_kind
-      )
+        // only merge our messages, screw everyone else
         break;
 
       const matches =
@@ -413,6 +421,20 @@ class ChatRenderer {
         now <
           message.createdAt + message.extraData.message_data.msg_splice_timeout;
       if (matches) {
+        // merge conditions:
+        // if saymode is the same, merge body
+        // if saymode is different, but pfp is the same, merge body and name
+        // else dont merge
+        let mergemode;
+        if (message.extraData.saymode_data.saymode_kind === ourSay)
+          mergemode = 'body';
+        else if (message.extraData.saymode_data.pfp_image_link === ourpfp)
+          mergemode = 'body+name';
+        if (!mergemode) break;
+        message.extraData.saymode_data = predicate.extraData.saymode_data;
+        message.createdAt = now;
+        if (mergemode === 'body+name')
+          predicate.extraData.message_data.merge_name_too = true;
         return [message, i];
       }
     }
@@ -448,13 +470,14 @@ class ChatRenderer {
       // Combine messages
       const vcCombinable = this.getVCCombinableMessage(message);
       if (vcCombinable) {
-        this.rootNode!.removeChild(vcCombinable[0].node);
+        if (vcCombinable[0].node?.parentNode === this.rootNode)
+          this.rootNode?.removeChild(vcCombinable[0].node);
         const coolmsg = updateVCMessage(vcCombinable[0], message);
         this.visibleMessages.slice(
           this.visibleMessages.indexOf(vcCombinable[0]),
           1,
         );
-        this.messages.slice(this.messages.indexOf(vcCombinable[0]), 1);
+        this.messages = this.messages.filter((m) => m === vcCombinable[0]);
         message = coolmsg;
         // most of this is likely unneeded, i am a noob at js
         // however it works, and takes out my frustrations on the poor messages

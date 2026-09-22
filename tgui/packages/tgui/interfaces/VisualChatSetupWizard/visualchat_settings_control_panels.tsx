@@ -343,13 +343,10 @@ function SettingsCluster({
   };
   // clibbord the big red clipboard
   const cbord = data.clipboard;
-  const { valid_contents: vc, has_stuff } = cbord;
   const showPaste =
-    has_stuff &&
-    vc &&
-    vc.some((content) =>
-      content.toLowerCase().includes(cluster.toString().toLowerCase()),
-    );
+    cbord.haz &&
+    cbord.source_kind &&
+    cbord.source_kind.toLowerCase().includes(cluster.toString().toLowerCase());
 
   function CopyButton() {
     return (

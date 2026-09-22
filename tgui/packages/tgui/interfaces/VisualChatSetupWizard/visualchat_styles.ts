@@ -22,58 +22,19 @@ export enum ColorMap {
   HeaderFooterBorder,
   HeaderFooterText,
 
-  MainModeTabHolderBackground,
-  MainModeTabHolderBorder,
-  MainModeTabHolderText,
+  MainContentBackground,
+  MainContentBorder,
+  MainContentText,
 
-  MainModeTabBackground,
-  MainModeTabBorder,
-  MainModeTabText,
+  PreviewTopBottomBackground,
+  PreviewBorder,
 
-  MainModeTabBackgroundSelected,
-  MainModeTabBorderSelected,
-  MainModeTabTextSelected,
-
-  SaymodeTabHolderBackground,
-  SaymodeTabHolderBorder,
-  SaymodeTabHolderText,
-
-  SaymodeTabBackground,
-  SaymodeTabBorder,
-  SaymodeTabText,
-
-  SaymodeTabBackgroundSelected,
-  SaymodeTabBorderSelected,
-  SaymodeTabTextSelected,
-
-  RegionTabHolderBackground,
-  RegionTabHolderBorder,
-  RegionTabHolderText,
-
-  RegionTabBackground,
-  RegionTabBorder,
-  RegionTabText,
-
-  RegionTabBackgroundSelected,
-  RegionTabBorderSelected,
-  RegionTabTextSelected,
-
-  SettingHolderBackground,
-  SettingHolderBorder,
-  SettingHolderText,
-
-  ClusterBackground,
-  ClusterBorder,
-  ClusterText,
-
-  SettingBackground,
-  SettingBorder,
-  SettingText,
-
-  SettingButton,
-  SettingButtonSelected,
-  SettingButtonText,
-  SettingButtonTextSelected,
+  ButtonBackground,
+  ButtonBorder,
+  ButtonHover,
+  ButtonSelected,
+  ButtonText,
+  ButtonTextSelected,
 
   FooterBackground,
   FooterBorder,
@@ -94,33 +55,27 @@ export enum ColorMap {
 /* biome-ignore format: keep aligned object keys */
 enum BaseColors {
   // control panel colors
-  DarkCoffeeBean  = 'hsla(16,  20%, 15%, 0.999)',
-  MutedCocoa      = 'hsla(343,  7%, 19%, 0.999)',
-  ToastedWalnut   = 'hsla(18,  18%, 22%, 0.999)',
-  DeepWalnut      = 'hsla(30,  25%, 35%, 0.999)',
-  WarmAsh         = 'hsla(20,  14%, 58%, 0.999)',
-  SoftChestnut    = 'hsla(26,  59%, 64%, 0.999)',
-  DustyRose       = 'hsla(358, 50%, 76%, 0.999)',
-  MutedSkyBlue    = 'hsla(201, 22%, 68%, 0.999)',
+  ChatBackground  = 'hsla(160,  0%, 13%, 0.999)',
+  DarkCoffeeBean  = '#284148',
+  MutedCocoa      = '#384148',
+  ToastedWalnut   = '#092626',
+  DeepWalnut      = '#284148',
+  WarmAsh         = '#384148',
+  SoftChestnut    = '#384148',
+  DustyRose       = '#384148',
+  MutedSkyBlue    = 'rgb(58, 94, 109)',
   WarmMilkFoam    = 'hsla(27,  58%, 93%, 0.999)',
-  OffWhiteFluff   = 'hsla(30,  50%, 96%, 0.999)',
+  OffWhiteFluff   = 'rgb(19, 46, 58)',
 }
 
-enum ColorRegions {
-  WindowBackground,
-  HeadFootPanel,
-  MaincontentBackground,
-  SecondaryBackground,
-  TertiaryBackground,
-
-  ElementBorders,
-  SubelementBorders,
-
-  PrimaryButton,
-  TabButton,
-
-  SettingBox,
-}
+/*
+284148
+092626
+092626
+151515
+384148
+284148
+092626 */
 
 export enum BorderMap {
   WindowBorderWidth = '2px',
@@ -151,75 +106,38 @@ function GetBaseColor(colorName: any): string {
   switch (colorName) {
     // Base color for main structural elements
     case ColorMap.WindowBackground:
-      return BaseColors.DarkCoffeeBean;
     case ColorMap.HeaderFooterBackground:
-    case ColorMap.MainModeTabHolderBackground:
-    case ColorMap.SaymodeTabHolderBackground:
-    case ColorMap.RegionTabHolderBackground:
+    case ColorMap.PreviewTopBottomBackground:
     case ColorMap.FooterBackground:
-      return BaseColors.MutedCocoa;
-    // Base color innerable containenar
-    case ColorMap.SettingHolderBackground:
-    case ColorMap.ClusterBackground:
-    case ColorMap.SettingBackground:
-      return BaseColors.ToastedWalnut;
-    // Base color for borders
+      return BaseColors.DarkCoffeeBean;
+    case ColorMap.MainContentBackground:
+      return BaseColors.ChatBackground;
     case ColorMap.WindowBorder:
     case ColorMap.HeaderFooterBorder:
-    case ColorMap.MainModeTabHolderBorder:
-    case ColorMap.MainModeTabBorder:
-    case ColorMap.SaymodeTabHolderBorder:
-    case ColorMap.SaymodeTabBorder:
-    case ColorMap.RegionTabHolderBorder:
-    case ColorMap.RegionTabBorder:
-    case ColorMap.SettingHolderBorder:
-    case ColorMap.ClusterBorder:
-    case ColorMap.SettingBorder:
+    case ColorMap.MainContentBorder:
+    case ColorMap.PreviewBorder:
     case ColorMap.FooterBorder:
       return BaseColors.DeepWalnut;
-    case ColorMap.MainModeTabBorderSelected:
-    case ColorMap.SaymodeTabBorderSelected:
-    case ColorMap.RegionTabBorderSelected:
-      return BaseColors.DustyRose;
+    case ColorMap.InfoButton:
+    case ColorMap.ButtonBackground:
+      return BaseColors.OffWhiteFluff;
+    case ColorMap.ButtonBorder:
+      return BaseColors.MutedSkyBlue;
+    case ColorMap.ButtonHover:
+      return BaseColors.SoftChestnut;
+    case ColorMap.ButtonSelected:
+      return BaseColors.MutedSkyBlue;
+    case ColorMap.ButtonText:
+      return BaseColors.WarmMilkFoam;
+    case ColorMap.ButtonTextSelected:
+      return BaseColors.DarkCoffeeBean;
     case ColorMap.WindowText:
     case ColorMap.HeaderFooterText:
-    case ColorMap.MainModeTabHolderText:
-    case ColorMap.MainModeTabText:
-    case ColorMap.SaymodeTabHolderText:
-    case ColorMap.SaymodeTabText:
-    case ColorMap.RegionTabHolderText:
-    case ColorMap.RegionTabText:
-    case ColorMap.SettingHolderText:
-    case ColorMap.ClusterText:
-    case ColorMap.SettingText:
+    case ColorMap.MainContentText:
     case ColorMap.FooterText:
-    case ColorMap.SettingButtonText:
       return BaseColors.WarmMilkFoam;
-    // and the rest
-    case ColorMap.InfoButton:
-      return BaseColors.WarmMilkFoam;
-
-    case ColorMap.MainModeTabTextSelected:
-    case ColorMap.SaymodeTabTextSelected:
-    case ColorMap.RegionTabTextSelected:
-      return BaseColors.SoftChestnut;
-
-    case ColorMap.MainModeTabBackground:
-    case ColorMap.SaymodeTabBackground:
-    case ColorMap.RegionTabBackground:
-      return BaseColors.DustyRose;
-
-    case ColorMap.MainModeTabBackgroundSelected:
-    case ColorMap.SaymodeTabBackgroundSelected:
-    case ColorMap.RegionTabBackgroundSelected:
-    case ColorMap.SettingButtonSelected:
-      return BaseColors.DustyRose;
-
-    case ColorMap.SettingButton:
-    case ColorMap.SettingButtonTextSelected:
-      return BaseColors.DarkCoffeeBean;
     default:
-      return BaseColors.DarkCoffeeBean;
+      return BaseColors.ChatBackground;
   }
 }
 
@@ -235,79 +153,25 @@ const GetColorMapOperations = (colorName: any): ColorMapOperations[] => {
       operations = [ColorMapOperations.NoOp];
       break;
     case ColorMap.HeaderFooterBackground:
-    case ColorMap.MainModeTabHolderBackground:
-    case ColorMap.SaymodeTabHolderBackground:
-    case ColorMap.RegionTabHolderBackground:
     case ColorMap.FooterBackground:
-      operations = [ColorMapOperations.NoOp];
-      break;
-    // Base color innerable containenar
-    case ColorMap.SettingHolderBackground:
-    case ColorMap.ClusterBackground:
-    case ColorMap.SettingBackground:
+    case ColorMap.MainContentBackground:
       operations = [ColorMapOperations.NoOp];
       break;
     // Base color for borders
     case ColorMap.WindowBorder:
     case ColorMap.HeaderFooterBorder:
-    case ColorMap.MainModeTabHolderBorder:
-    case ColorMap.MainModeTabBorder:
-    case ColorMap.SaymodeTabHolderBorder:
-    case ColorMap.SaymodeTabBorder:
-    case ColorMap.RegionTabHolderBorder:
-    case ColorMap.RegionTabBorder:
-    case ColorMap.SettingHolderBorder:
-    case ColorMap.ClusterBorder:
-    case ColorMap.SettingBorder:
     case ColorMap.FooterBorder:
-      operations = [ColorMapOperations.NoOp];
-      break;
-    case ColorMap.MainModeTabBorderSelected:
-    case ColorMap.SaymodeTabBorderSelected:
-    case ColorMap.RegionTabBorderSelected:
+    case ColorMap.MainContentBorder:
       operations = [ColorMapOperations.NoOp];
       break;
     case ColorMap.WindowText:
     case ColorMap.HeaderFooterText:
-    case ColorMap.MainModeTabHolderText:
-    case ColorMap.MainModeTabText:
-    case ColorMap.SaymodeTabHolderText:
-    case ColorMap.SaymodeTabText:
-    case ColorMap.RegionTabHolderText:
-    case ColorMap.RegionTabText:
-    case ColorMap.SettingHolderText:
-    case ColorMap.ClusterText:
-    case ColorMap.SettingText:
     case ColorMap.FooterText:
-    case ColorMap.SettingButtonText:
+    case ColorMap.MainContentText:
       operations = [ColorMapOperations.NoOp];
       break;
     // and the rest
     case ColorMap.InfoButton:
-      operations = [ColorMapOperations.NoOp];
-      break;
-
-    case ColorMap.MainModeTabTextSelected:
-    case ColorMap.SaymodeTabTextSelected:
-    case ColorMap.RegionTabTextSelected:
-      operations = [ColorMapOperations.NoOp];
-      break;
-
-    case ColorMap.MainModeTabBackground:
-    case ColorMap.SaymodeTabBackground:
-    case ColorMap.RegionTabBackground:
-      operations = [ColorMapOperations.NoOp];
-      break;
-
-    case ColorMap.MainModeTabBackgroundSelected:
-    case ColorMap.SaymodeTabBackgroundSelected:
-    case ColorMap.RegionTabBackgroundSelected:
-    case ColorMap.SettingButtonSelected:
-      operations = [ColorMapOperations.NoOp];
-      break;
-
-    case ColorMap.SettingButton:
-    case ColorMap.SettingButtonTextSelected:
       operations = [ColorMapOperations.NoOp];
       break;
     default:
@@ -320,12 +184,24 @@ const GetColorMapOperations = (colorName: any): ColorMapOperations[] => {
 
 // styles to be output for the visual chat setup wizard
 // key: VCStyleKeys, value: React.CSSProperties
-export const VCStyle = {
+export const VCStyle: Record<string, React.CSSProperties> = {
   Window: {
     backgroundColor: GetColorFromMap(ColorMap.WindowBackground),
   },
   MainButton: {
-    backgroundColor: GetColorFromMap(ColorMap.WindowBackground),
+    // backgroundColor: GetColorFromMap(ColorMap.ButtonBackground),
+    // color: GetColorFromMap(ColorMap.ButtonText),
+    // border: `1px solid ${GetColorFromMap(ColorMap.ButtonBorder)}`,
+    // borderRadius: '4px',
+    // padding: '4px',
+    // cursor: 'pointer',
+  },
+  MainButtonHover: {
+    backgroundColor: GetColorFromMap(ColorMap.ButtonHover),
+  },
+  MainButtonActive: {
+    backgroundColor: GetColorFromMap(ColorMap.ButtonSelected),
+    color: GetColorFromMap(ColorMap.ButtonTextSelected),
   },
   Tooltip: {
     backgroundColor: GetColorFromMap(ColorMap.WindowBackground),
@@ -333,28 +209,44 @@ export const VCStyle = {
     borderRadius: '4px',
     padding: '8px',
     boxShadow: '0 2px 10px rgba(0, 0, 0, 0.2)',
+    backdropFilter: 'blur(5px)',
+    color: 'white',
+    maxWidth: '250px',
+    pointerEvents: 'none',
+    textAlign: 'left',
   },
-  HeaderContainer: {
+  MainBlock: {
+    backgroundColor: GetColorFromMap(ColorMap.WindowBackground),
+    border: `1px solid ${GetColorFromMap(ColorMap.WindowBorder)}`,
+  },
+  MainDropdown: {
     backgroundColor: GetColorFromMap(ColorMap.WindowBackground),
   },
-  HeaderTab: {
-    backgroundColor: GetColorFromMap(ColorMap.WindowBackground),
-  },
-  HeaderDropdown: {
-    backgroundColor: GetColorFromMap(ColorMap.WindowBackground),
-  },
-  HeaderHelp: {
+  HelpButton: {
     backgroundColor: GetColorFromMap(ColorMap.WindowBackground),
   },
   MainContent: {
-    backgroundColor: GetColorFromMap(ColorMap.WindowBackground),
+    backgroundColor: GetColorFromMap(ColorMap.MainContentBackground),
+    border: `2px solid ${GetColorFromMap(ColorMap.WindowBorder)}`,
+    borderRadius: '4px',
+    boxSizing: 'border-box',
   },
-  OverviewContent: {
-    backgroundColor: GetColorFromMap(ColorMap.WindowBackground),
+  OverviewContainer: {
+    backgroundColor: GetColorFromMap(ColorMap.MainContentBackground),
+    border: `2px solid ${GetColorFromMap(ColorMap.WindowBorder)}`,
+    borderRadius: '4px',
+    boxSizing: 'border-box',
+    margin: '4px',
   },
-  OverviewItem: {
-    backgroundColor: GetColorFromMap(ColorMap.WindowBackground),
+  OverviewTopBottom: {
+    backgroundColor: GetColorFromMap(ColorMap.PreviewTopBottomBackground),
+    textAlign: 'center',
   },
+  OverviewMiddle: {
+    backgroundColor: GetColorFromMap(ColorMap.MainContentBackground),
+    padding: '4px',
+  },
+
   Setting: {
     backgroundColor: GetColorFromMap(ColorMap.WindowBackground),
   },

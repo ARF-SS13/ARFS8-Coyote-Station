@@ -52,6 +52,7 @@ SUBSYSTEM_DEF(visualchat)
 	var/datum/vc_metrix/metrix
 	var/max_hearable_horny_dist = 300
 	var/debug_saving = TRUE
+	var/debug_pfp = FALSE
 	var/datum/vc_settings_ui_chungus/setzup
 	// most recent at the bottom, oldest at the top. for updates or something
 	var/list/versions = list(
@@ -74,6 +75,7 @@ SUBSYSTEM_DEF(visualchat)
 		"svg", // idkj maybe it works
 		"ico", // todo: a proc that gibs whoever uses this
 	)
+	var/list/current_previews = list()
 
 /datum/controller/subsystem/visualchat/Initialize(start_timeofday)
 	setzup = new
@@ -169,6 +171,7 @@ SUBSYSTEM_DEF(visualchat)
 			continue
 		speaker_manager = GetVCAccountPrefsManager(char_key, FALSE, TRUE)
 		char_slot = extract_current_character_slot(source_atom)
+		break
 	if(!speaker_manager)
 		return
 	if(speaker_manager.suppress_accountwide)
@@ -180,6 +183,7 @@ SUBSYSTEM_DEF(visualchat)
 	var/datum/vc_saymode/saymode = speaker_manager.manager_get_saymode(vc_source_atom, char_slot, say_mode, bounce_if_default=TRUE)
 	if(!saymode) // null if something is suppressed
 		return
+	// var/merge_into_oncoming_traffic = ShouldMergeIntoOncoming(saymode, speaker_manager)
 	var/list/datapaquette = list()
 	datapaquette["saymode_data"] = saymode.serialize_saymode(FALSE) // smaller data means less plastic
 	var/list/msg_dat = list()
@@ -191,12 +195,20 @@ SUBSYSTEM_DEF(visualchat)
 	msg_dat["compiled_message"]        = message_data[SATA_MESSAGE_COMPILED] || ""
 	msg_dat["am_ghost"]                = message_data[SATA_HEARER_IS_GHOST] || FALSE
 	msg_dat["ghost_link"]              = message_data[SATA_LINK] || ""
+	msg_dat["clipboard"]               = speaker_manager.get_clipboard()
+	// msg_dat["merge_name_too"]          = merge_into_oncoming_traffic // so tempting at this point
 	msg_dat["msg_splice_timeout"]      = speaker_manager.saymode_cooldown || 0
 	msg_dat["msg_splice_last_saymode"] = speaker_manager.last_saymode || ""
 	datapaquette["message_data"] = msg_dat
 	speaker_manager.last_saymode = saymode.saymode
 	// and send
 	return datapaquette
+
+/// set a flag that lets the renderer attempt to include the compiled name when merging VC messages
+/// what counts as applicable? Well!
+/// If the saymodes
+// /datum/controller/subsystem/visualchat/proc/ShouldMergeIntoOncoming(datum/vc_saymode/saymode, datum/speaker_manager)
+
 
 /datum/controller/subsystem/visualchat/proc/Sanify(list/message_data, atom/spanker)
 	if(!message_data)
@@ -296,14 +308,16 @@ SUBSYSTEM_DEF(visualchat)
 /datum/controller/subsystem/visualchat/proc/ExtractProfilePicLink(host, filename)
 	if(!istext(host) || !istext(filename))
 		return ""
-	if(!(host in valid_hosts))
+	host = valid_hosts[host] // you know what they say, all hosts host host
+	if(!host)
 		return ""
+	// ok, host is fine, what about the filename?
 	var/list/splitty = splittext(filename, ".")
 	if(LAZYLEN(splitty) != 2)
 		return ""
 	if(!(splitty[2] in valid_extensions))
 		return ""
-	return host + "/" + filename
+	return host + "/" + filename // tgui will figure out if this link actually goes somewhere........ maybe
 
 /datum/controller/subsystem/visualchat/proc/ValidateColor(maybecolor)
 	if(!istext(maybecolor))
@@ -332,10 +346,12 @@ SUBSYSTEM_DEF(visualchat)
 	if(!istype(saymode))
 		return "And then john turned to the camera and said, hey, this is a bug"
 	var/smode = saymode.saymode
-	if(LAZYLEN(preview_texts[smode]))
-		return pick(preview_texts[smode])
-	else
-		return pick(preview_texts[SAYMODE_SAY])
+	if(!current_previews[smode])
+		if(LAZYLEN(preview_texts[smode]))
+			current_previews[smode] = pick(preview_texts[smode])
+		else
+			current_previews[smode] = pick(preview_texts[SAYMODE_SAY])
+	return current_previews[smode]
 
 /datum/controller/subsystem/visualchat/proc/GetTotalChatmen()
 	var/total = 0
@@ -390,7 +406,7 @@ SUBSYSTEM_DEF(visualchat)
 	// and some stuff about the user theyself
 	var/maybename = user.real_name || user.name
 	if(ckey(maybename) == user.ckey)
-		if(holdiers_flavor_crystal == "human")
+		if(holdiers_flavor_crystal.kind == "human")
 			maybename = P.read_preference(/datum/preference/name/real_name) || user.name
 		else
 			maybename = P.read_preference(/datum/preference/name/cyborg) || user.name
@@ -418,7 +434,115 @@ SUBSYSTEM_DEF(visualchat)
 	// --- paste from the clipboard
 	if(!ui || !ui.user)
 		CRASH("Oh good golly gosh, UI or user is null! ERROR CODE: FAT-EXPIE-STUCK-IN-LIFEPOD")
-	// var/mob/user = ui.user
+	var/mob/user = ui.user
+	var/saymode_kind = params["saymode"]
+	var/human = params["h_or_s"]
+	var/slut = extract_current_character_slot(user, FALSE)
+	var/datum/vc_account_prefs_manager/mgr = GetVCAccountPrefsManager(user, FALSE, TRUE)
+	var/datum/vc_preference_holder/pholder = mgr.get_prefs_holder_for_slot(slut, human)
+	var/datum/vc_saymode/smode = pholder.prefholder_get_saymode(saymode_kind, FALSE)
+	switch(action)
+		if("set_host")
+			smode.update_saymode_setting("pfp_image_link_url_host", params["host"], TRUE)
+			. = TRUE
+		if("set_link")
+			smode.update_saymode_setting("pfp_image_link_url_filename", params["link"], TRUE)
+			. = TRUE
+		if("copy")
+			mgr.copy_to_clipboard("SAYMODE", saymode_kind, slut, null, null, null)
+			. = TRUE
+		if("paste")//datakind, saymode, slot, setting, value, setting_kind
+			mgr.paste_from_clipboard("SAYMODE", saymode_kind, slut, null, null, null)
+			. = TRUE
+		if("set_see_visualchat_range")
+			mgr.see_visualchat_range = clamp(params["range"], mgr.see_visualchat_range_min, mgr.see_visualchat_range_max)
+			. = TRUE
+		if("toggle_vc")
+			mgr.see_visualchat = !mgr.see_visualchat
+			. = TRUE
+		if("toggle_vc_send")
+			mgr.suppress_accountwide = !mgr.suppress_accountwide
+			. = TRUE
+		if("update")
+			// to_chat(user, span_notice("Updating Image Settings..."))
+			. = TRUE
+	if(.)
+		smode.set_durty_saymode()
+
+// acts:
+// change_setting
+// copy
+// open_host
+// paste
+// set_host
+// set_link
+// set_see_visualchat_range
+// swatch_apply
+// swatch_snatch
+// toggle_vc
+// toggle_vc_send
+
+// ...identSlug
+// ckey: data.user_ckey
+// clicked_host: host
+// copy_mode: VCCopyMode.Saymode
+// copy_mode: VCCopyMode.Setting
+// h_or_s: data.human_or_silicon
+// h_or_s: human_or_silicon
+// host: value
+// human_or_silicon: data.human_or_silicon
+// link: value
+// new_value: newValue
+// paste_mode: VCCopyMode.Saymode
+// paste_mode: VCCopyMode.Setting
+// range: value
+// saymode: item.saymode_kind
+// setting_key: key
+// setting_kind: kind
+// setting_oldvalue: value
+// setting_path: path
+// swatch_color: selectedSwatch
+// swatch_index: selectedSwatchIndex
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

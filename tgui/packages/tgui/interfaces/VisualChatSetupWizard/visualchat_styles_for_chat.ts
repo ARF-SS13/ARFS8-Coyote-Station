@@ -62,9 +62,11 @@ export const defaultVCStyle: VCStylePack = {
     padding: '1px',
   },
   PFPBackground: {
-    background: '#151515',
+    background: 'linear-gradient(0deg, #284148, #092626)',
+    padding: '2px',
     alignItems: 'center',
     justifyContent: 'center',
+
     display: 'flex',
   },
   OuterBackground: {
@@ -77,8 +79,11 @@ export const defaultVCStyle: VCStylePack = {
   },
   Text: {},
   PFPImageStyle: {
-    height: '120px',
+    display: 'block',
     width: '120px',
+    height: '120px',
+    maxHeight: '100%',
+    maxWidth: '100%',
     objectFit: 'contain',
     objectPosition: 'center',
   },
