@@ -26,6 +26,28 @@
 	/// Custom destination for mirages
 	var/destination_y
 
+	var/steamy_percentage
+	var/wavy
+
+/turf/open/Initialize(mapload)
+	. = ..()
+	if(steamy_percentage && prob(steamy_percentage))
+		var/obj/effect/abstract/shared_particle_holder/holder = add_shared_particles(/particles/hotspring_steam, "cool_turf_partical_[GET_TURF_PLANE_OFFSET(src)]", pool_size = 4)
+		holder.vis_flags &= ~VIS_INHERIT_PLANE
+		holder.plane = MUTATE_PLANE(MASSIVE_OBJ_PLANE, src)
+	if(wavy)
+		add_filter("cool_turf_wavy", 1, wave_filter(y = 1, size = 1, offset = 0, flags = WAVE_BOUNDED))
+		var/filter = get_filter("cool_turf_wavy")
+		animate(filter, offset = 1, time = 3 SECONDS, loop = -1, easing = QUAD_EASING)
+		animate(offset = 0, time = 3 SECONDS, easing = QUAD_EASING)
+
+/turf/open/Destroy()
+	if(steamy_percentage)
+		remove_shared_particles("cool_turf_partical_[GET_TURF_PLANE_OFFSET(src)]")
+	if(wavy)
+		remove_filter("cool_turf_wavy")
+	. = ..()
+
 /// Returns a list of every turf state considered "broken".
 /// Will be randomly chosen if a turf breaks at runtime.
 /turf/open/proc/broken_states()

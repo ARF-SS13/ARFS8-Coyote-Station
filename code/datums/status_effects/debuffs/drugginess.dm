@@ -13,7 +13,7 @@
 
 	owner.add_mood_event(id, /datum/mood_event/high)
 	owner.overlay_fullscreen(id, /atom/movable/screen/fullscreen/high)
-	owner.sound_environment_override = SOUND_ENVIRONMENT_DRUGGED
+	// owner.sound_environment_override = SOUND_ENVIRONMENT_DRUGGED
 	owner.grant_language(/datum/language/beachbum, source = id)
 	return TRUE
 
@@ -22,8 +22,8 @@
 
 	owner.clear_mood_event(id)
 	owner.clear_fullscreen(id)
-	if(owner.sound_environment_override == SOUND_ENVIRONMENT_DRUGGED)
-		owner.sound_environment_override = SOUND_ENVIRONMENT_NONE
+	// if(owner.sound_environment_override == SOUND_ENVIRONMENT_DRUGGED)
+	// 	owner.sound_environment_override = SOUND_ENVIRONMENT_NONE
 	owner.remove_language(/datum/language/beachbum, source = id)
 
 /// Removes all of our drugginess (self delete) on signal

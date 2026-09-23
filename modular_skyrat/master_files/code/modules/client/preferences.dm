@@ -18,16 +18,7 @@ GLOBAL_LIST_INIT(cool_mcolors, list(MUTORMB_A, MUTORMB_B, MUTORMB_C))
 	/// A list containing all of our mutant bodparts
 	var/list/list/mutant_bodyparts = list()
 	/// A list of all bodymarkings
-	var/list/list/body_markings = list(
-		"chest" =   list("Fox" = list(MUTORMB_B,0)),
-		"head" =    list("Fox" = list(MUTORMB_B,0)),
-		"l_leg" =   list("Fox" = list(MUTORMB_B,0), list("Fox Sock" = list(MUTORMB_C,0))),
-		"r_leg" =   list("Fox" = list(MUTORMB_B,0), list("Fox Sock" = list(MUTORMB_C,0))),
-		"l_hand" =  list("Fox" = list(MUTORMB_C,0), list("Fox Sock" = list(MUTORMB_C,0))),
-		"r_hand" =  list("Fox" = list(MUTORMB_C,0), list("Fox Sock" = list(MUTORMB_C,0))),
-		"l_arm" =   list("Fox" = list(MUTORMB_C,0)),
-		"r_arm" =   list("Fox" = list(MUTORMB_C,0)),
-	)
+	var/list/list/body_markings = list()
 
 
 	/// Will the person see accessories not meant for their species to choose from

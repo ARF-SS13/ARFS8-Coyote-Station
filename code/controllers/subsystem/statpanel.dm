@@ -40,6 +40,8 @@ SUBSYSTEM_DEF(statpanels)
 		var/active_players = get_active_player_count(alive_check = FALSE, afk_check = TRUE, human_check = FALSE) //This is a list of all active players, including players who are dead
 		var/observing_players = length(GLOB.current_observers_list) //This is a list of all players that started as an observer-- dead and lobby players are not included.
 		var/current_date = "[time2text(world.realtime, "DDD Month DD")], [CURRENT_STATION_YEAR]"
+		var/round_started = SSautotransfer.GetRoundStartTime()
+		var/round_should_end_on = SSautotransfer.GetProjectedRoundEndTime()
 		// BUBBER EDIT ADDITION END - Extra stat panel info
 
 		global_data += list(
@@ -49,7 +51,9 @@ SUBSYSTEM_DEF(statpanels)
 			" ", // BUBBER EDIT ADDITION - Extra stat panel info
 			"Storyteller: [SSgamemode.storyteller ? SSgamemode.storyteller.name : "N/A"]", // BUBBER EDIT ADDITION - Extra stat panel info
 			"Station Time: [station_time_timestamp(format = "hh:mm")], [current_date]", // BUBBER EDIT CHANGE - Extra stat panel info - ORIGINAL: "Station Time: [station_time_timestamp()]"
+			"Round Start: [round_started]",
 			"Round Time: [time2text(real_round_time, "hh:mm:ss", 0)]", // BUBBER EDIT CHANGE - Extra stat panel info - ORIGINAL: "Round Time: [ROUND_TIME()]"
+			"Round End: [round_should_end_on]",
 			"Server Time: [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss", world.timezone)]",
 			"Time Dilation: [round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)",
 		)
