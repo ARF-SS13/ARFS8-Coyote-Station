@@ -64,6 +64,13 @@
 		make_me_an_observer()
 		return
 
+	if(href_list["visual_chat"])
+		play_lobby_button_sound("visual_chat")
+		if(!unvetted_notified && !trigger_unvetted_warning())
+			return FALSE
+		SSvisualchat.OpenSettingsControlPanel(src)
+		return
+
 	if(href_list["job_traits"])
 		play_lobby_button_sound()
 		if(!unvetted_notified && !trigger_unvetted_warning())
@@ -299,7 +306,7 @@
 /mob/dead/new_player/proc/play_lobby_button_sound(which)
 	var/snd = 'modular_coyote/sounds/menu/add_click.ogg'
 	switch(which)
-		if("preferences", "join")
+		if("preferences", "join", "visual_chat")
 			snd = 'modular_coyote/sounds/menu/save_click.ogg'
 		if("observe", "ready")
 			snd = 'modular_coyote/sounds/menu/tab_click.ogg'

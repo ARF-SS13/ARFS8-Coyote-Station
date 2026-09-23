@@ -165,7 +165,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	else if (!perform_update_icon)
 		should_update_icon = TRUE
 
-/obj/item/radio/headset/talk_into_impl(atom/movable/talking_movable, message, channel, list/spans, datum/language/language, list/message_mods)
+/obj/item/radio/headset/talk_into_impl(atom/movable/talking_movable, message, channel, list/spans, datum/language/language, list/message_data)
 	if (!broadcasting)
 		return
 	return ..()

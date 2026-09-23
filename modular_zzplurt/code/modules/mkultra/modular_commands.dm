@@ -1330,7 +1330,7 @@ GLOBAL_LIST_INIT(mkultra_strip_slot_lookup, list(
 	SIGNAL_HANDLER
 	mkultra_clear_selfcall(source)
 
-/datum/mkultra_signal_handler/proc/selfcall_on_say(datum/source, list/speech_args)
+/datum/mkultra_signal_handler/proc/selfcall_on_say(datum/source, list/speech_args, list/message_data)
 	SIGNAL_HANDLER
 	var/mob/living/carbon/human/humanoid = source
 	var/list/state = GLOB.mkultra_selfcall_states[humanoid]

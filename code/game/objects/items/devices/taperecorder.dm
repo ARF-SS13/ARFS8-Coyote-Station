@@ -153,9 +153,9 @@
 	return ..()
 
 
-/obj/item/taperecorder/Hear(atom/movable/speaker, message_langs, raw_message, radio_freq, radio_freq_name, radio_freq_color, spans, list/message_mods = list(), message_range)
+/obj/item/taperecorder/Hear(atom/movable/speaker, message_langs, raw_message, radio_freq, radio_freq_name, radio_freq_color, spans, list/message_data = list(), message_range)
 	. = ..()
-	if(message_mods[MODE_RELAY] || !mytape || istype(speaker, /obj/item/taperecorder))
+	if(message_data[MODE_RELAY] || !mytape || istype(speaker, /obj/item/taperecorder))
 		return
 
 	mytape.timestamp += mytape.used_capacity
@@ -262,7 +262,7 @@
 			balloon_alert(usr, "recording ended")
 			stoplag(1 SECONDS) //prevents multiple balloon alerts covering each other
 			break
-		say("[mytape.storedinfo[i]]", sanitize=FALSE, message_mods = list(MODE_SEQUENTIAL = TRUE))//We want to display this properly, don't double encode
+		say("[mytape.storedinfo[i]]", sanitize=FALSE, message_data = list(MODE_SEQUENTIAL = TRUE))//We want to display this properly, don't double encode
 		if(mytape.storedinfo.len < i + 1)
 			playsleepseconds = 1
 			sleep(1 SECONDS)
@@ -270,7 +270,7 @@
 			playsleepseconds = max(mytape.timestamp[i + 1] - mytape.timestamp[i], 1 SECONDS)
 		if(playsleepseconds > 14 SECONDS)
 			sleep(1 SECONDS)
-			say("Skipping [playsleepseconds/10] seconds of silence.", message_mods = list(MODE_SEQUENTIAL = TRUE))
+			say("Skipping [playsleepseconds/10] seconds of silence.", message_data = list(MODE_SEQUENTIAL = TRUE))
 			playsleepseconds = 1 SECONDS
 		i++
 

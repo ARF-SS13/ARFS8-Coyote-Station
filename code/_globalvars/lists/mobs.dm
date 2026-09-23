@@ -3,7 +3,7 @@ GLOBAL_LIST_EMPTY(admins) //all clients whom are admins
 GLOBAL_PROTECT(admins)
 GLOBAL_LIST_EMPTY(deadmins) //all ckeys who have used the de-admin verb.
 
-GLOBAL_LIST_EMPTY(directory) //all ckeys with associated client
+GLOBAL_LIST_EMPTY(directory) //all ckeys with associated client // ckeys are static, clients are not, so, yeah
 GLOBAL_LIST_EMPTY(stealthminID) //reference list with IDs that store ckeys, for stealthmins
 
 /// List of types of abstract mob which shouldn't usually exist in the world on its own if we're spawning random mobs

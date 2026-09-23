@@ -87,10 +87,11 @@
 	user_tongue.temp_say_mod = initial(user_tongue.temp_say_mod)
 	previous_special_name = null
 
-/obj/item/clothing/mask/gas/modulator/proc/handle_speech(datum/source, list/speech_args)
+/obj/item/clothing/mask/gas/modulator/proc/handle_speech(datum/source, list/speech_args, list/message_data)
 	SIGNAL_HANDLER
 
 	if (!modulate_voice || HAS_TRAIT(source, TRAIT_SIGN_LANG))
 		return
 
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT
+	message_data[SATA_SPANS] |= SPAN_ROBOT

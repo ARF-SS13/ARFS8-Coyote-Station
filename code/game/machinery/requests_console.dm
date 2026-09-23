@@ -433,8 +433,9 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 
 	return data
 
-/obj/machinery/requests_console/say_mod(input, list/message_mods = list())
+/obj/machinery/requests_console/say_mod(input, list/message_data = list())
 	if(spantext_char(input, "!", -3))
+		message_data[SATA_SAYMODE] = SAYMODE_EXCLAIM
 		return "blares"
 	else
 		. = ..()

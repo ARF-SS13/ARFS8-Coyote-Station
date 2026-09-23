@@ -203,15 +203,15 @@
 			if(!COOLDOWN_FINISHED(user_role, note_chat_sending_cooldown))
 				return FALSE
 			COOLDOWN_START(user_role, note_chat_sending_cooldown, MAFIA_NOTE_SENDING_COOLDOWN)
-			var/list/message_mods = list()
-			message_mods[MANNEQUIN_CONTROLLED] = ui.user
-			user_role.body.say("[user_role.written_notes]", forced = "mafia notes sending", message_mods = message_mods)
+			var/list/message_data = list()
+			message_data[SATA_MANNEQUIN_CONTROLLED] = ui.user
+			user_role.body.say("[user_role.written_notes]", forced = "mafia notes sending", message_data = message_data)
 			return TRUE
 		if("send_message_to_chat")
 			var/message_said = sanitize_text(params["message"])
-			var/list/message_mods = list()
-			message_mods[MANNEQUIN_CONTROLLED] = ui.user
-			user_role.body.say(message_said, forced = "mafia chat (sent by [ui.user.client])", message_mods = message_mods)
+			var/list/message_data = list()
+			message_data[SATA_MANNEQUIN_CONTROLLED] = ui.user
+			user_role.body.say(message_said, forced = "mafia chat (sent by [ui.user.client])", message_data = message_data)
 
 	if(user_role.game_status == MAFIA_DEAD)
 		return TRUE

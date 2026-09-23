@@ -183,7 +183,7 @@
 	filterproof = FALSE,
 	message_range = 7,
 	datum/saymode/saymode,
-	list/message_mods = list(),
+	list/message_data = list(),
 )
 	if(!message)
 		return

@@ -1,6 +1,6 @@
 const cachedModdedColors: Record<string, string> = {};
 
-function ModifyHSLA(
+export function ModifyHSLA(
   hsla: string,
   hDelta: number,
   sDelta: number,
@@ -8,11 +8,7 @@ function ModifyHSLA(
   aDelta: number,
 ): string {
   //check if the args stringed together are in CachedModdedColors, if so return that value
-  const cacheKey = `${hsla}_${hDelta}_${sDelta}_${lDelta}_${aDelta}`;
-  const cachedColor = cachedModdedColors[cacheKey];
-  if (cachedColor) {
-    return cachedColor;
-  }
+
   // convert any incompatible formats to hsla, then modify the values and return the new color
   hsla = ConvertToHSLA(hsla);
 
@@ -20,7 +16,7 @@ function ModifyHSLA(
   const match = hsla.match(regex);
 
   if (!match) {
-    throw new Error('Invalid HSLA color format');
+    return hsla;
   }
 
   let [_, h, s, l, a] = match;
@@ -30,11 +26,10 @@ function ModifyHSLA(
   a = `${Math.min(Math.max(parseFloat(a) + aDelta, 0), 1)}`;
 
   const modifiedColor = `hsla(${h}, ${s}%, ${l}%, ${a})`;
-  cachedModdedColors[cacheKey] = modifiedColor;
   return modifiedColor;
 }
 
-function ConvertToHSLA(color: string): string {
+export function ConvertToHSLA(color: string): string {
   // regex
   const hslaRegex = /^hsla\(\d+,\s*\d+%,\s*\d+%,\s*[\d.]+\)$/;
   if (hslaRegex.test(color)) {
@@ -94,14 +89,14 @@ function ConvertToHSLA(color: string): string {
         a = parseInt(hex.slice(6, 8), 16) / 255;
         break;
       default:
-        throw new Error('Invalid hex color format');
+        return color;
     }
     return RGBAToHSLA(r, g, b, a);
   }
-  throw new Error('Idfk wtf color format this is');
+  return color; // here have it back
 }
 
-function RGBAToHSLA(r: number, g: number, b: number, a: number): string {
+export function RGBAToHSLA(r: number, g: number, b: number, a: number): string {
   r /= 255;
   g /= 255;
   b /= 255;

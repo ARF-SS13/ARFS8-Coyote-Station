@@ -147,8 +147,8 @@
 
 	return TRUE
 
-/obj/item/radio/intercom/Hear(atom/movable/speaker, message_langs, raw_message, radio_freq, radio_freq_name, radio_freq_color, list/spans, list/message_mods = list(), message_range)
-	if(message_mods[RADIO_EXTENSION] == MODE_INTERCOM)
+/obj/item/radio/intercom/Hear(atom/movable/speaker, message_langs, raw_message, radio_freq, radio_freq_name, radio_freq_color, list/spans, list/message_data = list(), message_range)
+	if(message_data[SATA_RADIO_EXTENSION] == MODE_INTERCOM)
 		return  // Avoid hearing the same thing twice
 	return ..()
 

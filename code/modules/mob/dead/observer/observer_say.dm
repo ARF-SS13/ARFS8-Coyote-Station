@@ -4,9 +4,9 @@
 //Modified version of get_message_mods, removes the trimming, the only thing we care about here is admin channels
 /mob/dead/observer/get_message_mods(message, list/mods)
 	var/key = message[1]
-	if((key in GLOB.department_radio_prefixes) && length(message) > length(key) + 1 && !mods[RADIO_EXTENSION])
-		mods[RADIO_KEY] = LOWER_TEXT(message[1 + length(key)])
-		mods[RADIO_EXTENSION] = GLOB.department_radio_keys[mods[RADIO_KEY]]
+	if((key in GLOB.department_radio_prefixes) && length(message) > length(key) + 1 && !mods[SATA_RADIO_EXTENSION])
+		mods[SATA_RADIO_KEY] = LOWER_TEXT(message[1 + length(key)])
+		mods[SATA_RADIO_EXTENSION] = GLOB.department_radio_keys[mods[SATA_RADIO_KEY]]
 	return message
 
 /mob/dead/observer/say(
@@ -20,7 +20,7 @@
 	filterproof = FALSE,
 	message_range = 7,
 	datum/saymode/saymode,
-	list/message_mods = list(),
+	list/message_data = list(),
 )
 	message = trim(message) //trim now and sanitize after checking for special admin radio keys
 
@@ -39,10 +39,10 @@
 
 	if(!message)
 		return
-	message = get_message_mods(message, message_mods)
-	if(client?.holder && (message_mods[RADIO_EXTENSION] == MODE_ADMIN || message_mods[RADIO_EXTENSION] == MODE_DEADMIN || (message_mods[RADIO_EXTENSION] == MODE_PUPPET && mind?.current)))
-		message = trim_left(copytext_char(message, length(message_mods[RADIO_KEY]) + 2))
-		switch(message_mods[RADIO_EXTENSION])
+	message = get_message_mods(message, message_data)
+	if(client?.holder && (message_data[SATA_RADIO_EXTENSION] == MODE_ADMIN || message_data[SATA_RADIO_EXTENSION] == MODE_DEADMIN || (message_data[SATA_RADIO_EXTENSION] == MODE_PUPPET && mind?.current)))
+		message = trim_left(copytext_char(message, length(message_data[SATA_RADIO_KEY]) + 2))
+		switch(message_data[SATA_RADIO_EXTENSION])
 			if(MODE_ADMIN)
 				SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/cmd_admin_say, message)
 			if(MODE_DEADMIN)
@@ -58,7 +58,7 @@
 
 	. = say_dead(message)
 
-/mob/dead/observer/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, list/spans, list/message_mods = list(), message_range)
+/mob/dead/observer/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, list/spans, list/message_data = list(), message_range)
 	. = ..()
 	var/atom/movable/to_follow = speaker
 	if(radio_freq)
@@ -74,8 +74,9 @@
 	if (safe_read_pref(client, /datum/preference/toggle/enable_runechat) && (safe_read_pref(client, /datum/preference/toggle/enable_runechat_non_mobs) || ismob(speaker)))
 		create_chat_message(speaker, message_language, raw_message, spans)
 	// Recompose the message, because it's scrambled by default
-	var/message = compose_message(speaker, message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, spans, message_mods)
+	var/message = compose_message(speaker, message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, spans, message_data)
 	to_chat(src,
 		html = "[link] [message]",
-		avoid_highlighting = speaker == src)
+		avoid_highlighting = speaker == src,
+		extra_data = message_data)
 	return TRUE

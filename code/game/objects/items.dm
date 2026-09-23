@@ -669,12 +669,12 @@
  * * channel - the channel the message is being spoken on, only really used for radios
  * * spans - the spans of the message
  * * language - the language the message is in
- * * message_mods - any message mods that should be applied to the message
+ * * message_data - any message mods that should be applied to the message
  *
  * Return a flag that modifies the original message
  */
-/obj/item/proc/talk_into(atom/movable/speaker, message, channel, list/spans, datum/language/language, list/message_mods)
-	return SEND_SIGNAL(src, COMSIG_ITEM_TALK_INTO, speaker, message, channel, spans, language, message_mods) || (ITALICS|REDUCE_RANGE)
+/obj/item/proc/talk_into(atom/movable/speaker, message, channel, list/spans, datum/language/language, list/message_data)
+	return SEND_SIGNAL(src, COMSIG_ITEM_TALK_INTO, speaker, message, channel, spans, language, message_data) || (ITALICS|REDUCE_RANGE)
 
 /* sound procs, made so they can be overriden on subtypes */
 

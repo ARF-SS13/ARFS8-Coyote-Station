@@ -332,7 +332,7 @@
 
 // /obj/item/radio signals
 
-///called from base of /obj/item/proc/talk_into(): (atom/movable/speaker, message, channel, list/spans, language, list/message_mods)
+///called from base of /obj/item/proc/talk_into(): (atom/movable/speaker, message, channel, list/spans, language, list/message_data)
 #define COMSIG_ITEM_TALK_INTO "item_talk_into"
 ///called from base of /obj/item/radio/proc/set_frequency(): (list/args)
 #define COMSIG_RADIO_NEW_FREQUENCY "radio_new_frequency"

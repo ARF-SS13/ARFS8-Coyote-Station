@@ -70,7 +70,7 @@
 
 //I couldnt get this to work as a TYPE_PROC_REF. So it's copied.
 /obj/item/organ/cyberimp/brain/empathic_sensor/proc/actually_modify_speech(datum/source, list/speech_args)
-	var/message = speech_args[SPEECH_MESSAGE]
+	var/message = speech_args[SPEECH_MESSAGE] //? todo visual chat for marish
 	var/mob/living/carbon/human/user = source
 	var/obj/item/organ/ears/shadekin/user_ears = user.get_organ_slot(ORGAN_SLOT_EARS)
 	var/mode = istype(user_ears)

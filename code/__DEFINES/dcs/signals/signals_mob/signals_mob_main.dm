@@ -286,3 +286,9 @@
 
 /// from /mob/eye/camera/remote/assign_user(): (mob/living/new_user, mob/living/old_user)
 #define COMSIG_REMOTE_CAMERA_ASSIGN_USER "remote_camera_assign_user"
+
+/// from /mob/extract_client(): (atom/thing, list/its_complicated)
+#define COMSIG_EXTRACT_CLIENT "mob_extract_client"
+
+/// from /mob/extract_ckey(): (atom/thing, list/its_complicated)
+#define COMSIG_EXTRACT_CKEY "mob_extract_ckey"

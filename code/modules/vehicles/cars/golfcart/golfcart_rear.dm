@@ -131,15 +131,21 @@
 
 ///Called when someone resists inside of the cargo hitch.
 /obj/golfcart_rear/relay_container_resist_act(mob/living/user, obj/container)
+	var/list/message_data = list()
+	message_data[SATA_MESSAGE_HEARD] = span_danger("[user] tries to escape the [container]!")
+	message_data[SATA_SPEAKER] = user
+	message_data[SATA_VC_SOURCE] = user
+	message_data[SATA_SAYMODE] = SAYMODE_EMOTE_QUICK
 	user.visible_message(
-		span_danger("[user] tries to escape the [container]!"),
+		span_danger("[message_data[SATA_MESSAGE_HEARD]]"),
 		span_userdanger("You try to escape the [container]!"),
+		message_data = message_data
 	)
 	if (parent.has_buckled_mobs())
 		for (var/mob/driver in parent.buckled_mobs)
 			if (!parent.is_driver(driver))
 				continue
-			driver.show_message(span_userdanger("The [container] shakes violently!"))
+			driver.show_message(span_userdanger("The [container] shakes violently!"), message_data = message_data)
 	if (istype(container, /obj/structure/closet))
 		var/obj/structure/closet/closet = container
 		if (!closet.welded)
