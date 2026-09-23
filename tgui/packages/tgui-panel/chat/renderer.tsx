@@ -38,6 +38,7 @@ import {
   Nameify,
   VisualChatify,
 } from './visualchat_chat_element_builder';
+import { VCSaymode } from './visualchat_types';
 
 const logger = createLogger('chatRenderer');
 
@@ -136,10 +137,10 @@ function updateVCMessage(
   const newName = `<br>${Nameify(newmsg.extraData?.message_data.name_displayed, newmsg.extraData?.message_data.displayed_saymode)}`;
   const newBody = `<br>${newmsg.extraData?.message_data.body_text}`;
   const newComp = `<div>${newmsg.extraData?.message_data.compiled_message}</div>`;
-  logger.log('new name', newName);
-  logger.log('name too', nameToo);
-  logger.log('new body', newBody);
-  logger.log('new comp', newComp);
+  // logger.log('new name', newName);
+  // logger.log('name too', nameToo);
+  // logger.log('new body', newBody);
+  // logger.log('new comp', newComp);
 
   const newhtmlstuff = `${nameToo ? newName : ''}${newBody}`;
   const newcompiled = `${nameToo ? newName : ''}${newComp}`;
@@ -407,6 +408,7 @@ class ChatRenderer {
     const to = Math.max(0, len - 2);
     const ourpfp = predicate.extraData?.saymode_data?.pfp_image_link;
     const ourSay = predicate.extraData?.saymode_data?.saymode_kind;
+    const combinableModes = [VCSaymode.Subtle, VCSaymode.Emote]
     for (let i = from; i >= to; i--) {
       const message = this.messages[i];
       if (!message.extraData) continue;
@@ -428,9 +430,12 @@ class ChatRenderer {
         // if saymode is different, but pfp is the same, merge body and name
         // else dont merge
         let mergemode;
-        if (message.extraData.saymode_data.saymode_kind === ourSay)
+        const they_mode = message.extraData.saymode_data;
+        if (they_mode.saymode_kind === ourSay)
           mergemode = 'body';
-        else if (message.extraData.saymode_data.pfp_image_link === ourpfp)
+        else if (combinableModes.includes(ourSay) && combinableModes.includes(they_mode.saymode_kind))
+          mergemode = 'body';
+        else if (they_mode.pfp_image_link === ourpfp)
           mergemode = 'body+name';
         if (!mergemode) break;
         message.extraData.saymode_data = predicate.extraData.saymode_data;

@@ -49,10 +49,7 @@ export function MergeStyle(
       if (typeof v === 'string') {
         if (k.includes('outlineColor')) {
           let coolerdiff = borderDiff
-          logger.log('applying diff ###', coolerdiff);
-          logger.log('old #', ConvertToHSLA(v));
           merged[k] = ModifyHSLA(v, coolerdiff.h, coolerdiff.s, coolerdiff.v, 0);
-          logger.log('new #', merged[k]);
         }
         // gradient shifter!
         else if (k.includes('background')) {
@@ -60,14 +57,11 @@ export function MergeStyle(
           let diff = innerBGdiff;
           if(v.includes('radial')) diff = outerBGdiff;
           const parts = v.match(/hsl\([^)]+\)/g)
-          logger.log('applying diff to gradient', diff);
-          logger.log('parts', (parts) => (parts.map(p=>ConvertToHSLA(p))));
           if(parts) {
             for(let i=0;i<parts.length;i++){
               merged[k] = merged[k].replace(parts[i], ModifyHSLA(parts[i], diff.h, diff.s, diff.v, 0))
             }
           }
-          logger.log('done with gradient', merged[k]);
         }
       }
     }
