@@ -260,6 +260,8 @@
 			message_data[SATA_MESSAGE_COMPILED] = messenge // i mean its kinda not much but whatevs
 			to_chat(src, messenge, extra_data = message_data)
 		return FALSE
+	if(!LAZYLEN(message_data))
+		message_data = list()
 	to_chat(src, msg, avoid_highlighting = avoid_highlighting, extra_data = message_data)
 	return .
 
@@ -317,12 +319,11 @@
 	if(visible_message_flags & EMOTE_MESSAGE)
 		message = span_emote("<b>[src]</b>[separation][message]") // SKYRAT EDIT - Better emotes
 	// COYOTE EDIT: message data for horny purposes
-	if(!islist(message_data))
-		message_data = list()
-	message_data[SATA_MESSAGE_HEARD] = message
-	message_data[SATA_SPEAKER] = src
-	message_data[SATA_VC_SOURCE] = src
-	message_data[SATA_SAYMODE] = SAYMODE_EMOTE
+	if(LAZYLEN(message_data))
+		message_data[SATA_MESSAGE_HEARD] = message
+		message_data[SATA_SPEAKER] = src
+		message_data[SATA_VC_SOURCE] = src
+		message_data[SATA_SAYMODE] = SAYMODE_EMOTE
 
 	for(var/mob/hearing_mob as anything in hearers)
 		if(!hearing_mob?.client)
@@ -385,10 +386,12 @@
 	if(visible_message_flags & EMOTE_MESSAGE)
 		self_message = span_emote("<b>[src]</b> [self_message]") // May make more sense as "You do x"
 	var/list/self_message_data = message_data.Copy()
-	self_message_data[SATA_MESSAGE_HEARD] = self_message
-	self_message_data[SATA_SPEAKER] = message_data[SATA_SPEAKER] || src
-	self_message_data[SATA_VC_SOURCE] = message_data[SATA_VC_SOURCE] || src
-	self_message_data[SATA_SAYMODE] = message_data[SATA_SAYMODE] || SAYMODE_EMOTE
+	if(LAZYLEN(message_data))
+		self_message_data[SATA_MESSAGE_HEARD] = self_message
+		self_message_data[SATA_SPEAKER] = message_data[SATA_SPEAKER] || src
+		self_message_data[SATA_VC_SOURCE] = message_data[SATA_VC_SOURCE] || src
+		self_message_data[SATA_SAYMODE] = message_data[SATA_SAYMODE] || SAYMODE_EMOTE
+
 
 	if(visible_message_flags & ALWAYS_SHOW_SELF_MESSAGE)
 		to_chat(src, self_message, avoid_highlighting = block_self_highlight, extra_data = self_message_data)
@@ -430,10 +433,11 @@
 		if(holo.Impersonation?.client)
 			hearers |= holo.Impersonation
 	var/list/audible_data = list()
-	audible_data[SATA_MESSAGE_HEARD] = message_data[SATA_MESSAGE_HEARD] || message
-	audible_data[SATA_SPEAKER] = message_data[SATA_SPEAKER] || src
-	audible_data[SATA_VC_SOURCE] = message_data[SATA_VC_SOURCE] || src
-	audible_data[SATA_SAYMODE] = message_data[SATA_SAYMODE] || SAYMODE_EMOTE
+	if(LAZYLEN(message_data))
+		audible_data[SATA_MESSAGE_HEARD] = message_data[SATA_MESSAGE_HEARD] || message
+		audible_data[SATA_SPEAKER] = message_data[SATA_SPEAKER] || src
+		audible_data[SATA_VC_SOURCE] = message_data[SATA_VC_SOURCE] || src
+		audible_data[SATA_SAYMODE] = message_data[SATA_SAYMODE] || SAYMODE_EMOTE
 
 	//SKYRAT EDIT ADDITION END - AI QoL
 	var/raw_msg = message
@@ -482,10 +486,11 @@
 	if(audible_message_flags & EMOTE_MESSAGE)
 		self_message = span_emote("<b>[src]</b> [self_message]")
 	var/list/self_message_data = list()
-	self_message_data[SATA_MESSAGE_HEARD] = self_message
-	self_message_data[SATA_SPEAKER] = message_data[SATA_SPEAKER] || src
-	self_message_data[SATA_VC_SOURCE] = message_data[SATA_VC_SOURCE] || src
-	self_message_data[SATA_SAYMODE] = message_data[SATA_SAYMODE] || SAYMODE_EMOTE
+	if(LAZYLEN(message_data))
+		self_message_data[SATA_MESSAGE_HEARD] = self_message
+		self_message_data[SATA_SPEAKER] = message_data[SATA_SPEAKER] || src
+		self_message_data[SATA_VC_SOURCE] = message_data[SATA_VC_SOURCE] || src
+		self_message_data[SATA_SAYMODE] = message_data[SATA_SAYMODE] || SAYMODE_EMOTE
 
 	if(audible_message_flags & ALWAYS_SHOW_SELF_MESSAGE)
 		to_chat(src, self_message, avoid_highlighting = block_self_highlight, extra_data = self_message_data)

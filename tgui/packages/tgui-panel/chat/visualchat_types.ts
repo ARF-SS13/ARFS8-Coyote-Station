@@ -18,6 +18,7 @@ export type VCWizardPack = {
   valid_extensions: string[];
   user_name: string;
   user_ckey: string;
+  show_own_pfp: boolean;
 };
 
 export type VCClipboardData = {
@@ -127,7 +128,15 @@ export type VCMessageData = {
   msg_splice_last_saymode: string;
   use_settings: boolean; // if to use custom style settings... in a later build
   merge_name_too: boolean; // merge into oncoming traffic BEEP BEEP *ded*
+  hide_pfp: boolean;
+  differentiator: VCDiff;
 };
+
+export type VCDiff = {
+  h: number;
+  s: number;
+  v: number;
+}
 
 export type VCDataPack = {
   saymode_data: VCSaymodeData;
@@ -145,6 +154,7 @@ export type VCAssemblerHolder = {
   nameFull: string;
   body_text: string;
   compiled_message: string;
+  hidePfp: boolean;
 };
 
 export enum VCTT {
@@ -176,6 +186,8 @@ export enum VCTT {
   VCToggleSend = 'vc_toggle_send',
   VCToggleSee = 'vc_toggle_see',
   VCRange = 'vc_range',
+
+  VCToggleShowOwn = 'vc_toggle_show_own'
 }
 
 // ------------------------------------------------------------------

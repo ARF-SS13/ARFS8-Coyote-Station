@@ -54,10 +54,11 @@ export function VCGetTooltip(category: VCTT, extrastuff: any): React.ReactNode {
       return Slugma(
         <>
           <p>{`Paste in a link to your cool image!`}</p>
-          <p>{`So this can work in one of two ways!`}</p>
-          <p>{`First option is to paste in the filename (eg. coolphoto.jpg) and select a host from the dropdown.`}</p>
-          <p>{`Second option is to paste in the full URL to your image directly, which will automatically detect the host if it's suitable.`}</p>
-          <p>{`Pretty clever huh?`}</p>
+          <p>{`This will appear for this saymode!`}</p>
+          <p>{`Its gotta be a full url!`}</p>
+          <p>{`Valid hosts are:`}</p>
+          <p>{`- catbox.moe`}</p>
+          <p>{`- f-list.net`}</p>
         </>,
       );
     case VCTT.CopySetting:
@@ -141,6 +142,13 @@ export function VCGetTooltip(category: VCTT, extrastuff: any): React.ReactNode {
         <>
           <p>{`Adjust from how far away that VisualChat messages will be rendered as such in chat!`}</p>
           <p>{`Outside this range, VisualChat messages will appear as normal-ass text in chat!`}</p>
+        </>,
+      );
+    case VCTT.VCToggleShowOwn:
+      return Slugma(
+        <>
+          <p>{`By default, VisualChat hides your own PFPs in chat.`}</p>
+          <p>{`If you want to see your lovely character's picture in your own messages, set this to yes!`}</p>
         </>,
       );
   }

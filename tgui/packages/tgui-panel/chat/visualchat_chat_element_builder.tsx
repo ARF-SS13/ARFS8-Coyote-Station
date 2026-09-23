@@ -71,8 +71,8 @@ export function VisualChatify(
     // use what we got, but good
     const stylePack =
       theme === 'light'
-        ? GetVCChatStylePack(VCStylePackEnum.light)
-        : GetVCChatStylePack(VCStylePackEnum.default);
+        ? GetVCChatStylePack(VCStylePackEnum.light, messageData.differentiator)
+        : GetVCChatStylePack(VCStylePackEnum.default, messageData.differentiator);
     // logger.log(`using style pack ${theme === 'light' ? 'light' : 'def'}`);
     vcaOut.outerBoxStyle = {
       ...stylePack.Swag,
@@ -99,6 +99,7 @@ export function VisualChatify(
       ...stylePack.Text,
     };
     vcaOut.pfpImageStyle = { ...stylePack.PFPImageStyle };
+    vcaOut.hidePfp = messageData.hide_pfp
     return vcaOut;
   }
 
@@ -129,7 +130,7 @@ export function AssembleVisualChatElement(
 ): React.ReactElement {
   // so which builder do we use? yes it does matter
   let displayMode: VCDisplayMode = DetermineDisplayMode(vch.saymode);
-  if (!IsPFPLink(vch.pfpImageLink)) {
+  if (vch.hidePfp || !IsPFPLink(vch.pfpImageLink)) {
     switch (displayMode) {
       case VCDisplayMode.Full:
         displayMode = VCDisplayMode.FullWithoutImage;
@@ -150,24 +151,21 @@ export function AssembleVisualChatElement(
         0% { color: inherit; }
         50% {
         filter: saturate(2);
-        text-shadow: 3px 3px 5px teal;
-        color: yellow; }
-        100% { color: inherit;
-        text-shadow: none; }
+      }
+        100% { filter: saturate(1); }
       }
       .coolcoolflash {
         animation: coolFlash 1s;
-        filter: saturate(1);
       }
       `}</style>
   );
 
   const coolImage = (
     <Stack.Item shrink style={{ ...vch.pfpBoxStyle, height: '100cqv' }}>
-      <Image
+      <img
         src={vch.pfpImageLink}
         style={{ ...vch.pfpImageStyle }}
-        objectFit="contain"
+        // objectFit="contain"
       />
     </Stack.Item>
   );

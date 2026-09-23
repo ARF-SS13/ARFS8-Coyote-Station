@@ -86,4 +86,5 @@ export type SerializedMessage = {
   node: HTMLElement;
   avoidHighlighting: boolean;
   extraData: VCDataPack;
+  already_processed: boolean;
 }>;

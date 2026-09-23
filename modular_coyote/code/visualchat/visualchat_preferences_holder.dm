@@ -12,6 +12,8 @@
 	/// if true, dont use any of this character's saymodes in VC
 	var/suppress_characterwide = FALSE
 	var/durty_character = FALSE
+	/// offset for this slot's chat color, subtle but yeah
+	var/list/differentiator = list() // h, s, v
 
 /datum/vc_preference_holder/New(parent, thekind = "human", theslot = "0")
 	parent_manager = parent
@@ -102,6 +104,7 @@
 			saymode_prefs[saymode_text] = saymode
 		var/truepath = "[pafth][sayfilename]"
 		saymode.load_saymode_prefs(truepath)
+	set_differentiator_value()
 
 /datum/vc_preference_holder/proc/set_durty_character()
 	durty_character = TRUE
@@ -122,3 +125,27 @@
 		if(saymode?.am_durty_saymode())
 			return TRUE
 	return FALSE
+
+/datum/vc_preference_holder/proc/set_differentiator_value()
+	var/seed = "[parent_manager.owner_ckey]_[slot]_[kind]_[parent_manager.chatman_data["favorite_shark"]]_[SSvisualchat.debug_seed_offsetter]" || "cute_lasercat"
+	var/h = 0
+	var/s = 0
+	var/v = 0
+	for(var/i in 1 to LAZYLEN(seed))
+		var/c = seed[i]
+		var/assky = text2ascii(c)
+		h += assky
+		s += assky + 3
+		v += assky + 7
+	h = h%10
+	s = s%10
+	v = v%10
+	if(h <= 5)
+		h = -h
+	if(s <= 5)
+		s = -s
+	if(v <= 5)
+		v = -v
+	differentiator = list("h" = h, "s" = s, "v" = v)
+
+

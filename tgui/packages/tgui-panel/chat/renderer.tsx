@@ -399,6 +399,8 @@ class ChatRenderer {
 
   getVCCombinableMessage(predicate: SerializedMessage) {
     if (!predicate.extraData) return null;
+    if (predicate.already_processed) return null;
+    predicate.already_processed = true;
     const now = Date.now();
     const len = this.messages.length;
     const from = len - 1;
@@ -473,21 +475,18 @@ class ChatRenderer {
         if (vcCombinable[0].node?.parentNode === this.rootNode)
           this.rootNode?.removeChild(vcCombinable[0].node);
         const coolmsg = updateVCMessage(vcCombinable[0], message);
-        this.visibleMessages.slice(
-          this.visibleMessages.indexOf(vcCombinable[0]),
-          1,
-        );
-        this.messages = this.messages.filter((m) => m === vcCombinable[0]);
+        this.visibleMessages = this.visibleMessages.filter((m) => m !== vcCombinable[0]);
+        this.messages = this.messages.filter((m) => m !== vcCombinable[0]);
         message = coolmsg;
         // most of this is likely unneeded, i am a noob at js
         // however it works, and takes out my frustrations on the poor messages
-      } else {
-        const combinable = this.getCombinableMessage(message);
-        if (combinable) {
-          combinable.times = (combinable.times || 1) + 1;
-          updateMessageBadge(combinable);
-          continue;
-        }
+      }
+
+      const combinable = this.getCombinableMessage(message);
+      if (combinable) {
+        combinable.times = (combinable.times || 1) + 1;
+        updateMessageBadge(combinable);
+        continue;
       }
 
       // Reuse message node

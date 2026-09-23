@@ -51,8 +51,11 @@ SUBSYSTEM_DEF(visualchat)
 	var/list/chatprefs = list()
 	var/datum/vc_metrix/metrix
 	var/max_hearable_horny_dist = 300
-	var/debug_saving = TRUE
+	var/debug_saving = FALSE
 	var/debug_pfp = FALSE
+	var/debug_mommy = FALSE
+	var/debug_seed_offsetter = "urcute"
+	var/debug_seed_auto = FALSE
 	var/datum/vc_settings_ui_chungus/setzup
 	// most recent at the bottom, oldest at the top. for updates or something
 	var/list/versions = list(
@@ -61,7 +64,7 @@ SUBSYSTEM_DEF(visualchat)
 	// accepted hosts
 	var/list/valid_hosts = list(
 		"catbox.moe" = "https://files.catbox.moe",
-		"gyazo.com" = "https://i.gyazo.com",
+		// "gyazo.com" = "https://i.gyazo.com", // gyazo ded
 		"f-list.net" = "https://static.f-list.net/images/charimage",
 	)
 	var/list/valid_extensions = list(
@@ -171,6 +174,7 @@ SUBSYSTEM_DEF(visualchat)
 			continue
 		speaker_manager = GetVCAccountPrefsManager(char_key, FALSE, TRUE)
 		char_slot = extract_current_character_slot(source_atom)
+		vc_source_atom = source_atom
 		break
 	if(!speaker_manager)
 		return
@@ -180,6 +184,9 @@ SUBSYSTEM_DEF(visualchat)
 		return // say what, now?
 	// got it! extract the proper saymode
 	var/say_mode = ExtractSaymode(message_data)
+	var/datum/vc_preference_holder/phol = speaker_manager.get_prefs_holder_for_slot(char_slot)
+	if(!phol)
+		return
 	var/datum/vc_saymode/saymode = speaker_manager.manager_get_saymode(vc_source_atom, char_slot, say_mode, bounce_if_default=TRUE)
 	if(!saymode) // null if something is suppressed
 		return
@@ -189,6 +196,16 @@ SUBSYSTEM_DEF(visualchat)
 	var/list/msg_dat = list()
 	if(!Sanify(message_data, spanker))
 		return
+	// hide if speaker ckey is listener ckey
+	if(debug_mommy)
+		to_chat(world, "namedisplayed: [message_data[SATA_DISPLAYED_NAME]]")
+		to_chat(world, "displayedsaymode: [message_data[SATA_DISPLAYED_SAYMODE]]")
+		to_chat(world, "body: [message_data[SATA_MESSAGE_HEARD]]")
+		to_chat(world, "compiled: [message_data[SATA_MESSAGE_COMPILED]]")
+	var/hide_pfp = FALSE
+	if(extract_ckey(reader) == extract_ckey(vc_source_atom))
+		if(!speaker_manager.show_own_pfp)
+			hide_pfp = TRUE
 	msg_dat["name_displayed"]          = message_data[SATA_DISPLAYED_NAME] || ""
 	msg_dat["displayed_saymode"]       = message_data[SATA_DISPLAYED_SAYMODE] || ""
 	msg_dat["body_text"]               = message_data[SATA_MESSAGE_HEARD] || ""
@@ -196,9 +213,16 @@ SUBSYSTEM_DEF(visualchat)
 	msg_dat["am_ghost"]                = message_data[SATA_HEARER_IS_GHOST] || FALSE
 	msg_dat["ghost_link"]              = message_data[SATA_LINK] || ""
 	msg_dat["clipboard"]               = speaker_manager.get_clipboard()
+	msg_dat["hide_pfp"]                = hide_pfp
 	// msg_dat["merge_name_too"]          = merge_into_oncoming_traffic // so tempting at this point
 	msg_dat["msg_splice_timeout"]      = speaker_manager.saymode_cooldown || 0
 	msg_dat["msg_splice_last_saymode"] = speaker_manager.last_saymode || ""
+	msg_dat["differentiator"]          = phol.differentiator
+	if(debug_seed_auto)
+		debug_seed_offsetter = ""
+		for(var/i in 1 to 10)
+			debug_seed_offsetter += pick(GLOB.alphabet_upper)
+		phol.set_differentiator_value()
 	datapaquette["message_data"] = msg_dat
 	speaker_manager.last_saymode = saymode.saymode
 	// and send
@@ -394,6 +418,7 @@ SUBSYSTEM_DEF(visualchat)
 	dat["see_visualchat_range"] = manager.see_visualchat_range
 	dat["see_visualchat_range_max"] = manager.see_visualchat_range_max
 	dat["see_visualchat_range_min"] = manager.see_visualchat_range_min
+	dat["show_own_pfp"] = manager.show_own_pfp
 	// individual saymode suppression toggles are in the saymode data itself
 	dat["human_or_silicon"] = holdiers_flavor_crystal.kind
 	dat["color_swatches"] = manager.color_swatches
@@ -449,10 +474,11 @@ SUBSYSTEM_DEF(visualchat)
 			smode.update_saymode_setting("pfp_image_link_url_filename", params["link"], TRUE)
 			. = TRUE
 		if("copy")
-			mgr.copy_to_clipboard("SAYMODE", saymode_kind, slut, null, null, null)
+			to_chat(user, span_green("copied [params["link"]] to clipboard! Paste it with ctrl+v!"))
+			// mgr.copy_to_clipboard("SAYMODE", saymode_kind, slut, null, null, null)
 			. = TRUE
 		if("paste")//datakind, saymode, slot, setting, value, setting_kind
-			mgr.paste_from_clipboard("SAYMODE", saymode_kind, slut, null, null, null)
+			// mgr.paste_from_clipboard("SAYMODE", saymode_kind, slut, null, null, null)
 			. = TRUE
 		if("set_see_visualchat_range")
 			mgr.see_visualchat_range = clamp(params["range"], mgr.see_visualchat_range_min, mgr.see_visualchat_range_max)
@@ -465,6 +491,9 @@ SUBSYSTEM_DEF(visualchat)
 			. = TRUE
 		if("update")
 			// to_chat(user, span_notice("Updating Image Settings..."))
+			. = TRUE
+		if("toggle_show_own_pfp")
+			mgr.show_own_pfp = !mgr.show_own_pfp
 			. = TRUE
 	if(.)
 		smode.set_durty_saymode()

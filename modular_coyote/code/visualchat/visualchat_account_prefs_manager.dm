@@ -47,6 +47,7 @@
 	var/see_visualchat_range = 3 // the tiledistance where u can actually see visualchat messages from others
 	var/see_visualchat_range_max = 10 // the maximum distance you can set your visualchat range to
 	var/see_visualchat_range_min = 1 // the minimum distance you can set your visualchat range to
+	var/show_own_pfp = FALSE
 
 /datum/vc_account_prefs_manager/New(ckey)
 	owner_ckey = ckey // it'll be referenced by all its subordinates
@@ -80,9 +81,15 @@
 	chatman_data["serial_number"] = SSvisualchat.GetTotalChatmen() + 1
 	chatman_data["tracked_characters"] = list() | user.real_name
 	chatman_data["favorite_shark"] = "[pick(GLOB.megacarp_first_names)] [pick(GLOB.megacarp_last_names)]"
+	chatman_data["show_own_pfp"] = show_own_pfp
+	chatman_data["see_visualchat"] = see_visualchat
+	chatman_data["suppress_account"] = suppress_accountwide
 
 /datum/vc_account_prefs_manager/proc/update_chatman_data()
 	chatman_data["last_updated"] = world.realtime
+	chatman_data["show_own_pfp"] = show_own_pfp
+	chatman_data["see_visualchat"] = see_visualchat
+	chatman_data["suppress_account"] = suppress_accountwide
 	var/client/user = GLOB.directory[owner_ckey]
 	if(user?.mob)
 		if(isnull(chatman_data["tracked_characters"]))
@@ -104,6 +111,15 @@
 	var/datacontent = rustg_file_read(pafth)
 	if(datacontent)
 		chatman_data = json_decode(datacontent)
+		if(isnull(chatman_data["show_own_pfp"]))
+			chatman_data["show_own_pfp"] = initial(show_own_pfp)
+		show_own_pfp = chatman_data["show_own_pfp"]
+		if(isnull(chatman_data["see_visualchat"]))
+			chatman_data["see_visualchat"] = initial(see_visualchat)
+		see_visualchat = chatman_data["see_visualchat"]
+		if(isnull(chatman_data["suppress_account"]))
+			chatman_data["suppress_account"] = initial(suppress_accountwide)
+		suppress_accountwide = chatman_data["suppress_account"]
 		return TRUE
 	return FALSE
 
@@ -227,12 +243,12 @@
 	// clear the clibbord
 	return clipboard.copy_to_clipboard(source_holder, datakind, humanordancer, slot, saymode, setting, value, setting_kind)
 
-/datum/vc_account_prefs_manager/proc/paste_from_clipboard(slot, paste_saymode, paste_setting, paste_value, paste_setting_kind)
+/datum/vc_account_prefs_manager/proc/paste_from_clipboard(datakind, saymode, slot, setting, value, setting_kind)
 	var/humanordancer = get_mob_kind_for_slot(slot)
 	var/datum/vc_preference_holder/target_holder = get_prefs_holder_for_slot(slot, humanordancer)
 	if(!target_holder)
 		CRASH("Attempted to paste clipboard data to a null prefs holder for ckey '[owner_ckey]'! ERROR CODE: EMPTY-CLIPBOARD")
-	return clipboard.paste_from_clipboard(target_holder, paste_saymode, paste_setting, paste_value, paste_setting_kind)
+	return clipboard.paste_from_clipboard(target_holder, datakind, saymode, setting, value, setting_kind)
 
 /datum/vc_account_prefs_manager/proc/get_clipboard()
 	var/list/clipdata = list()
@@ -356,7 +372,7 @@
 			destination_setting.update_terminal_setting(paste_value)
 			return TRUE
 		if("SAYMODE")
-			if(!source_saymode || !source_setting)
+			if(!source_saymode)
 				CRASH("Attempted to deserialize clipboard data with an invalid SAYMODE source_datakind '[source_datakind]'! ERROR CODE: OVERWEIGHT-EXPIE-BELLY")
 			var/datum/vc_saymode/sorc_smode = source.prefholder_get_saymode(source_saymode)
 			var/datum/vc_saymode/destination_saymode = paste_to.prefholder_get_saymode(paste_saymode)

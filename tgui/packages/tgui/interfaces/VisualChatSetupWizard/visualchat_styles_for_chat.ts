@@ -1,4 +1,9 @@
 import type React from 'react';
+import { VCDiff } from 'tgui-panel/chat/visualchat_types';
+import { ModifyHSLA, ConvertToHSLA } from '../PreferencesMenu/CharacterPreferences/BackgroundsColorsAndStyle';
+import { createLogger } from 'tgui/logging';
+
+const logger = createLogger('chatRenderer');
 
 /*
 PP OU - #384148 NB OU - #092626 MMB OU - #284148
@@ -31,8 +36,43 @@ export enum VCStylePackEnum {
 export function MergeStyle(
   base?: React.CSSProperties,
   overrides?: React.CSSProperties,
+  diff?: VCDiff,
 ): React.CSSProperties {
-  return { ...base, ...overrides };
+  const merged: React.CSSProperties = {...base, ...overrides}
+  // apply the hsl diffs to colors if diff is given
+  if (diff) {
+    const innerBGdiff = {h: diff.h * 5, s: diff.s * 0, v: diff.v * 0}
+    const outerBGdiff = {h: diff.h * 20, s: diff.s * 12, v: diff.v * 10}
+    const borderDiff = {h: diff.h * 2, s: diff.s * 1, v: diff.v * 2}
+    for (const k in merged) {
+      const v = merged[k];
+      if (typeof v === 'string') {
+        if (k.includes('outlineColor')) {
+          let coolerdiff = borderDiff
+          logger.log('applying diff ###', coolerdiff);
+          logger.log('old #', ConvertToHSLA(v));
+          merged[k] = ModifyHSLA(v, coolerdiff.h, coolerdiff.s, coolerdiff.v, 0);
+          logger.log('new #', merged[k]);
+        }
+        // gradient shifter!
+        else if (k.includes('background')) {
+          // first one goes up, second gets inverted values
+          let diff = innerBGdiff;
+          if(v.includes('radial')) diff = outerBGdiff;
+          const parts = v.match(/hsl\([^)]+\)/g)
+          logger.log('applying diff to gradient', diff);
+          logger.log('parts', (parts) => (parts.map(p=>ConvertToHSLA(p))));
+          if(parts) {
+            for(let i=0;i<parts.length;i++){
+              merged[k] = merged[k].replace(parts[i], ModifyHSLA(parts[i], diff.h, diff.s, diff.v, 0))
+            }
+          }
+          logger.log('done with gradient', merged[k]);
+        }
+      }
+    }
+  }
+  return merged;
 }
 
 export const defaultVCStyle: VCStylePack = {
@@ -41,28 +81,28 @@ export const defaultVCStyle: VCStylePack = {
     wordBreak: 'break-word',
   },
   OuterBorders: {
-    outlineColor: '#284148',
+    outlineColor: 'hsl(193, 29%, 22%)',
     outlineWidth: '1px',
     outlineStyle: 'solid',
     borderRadius: '4px',
     padding: '4px',
   },
   InnerBorders: {
-    outlineColor: '#092626',
+    outlineColor: 'hsl(180, 62%, 9%)',
     outlineWidth: '1px',
     outlineStyle: 'solid',
     borderRadius: '2px',
     padding: '1px',
   },
   PFPBorders: {
-    outlineColor: '#092626',
+    outlineColor: 'hsl(180, 62%, 9%)',
     outlineWidth: '1px',
     outlineStyle: 'solid',
     borderRadius: '1px',
     padding: '1px',
   },
   PFPBackground: {
-    background: 'linear-gradient(0deg, #284148, #092626)',
+    background: 'linear-gradient(0deg, hsl(193, 29%, 22%), hsl(180, 61%, 9%))',
     padding: '2px',
     alignItems: 'center',
     justifyContent: 'center',
@@ -70,11 +110,11 @@ export const defaultVCStyle: VCStylePack = {
     display: 'flex',
   },
   OuterBackground: {
-    background: 'radial-gradient( #384148, #092626)',
+    background: 'radial-gradient(0deg, hsl(206, 13%, 25%), hsl(180, 62%, 9%))',
     padding: '2px',
   },
   InnerBackgrounds: {
-    background: 'linear-gradient( #284148, #092626)',
+    background: 'linear-gradient(0deg, hsl(193, 29%, 22%), hsl(180, 62%, 9%))',
     padding: '2px',
   },
   Text: {},
@@ -143,11 +183,11 @@ const VC_STYLE_PACKS: Record<VCStylePackEnum, VCStylePack> = {
 
 // merges a whole preset onto the default pack, piece by piece, so a preset
 // only has to specify the bits it wants to change
-export function GetVCChatStylePack(stylepls: VCStylePackEnum): VCStylePack {
+export function GetVCChatStylePack(stylepls: VCStylePackEnum, diff?: VCDiff): VCStylePack {
   const preset = VC_STYLE_PACKS[stylepls] ?? defaultVCStyle;
   const merged = {} as VCStylePack;
   for (const part of Object.keys(defaultVCStyle) as (keyof VCStylePack)[]) {
-    merged[part] = MergeStyle(defaultVCStyle[part], preset[part]);
+    merged[part] = MergeStyle(defaultVCStyle[part], preset[part], diff);
   }
   return merged;
 }

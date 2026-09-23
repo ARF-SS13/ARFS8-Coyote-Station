@@ -29,6 +29,7 @@ import {
 import {
   type VCAssemblerHolder,
   VCCopyMode,
+  VCDiff,
   type VCMessageData,
   VCSaymode,
   type VCSaymodeData,
@@ -195,6 +196,16 @@ function HeaderControls() {
           ))} */}
           <Stack.Item grow />
           {/* VC toggles */}
+          <Stack.Item shrink>
+            <Button
+              style={data.show_own_pfp ? selstyle : buttstyle}
+              selected={data.show_own_pfp}
+              tooltip={VCGetTooltip(VCTT.VCToggleShowOwn, null)}
+              onClick={() => act('toggle_show_own_pfp', {})}
+            >
+              Show Own PFP? {data.show_own_pfp ? 'Yes' : 'No'}
+            </Button>
+          </Stack.Item>
           <Stack.Item shrink>
             <Button
               style={!data.suppress_account ? selstyle : buttstyle}
@@ -364,7 +375,7 @@ function OverviewContent() {
       style={VCStyle.OverviewContent}
     >
       {Object.values(saymodes)
-        .filter((m) => m.saymode_kind !== VCSaymode.EmoteQuick)
+        .filter((m) => m.saymode_kind !== VCSaymode.EmoteQuick && m.sayname != "Cool Mode")
         .map((item) => {
           return <BuildPreviewBingus key={item.sayname} saymode_dat={item} />;
         })}
@@ -598,81 +609,65 @@ function UnderBarrelSettingChunk({
     saymode: saydat.saymode_kind,
     h_or_s: human_or_silicon,
   };
+  const copyToUserWindowsClipboard = () => {
+    navigator.clipboard.writeText(saydat.pfp_image_link);
+  }
   const showPaste = !!data.clipboard;
   return (
     <Stack fill style={{ alignItems: 'center', gap: '2px' }}>
+
+      {/* {showPaste && (
+        <Stack.Item shrink>
+          <Button
+            tooltip={VCGetTooltip(VCTT.PasteSaymode, null)}
+            icon="paste"
+            style={buttstyle}
+            onClick={pasteHere}
+          />
+        </Stack.Item>
+      )} */}
+      <Stack.Item shrink>
+        <Tooltip content={VCGetTooltip(VCTT.SettingInfoUrlFile, saydat)}>
+          <span style={{fontWeight: 'bold', paddingRight: '5px', paddingLeft: '5px'}}>Profile Pic Link:</span>
+        </Tooltip>
+      </Stack.Item>
+      <Stack.Item shrink>
+        <Tooltip content={VCGetTooltip(VCTT.SettingInfoUrlFile, data)}>
+          <Input
+            fluid
+            width="300px"
+            autoSelect
+            style={buttstyle}
+            placeholder="Enter a link to a cute picture!"
+            value={saydat.pfp_image_link as string}
+            onClick={(e) => (e.currentTarget.select())}
+            onBlur={(value) =>
+              (act('set_link', {
+                ...identSlug,
+                link: value,
+              }))
+            }
+          />
+        </Tooltip>
+      </Stack.Item>
       <Stack.Item shrink>
         <Box style={{ cursor: 'pointer' }}>
           <Button
             tooltip={VCGetTooltip(VCTT.CopySaymode, null)}
             icon="copy"
             style={buttstyle}
-            onClick={() => {
-              act('copy', {
-                ...identSlug,
-                copy_mode: VCCopyMode.Saymode, // <-- thats the new one!
-              });
-            }}
+            onClick={copyToUserWindowsClipboard}
           />
         </Box>
       </Stack.Item>
-      {showPaste && (
-        <Stack.Item shrink>
-          <Button
-            tooltip={VCGetTooltip(VCTT.PasteSaymode, null)}
-            icon="paste"
-            style={buttstyle}
-            onClick={() => {
-              act('paste', {
-                ...identSlug,
-              });
-            }}
-          />
-        </Stack.Item>
-      )}
-      <Stack.Item shrink>
-        <Tooltip content={VCGetTooltip(VCTT.SettingInfoUrlChoose, saydat)}>
-          <Dropdown
-            style={buttstyle}
-            onSelected={(value) =>
-              act('set_host', {
-                ...identSlug,
-                host: value,
-              })
-            }
-            options={['None!', ...data.valid_hosts]}
-            selected={
-              saydat?.settings?.pfp_image_link_url_host?.value as string
-            }
-            width="125px"
-            fluid
-          />
-        </Tooltip>
-      </Stack.Item>
-      <Stack.Item shrink>
-        <Tooltip content={VCGetTooltip(VCTT.SettingInfoUrlFile, saydat)}>
-          <Input
-            fluid
-            style={buttstyle}
-            placeholder="Enter a link to a cute picture!"
-            value={saydat.settings.pfp_image_link_url_filename.value as string}
-            onBlur={(value) =>
-              act('set_link', {
-                ...identSlug,
-                link: value,
-              })
-            }
-          />
-        </Tooltip>
-      </Stack.Item>
-      <Stack.Item shrink>
+      {/* <Stack.Item shrink>
         <Button // doesnt actually do anything, it just gets players to click out of the input thing
           style={buttstyle}
-          onClick={() => act('update', {})} // """"update""""
+          onClick={() => act('update')} // """"update""""
         >
           Update!
         </Button>
-      </Stack.Item>
+      </Stack.Item> */}
     </Stack>
   );
 }
@@ -699,6 +694,8 @@ function GenerateMessageData(saydat: VCSaymodeData): VCMessageData {
     msg_splice_last_saymode: '',
     use_settings: false,
     merge_name_too: false,
+    hide_pfp: false,
+    differentiator: {h:0,s:0,v:0} as VCDiff
   };
   return ourMessageData; // ya know i was expecting a lot more stuff
 }
