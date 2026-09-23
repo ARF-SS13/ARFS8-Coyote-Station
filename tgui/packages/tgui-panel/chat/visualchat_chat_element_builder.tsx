@@ -238,7 +238,7 @@ export function AssembleVisualChatElement(
     case VCDisplayMode.PreCompiledWithoutImage:
       return (
         <Box style={{ ...vch.outerBoxStyle }}>
-          <Stack fill style={{ gap: '0px' }}>
+          <Stack fill>
             {/* Profile picture */}
             {displayMode !== VCDisplayMode.PreCompiledWithoutImage && coolImage}
             {/* Name and message */}
