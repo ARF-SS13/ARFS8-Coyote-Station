@@ -405,8 +405,8 @@ class ChatRenderer {
     const len = this.messages.length;
     const from = len - 1;
     const to = Math.max(0, len - 2);
-    const ourpfp = predicate.extraData.saymode_data.pfp_image_link;
-    const ourSay = predicate.extraData.saymode_data.saymode_kind;
+    const ourpfp = predicate.extraData?.saymode_data?.pfp_image_link;
+    const ourSay = predicate.extraData?.saymode_data?.saymode_kind;
     for (let i = from; i >= to; i--) {
       const message = this.messages[i];
       if (!message.extraData) continue;

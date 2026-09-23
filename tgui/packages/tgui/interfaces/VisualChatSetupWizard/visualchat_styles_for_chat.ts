@@ -42,8 +42,8 @@ export function MergeStyle(
   // apply the hsl diffs to colors if diff is given
   if (diff) {
     const innerBGdiff = {h: diff.h * 5, s: diff.s * 0, v: diff.v * 0}
-    const outerBGdiff = {h: diff.h * 20, s: diff.s * 12, v: diff.v * 10}
-    const borderDiff = {h: diff.h * 2, s: diff.s * 1, v: diff.v * 2}
+    const outerBGdiff = {h: diff.h * 20, s: diff.s * 10, v: diff.v * 5}
+    const borderDiff = {h: diff.h * 3, s: diff.s * 1, v: diff.v * 1}
     for (const k in merged) {
       const v = merged[k];
       if (typeof v === 'string') {

@@ -433,19 +433,17 @@
 		if(holo.Impersonation?.client)
 			hearers |= holo.Impersonation
 	var/list/audible_data = list()
-	if(LAZYLEN(message_data))
-		audible_data[SATA_MESSAGE_HEARD] = message_data[SATA_MESSAGE_HEARD] || message
-		audible_data[SATA_SPEAKER] = message_data[SATA_SPEAKER] || src
-		audible_data[SATA_VC_SOURCE] = message_data[SATA_VC_SOURCE] || src
-		audible_data[SATA_SAYMODE] = message_data[SATA_SAYMODE] || SAYMODE_EMOTE
-
 	//SKYRAT EDIT ADDITION END - AI QoL
 	var/raw_msg = message
 	if(audible_message_flags & WITH_EMPHASIS_MESSAGE)
 		message = apply_message_emphasis(message)
 	if(audible_message_flags & EMOTE_MESSAGE)
 		message = span_emote("<b>[src]</b>[separation][message]") //SKYRAT EDIT CHANGE
-		message_data[SATA_MESSAGE_HEARD] = message
+	if(LAZYLEN(message_data))
+		audible_data[SATA_MESSAGE_HEARD] = message
+		audible_data[SATA_SPEAKER] = message_data[SATA_SPEAKER] || src
+		audible_data[SATA_VC_SOURCE] = message_data[SATA_VC_SOURCE] || src
+		audible_data[SATA_SAYMODE] = message_data[SATA_SAYMODE] || SAYMODE_EMOTE
 
 	for(var/mob/hearing_mob as anything in hearers)
 		if(!hearing_mob?.client)
