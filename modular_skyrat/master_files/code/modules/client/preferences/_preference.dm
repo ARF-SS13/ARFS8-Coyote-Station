@@ -209,7 +209,8 @@
 	var/bodypart_is_visible = preferences && is_visible(target, preferences)
 
 	if(!bodypart_is_visible)
-		value = create_default_value()
+		return bodypart_is_visible
+		// value = create_default_value()
 
 	if(!target.dna.mutant_bodyparts[relevant_mutant_bodypart])
 		target.dna.mutant_bodyparts[relevant_mutant_bodypart] = list(MUTANT_INDEX_NAME = value, MUTANT_INDEX_COLOR_LIST = list("#FFFFFF", "#FFFFFF", "#FFFFFF"), MUTANT_INDEX_EMISSIVE_LIST = list(FALSE, FALSE, FALSE))
