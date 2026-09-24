@@ -7079,6 +7079,8 @@
 #include "modular_coyote\code\preference_stuff\temperments_and_builds_middleware.dm"
 #include "modular_coyote\code\preference_stuff\temperments_and_builds_preference.dm"
 #include "modular_coyote\code\preference_stuff\temperments_and_builds_temperments.dm"
+#include "modular_coyote\code\role_play_incentive\rpi_chat_rubrics.dm"
+#include "modular_coyote\code\role_play_incentive\rpi_subsystem.dm"
 #include "modular_coyote\code\visualchat\vc_modular_proc_hellscape.dm"
 #include "modular_coyote\code\visualchat\vc_setting.dm"
 #include "modular_coyote\code\visualchat\vc_settings_ui_chungus.dm"

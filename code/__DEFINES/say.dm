@@ -65,6 +65,11 @@
 #define SATA_BODY_SPAN_CLASS        "body_span_class"
 #define SATA_BODY_SPAN_COLOR        "body_span_color"
 
+/// RPI stuff
+#define SATA_RPI_MESSAGE "rpi_message"
+#define SATA_RPI_SAYMODE "rpi_saymode"
+#define SATA_RPI_LISTENERS "rpi_listeners"
+
 //Message modes. Each one defines a radio channel, more or less.
 //if you use ! as a mode key for some ungodly reason, change the first character for ion_num() so get_message_mode() doesn't freak out with state law prompts - shiz.
 #define MODE_HEADSET "headset"
