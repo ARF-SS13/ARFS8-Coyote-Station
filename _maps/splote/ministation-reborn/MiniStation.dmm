@@ -18618,13 +18618,9 @@
 	},
 /area/station/service/chapel)
 "kqZ" = (
-/obj/structure/closet/secure_closet/personal/wall{
-	pixel_x = 32
-	},
 /obj/item/towel,
 /obj/item/clothing/under/misc/skyrat/gear_harness,
 /obj/machinery/light/directional/south,
-/obj/structure/rack/wooden,
 /turf/open/floor/wood/tile,
 /area/station/common/night_club/changing_room)
 "kru" = (
@@ -29790,6 +29786,9 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/iron,
 /area/station/service/janitor)
+"qjO" = (
+/turf/open/floor/wood/tile,
+/area/station/common/night_club/changing_room)
 "qjX" = (
 /obj/structure/mirror/directional/east,
 /obj/structure/bed/pod{
@@ -30701,7 +30700,6 @@
 	},
 /obj/item/towel,
 /obj/item/clothing/under/misc/skyrat/gear_harness,
-/obj/structure/rack/wooden,
 /turf/open/floor/wood/tile,
 /area/station/common/night_club/changing_room)
 "qFp" = (
@@ -141559,7 +141557,7 @@ jev
 mED
 uyL
 yis
-nOs
+qjO
 kqZ
 sSP
 weg
