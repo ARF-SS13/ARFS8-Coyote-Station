@@ -21,6 +21,11 @@
 	category = EVENT_CATEGORY_SPACE
 	description = "Spawns a CME event of varied severities"
 
+//Notation For Event Awareness
+/*
+This event needs proper testing, armageddon should likely be avoided outright. I am aware it tends to fuck up robotics and people with robotic parts, so should perhaps consider science - if not specifically roboticists.
+*/
+
 /datum/round_event/cme
 	start_when = 6
 	end_when	= 66

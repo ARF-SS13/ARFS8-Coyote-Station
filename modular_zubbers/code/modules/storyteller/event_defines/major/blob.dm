@@ -9,6 +9,11 @@
 	category = EVENT_CATEGORY_ENTITIES
 	description = "Spawns a new blob overmind."
 
+//Notation For Event Awareness
+/*
+Heads and Sec heavy event, should also be near round end.
+*/
+
 /datum/round_event_control/blob/can_spawn_event(players, allow_magic = FALSE)
 	if(EMERGENCY_PAST_POINT_OF_NO_RETURN) // no blobs if the shuttle is past the point of no return
 		return FALSE

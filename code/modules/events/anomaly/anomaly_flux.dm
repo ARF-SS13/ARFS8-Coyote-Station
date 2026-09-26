@@ -9,6 +9,11 @@
 	min_wizard_trigger_potency = 1
 	max_wizard_trigger_potency = 4
 
+//Notation For Event Awareness
+/*
+Engineer and Med check.  No eng, no explosion.
+*/
+
 /datum/round_event/anomaly/anomaly_flux
 	start_when = ANOMALY_START_DANGEROUS_TIME
 	announce_when = ANOMALY_ANNOUNCE_DANGEROUS_TIME

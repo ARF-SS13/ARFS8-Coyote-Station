@@ -14,6 +14,11 @@
 	var/lightsoutRange = 25
 	announce_when = 1
 
+//Notation For Event Awareness
+/*
+Eng check
+*/
+
 /datum/round_event/electrical_storm/announce(fake)
 	priority_announce("An electrical storm has been detected in your area, please repair potential electronic overloads.", "Electrical Storm Alert", ANNOUNCER_ELECTRICALSTORM) //SKYRAT EDIT CHANGE
 

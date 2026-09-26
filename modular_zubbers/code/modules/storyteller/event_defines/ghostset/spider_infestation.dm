@@ -15,6 +15,11 @@
 	announce_when = 400
 	var/spawncount = 2
 
+//Notation For Event Awareness
+/*
+Should defo require a decent sec presence
+*/
+
 /datum/round_event/spider_infestation/setup()
 	announce_when = rand(announce_when, announce_when + 50)
 

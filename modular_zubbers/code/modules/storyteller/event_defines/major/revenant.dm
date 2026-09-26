@@ -14,6 +14,11 @@
 	max_wizard_trigger_potency = 7
 
 
+//Notation For Event Awareness
+/*
+Shoudl req sec and at least one chaplain - but may be too rough overall.  Afterall, most of our station is made of glass dome to space.
+*/
+
 /datum/round_event/ghost_role/revenant
 	var/ignore_mobcheck = FALSE
 	role_name = "revenant"

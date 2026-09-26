@@ -11,6 +11,11 @@
 	max_wizard_trigger_potency = 3
 	admin_setup = list(/datum/event_admin_setup/carp_migration)
 
+//Notation For Event Awareness
+/*
+Should definitely check for security, with size modulation based off the amount of sec awake.  HoS/Warden should also increase difficulty.
+*/
+
 /datum/round_event_control/carp_migration/New()
 	. = ..()
 	if(!HAS_TRAIT(SSstation, STATION_TRAIT_CARP_INFESTATION))

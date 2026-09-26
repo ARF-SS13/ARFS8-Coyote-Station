@@ -12,6 +12,11 @@
 	admin_setup = list(/datum/event_admin_setup/listed_options/stray_meteor)
 	map_flags = EVENT_SPACE_ONLY
 
+//Notation For Event Awareness
+/*
+Single engineer check
+*/
+
 /datum/round_event/stray_meteor
 	announce_when = 1
 	fakeable = FALSE //Already faked by meteors that miss

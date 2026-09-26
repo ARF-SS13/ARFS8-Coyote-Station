@@ -6,6 +6,11 @@
 	category = EVENT_CATEGORY_ENGINEERING
 	description = "Emps the telecomm processors, scrambling radio speech. Might blow up a few."
 
+//Notation For Event Awareness
+/*
+Should req engineer/telecom specialist - can they even fix this?
+*/
+
 /datum/round_event/processor_overload
 	announce_when = 1
 

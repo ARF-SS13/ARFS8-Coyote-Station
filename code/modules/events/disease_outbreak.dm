@@ -92,6 +92,12 @@
 	disease_control.generate_candidates() //can_spawn_event() is bypassed by admin_setup, so this makes sure that the candidates are still generated
 	return length(disease_control.disease_candidates)
 
+//Notation For Event Awareness
+/*
+We need to make sure diseases have a chance to self-heal and innoculate after doing so to stop the player from getting the same disease multiple times over.
+Should only trigger if medical is on - preferably a virologist in particular, and should have a large warning time beforehand that points the virologist in the direction that they need to go to prep.
+Certainly shouldn't be anything too dangerous as well, no spanish flu jesus christ lmao
+*/
 
 ///Handles actually selecting whicch disease will spawn.
 /datum/event_admin_setup/listed_options/disease_outbreak

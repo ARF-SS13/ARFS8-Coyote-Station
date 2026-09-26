@@ -16,6 +16,11 @@
 	///The area subtypes to be targeted by the event.
 	var/list/grey_tide_areas = list()
 
+//Notation For Event Awareness
+/*
+Should req sec and eng
+*/
+
 /datum/round_event/grey_tide/setup()
 	announce_when = rand(50, 60)
 	end_when = rand(20, 30)

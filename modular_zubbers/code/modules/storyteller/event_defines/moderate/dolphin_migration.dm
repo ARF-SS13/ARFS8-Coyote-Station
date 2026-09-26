@@ -16,6 +16,11 @@
 
 	tags = list(TAG_SPACE, TAG_NEUTRAL)
 
+//Notation For Event Awareness
+/*
+We need to remember to make these fuckers annoying as hell.  Monkey-dolphins my beloved.  Otherwise this is likely fine.
+*/
+
 /datum/round_event/dolphin_migration
 	announce_when = 3
 	start_when = 50

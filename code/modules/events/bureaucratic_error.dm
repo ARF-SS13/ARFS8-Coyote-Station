@@ -6,6 +6,11 @@
 	category = EVENT_CATEGORY_BUREAUCRATIC
 	description = "Randomly opens and closes job slots, along with changing the overflow role."
 
+//Notation For Event Awareness
+/*
+Should probably just check for a head of staff to be on.
+*/
+
 /datum/round_event/bureaucratic_error
 	announce_when = 1
 
