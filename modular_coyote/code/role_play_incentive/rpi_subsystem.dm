@@ -42,7 +42,7 @@ SUBSYSTEM_DEF(rpi)
 	/// saymode = /datum/rpi_chat_rubric
 	var/list/say_rubrics = list()
 	var/list/banned_saymodes = list()
-	var/payout_payward_interval = 20 MINUTES
+	var/payout_payward_interval = 5 MINUTES
 	var/last_tick = 0
 	/// debug stuff
 	var/debug_scoring = FALSE
