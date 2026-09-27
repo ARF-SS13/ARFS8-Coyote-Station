@@ -41,6 +41,8 @@
 	var/list/redeemed_coupons
 	/// How many paychecks to skip when payday is called.
 	var/paydays_to_skip = 0
+	/// the unique ID of this account.
+	var/original_owner_uid
 
 /datum/bank_account/New(newname, job, modifier = 1, player_account = TRUE)
 	account_holder = newname
@@ -133,15 +135,15 @@
  * * amount - the quantity of credits that will be written off if the value is negative, or added if it is positive.
  * * reason - the reason for the appearance or loss of money
  */
-/datum/bank_account/proc/adjust_money(amount, reason)
+/datum/bank_account/proc/adjust_money(amount, reason, debtify = TRUE)
 	if((amount < 0 && has_money(-amount)) || amount > 0)
 		var/debt_collected = 0
-		if(account_debt > 0 && amount > 0)
+		if(account_debt > 0 && amount > 0 && debtify)
 			debt_collected = min(CEILING(amount*DEBT_COLLECTION_COEFF, 1), account_debt)
 		account_balance += amount - debt_collected
 		if(reason)
 			add_log_to_history(amount, reason)
-		if(debt_collected)
+		if(debt_collected && debtify)
 			pay_debt(debt_collected, FALSE)
 		return TRUE
 	return FALSE

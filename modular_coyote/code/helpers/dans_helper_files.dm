@@ -50,6 +50,9 @@
 	return null
 
 /proc/extract_mob(something)
+	var/mob/mub = get_mob_by_ckey(something)
+	if(mub)
+		return mub
 	if(ismob(something))
 		return something
 	if(istype(something, /client))

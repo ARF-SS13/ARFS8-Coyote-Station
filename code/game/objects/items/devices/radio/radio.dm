@@ -380,6 +380,7 @@
 
 	if(isliving(talking_movable))
 		var/mob/living/talking_living = talking_movable
+		SSrpi.SayAction(talking_living, message_data)
 		var/volume_modifier = (talking_living.client?.prefs.read_preference(/datum/preference/numeric/volume/sound_radio_noise))
 		if(radio_noise)
 			if(!HAS_TRAIT(talking_living, TRAIT_DEAF))
@@ -391,6 +392,7 @@
 								var/sound/radio_noise = sound('sound/items/radio/radio_talk.ogg', volume = volume_modifier)
 								radio_noise.frequency = get_rand_frequency_low_range()
 								SEND_SOUND(talking_living, radio_noise)
+
 
 	// All radios make an attempt to use the subspace system first
 	signal.send_to_receivers()

@@ -68,6 +68,7 @@
 	message_data[SATA_DISPLAYED_SAYMODE] = "projects over the hivemind..."
 
 	// Send the message to our other changelings.
+	var/list/heard = list()
 	for(var/datum/antagonist/changeling/ling_receiver in GLOB.antagonists)
 		if(!ling_receiver.owner)
 			continue
@@ -80,6 +81,7 @@
 			continue
 		var/list/recipient_data = message_data.Copy()
 		to_chat(ling_mob, msg, type = MESSAGE_TYPE_RADIO, avoid_highlighting = ling_mob == user, extra_data = recipient_data)
+		heard += ling_mob
 
 	for(var/mob/dead/ghost as anything in GLOB.dead_mob_list)
 		var/linkie = FOLLOW_LINK(ghost, user)

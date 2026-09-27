@@ -452,6 +452,7 @@
 		if(equipped.age)
 			card.registered_age = equipped.age
 
+		card.original_owner_uid = equipped.m_uid
 		card.update_label()
 		card.update_icon()
 		var/datum/bank_account/account = SSeconomy.bank_accounts_by_id["[equipped.account_id]"]
