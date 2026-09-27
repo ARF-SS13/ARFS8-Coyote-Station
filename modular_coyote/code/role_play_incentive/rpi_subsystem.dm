@@ -45,7 +45,7 @@ SUBSYSTEM_DEF(rpi)
 	var/payout_payward_interval = 20 MINUTES
 	var/last_tick = 0
 	/// debug stuff
-	var/debug_scoring = TRUE
+	var/debug_scoring = FALSE
 
 /datum/controller/subsystem/rpi/Initialize()
 	InitDatumsAndSuch()
