@@ -1,3 +1,4 @@
+GLOBAL_VAR_INIT(next_uid, 1)
 /atom/movable
 	abstract_type = /atom/movable
 	layer = OBJ_LAYER
@@ -141,6 +142,8 @@
 	// this gonna mergeconflict
 	/// halfassed implementation of goon's TRACK_CAT system
 	var/tracking_category
+	/// Uniqueish id for this movable, ''''''''unique'''''
+	var/m_uid = 0
 
 /mutable_appearance/emissive_blocker
 
@@ -153,6 +156,8 @@
 /atom/movable/Initialize(mapload, ...)
 	if(tracking_category)
 		SScat_tracker.TrackCategory(src, list(tracking_category))
+	m_uid = GLOB.next_uid
+	GLOB.next_uid += 1
 	if(LAZYLEN(faction))
 		faction = string_list(faction)
 

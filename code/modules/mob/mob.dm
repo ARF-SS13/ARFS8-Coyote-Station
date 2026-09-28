@@ -320,11 +320,13 @@
 		message = span_emote("<b>[src]</b>[separation][message]") // SKYRAT EDIT - Better emotes
 	// COYOTE EDIT: message data for horny purposes
 	if(LAZYLEN(message_data))
+		message_data[SATA_MESSAGE_SPOKEN] = message
 		message_data[SATA_MESSAGE_HEARD] = message
 		message_data[SATA_SPEAKER] = src
 		message_data[SATA_VC_SOURCE] = src
 		message_data[SATA_SAYMODE] = SAYMODE_EMOTE
 
+	var/list/listeners = list()
 	for(var/mob/hearing_mob as anything in hearers)
 		if(!hearing_mob?.client)
 			continue
@@ -364,6 +366,9 @@
 		hearing_message_data[SATA_MESSAGE_HEARD] = msg
 
 		hearing_mob.show_message(msg, msg_type, blind_message, MSG_AUDIBLE, message_data = hearing_message_data)
+		listeners += hearing_mob
+	message_data[SATA_RPI_LISTENERS] = listeners
+	SSrpi.SayAction(src, message_data)
 
 ///Adds the functionality to self_message.
 /mob/visible_message(message,
@@ -440,11 +445,13 @@
 	if(audible_message_flags & EMOTE_MESSAGE)
 		message = span_emote("<b>[src]</b>[separation][message]") //SKYRAT EDIT CHANGE
 	if(LAZYLEN(message_data))
+		audible_data[SATA_MESSAGE_SPOKEN] = message
 		audible_data[SATA_MESSAGE_HEARD] = message
 		audible_data[SATA_SPEAKER] = message_data[SATA_SPEAKER] || src
 		audible_data[SATA_VC_SOURCE] = message_data[SATA_VC_SOURCE] || src
 		audible_data[SATA_SAYMODE] = message_data[SATA_SAYMODE] || SAYMODE_EMOTE
 
+	var/list/listened = list()
 	for(var/mob/hearing_mob as anything in hearers)
 		if(!hearing_mob?.client)
 			continue
@@ -453,6 +460,9 @@
 		if(audible_message_flags & EMOTE_MESSAGE && runechat_prefs_check(hearing_mob, audible_message_flags) && !HAS_TRAIT(hearing_mob, TRAIT_DEAF))
 			hearing_mob.create_chat_message(src, raw_message = raw_msg, runechat_flags = audible_message_flags)
 		hearing_mob.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL, message_data = audible_data)
+		listened += hearing_mob
+	audible_data[SATA_RPI_LISTENERS] = listened
+	SSrpi.SayAction(src, audible_data)
 
 /**
  * Show a message to all mobs in earshot of this one

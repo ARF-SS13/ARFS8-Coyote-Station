@@ -125,6 +125,7 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 		SATA_SPEAKER = src,
 		SATA_VC_SOURCE = message_data[SATA_VC_SOURCE] || src,
 		SATA_MESSAGE_SPOKEN = message,
+		SATA_RPI_MESSAGE = message,
 		SATA_MESSAGE_HEARD = message,
 		SATA_SPANS = spans,
 		SATA_LANGUAGE = language,
@@ -161,14 +162,14 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 			message_data -= SATA_RADIO_EXTENSION
 
 	switch(stat)
-		if(SOFT_CRIT)
+		if(SOFT_CRIT, HARD_CRIT)
 			message_data[WHISPER_MODE] = MODE_WHISPER
 			message_data[SATA_SAYMODE] = SAYMODE_WHISPER
 		if(UNCONSCIOUS)
 			return
-		if(HARD_CRIT)
-			if(!message_data[WHISPER_MODE])
-				return
+		// if(HARD_CRIT)
+		// 	if(!message_data[WHISPER_MODE])
+		// 		return
 		if(DEAD)
 			say_dead(original_message, message_data[SATA_LANGUAGE_EXTENSION])
 			return
@@ -471,6 +472,8 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 		))
 			listened += listening_movable
 
+	message_data[SATA_RPI_LISTENERS] = listened
+	SSrpi.SayAction(src, message_data)
 	//speech bubble
 	var/list/speech_bubble_recipients = list()
 	var/found_client = FALSE
@@ -573,11 +576,11 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 
 /mob/living/proc/radio(message, list/message_data = list(), list/spans, language)
 	//SKYRAT EDIT ADDITION BEGIN
-	if(message_data[MODE_HEADSET] || message_data[SATA_RADIO_EXTENSION])
-		if(!(mobility_flags & MOBILITY_USE))
-			if(!isAI(src) && !ispAI(src) && !ismecha(loc)) // If can't use items, you can't press the button
-				to_chat(src, span_warning("You can't use the radio right now as you can't reach the button!"))
-				return ITALICS | REDUCE_RANGE
+	// if(message_data[MODE_HEADSET] || message_data[SATA_RADIO_EXTENSION])
+	// 	if(!(mobility_flags & MOBILITY_USE))
+	// 		if(!isAI(src) && !ispAI(src) && !ismecha(loc)) // If can't use items, you can't press the button
+	// 			to_chat(src, span_warning("You can't use the radio right now as you can't reach the button!"))
+	// 			return ITALICS | REDUCE_RANGE
 	var/list/broadcast_data = message_data.Copy()
 	broadcast_data[SATA_IS_RADIO] = TRUE
 	broadcast_data[SATA_VC_SOURCE_OVERRIDE] = src // just to be sure

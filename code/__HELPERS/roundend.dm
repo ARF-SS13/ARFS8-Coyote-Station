@@ -328,6 +328,8 @@ GLOBAL_LIST_INIT(achievements_unlocked, list())
 
 	CHECK_TICK
 
+	// parts += SSrpi.RpiReport()
+
 	//Antagonists
 	parts += antag_report()
 

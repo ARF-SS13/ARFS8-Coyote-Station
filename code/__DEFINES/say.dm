@@ -14,14 +14,14 @@
 
 /// datas set by the speaker
 /// this is the atom emitting the message (usually the speaker), could be a radio or something
-#define SATA_SPEAKER                "speaker"
+#define SATA_SPEAKER             "speaker"
 /// the atom to pull the visualchat client prefs from (also usually the speaker)
-#define SATA_VC_SOURCE             "origin"
+#define SATA_VC_SOURCE           "origin"
 /// something to override the above, without changing the original source atom... somehow
-#define SATA_VC_SOURCE_OVERRIDE    "origin_override"
-#define SATA_MESSAGE_SPOKEN         "message_spoken"
-#define SATA_LANGUAGE               "language"
-#define SATA_SAYMODE                "saymode"
+#define SATA_VC_SOURCE_OVERRIDE  "origin_override"
+#define SATA_MESSAGE_SPOKEN      "message_spoken"
+#define SATA_LANGUAGE            "language"
+#define SATA_SAYMODE             "saymode"
 		#define SAYMODE_SAY          "saymode_say"
 		#define SAYMODE_WHISPER      "saymode_whisper"
 		#define SAYMODE_ASK          "saymode_ask"
@@ -34,36 +34,41 @@
 		#define SAYMODE_RADIO        "saymode_radio"
 		#define SAYMODE_SUCCUMB      "saymode_succumb"
 		#define SAYMODE_CUSTOM       "saymode_custom"
-#define SATA_SAYMODE_MODS           "saymode_mods"
+#define SATA_SAYMODE_MODS        "saymode_mods"
 		#define SAYMODE_MODIFIER_SLURRING    (1<<0)
 		#define SAYMODE_MODIFIER_STUTTERING  (1<<1)
 		#define SAYMODE_MODIFIER_SIGN        (1<<2)
-#define SATA_IS_RADIO               "is_radio"
-#define SATA_IS_EMOTE               "is_emote"
-#define SATA_IS_EMOTE_QUICK         "is_emote_quick"
-#define SATA_SPEAKER_IS_PLAYER      "speaker_is_player"
-#define SATA_RADIO_FREQ             "radio_freq"
-#define SATA_MESSAGE_RANGE          "message_range"
-#define SATA_MESSAGE_IS_SIGNED       "message_is_signed"
+#define SATA_IS_RADIO            "is_radio"
+#define SATA_IS_EMOTE            "is_emote"
+#define SATA_IS_EMOTE_QUICK      "is_emote_quick"
+#define SATA_SPEAKER_IS_PLAYER   "speaker_is_player"
+#define SATA_RADIO_FREQ          "radio_freq"
+#define SATA_MESSAGE_RANGE       "message_range"
+#define SATA_MESSAGE_IS_SIGNED   "message_is_signed"
 
 /// datas set by the listener
-#define SATA_MESSAGE_HEARD          "message_heard"
-#define SATA_MESSAGE_COMPILED       "heard_composed_message"
-#define SATA_DISPLAYED_SAYMODE      "saymode_composed"
-#define SATA_DISPLAYED_NAME         "displayed_name"
-#define SATA_RADIO_FREQ_COLOR       "radio_freq_color"
-#define SATA_RADIO_FREQ_NAME        "radio_freq_name"
-#define SATA_HEARER_IS_GHOST        "hearer_is_ghost"
-#define SATA_LANGUAGE_ICON          "language_icon"
-#define SATA_LANGUAGE_UNDERSTOOD    "language_understood"
-#define SATA_LINK                   "link"
+#define SATA_MESSAGE_HEARD       "message_heard"
+#define SATA_MESSAGE_COMPILED    "heard_composed_message"
+#define SATA_DISPLAYED_SAYMODE   "saymode_composed"
+#define SATA_DISPLAYED_NAME      "displayed_name"
+#define SATA_RADIO_FREQ_COLOR    "radio_freq_color"
+#define SATA_RADIO_FREQ_NAME     "radio_freq_name"
+#define SATA_HEARER_IS_GHOST     "hearer_is_ghost"
+#define SATA_LANGUAGE_ICON       "language_icon"
+#define SATA_LANGUAGE_UNDERSTOOD "language_understood"
+#define SATA_LINK                "link"
 
 /// datas set by both (shared, usually)
-#define SATA_MESSAGE_DATA           "message_data"
-#define SATA_SPANS                  "spans"
-#define SATA_RADIO_TAG              "radio_tag"
-#define SATA_BODY_SPAN_CLASS        "body_span_class"
-#define SATA_BODY_SPAN_COLOR        "body_span_color"
+#define SATA_MESSAGE_DATA        "message_data"
+#define SATA_SPANS               "spans"
+#define SATA_RADIO_TAG           "radio_tag"
+#define SATA_BODY_SPAN_CLASS     "body_span_class"
+#define SATA_BODY_SPAN_COLOR     "body_span_color"
+
+/// RPI stuff
+#define SATA_RPI_MESSAGE "rpi_message"
+#define SATA_RPI_SAYMODE "rpi_saymode"
+#define SATA_RPI_LISTENERS "rpi_listeners"
 
 //Message modes. Each one defines a radio channel, more or less.
 //if you use ! as a mode key for some ungodly reason, change the first character for ion_num() so get_message_mode() doesn't freak out with state law prompts - shiz.

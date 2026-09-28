@@ -123,6 +123,8 @@
 	var/honorific_position = HONORIFIC_POSITION_NONE
 	/// What is our selected honorific?
 	var/chosen_honorific
+	/// original owner of the card, movable uid
+	var/original_owner_uid
 
 
 /datum/armor/card_id
@@ -513,6 +515,7 @@
 		stack_trace("Despite [src] not being registered to [account], the account already has it within the bank_cards list.")
 
 	registered_account = account
+	account.original_owner_uid = original_owner_uid
 	LAZYOR(registered_account.bank_cards, src)
 	registered_account.civilian_bounty?.on_selected(src)
 
