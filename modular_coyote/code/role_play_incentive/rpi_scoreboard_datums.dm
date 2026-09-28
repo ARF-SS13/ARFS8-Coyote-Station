@@ -130,7 +130,7 @@
 	alltime_highest_score = data["alltime_highest_score"]
 	for(var/smode in data["alltime_best_chat_actions"])
 		for(var/list/act_dat in data["alltime_best_chat_actions"][smode])
-			best_chat_actions_alltime[smode] += new /datum/rpi_chat_action(serial = act_dat)
+			best_chat_actions_alltime[smode] += new /datum/rpi_chat_action(owner_ckey, serial = act_dat)
 	// only load the stat history, the rest are current-round only
 	statistical_history = data["stat_history"]
 

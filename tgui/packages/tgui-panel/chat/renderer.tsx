@@ -413,36 +413,35 @@ class ChatRenderer {
       const message = this.messages[i];
       if (!message.extraData) continue;
       if (
-        message.extraData.message_data.name_displayed !==
-        predicate.extraData.message_data.name_displayed
-      )
+        message?.extraData?.message_data?.name_displayed ===
+        predicate?.extraData?.message_data?.name_displayed
+      ) {
         // only merge our messages, screw everyone else
-        break;
-
-      const matches =
-        !message.type.startsWith(MESSAGE_TYPE_INTERNAL) &&
-        // Text payload must fully match
-        now <
-          message.createdAt + message.extraData.message_data.msg_splice_timeout;
-      if (matches) {
-        // merge conditions:
-        // if saymode is the same, merge body
-        // if saymode is different, but pfp is the same, merge body and name
-        // else dont merge
-        let mergemode;
-        const they_mode = message.extraData.saymode_data;
-        if (they_mode.saymode_kind === ourSay)
-          mergemode = 'body';
-        else if (combinableModes.includes(ourSay) && combinableModes.includes(they_mode.saymode_kind))
-          mergemode = 'body';
-        else if (they_mode.pfp_image_link === ourpfp)
-          mergemode = 'body+name';
-        if (!mergemode) break;
-        message.extraData.saymode_data = predicate.extraData.saymode_data;
-        message.createdAt = now;
-        if (mergemode === 'body+name')
-          predicate.extraData.message_data.merge_name_too = true;
-        return [message, i];
+        const matches =
+          !message.type.startsWith(MESSAGE_TYPE_INTERNAL) &&
+          // Text payload must fully match
+          now <
+            message.createdAt + message.extraData.message_data.msg_splice_timeout;
+        if (matches) {
+          // merge conditions:
+          // if saymode is the same, merge body
+          // if saymode is different, but pfp is the same, merge body and name
+          // else dont merge
+          let mergemode;
+          const they_mode = message.extraData.saymode_data;
+          if (they_mode.saymode_kind === ourSay)
+            mergemode = 'body';
+          else if (combinableModes.includes(ourSay) && combinableModes.includes(they_mode.saymode_kind))
+            mergemode = 'body';
+          else if (they_mode.pfp_image_link === ourpfp)
+            mergemode = 'body+name';
+          if (!mergemode) break;
+          message.extraData.saymode_data = predicate.extraData.saymode_data;
+          message.createdAt = now;
+          if (mergemode === 'body+name')
+            predicate.extraData.message_data.merge_name_too = true;
+          return [message, i];
+        }
       }
     }
     return null;

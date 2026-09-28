@@ -73,7 +73,7 @@
 
 		// Apply effects
 		do_ass_slap_animation(target)
-		conditional_pref_sound(target.loc, 'sound/items/weapons/slap.ogg', 50, TRUE, ASS_SLAP_EXTRA_RANGE)
+		conditional_pref_sound(target.loc, 'sound/items/weapons/slap.ogg', 15, TRUE, ASS_SLAP_EXTRA_RANGE)
 
 	// Run original
 	. = ..()

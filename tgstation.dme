@@ -7083,6 +7083,7 @@
 #include "modular_coyote\code\role_play_incentive\rpi_chat_action_datums.dm"
 #include "modular_coyote\code\role_play_incentive\rpi_chat_rubric_datums.dm"
 #include "modular_coyote\code\role_play_incentive\rpi_clicker_datums.dm"
+#include "modular_coyote\code\role_play_incentive\rpi_departmental_scoreboard_datums.dm"
 #include "modular_coyote\code\role_play_incentive\rpi_holder_datums.dm"
 #include "modular_coyote\code\role_play_incentive\rpi_judgement_datums.dm"
 #include "modular_coyote\code\role_play_incentive\rpi_modular_hellscape.dm"

@@ -723,8 +723,8 @@
 	return sortTim(record_list, order >= 0 ? GLOBAL_PROC_REF(cmp_records_asc) : GLOBAL_PROC_REF(cmp_records_dsc))
 
 ///sort any value in a list
-/proc/sort_list(list/list_to_sort, cmp=/proc/cmp_text_asc)
-	return sortTim(list_to_sort.Copy(), cmp)
+/proc/sort_list(list/list_to_sort, cmp=/proc/cmp_text_asc, ass = FALSE)
+	return sortTim(list_to_sort.Copy(), cmp, ass)
 
 ///uses sort_list() but uses the var's name specifically. This should probably be using mergeAtom() instead
 /proc/sort_names(list/list_to_sort, order=1)

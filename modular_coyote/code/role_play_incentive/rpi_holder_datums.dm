@@ -113,7 +113,7 @@
 	var/datum/rpi_chat_action/newact
 	// is ours better?
 	if(!prevact || score > prevact.score || just_checking)
-		newact = new /datum/rpi_chat_action(score, mult, chatmsg, saymode, herd)
+		newact = new /datum/rpi_chat_action(owner_ckey, score, mult, chatmsg, saymode, herd)
 	if(newact)
 		if(!just_checking)
 			chat_actions[saymode] = newact
@@ -139,26 +139,30 @@
 	// the *right* card
 	var/me_uid = me.m_uid
 	var/datum/bank_account/account
+	var/datum/rpi_departmental_scoreboard/dept
+	var/list/depcards = list()
 	for(var/obj/item/card/id/idcard as anything in cards)
 		if(idcard.registered_account)
 			var/datum/bank_account/ba = idcard.registered_account
-			if(ba.original_owner_uid == me_uid)
-				account = ba
-				break
-			if(ba.account_holder)
-				// do a fuzzy match with the mob's name
-				var/myname = me.real_name || me.name
-				for(var/i in 1 to LAZYLEN(myname) step 2)
-					var/srch = copytext(myname, i, i+3)
-					if(findtext(ba.account_holder, srch))
-						account = ba
-						break // close enough
-		// for(var/cardid in SSeconomy.bank_accounts_by_id)
-		// 	var/datum/bank_account/ba = SSeconomy.bank_accounts_by_id[cardid]
-		// 	if(ba.original_owner_uid == me_uid)
-		// 		account = ba
-		// 		break
-	if(!account)
+			if(!account)
+				if(ba.original_owner_uid == me_uid)
+					account = ba
+				else if(ba.account_holder)
+					// do a fuzzy match with the mob's name
+					var/myname = me.real_name || me.name
+					for(var/i in 1 to LAZYLEN(myname) step 2)
+						var/srch = copytext(myname, i, i+3)
+						if(findtext(ba.account_holder, srch))
+							account = ba
+							break
+			if(ba.account_job?.paycheck_department)
+				depcards += idcard
+	if(LAZYLEN(depcards))
+		var/obj/item/card/id/dcard = pick(depcards)
+		if(dcard)
+			if(dcard.registered_account.account_job)
+				dept = SSrpi.departmental_scoreboards[dcard.registered_account.account_job.paycheck_department]
+	if(!account && !dept)
 		debug_payward(account, 0)
 		return // just uh, ghold off i guess?
 	time_modified = time2text(world.realtime)
@@ -175,7 +179,10 @@
 	// 	goodgirl = TRUE
 	if(clicker)
 		clicker.deliver_headpats(me, topay, goodgirl)
-	account.adjust_money(topay, "Incentive Payward")
+	if(account)
+		account.adjust_money(topay, "Incentive Payward")
+	if(dept)
+		dept.payout_department(me, topay)
 	var/datum/rpi_judgement/judgement = new /datum/rpi_judgement(owner_ckey, owner_slot, topay, "Payward")
 	past_chat_judgements |= judgement
 	update_scores_payward(judgement)
@@ -222,6 +229,99 @@
 	if(!scoreboard)
 		return
 	scoreboard.update_payward(nujudge)
+
+
+/datum/rpi_holder/proc/get_name()
+	for(var/nam in characters_tracked)
+		if(findtext(ckey(nam), owner_ckey))
+			continue
+		return nam
+	return get_random_name()
+
+/datum/rpi_holder/proc/get_score()
+	return scoreboard.round_score
+
+/datum/rpi_holder/proc/get_best_act()
+	var/datum/rpi_chat_action/best = null
+	for(var/datum/rpi_chat_action/act in chat_actions)
+		if(!best || act.score > best.score)
+			best = act
+	return best
+
+// gets: mean, median, mode, SD,
+/datum/rpi_holder/proc/get_statistics()
+	var/list/scores = list()
+	var/total = 0
+	for(var/datum/rpi_chat_action/act in chat_actions)
+		scores += act.score
+		total += act.score
+	if(!LAZYLEN(scores))
+		return 0
+	scores = sort_list(scores, /proc/cmp_numeric_asc, TRUE)
+	var/mean = scores / LAZYLEN(scores)
+	var/median = scores[round(LAZYLEN(scores)/2)]
+	var/list/modehold = list()
+	for(var/s in scores)
+		if(!modehold["[s]"])
+			modehold["[s]"] = 0
+		modehold["[s]"] += 1
+	var/mode = 0
+	for(var/k in modehold)
+		if(modehold[k] > mode)
+			mode = modehold[k]
+	// std dev
+	var/sum = 0
+	for(var/s in scores)
+		sum += (s - mean) ** 2
+	var/std = sqrt(sum / LAZYLEN(scores))
+	var/range = scores[LAZYLEN(scores)] - scores[1]
+	// another stat we can add is: variance, skew, kurtosis, etc
+	var/variance = (sum / LAZYLEN(scores))
+	var/skew = 0
+	for(var/s in scores)
+		skew += (s - mean) ** 3
+	skew = skew / LAZYLEN(scores)
+	var/kurt = 0
+	for(var/s in scores)
+		kurt += (s - mean) ** 4
+	kurt = kurt / LAZYLEN(scores)
+	// then we can add: min, max, maybe percentiles
+	var/minious = scores[1]
+	var/maxious = scores[LAZYLEN(scores)]
+	return list(
+		"total" = total,
+		"acts" = LAZYLEN(chat_actions),
+		"mean" = mean,
+		"median" = median,
+		"mode" = mode,
+		"std" = std,
+		"range" = range,
+		"variance" = variance,
+		"skew" = skew,
+		"kurt" = kurt,
+		"min" = minious,
+		"max" = maxious) // aka, enormous amount of shit nobody cares about
+
+/datum/rpi_holder/proc/get_random_name()
+	var/static/list/names = list(
+		"Nix Isia",
+		"Sa Keter",
+		"John Constance",
+		"John 'Minimum' Gonzalez",
+		"Tim Mankert",
+		"Quie Fraxis",
+		"Kei 'BLiTz' Hikari",
+		"Conner Williams",
+		"Juan 'Machete' Quiceno",
+		"Giuseppe Di Camillo",
+		"Steven Matthews",
+		"Nicholas 'Cactuar' Benson",
+		"Damon West",
+		"Harabec Weathers",
+		"Keishun 'DaKilla' Takashi",
+		"Eddie Brown",
+		)
+	return pick(names)
 
 /datum/rpi_holder/proc/serialize()
 	var/list/h_dat = list()

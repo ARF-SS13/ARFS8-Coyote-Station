@@ -15,6 +15,8 @@
 	var/goal_area_type
 	///how much is earned on delivery of the crate
 	var/payment
+	/// is it in the area?
+	var/in_area = FALSE
 	///cooldown for the deny sound
 	COOLDOWN_DECLARE(deny_cooldown)
 
@@ -50,12 +52,20 @@
 	examine_list += span_warning("This crate cannot be sold until it is opened.")
 
 ///registers the signal that blocks target from opening when outside of the valid area, returns if it is now unlocked
-/datum/element/deliver_first/proc/area_check(obj/structure/closet/target)
+/datum/element/deliver_first/proc/area_check(obj/structure/closet/target, soundie = TRUE)
 	var/area/target_area = get_area(target)
 	if(target_area.type == goal_area_type)
+		if(!in_area)
+			if(soundie)
+				playsound(target, 'sound/machines/ping.ogg', 30, TRUE)
+			in_area = TRUE
 		UnregisterSignal(target, COMSIG_CLOSET_PRE_OPEN)
 		return TRUE
 	else
+		if(in_area)
+			if(soundie)
+				playsound(target, 'sound/machines/buzz/buzz-sigh.ogg', 30, TRUE)
+			in_area = FALSE
 		RegisterSignal(target, COMSIG_CLOSET_PRE_OPEN, PROC_REF(on_pre_open), override = TRUE) //very purposefully overriding
 		return FALSE
 
@@ -87,7 +97,7 @@
 ///signal called by successfully opening target
 /datum/element/deliver_first/proc/on_post_open(obj/structure/closet/target, mob/living/user, force)
 	SIGNAL_HANDLER
-	if(area_check(target))
+	if(area_check(target, FALSE))
 		//noice, delivered!
 		var/datum/bank_account/cargo_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
 
