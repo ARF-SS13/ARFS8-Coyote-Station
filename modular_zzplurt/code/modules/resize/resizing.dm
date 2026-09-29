@@ -146,7 +146,7 @@
 	if(ishuman(src))
 		var/mob/living/carbon/human/validmob = src
 		if(validmob?.dna?.features["taur"] == "Naga" || validmob?.dna?.features["taur"] == "Tentacle")
-			visible_message(span_notice("[validmob] bounds over [validmob]'s tail."), span_notice("You jump over [target]'s thick tail."))
+			visible_message(span_notice("[validmob] bounds over [target]'s tail."), span_notice("You jump over [target]'s thick tail."))
 		else
 			visible_message(span_notice("[validmob] runs between [target]'s legs."), span_notice("You run between [target]'s legs."))
 
