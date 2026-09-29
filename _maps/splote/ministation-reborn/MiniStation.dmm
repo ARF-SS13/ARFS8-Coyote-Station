@@ -35265,6 +35265,7 @@
 "tdp" = (
 /obj/structure/railing,
 /obj/structure/cable,
+/obj/machinery/materials_market,
 /turf/open/floor/iron,
 /area/station/cargo/storage)
 "tdK" = (
