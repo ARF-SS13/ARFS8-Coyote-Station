@@ -266,6 +266,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fish_weight_modifier = 1.3
 	fishing_deceleration_mult = 1.3
 	fishing_bounciness_mult = 0.6
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_UNCOMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_COMMON
 
 /datum/material/plasma/on_applied(atom/source, mat_amount, multiplier)
 	. = ..()
@@ -373,6 +376,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fishing_bait_speed_mult = 1.5
 	fishing_deceleration_mult = 0.5
 	fishing_bounciness_mult = 2
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_EXOTIC
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_UNCOMMON
 
 /datum/material/bananium/on_applied(atom/source, mat_amount, multiplier)
 	. = ..()
@@ -477,6 +483,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fishing_bait_speed_mult = 0.9
 	fishing_deceleration_mult = 1.2
 	fishing_gravity_mult = 1.2
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_EXOTIC
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_RARE
 
 /datum/material/runite/on_applied(atom/source, mat_amount, multiplier)
 	. = ..()
@@ -521,6 +530,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fishing_deceleration_mult = 0.8
 	fishing_bounciness_mult = 1.3
 	fishing_gravity_mult = 0.85
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_COMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_UNCOMMON
 
 /datum/material/plastic/on_accidental_mat_consumption(mob/living/carbon/eater, obj/item/food)
 	eater.reagents.add_reagent(/datum/reagent/plastic_polymers, rand(6, 8))
@@ -534,6 +546,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	color = "#735b4d"
 	strength_modifier = 0.8
 	value_per_unit = 50 / SHEET_MATERIAL_AMOUNT
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_COMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_COMMON
 
 /datum/material/wood
 	name = "wood"
@@ -560,6 +575,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fishing_deceleration_mult = 1.3
 	fishing_bounciness_mult = 0.4
 	fishing_gravity_mult = 0.8
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_COMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_COMMON
 
 /datum/material/wood/on_main_applied(atom/source, mat_amount, multiplier)
 	. = ..()
@@ -608,6 +626,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fishing_deceleration_mult = 1.3
 	fishing_bounciness_mult = 0.7
 	fishing_gravity_mult = 1.3
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_EXOTIC
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_RARE
 
 /datum/material/adamantine/on_applied(atom/source, mat_amount, multiplier)
 	. = ..()
@@ -651,6 +672,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fishing_deceleration_mult = 1.35
 	fishing_bounciness_mult = 0.65
 	fishing_gravity_mult = 1.3
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_EXOTIC
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_ULTRARARE
 
 /datum/material/mythril/on_applied(atom/source, mat_amount, multiplier)
 	. = ..()
@@ -694,6 +718,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fishing_deceleration_mult = 0.5
 	fishing_bounciness_mult = 0.3
 	fishing_gravity_mult = 0.8
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_EXOTIC
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_RARE
 
 /datum/material/hot_ice/on_applied(atom/source, mat_amount, multiplier)
 	. = ..()
@@ -735,6 +762,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fishing_deceleration_mult = 0.8
 	fishing_bounciness_mult = 1.7
 	fishing_gravity_mult = 0.7
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_EXOTIC
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_ULTRARARE
 
 /datum/material/metalhydrogen/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
 	if(!HAS_TRAIT(victim, TRAIT_ROCK_EATER))
@@ -769,6 +799,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fishing_deceleration_mult = 2.5
 	fishing_bounciness_mult = 0.3
 	fishing_gravity_mult = 0.9
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_COMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_COMMON
 
 /datum/material/sand/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
 	victim.adjust_disgust(17)
@@ -801,6 +834,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fishing_deceleration_mult = 2.5
 	fishing_bounciness_mult = 0.2
 	fishing_gravity_mult = 0.9
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_COMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_COMMON
 
 /datum/material/snow
 	name = "snow"
@@ -829,6 +865,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fishing_deceleration_mult = 0.3
 	fishing_bounciness_mult = 0.2
 	fishing_gravity_mult = 0.7
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_EXOTIC
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_ULTRARARE
 
 /datum/material/snow/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
 	victim.reagents.add_reagent(/datum/reagent/water, rand(5, 10))
@@ -883,6 +922,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fishing_deceleration_mult = 0.8
 	fishing_bounciness_mult = 1.2
 	fishing_gravity_mult = 1.05
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_COMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_COMMON
 
 /datum/material/paper
 	name = "paper"
@@ -909,6 +951,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fishing_deceleration_mult = 1.5
 	fishing_bounciness_mult = 0.2
 	fishing_gravity_mult = 0.6
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_COMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_COMMON
 
 /datum/material/paper/on_main_applied(atom/source, mat_amount, multiplier)
 	. = ..()
@@ -961,6 +1006,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fishing_deceleration_mult = 1.5
 	fishing_bounciness_mult = 0.2
 	fishing_gravity_mult = 0.6
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_COMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_COMMON
 
 /datum/material/cardboard/on_main_applied(atom/source, mat_amount, multiplier)
 	. = ..()
@@ -998,6 +1046,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fishing_deceleration_mult = 0.9
 	fishing_bounciness_mult = 0.8
 	fishing_gravity_mult = 0.85
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_RARE
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_COMMON
 
 /datum/material/bone/on_main_applied(atom/source, mat_amount, multiplier)
 	. = ..()
@@ -1058,6 +1109,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fishing_deceleration_mult = 0.8
 	fishing_bounciness_mult = 0.7
 	fishing_gravity_mult = 0.7
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_RARE
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_COMMON
 
 /datum/material/zaukerite
 	name = "zaukerite"
@@ -1081,6 +1135,9 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	fishing_deceleration_mult = 1.3
 	fishing_bounciness_mult = 1.1
 	fishing_gravity_mult = 1.3
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_RARE
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_RARE
 
 /datum/material/zaukerite/on_applied(atom/source, mat_amount, multiplier)
 	. = ..()

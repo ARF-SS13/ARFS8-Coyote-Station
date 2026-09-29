@@ -538,6 +538,7 @@
  * A would have a 60% chance of being picked, after which it would decrease by one and the new list would be
  * A = 5, B = 3, C = 1, D = 0
  * Tt would then have a 55.55...% to be picked, rinse and repeat
+ * oh yeah its in place so it changes the original list
 */
 /proc/pick_weight_take(list/list_to_pick)
 	. = pick_weight(list_to_pick)
@@ -545,6 +546,7 @@
 
 /**
 * Like pick_weight, but removes the picked element from the list
+* also its in place, changes the original list
 */
 /proc/pick_weight_remove(list/list_to_pick)
 	. = pick_weight(list_to_pick)

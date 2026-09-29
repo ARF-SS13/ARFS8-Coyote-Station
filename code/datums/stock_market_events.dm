@@ -15,7 +15,7 @@
 	/// A list of strings selected from the event that's used to describe the event in the news.
 	var/list/circumstance = list()
 	/// What material is affected by the event?
-	var/datum/material/mat
+	var/datum/stock_market_material/mat_market
 	/// Constant to multiply the original material value by to get the new minimum value, unless the material has a minimum override.
 	var/price_minimum = SHEET_MATERIAL_AMOUNT * 0.5
 	/// Constant to multiply the original material value by to get the new maximum value.
@@ -33,12 +33,19 @@
 /datum/stock_market_event/proc/start_event(datum/material/mat)
 	if(istype(mat, /datum/material))
 		return FALSE
-	src.mat = mat
+	var/datum/stock_market_material/market = SSstock_market.get_market_datum(mat)
+	if(!market)
+		return FALSE
+	mat_market = market
 	if(!isnull(trend_value))
-		SSstock_market.materials_trends[mat] =	trend_value
+		mat_market.trend = trend_value
 		if(!isnull(trend_duration))
-			SSstock_market.materials_trend_life[mat] = trend_duration
+			mat_market.trend_life = trend_duration
 	return TRUE
+
+/datum/stock_market_event/Destroy()
+	mat_market = null
+	. = ..()
 
 /**
  * This proc is called every tick while the event is ongoing by SSstock_market.
@@ -62,7 +69,7 @@
 /datum/stock_market_event/proc/create_news()
 	var/temp_company = pick(company_name)
 	var/temp_circumstance = pick(circumstance)
-	SSstock_market.news_string += "<b>[name] [temp_company]</b> [temp_circumstance]<b>[mat.name].</b><br>"
+	SSstock_market.news_string += "<b>[name] [temp_company]</b> [temp_circumstance]<b>[mat_market.mat.name].</b><br>"
 
 
 /datum/stock_market_event/market_reset
@@ -77,7 +84,7 @@
 
 /datum/stock_market_event/market_reset/start_event()
 	. = ..()
-	SSstock_market.materials_prices[mat] = (initial(mat.value_per_unit)) * SHEET_MATERIAL_AMOUNT
+	mat_market.reset_price()
 	create_news()
 
 /datum/stock_market_event/large_boost
@@ -92,9 +99,7 @@
 
 /datum/stock_market_event/large_boost/start_event()
 	. = ..()
-	var/price_units = SSstock_market.materials_prices[mat]
-	SSstock_market.materials_prices[mat] += round(gaussian(price_units, price_units * 0.15))
-	SSstock_market.materials_prices[mat] = clamp(SSstock_market.materials_prices[mat], price_minimum * mat.value_per_unit, price_maximum * mat.value_per_unit)
+	mat_market.adjust_current_price_gaussian(1, 0.15, 1)
 	create_news()
 
 /datum/stock_market_event/large_drop
@@ -109,9 +114,7 @@
 
 /datum/stock_market_event/large_drop/start_event()
 	. = ..()
-	var/price_units = SSstock_market.materials_prices[mat]
-	SSstock_market.materials_prices[mat] -= round(gaussian(price_units * 1.5, price_units * 0.15))
-	SSstock_market.materials_prices[mat] = clamp(SSstock_market.materials_prices[mat], price_minimum * mat.value_per_unit, price_maximum * mat.value_per_unit)
+	mat_market.adjust_current_price_gaussian(1.5, 0.15, -1)
 	create_news()
 
 /datum/stock_market_event/hotcakes
@@ -126,7 +129,7 @@
 
 /datum/stock_market_event/hotcakes/start_event()
 	. = ..()
-	SSstock_market.materials_prices[mat] = round(price_maximum * mat.value_per_unit)
+	mat_market.set_price_to_max()
 	create_news()
 
 /datum/stock_market_event/lockdown
@@ -140,10 +143,10 @@
 
 /datum/stock_market_event/lockdown/handle()
 	. = ..()
-	SSstock_market.materials_quantity[mat] = 0 //Force the material to be unavailable.
+	mat_market.set_available(FALSE)
 
 /datum/stock_market_event/lockdown/end_event()
 	. = ..()
-	SSstock_market.materials_quantity[mat] = initial(mat.tradable_base_quantity) //Force the material to be available again.
-	SSstock_market.materials_prices[mat] = initial(mat.value_per_unit) * SHEET_MATERIAL_AMOUNT //Force the price to be reset once the lockdown is over.
+	mat_market.set_available(TRUE)
+	mat_market.reset_price()
 	create_news()

@@ -8,7 +8,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 /datum/material
 	/// What the material is referred to as IC.
 	var/name = "material"
-	/// A short description of the material. Not used anywhere, yet...
+	/// A short description of the material. Not used anywhere, yet... ...now it is! in the mats market thing
 	var/desc = "its..stuff."
 	/// What the material is indexed by in the SSmaterials.materials list. Defaults to the type of the material.
 	var/id
@@ -52,6 +52,8 @@ Simple datum which is instanced once per type and is used for every object of sa
 	var/tradable = FALSE
 	///If this material is tradable, what is the base quantity of the material on the stock market?
 	var/tradable_base_quantity = 0
+	///Fancy trade! is included in the fancy pool, with this weight of showing up!
+	var/tradable_fancy = FALSE
 
 	///Armor modifiers, multiplies an items normal armor vars by these amounts.
 	var/armor_modifiers = list(MELEE = 1, BULLET = 1, LASER = 1, ENERGY = 1, BOMB = 1, BIO = 1, FIRE = 1, ACID = 1)

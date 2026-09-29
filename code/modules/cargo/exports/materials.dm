@@ -109,7 +109,7 @@
 	cost = 1
 
 /datum/export/material/market/get_base_cost(obj/exported_obj)
-	return ..() * SSstock_market.materials_prices[material_id]
+	return ..() * SSstock_market.get_material_price(material_id)
 
 /**
  * Returns number of sheets in this item
@@ -130,10 +130,7 @@
 
 	//This formula should impact lower quantity materials greater, and higher quantity materials less. Still, it's  a bit rough. Tweaking may be needed.
 	if(!dry_run)
-		//decrease the market price
-		SSstock_market.adjust_material_price(material_id, -SSstock_market.materials_prices[material_id] * (sheets / (sheets + SSstock_market.materials_quantity[material_id])))
-		//increase the stock
-		SSstock_market.adjust_material_quantity(material_id, sheets)
+		SSstock_market.on_sell(material_id, sheets)
 
 /datum/export/material/market/diamond
 	material_id = /datum/material/diamond
@@ -209,8 +206,12 @@
 	return block.custom_materials[block.custom_materials[1]] / SHEET_MATERIAL_AMOUNT
 
 /datum/export/material/market/stock_block/get_base_cost(obj/item/stock_block/block)
-
-	return (block.fluid ? SSstock_market.materials_prices[block.custom_materials[1].type] : block.export_value) * get_sheets(block)
+	var/sheetz = get_sheets(block)
+	if(block.fluid)
+		var/datum/stock_market_material/mat = SSstock_market.get_market_datum(block.custom_materials[1].type)
+		if(mat)
+			return mat.current_price * sheetz
+	return block.export_value * sheetz
 
 /datum/export/material/market/stock_block/sell_object(obj/item/stock_block/block, datum/export_report/report, dry_run, apply_elastic)
 	material_id = block.custom_materials[1].type

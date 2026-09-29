@@ -25,6 +25,9 @@
 	fishing_deceleration_mult = 0.9
 	fishing_bounciness_mult = 0.9
 	fishing_gravity_mult = 0.8
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_EXOTIC
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_RARE
 
 /datum/material/pizza/on_main_applied(atom/source, mat_amount, multiplier)
 	. = ..()

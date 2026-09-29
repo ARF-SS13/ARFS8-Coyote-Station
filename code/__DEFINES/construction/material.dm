@@ -93,6 +93,11 @@
 /// How much quantity of a material stock exists for exotic materials like diamond & bluespace crystals.
 #define MATERIAL_QUANTITY_EXOTIC 50
 
+#define MATERIAL_FANCY_WEIGHT_COMMON 100
+#define MATERIAL_FANCY_WEIGHT_UNCOMMON 50
+#define MATERIAL_FANCY_WEIGHT_RARE 10
+#define MATERIAL_FANCY_WEIGHT_ULTRARARE 1
+
 // The number of ore vents that will spawn boulders with this material.
 /// Is this material going to spawn often in ore vents? (80% of vents on lavaland)
 #define MATERIAL_RARITY_COMMON 12
