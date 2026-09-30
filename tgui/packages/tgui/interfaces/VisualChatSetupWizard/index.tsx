@@ -1,7 +1,7 @@
 /**
  * @file Visual Chat Setup Wizard
  * @copyright 2026 Coyote ARFS (Fennicus hornificus)
- * @license YouBreakItYouBoughtIt
+ * @license FOSS
  * @description
  * Wizard for setting up the visual chat feature! Its not reallyh a wizard
  * strictly speaking like from windows 95, but more like a control panel like
@@ -29,7 +29,7 @@ import {
 import {
   type VCAssemblerHolder,
   VCCopyMode,
-  VCDiff,
+  type VCDiff,
   type VCMessageData,
   VCSaymode,
   type VCSaymodeData,
@@ -375,7 +375,11 @@ function OverviewContent() {
       style={VCStyle.OverviewContent}
     >
       {Object.values(saymodes)
-        .filter((m) => m.saymode_kind !== VCSaymode.EmoteQuick && m.sayname != "Cool Mode")
+        .filter(
+          (m) =>
+            m.saymode_kind !== VCSaymode.EmoteQuick &&
+            m.sayname !== 'Cool Mode',
+        )
         .map((item) => {
           return <BuildPreviewBingus key={item.sayname} saymode_dat={item} />;
         })}
@@ -611,11 +615,10 @@ function UnderBarrelSettingChunk({
   };
   const copyToUserWindowsClipboard = () => {
     navigator.clipboard.writeText(saydat.pfp_image_link);
-  }
+  };
   const showPaste = !!data.clipboard;
   return (
     <Stack fill style={{ alignItems: 'center', gap: '2px' }}>
-
       {/* {showPaste && (
         <Stack.Item shrink>
           <Button
@@ -628,7 +631,15 @@ function UnderBarrelSettingChunk({
       )} */}
       <Stack.Item shrink>
         <Tooltip content={VCGetTooltip(VCTT.SettingInfoUrlFile, saydat)}>
-          <span style={{fontWeight: 'bold', paddingRight: '5px', paddingLeft: '5px'}}>Profile Pic Link:</span>
+          <span
+            style={{
+              fontWeight: 'bold',
+              paddingRight: '5px',
+              paddingLeft: '5px',
+            }}
+          >
+            Profile Pic Link:
+          </span>
         </Tooltip>
       </Stack.Item>
       <Stack.Item shrink>
@@ -640,12 +651,12 @@ function UnderBarrelSettingChunk({
             style={buttstyle}
             placeholder="Enter a link to a cute picture!"
             value={saydat.pfp_image_link as string}
-            onClick={(e) => (e.currentTarget.select())}
+            onClick={(e) => e.currentTarget.select()}
             onBlur={(value) =>
-              (act('set_link', {
+              act('set_link', {
                 ...identSlug,
                 link: value,
-              }))
+              })
             }
           />
         </Tooltip>
@@ -695,7 +706,7 @@ function GenerateMessageData(saydat: VCSaymodeData): VCMessageData {
     use_settings: false,
     merge_name_too: false,
     hide_pfp: false,
-    differentiator: {h:0,s:0,v:0} as VCDiff
+    differentiator: { h: 0, s: 0, v: 0 } as VCDiff,
   };
   return ourMessageData; // ya know i was expecting a lot more stuff
 }

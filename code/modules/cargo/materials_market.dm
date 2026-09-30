@@ -127,11 +127,11 @@
 	// so we're looking for which budget to display and pull from!
 	var/obj/item/card/id/my_card = user.get_active_held_item()
 	// we're gonna want to prefer the card in hand over other cards, if there is one
-	if(!my_card)
+	if(!istype(my_card, /obj/item/card/id))
 		my_card = user.get_inactive_held_item()
-		if(!my_card)
+		if(!istype(my_card, /obj/item/card/id))
 			my_card = user.get_idcard(TRUE)
-			if(!my_card)
+			if(!istype(my_card, /obj/item/card/id))
 				return . // okay they dont have an id card, neat! default to cargo budget. no access tho
 	// ok we have a card now
 	if(!my_card.registered_account)
@@ -154,6 +154,9 @@
 	.["department"] = card_job.paycheck_department
 	// now do they have access to the dept bgdt?
 	var/has_access = FALSE
+	if(istype(my_card, /obj/item/card/id/departmental_budget))
+		.["has_access"] = TRUE // its a department card, course it has acces
+		return .
 	var/list/accesses = my_card.GetAccess()
 	var/list/needed = list()
 	switch(card_job.paycheck_department)

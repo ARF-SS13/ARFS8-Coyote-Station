@@ -1,6 +1,7 @@
+/** biome-ignore-all assist/source/organizeImports: bite me */
 import type React from 'react';
-import { VCDiff } from 'tgui-panel/chat/visualchat_types';
-import { ModifyHSLA, ConvertToHSLA } from '../PreferencesMenu/CharacterPreferences/BackgroundsColorsAndStyle';
+import type { VCDiff } from 'tgui-panel/chat/visualchat_types';
+import { ModifyHSLA } from '../PreferencesMenu/CharacterPreferences/BackgroundsColorsAndStyle';
 import { createLogger } from 'tgui/logging';
 
 const logger = createLogger('chatRenderer');
@@ -38,28 +39,37 @@ export function MergeStyle(
   overrides?: React.CSSProperties,
   diff?: VCDiff,
 ): React.CSSProperties {
-  const merged: React.CSSProperties = {...base, ...overrides}
+  const merged: React.CSSProperties = { ...base, ...overrides };
   // apply the hsl diffs to colors if diff is given
   if (diff) {
-    const innerBGdiff = {h: diff.h * 5, s: diff.s * 0, v: diff.v * 0}
-    const outerBGdiff = {h: diff.h * 20, s: diff.s * 10, v: diff.v * 5}
-    const borderDiff = {h: diff.h * 3, s: diff.s * 1, v: diff.v * 1}
+    const innerBGdiff = { h: diff.h * 5, s: diff.s * 0, v: diff.v * 0 };
+    const outerBGdiff = { h: diff.h * 20, s: diff.s * 10, v: diff.v * 5 };
+    const borderDiff = { h: diff.h * 3, s: diff.s * 1, v: diff.v * 1 };
     for (const k in merged) {
       const v = merged[k];
       if (typeof v === 'string') {
         if (k.includes('outlineColor')) {
-          let coolerdiff = borderDiff
-          merged[k] = ModifyHSLA(v, coolerdiff.h, coolerdiff.s, coolerdiff.v, 0);
+          const coolerdiff = borderDiff;
+          merged[k] = ModifyHSLA(
+            v,
+            coolerdiff.h,
+            coolerdiff.s,
+            coolerdiff.v,
+            0,
+          );
         }
         // gradient shifter!
         else if (k.includes('background')) {
           // first one goes up, second gets inverted values
           let diff = innerBGdiff;
-          if(v.includes('radial')) diff = outerBGdiff;
-          const parts = v.match(/hsl\([^)]+\)/g)
-          if(parts) {
-            for(let i=0;i<parts.length;i++){
-              merged[k] = merged[k].replace(parts[i], ModifyHSLA(parts[i], diff.h, diff.s, diff.v, 0))
+          if (v.includes('radial')) diff = outerBGdiff;
+          const parts = v.match(/hsl\([^)]+\)/g);
+          if (parts) {
+            for (let i = 0; i < parts.length; i++) {
+              merged[k] = merged[k].replace(
+                parts[i],
+                ModifyHSLA(parts[i], diff.h, diff.s, diff.v, 0),
+              );
             }
           }
         }
@@ -177,7 +187,10 @@ const VC_STYLE_PACKS: Record<VCStylePackEnum, VCStylePack> = {
 
 // merges a whole preset onto the default pack, piece by piece, so a preset
 // only has to specify the bits it wants to change
-export function GetVCChatStylePack(stylepls: VCStylePackEnum, diff?: VCDiff): VCStylePack {
+export function GetVCChatStylePack(
+  stylepls: VCStylePackEnum,
+  diff?: VCDiff,
+): VCStylePack {
   const preset = VC_STYLE_PACKS[stylepls] ?? defaultVCStyle;
   const merged = {} as VCStylePack;
   for (const part of Object.keys(defaultVCStyle) as (keyof VCStylePack)[]) {
