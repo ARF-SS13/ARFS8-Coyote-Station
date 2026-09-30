@@ -14,6 +14,11 @@
 	role_name = "abductor team"
 	fakeable = FALSE //Nothing to fake here
 
+//Notation For Event Awareness
+/*
+Needs the organs checked before it can be used.  Should be limited to sec heavy rounds.
+*/
+
 /datum/round_event/ghost_role/abductor/spawn_role()
 	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(check_jobban = ROLE_ABDUCTOR, role = ROLE_ABDUCTOR, alert_pic = /obj/item/melee/baton/abductor, role_name_text = role_name, amount_to_pick = 2)
 

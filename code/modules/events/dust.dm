@@ -14,6 +14,11 @@
 	end_when = 2
 	fakeable = FALSE
 
+//Notation For Event Awareness
+/*
+Dust me baby
+*/
+
 /datum/round_event/space_dust/start()
 	spawn_meteors(1, GLOB.meteors_dust)
 

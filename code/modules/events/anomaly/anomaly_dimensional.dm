@@ -10,6 +10,11 @@
 	max_wizard_trigger_potency = 2
 	admin_setup = list(/datum/event_admin_setup/set_location/anomaly, /datum/event_admin_setup/listed_options/anomaly_dimensional)
 
+//Notation For Event Awareness
+/*
+Engineer check
+*/
+
 /datum/round_event/anomaly/anomaly_dimensional
 	start_when = ANOMALY_START_MEDIUM_TIME
 	announce_when = ANOMALY_ANNOUNCE_MEDIUM_TIME

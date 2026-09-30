@@ -9,6 +9,11 @@
 	min_wizard_trigger_potency = 0
 	max_wizard_trigger_potency = 2
 
+//Notation For Event Awareness
+/*
+Med check, psych check
+*/
+
 /datum/round_event/anomaly/anomaly_hallucination
 	start_when = ANOMALY_START_MEDIUM_TIME
 	announce_when = ANOMALY_ANNOUNCE_MEDIUM_TIME

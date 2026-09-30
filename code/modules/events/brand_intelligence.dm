@@ -32,6 +32,11 @@
 		"You don't want to buy anything? Yeah, well, I didn't want to buy your mom either.",
 	)
 
+//Notation For Event Awareness
+/*
+Eng check for if they evolve past being annoying.  Sec check for the same.  So you need both for them to get freaky with it.
+*/
+
 /datum/round_event/brand_intelligence/setup()
 	//select our origin machine (which will also be the type of vending machine affected.)
 	for(var/obj/machinery/vending/vendor as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/vending))

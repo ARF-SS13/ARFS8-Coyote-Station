@@ -14,6 +14,11 @@
 	minimum_required = 1
 	role_name = "morphling"
 
+//Notation For Event Awareness
+/*
+Should req sec, or sci.  Perhaps both.
+*/
+
 /datum/round_event/ghost_role/morph/spawn_role()
 	var/mob/chosen_one = SSpolling.poll_ghost_candidates(check_jobban = ROLE_ALIEN, role = ROLE_ALIEN, alert_pic = /mob/living/basic/morph, role_name_text = "morph", amount_to_pick = 1)
 	if(isnull(chosen_one))

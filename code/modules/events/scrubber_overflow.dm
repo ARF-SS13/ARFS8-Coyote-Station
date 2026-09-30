@@ -8,6 +8,11 @@
 	description = "The scrubbers release a tide of mostly harmless froth."
 	admin_setup = list(/datum/event_admin_setup/listed_options/scrubber_overflow)
 
+//Notation For Event Awareness
+/*
+Janitor reqs.
+*/
+
 /datum/round_event/scrubber_overflow
 	announce_when = 1
 	start_when = 5

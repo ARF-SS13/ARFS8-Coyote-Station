@@ -15,6 +15,11 @@
 		/datum/event_admin_setup/input_number/spacevine_production,
 	)
 
+//Notation For Event Awareness
+/*
+Check for Chef/Barkeep (for Pete's sake), as well as Security - likely armory access to? Vines not as gentle as it used to be.
+*/
+
 /datum/round_event/spacevine
 	fakeable = FALSE
 	///Override location the vines will spawn in.

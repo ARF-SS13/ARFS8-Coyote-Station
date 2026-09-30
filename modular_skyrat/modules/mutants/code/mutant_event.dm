@@ -3,6 +3,11 @@
 	typepath = /datum/round_event/mutant_infestation
 	weight = 0
 
+//Notation For Event Awareness
+/*
+What the fuck does this actually do?
+*/
+
 /datum/round_event/mutant_infestation
 	announce_when = 300
 	announce_chance = 100

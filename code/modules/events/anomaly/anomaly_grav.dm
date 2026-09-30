@@ -8,6 +8,11 @@
 	min_wizard_trigger_potency = 1
 	max_wizard_trigger_potency = 3
 
+//Notation For Event Awareness
+/*
+Med check
+*/
+
 /datum/round_event/anomaly/anomaly_grav
 	start_when = ANOMALY_START_HARMFUL_TIME
 	announce_when = ANOMALY_ANNOUNCE_HARMFUL_TIME

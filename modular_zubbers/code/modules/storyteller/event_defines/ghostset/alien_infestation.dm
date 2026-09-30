@@ -17,6 +17,11 @@
 		if(A.stat != DEAD)
 			return FALSE
 
+//Notation For Event Awareness
+/*
+Should require lots of heads and sec weight. Likely should only happen near round end as well.
+*/
+
 /datum/round_event/ghost_role/alien_infestation
 	announce_when = 400
 

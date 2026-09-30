@@ -9,6 +9,10 @@
 
 /datum/round_event/radiation_storm
 
+//Notation For Event Awareness
+/*
+What if this just forced you out of the main hallways?
+*/
 
 /datum/round_event/radiation_storm/setup()
 	start_when = 3

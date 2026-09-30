@@ -10,6 +10,11 @@
 	max_wizard_trigger_potency = 2
 	admin_setup = list(/datum/event_admin_setup/mass_hallucination)
 
+//Notation For Event Awareness
+/*
+Should defo have some medical pop req.  Psych maybe too?
+*/
+
 /datum/round_event/mass_hallucination
 	fakeable = FALSE
 	/// For admins, what hallucination did we pick

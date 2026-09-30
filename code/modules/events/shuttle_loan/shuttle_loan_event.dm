@@ -17,6 +17,11 @@
 		if(istype(running_event, /datum/round_event/shuttle_loan)) //Make sure two of these don't happen at once.
 			return FALSE
 
+//Notation For Event Awareness
+/*
+Requires sec and cargo.
+*/
+
 /datum/round_event/shuttle_loan
 	announce_when = 1
 	end_when = 500

@@ -7,6 +7,11 @@
 	category = EVENT_CATEGORY_ENGINEERING
 	description = "Turns off a random amount of cameras."
 
+//Notation For Event Awareness
+/*
+Eng req
+*/
+
 /datum/round_event/camera_failure
 	fakeable = FALSE
 

@@ -14,6 +14,11 @@
 	max_wizard_trigger_potency = 3
 	admin_setup = list(/datum/event_admin_setup/set_location/anomaly, /datum/event_admin_setup/anomaly_ectoplasm)
 
+//Notation For Event Awareness
+/*
+Janitor and chaplain check
+*/
+
 /datum/round_event/anomaly/anomaly_ectoplasm
 	anomaly_path = /obj/effect/anomaly/ectoplasm
 	start_when = ANOMALY_START_HARMFUL_TIME

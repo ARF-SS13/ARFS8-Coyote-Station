@@ -9,6 +9,10 @@
 	var/minimum_mice = 5
 	var/maximum_mice = 15
 
+//Notation For Event Awareness
+/*
+Should definitely require a janitor at the least.  Perhaps there should be other migrations as well?  Like roach?
+*/
 /datum/round_event/mice_migration/announce(fake)
 	var/cause = pick("space-winter", "budget-cuts", "Ragnarok",
 		"space being cold", "\[REDACTED\]", "climate change",
