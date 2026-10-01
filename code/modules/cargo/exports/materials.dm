@@ -109,7 +109,7 @@
 	cost = 1
 
 /datum/export/material/market/get_base_cost(obj/exported_obj)
-	return ..() * SSstock_market.get_material_price(material_id)
+	return ..() * SSstock_market.get_material_price(material_id, TRUE)
 
 /**
  * Returns number of sheets in this item
@@ -210,7 +210,7 @@
 	if(block.fluid)
 		var/datum/stock_market_material/mat = SSstock_market.get_market_datum(block.custom_materials[1].type)
 		if(mat)
-			return mat.current_price * sheetz
+			return mat.get_price(TRUE) * sheetz
 	return block.export_value * sheetz
 
 /datum/export/material/market/stock_block/sell_object(obj/item/stock_block/block, datum/export_report/report, dry_run, apply_elastic)

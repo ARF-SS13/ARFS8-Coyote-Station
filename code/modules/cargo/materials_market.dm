@@ -275,7 +275,7 @@
 			"desc" = descript,
 			"visible" = market.available || market.always_visible,
 			"available" = market.available,
-			"price" = market.current_price,
+			"price" = market.get_price(FALSE),
 			"rarity" = initial(traded_mat.value_per_unit),
 			"threshold" = minimum_value_threshold,
 			"quantity" = market.current_quantity,
@@ -370,7 +370,7 @@
 					say("Not enough materials on the market to purchase!")
 					return
 
-			var/cost = market.current_price * quantity
+			var/cost = market.get_price(FALSE) * quantity
 
 			var/list/things_to_order = list()
 			things_to_order[sheet_to_buy] = quantity

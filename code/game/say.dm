@@ -222,7 +222,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	message_data[SATA_RADIO_FREQ]        = radio_freq
 	message_data[SATA_RADIO_FREQ_COLOR]  = radio_freq_color
 	message_data[SATA_RADIO_FREQ_NAME]   = radio_freq_name
-	message_data[SATA_SPANS]             |= spans
+	message_data[SATA_SPANS]             = islist(message_data[SATA_SPANS]) ? message_data[SATA_SPANS] | spans : spans
 
 
 	//This proc uses [] because it is faster than continually appending strings. Thanks BYOND.

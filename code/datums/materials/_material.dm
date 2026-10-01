@@ -55,6 +55,10 @@ Simple datum which is instanced once per type and is used for every object of sa
 	///Fancy trade! is included in the fancy pool, with this weight of showing up!
 	var/tradable_fancy = FALSE
 
+	/// ARFS stock market related stuff (its not stocks anymore lol)
+
+	var/datum/mat_market_params/smmp = /datum/mat_market_params/default
+
 	///Armor modifiers, multiplies an items normal armor vars by these amounts.
 	var/armor_modifiers = list(MELEE = 1, BULLET = 1, LASER = 1, ENERGY = 1, BOMB = 1, BIO = 1, FIRE = 1, ACID = 1)
 	///How beautiful is this material per unit.
@@ -114,6 +118,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 	if(texture_layer_icon_state)
 		cached_texture_filter_icon = icon('icons/turf/composite.dmi', texture_layer_icon_state)
 
+	smmp = new(src)
 	return TRUE
 
 ///This proc is called when the material is added to an object.
