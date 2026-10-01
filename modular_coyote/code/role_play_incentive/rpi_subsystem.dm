@@ -113,6 +113,18 @@ SUBSYSTEM_DEF(rpi)
 		return TRUE
 	return FALSE
 
+/datum/controller/subsystem/rpi/proc/GetMatMarketScalar()
+	if(round_score + round_bank <= 0)
+		return 1
+	var/roundphase = get_round_phase()
+	var/totalscore = (round_score + round_bank) * (1 + roundphase/3)
+	var/logbase = 2
+	totalscore = log(logbase, totalscore)
+	totalscore += round(roundphase/3)
+	totalscore = round(totalscore, 0.5)
+	totalscore = max(totalscore, 1)
+	return totalscore
+
 /datum/controller/subsystem/rpi/proc/LoadAllRPI()
 	var/path = GetPath("accounts")
 	var/list/keys = flist(path)

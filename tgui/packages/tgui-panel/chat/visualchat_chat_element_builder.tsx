@@ -10,7 +10,7 @@
  */
 /** biome-ignore-all assist/source/organizeImports: eat me */
 
-import { Box, Stack, Image } from 'tgui-core/components';
+import { Box, Stack } from 'tgui-core/components';
 import { resolveAsset } from 'tgui/assets';
 import {
   type VCMessageData,
@@ -72,7 +72,10 @@ export function VisualChatify(
     const stylePack =
       theme === 'light'
         ? GetVCChatStylePack(VCStylePackEnum.light, messageData.differentiator)
-        : GetVCChatStylePack(VCStylePackEnum.default, messageData.differentiator);
+        : GetVCChatStylePack(
+            VCStylePackEnum.default,
+            messageData.differentiator,
+          );
     // logger.log(`using style pack ${theme === 'light' ? 'light' : 'def'}`);
     vcaOut.outerBoxStyle = {
       ...stylePack.Swag,
@@ -99,7 +102,7 @@ export function VisualChatify(
       ...stylePack.Text,
     };
     vcaOut.pfpImageStyle = { ...stylePack.PFPImageStyle };
-    vcaOut.hidePfp = messageData.hide_pfp
+    vcaOut.hidePfp = messageData.hide_pfp;
     return vcaOut;
   }
 

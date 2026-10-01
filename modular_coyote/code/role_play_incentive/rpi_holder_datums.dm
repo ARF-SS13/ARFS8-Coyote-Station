@@ -162,6 +162,10 @@
 		if(dcard)
 			if(dcard.registered_account.account_job)
 				dept = SSrpi.departmental_scoreboards[dcard.registered_account.account_job.paycheck_department]
+	if(!dept)
+		var/datum/mind/memind = me.mind
+		if(memind && memind.assigned_role)
+			dept = SSrpi.departmental_scoreboards[memind.assigned_role.paycheck_department]
 	if(!account && !dept)
 		debug_payward(account, 0)
 		return // just uh, ghold off i guess?
@@ -182,7 +186,10 @@
 	if(account)
 		account.adjust_money(topay, "Incentive Payward")
 	if(dept)
-		dept.payout_department(me, topay)
+		var/amt2pay = topay
+		if(!account)
+			amt2pay += topay
+		dept.payout_department(me, amt2pay)
 	var/datum/rpi_judgement/judgement = new /datum/rpi_judgement(owner_ckey, owner_slot, topay, "Payward")
 	past_chat_judgements |= judgement
 	update_scores_payward(judgement)

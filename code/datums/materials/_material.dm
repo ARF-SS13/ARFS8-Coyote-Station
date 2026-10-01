@@ -8,7 +8,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 /datum/material
 	/// What the material is referred to as IC.
 	var/name = "material"
-	/// A short description of the material. Not used anywhere, yet...
+	/// A short description of the material. Not used anywhere, yet... ...now it is! in the mats market thing
 	var/desc = "its..stuff."
 	/// What the material is indexed by in the SSmaterials.materials list. Defaults to the type of the material.
 	var/id
@@ -45,13 +45,19 @@ Simple datum which is instanced once per type and is used for every object of sa
 	var/integrity_modifier = 1
 
 	///This is the amount of value per 1 unit of the material
-	var/value_per_unit = 0
+	var/value_per_unit = 15 / SHEET_MATERIAL_AMOUNT
 	///This is the minimum value of the material, used in the stock market for any mat that isn't set to null
 	var/minimum_value_override = null
 	///Is this material traded on the stock market?
 	var/tradable = FALSE
 	///If this material is tradable, what is the base quantity of the material on the stock market?
-	var/tradable_base_quantity = 0
+	var/tradable_base_quantity = MATERIAL_QUANTITY_UNCOMMON
+	///Fancy trade! is included in the fancy pool, with this weight of showing up!
+	var/tradable_fancy = FALSE
+
+	/// ARFS stock market related stuff (its not stocks anymore lol)
+
+	var/datum/mat_market_params/smmp = /datum/mat_market_params/default
 
 	///Armor modifiers, multiplies an items normal armor vars by these amounts.
 	var/armor_modifiers = list(MELEE = 1, BULLET = 1, LASER = 1, ENERGY = 1, BOMB = 1, BIO = 1, FIRE = 1, ACID = 1)
@@ -112,6 +118,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 	if(texture_layer_icon_state)
 		cached_texture_filter_icon = icon('icons/turf/composite.dmi', texture_layer_icon_state)
 
+	smmp = new(src)
 	return TRUE
 
 ///This proc is called when the material is added to an object.

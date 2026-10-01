@@ -6,6 +6,7 @@ export function ModifyHSLA(
   sDelta: number,
   lDelta: number,
   aDelta: number,
+  multDelta = false,
 ): string {
   //check if the args stringed together are in CachedModdedColors, if so return that value
 
@@ -21,8 +22,8 @@ export function ModifyHSLA(
 
   let [_, h, s, l, a] = match;
   h = `${(parseInt(h, 10) + hDelta) % 360}`;
-  s = `${Math.min(Math.max(parseInt(s, 10) + sDelta, 0), 100)}`;
-  l = `${Math.min(Math.max(parseInt(l, 10) + lDelta, 0), 100)}`;
+  s = `${Math.min(Math.max(multDelta ? sDelta * parseInt(s, 10) : parseInt(s, 10) + sDelta, 0), 100)}`;
+  l = `${Math.min(Math.max(multDelta ? lDelta * parseInt(l, 10) : parseInt(l, 10) + lDelta, 0), 100)}`;
   a = `${Math.min(Math.max(parseFloat(a) + aDelta, 0), 1)}`;
 
   const modifiedColor = `hsla(${h}, ${s}%, ${l}%, ${a})`;

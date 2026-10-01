@@ -391,7 +391,7 @@
 	if(visible_message_flags & EMOTE_MESSAGE)
 		self_message = span_emote("<b>[src]</b> [self_message]") // May make more sense as "You do x"
 	var/list/self_message_data = message_data.Copy()
-	if(LAZYLEN(message_data))
+	if(message_data[SATA_SPEAKER])
 		self_message_data[SATA_MESSAGE_HEARD] = self_message
 		self_message_data[SATA_SPEAKER] = message_data[SATA_SPEAKER] || src
 		self_message_data[SATA_VC_SOURCE] = message_data[SATA_VC_SOURCE] || src
@@ -494,7 +494,7 @@
 	if(audible_message_flags & EMOTE_MESSAGE)
 		self_message = span_emote("<b>[src]</b> [self_message]")
 	var/list/self_message_data = list()
-	if(LAZYLEN(message_data))
+	if(message_data[SATA_SPEAKER])
 		self_message_data[SATA_MESSAGE_HEARD] = self_message
 		self_message_data[SATA_SPEAKER] = message_data[SATA_SPEAKER] || src
 		self_message_data[SATA_VC_SOURCE] = message_data[SATA_VC_SOURCE] || src

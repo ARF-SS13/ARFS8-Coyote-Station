@@ -7065,6 +7065,7 @@
 #include "modular_coyote\code\abhorrent_vermin\ratwiggle_subsystem.dm"
 #include "modular_coyote\code\helpers\dans_helper_files.dm"
 #include "modular_coyote\code\helpers\EZ_pro_doafters.dm"
+#include "modular_coyote\code\material_market_stuff\material_market_parameters.dm"
 #include "modular_coyote\code\mob\creature_procs.dm"
 #include "modular_coyote\code\mob\creature_species.dm"
 #include "modular_coyote\code\mob\species_orderizing.dm"

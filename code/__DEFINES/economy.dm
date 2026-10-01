@@ -82,7 +82,7 @@
 #define MARKET_TREND_DOWNWARD -1
 #define MARKET_TREND_STABLE 0
 
-#define MARKET_EVENT_PROBABILITY 8 //Probability of a market event firing, in percent. Fires once per material, every stock market tick.
+#define MARKET_EVENT_PROBABILITY 4 //Probability of a market event firing, in percent. Fires once per material, every stock market tick.
 
 // Fair warning that these defines at present are not used in all tgui, static descriptions, or any varible names or comments
 /// The symbol for the default type of money used in the code.
