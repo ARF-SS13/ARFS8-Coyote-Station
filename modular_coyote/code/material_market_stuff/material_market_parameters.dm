@@ -15,15 +15,9 @@
 	/// duration it stays unavailable, max
 	var/duration_unavailable_max = 2
 
-	// prices, multipliers on top of the base price, fluctuates each tick
-	// high early round, decreases over time and RPI score
-	/// min price mult
-	var/price_mult_min = 6
-	var/price_mult_max = 8
-
 	// quantities
-	var/quantity_replenish_min = 5
-	var/quantity_replenish_max = 10
+	var/quantity_replenish_min = 20
+	var/quantity_replenish_max = 40
 
 	/// okay these modifiers suck
 	// RPI modifiers for everything
@@ -43,22 +37,18 @@
 
 /// usually available, becomes possible p2 on, somewhat low quantity
 /datum/mat_market_params/semiprecious
-	earliest_available = 2
 	chance_become_available = 50
 	chance_become_unavailable = 10
 	duration_available_min = 5
 	duration_available_max = 10
 	duration_unavailable_min = 3
 	duration_unavailable_max = 5
-	quantity_replenish_min = 5
-	quantity_replenish_max = 7
 	rpi_log_base = 9
 	rpi_price_exponent = 0.2
 	rpi_quantity_replenish_exp = 0.2
 	rpi_quantity_replenish_operand = 2
 
 /datum/mat_market_params/precious
-	earliest_available = 3
 	chance_become_available = 40
 	chance_become_unavailable = 15
 	duration_available_min = 5
@@ -72,7 +62,6 @@
 	rpi_quantity_replenish_operand = 1.5
 
 /datum/mat_market_params/bluespace
-	earliest_available = 2
 	chance_become_available = 20
 	chance_become_unavailable = 20
 	duration_available_min = 2
@@ -87,7 +76,6 @@
 	rpi_quantity_replenish_operand = 1.1
 
 /datum/mat_market_params/diamonds
-	earliest_available = 1
 	chance_become_available = 10
 	chance_become_unavailable = 45
 	duration_available_min = 20

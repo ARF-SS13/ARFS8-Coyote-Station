@@ -118,7 +118,7 @@ SUBSYSTEM_DEF(rpi)
 		return 1
 	var/roundphase = get_round_phase()
 	var/totalscore = (round_score + round_bank) * (1 + roundphase/3)
-	var/logbase = 3
+	var/logbase = 2
 	totalscore = log(logbase, totalscore)
 	totalscore += round(roundphase/3)
 	totalscore = round(totalscore, 0.5)

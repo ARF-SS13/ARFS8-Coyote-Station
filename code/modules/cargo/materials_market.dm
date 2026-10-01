@@ -1,13 +1,14 @@
 /// The maximum number of stacks you can place in 1 order
 #define MAX_STACK_LIMIT 20
 /// The order rank for all galactic material market orders
-#define GALATIC_MATERIAL_ORDER "Galactic Materials Market"
+#define GALATIC_MATERIAL_ORDER "ARFS-LINK Material Wholesale"
 
 /obj/machinery/materials_market
-	name = "galactic materials market"
-	desc = "This machine allows the user to buy and sell sheets of minerals \
-		across the system. Prices are known to fluxuate quite often,\
-		sometimes even within the same minute. All transactions are final."
+	name = "ARFS-LINK Material Market uplink kiosk"
+	desc = "This machine allows the user to buy sheets of materials, using either their own funds or that of their department's budget. \
+		One of the few possible ways to get most resources out in this neck of space!\n\n\
+		ARFS-LINK also offers discounts to stations with an active social life! The more the crew communicates with each other, the \
+		cheaper the materials get! Yes, even the 'communications' you do in dorms. Don't ask how they know!"
 	circuit = /obj/item/circuitboard/machine/materials_market
 	density = TRUE
 	icon = 'icons/obj/economy.dmi'
@@ -403,6 +404,7 @@
 
 				// Finally Append to this order
 				current_order.append_order(things_to_order, cost)
+				say("ARFS-LINK order updated! Pester Cargo to finalize the order!")
 				return TRUE
 
 
@@ -427,7 +429,7 @@
 				qdel(new_order)
 				return
 
-			say("Thank you for your purchase! It will arrive on the next cargo shuttle!")
+			say("ARFS-LINK order created! Pester Cargo to finalize the order!")
 			SSshuttle.shopping_list += new_order
 			return TRUE
 

@@ -281,7 +281,7 @@ function MatsList({ fancy }: { fancy: boolean }) {
     <Box
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+        gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
         gridAutoRows: '1fr',
         alignItems: 'stretch',
         gap: '8px',

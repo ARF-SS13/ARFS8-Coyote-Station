@@ -11,12 +11,12 @@ SUBSYSTEM_DEF(stock_market)
 	/// min multiplier for min price
 	var/price_min_mult = 2
 	/// max mult for quantity
-	var/quantity_max_mult = 5
+	var/quantity_max_mult = 10
 	/// min mult for quantity
 	var/quantity_min_mult = 0.2
 	/// max number of fancy items at once
-	var/max_fancy = 4
-	var/new_fancy_chance = 50
+	var/max_fancy = 9
+	var/new_fancy_chance = 100
 
 	// a bunch of lists
 	/// A list of all currently active stock market events.
@@ -177,9 +177,10 @@ SUBSYSTEM_DEF(stock_market)
 
 	// try to add more fancies
 	if(prob(new_fancy_chance)) // try to add a new fancy
-		var/datum/stock_market_material/fan = pick_weight(fancy_mats)
-		if(fan)
-			fan.start_fancy()
+		for(var/i in 1 to rand(1, 3))
+			var/datum/stock_market_material/fan = pick_weight_remove(fancy_mats)
+			if(fan)
+				fan.start_fancy()
 
 
 /*
@@ -197,10 +198,11 @@ SUBSYSTEM_DEF(stock_market)
 		var/datum/stock_market_material/matdat = get_market_datum(matkey)
 		var/datum/mat_market_params/params = matdat.params
 		if(!params || !params.uses_market_params)
+			matdat.adjust_current_quantity(matdat.maximum_quantity * 0.01)
 			continue
 		var/replenish = rand(params.quantity_replenish_min, params.quantity_replenish_max)
 		matdat.price_mult = pricemult // some kind of sine nonesnee
-		replenish += rpi_score
+		replenish *= rpi_score
 		matdat.adjust_current_quantity(replenish)
 		if(roundphase < params.earliest_available)
 			matdat.available = FALSE
@@ -259,9 +261,9 @@ SUBSYSTEM_DEF(stock_market)
 		minimum_price = ceil(initial_price * SSstock_market.price_min_mult)
 	maximum_price = ceil(initial_price * SSstock_market.price_max_mult)
 	initial_quantity = mat.tradable_base_quantity
+	current_quantity = initial_quantity
 	minimum_quantity = ceil(initial_quantity * SSstock_market.quantity_min_mult)
 	maximum_quantity = ceil(initial_quantity * SSstock_market.quantity_max_mult)
-	current_quantity = minimum_quantity
 	trend = rand(MARKET_TREND_DOWNWARD,MARKET_TREND_UPWARD)
 	trend_life = rand(1,3)
 	var/adj_mult = rand(-500, 500) / 1000
