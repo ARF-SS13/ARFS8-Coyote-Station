@@ -264,3 +264,10 @@
 
 #define SI_COEFFICIENT "coefficient"
 #define SI_UNIT "unit"
+
+/// is the value is between plus or minus the given tolerance? uses absolute value comparison
+#define IS_WITHIN_TOLERANCE(value, target, tolerance) (abs((value) - (target)) <= (tolerance))
+
+
+
+

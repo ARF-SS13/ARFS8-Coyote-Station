@@ -412,6 +412,8 @@ class ChatRenderer {
     for (let i = from; i >= to; i--) {
       const message = this.messages[i];
       if (!message.extraData) continue;
+      if (!message.extraData.message_data) continue;
+      if (!message.extraData.saymode_data) continue;
       if (
         message?.extraData?.message_data?.name_displayed ===
         predicate?.extraData?.message_data?.name_displayed

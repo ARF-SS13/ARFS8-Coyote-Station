@@ -116,3 +116,13 @@
 		text = verbset.replace_token(text, focus)
 	return text
 
+
+/proc/drift_towards_by(val,target,amt)
+	if(val == target)
+		return val
+	if(val < target)
+		return min(val+amt,target)
+	if(val > target)
+		return max(val-amt,target)
+	return val
+
