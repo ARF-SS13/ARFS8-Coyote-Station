@@ -191,7 +191,7 @@ SUBSYSTEM_DEF(stock_market)
 	var/roundphase = get_round_phase()
 	var/rpi_score = SSrpi.GetMatMarketScalar()
 	var/rpimaxeff = 10
-	var/rpi_eff = rpi_score/rpimaxeff
+	var/rpi_eff = clamp(rpi_score/rpimaxeff, 0, 1)
 	var/pricemult = LERP(price_max_mult, price_min_mult, rpi_eff)
 
 	for(var/matkey in market_datums)
