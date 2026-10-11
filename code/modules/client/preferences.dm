@@ -270,6 +270,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			else
 				tgui_alert(ui.user, "Cancelled Duplication", "Duplicate Character")
 			return TRUE //BUBBER ADDITION END - Character duplication
+		if ("export_char_image")
+			var/mob/living/carbon/human/dummy/export_dummy = new()
+			var/mutable_appearance/dummy_appearance = render_new_preview_appearance(export_dummy)
+			var time_string = time2text(world.realtime, "MM-DD-YY") + "_" + time2text(world.timeofday, "hh-mm-ss")
+			for(var/D in GLOB.cardinals)
+				export_dummy.dir = D
+				parent << ftp(parent.RenderIcon(export_dummy), "char_preview_[D]_[time_string].dmi")
 		if ("rotate")
 			/* SKYRAT EDIT - Bi-directional prefs menu rotation - ORIGINAL:
 			character_preview_view.dir = turn(character_preview_view.dir, -90)
