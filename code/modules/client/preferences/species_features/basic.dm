@@ -143,11 +143,17 @@
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_head_flag = HEAD_HAIR
 
+/datum/preference/color/hair_color/layer_two
+	savefile_key = "hair_color_2"
+
 /datum/preference/color/hair_color/has_relevant_feature(datum/prefs_holder/preferences)
 	return ..() || (/datum/quirk/item_quirk/bald::name in preferences.all_quirks)
 
 /datum/preference/color/hair_color/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_haircolor(value, update = FALSE)
+
+/datum/preference/color/hair_color/layer_two/apply_to_human(mob/living/carbon/human/target, value)
+	target.set_haircolor_2(value, update = FALSE)
 
 /datum/preference/color/hair_color/create_informed_default_value(datum/prefs_holder/preferences)
 	return "#B25A63"
@@ -161,6 +167,10 @@
 	should_generate_icons = TRUE
 	relevant_head_flag = HEAD_HAIR
 
+/datum/preference/choiced/hairstyle/layer_two
+	savefile_key = "hairstyle_name_2"
+	main_feature_name = "Hairstyle 2"
+
 /datum/preference/choiced/hairstyle/has_relevant_feature(datum/prefs_holder/preferences)
 	return ..() || (/datum/sprite_accessory/hair/bald::name in preferences.all_quirks)
 
@@ -173,6 +183,9 @@
 
 /datum/preference/choiced/hairstyle/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_hairstyle(value, update = FALSE)
+
+/datum/preference/choiced/hairstyle/layer_two/apply_to_human(mob/living/carbon/human/target, value)
+	target.set_hairstyle_2(value, update = FALSE)
 
 /datum/preference/choiced/hairstyle/create_default_value()
 	return /datum/sprite_accessory/hair/bob2::name
@@ -195,6 +208,13 @@
 	var/list/data = ..()
 
 	data[SUPPLEMENTAL_FEATURE_KEY] = /datum/preference/color/hair_color::savefile_key
+
+	return data
+
+/datum/preference/choiced/hairstyle/layer_two/compile_constant_data()
+	var/list/data = ..()
+
+	data[SUPPLEMENTAL_FEATURE_KEY] = /datum/preference/color/hair_color/layer_two::savefile_key
 
 	return data
 

@@ -48,6 +48,10 @@
 	/// Lazy initialized hashset of all hair mask types that should be applied
 	var/list/hair_masks
 
+	var/hairstyle_2 = "Bald"
+	var/hair_color_2 = COLOR_BLACK
+	var/hair_alpha_2 = 255
+
 	///Facial hair style
 	var/facial_hairstyle = "Shaved"
 	///Facial hair color
