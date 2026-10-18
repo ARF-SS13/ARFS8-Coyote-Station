@@ -36,6 +36,11 @@ export const hair_color: Feature<string> = {
   component: FeatureColorInput,
 };
 
+export const hair_color_2: Feature<string> = {
+  name: 'Hair color 2',
+  component: FeatureColorInput,
+};
+
 export const hair_gradient: FeatureChoiced = {
   name: 'Hair gradient',
   component: (

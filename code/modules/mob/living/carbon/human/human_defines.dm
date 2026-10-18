@@ -22,6 +22,8 @@
 	//Hair colour and style
 	var/hair_color = COLOR_BLACK
 	var/hairstyle = "Bald"
+	var/hair_color_2 = COLOR_BLACK
+	var/hairstyle_2 = "Bald"
 
 	///Colours used for hair and facial hair gradients.
 	var/list/grad_color
