@@ -21,7 +21,7 @@
 	default_value = FALSE
 	can_randomize = FALSE
 
-/datum/preference/toggle/limb_alpha_per_limb/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/limb_alpha_per_limb/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return // Purely a UI/visibility gate, handled by the individual sliders.
 
 /// Base type for a single bodypart's alpha slider. Stores the chosen value in dna.features
@@ -44,7 +44,7 @@
 /datum/preference/numeric/limb_alpha/create_default_value()
 	return maximum // Fully opaque by default.
 
-/datum/preference/numeric/limb_alpha/is_accessible(datum/preferences/preferences)
+/datum/preference/numeric/limb_alpha/is_accessible(datum/prefs_holder/preferences)
 	if(!enabled)
 		return FALSE
 	if(!..(preferences))
@@ -53,7 +53,7 @@
 		return FALSE
 	return TRUE
 
-/datum/preference/numeric/limb_alpha/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/numeric/limb_alpha/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	// Disabled sliders (head/chest for now), and limbs gated behind the toggle while it is off,
 	// stay fully opaque regardless of any saved value.
 	if(!enabled)
