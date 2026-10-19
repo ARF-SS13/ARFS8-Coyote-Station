@@ -731,6 +731,7 @@
 //defines for grad_color and grad_styles list access keys
 #define GRADIENT_HAIR_KEY "1"
 #define GRADIENT_FACIAL_HAIR_KEY "2"
+#define GRADIENT_HAIR_LAYER_TWO_KEY "3"
 
 // /datum/sprite_accessory/gradient defines
 #define GRADIENT_APPLIES_TO_HAIR (1<<0)

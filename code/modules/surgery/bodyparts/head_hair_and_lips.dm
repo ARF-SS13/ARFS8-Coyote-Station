@@ -204,9 +204,9 @@
 				worn_face_offset?.apply_offset(hair_overlay)
 				. += hair_overlay
 				//Gradients
-				var/hair_gradient_style = get_hair_gradient_style(GRADIENT_HAIR_KEY)
+				var/hair_gradient_style = get_hair_gradient_style(GRADIENT_HAIR_LAYER_TWO_KEY)
 				if(hair_gradient_style != "None")
-					var/hair_gradient_color = get_hair_gradient_color(GRADIENT_HAIR_KEY)
+					var/hair_gradient_color = get_hair_gradient_color(GRADIENT_HAIR_LAYER_TWO_KEY)
 					var/image/hair_gradient_overlay = get_gradient_overlay(base_icon, hair_overlay.layer, SSaccessories.hair_gradients_list[hair_gradient_style], hair_gradient_color, dropped)
 					hair_gradient_overlay.pixel_z = hair_sprite_accessory.y_offset
 					// SKYRAT EDIT ADDITION - Species hair offset
@@ -383,8 +383,12 @@
 /mob/living/carbon/human/set_haircolor_2(hex_string, override, update = TRUE)
 	var/obj/item/bodypart/head/my_head = get_bodypart(BODY_ZONE_HEAD)
 
-	hair_color_2 = hex_string
-	my_head?.hair_color_2 = hex_string
+	if(override)
+		// aight, no head? tough luck
+		my_head?.override_hair_color = hex_string
+	else
+		hair_color_2 = hex_string
+		my_head?.hair_color_2 = hex_string
 
 	if(update)
 		update_body_parts()
@@ -426,17 +430,17 @@
  * Set the hair gradient style of a human.
  * Update calls update_body_parts().
  **/
-/mob/living/proc/set_hair_gradient_style(new_style, update = TRUE)
+/mob/living/proc/set_hair_gradient_style(new_style, update = TRUE, key = GRADIENT_HAIR_KEY)
 	return
 
-/mob/living/carbon/human/set_hair_gradient_style(new_style, update = TRUE)
-	if(LAZYACCESS(grad_style, GRADIENT_HAIR_KEY) == new_style)
+/mob/living/carbon/human/set_hair_gradient_style(new_style, update = TRUE, key = GRADIENT_HAIR_KEY)
+	if(LAZYACCESS(grad_style, key) == new_style)
 		return
 	var/obj/item/bodypart/head/my_head = get_bodypart(BODY_ZONE_HEAD)
 
-	LAZYSET(grad_style, GRADIENT_HAIR_KEY, new_style)
+	LAZYSET(grad_style, key, new_style)
 	if(my_head)
-		LAZYSET(my_head.gradient_styles, GRADIENT_HAIR_KEY, new_style)
+		LAZYSET(my_head.gradient_styles, key, new_style)
 
 	if(update)
 		update_body_parts()
@@ -480,17 +484,17 @@
  * Set the hair gradient color of a human.
  * Update calls update_body_parts().
  **/
-/mob/living/proc/set_hair_gradient_color(new_color, update = TRUE)
+/mob/living/proc/set_hair_gradient_color(new_color, update = TRUE, key = GRADIENT_HAIR_KEY)
 	return
 
-/mob/living/carbon/human/set_hair_gradient_color(new_color, update = TRUE)
-	if(LAZYACCESS(grad_color, GRADIENT_HAIR_KEY) == new_color)
+/mob/living/carbon/human/set_hair_gradient_color(new_color, update = TRUE, key = GRADIENT_HAIR_KEY)
+	if(LAZYACCESS(grad_color, key) == new_color)
 		return
 	var/obj/item/bodypart/head/my_head = get_bodypart(BODY_ZONE_HEAD)
 
-	LAZYSET(grad_color, GRADIENT_HAIR_KEY, new_color)
+	LAZYSET(grad_color, key, new_color)
 	if(my_head)
-		LAZYSET(my_head.gradient_colors, GRADIENT_HAIR_KEY, new_color)
+		LAZYSET(my_head.gradient_colors, key, new_color)
 
 	if(update)
 		update_body_parts()
