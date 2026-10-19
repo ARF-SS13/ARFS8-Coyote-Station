@@ -254,16 +254,16 @@
 /datum/preference/choiced/hair_gradient/two
 	savefile_key = "hair_gradient_2"
 
-/datum/preference/choiced/hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/hair_gradient/two/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_hair_gradient_style(new_style = value, update = FALSE, key = GRADIENT_HAIR_LAYER_TWO_KEY)
 
 /datum/preference/color/hair_gradient/two
 	savefile_key = "hair_gradient_color_2"
 
-/datum/preference/color/hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/color/hair_gradient/two/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_hair_gradient_color(new_color = value, update = FALSE, key = GRADIENT_HAIR_LAYER_TWO_KEY)
 
-/datum/preference/color/hair_gradient/is_accessible(datum/prefs_holder/preferences)
+/datum/preference/color/hair_gradient/two/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 	return preferences.read_preference(/datum/preference/choiced/hair_gradient/two) != /datum/sprite_accessory/gradient/none::name
