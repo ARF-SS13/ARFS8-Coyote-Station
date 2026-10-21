@@ -27849,10 +27849,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
-"pic" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/station/engineering/atmos/hfr_room)
 "pis" = (
 /obj/machinery/telecomms/server/presets/science,
 /obj/effect/turf_decal/box/white{
@@ -149274,7 +149270,7 @@ xse
 bZc
 hWg
 sfI
-pic
+byh
 hJY
 hJY
 hJY
