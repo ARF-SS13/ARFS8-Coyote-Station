@@ -55,6 +55,20 @@ export const hair_gradient_color: Feature<string> = {
   component: FeatureColorInput,
 };
 
+export const hair_gradient_2: FeatureChoiced = {
+  name: 'Hair gradient 2',
+  component: (
+    props: FeatureValueProps<string, string, FeatureChoicedServerData>,
+  ) => {
+    return <FeatureDropdownInput buttons {...props} />;
+  },
+};
+
+export const hair_gradient_color_2: Feature<string> = {
+  name: 'Hair gradient 2 color',
+  component: FeatureColorInput,
+};
+
 export const feature_cat_ears: FeatureChoiced = {
   name: 'Ears',
   component: (
