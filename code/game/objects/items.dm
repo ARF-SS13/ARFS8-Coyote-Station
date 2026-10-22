@@ -596,6 +596,10 @@
 		//We want the pickup animation to play even if we're moving the item between movables. Unless the mob is not located on a turf.
 		if(isturf(user.loc))
 			storage_turf = get_turf(loc)
+		if(!loc.atom_storage.equipped_slot_ok(user))
+			balloon_alert(user, "can't access this while its worn there!")
+			to_chat(user, span_alert("You can't access [src] while it is worn there! Try taking it off first!"))
+			return COMPONENT_CANCEL_ATTACK_CHAIN
 		if(!loc.atom_storage.remove_single(user, src, user, silent = TRUE))
 			return
 	if(QDELETED(src)) //moving it out of the storage destroyed it.

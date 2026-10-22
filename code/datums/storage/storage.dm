@@ -129,6 +129,13 @@
 	/// Switch this off if you want to handle click_alt in the parent atom
 	var/click_alt_open = TRUE
 
+	var/uses_equipped_slot_restriction = FALSE
+	var/equipped_slot_hands_always_ok = FALSE
+	var/equipped_slot_non_held_always_ok = FALSE
+	var/attack_hand_interact_blocked_when_slot_restricted = TRUE
+	var/list/equipped_slot_whitelist = list()
+	var/list/equipped_slot_blacklist = list()
+
 
 /datum/storage/New(
 	atom/parent,
@@ -401,7 +408,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	if(locked > force)
 		if(messages && user)
-			user.balloon_alert(user, "closed!")
+			user.balloon_alert(user, "the container is closed, open it first!")
 		return FALSE
 
 	if((to_insert == parent) || (to_insert == real_location))
@@ -410,21 +417,27 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(to_insert.w_class > max_specific_storage)
 		if(!is_type_in_typecache(to_insert, exception_hold))
 			if(messages && user)
-				user.balloon_alert(user, "too big!")
+				if(prob(1))
+					user.balloon_alert(user, "ohh that's too big to fit~")
+				else
+					user.balloon_alert(user, "that's too big to fit!")
 			return FALSE
 		if(exception_max <= get_exception_count())
 			if(messages && user)
-				user.balloon_alert(user, "no room!")
+				user.balloon_alert(user, "no more room for things that big!")
 			return FALSE
 
 	if(real_location.contents.len >= max_slots)
 		if(messages && user && !silent_for_user)
-			user.balloon_alert(user, "no room!")
+			user.balloon_alert(user, "too many things in there!")
 		return FALSE
 
 	if(to_insert.w_class + get_total_weight() > max_total_storage)
 		if(messages && user && !silent_for_user)
-			user.balloon_alert(user, "no room!")
+			if(prob(1))
+				user.balloon_alert(user, "ohh im so full~")
+			else
+				user.balloon_alert(user, "not enough volume for that!")
 		return FALSE
 
 	var/can_hold_it = isnull(can_hold) || is_type_in_typecache(to_insert, can_hold) || is_type_in_typecache(to_insert, exception_hold)
@@ -432,12 +445,12 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	var/trait_says_no = HAS_TRAIT(to_insert, TRAIT_NO_STORAGE_INSERT)
 	if(!can_hold_it || cant_hold_it || trait_says_no)
 		if(messages && user)
-			user.balloon_alert(user, "can't hold!")
+			user.balloon_alert(user, "this can't hold that kind of thing!")
 		return FALSE
 
 	if(HAS_TRAIT(to_insert, TRAIT_NODROP) && (to_insert.item_flags & IN_INVENTORY))
 		if(messages && user)
-			user.balloon_alert(user, "stuck on your hand!")
+			user.balloon_alert(user, "that's stuck to your hand!")
 		return FALSE
 
 	// this is valid if the container our location is being held in is a storage item
@@ -452,7 +465,10 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 		var/datum/storage/smaller_fish = to_insert.atom_storage
 		if(smaller_fish && !allow_big_nesting && to_insert.w_class >= item_parent.w_class)
 			if(messages && user)
-				user.balloon_alert(user, "too big!")
+				if(prob(1))
+					user.balloon_alert(user, "ohhh thats too big~")
+				else
+					user.balloon_alert(user, "that's too big!")
 			return FALSE
 
 	return TRUE
@@ -652,6 +668,11 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
  * * silent - if TRUE, we won't play any exit sounds
  */
 /datum/storage/proc/remove_single(mob/removing, obj/item/thing, atom/remove_to_loc, silent = FALSE)
+	if(!equipped_slot_ok(removing))
+		parent.balloon_alert(removing, "can't access from there!")
+		to_chat(removing, span_alert("You can't access [parent] while it is worn there! Try taking it off first!"))
+		return FALSE
+
 	return attempt_remove(thing, remove_to_loc, silent)
 
 /**
@@ -903,6 +924,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	if(!attack_hand_interact)
 		return
+	if(!equipped_slot_ok(user))
+		return
 	if(user.active_storage == src && parent.loc == user)
 		user.active_storage.hide_contents(user)
 		hide_contents(user)
@@ -914,6 +937,29 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(parent.loc == user)
 		INVOKE_ASYNC(src, PROC_REF(open_storage), user)
 		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/datum/storage/proc/equipped_slot_ok(mob/user)
+	if(!uses_equipped_slot_restriction)
+		return TRUE
+	if(!LAZYLEN(equipped_slot_blacklist) && !LAZYLEN(equipped_slot_whitelist) && !equipped_slot_hands_always_ok)
+		stack_trace("[type] has uses_equipped_slot_restriction set to yes, but no actual slot restructions. Idiot")
+		uses_equipped_slot_restriction = FALSE
+		return TRUE
+	if(equipped_slot_non_held_always_ok && parent.loc != user.loc)
+		return TRUE
+	if(!iscarbon(user))
+		return TRUE // they get a pass
+	var/mob/living/carbon/c_user = user
+	if(equipped_slot_hands_always_ok && c_user.is_holding(parent))
+		return TRUE
+	var/bagslot = c_user.get_slot_by_item(parent)
+	if(!bagslot) // probably on the ground or in an inventory or something
+		return TRUE // should be fine
+	if(LAZYLEN(equipped_slot_blacklist) && (bagslot in equipped_slot_blacklist))
+		return FALSE
+	if(LAZYLEN(equipped_slot_whitelist) && (bagslot in equipped_slot_whitelist))
+		return TRUE
+	return FALSE
 
 /// Generates the numbers on an item in storage to show stacking.
 /datum/storage/proc/process_numerical_display()
@@ -968,6 +1014,12 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	//because of the check above, it's safe to assume we're living now.
 	if(!(to_show.mobility_flags & MOBILITY_STORAGE))
 		return FALSE
+
+	if(!equipped_slot_ok(to_show))
+		hide_contents(to_show)
+		parent.balloon_alert(to_show, "can't access from there!")
+		to_chat(to_show, span_alert("You can't access [parent] while it is worn there! Try taking it off first!"))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 	if(locked)
 		if(!silent)
