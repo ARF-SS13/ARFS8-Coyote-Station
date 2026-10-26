@@ -2999,6 +2999,23 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/admin)
+"nB" = (
+/obj/effect/turf_decal/tile/dark_green{
+	dir = 1
+	},
+/obj/machinery/computer{
+	dir = 4;
+	name = "Residential Teleportation Console";
+	desc = "A locked out and tagged out computer for the nearby teleporters - you should use the teleporters themselves."
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/centcom/central_command_areas/evacuation)
 "nC" = (
 /obj/machinery/door/airlock/centcom{
 	name = "CentCom Security"
@@ -4243,18 +4260,10 @@
 /turf/open/floor/iron,
 /area/centcom/central_command_areas/evacuation)
 "sP" = (
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_y = 7;
-	pixel_x = -4
-	},
-/obj/item/pen{
-	pixel_x = -5;
-	pixel_y = 9
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/cryopod,
 /turf/open/floor/iron,
 /area/centcom/central_command_areas/evacuation)
 "sQ" = (
@@ -5560,6 +5569,20 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/briefing)
+"yM" = (
+/obj/machinery/cafe_condo_teleporter{
+	name = "Residential Teleporter"
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/red,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/centcom/central_command_areas/evacuation)
 "yO" = (
 /obj/machinery/computer/communications,
 /obj/machinery/status_display/evac/directional/north,
@@ -9558,9 +9581,18 @@
 /turf/open/floor/iron,
 /area/centcom/central_command_areas/supplypod/loading/two)
 "Sj" = (
-/obj/structure/chair{
+/obj/effect/turf_decal/tile/dark_green{
 	dir = 4
 	},
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 8
+	},
+/obj/machinery/cafe_condo_teleporter{
+	name = "Residential Teleporter"
+	},
+/obj/effect/turf_decal/delivery/blue,
+/obj/machinery/airalarm/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -59626,8 +59658,8 @@ fm
 sN
 bL
 Sj
-JU
-xr
+nB
+yM
 wK
 Rf
 wK
@@ -59880,7 +59912,7 @@ Hv
 qz
 qy
 fm
-sO
+sP
 bJ
 IX
 xt
@@ -60394,7 +60426,7 @@ Hv
 qy
 qz
 fm
-sQ
+sP
 tT
 xt
 vf
@@ -60651,7 +60683,7 @@ Hv
 qy
 qz
 fm
-sQ
+sP
 tT
 xt
 vf
@@ -60908,7 +60940,7 @@ Hv
 fm
 fm
 cg
-sQ
+sP
 tT
 xt
 ve
