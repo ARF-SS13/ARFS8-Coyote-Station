@@ -490,12 +490,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/bridge)
-"anm" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/turf/closed/wall,
-/area/station/cargo/storage)
 "anv" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/orange,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -3362,6 +3356,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/station/ai/satellite/hallway)
 "bSB" = (
@@ -10527,6 +10522,7 @@
 "fUd" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron/smooth,
 /area/station/engineering/gravity_generator)
 "fUE" = (
@@ -11608,7 +11604,6 @@
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/station/service/kitchen)
 "gyj" = (
-/obj/machinery/airalarm/directional/east,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
 	},
@@ -25232,6 +25227,11 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/station/engineering/engine_smes)
+"nLe" = (
+/obj/effect/turf_decal/trimline/brown/corner,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
+/turf/open/floor/iron,
+/area/station/cargo/storage)
 "nLg" = (
 /turf/open/floor/iron,
 /area/station/hallway/primary/central)
@@ -26266,9 +26266,10 @@
 /turf/open/floor/iron/dark,
 /area/station/maintenance/department/medical/central)
 "ohf" = (
-/obj/effect/turf_decal/trimline/brown/corner,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
-/turf/open/floor/iron,
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
+/turf/closed/wall,
 /area/station/cargo/storage)
 "ohh" = (
 /obj/machinery/light/small/directional/north,
@@ -72290,7 +72291,7 @@ ejC
 ejC
 dTU
 ejC
-anm
+ohf
 luf
 kln
 xAt
@@ -73063,7 +73064,7 @@ cTX
 qkD
 rOb
 jvq
-ohf
+nLe
 kJr
 tzH
 vAI
