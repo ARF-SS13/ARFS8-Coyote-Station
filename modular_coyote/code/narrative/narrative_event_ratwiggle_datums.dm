@@ -3,6 +3,7 @@
 	weight = 10
 	unlock_phase = 1
 	end_phase = 6
+	max_runs = -1
 	/// attempts to move the cooldown for ratwiggle events, by this much, to that much
 	/// cooldown multiplier for ratwiggle events.
 	var/rw_cooldown_percent_change = 0
@@ -35,9 +36,11 @@
 		SSratwiggle.ignore_max_spawnable = rw_ignore_max_spawnable
 	if(!isnull(rw_ignore_max_spawnable_hostiles))
 		SSratwiggle.ignore_max_spawnable_hostiles = rw_ignore_max_spawnable_hostiles
+	if(is_finished(force))
+		finished = TRUE
 
-/datum/episode_event/ratwiggle_modifier/is_satisfied(force)
-	// we're satisfied when ssratwiggle has reached its desired state
+/datum/episode_event/ratwiggle_modifier/is_finished(force)
+	// we're finished when ssratwiggle has reached its desired state
 	if(rw_cooldown_percent_change != 0)
 		if(!IS_WITHIN_TOLERANCE(SSratwiggle.cooldown_percent, rw_cooldown_percent_target, rw_cooldown_percent_change))
 			return FALSE

@@ -116,7 +116,7 @@ SUBSYSTEM_DEF(rpi)
 /datum/controller/subsystem/rpi/proc/GetMatMarketScalar()
 	if(round_score + round_bank <= 0)
 		return 1
-	var/roundphase = get_round_phase()
+	var/roundphase = SSnarrative.get_round_phase()
 	var/totalscore = (round_score + round_bank) * (1 + roundphase/3)
 	var/logbase = 2
 	totalscore = log(logbase, totalscore)

@@ -22,7 +22,7 @@ SUBSYSTEM_DEF(narrative)
 	name = "Narrative"
 	runlevels = RUNLEVEL_GAME
 	flags = SS_BACKGROUND | SS_KEEP_TIMING
-	wait = 5 SECONDS
+	wait = 10 SECONDS
 	dependencies = list(
 		// we kinda need it lol
 		/datum/controller/subsystem/gamemode,
@@ -30,6 +30,7 @@ SUBSYSTEM_DEF(narrative)
 
 	var/list/all_episodes = list()
 	var/list/potential_episodes = list()
+	var/datum/episode/current_episode = null
 	// so people who are fucking each other's brains out wont count towards the pop
 	var/list/comfy_trackers = list()
 	var/spider_chance = 0
@@ -43,6 +44,36 @@ SUBSYSTEM_DEF(narrative)
 	var/phase_min = 1
 	var/phase_max = 6
 	var/phase_override = null
+
+/datum/controller/subsystem/narrative/Initialize()
+	build_episode_list()
+	// load_episode_history()
+	. = ..()
+	var/list/thingse = list(
+		"Stay tuned!",
+		"Don't touch that dial!",
+		"Coming soon to a space station near you!",
+	)
+	to_chat(world, span_boldnotice("Initialized [LAZYLEN(all_episodes)] distinct potential episodes! [pick(thingse)]"))
+
+/datum/controller/subsystem/narrative/fire(resumed)
+	if(!current_episode)
+		check_tv_guide()
+		return
+
+/datum/controller/subsystem/narrative/proc/build_episode_list()
+	for(var/datum/episode/ep as anything in all_episodes)
+		all_episodes -= ep
+		all_episodes += new ep()
+
+/// spends the first couple minutes of the round checking the player count and such for
+/// which episodes may be a good idea to do. or just picks one at random cus i gotta get this damn thing done at some point
+/datum/controller/subsystem/narrative/proc/check_tv_guide()
+	if(LAZYLEN(all_episodes))
+		current_episode = pick(all_episodes)
+	else
+		CRASH("No episodes available to pick from! Screw you!")
+
 
 // make these check the current episode for the spider and ratboy chances instead of using static values
 /datum/controller/subsystem/narrative/proc/GetSpiderChance()
@@ -58,7 +89,10 @@ SUBSYSTEM_DEF(narrative)
 	else if(!isnull(phase_override))
 		round_phase = phase_override
 	else
-		switch(world.time)
+		var/roundtime_elapsed = world.time - SSstation.round_start_time
+		switch(roundtime_elapsed)
+			if(-INFINITY to phase_1_start)
+				round_phase = 1 // just in case i guess whatever
 			if(phase_1_start to phase_2_start)
 				round_phase = 1 // startup peacetime, only minor issues
 			if(phase_2_start to phase_3_start)
