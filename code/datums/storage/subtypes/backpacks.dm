@@ -3,6 +3,26 @@
 	max_total_storage = 21
 	max_slots = 21
 
+/datum/storage/backpack/cbt
+	uses_equipped_slot_restriction = TRUE
+	equipped_slot_hands_always_ok = TRUE
+	equipped_slot_non_held_always_ok = TRUE
+	equipped_slot_whitelist = list(
+		ITEM_SLOT_HANDS,
+		ITEM_SLOT_OCLOTHING,
+		ITEM_SLOT_ICLOTHING,
+		ITEM_SLOT_LPOCKET,
+		ITEM_SLOT_RPOCKET,
+	)
+
+/datum/storage/backpack/satchel
+	max_total_storage = 15
+	max_slots = 21
+
+/datum/storage/backpack/messengerbag
+	max_total_storage = 12
+	max_slots = 21
+
 /datum/storage/backpack/New(
 	atom/parent,
 	max_slots,
