@@ -4625,7 +4625,7 @@
 /area/cruiser_dock)
 "dIM" = (
 /obj/structure/disposalpipe/segment,
-/turf/closed/indestructible/riveted,
+/turf/open/floor/iron,
 /area/centcom/interlink)
 "dIN" = (
 /obj/structure/table/wood,
@@ -14096,12 +14096,6 @@
 	icon_state = "darkfull"
 	},
 /area/centcom/holding/cafe/station/command)
-"nMn" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/closed/indestructible/riveted,
-/area/centcom/interlink)
 "nMw" = (
 /obj/structure/fence{
 	dir = 4
@@ -22547,13 +22541,6 @@
 	icon_state = "darkfull"
 	},
 /area/centcom/holding/cafe/station/command)
-"wLA" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/closed/indestructible/riveted,
-/area/centcom/interlink)
 "wLN" = (
 /obj/structure/railing{
 	invisibility = 100;
@@ -31519,8 +31506,8 @@ eXg
 hvQ
 deD
 tvw
-nMn
-tvw
+eKW
+hvQ
 tvw
 kdy
 hIH
@@ -31777,7 +31764,7 @@ hvQ
 hvQ
 tvw
 ayb
-wHJ
+hvQ
 tvw
 kdy
 hIH
@@ -37428,7 +37415,7 @@ kOZ
 kOZ
 kOZ
 wHJ
-tvw
+hvQ
 wUm
 hvQ
 nud
@@ -37685,7 +37672,7 @@ hvQ
 hvQ
 hvQ
 cGt
-tvw
+hvQ
 hhj
 fnX
 nud
@@ -38190,8 +38177,8 @@ lPi
 lPi
 tvw
 jHw
-wLA
-dIM
+eKW
+hvQ
 tvw
 tvw
 tvw
