@@ -1,21 +1,21 @@
-/datum/round_event_control/mice_migration
-	name = "Mice Migration"
-	typepath = /datum/round_event/mice_migration
+/datum/round_event_control/vermin_migration
+	name = "Vermin Migration"
+	typepath = /datum/round_event/vermin_migration
 	weight = 10
 	category = EVENT_CATEGORY_ENTITIES
-	description = "A horde of mice arrives, and perhaps even the Rat King themselves."
+	description = "A horde of vermin arrives, and perhaps even the Rat King themselves."
 
-/datum/round_event/mice_migration
-	var/minimum_mice = 5
-	var/maximum_mice = 15
+/datum/round_event/vermin_migration
+	var/minimum_vermin = 5
+	var/maximum_vermin = 15
 
-/datum/round_event/mice_migration/announce(fake)
+/datum/round_event/vermin_migration/announce(fake)
 	var/cause = pick("space-winter", "budget-cuts", "Ragnarok",
 		"space being cold", "\[REDACTED\]", "climate change",
 		"bad luck")
 	var/plural = pick("a number of", "a horde of", "a pack of", "a swarm of",
 		"a whoop of", "not more than [maximum_mice]")
-	var/name = pick("rodents", "mice", "squeaking things",
+	var/name = pick("pests", "vermin", "squeaking things",
 		"wire eating mammals", "\[REDACTED\]", "energy draining parasites")
 	var/movement = pick("migrated", "swarmed", "stampeded", "descended")
 	var/location = pick("maintenance tunnels", "maintenance areas",
