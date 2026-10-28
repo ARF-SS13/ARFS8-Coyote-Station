@@ -1,9 +1,11 @@
 /mob/living/basic/carp/minnow
 	name = "space minnow"
 	desc = "A smaller breed of space carp, known for attacking solar cables."
+	icon = 'icons/mob/simple/carp.dmi'
 	icon_state = "minnow"
 	icon_living = "minnow"
 	icon_dead = "minnow_dead"
+	greyscale_config = null
 	health = 15
 	maxHealth = 15
 	max_stamina = 80
@@ -72,5 +74,8 @@
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/no_fisherman,
 		/datum/ai_planning_subtree/find_food,
 		/datum/ai_planning_subtree/carp_migration,
-		/datum/ai_planning_subtree/find_and_hunt_target/look_for_cables,
+		/datum/ai_planning_subtree/find_and_hunt_target/look_for_cables/minnow,
 	)
+
+/datum/ai_planning_subtree/find_and_hunt_target/look_for_cables/minnow
+	hunt_range = 4
