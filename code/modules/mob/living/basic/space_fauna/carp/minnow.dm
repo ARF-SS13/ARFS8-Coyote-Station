@@ -11,7 +11,7 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	butcher_results = list(/obj/item/food/fishmeat/carp = 1, /obj/item/stack/sheet/animalhide/carp = 1)
-
+	var/cable_zap_prob = 85
 	ai_controller = /datum/ai_controller/basic_controller/carp/minnow
 
 /mob/living/basic/carp/minnow/UnarmedAttack(atom/attack_target, proximity_flag, list/modifiers)
