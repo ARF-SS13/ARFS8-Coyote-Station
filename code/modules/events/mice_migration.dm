@@ -14,7 +14,7 @@
 		"space being cold", "\[REDACTED\]", "climate change",
 		"bad luck")
 	var/plural = pick("a number of", "a horde of", "a pack of", "a swarm of",
-		"a whoop of", "not more than [maximum_mice]")
+		"a whoop of", "not more than [maximum_vermin]")
 	var/name = pick("pests", "vermin", "squeaking things",
 		"wire eating mammals", "\[REDACTED\]", "energy draining parasites")
 	var/movement = pick("migrated", "swarmed", "stampeded", "descended")
@@ -25,5 +25,5 @@
 		into the [location].", "Migration Alert",
 		SSstation.announcer.event_sounds[ANNOUNCER_MOUSE_MIGRATION] || 'sound/mobs/non-humanoids/mouse/mousesqueek.ogg') // SPLURT EDIT - ORIGINAL: 'sound/mobs/non-humanoids/mouse/mousesqueek.ogg'
 
-/datum/round_event/mice_migration/start()
-	SSminor_mapping.trigger_migration(rand(minimum_mice, maximum_mice))
+/datum/round_event/vermin_migration/start()
+	SSminor_mapping.trigger_migration(rand(minimum_vermin, maximum_vermin))

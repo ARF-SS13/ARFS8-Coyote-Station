@@ -31,7 +31,7 @@
 /datum/round_event_control/market_crash
 	tags = list(TAG_COMMUNAL, TAG_LOW)
 
-/datum/round_event_control/mice_migration
+/datum/round_event_control/vermin_migration
 	tags = list(TAG_DESTRUCTIVE, TAG_LOW)
 
 /datum/round_event_control/wisdomcow
