@@ -14,6 +14,42 @@
 
 	ai_controller = /datum/ai_controller/basic_controller/carp/minnow
 
+/mob/living/basic/carp/minnow/UnarmedAttack(atom/attack_target, proximity_flag, list/modifiers)
+	. = ..()
+	if(!.)
+		return
+
+	if(!proximity_flag)
+		return
+
+	if(istype(attack_target, /obj/structure/cable))
+		try_bite_cable(attack_target)
+		return TRUE
+
+/// Biting into a cable will cause a mouse to get shocked and die if applicable. Or do nothing if they're lucky.
+/mob/living/basic/carp/minnow/proc/try_bite_cable(obj/structure/cable/cable)
+	if(cable.avail() && !HAS_TRAIT(src, TRAIT_SHOCKIMMUNE) && prob(cable_zap_prob))
+		visible_message(
+			span_warning("[src] chews through \the [cable]. It's toast!"),
+			span_userdanger("As you bite deeply into [cable], you suddenly realize this may have been a bad idea."),
+			span_hear("You hear electricity crack."),
+		)
+		// Finely toasted
+		ADD_TRAIT(src, TRAIT_BEING_SHOCKED, TRAIT_GENERIC)
+		// Unfortunately we can't check the return value of electrocute_act before displaying a message,
+		// as it's possible the damage from electrocution results in our hunter being deleted.
+		// But what are the odds of the shock failing? Hahaha...
+		electrocute_act(maxHealth * 2, cable, flags = SHOCK_SUPPRESS_MESSAGE)
+
+	else
+		visible_message(
+			span_warning("[src] chews through \the [cable]."),
+			span_notice("You chew through \the [cable]."),
+		)
+
+	playsound(cable, 'sound/effects/sparks/sparks2.ogg', 100, TRUE)
+	cable.deconstruct()
+
 /datum/ai_controller/basic_controller/carp/minnow
 	blackboard = list(
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
