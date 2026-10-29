@@ -37,6 +37,14 @@
 /obj/machinery/atmospherics/pipe/multiz/supply/visible/layer4,
 /turf/open/floor/plating,
 /area/station/engineering/power_station/upper/tertiary)
+"abt" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/curtain/cloth/fancy/mechanical{
+	name = "curtains";
+	id = "interlink_cabin_curtains_5"
+	},
+/turf/open/floor/plating,
+/area/station/commons/dorms/room3)
 "abN" = (
 /obj/effect/turf_decal/trimline/yellow/filled/line{
 	dir = 8;
@@ -2125,6 +2133,7 @@
 	pixel_x = -2;
 	pixel_y = 5
 	},
+/obj/machinery/light/directional/south,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/qm)
 "bkS" = (
@@ -10192,6 +10201,11 @@
 /obj/structure/closet/secure_closet/security_medic,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
+"fKl" = (
+/obj/effect/turf_decal/trimline/red/filled/line,
+/obj/machinery/light,
+/turf/open/floor/iron/dark,
+/area/station/maintenance/department/security)
 "fKv" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -11722,6 +11736,7 @@
 	dir = 1
 	},
 /obj/structure/chair/sofa/bench/right,
+/obj/machinery/light/directional/north,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/qm)
 "gAR" = (
@@ -20641,7 +20656,6 @@
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 4
 	},
-/obj/machinery/light/small/directional/east,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -21570,6 +21584,13 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/science/xenobiology)
+"lWs" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/iron/textured_large,
+/area/station/cargo/storage)
 "lWD" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -28229,6 +28250,19 @@
 /obj/effect/mapping_helpers/airalarm/tlv_no_checks,
 /turf/open/floor/iron/white,
 /area/station/science/ordnance)
+"poN" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable,
+/obj/effect/turf_decal/trimline/red/filled/line,
+/obj/machinery/light,
+/turf/open/floor/iron/dark,
+/area/station/security/brig)
 "ppa" = (
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable,
@@ -29583,6 +29617,11 @@
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/virology)
+"pZy" = (
+/obj/structure/flora/bush/fullgrass/style_2,
+/obj/structure/flora/biolumi/lamp/natural,
+/turf/open/misc/grass/jungle/station,
+/area/station/service/hydroponics/park)
 "pZJ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 9
@@ -31233,6 +31272,7 @@
 /obj/effect/turf_decal/siding/dark/end{
 	dir = 1
 	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/carpet/orange,
 /area/station/command/heads_quarters/qm)
 "qPB" = (
@@ -31276,6 +31316,9 @@
 	dir = 8
 	},
 /obj/item/stack/sheet/mineral/wood,
+/obj/machinery/button/door/directional/east{
+	id = "cabin_6"
+	},
 /turf/open/floor/stone,
 /area/station/commons/dorms/room3)
 "qQz" = (
@@ -33084,6 +33127,7 @@
 /area/station/medical/virology)
 "rOV" = (
 /obj/structure/window/reinforced/spawner/directional,
+/obj/machinery/light/small/directional/east,
 /turf/open/openspace,
 /area/station/command/heads_quarters/qm)
 "rOZ" = (
@@ -37349,6 +37393,10 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 8
 	},
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 4
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/bridge)
 "ubO" = (
@@ -38685,6 +38733,7 @@
 	dir = 4
 	},
 /obj/structure/flora/bush/fullgrass/style_2,
+/obj/structure/flora/biolumi/lamp/natural,
 /turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
 "uNs" = (
@@ -42251,6 +42300,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/closet/emcloset,
+/obj/machinery/light/directional/west,
 /turf/open/floor/wood/tile,
 /area/station/service/lawoffice)
 "wGu" = (
@@ -43631,6 +43681,10 @@
 /obj/machinery/newscaster/directional/north,
 /turf/open/floor/wood,
 /area/station/service/library)
+"xyc" = (
+/obj/machinery/light/directional/east,
+/turf/open/floor/stone,
+/area/station/commons/fitness/recreation)
 "xyh" = (
 /obj/effect/landmark/start/hangover,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
@@ -44595,6 +44649,10 @@
 /obj/structure/cable,
 /turf/open/floor/iron/white,
 /area/station/science/ordnance)
+"xYE" = (
+/obj/machinery/light/small/directional/west,
+/turf/open/floor/stone,
+/area/station/service/hydroponics/park)
 "xYJ" = (
 /obj/machinery/blackbox_recorder,
 /obj/effect/turf_decal/box/white,
@@ -44991,9 +45049,6 @@
 /area/station/maintenance/port/aft)
 "yiS" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/maintenance{
-	name = "Medbay Maintenance"
-	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
 	dir = 8
@@ -45005,6 +45060,10 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/any/medsci/lowpop,
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = "MedbayFoyer";
+	name = "Medbay"
+	},
 /turf/open/floor/iron/white/smooth_edge,
 /area/station/medical/morgue)
 "yiU" = (
@@ -72801,7 +72860,7 @@ ihk
 mQk
 mQk
 ejC
-hVe
+lWs
 hVe
 smG
 fKe
@@ -73829,7 +73888,7 @@ wjd
 mQk
 mQk
 ejC
-hVe
+lWs
 hVe
 sSd
 oLt
@@ -78461,7 +78520,7 @@ lOy
 hJX
 lAZ
 jKL
-fPk
+poN
 iSz
 bfb
 rPI
@@ -138603,7 +138662,7 @@ qPB
 qUq
 loe
 eJf
-wna
+xYE
 wna
 ohI
 fJs
@@ -140168,7 +140227,7 @@ dXZ
 dXZ
 dXZ
 dXZ
-dXZ
+abt
 hsc
 dXZ
 jny
@@ -140672,7 +140731,7 @@ rjk
 rjk
 rjk
 xoz
-rjk
+pUW
 nNG
 wna
 uas
@@ -141687,7 +141746,7 @@ khT
 khT
 uHP
 ugk
-rjk
+pUW
 rjk
 ugk
 faF
@@ -142479,7 +142538,7 @@ gWF
 gWF
 aNQ
 iSt
-iSt
+pZy
 wna
 miw
 tWe
@@ -146050,7 +146109,7 @@ sfC
 jbr
 jSX
 fwf
-thz
+fKl
 wPx
 kpe
 pds
@@ -205432,13 +205491,13 @@ sEg
 oZH
 xss
 han
+bYu
 wna
-wna
 han
 han
 han
 han
-wna
+bYu
 ojW
 ojW
 wNO
@@ -207241,9 +207300,9 @@ nyc
 nyc
 nyc
 tIb
+xoz
 rjk
-rjk
-rjk
+xoz
 rjk
 rjk
 rjk
@@ -211878,7 +211937,7 @@ ojW
 wna
 wna
 wna
-wna
+bYu
 wna
 rjk
 dkp
@@ -212385,7 +212444,7 @@ nyc
 nyc
 nyc
 nyc
-ojW
+ilH
 dyQ
 ugk
 faF
@@ -212654,7 +212713,7 @@ wna
 wna
 wna
 wna
-wna
+bYu
 wna
 wna
 wna
@@ -212665,7 +212724,7 @@ wna
 jHn
 jHn
 jHn
-jHn
+xyc
 jHn
 jHn
 jHn
@@ -213430,7 +213489,7 @@ ugk
 xoz
 qjz
 faF
-rjk
+pUW
 rjk
 rjk
 lbv
