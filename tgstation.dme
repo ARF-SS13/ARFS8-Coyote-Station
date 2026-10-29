@@ -5596,6 +5596,7 @@
 #include "code\modules\mob\living\basic\space_fauna\carp\carp_controllers.dm"
 #include "code\modules\mob\living\basic\space_fauna\carp\magicarp.dm"
 #include "code\modules\mob\living\basic\space_fauna\carp\megacarp.dm"
+#include "code\modules\mob\living\basic\space_fauna\carp\minnow.dm"
 #include "code\modules\mob\living\basic\space_fauna\changeling\flesh_spider.dm"
 #include "code\modules\mob\living\basic\space_fauna\changeling\headslug.dm"
 #include "code\modules\mob\living\basic\space_fauna\demon\demon.dm"

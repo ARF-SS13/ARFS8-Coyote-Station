@@ -1189,7 +1189,7 @@ GLOBAL_VAR_INIT(narsie_summon_count, 0)
 		switch(outcome)
 			if(1 to 10)
 				force_event_async(/datum/round_event_control/disease_outbreak, "an apocalypse rune")
-				force_event_async(/datum/round_event_control/mice_migration, "an apocalypse rune")
+				force_event_async(/datum/round_event_control/vermin_migration, "an apocalypse rune")
 			if(11 to 20)
 				force_event_async(/datum/round_event_control/radiation_storm, "an apocalypse rune")
 
