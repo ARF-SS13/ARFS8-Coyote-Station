@@ -18215,8 +18215,7 @@
 /turf/open/floor/plating,
 /area/station/maintenance/port/fore)
 "jYE" = (
-/obj/structure/closet/secure_closet/hos,
-/obj/item/clothing/glasses/hud/security/sunglasses/gars,
+/obj/structure/closet/secure_closet/warden,
 /obj/machinery/camera/directional/east,
 /obj/machinery/light_switch/directional/east,
 /turf/open/floor/carpet/royalblack,
@@ -21732,7 +21731,6 @@
 "lZI" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/trimline/red/filled/line,
-/obj/structure/closet/wardrobe/red,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)
 "lZM" = (
@@ -22700,8 +22698,8 @@
 "muD" = (
 /obj/structure/table,
 /obj/machinery/fax{
-	fax_name = "Head of Security's Office";
-	name = "Head of Security's Fax Machine"
+	fax_name = "Warden's Office";
+	name = "Warden's Fax Machine"
 	},
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/hos)
@@ -34752,7 +34750,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/any/security/hos,
 /obj/machinery/door/airlock/command/glass{
-	name = "Head of Security"
+	name = "Warden"
 	},
 /turf/open/floor/plating,
 /area/station/command/heads_quarters/hos)
@@ -42385,7 +42383,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable,
 /obj/structure/reagent_dispensers/wall/peppertank/directional/east,
-/obj/structure/closet/secure_closet/warden,
+/obj/structure/closet/wardrobe/red,
 /obj/effect/turf_decal/delivery/red,
 /turf/open/floor/iron/dark,
 /area/station/security/brig)

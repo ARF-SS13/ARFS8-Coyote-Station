@@ -55,37 +55,37 @@
 /datum/loadout_item/uniform/jumpsuit/security_skirt_redsec
 	name = "Red Security Battledress"
 	item_path = /obj/item/clothing/under/rank/security/peacekeeper/skirt_redsec
-	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER, JOB_SECURITY_MEDIC)  //BUBBER EDIT: adds JOB_CORRECTIONS_OFFICER and JOB_SECURITY_MEDIC
+	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER, JOB_SECURITY_MEDIC)  //BUBBER EDIT: adds JOB_CORRECTIONS_OFFICER and JOB_SECURITY_MEDIC
 
 /datum/loadout_item/uniform/jumpsuit/security_trousers
 	name = "Security Trousers"
 	item_path = /obj/item/clothing/under/rank/security/peacekeeper/trousers
-	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER, JOB_SECURITY_MEDIC) //BUBBER EDIT: adds JOB_CORRECTIONS_OFFICER
+	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER, JOB_SECURITY_MEDIC) //BUBBER EDIT: adds JOB_CORRECTIONS_OFFICER
 
 /datum/loadout_item/uniform/jumpsuit/security_shorts
 	name = "Security Shorts"
 	item_path = /obj/item/clothing/under/rank/security/peacekeeper/trousers/shorts
-	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER, JOB_SECURITY_MEDIC) //BUBBER EDIT: adds JOB_CORRECTIONS_OFFICER and JOB_SECURITY_MEDIC
+	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER, JOB_SECURITY_MEDIC) //BUBBER EDIT: adds JOB_CORRECTIONS_OFFICER and JOB_SECURITY_MEDIC
 
 /datum/loadout_item/uniform/jumpsuit/security_jumpskirt
 	name = "Security Jumpskirt"
 	item_path = /obj/item/clothing/under/rank/security/officer/skirt
-	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER, JOB_SECURITY_MEDIC) //BUBBER EDIT: adds JOB_CORRECTIONS_OFFICER and JOB_SECURITY_MEDIC
+	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER, JOB_SECURITY_MEDIC) //BUBBER EDIT: adds JOB_CORRECTIONS_OFFICER and JOB_SECURITY_MEDIC
 
 /datum/loadout_item/uniform/jumpsuit/security_miniskirt
 	name = "Security Miniskirt"
 	item_path = /obj/item/clothing/under/rank/security/peacekeeper/miniskirt
-	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER, JOB_SECURITY_MEDIC) //BUBBER EDIT: adds JOB_CORRECTIONS_OFFICER and JOB_SECURITY_MEDIC
+	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER, JOB_SECURITY_MEDIC) //BUBBER EDIT: adds JOB_CORRECTIONS_OFFICER and JOB_SECURITY_MEDIC
 
 /datum/loadout_item/uniform/jumpsuit/security_jumpsuit
 	name = "Security Jumpsuit"
 	item_path = /obj/item/clothing/under/rank/security/peacekeeper/jumpsuit
-	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER, JOB_SECURITY_MEDIC) //BUBBER EDIT: adds JOB_CORRECTIONS_OFFICER and JOB_SECURITY_MEDIC
+	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER, JOB_SECURITY_MEDIC) //BUBBER EDIT: adds JOB_CORRECTIONS_OFFICER and JOB_SECURITY_MEDIC
 
 /datum/loadout_item/uniform/jumpsuit/imperial_police_uniform
 	name = "Imperial Police Uniform"
 	item_path = /obj/item/clothing/under/colonial/nri_police
-	restricted_roles = list(JOB_WARDEN, JOB_DETECTIVE, JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER, JOB_SECURITY_MEDIC)
+	restricted_roles = list(JOB_DETECTIVE, JOB_SECURITY_OFFICER, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER, JOB_SECURITY_MEDIC)
 
 /datum/loadout_item/uniform/jumpsuit/disco
 	name = "Superstar Cop Uniform"
@@ -169,7 +169,7 @@
 /datum/loadout_item/uniform/jumpsuit/utility_sec
 	name = "Security Utility Uniform"
 	item_path = /obj/item/clothing/under/rank/security/skyrat/utility
-	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_DETECTIVE, JOB_WARDEN, JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER)
+	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_DETECTIVE, JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_CORRECTIONS_OFFICER)
 
 /datum/loadout_item/uniform/jumpsuit/utility_com
 	name = "Command Utility Uniform"

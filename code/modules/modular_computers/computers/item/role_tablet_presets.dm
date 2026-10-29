@@ -48,7 +48,7 @@
 	)
 
 /obj/item/modular_computer/pda/heads/hos
-	name = "head of security PDA"
+	name = "warden PDA"
 	icon_state = "/obj/item/modular_computer/pda/heads/hos"
 	greyscale_config = /datum/greyscale_config/tablet/head
 	greyscale_colors = "#EA3232#0000CC"

@@ -224,7 +224,7 @@
 	restricted_roles = list(JOB_CHIEF_ENGINEER)
 
 /datum/loadout_item/neck/mantle_hos
-	name = "Head of Security's Mantle"
+	name = "Warden's Mantle"
 	item_path = /obj/item/clothing/neck/mantle/hosmantle
 	restricted_roles = list(JOB_HEAD_OF_SECURITY)
 

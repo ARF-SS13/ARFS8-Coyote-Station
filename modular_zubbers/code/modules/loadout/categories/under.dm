@@ -68,22 +68,22 @@
 /datum/loadout_item/uniform/security/corrections_officer
 	name = "Correction's Officer Jumpsuit"
 	item_path = /obj/item/clothing/under/rank/security/corrections_officer
-	restricted_roles = list(JOB_CORRECTIONS_OFFICER, JOB_WARDEN)
+	restricted_roles = list(JOB_CORRECTIONS_OFFICER)
 
 /datum/loadout_item/uniform/security/corrections_officer
 	name = "Correction's Officer Jumpskirt"
 	item_path = /obj/item/clothing/under/rank/security/corrections_officer/skirt
-	restricted_roles = list(JOB_CORRECTIONS_OFFICER, JOB_WARDEN)
+	restricted_roles = list(JOB_CORRECTIONS_OFFICER)
 
 /datum/loadout_item/uniform/security/corrections_officer
 	name = "Correction's Officer Sweater"
 	item_path = /obj/item/clothing/under/rank/security/corrections_officer/sweater
-	restricted_roles = list(JOB_CORRECTIONS_OFFICER, JOB_WARDEN)
+	restricted_roles = list(JOB_CORRECTIONS_OFFICER)
 
 /datum/loadout_item/uniform/security/corrections_officer
 	name = "Correction's Officer Sweater Skirt"
 	item_path = /obj/item/clothing/under/rank/security/corrections_officer/sweater/skirt
-	restricted_roles = list(JOB_CORRECTIONS_OFFICER, JOB_WARDEN)
+	restricted_roles = list(JOB_CORRECTIONS_OFFICER)
 
 /datum/loadout_item/uniform/miscellaneous/tactical_maid //Donor item for skyefree
 	name = "Tactical Maid Costume"

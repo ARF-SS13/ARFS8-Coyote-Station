@@ -695,7 +695,7 @@
 
 /datum/id_trim/job/head_of_security
 	assignment = JOB_HEAD_OF_SECURITY
-	intern_alt_name = "Head of Security-in-Training"
+	intern_alt_name = "Warden-in-Training"
 	trim_state = "trim_securityofficer"
 	department_color = COLOR_COMMAND_BLUE
 	subdepartment_color = COLOR_SECURITY_RED

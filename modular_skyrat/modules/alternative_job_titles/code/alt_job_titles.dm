@@ -344,16 +344,15 @@
 
 /datum/job/head_of_security
 	alt_titles = list(
-		"Head of Security",
+		"Warden",
+		"Newly Appointed Warden",
 		"Chief Constable",
 		"Chief of Security",
 		"Chief Security Officer",
-		"Commander of the Guard",
-		"Commissioner of Security",
-		"Security Commander",
-		"Security Commissioner",
-		"Sheriff",
-		"Newly Appointed Head of Security",
+		"Watch Commander",
+		"Brig Sergeant",
+		"Marshal",
+		"Security Sergeant",
 	)
 
 /datum/job/janitor

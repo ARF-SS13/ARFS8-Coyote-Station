@@ -510,7 +510,7 @@
 	airlock_type = /obj/machinery/door/airlock/hop
 
 /obj/structure/door_assembly/hos
-	name = "head of security airlock assembly"
+	name = "warden airlock assembly"
 	icon = 'modular_skyrat/modules/aesthetics/airlock/icons/airlocks/hos.dmi'
 	glass_type = /obj/machinery/door/airlock/hos/glass
 	airlock_type = /obj/machinery/door/airlock/hos
