@@ -1,0 +1,10 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../../../"><link rel="stylesheet" href="dmdoc.css"><title>/datum/preference/toggle/limb_alpha_per_limb - /tg/ Station 13</title></head><body><header><a href="index.html">/tg/ Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a></header><main><h1>limb_alpha_per_limb <aside>/<a href="datum.html">datum</a>/<a href="datum/preference.html">preference</a>/<a href="datum/preference/toggle.html">toggle</a>/<a href="datum/preference/toggle/limb_alpha_per_limb.html">limb_alpha_per_limb</a></aside> <a href="https://github.com/ARF-SS13/ARFS8-Coyote-Station/blob/8351223f9c82a2ac488360da566ec121fdeace3e/modular_zubbers/code/modules/client/preferences/limb_alpha.dm#L17"><img src="git.png" width="16" height="16" title="modular_zubbers/code/modules/client/preferences/limb_alpha.dm 17"></a></h1><p>Per-limb alpha (transparency) preferences.</p>
+<p>Lets a player set a custom alpha for each of their bodyparts, which is applied to the
+limb's rendered sprite overlays (see /obj/item/bodypart/proc/get_limb_icon).</p>
+<p>Head and chest sliders are always shown. The arm and leg sliders are hidden behind the
+<a href="datum/preference/toggle/limb_alpha_per_limb.html" title="/datum/preference/toggle/limb_alpha_per_limb">/datum/preference/toggle/limb_alpha_per_limb</a> toggle, and reset to fully opaque while it
+is disabled, so casual players never have to think about them.</p>
+<p>While attached, a limb's alpha can go all the way to 0 (fully invisible) - the floor of 0 is
+enforced by BYOND itself. While dropped, the limb sprite is floored at LIMB_DROPPED_MIN_ALPHA
+so it stays visible and clickable on the ground.
+Toggle that reveals the per-limb (arm/leg) alpha sliders.</p></main><footer>tgstation.dme <a href="https://github.com/ARF-SS13/ARFS8-Coyote-Station/tree/8351223f9c82a2ac488360da566ec121fdeace3e">8351223</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>
