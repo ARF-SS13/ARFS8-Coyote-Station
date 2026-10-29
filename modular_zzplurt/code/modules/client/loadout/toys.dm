@@ -2,7 +2,7 @@
 	ckeywhitelist = null //request of the donator
 
 /datum/loadout_item/toys/nobl_plush/New(category)
-	ckeywhitelist = null //idk why the above override doesn't work
+//ckeywhitelist = null //idk why the above override doesn't work
 	. = ..()
 
 /datum/loadout_item/toys/plushie_panic
@@ -48,12 +48,12 @@
 /datum/loadout_item/toys/mutt
 	name = "A advanced sauna pod"
 	item_path = /obj/item/survivalcapsule/advanced_sauna
-	ckeywhitelist = list("charlesterrah")
+//ckeywhitelist = list("charlesterrah")
 
 /datum/loadout_item/toys/fentalynn
 	name = "Yapping Fox Plushie"
 	item_path = /obj/item/toy/plush/fentalynn
-	ckeywhitelist = list("fenduphox")
+//ckeywhitelist = list("fenduphox")
 
 /datum/loadout_item/toys/doctoraddy
 	name = "Doctor Addy Plushie"
@@ -78,5 +78,5 @@
 /datum/loadout_item/toys/toy_mace
 	name = "Balloon Mace"
 	item_path = /obj/item/balloon_mallet/mace
-	ckeywhitelist = list("fenrir2116")
+//ckeywhitelist = list("fenrir2116")
 
