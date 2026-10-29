@@ -25,7 +25,7 @@
 /datum/loadout_item/head/hats/warden/drill
 	name = "Warden's Campaign Hat"
 	item_path = /obj/item/clothing/head/hats/warden/drill
-	restricted_roles = list(JOB_WARDEN)
+	restricted_roles = list(JOB_HEAD_OF_SECURITY)
 
 /datum/loadout_item/head/helmet/sec/futuristic
 	name = "Futuristic Security Helmet"
@@ -48,11 +48,11 @@
 	donator_only = TRUE
 	restricted_roles = list(JOB_BLUESHIELD)
 
-/datum/loadout_item/head/hats/hos/drill
-	name = "Head of Security's Campaign Hat"
-	item_path = /obj/item/clothing/head/hats/warden/drill/hos
-	donator_only = TRUE
-	restricted_roles = list(JOB_HEAD_OF_SECURITY)
+///datum/loadout_item/head/hats/hos/drill
+//	name = "Head of Security's Campaign Hat"
+//	item_path = /obj/item/clothing/head/hats/warden/drill/hos
+//	donator_only = TRUE
+//	restricted_roles = list(JOB_HEAD_OF_SECURITY)
 
 /datum/loadout_item/head/hats/nanotrasen_consultant/drill
 	name = "Nanotrasen Representative's Campaign Hat"

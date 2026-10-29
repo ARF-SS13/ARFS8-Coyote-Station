@@ -77,7 +77,7 @@
 /datum/loadout_item/suit/jacket/corrections_officer
 	name = "Correction's Officer's Blazer"
 	item_path = /obj/item/clothing/suit/toggle/jacket/corrections_officer
-	restricted_roles = list(JOB_CORRECTIONS_OFFICER, JOB_WARDEN)
+	restricted_roles = list(JOB_CORRECTIONS_OFFICER)
 
 /datum/loadout_item/suit/jacket/security_medic
 	name = "Security Medic Labcoat"

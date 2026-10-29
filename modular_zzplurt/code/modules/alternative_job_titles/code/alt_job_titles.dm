@@ -40,13 +40,6 @@
 	LAZYADD(alt_titles, extra_titles)
 	. = ..()
 
-/datum/job/head_of_security/New()
-	var/list/extra_titles = list(
-		"Watch Commander",
-	)
-	LAZYADD(alt_titles, extra_titles)
-	. = ..()
-
 /datum/job/quartermaster/New()
 	var/list/extra_titles = list(
 		"Supply Chief",
@@ -257,15 +250,6 @@
 	var/list/extra_titles = list(
 		"Civil Protection",
 		"Security Agent",
-	)
-	LAZYADD(alt_titles, extra_titles)
-	. = ..()
-
-/datum/job/warden/New()
-	var/list/extra_titles = list(
-		"Brig Superintendent",
-		"Marshal",
-		"Security Sergeant",
 	)
 	LAZYADD(alt_titles, extra_titles)
 	. = ..()

@@ -130,8 +130,8 @@
 	slot_flags = ITEM_SLOT_NECK
 
 /obj/item/clothing/accessory/badge/holo/hos
-	name = "head of security's holobadge"
-	desc = "An immaculately polished gold security badge. Labeled 'Head of Security.'"
+	name = "warden's holobadge"
+	desc = "An immaculately polished gold security badge. Labeled 'Warden.'"
 	icon = 'modular_skyrat/master_files/icons/obj/clothing/accessories.dmi'
 	worn_icon = 'modular_skyrat/master_files/icons/mob/clothing/accessories.dmi'
 	icon_state = "goldbadge"

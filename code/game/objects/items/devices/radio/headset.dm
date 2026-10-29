@@ -306,7 +306,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	keyslot = /obj/item/encryptionkey/heads/rd
 
 /obj/item/radio/headset/heads/hos
-	name = "\proper the head of security's headset"
+	name = "\proper the warden's headset"
 	desc = "The headset of the man in charge of keeping order and protecting the station."
 	keyslot = /obj/item/encryptionkey/heads/hos
 
@@ -317,7 +317,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	command = FALSE
 
 /obj/item/radio/headset/heads/hos/alt
-	name = "\proper the head of security's bowman headset"
+	name = "\proper the warden's bowman headset"
 	desc = "The headset of the man in charge of keeping order and protecting the station. Protects ears from flashbangs."
 	icon_state = "com_headset_alt"
 	worn_icon_state = "com_headset_alt"
