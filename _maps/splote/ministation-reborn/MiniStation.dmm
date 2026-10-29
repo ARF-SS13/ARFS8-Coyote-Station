@@ -2125,6 +2125,7 @@
 	pixel_x = -2;
 	pixel_y = 5
 	},
+/obj/machinery/light/directional/south,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/qm)
 "bkS" = (
@@ -2573,6 +2574,10 @@
 	dir = 4
 	},
 /turf/open/floor/wood/large,
+/area/station/service/hydroponics/park)
+"bwC" = (
+/obj/machinery/light/small/directional/west,
+/turf/open/floor/stone,
 /area/station/service/hydroponics/park)
 "bwR" = (
 /obj/structure/window/spawner/directional/east,
@@ -4476,6 +4481,11 @@
 /obj/machinery/meter/layer2,
 /turf/open/floor/iron,
 /area/station/science/ordnance)
+"czh" = (
+/obj/structure/flora/bush/fullgrass/style_2,
+/obj/structure/flora/biolumi/lamp/natural,
+/turf/open/misc/grass/jungle/station,
+/area/station/service/hydroponics/park)
 "czo" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/table/wood,
@@ -6680,6 +6690,14 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/qm)
+"dKV" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/curtain/cloth/fancy/mechanical{
+	name = "curtains";
+	id = "interlink_cabin_curtains_5"
+	},
+/turf/open/floor/plating,
+/area/station/commons/dorms/room3)
 "dLn" = (
 /turf/open/floor/grass,
 /area/station/science/cytology)
@@ -11722,6 +11740,7 @@
 	dir = 1
 	},
 /obj/structure/chair/sofa/bench/right,
+/obj/machinery/light/directional/north,
 /turf/open/floor/iron,
 /area/station/command/heads_quarters/qm)
 "gAR" = (
@@ -17973,6 +17992,11 @@
 	},
 /turf/open/floor/plating,
 /area/station/engineering/atmos)
+"jRZ" = (
+/obj/effect/turf_decal/trimline/red/filled/line,
+/obj/machinery/light,
+/turf/open/floor/iron/dark,
+/area/station/maintenance/department/security)
 "jSf" = (
 /obj/structure/railing{
 	dir = 6
@@ -20640,7 +20664,6 @@
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 4
 	},
-/obj/machinery/light/small/directional/east,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -31231,6 +31254,7 @@
 /obj/effect/turf_decal/siding/dark/end{
 	dir = 1
 	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/carpet/orange,
 /area/station/command/heads_quarters/qm)
 "qPB" = (
@@ -31274,6 +31298,9 @@
 	dir = 8
 	},
 /obj/item/stack/sheet/mineral/wood,
+/obj/machinery/button/door/directional/east{
+	id = "cabin_6"
+	},
 /turf/open/floor/stone,
 /area/station/commons/dorms/room3)
 "qQz" = (
@@ -33082,6 +33109,7 @@
 /area/station/medical/virology)
 "rOV" = (
 /obj/structure/window/reinforced/spawner/directional,
+/obj/machinery/light/small/directional/east,
 /turf/open/openspace,
 /area/station/command/heads_quarters/qm)
 "rOZ" = (
@@ -34444,6 +34472,10 @@
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/wood/tile,
 /area/station/service/hydroponics/park)
+"sBF" = (
+/obj/machinery/light/directional/east,
+/turf/open/floor/stone,
+/area/station/commons/fitness/recreation)
 "sBM" = (
 /obj/machinery/air_sensor/carbon_tank,
 /obj/machinery/light/small/directional/north,
@@ -35313,6 +35345,19 @@
 /obj/machinery/light/directional/west,
 /turf/open/floor/iron/dark,
 /area/station/security/courtroom)
+"tbI" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable,
+/obj/effect/turf_decal/trimline/red/filled/line,
+/obj/machinery/light,
+/turf/open/floor/iron/dark,
+/area/station/security/brig)
 "tbJ" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
@@ -37347,6 +37392,10 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 8
 	},
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 4
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/command/bridge)
 "ubO" = (
@@ -38683,6 +38732,7 @@
 	dir = 4
 	},
 /obj/structure/flora/bush/fullgrass/style_2,
+/obj/structure/flora/biolumi/lamp/natural,
 /turf/open/misc/grass/jungle/station,
 /area/station/service/hydroponics/park)
 "uNs" = (
@@ -42249,6 +42299,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/closet/emcloset,
+/obj/machinery/light/directional/west,
 /turf/open/floor/wood/tile,
 /area/station/service/lawoffice)
 "wGu" = (
@@ -44989,9 +45040,6 @@
 /area/station/maintenance/port/aft)
 "yiS" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/maintenance{
-	name = "Medbay Maintenance"
-	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
 	dir = 8
@@ -45003,6 +45051,10 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/any/medsci/lowpop,
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = "MedbayFoyer";
+	name = "Medbay"
+	},
 /turf/open/floor/iron/white/smooth_edge,
 /area/station/medical/morgue)
 "yiU" = (
@@ -45127,6 +45179,13 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/station/engineering/engine_room)
+"ylk" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/iron/textured_large,
+/area/station/cargo/storage)
 "ylm" = (
 /obj/effect/landmark/latejoin_override,
 /turf/open/floor/iron,
@@ -72799,7 +72858,7 @@ ihk
 mQk
 mQk
 ejC
-hVe
+ylk
 hVe
 smG
 fKe
@@ -73827,7 +73886,7 @@ wjd
 mQk
 mQk
 ejC
-hVe
+ylk
 hVe
 sSd
 oLt
@@ -78459,7 +78518,7 @@ lOy
 hJX
 lAZ
 jKL
-fPk
+tbI
 iSz
 bfb
 rPI
@@ -138601,7 +138660,7 @@ qPB
 qUq
 loe
 eJf
-wna
+bwC
 wna
 ohI
 fJs
@@ -140166,7 +140225,7 @@ dXZ
 dXZ
 dXZ
 dXZ
-dXZ
+dKV
 hsc
 dXZ
 jny
@@ -140670,7 +140729,7 @@ rjk
 rjk
 rjk
 xoz
-rjk
+pUW
 nNG
 wna
 uas
@@ -141685,7 +141744,7 @@ khT
 khT
 uHP
 ugk
-rjk
+pUW
 rjk
 ugk
 faF
@@ -142477,7 +142536,7 @@ gWF
 gWF
 aNQ
 iSt
-iSt
+czh
 wna
 miw
 tWe
@@ -146048,7 +146107,7 @@ sfC
 jbr
 jSX
 fwf
-thz
+jRZ
 wPx
 kpe
 pds
@@ -147099,7 +147158,7 @@ rjk
 rjk
 rjk
 xoz
-rjk
+pUW
 rjk
 xoz
 wna
@@ -205430,13 +205489,13 @@ sEg
 oZH
 xss
 han
+bYu
 wna
-wna
 han
 han
 han
 han
-wna
+bYu
 ojW
 ojW
 wNO
@@ -207239,9 +207298,9 @@ nyc
 nyc
 nyc
 tIb
+xoz
 rjk
-rjk
-rjk
+xoz
 rjk
 rjk
 rjk
@@ -211876,7 +211935,7 @@ ojW
 wna
 wna
 wna
-wna
+bYu
 wna
 rjk
 dkp
@@ -212383,7 +212442,7 @@ nyc
 nyc
 nyc
 nyc
-ojW
+ilH
 dyQ
 ugk
 faF
@@ -212652,7 +212711,7 @@ wna
 wna
 wna
 wna
-wna
+bYu
 wna
 wna
 wna
@@ -212663,7 +212722,7 @@ wna
 jHn
 jHn
 jHn
-jHn
+sBF
 jHn
 jHn
 jHn
@@ -213428,7 +213487,7 @@ ugk
 xoz
 qjz
 faF
-rjk
+pUW
 rjk
 rjk
 lbv

@@ -133,7 +133,7 @@
 /datum/loadout_item/suit/wetsuit_norm
 	name = "Fitted Wetsuit"
 	item_path = /obj/item/clothing/under/wetsuit_norm
-	ckeywhitelist = list("ChillyLobster")
+//ckeywhitelist = list("ChillyLobster")
 
 /datum/loadout_item/head/drake_skull
 	name = "Skull of an ashdrake"
@@ -190,7 +190,7 @@
 /datum/loadout_item/pocket_items/brightcosmos
 	name = "Bright Cosmos cigar"
 	item_path = /obj/item/holocigarette/cigar
-	ckeywhitelist = list("lyricalpaws")
+//ckeywhitelist = list("lyricalpaws")
 
 /datum/loadout_item/uniform/lannese
 	name = "Lannese Dress"
@@ -303,7 +303,7 @@
 /datum/loadout_item/toys/plush/zappplush
 	name = "Lil' Zapp Plushie"
 	item_path = /obj/item/toy/plush/skyrat/zapp
-	donator_only = TRUE
+	//donator_only = TRUE
 
 /datum/loadout_item/pocket_items/tacticalbrush
 	name = "Tactical Brush"
@@ -367,7 +367,7 @@
 /datum/loadout_item/pocket_items/hypno_watch
 	name = "Pocket Watch"
 	item_path = /obj/item/clothing/accessory/hypno_watch
-	ckeywhitelist = list("slippyjoe")
+//ckeywhitelist = list("slippyjoe")
 
 /datum/loadout_item/uniform/nt_idol
 	name = "NT Idol's Skirt"
@@ -469,7 +469,7 @@
 /datum/loadout_item/head/elofy
 	name = "Solar Admiral Hat"
 	item_path = /obj/item/clothing/head/hats/hos/elofy
-	ckeywhitelist = list("october23")
+//ckeywhitelist = list("october23")
 	restricted_roles = list(JOB_HEAD_OF_SECURITY)
 */
 /datum/loadout_item/pocket_items/transponder

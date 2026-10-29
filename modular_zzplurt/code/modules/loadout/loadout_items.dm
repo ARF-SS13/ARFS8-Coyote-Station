@@ -4,7 +4,7 @@
 /datum/loadout_item/New(category)
 	. = ..()
 	if((donator_tier || LAZYLEN(ckeywhitelist)) && !donator_only)
-		donator_only = TRUE
+		//donator_only = TRUE
 	if((donator_only || LAZYLEN(ckeywhitelist)) && !donator_tier)
 		donator_tier = DONATOR_TIER_1
 

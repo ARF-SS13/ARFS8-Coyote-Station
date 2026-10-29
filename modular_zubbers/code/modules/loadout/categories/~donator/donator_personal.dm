@@ -8,7 +8,7 @@
 /datum/loadout_item/head/pinwheel_hat/gold //sprites by Keila.
 	name = "Magnificent Pinwheel Hat"
 	item_path = /obj/item/clothing/head/helmet/toggleable/pinwheel/gold
-	ckeywhitelist = list("malice69", "miniusAreas", "gavla", "hydrosatan", "nevimer", "naruga", "OmegaTracing", "KeRSe", "CprlEvergreen", "RiskyBusiness", "Slouista", "SapphoQueer", "LordGingy", "ARandomHyena", "LiuJr", "jamiemundy", "snajper202", "snaffle15", "sonicgotnuked", "fellis", "laetex", "especiallystrange", "ghostie_dwagons", "Kidkirby", "Destrucktoid", "Vulpesishot")
+//ckeywhitelist = list("malice69", "miniusAreas", "gavla", "hydrosatan", "nevimer", "naruga", "OmegaTracing", "KeRSe", "CprlEvergreen", "RiskyBusiness", "Slouista", "SapphoQueer", "LordGingy", "ARandomHyena", "LiuJr", "jamiemundy", "snajper202", "snaffle15", "sonicgotnuked", "fellis", "laetex", "especiallystrange", "ghostie_dwagons", "Kidkirby", "Destrucktoid", "Vulpesishot")
 
 //11/08/23: Added as a reward to people who have recommended friends to Bubberstation. Add to this list as you please, you can offer this as a reward for basically anything.
 //Please mark the date and what this was awarded for in code comments here. For example:
@@ -28,7 +28,7 @@
 /datum/loadout_item/head/unberet
 	name = "UN Beret"
 	item_path = /obj/item/clothing/head/peacekeeperberet
-	ckeywhitelist = list("majesticmanateee")
+//ckeywhitelist = list("majesticmanateee")
 
 /*
 *	GLASSES
@@ -150,7 +150,7 @@
 /datum/loadout_item/toys/nobl_plush
 	name = "Fluffy Skog Plushie"
 	item_path = /obj/item/toy/plush/nobl
-	ckeywhitelist = list("nobledreameater")
+//ckeywhitelist = list("nobledreameater")
 
 /datum/loadout_item/toys/carrotbag
 	name = "Carrot Bag"
@@ -178,7 +178,7 @@
 /datum/loadout_item/inhand/korvenbank //sprites by Keila
 	name = "Korven Bank Card"
 	item_path = /obj/item/card/cardboard/korvenbank
-	ckeywhitelist = list("catmanpop")
+//ckeywhitelist = list("catmanpop")
 
 /datum/loadout_item/inhand/ornate_bottle	//Donator item exclusive for Blovy. Sprited by Casey/Keila.
 	name = "Ornate Bottle"
@@ -188,7 +188,7 @@
 /datum/loadout_item/inhand/vaporsac //donator request for MyGuy49
 	name = "Vaporsac Seeds"
 	item_path = /obj/item/seeds/vaporsac
-	ckeywhitelist = list("MyGuy49")
+//ckeywhitelist = list("MyGuy49")
 
 /datum/loadout_item/inhand/kanken_pack // donator item for LT3
 	name = "Kånken Backpack"
@@ -201,7 +201,7 @@
 /datum/loadout_item/pocket_items/starwine //sprites by Keila
 	name = "Starwire Wine Bottle"
 	item_path = /obj/item/reagent_containers/cup/glass/bottle/beer/starwine
-	ckeywhitelist = list("catmanpop") //donator item for Catmanpop
+//ckeywhitelist = list("catmanpop") //donator item for Catmanpop
 
 /datum/loadout_item/pocket_items/stamp/donator/crow
 	name = "Mitchell Inc. Stamp"
