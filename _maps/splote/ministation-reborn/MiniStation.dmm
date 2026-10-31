@@ -2721,7 +2721,6 @@
 /area/station/maintenance/disposal/incinerator)
 "bCZ" = (
 /obj/machinery/airalarm/directional/south,
-/obj/structure/closet/secure_closet/personal,
 /turf/open/floor/wood/tile,
 /area/station/common/night_club/changing_room)
 "bDc" = (
@@ -18776,6 +18775,7 @@
 /obj/item/towel,
 /obj/item/clothing/under/misc/skyrat/gear_harness,
 /obj/machinery/light/directional/south,
+/obj/structure/closet/secure_closet/personal,
 /turf/open/floor/wood/tile,
 /area/station/common/night_club/changing_room)
 "kru" = (
@@ -25422,12 +25422,6 @@
 	dir = 4
 	},
 /area/station/science/research)
-"nOs" = (
-/obj/structure/closet/secure_closet/personal/wall{
-	pixel_x = 32
-	},
-/turf/open/floor/wood/tile,
-/area/station/common/night_club/changing_room)
 "nPa" = (
 /obj/effect/mapping_helpers/burnt_floor,
 /obj/machinery/light/small{
@@ -30842,11 +30836,9 @@
 /turf/open/floor/plating,
 /area/station/cargo/storage)
 "qFm" = (
-/obj/structure/closet/secure_closet/personal/wall{
-	pixel_x = 32
-	},
 /obj/item/towel,
 /obj/item/clothing/under/misc/skyrat/gear_harness,
+/obj/structure/closet/secure_closet/personal,
 /turf/open/floor/wood/tile,
 /area/station/common/night_club/changing_room)
 "qFp" = (
@@ -141261,7 +141253,7 @@ bTo
 sZm
 qZN
 yis
-nOs
+qjO
 sSP
 qZZ
 nEe
