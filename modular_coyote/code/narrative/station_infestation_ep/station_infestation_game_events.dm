@@ -135,19 +135,6 @@
 	unlock_phase = 4
 	end_phase = 4
 	rw_cooldown_percent_change = 100
-	rw_cooldown_percent_target = 400
-	rw_budget_percent_change = 100
-	rw_budget_percent_target = 400
-	rw_ignore_cooldowns = TRUE
-	rw_hostile_weighting = 10
-	rw_super_hostile = TRUE
-	rw_ignore_max_spawnable = TRUE
-	rw_ignore_max_spawnable_hostiles = TRUE
-
-/datum/episode_event/ratwiggle_modifier/critter_round/phase_5
-	unlock_phase = 5
-	end_phase = 5
-	rw_cooldown_percent_change = 100
 	rw_cooldown_percent_target = 1000
 	rw_budget_percent_change = 100
 	rw_budget_percent_target = 1000
@@ -159,6 +146,17 @@
 	rw_ignore_max_spawnable = TRUE
 	rw_ignore_max_spawnable_hostiles = TRUE
 
+/datum/episode_event/ratwiggle_modifier/critter_round/phase_5
+	unlock_phase = 5
+	end_phase = 5
+	rw_cooldown_percent_change = 100
+	rw_cooldown_percent_target = 10 // denumount
+	rw_budget_percent_change = 100
+	rw_budget_percent_target = 10
+	rw_hostile_weighting = 0.01
+	rw_ignore_max_spawnable = FALSE
+	rw_ignore_max_spawnable_hostiles = FALSE
+
 /datum/episode_event/ratwiggle_modifier/critter_round/phase_6
 	unlock_phase = 6
 	end_phase = 6
@@ -169,5 +167,9 @@
 	rw_hostile_weighting = 0.01
 	rw_ignore_max_spawnable = FALSE
 	rw_ignore_max_spawnable_hostiles = FALSE
+	rw_ignore_cooldowns = FALSE
+	rw_ignore_cooldowns_hostiles = FALSE
+	rw_super_hostile = FALSE
+	rw_only_hostiles = FALSE
 
 
