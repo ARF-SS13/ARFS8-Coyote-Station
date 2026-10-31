@@ -13,10 +13,6 @@
 	var/datum/episode/parent = null
 	// list of events associated with this thread
 	var/list/events = list()
-	/// Whether this thread has finished processing all its events
-	var/finished = FALSE
-	/// Index of the current event within the events list
-	var/current_index = 0 // zero-based index!!
 	/// cooldown after the end of one event before the next can start
 	var/next_event_cooldown = 0 // times are decided by the events themselves
 
@@ -27,14 +23,9 @@
 
 	for(var/datum/episode_event/event as anything in events)
 		events -= event
-		events += new /datum/episode_event(parent)
+		events += new event(parent)
 
 /datum/episode_thread/proc/fire()
-	if(finished)
-		return
-	if(current_index > LAZYLEN(events))
-		finished = TRUE
-		return
 	if(world.time < next_event_cooldown)
 		return // still in cooldown, cannot fire the next event yet
 
@@ -47,20 +38,11 @@
 	if(current.is_finished())
 		next_event_cooldown = world.time + current.get_cooldown() // assuming each event has its own cooldown after finishing
 
-
 // fetches the appropriate current event
 // advances if the current event has been completed or is no longer valid
 /datum/episode_thread/proc/get_current_event()
-	var/datum/episode_event/current = LAZYACCESS(events, current_index)
-	if(!current)
-		return null
-	if(!istype(current, /datum/episode_event))
-		CRASH("Current event is not of type /datum/episode_event: [current]!! ERROR CODE: EMMAS FAT PHOX BUTT")
-	advance:
-	if(current.is_finished())
-		current_index++
-		current = LAZYACCESS(events, current_index)
-		if(!current || current.is_finished())
-			goto advance
-	return current
+	for(var/datum/episode_event/event in events)
+		if(event.is_finished())
+			continue
+		return event
 

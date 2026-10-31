@@ -423,7 +423,7 @@ class ChatRenderer {
           !message.type.startsWith(MESSAGE_TYPE_INTERNAL) &&
           // Text payload must fully match
           now <
-            message.createdAt + message.extraData.message_data.msg_splice_timeout;
+            message.createdAt + message.extraData.message_data?.msg_splice_timeout;
         if (matches) {
           // merge conditions:
           // if saymode is the same, merge body

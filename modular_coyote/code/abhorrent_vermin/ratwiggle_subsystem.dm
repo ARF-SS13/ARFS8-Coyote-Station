@@ -18,9 +18,9 @@
 #define DEBUG_LOG(msg, lvl) if(lvl >= debug_lvl) {AddLogCache(msg, lvl)};
 
 SUBSYSTEM_DEF(ratwiggle)
-	name = "RatWiggle"
+	name = "RatWiggler"
 	flags = SS_BACKGROUND
-	wait = 1 MINUTES
+	wait = 10 SECONDS
 
 	var/list/wiggle_spawners = list()
 	var/list/wiggle_tallies = list()
@@ -30,7 +30,10 @@ SUBSYSTEM_DEF(ratwiggle)
 	var/budget_percent = 100
 	var/ignore_max_spawnable_hostiles = FALSE
 	var/ignore_max_spawnable = FALSE
+	var/ignore_cooldowns = FALSE
+	var/ignore_cooldowns_hostiles = FALSE
 	var/hostile_weight = 1
+	var/only_hostiles = FALSE
 	var/can_spawn_superhostile = FALSE
 
 	var/spawnwave_rate = 10 MINUTES
@@ -77,10 +80,54 @@ SUBSYSTEM_DEF(ratwiggle)
 		DEBUG_LOG("No param for round phase [round_phase]! SpawnStuff aborted!", RW_LOGLVL_ERROR)
 		return
 
-	var/cd = spawnwave_rate * (cooldown_percent / 100) * (param.spawn_rate_percent / 100)
+	var/cd = spawnwave_rate * (100 / cooldown_percent) * (param.spawn_rate_percent / 100)
 	next_wave = world.time + cd
 
-	var/list/wiggles = list() // /datum = number
+	var/list/wiggles = FilterWiggleSpawners(wiggle_spawners, round_phase) // /datum = number
+
+	// pick one! weighted~
+	var/list/spawned = list()
+	var/total_budget = ceil(rand(param.spawn_budget_min, param.spawn_budget_max) * (budget_percent / 100))
+	var/tb_started = total_budget
+	DEBUG_LOG("Spawning stuff for round phase [round_phase]. Total budget: [total_budget]", RW_LOGLVL_DEBUG)
+	var/safety = 20
+	var/shinies_removed = FALSE
+	while(total_budget > 0 && wiggles.len && safety > 0)
+		safety--
+		var/datum/rw_spawner/spawner = pick_weight_remove(wiggles)
+		// remove all the rare ones, rares can only be picked first try
+		if(!shinies_removed)
+			for(var/datum/rw_spawner/spaw in wiggles)
+				if(spaw.rare)
+					wiggles -= spaw
+					shinies_removed = TRUE
+		if(!spawner)
+			break
+
+		var/num_to_spawn = max(1, rand(spawner.spawnwave_min, spawner.spawnwave_max))
+		DEBUG_LOG("Attempting to spawn [num_to_spawn] of spawner [spawner.type]", RW_LOGLVL_DEBUG)
+		var/list/what2spawn = spawner.spawn_types.Copy()
+		var/pricetag = spawner.value_multiplier
+		var/safety2 = 20
+		while(num_to_spawn > 0 && total_budget > 0 && what2spawn.len && safety2 > 0)
+			var/mob/living/basic/creature = pick_weight_remove(what2spawn)
+			if(!creature)
+				DEBUG_LOG("No creature picked from what2spawn list, breaking out of spawn loop.", RW_LOGLVL_DEBUG)
+				break
+			total_budget -= pricetag
+			if(!SpawnCreature(creature, spawner))
+				DEBUG_LOG("Failed to spawn creature [creature::name] from spawner [spawner.type].", RW_LOGLVL_DEBUG)
+				continue
+			spawned["[creature::type]"] += 1
+			num_to_spawn--
+			safety2--
+	DEBUG_LOG("Finished spawning stuff for round phase [round_phase]. Total budget left: [total_budget] (started with [tb_started])", RW_LOGLVL_DEBUG)
+	DEBUG_LOG("Spawned the following creatures: [english_list(spawned)]", RW_LOGLVL_INFO)
+	DEBUG_LOG("Safety counter left: [safety] / 20", RW_LOGLVL_DEBUG)
+
+/// Filters the list of wiggle spawners based on the current round phase, spawnable status, and cooldowns.
+/datum/controller/subsystem/ratwiggle/proc/FilterWiggleSpawners(list/wiggle_spawners, round_phase)
+	var/list/wiggles = list()
 	for(var/faze in wiggle_spawners)
 		var/datum/rw_spawner/spawner = wiggle_spawners[faze]
 		if(round_phase < spawner.min_phase || round_phase > spawner.max_phase)
@@ -100,48 +147,13 @@ SUBSYSTEM_DEF(ratwiggle)
 				"Skipping spawner [spawner.type]: cooldown check failed (next spawn time: [spawner.next_spawn_time], current time: [world.time])",
 				RW_LOGLVL_DEBUG)
 			continue
+		if(only_hostiles && !spawner.hostile)
+			continue
 		var/weight = spawner.weight
 		if(spawner.hostile)
 			weight *= hostile_weight
 		wiggles[spawner] = weight
-	// pick one! weighted~
-	var/list/spawned = list()
-	var/total_budget = round(rand(param.spawn_budget_min, param.spawn_budget_max) * (budget_percent / 100))
-	var/tb_started = total_budget
-	DEBUG_LOG("Spawning stuff for round phase [round_phase]. Total budget: [total_budget]", RW_LOGLVL_DEBUG)
-	var/safety = 20
-	while(total_budget > 0 && wiggles.len && safety > 0)
-		safety--
-		var/datum/rw_spawner/spawner = pick_weight_remove(wiggles)
-		// remove all the rare ones, rares can only be picked first try
-		for(var/datum/rw_spawner/spaw in wiggles)
-			if(spaw.rare)
-				wiggles -= spaw
-		if(!spawner)
-			break
-
-		var/num_to_spawn = rand(spawner.spawnwave_min, spawner.spawnwave_max)
-		DEBUG_LOG("Attempting to spawn [num_to_spawn] of spawner [spawner.type]", RW_LOGLVL_DEBUG)
-		var/list/what2spawn = spawner.spawn_types.Copy()
-		var/safety2 = 20
-		while(num_to_spawn > 0 && total_budget > 0 && what2spawn.len && safety2 > 0)
-			var/mob/living/basic/creature = pick_weight_remove(what2spawn)
-			if(!creature)
-				DEBUG_LOG("No creature picked from what2spawn list, breaking out of spawn loop.", RW_LOGLVL_DEBUG)
-				break
-			var/cost = 1 * spawner.value_multiplier
-			if(cost > total_budget)
-				DEBUG_LOG("Not enough budget to spawn [creature::name] (cost: [cost], total budget: [total_budget]). Breaking out of spawn loop.", RW_LOGLVL_DEBUG)
-				break
-			if(!SpawnCreature(creature, spawner))
-				DEBUG_LOG("Failed to spawn creature [creature::name] from spawner [spawner.type].", RW_LOGLVL_DEBUG)
-				continue
-			spawned["[creature::name]"] += 1
-			num_to_spawn--
-			total_budget -= cost
-	DEBUG_LOG("Finished spawning stuff for round phase [round_phase]. Total budget left: [total_budget] (started with [tb_started])", RW_LOGLVL_DEBUG)
-	DEBUG_LOG("Spawned the following creatures: [english_list(spawned)]", RW_LOGLVL_INFO)
-	DEBUG_LOG("Safety counter left: [safety] / 20", RW_LOGLVL_DEBUG)
+	return wiggles
 
 /// spawns 1 (one) critter somewhere, usually on the station
 /datum/controller/subsystem/ratwiggle/proc/SpawnCreature(
@@ -243,6 +255,8 @@ SUBSYSTEM_DEF(ratwiggle)
 					if(!ventthing.anchored || ventthing.welded || !(LAZYACCESS(ventthing.nodes, 1)) || !ventthing.on || !ventthing.is_operational)
 						DEBUG_LOG("Vent/Scrubber [ventthing] is not active, skipping.", RW_LOGLVL_DEBUG)
 						continue
+				//? todo: some way for players to prevent table-spawns
+
 			// gotta check atmos against what the mob's requirements are, if it has any
 			var/list/acceptable_gas_bounds = creaturetype::habitable_atmos
 			DEBUG_LOG("Checking atmos for turf [thingturf.x], [thingturf.y], [thingturf.z] against acceptable gas bounds.", RW_LOGLVL_DEBUG)

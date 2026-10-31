@@ -127,6 +127,8 @@
 	rw_cooldown_percent_target = 200
 	rw_budget_percent_change = 20
 	rw_budget_percent_target = 200
+	rw_ignore_cooldowns = TRUE
+	rw_ignore_max_spawnable = TRUE
 	rw_hostile_weighting = 2
 
 /datum/episode_event/ratwiggle_modifier/critter_round/phase_4
@@ -136,7 +138,9 @@
 	rw_cooldown_percent_target = 400
 	rw_budget_percent_change = 100
 	rw_budget_percent_target = 400
+	rw_ignore_cooldowns = TRUE
 	rw_hostile_weighting = 10
+	rw_super_hostile = TRUE
 	rw_ignore_max_spawnable = TRUE
 	rw_ignore_max_spawnable_hostiles = TRUE
 
@@ -147,6 +151,10 @@
 	rw_cooldown_percent_target = 1000
 	rw_budget_percent_change = 100
 	rw_budget_percent_target = 1000
+	rw_ignore_cooldowns = TRUE
+	rw_ignore_cooldowns_hostiles = TRUE
+	rw_super_hostile = TRUE
+	rw_only_hostiles = TRUE
 	rw_hostile_weighting = 100
 	rw_ignore_max_spawnable = TRUE
 	rw_ignore_max_spawnable_hostiles = TRUE

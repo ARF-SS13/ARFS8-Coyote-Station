@@ -50,10 +50,11 @@
 				if(weight == 1)
 					weight = data.weight
 				break
-		CRASH("!!! EVENT NOT FOUND FOR [src.type]: [eventype]!!!")
+		if(!istype(event, /datum/round_event_control))
+			CRASH("!!! EVENT NOT FOUND FOR [src.type]: [eventype]!!!")
 
 /datum/episode_event/proc/try_run_event(force, delay)
-	if(!can_run(SSnarrative.get_phase(), force))
+	if(!can_run(SSnarrative.get_round_phase(), force))
 		return FALSE
 	if(run_event(force, delay))
 		do_post_run(force)
@@ -62,7 +63,7 @@
 /datum/episode_event/proc/run_event(force, delay)
 	if(!event)
 		return FALSE
-	SSgamemode.schedule_event(event, delay)
+	SSgamemode.schedule_event(event, delay, passed_ignore = TRUE, passed_announce = !quiet)
 	return TRUE
 
 /datum/episode_event/proc/do_post_run(force)
@@ -80,16 +81,18 @@
 		return FALSE
 	if(last_ran + min_cooldown > world.time)
 		return FALSE
-	phase ||= SSnarrative.get_phase()
-	if(phase < unlock_phase || phase > end_phase)
-		return FALSE
+	phase ||= SSnarrative.get_round_phase()
+	if(is_progressive)
+		if(phase < unlock_phase)
+			return FALSE
+	else
+		if(phase < unlock_phase || phase > end_phase)
+			return FALSE
 	return TRUE
 
 /// fpor progressive evetns
 /datum/episode_event/proc/is_finished(phase)
-	if(!is_progressive)
-		return FALSE
-	phase ||= SSnarrative.get_phase()
+	phase ||= SSnarrative.get_round_phase()
 	if(phase < unlock_phase || phase > end_phase)
 		return TRUE
 	return finished

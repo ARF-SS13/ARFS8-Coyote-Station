@@ -13,6 +13,7 @@
 	var/status
 	/// A stored value of the event's announcement chance. Cached and not immediately used to prevent announcements for a failed event roll.
 	var/cached_announcement_chance
+	var/retry_count = 0
 
 /datum/round_event/ghost_role/start()
 	try_spawning()
@@ -34,7 +35,6 @@
 		cached_announcement_chance = announce_chance //only announce once we've finished the spawning loop.
 	announce_chance = (status == SUCCESSFUL_SPAWN ? cached_announcement_chance : 0)
 	if((status == WAITING_FOR_SOMETHING))
-		var/retry_count = 0
 		if(retry_count >= MAX_SPAWN_ATTEMPT)
 			message_admins("[role_name] event has exceeded maximum spawn attempts. Aborting and refunding.")
 			if(control && control.occurrences > 0) //Don't refund if it hasn't

@@ -54,16 +54,17 @@ SUBSYSTEM_DEF(narrative)
 		"Don't touch that dial!",
 		"Coming soon to a space station near you!",
 	)
-	to_chat(world, span_boldnotice("Initialized [LAZYLEN(all_episodes)] distinct potential episodes! [pick(thingse)]"))
+	spawn(10 SECONDS)
+		to_chat(world, span_boldnotice("Initialized [LAZYLEN(all_episodes)] distinct potential episodes! [pick(thingse)]"))
 
 /datum/controller/subsystem/narrative/fire(resumed)
 	if(!current_episode)
 		check_tv_guide()
 		return
+	current_episode.fire()
 
 /datum/controller/subsystem/narrative/proc/build_episode_list()
-	for(var/datum/episode/ep as anything in all_episodes)
-		all_episodes -= ep
+	for(var/datum/episode/ep as anything in subtypesof(/datum/episode))
 		all_episodes += new ep()
 
 /// spends the first couple minutes of the round checking the player count and such for
@@ -89,24 +90,19 @@ SUBSYSTEM_DEF(narrative)
 	else if(!isnull(phase_override))
 		round_phase = phase_override
 	else
-		var/roundtime_elapsed = world.time - SSstation.round_start_time
-		switch(roundtime_elapsed)
-			if(-INFINITY to phase_1_start)
-				round_phase = 1 // just in case i guess whatever
-			if(phase_1_start to phase_2_start)
-				round_phase = 1 // startup peacetime, only minor issues
-			if(phase_2_start to phase_3_start)
-				round_phase = 2 // early game, minor issues start to appear
-			if(phase_3_start to phase_4_start)
-				round_phase = 3 // the main threats get ready
-			if(phase_4_start to phase_5_start)
-				round_phase = 4 // the main threat begins!
-			if(phase_5_start to phase_6_start)
-				round_phase = 5 // midlate game, main threat is active, time to fight
-			if(phase_6_start to INFINITY)
-				round_phase = 6 // continuation of 5, until the main threat is defeated, or the round ends at 3 hours
-			else
-				round_phase = 6 // continuation of 5, until the main threat is defeated, or the round ends at 3 hours
+		var/roundtime_elapsed = world.time - SSticker.round_start_time
+		if(roundtime_elapsed < phase_2_start)
+			round_phase = 1
+		else if(roundtime_elapsed < phase_3_start)
+			round_phase = 2
+		else if(roundtime_elapsed < phase_4_start)
+			round_phase = 3
+		else if(roundtime_elapsed < phase_5_start)
+			round_phase = 4
+		else if(roundtime_elapsed < phase_6_start)
+			round_phase = 5
+		else
+			round_phase = 6
 	round_phase = clamp(round_phase, phase_min, phase_max)
 	return round_phase
 

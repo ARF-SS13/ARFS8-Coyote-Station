@@ -118,11 +118,11 @@
 
 
 /proc/drift_towards_by(val,target,amt)
-	if(val == target)
-		return val
+	if(IS_WITHIN_TOLERANCE(val, target, amt))
+		return target
 	if(val < target)
-		return min(val+amt,target)
+		val = min(val+amt,target)
 	if(val > target)
-		return max(val-amt,target)
+		val = max(val-amt,target)
 	return val
 

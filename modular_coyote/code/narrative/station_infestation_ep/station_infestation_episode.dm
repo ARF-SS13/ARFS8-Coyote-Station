@@ -1,4 +1,4 @@
-/datum/episode/vent_critters
+/datum/episode/station_infestation
 	name = "Station Infestation"
 	names = list(
 		"Station Infestation",
@@ -15,7 +15,22 @@
 	main_events = list(
 		/datum/episode_event/spider_infestation/station_infestation,
 	)
-	storyline_events = list(
+	event_threads = list(
+		/datum/episode_thread/station_infestation,
+		/datum/episode_thread/station_infestation_announcements,
+	)
+
+	background_events = list(
+		/datum/episode_event/mice_migration/station_infestation,
+		/datum/episode_event/vent_clog/station_infestation,
+		/datum/episode_event/vent_clog_critical/station_infestation,
+		/datum/episode_event/vent_clog_major/station_infestation,
+		/datum/episode_event/vent_clog_strange/station_infestation,
+		/datum/episode_event/mice_migration/station_infestation,
+	)
+
+/datum/episode_thread/station_infestation
+	events = list(
 		/datum/episode_event/ratwiggle_modifier/critter_round/phase_1,
 		/datum/episode_event/ratwiggle_modifier/critter_round/phase_2,
 		/datum/episode_event/ratwiggle_modifier/critter_round/phase_3,
@@ -23,17 +38,11 @@
 		/datum/episode_event/ratwiggle_modifier/critter_round/phase_5,
 		/datum/episode_event/ratwiggle_modifier/critter_round/phase_6,
 	)
-	minor_events = list(
-		/datum/episode_event/mice_migration/station_infestation,
-		/datum/episode_event/rabbitrelease/station_infestation,
-		/datum/episode_event/vent_clog/station_infestation,
-		/datum/episode_event/vent_clog_critical/station_infestation,
-		/datum/episode_event/vent_clog_major/station_infestation,
-		/datum/episode_event/vent_clog_strange/station_infestation,
-	)
-	background_events = list(
-		/datum/episode_event/sentience_all/station_infestation,
-		/datum/episode_event/sentience/station_infestation,
-		/datum/episode_event/mice_migration/station_infestation,
-		/datum/episode_event/rabbitrelease/station_infestation,
+
+/datum/episode_thread/station_infestation_announcements
+	events = list(
+		/datum/episode_event/information/station_infestation_information/phase_1,
+		/datum/episode_event/information/station_infestation_information/phase_2,
+		/datum/episode_event/information/station_infestation_information/phase_3,
+		/datum/episode_event/information/station_infestation_information/phase_4,
 	)

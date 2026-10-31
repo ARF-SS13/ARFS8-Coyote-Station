@@ -37,8 +37,8 @@
 /datum/rw_param/phase_6
 	phase = ROUND_PHASE_6
 	spawn_rate_percent = 100
-	spawn_budget_min = 10
-	spawn_budget_max = 10
+	spawn_budget_min = 2
+	spawn_budget_max = 2
 
 ///
 
