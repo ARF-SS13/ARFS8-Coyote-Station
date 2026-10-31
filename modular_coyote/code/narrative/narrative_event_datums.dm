@@ -35,9 +35,9 @@
 	/// the last phase this can run in, inclusive
 	var/end_phase = 6
 	/// initial delay, minimum time
-	var/min_delay = 1 MINUTES
+	var/min_delay = 5 SECONDS
 	/// maximum delay, for events that can have a variable start time
-	var/max_delay = 10 MINUTES
+	var/max_delay = 15 SECONDS
 
 
 /datum/episode_event/New(datum/episode/our_episode)
