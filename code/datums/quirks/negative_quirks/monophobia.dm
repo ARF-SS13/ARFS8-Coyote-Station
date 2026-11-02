@@ -6,6 +6,7 @@
 	medical_record_text = "Patient has a severe fear of being left alone."
 	hardcore_value = 5
 	mail_goodies = list(/obj/effect/spawner/random/entertainment/plushie)
+	hidden_quirk = TRUE
 
 /datum/quirk/monophobia/add(client/client_source)
 	var/mob/living/carbon/human/human_holder = quirk_holder

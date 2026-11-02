@@ -1,5 +1,5 @@
 /datum/quirk/headpat_slut
-	name = "Headpat Slut"
+	name = "Headpat Lover"
 	desc = "You love the feeling of others touching your head! Maybe a little too much. Others patting your head will provide a stronger mood boost, along with other sensual reactions."
 	value = 0
 	gain_text = span_purple("You long for the wonderful sensation of head pats!")

@@ -336,4 +336,4 @@ DEFINE_BITFIELD(job_flags, list(
 
 /// Statistically average probability of a random cop or cop-adjacent person consisting of meat of sus domesticus of suidae family,
 /// also known as swine or hogs, calculated by the university of random numbers
-#define PIG_COP_PROBABILITY 40
+

@@ -12,6 +12,7 @@
 	erp_quirk = TRUE
 	var/timer_crave
 	var/is_craving
+	hidden_quirk = TRUE
 
 /datum/quirk/dumb_for_cum/add(client/client_source)
 	// Set timer

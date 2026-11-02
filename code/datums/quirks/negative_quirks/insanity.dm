@@ -12,6 +12,7 @@
 	mail_goodies = list(/obj/item/storage/pill_bottle/lsdpsych)
 	/// Weakref to the trauma we give out
 	var/datum/weakref/added_trama_ref
+	hidden_quirk = TRUE
 
 /datum/quirk/insanity/add(client/client_source)
 	if(!iscarbon(quirk_holder))
