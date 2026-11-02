@@ -9,6 +9,7 @@
 	quirk_flags = QUIRK_HIDE_FROM_SCAN
 	var/character_name
 	var/new_name
+	hidden_quirk = TRUE
 
 /datum/preference/text/nameless_quirk_option
 	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED

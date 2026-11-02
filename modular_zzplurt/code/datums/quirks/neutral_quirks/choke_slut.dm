@@ -1,6 +1,6 @@
 /datum/quirk/choke_slut
-	name = "Choke Slut"
-	desc = "You are aroused by suffocation."
+	name = "Hypoxyphilia"
+	desc = "You are aroused by suffocation. Unless you're British."
 	value = 0
 	gain_text = span_purple("You fantasize about feeling someone's fingers around your neck, choking you until you pass out or make a mess... Maybe both.")
 	lose_text = span_purple("You stop feeling aroused by suffocation.")

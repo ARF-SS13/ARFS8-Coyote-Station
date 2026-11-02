@@ -16,6 +16,7 @@
 		/datum/glass_style/drinking_glass/cum = 1,
 		/obj/item/reagent_containers/condiment/milk = 1
 	)
+	hidden_quirk = TRUE
 
 /datum/quirk/concubus/add(client/client_source)
 	// Define quirk holder

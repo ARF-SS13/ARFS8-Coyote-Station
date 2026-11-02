@@ -43,6 +43,7 @@
 	erp_quirk = TRUE
 	var/timer_rouse
 	var/is_roused
+	hidden_quirk = TRUE
 
 /datum/quirk/hypersexual/add(client/client_source)
 	// Set timer

@@ -8,6 +8,7 @@
 	medical_record_text = "Patient has an anomalous chronic illness that requires constant medication to keep under control."
 	hardcore_value = 12
 	mail_goodies = list(/obj/item/storage/pill_bottle/sansufentanyl)
+	hidden_quirk = TRUE
 
 /datum/quirk/item_quirk/chronic_illness/add(client/client_source)
 	var/datum/disease/chronic_illness/hms = new /datum/disease/chronic_illness()

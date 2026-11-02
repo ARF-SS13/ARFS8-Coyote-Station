@@ -8,6 +8,7 @@
 	lose_text = span_notice("You feel calmer.")
 	quirk_flags = QUIRK_HIDE_FROM_SCAN
 	COOLDOWN_DECLARE(shovingspam)
+	hidden_quirk = TRUE
 
 /datum/quirk/defensive/add(client/client_source)
 	. = ..()
