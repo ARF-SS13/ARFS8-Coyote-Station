@@ -43,7 +43,7 @@ SUBSYSTEM_DEF(narrative)
 	var/phase_6_start = 2.5 HOURS
 	var/phase_min = 1
 	var/phase_max = 6
-	var/phase_override = 4 // null
+	var/phase_override = null
 
 /datum/controller/subsystem/narrative/Initialize()
 	build_episode_list()

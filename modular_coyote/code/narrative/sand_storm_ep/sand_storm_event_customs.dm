@@ -42,21 +42,19 @@ GLOBAL_VAR(meteor_direction)
 /datum/episode_event/meteors/phase_1
 	unlock_phase = 1
 	end_phase = 1
-	min_meteors = 1
-	max_meteors = 1
+	min_meteors = 2
+	max_meteors = 2
 	meteor_interval_min = 10 MINUTES
 	meteor_interval_max = 15 MINUTES
 
 /datum/episode_event/meteors/phase_1/dust
 	meteor_types = list(
-		/obj/effect/meteor/episode/dust = 2,
-		/obj/effect/meteor/episode/dust/rich = 1,
+		/obj/effect/meteor/episode/dust = 4,
 	)
 
 /datum/episode_event/meteors/phase_1/sand
 	meteor_types = list(
 		/obj/effect/meteor/episode/sand = 2,
-		/obj/effect/meteor/episode/sand/rich = 1,
 	)
 
 /datum/episode_event/meteors/phase_2
@@ -148,8 +146,8 @@ GLOBAL_VAR(meteor_direction)
 /datum/episode_event/meteors/phase_5
 	unlock_phase = 5
 	end_phase = 5
-	meteor_interval_min = 5 MINUTES
-	meteor_interval_max = 7 MINUTES
+	meteor_interval_min = 10 MINUTES
+	meteor_interval_max = 10 MINUTES
 
 /datum/episode_event/meteors/phase_5/dust
 	min_meteors = 3
@@ -170,7 +168,7 @@ GLOBAL_VAR(meteor_direction)
 /datum/episode_event/meteors/phase_6
 	unlock_phase = 6
 	end_phase = 6
-	meteor_interval_min = 5 MINUTES
+	meteor_interval_min = 10 MINUTES
 	meteor_interval_max = 10 MINUTES
 
 /datum/episode_event/meteors/phase_6/dust
