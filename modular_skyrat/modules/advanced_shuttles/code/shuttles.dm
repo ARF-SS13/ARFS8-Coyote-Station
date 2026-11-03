@@ -96,6 +96,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	connectable = FALSE //connecting_computer change: since icon_state is not a typical console, it cannot be connectable.
 	no_destination_swap = TRUE
+	lockout_until = 2 HOURS
 
 	///[world.time] when console last announced departure
 	var/last_depart_announce
@@ -106,6 +107,7 @@
 	name = "arrivals shuttle recall terminal"
 	desc = "Use this if your friends left you behind."
 	possible_destinations = "arrivals_stationary;arrivals_shuttle"
+	lockout_until = 0
 
 /*
 *	MAP TEMPLATES

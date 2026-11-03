@@ -3,10 +3,13 @@
 
 /datum/loadout_item/New(category)
 	. = ..()
-	if((donator_tier || LAZYLEN(ckeywhitelist)) && !donator_only)
-		//donator_only = TRUE
-	if((donator_only || LAZYLEN(ckeywhitelist)) && !donator_tier)
-		donator_tier = DONATOR_TIER_1
+	donator_tier = DONATOR_TIER_NONE
+	donator_only = FALSE
+	ckeywhitelist = list()
+	// if((donator_tier || LAZYLEN(ckeywhitelist)) && !donator_only)
+	// 	donator_only = TRUE
+	// if((donator_only || LAZYLEN(ckeywhitelist)) && !donator_tier)
+	// 	donator_tier = DONATOR_TIER_1
 
 /datum/loadout_item/to_ui_data()
 	var/list/data = ..()

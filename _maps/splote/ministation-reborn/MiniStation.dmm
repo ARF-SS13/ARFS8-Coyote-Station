@@ -15031,13 +15031,12 @@
 /area/station/service/lawoffice)
 "imT" = (
 /obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 3;
-	height = 15;
+	dir = 4;
+	dwidth = 1;
+	height = 13;
+	shuttle_id = "arrivals_stationary";
 	name = "arrivals";
-	roundstart_template = /datum/map_template/shuttle/arrival/box;
-	shuttle_id = "arrival_stationary";
-	width = 7
+	width = 5
 	},
 /turf/open/space/basic,
 /area/space)
@@ -43605,6 +43604,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
+"xwS" = (
+/obj/effect/turf_decal/tile/blue/fourcorners,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
+/turf/open/floor/iron,
+/area/station/hallway/secondary/entry)
 "xxk" = (
 /turf/open/floor/iron,
 /area/station/cargo/storage)
@@ -44559,6 +44564,13 @@
 	},
 /turf/open/floor/iron,
 /area/station/science/ordnance/testlab)
+"xVy" = (
+/obj/effect/turf_decal/tile/blue/fourcorners,
+/obj/machinery/computer/shuttle/arrivals{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/station/hallway/secondary/entry)
 "xWo" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -70319,7 +70331,7 @@ ihk
 wjd
 wjd
 wjd
-wjd
+imT
 wjd
 wjd
 wjd
@@ -70570,11 +70582,11 @@ lYJ
 xxI
 ihk
 ihk
-wjd
-ihk
-wjd
-wjd
-wjd
+bzw
+bzw
+xxI
+xxI
+xxI
 wjd
 wjd
 wjd
@@ -70827,11 +70839,11 @@ gve
 xxI
 bzw
 bzw
-xxI
 bzw
-xxI
-xxI
-xxI
+xpL
+fmH
+xKq
+iIf
 wjd
 wjd
 wjd
@@ -71085,10 +71097,10 @@ chu
 huO
 ntX
 oOY
-xpL
-fmH
-xKq
-iIf
+asp
+bzw
+xxI
+xxI
 wjd
 wjd
 wjd
@@ -71342,9 +71354,9 @@ mUu
 kNk
 hZG
 hPA
-asp
-bzw
-xxI
+xwS
+oVm
+xVy
 xxI
 wjd
 wjd
@@ -73405,7 +73417,7 @@ ihk
 wjd
 wjd
 wjd
-imT
+wjd
 wjd
 wjd
 wjd
@@ -136106,11 +136118,11 @@ eLH
 aNt
 lbv
 wzv
-wzv
-wzv
-wzv
-wzv
-wzv
+nLw
+nLw
+nLw
+nLw
+nLw
 wzv
 wzv
 wzv
