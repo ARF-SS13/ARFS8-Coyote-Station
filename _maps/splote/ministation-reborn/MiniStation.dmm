@@ -16214,10 +16214,11 @@
 /turf/open/floor/engine/airless,
 /area/station/maintenance/disposal/incinerator)
 "iZK" = (
-/obj/effect/turf_decal{
-	dir = 8
-	},
 /obj/machinery/computer/cryopod/directional/south,
+/obj/effect/turf_decal/tile/dark_green,
+/obj/machinery/cryopod{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/station/common/cryopods)
 "jag" = (
@@ -19258,11 +19259,9 @@
 	},
 /area/station/science/research)
 "kFQ" = (
-/obj/machinery/cafe_condo_teleporter{
-	name = "Residential Teleporter"
+/obj/machinery/cryopod{
+	dir = 1
 	},
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/delivery/red,
 /turf/open/floor/iron,
 /area/station/common/cryopods)
 "kGc" = (
@@ -20500,10 +20499,6 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/obj/machinery/cafe_condo_teleporter{
-	name = "Residential Teleporter"
-	},
-/obj/effect/turf_decal/delivery/blue,
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron,
 /area/station/common/cryopods)
@@ -25442,12 +25437,6 @@
 /obj/structure/cable,
 /turf/open/floor/carpet/royalblack,
 /area/station/command/heads_quarters/hos)
-"nPp" = (
-/obj/effect/turf_decal{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/station/common/cryopods)
 "nPr" = (
 /obj/machinery/camera/directional/south{
 	c_tag = "Captain's Quarters"
@@ -26636,9 +26625,6 @@
 "opM" = (
 /obj/effect/turf_decal/tile/dark_green{
 	dir = 4
-	},
-/obj/effect/turf_decal{
-	dir = 8
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable,
@@ -44365,11 +44351,7 @@
 /obj/effect/turf_decal/tile/dark_green{
 	dir = 1
 	},
-/obj/machinery/computer{
-	dir = 4;
-	name = "Residential Teleportation Console";
-	desc = "A locked out and tagged out computer for the nearby teleporters - you should use the teleporters themselves."
-	},
+/obj/effect/landmark/latejoin_override,
 /turf/open/floor/iron,
 /area/station/common/cryopods)
 "xQh" = (
@@ -75194,7 +75176,7 @@ gnN
 cKS
 gnN
 opM
-nPp
+ylm
 iZK
 mfT
 rKt
