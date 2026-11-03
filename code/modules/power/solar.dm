@@ -57,6 +57,8 @@
 	. = ..()
 	if(same_z_layer)
 		return
+	if(QDELETED(src))
+		return
 	SET_PLANE(panel_edge, PLANE_TO_TRUE(panel_edge.plane), new_turf)
 	SET_PLANE(panel, PLANE_TO_TRUE(panel.plane), new_turf)
 

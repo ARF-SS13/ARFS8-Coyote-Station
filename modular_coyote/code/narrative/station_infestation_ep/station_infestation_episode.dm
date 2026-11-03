@@ -45,4 +45,6 @@
 		/datum/episode_event/information/station_infestation_information/phase_2,
 		/datum/episode_event/information/station_infestation_information/phase_3,
 		/datum/episode_event/information/station_infestation_information/phase_4,
+		/datum/episode_event/information/station_infestation_information/phase_4_part_2,
+		/datum/episode_event/information/station_infestation_information/phase_5,
 	)

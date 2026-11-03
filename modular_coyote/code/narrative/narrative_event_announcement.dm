@@ -43,7 +43,7 @@
 	if(!station_announcement_sound)
 		station_announcement_sound = ANNOUNCER_COMMAND_REPORT
 	priority_announce(
-		station_announcement_message,
+		get_announcement_message(),
 		station_announcement_title,
 		station_announcement_sound,
 		ANNOUNCEMENT_TYPE_PRIORITY,
@@ -53,5 +53,7 @@
 	)
 	return TRUE
 
+/datum/episode_event/information/proc/get_announcement_message()
+	return station_announcement_message
 
 

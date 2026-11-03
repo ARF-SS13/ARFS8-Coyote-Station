@@ -37,7 +37,7 @@
 	/// initial delay, minimum time
 	var/min_delay = 5 SECONDS
 	/// maximum delay, for events that can have a variable start time
-	var/max_delay = 15 SECONDS
+	var/max_delay = 10 SECONDS
 
 
 /datum/episode_event/New(datum/episode/our_episode)

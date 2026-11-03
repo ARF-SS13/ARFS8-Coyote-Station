@@ -43,7 +43,7 @@ SUBSYSTEM_DEF(narrative)
 	var/phase_6_start = 2.5 HOURS
 	var/phase_min = 1
 	var/phase_max = 6
-	var/phase_override = null
+	var/phase_override = 4 // null
 
 /datum/controller/subsystem/narrative/Initialize()
 	build_episode_list()
@@ -64,8 +64,9 @@ SUBSYSTEM_DEF(narrative)
 	current_episode.fire()
 
 /datum/controller/subsystem/narrative/proc/build_episode_list()
-	for(var/datum/episode/ep as anything in subtypesof(/datum/episode))
-		all_episodes += new ep()
+	// for(var/datum/episode/ep as anything in subtypesof(/datum/episode))
+	// 	all_episodes += new ep()
+	all_episodes += new /datum/episode/sand_storm()
 
 /// spends the first couple minutes of the round checking the player count and such for
 /// which episodes may be a good idea to do. or just picks one at random cus i gotta get this damn thing done at some point

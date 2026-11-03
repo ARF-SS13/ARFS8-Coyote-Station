@@ -83,9 +83,9 @@
 	station_announcement_sound = ANNOUNCER_COMMAND_REPORT
 	station_announcement_color = "red"
 
-/datum/episode_event/information/station_infestation_information/phase_5
+/datum/episode_event/information/station_infestation_information/phase_4_part_2
 	unlock_phase = 5
-	min_delay = 30 SECONDS
+	min_delay = 8 MINUTES
 	max_delay = 10 MINUTES
 
 	station_announcement = TRUE
@@ -104,8 +104,8 @@
 	station_announcement_sound = ANNOUNCER_COMMAND_REPORT
 	station_announcement_color = "red"
 
-/datum/episode_event/information/station_infestation_information/phase_6
-	unlock_phase = 6
+/datum/episode_event/information/station_infestation_information/phase_5
+	unlock_phase = 5
 	min_delay = 30 SECONDS
 	max_delay = 10 MINUTES
 
