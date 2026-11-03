@@ -8932,6 +8932,19 @@
 	},
 /turf/open/floor/carpet/green,
 /area/centcom/interlink)
+"xP" = (
+/obj/effect/light_emitter/interlink,
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 1;
+	height = 13;
+	name = "tram dock";
+	roundstart_template = /datum/map_template/shuttle/arrivals_skyrat;
+	shuttle_id = "arrivals_shuttle";
+	width = 5
+	},
+/turf/open/floor/iron/dark/smooth_large,
+/area/centcom/interlink)
 "xQ" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -67646,7 +67659,7 @@ Ap
 mA
 mA
 PX
-mA
+xP
 mA
 ng
 ng

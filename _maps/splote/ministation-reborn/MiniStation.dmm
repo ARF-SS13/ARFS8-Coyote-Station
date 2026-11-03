@@ -15031,13 +15031,12 @@
 /area/station/service/lawoffice)
 "imT" = (
 /obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 3;
-	height = 15;
+	dir = 4;
+	dwidth = 1;
+	height = 13;
+	shuttle_id = "arrivals_stationary";
 	name = "arrivals";
-	roundstart_template = /datum/map_template/shuttle/arrival/box;
-	shuttle_id = "arrival_stationary";
-	width = 7
+	width = 5
 	},
 /turf/open/space/basic,
 /area/space)
@@ -16215,10 +16214,11 @@
 /turf/open/floor/engine/airless,
 /area/station/maintenance/disposal/incinerator)
 "iZK" = (
-/obj/effect/turf_decal{
-	dir = 8
-	},
 /obj/machinery/computer/cryopod/directional/south,
+/obj/effect/turf_decal/tile/dark_green,
+/obj/machinery/cryopod{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/station/common/cryopods)
 "jag" = (
@@ -19259,11 +19259,9 @@
 	},
 /area/station/science/research)
 "kFQ" = (
-/obj/machinery/cafe_condo_teleporter{
-	name = "Residential Teleporter"
+/obj/machinery/cryopod{
+	dir = 1
 	},
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/delivery/red,
 /turf/open/floor/iron,
 /area/station/common/cryopods)
 "kGc" = (
@@ -20501,10 +20499,6 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/obj/machinery/cafe_condo_teleporter{
-	name = "Residential Teleporter"
-	},
-/obj/effect/turf_decal/delivery/blue,
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron,
 /area/station/common/cryopods)
@@ -25443,12 +25437,6 @@
 /obj/structure/cable,
 /turf/open/floor/carpet/royalblack,
 /area/station/command/heads_quarters/hos)
-"nPp" = (
-/obj/effect/turf_decal{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/station/common/cryopods)
 "nPr" = (
 /obj/machinery/camera/directional/south{
 	c_tag = "Captain's Quarters"
@@ -26637,9 +26625,6 @@
 "opM" = (
 /obj/effect/turf_decal/tile/dark_green{
 	dir = 4
-	},
-/obj/effect/turf_decal{
-	dir = 8
 	},
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable,
@@ -43605,6 +43590,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/xenoarch/science/xenoarch)
+"xwS" = (
+/obj/effect/turf_decal/tile/blue/fourcorners,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
+/turf/open/floor/iron,
+/area/station/hallway/secondary/entry)
 "xxk" = (
 /turf/open/floor/iron,
 /area/station/cargo/storage)
@@ -44360,11 +44351,7 @@
 /obj/effect/turf_decal/tile/dark_green{
 	dir = 1
 	},
-/obj/machinery/computer{
-	dir = 4;
-	name = "Residential Teleportation Console";
-	desc = "A locked out and tagged out computer for the nearby teleporters - you should use the teleporters themselves."
-	},
+/obj/effect/landmark/latejoin_override,
 /turf/open/floor/iron,
 /area/station/common/cryopods)
 "xQh" = (
@@ -44559,6 +44546,13 @@
 	},
 /turf/open/floor/iron,
 /area/station/science/ordnance/testlab)
+"xVy" = (
+/obj/effect/turf_decal/tile/blue/fourcorners,
+/obj/machinery/computer/shuttle/arrivals{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/station/hallway/secondary/entry)
 "xWo" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -70319,7 +70313,7 @@ ihk
 wjd
 wjd
 wjd
-wjd
+imT
 wjd
 wjd
 wjd
@@ -70570,11 +70564,11 @@ lYJ
 xxI
 ihk
 ihk
-wjd
-ihk
-wjd
-wjd
-wjd
+bzw
+bzw
+xxI
+xxI
+xxI
 wjd
 wjd
 wjd
@@ -70827,11 +70821,11 @@ gve
 xxI
 bzw
 bzw
-xxI
 bzw
-xxI
-xxI
-xxI
+xpL
+fmH
+xKq
+iIf
 wjd
 wjd
 wjd
@@ -71085,10 +71079,10 @@ chu
 huO
 ntX
 oOY
-xpL
-fmH
-xKq
-iIf
+asp
+bzw
+xxI
+xxI
 wjd
 wjd
 wjd
@@ -71342,9 +71336,9 @@ mUu
 kNk
 hZG
 hPA
-asp
-bzw
-xxI
+xwS
+oVm
+xVy
 xxI
 wjd
 wjd
@@ -73405,7 +73399,7 @@ ihk
 wjd
 wjd
 wjd
-imT
+wjd
 wjd
 wjd
 wjd
@@ -75182,7 +75176,7 @@ gnN
 cKS
 gnN
 opM
-nPp
+ylm
 iZK
 mfT
 rKt
@@ -136106,11 +136100,11 @@ eLH
 aNt
 lbv
 wzv
-wzv
-wzv
-wzv
-wzv
-wzv
+nLw
+nLw
+nLw
+nLw
+nLw
 wzv
 wzv
 wzv
