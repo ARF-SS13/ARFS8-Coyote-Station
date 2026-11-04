@@ -111,6 +111,20 @@
 	ordering = 359
 	sort_key = "Absol2"
 
+/datum/species/feral/pokemon/growlithe
+	name = "Growlithe" // Feral
+	id = "growlithe"
+	simple_icon_state = "growlith"
+	ordering = 58
+	sort_key = "growlithe1"
+
+/datum/species/feral/pokemon/growlithe/arcanine
+	name = "Arcanine" // Feral
+	id = "arcanine"
+	simple_icon_state = "arcanine"
+	ordering = 59
+	sort_key = "arcanine1"
+
 /datum/species/feral/pokemon/fennekin
 	name = "Fennekin" // Feral
 	id = "fennekin"
@@ -644,3 +658,137 @@
 	id = "zubat"
 	simple_icon_state = "zubat"
 	ordering = 41
+
+// woke creatures
+
+/datum/species/feral/awakened
+	name = "Awakened" // Feral
+	simple_icon = 'modular_coyote/icons/mob/vore64x32.dmi'
+	roundstart = TRUE // this is a category, so it wont actually be selectable
+	icon_dead_suffix = "_d"
+	icon_rest_suffix = "_rest"
+	icon_width = 64
+	ordering = 21 // under the normal species, above the ones i dont like
+	category = "critters" // propagation!
+	category_master = /datum/species/feral/awakened
+	default_species = /datum/species/feral/awakened/scrotie
+
+/datum/species/feral/awakened/scrotie
+	name = "Scrotie" // Feral
+	id = "scrotie"
+	simple_icon_state = "scrotie"
+
+/datum/species/feral/awakened/otie
+	name = "Otie" // Feral
+	id = "otie"
+	simple_icon_state = "otie"
+
+/datum/species/feral/awakened/hotie
+	name = "Otie (alt)" // Feral
+	id = "hotiec"
+	simple_icon_state = "hotiec"
+
+/datum/species/feral/awakened/photie
+	name = "Photie" // Feral
+	id = "photie"
+	simple_icon_state = "photie"
+
+/datum/species/feral/awakened/secphotie
+	name = "Secphotie" // Feral
+	id = "secphotie"
+	simple_icon_state = "secphotie"
+
+/datum/species/feral/awakened/badboi
+	name = "Scruphund" // Feral
+	id = "badboi"
+	simple_icon_state = "badboi"
+
+/datum/species/feral/awakened/rous
+	name = "Rous" // Feral
+	id = "rous"
+	simple_icon_state = "rous"
+
+/datum/species/feral/awakened/sechotie
+	name = "Security Otie" // Feral
+	id = "sech_otie"
+	simple_icon_state = "sech_otie"
+
+/datum/species/feral/awakened/fatotie
+	name = "Fat Otie" // Feral
+	id = "fat_otie"
+	simple_icon_state = "fat_otie"
+
+/datum/species/feral/awakened/fsotie
+	name = "Fat Security Otie" // Feral
+	id = "fsotie"
+	simple_icon_state = "fsotie"
+
+/datum/species/feral/awakened/armoreddirewolf
+	name = "Direwolf" // Feral
+	id = "armored_direwolf"
+	simple_icon_state = "armored_direwolf"
+
+/datum/species/feral/awakened/andrews
+	name = "Hyotie" // Feral
+	id = "andrews"
+	simple_icon_state = "andrews"
+
+/datum/species/feral/awakened/rykka
+	name = "Rykian Otie" // Feral
+	id = "rykka"
+	simple_icon_state = "rykka"
+
+/datum/species/feral/awakened/hscrotie
+	name = "Scrotie (alt)" // Feral
+	id = "h_scrotie"
+	simple_icon_state = "h_scrotie"
+
+/datum/species/feral/awakened/otie
+	name = "Otie" // Feral
+	id = "otie"
+	simple_icon_state = "otie"
+
+/datum/species/feral/awakened/secscrotie
+	name = "Security Scrotie" // Feral
+	id = "s_scrotie"
+	simple_icon_state = "s_scrotie"
+
+/datum/species/feral/awakened/fatscrotie
+	name = "Fat Scrotie" // Feral
+	id = "fat_scrotie"
+	simple_icon_state = "fat_scrotie"
+
+/datum/species/feral/awakened/teacupscrotie
+	name = "Tea Cup Scrotie" // Feral
+	id = "cup_scrotie"
+	simple_icon_state = "cup_scrotie"
+
+/datum/species/feral/awakened/teacupsecscrotie
+	name = "Security Scrotie (Teacup)" // Feral
+	id = "scup_scrotie"
+	simple_icon_state = "scup_scrotie"
+
+/datum/species/feral/awakened/otiepede
+	name = "Otiepede" // Feral
+	id = "otiepede"
+	simple_icon_state = "otiepede"
+
+/datum/species/feral/awakened/scrotiepede
+	name = "Scrotiepede" // Feral
+	id = "scrotiepede"
+	simple_icon_state = "scrotiepede"
+
+/datum/species/feral/awakened/snotie
+	name = "Snotie" // Feral
+	id = "snotie"
+	simple_icon_state = "snotie"
+
+/datum/species/feral/awakened/direwolf
+	name = "Direwolf" // Feral
+	id = "direwolf"
+	simple_icon_state = "direwolf"
+
+/datum/species/feral/awakened/scrotschund
+	name = "Scrotschund" // Feral //I do not ask for forgiveness. ~TK4206341
+	id = "scorcshund"
+	simple_icon_state = "scorcshund"

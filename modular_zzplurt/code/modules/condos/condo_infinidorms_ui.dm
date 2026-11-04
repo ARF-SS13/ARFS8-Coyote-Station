@@ -188,12 +188,12 @@
 	if(!chosen_condo)
 		to_chat(target, span_warning("No condo templates are currently available."))
 		return FALSE
-	if(chosen_condo.donator_tier > (GLOB.donator_list[target.ckey] || DONATOR_TIER_NONE))
-		to_chat(target, span_warning("Tier [chosen_condo.donator_tier] donator access required to use [chosen_condo.name]."))
-		return FALSE
-	if(LAZYLEN(chosen_condo.ckeywhitelist) && !(chosen_condo.ckeywhitelist.Find(target.ckey)))
-		to_chat(target, span_warning("You are not whitelisted to use [chosen_condo.name]."))
-		return FALSE
+	// if(chosen_condo.donator_tier > (GLOB.donator_list[target.ckey] || DONATOR_TIER_NONE))
+	// 	to_chat(target, span_warning("Tier [chosen_condo.donator_tier] donator access required to use [chosen_condo.name]."))
+	// 	return FALSE
+	// if(LAZYLEN(chosen_condo.ckeywhitelist) && !(chosen_condo.ckeywhitelist.Find(target.ckey)))
+	// 	to_chat(target, span_warning("You are not whitelisted to use [chosen_condo.name]."))
+	// 	return FALSE
 	var/max_rooms = CONFIG_GET(number/hilbertshotel_max_rooms)
 	if(!SScondos.splurt_conservated_rooms["[room_number]"] && (length(SScondos.splurt_room_data) + length(SScondos.splurt_conservated_rooms)) >= max_rooms)
 		to_chat(target, span_warning("This network is currently at maximum room capacity!"))
