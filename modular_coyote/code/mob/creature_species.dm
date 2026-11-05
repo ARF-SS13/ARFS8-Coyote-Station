@@ -662,7 +662,7 @@
 // woke creatures
 
 /datum/species/feral/awakened
-	name = "Awakened" // Feral
+	name = "Critters" // Feral
 	simple_icon = 'modular_coyote/icons/mob/vore64x32.dmi'
 	roundstart = TRUE // this is a category, so it wont actually be selectable
 	icon_dead_suffix = "_d"
