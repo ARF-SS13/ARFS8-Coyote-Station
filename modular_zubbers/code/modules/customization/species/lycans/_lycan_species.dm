@@ -8,7 +8,7 @@
 	coldmod = 0.67 // They have thick fur so I guess this makes sense.
 	heatmod = 1.3
 
-	digitigrade_customization = DIGITIGRADE_FORCED
+	digitigrade_customization = DIGITIGRADE_OPTIONAL
 
 	mutant_bodyparts = list()
 	mutantbrain = /obj/item/organ/brain/lycan
