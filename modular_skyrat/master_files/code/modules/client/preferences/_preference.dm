@@ -15,7 +15,7 @@
 	return list(sanitize_hexcolor(input_colors[1]), sanitize_hexcolor(input_colors[2]), sanitize_hexcolor(input_colors[3]))
 
 /datum/preference/tri_color/create_default_value()
-	return list("[GLOB.cool_mcolors[1]]", "[GLOB.cool_mcolors[2]]", "[GLOB.cool_mcolors[3]]")
+	return list("#[random_color()]", "#[random_color()]", "#[random_color()]")
 
 /datum/preference/tri_color/is_valid(list/value)
 	return islist(value) && value.len == 3 && (findtext(value[1], GLOB.is_color) && findtext(value[2], GLOB.is_color) && findtext(value[3], GLOB.is_color))
@@ -209,8 +209,7 @@
 	var/bodypart_is_visible = preferences && is_visible(target, preferences)
 
 	if(!bodypart_is_visible)
-		return bodypart_is_visible
-		// value = create_default_value()
+		value = create_default_value()
 
 	if(!target.dna.mutant_bodyparts[relevant_mutant_bodypart])
 		target.dna.mutant_bodyparts[relevant_mutant_bodypart] = list(MUTANT_INDEX_NAME = value, MUTANT_INDEX_COLOR_LIST = list("#FFFFFF", "#FFFFFF", "#FFFFFF"), MUTANT_INDEX_EMISSIVE_LIST = list(FALSE, FALSE, FALSE))
