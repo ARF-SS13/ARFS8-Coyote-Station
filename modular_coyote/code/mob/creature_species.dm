@@ -790,5 +790,5 @@
 
 /datum/species/feral/awakened/scrotschund
 	name = "Scrotschund" // Feral //I do not ask for forgiveness. ~TK4206341
-	id = "scorcshund"
-	simple_icon_state = "scorcshund"
+	id = "scrorcshund"
+	simple_icon_state = "scrorcshund"
