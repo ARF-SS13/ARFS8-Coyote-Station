@@ -77,7 +77,7 @@ GLOBAL_LIST_EMPTY(customizable_races)
 
 /datum/species/pod
 	name = "Primal Podperson"
-	always_customizable = TRUE
+	// always_customizable = TRUE
 
 /datum/species/randomize_features(mob/living/carbon/human/human_mob)
 	var/list/features = ..()

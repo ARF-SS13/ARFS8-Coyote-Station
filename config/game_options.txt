@@ -371,35 +371,34 @@ SILICON_MAX_LAW_AMOUNT 12
 ## See code/__DEFINES/DNA.dm for more options than the ones below.
 
 ## You probably want humans on your space station, but technically speaking you can turn them off without any ill effect
-ROUNDSTART_RACES human
+# ROUNDSTART_RACES human
 
 ## Races that are strictly worse than humans that could probably be turned on without balance concerns
-ROUNDSTART_RACES felinid
 ROUNDSTART_RACES lizard
 ROUNDSTART_RACES felinid
-#ROUNDSTART_RACES fly
+# ROUNDSTART_RACES fly
 ROUNDSTART_RACES moth
-ROUNDSTART_RACES plasmaman
-#ROUNDSTART_RACES shadow
+# ROUNDSTART_RACES plasmaman
+# ROUNDSTART_RACES shadow
 ROUNDSTART_RACES teshari
 ROUNDSTART_RACES hemophage
 ROUNDSTART_RACES snail
 
 ## Races that are better than humans in some ways, but worse in others
 ROUNDSTART_RACES ethereal
-#ROUNDSTART_RACES jelly
-#ROUNDSTART_RACES abductor
-#ROUNDSTART_RACES snail
+# ROUNDSTART_RACES jelly
+# ROUNDSTART_RACES abductor
+# ROUNDSTART_RACES snail
 
 ## Races that are straight upgrades. If these are on expect powergamers to always pick them
-#ROUNDSTART_RACES skeleton
-#ROUNDSTART_RACES zombie
-#ROUNDSTART_RACES pod
-#ROUNDSTART_RACES ghost
+# ROUNDSTART_RACES skeleton
+# ROUNDSTART_RACES zombie
+# ROUNDSTART_RACES pod
+# ROUNDSTART_RACES ghost
 
 ## Races that are radical departures to what a species is, so while they technically can be roundstart - it's probably not wise
-#ROUNDSTART_RACES android
-#ROUNDSTART_RACES golem
+# ROUNDSTART_RACES android
+# ROUNDSTART_RACES golem
 
 ## SKYRAT RACES DOWN THERE
 ROUNDSTART_RACES mammal
@@ -408,21 +407,21 @@ ROUNDSTART_RACES tajaran
 ROUNDSTART_RACES akula
 ROUNDSTART_RACES unathi
 ROUNDSTART_RACES skrell
-ROUNDSTART_RACES humanoid
+# ROUNDSTART_RACES humanoid
 ROUNDSTART_RACES xeno
 ROUNDSTART_RACES slimeperson
-ROUNDSTART_RACES podweak
-ROUNDSTART_RACES dwarf
+# ROUNDSTART_RACES podweak
+# ROUNDSTART_RACES dwarf
 ROUNDSTART_RACES vox
 ROUNDSTART_RACES aquatic
 ROUNDSTART_RACES insect
 ROUNDSTART_RACES synth
-ROUNDSTART_RACES ghoul
+# ROUNDSTART_RACES ghoul
 ROUNDSTART_RACES shadekin
 
 ## BUBBER RACES DOWN HERE
-ROUNDSTART_RACES lesser_abductor
-ROUNDSTART_RACES zombie
+# ROUNDSTART_RACES lesser_abductor
+# ROUNDSTART_RACES zombie
 ROUNDSTART_RACES protean
 ROUNDSTART_RACES cursekin
 ROUNDSTART_RACES serpentid
