@@ -486,12 +486,6 @@
 /obj/structure/flora/bush/flowers_br,
 /turf/open/misc/grass/planet,
 /area/centcom/holding/cafe/park)
-"ani" = (
-/obj/effect/mob_spawn/ghost_role/human/ghostcafe,
-/turf/open/indestructible/hoteltile{
-	icon_state = "darkfull"
-	},
-/area/centcom/holding/cafe)
 "anz" = (
 /obj/effect/turf_decal/trimline/blue/filled/corner{
 	dir = 4
@@ -986,12 +980,6 @@
 /obj/effect/turf_decal/siding/wood/corner,
 /turf/open/floor/wood,
 /area/centcom/interlink)
-"axT" = (
-/obj/effect/mob_spawn/ghost_role/robot/ghostcafe,
-/turf/open/indestructible/hoteltile{
-	icon_state = "darkfull"
-	},
-/area/centcom/holding/cafe)
 "ayb" = (
 /obj/effect/turf_decal/trimline/dark_green/filled/warning{
 	dir = 9
@@ -73435,7 +73423,7 @@ gtO
 aIr
 aIr
 aDC
-axT
+aGL
 aGL
 aGL
 mYg
@@ -74463,7 +74451,7 @@ gtO
 aPU
 aMR
 rXY
-ani
+aGL
 aGL
 aGL
 rXY
