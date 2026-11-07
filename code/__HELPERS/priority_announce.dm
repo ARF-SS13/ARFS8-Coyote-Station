@@ -37,7 +37,18 @@
  * * encode_title - if TRUE, the title will be HTML encoded
  * * encode_text - if TRUE, the text will be HTML encoded
  */
-/proc/priority_announce(text, title = "", sound, type, sender_override, has_important_message = FALSE, list/mob/players = GLOB.player_list, encode_title = TRUE, encode_text = TRUE, color_override)
+/proc/priority_announce(
+	text,
+	title = "",
+	sound,
+	type,
+	sender_override,
+	has_important_message = FALSE,
+	list/mob/players = GLOB.player_list,
+	encode_title = TRUE,
+	encode_text = TRUE,
+	color_override
+)
 	if(!text)
 		return
 
@@ -92,7 +103,7 @@
 
 	dispatch_announcement_to_players(finalized_announcement, players, sound)
 
-	if(isnull(sender_override) && players == GLOB.player_list)
+	if(players == GLOB.player_list)
 		if(length(title) > 0)
 			GLOB.news_network.submit_article(title + "<br><br>" + text, "[command_name()]", NEWSCASTER_STATION_ANNOUNCEMENTS, null)
 		else

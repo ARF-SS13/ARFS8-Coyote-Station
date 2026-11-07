@@ -6,7 +6,7 @@
 		"1" = 20,
 		"2" = 10,
 		"3" = 5)
-	SSstation.generate_station_goals(text2num(pick_weight(total_goal_weights))) // Yes, this is bad, but I can't use straight nums for assoc list keys. Sue me.
+	SSstation.generate_station_goals(text2num(pick_weight(total_goal_weights))) // Yes, this is bad, but I can't use straight nums for assoc list keys. Sue me. // then 516 happened and all was well... whenever someone fixes this
 
 	var/list/station_goals = SSstation.get_station_goals()
 

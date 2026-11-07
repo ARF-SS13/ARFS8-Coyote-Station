@@ -635,7 +635,7 @@ SUBSYSTEM_DEF(rumormill)
 	var/datum/rumor/nethack_rumor = nethack_rumors.get_random_rumor()
 	if(just_the_string)
 		return nethack_rumor.rumor_text
-	return nethack_rumors
+	return nethack_rumor
 
 /datum/controller/subsystem/rumormill/proc/get_random_non_saucy_rumor(just_the_string = TRUE, obey_used_rumors = TRUE)
 	return get_random_rumor(just_the_string, HORNYMODE_NONE, obey_used_rumors)

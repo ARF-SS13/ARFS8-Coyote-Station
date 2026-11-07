@@ -103,6 +103,8 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	message_data[SATA_MESSAGE_SPOKEN] = message_data[SATA_MESSAGE_SPOKEN] || raw_message
 	message_data[SATA_MESSAGE_HEARD] = message_data[SATA_MESSAGE_HEARD] || raw_message
 	message_data[SATA_MESSAGE_RANGE] = message_data[SATA_MESSAGE_RANGE] || message_range
+	if(!islist(message_data[SATA_SPANS]))
+		message_data[SATA_SPANS] = list()
 	message_data[SATA_SPANS] |= spans
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, args)

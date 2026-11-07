@@ -4,10 +4,19 @@
 	for(var/i in 1 to number)
 		spawn_meteor(meteor_types, direction)
 
+/proc/spawn_meteor_episode(meteor, delay = 1 SECONDS, center_of_mass)
+	var/turf/T = null
+	if(center_of_mass)
+		T = locate(floor(world.maxx / 2), floor(world.maxy / 2), 1)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteor), meteor, GLOB.meteor_direction, T), delay)
+
 /proc/spawn_meteor(list/meteor_types, direction, atom/target, distance_from_edge = 0)
 	if (SSmapping.is_planetary())
 		stack_trace("Tried to spawn meteors in a map which isn't in space.")
 		return // We're not going to find any space turfs here
+	var/new_meteor = islist(meteor_types) ? pick_weight(meteor_types) : meteor_types
+	if(!new_meteor)
+		return
 	var/turf/picked_start
 	var/turf/picked_goal
 	var/max_i = 10//number of tries to spawn meteor.
@@ -25,10 +34,11 @@
 			picked_goal = target
 		else
 			picked_goal = spaceDebrisFinishLoc(start_side, start_Z)
+		if(picked_goal.z != picked_start.z)
+			picked_goal = locate(picked_goal.x, picked_goal.y, picked_start.z)
 		max_i--
 		if(max_i <= 0)
 			return
-	var/new_meteor = pick_weight(meteor_types)
 	new new_meteor(picked_start, picked_goal)
 
 /proc/spaceDebrisStartLoc(start_side, Z, distance_from_edge = 0)
