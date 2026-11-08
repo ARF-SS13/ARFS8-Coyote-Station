@@ -28514,6 +28514,7 @@
 /area/station/medical/chemistry)
 "pnX" = (
 /obj/structure/sign/departments/maint/alt/directional/east,
+/obj/structure/reagent_dispensers/watertank/high,
 /turf/open/floor/stone,
 /area/station/service/hydroponics/park)
 "pnY" = (
@@ -30538,6 +30539,10 @@
 "qqL" = (
 /obj/effect/turf_decal/tile/dark/full,
 /obj/machinery/light/floor,
+/turf/open/floor/stone,
+/area/station/service/hydroponics/park)
+"qqT" = (
+/obj/machinery/vending/donksnack,
 /turf/open/floor/stone,
 /area/station/service/hydroponics/park)
 "qrb" = (
@@ -147628,7 +147633,7 @@ pUW
 rjk
 xoz
 wna
-eLH
+qqT
 nGy
 mhR
 rKZ
