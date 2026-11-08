@@ -324,15 +324,16 @@
 	organ_owner.remove_movespeed_modifier(/datum/movespeed_modifier/snail)
 	organ_owner.RemoveElement(/datum/element/lube_walking, require_resting = TRUE)
 
-/obj/item/organ/liver/snail/handle_chemical(mob/living/carbon/organ_owner, datum/reagent/chem, seconds_per_tick)
-	. = ..()
-	if((. & COMSIG_MOB_STOP_REAGENT_TICK) || (organ_flags & ORGAN_FAILING))
-		return
-	if(istype(chem, /datum/reagent/consumable/salt))
-		playsound(organ_owner, SFX_SEAR, 30, TRUE)
-		organ_owner.adjust_fire_loss(1 * seconds_per_tick)
-		organ_owner.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * seconds_per_tick)
-		return COMSIG_MOB_STOP_REAGENT_TICK
+//Coyote removal to allow the snails to be ocean snails
+// /obj/item/organ/liver/snail/handle_chemical(mob/living/carbon/organ_owner, datum/reagent/chem, seconds_per_tick)
+// 	. = ..()
+// 	if((. & COMSIG_MOB_STOP_REAGENT_TICK) || (organ_flags & ORGAN_FAILING))
+// 		return
+// 	if(istype(chem, /datum/reagent/consumable/salt))
+// 		playsound(organ_owner, SFX_SEAR, 30, TRUE)
+// 		organ_owner.adjust_fire_loss(1 * seconds_per_tick)
+// 		organ_owner.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * seconds_per_tick)
+// 		return COMSIG_MOB_STOP_REAGENT_TICK
 
 /obj/item/organ/liver/evolved
 	name = "evolved liver"
