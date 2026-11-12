@@ -310,5 +310,5 @@
 	color = COLOR_WHITE
 	light_color = COLOR_WHITE
 	neutralized = TRUE
-	var/atom/movable/loot = pick_weight(GLOB.cme_loot_list)
-	new loot(loc)
+	for(var/atom/movable/loot as anything in GLOB.cme_loot_list)
+		new loot(loc)

@@ -378,7 +378,9 @@
 				continue
 			to_release.merge(air)
 			continue
-		var/datum/gas_mixture/parents_air = parents[i].air
+		var/datum/gas_mixture/parents_air = parents[i]?.air
+		if(!parents_air)
+			continue
 		parents_air.merge(air)
 	if(to_release)
 		local_turf.assume_air(to_release)

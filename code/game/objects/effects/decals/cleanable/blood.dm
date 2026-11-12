@@ -519,8 +519,6 @@
 	reagent_amount = 5
 	is_mopped = TRUE // probably shouldn't be, but janitor powercreep
 
-	/// Lazylist with information about the diseases our streaking spawns
-	var/list/streak_diseases
 	/// Do these gibs produce squishy sounds?
 	var/squishy = TRUE
 	/// Do these gibs have a separate non-blood-colored overlay?

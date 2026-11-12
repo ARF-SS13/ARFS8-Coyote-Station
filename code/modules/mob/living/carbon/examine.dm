@@ -47,9 +47,9 @@
 		. += status_examines
 
 	// SPLURT EDIT START: - Sizecode
-	var/list/size_examines = get_size_examine_info(user)
-	if (length(size_examines))
-		. += size_examines
+	// var/list/size_examines = get_size_examine_info(user)
+	// if (length(size_examines))
+	// 	. += size_examines
 	// SPLURT EDIT END
 
 	if(get_bodypart(BODY_ZONE_HEAD) && !get_organ_by_type(/obj/item/organ/brain))

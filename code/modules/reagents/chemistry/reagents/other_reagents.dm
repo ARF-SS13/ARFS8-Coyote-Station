@@ -2738,6 +2738,7 @@
 	if(SPT_PROB(16, seconds_per_tick))
 		to_chat(affected_mob, "You should sit down and take a rest...")
 
+//! COYOTE TODO: Turn into Fenom, turns u into a shortstack
 /datum/reagent/gondola_mutation_toxin
 	name = "Tranquility"
 	description = "A highly mutative liquid of unknown origin."
