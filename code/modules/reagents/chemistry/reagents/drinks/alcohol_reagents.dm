@@ -305,6 +305,24 @@
 		if(drinker.heal_bodypart_damage(brute = 1 * metabolization_ratio, updating_health = FALSE))
 			return UPDATE_MOB_HEALTH
 
+/datum/reagent/consumable/ethanol/molokoplus
+	name = "Moloko Plus"
+	description = "Great for a night of Ultra Violence."
+	color = "#d39ff5" // rgb: 170, 110, 211
+	nutriment_factor = 2
+	boozepwr = 0
+	taste_description = "milk mixed with adrenochrome"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+
+/datum/reagent/consumable/ethanol/molokoplus/on_mob_metabolize(mob/living/affected_mob)
+	. = ..()
+	affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/molokoplus)
+
+/datum/reagent/consumable/ethanol/molokoplus/on_mob_end_metabolize(mob/living/affected_mob)
+	. = ..()
+	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/molokoplus)
+
+
 /datum/reagent/consumable/ethanol/threemileisland
 	name = "Three Mile Island Iced Tea"
 	description = "Made for a woman, strong enough for a man."

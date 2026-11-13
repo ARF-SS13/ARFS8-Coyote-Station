@@ -20,6 +20,9 @@
 /datum/movespeed_modifier/reagent/methamphetamine
 	multiplicative_slowdown = -0.65
 
+/datum/movespeed_modifier/reagent/molokoplus
+	multiplicative_slowdown = -0.65
+
 /datum/movespeed_modifier/reagent/nitrium
 	multiplicative_slowdown = -0.65
 
