@@ -3,6 +3,11 @@
 	name = "glass of bilk"
 	desc = "A brew of milk and beer. For those alcoholics who fear osteoporosis."
 
+/datum/glass_style/drinking_glass/molokoplus
+	required_drink_type = /datum/reagent/consumable/ethanol/molokoplus
+	name = "Moloko Plus"
+	desc = "Great for a night of Ultra Violence."
+
 /datum/glass_style/drinking_glass/threemileisland
 	required_drink_type = /datum/reagent/consumable/ethanol/threemileisland
 	name = "Three Mile Island Ice Tea"
