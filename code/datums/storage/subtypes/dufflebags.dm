@@ -2,6 +2,16 @@
 /datum/storage/duffel
 	max_total_storage = 30
 	max_slots = 21
+	uses_equipped_slot_restriction = TRUE
+	equipped_slot_hands_always_ok = TRUE
+	equipped_slot_non_held_always_ok = TRUE
+	equipped_slot_whitelist = list(
+		ITEM_SLOT_HANDS,
+		ITEM_SLOT_OCLOTHING,
+		ITEM_SLOT_ICLOTHING,
+		ITEM_SLOT_LPOCKET,
+		ITEM_SLOT_RPOCKET,
+	)
 
 /datum/storage/duffel/New(
 	atom/parent,

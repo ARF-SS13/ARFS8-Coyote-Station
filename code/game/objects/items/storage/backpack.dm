@@ -22,15 +22,178 @@
 	slot_flags = ITEM_SLOT_BACK //ERROOOOO
 	resistance_flags = NONE
 	max_integrity = 300
-	storage_type = /datum/storage/backpack
+	storage_type = /datum/storage/backpack/cbt
 	pickup_sound = 'sound/items/handling/backpack/backpack_pickup1.ogg'
 	drop_sound = 'sound/items/handling/backpack/backpack_drop1.ogg'
 	equip_sound = 'sound/items/equip/backpack_equip.ogg'
 	sound_vary = TRUE
+	actions_types = list(/datum/action/item_action/zipper)
+	slowdown = 0.5
+	var/can_zipper = TRUE
+	// How much to slow you down if your bag isn't zipped up
+	var/zip_slowdown = 0.3
+	/// If this bag is zipped (contents hidden) up or not
+	/// Starts enabled so you're forced to interact with it to "get" it
+	var/zipped_up = TRUE
+	// How much time it takes to zip up (close) the duffelbag
+	var/zip_up_duration = 0.5 SECONDS
+	// Audio played during zipup
+	var/zip_up_sfx = 'sound/items/zip/zip_up.ogg'
+	// How much time it takes to unzip the duffel
+	var/unzip_duration = 1.8 SECONDS
+	// Audio played during unzip
+	var/unzip_sfx = 'sound/items/zip/un_zip.ogg'
+
+	// backpacks,. remove to open .3
+	// duffles, remove to open
+	// satchels, 15 slot, 18 volume, nozipper, open anyways .2
+	// messenger, 12 slot, 15 volume, zipper, fast .1
+	// clicking on it puts it in ur hand
+	// all backpacks and bags and such need to be in-hand
+	// messanger/satchels can go in suit slot too. messenger bags in belt?
+	// bluespace bags too, but they get to be crazy
+
+	///////////// vars 4 fenny
+	// slowdown = 0.5
+	// zip_slowdown = 0.5
+	// zip_up_duration = 0.5 SECONDS
+	// unzip_duration = 1.8 SECONDS
 
 /obj/item/storage/backpack/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/attack_equip)
+	set_zipper(TRUE)
+	RegisterSignal(src, COMSIG_SPEED_POTION_APPLIED, PROC_REF(on_speed_potioned))
+
+/obj/item/storage/backpack/examine(mob/user)
+	. = ..()
+	if(can_zipper)
+		. += "[zipped_up ? "It's zipped up, preventing you from accessing its contents." : "It's unzipped, and harder to move in."]"
+
+/*
+ * ok zipper action tree thing
+ * entrypoints: click, rightclick, click-while-holding, rightclick-while-holding, alt-click
+ * possible actions: zip, unzip, open bag if conditions met
+ * click - if storage is otherwise accessible (in correct slot), unzip if zipped, open if unzipped
+ * click while equipped somewhere you cant open it, or on the ground - put it in ur hand
+ * rightclick - also fucking open the bag. awsome
+ * alt-click - open the bag also
+ * while-holding, prtty much the same.
+ *
+ * ok ok so like, all the openy-keys try to open it, and if zipped, try to unzip it, easy seamless
+ * to zip, alt-rightclick. im clever
+ */
+
+
+/obj/item/storage/backpack/attack_self(mob/user, modifiers)
+	if(loc != user) // God fuck TK // yeah fuck that guy
+		return ..()
+	. = zipper_pipeline(user, modifiers, TRUE) | ..()
+
+/obj/item/storage/backpack/attack_self_secondary(mob/user, modifiers)
+	if(loc != user) // God fuck TK // yeah fuck that guy // yeah fuck me
+		return ..()
+	. = zipper_pipeline(user, modifiers, TRUE) | ..()
+
+/obj/item/storage/backpack/attack_hand(mob/user, list/modifiers)
+	if(loc != user)
+		// Hacky, but please don't be cringe yeah?
+		atom_storage.silent = TRUE
+		. = ..()
+		atom_storage.silent = initial(atom_storage.silent)
+		return
+	. = zipper_pipeline(user, modifiers, TRUE) | ..()
+
+/obj/item/storage/backpack/attack_hand_secondary(mob/user, list/modifiers)
+	if(loc != user) // God fuck TK // yeah fuck that guy
+		return ..()
+	. = zipper_pipeline(user, modifiers, TRUE)
+	if(!.)
+		return ..()
+
+/obj/item/storage/backpack/click_alt_secondary(mob/user)
+	return toggle_zipper(user)
+
+
+// operate zipper or open if u can
+/obj/item/storage/backpack/proc/zipper_pipeline(mob/user, modifiers, open_if_can)
+	if(!can_zipper)
+		return // does whatever it does i guess
+	if(!zipped_up)
+		return // our job here is... done I guess
+	var/datum/storage/mystorage = src.atom_storage
+	if(!istype(mystorage)) // oh dear
+		return
+	var/is_accessible = mystorage.equipped_slot_ok(user)
+	if(!is_accessible)
+		return // probably just grab it
+	return toggle_zipper(user)
+
+/obj/item/storage/backpack/proc/toggle_zipper(mob/user)
+	if(zipped_up)
+		. = unzip(user)
+	else
+		. = zip(user)
+
+// If we're zipped, click to unzip
+/obj/item/storage/backpack/proc/unzip(mob/user, list/modifiers)
+	if(!can_zipper)
+		return
+	if(!zipped_up)
+		return
+
+	balloon_alert(user, "unzipping...")
+	playsound(src, unzip_sfx, 100, FALSE)
+	var/datum/callback/can_unzip = CALLBACK(src, PROC_REF(zipper_matches), TRUE)
+	if(!do_after(user, unzip_duration, src, extra_checks = can_unzip))
+		user.balloon_alert(user, "unzip failed!")
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+	balloon_alert(user, "unzipped")
+	set_zipper(FALSE)
+	return
+
+// Vis versa
+/obj/item/storage/backpack/proc/zip(mob/user)
+	balloon_alert(user, "zipping...")
+	playsound(src, zip_up_sfx, 100, FALSE)
+	var/datum/callback/can_zip = CALLBACK(src, PROC_REF(zipper_matches), FALSE)
+	if(!do_after(user, zip_up_duration, src, extra_checks = can_zip))
+		user.balloon_alert(user, "zip failed!")
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+	balloon_alert(user, "zipped")
+	set_zipper(TRUE)
+	return
+
+/// Checks to see if the zipper matches the passed in state
+/// Returns true if so, false otherwise
+/obj/item/storage/backpack/proc/zipper_matches(matching_value)
+	return zipped_up == matching_value
+
+/obj/item/storage/backpack/proc/set_zipper(new_zip)
+	if(!can_zipper)
+		return
+	zipped_up = new_zip
+	SEND_SIGNAL(src, COMSIG_DUFFEL_ZIP_CHANGE, new_zip)
+	if(zipped_up)
+		slowdown -= zip_slowdown
+		atom_storage.set_locked(STORAGE_SOFT_LOCKED)
+		atom_storage.display_contents = FALSE
+	else
+		slowdown += zip_slowdown
+		atom_storage.set_locked(STORAGE_NOT_LOCKED)
+		atom_storage.display_contents = TRUE
+
+	if(isliving(loc))
+		var/mob/living/wearer = loc
+		wearer.update_equipment_speed_mods()
+
+/// Signal handler for [COMSIG_SPEED_POTION_APPLIED]. Speed potion removes the unzipped slowdown
+/obj/item/storage/backpack/proc/on_speed_potioned(datum/source)
+	SIGNAL_HANDLER
+	if(!can_zipper)
+		return
+	// Don't need to touch the actual slowdown here, since the speed potion does it for us
+	zip_slowdown = 0
 
 /*
  * Backpack Types
@@ -295,6 +458,7 @@
 	desc = "A trendy looking satchel."
 	icon_state = "satchel-norm"
 	inhand_icon_state = "satchel-norm"
+	storage_type = /datum/storage/backpack/satchel
 
 /obj/item/storage/backpack/satchel/leather
 	name = "leather satchel"
@@ -418,6 +582,8 @@
 	worn_icon = 'icons/mob/clothing/back/backpack.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
+	storage_type = /datum/storage/backpack/messengerbag
+	zip_slowdown = 0.1
 
 /obj/item/storage/backpack/messenger/eng
 	name = "industrial messenger bag"
