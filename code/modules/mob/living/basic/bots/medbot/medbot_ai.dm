@@ -42,19 +42,41 @@
 		return
 	var/is_stationary = bot_pawn.medical_mode_flags & MEDBOT_STATIONARY_MODE
 	if(controller.blackboard_key_exists(BB_PATIENT_TARGET))
-		controller.queue_behavior(/datum/ai_behavior/tend_to_patient, BB_PATIENT_TARGET, bot_pawn.heal_threshold, bot_pawn.damage_type_healer, bot_pawn.bot_access_flags, is_stationary)
+		controller.queue_behavior(
+			/datum/ai_behavior/tend_to_patient,
+			BB_PATIENT_TARGET,
+			bot_pawn.heal_threshold,
+			bot_pawn.healable_damage_types,
+			bot_pawn.bot_access_flags,
+			is_stationary
+		)
 		return SUBTREE_RETURN_FINISH_PLANNING
 
-	controller.queue_behavior(/datum/ai_behavior/find_suitable_patient, BB_PATIENT_TARGET, bot_pawn.heal_threshold, bot_pawn.damage_type_healer, bot_pawn.medical_mode_flags, bot_pawn.bot_access_flags)
+	controller.queue_behavior(
+		/datum/ai_behavior/find_suitable_patient,
+		BB_PATIENT_TARGET,
+		bot_pawn.heal_threshold,
+		bot_pawn.healable_damage_types,
+		bot_pawn.medical_mode_flags,
+		bot_pawn.bot_access_flags
+	)
 
 /datum/ai_behavior/find_suitable_patient
 	var/search_range = 7
 	action_cooldown = 2 SECONDS
 
-/datum/ai_behavior/find_suitable_patient/perform(seconds_per_tick, datum/ai_controller/basic_controller/bot/controller, target_key, threshold, heal_type, mode_flags, access_flags)
+/datum/ai_behavior/find_suitable_patient/perform(
+	seconds_per_tick,
+	datum/ai_controller/basic_controller/bot/controller,
+	target_key,
+	threshold,
+	list/healable_damage_types = list(),
+	mode_flags,
+	access_flags
+)
 	search_range = (mode_flags & MEDBOT_STATIONARY_MODE) ? 1 : initial(search_range)
 	var/list/ignore_keys = controller.blackboard[BB_TEMPORARY_IGNORE_LIST]
-	for(var/mob/living/carbon/human/treatable_target in oview(search_range, controller.pawn))
+	for(var/mob/living/carbon/human/treatable_target in view(search_range, controller.pawn) - controller.pawn)
 		// BUBBER EDIT ADDITION START - Don't hunt down synthetics
 		if(treatable_target.mob_biotypes & MOB_ROBOTIC)
 			continue
@@ -64,12 +86,9 @@
 		if((access_flags & BOT_COVER_EMAGGED) && treatable_target.stat == CONSCIOUS)
 			controller.set_if_can_reach(key = BB_PATIENT_TARGET, target = treatable_target, distance = BOT_PATIENT_PATH_LIMIT, bypass_add_to_blacklist = (search_range == 1))
 			break
-		if((heal_type == HEAL_ALL_DAMAGE))
-			if(treatable_target.get_total_damage() > threshold)
-				controller.set_if_can_reach(key = BB_PATIENT_TARGET, target = treatable_target, distance = BOT_PATIENT_PATH_LIMIT, bypass_add_to_blacklist = (search_range == 1))
-				break
-			continue
-		if(treatable_target.get_current_damage_of_type(damagetype = heal_type) > threshold)
+		for(var/damage_string in healable_damage_types)
+			if(treatable_target.get_current_damage_of_type(damagetype = damage_string) < threshold)
+				continue
 			controller.set_if_can_reach(key = BB_PATIENT_TARGET, target = treatable_target, distance = BOT_PATIENT_PATH_LIMIT, bypass_add_to_blacklist = (search_range == 1))
 			break
 
@@ -78,7 +97,11 @@
 	else
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
-/datum/ai_behavior/find_suitable_patient/finish_action(datum/ai_controller/controller, succeeded, target_key)
+/datum/ai_behavior/find_suitable_patient/finish_action(
+	datum/ai_controller/controller,
+	succeeded,
+	target_key
+)
 	. = ..()
 	if(!succeeded || QDELETED(controller.pawn) ||get_dist(controller.pawn, controller.blackboard[target_key]) <= 1)
 		return
@@ -95,11 +118,19 @@
 		return FALSE
 	set_movement_target(controller, target)
 
-/datum/ai_behavior/tend_to_patient/perform(seconds_per_tick, datum/ai_controller/basic_controller/bot/controller, target_key, threshold, damage_type_healer, access_flags, is_stationary)
+/datum/ai_behavior/tend_to_patient/perform(
+	seconds_per_tick,
+	datum/ai_controller/basic_controller/bot/controller,
+	target_key,
+	threshold,
+	list/healable_damage_types,
+	access_flags,
+	is_stationary
+)
 	var/mob/living/carbon/human/patient = controller.blackboard[target_key]
 	if(QDELETED(patient) || patient.stat == DEAD)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
-	if(check_if_healed(patient, threshold, damage_type_healer, access_flags))
+	if(check_if_healed(patient, threshold, healable_damage_types, access_flags))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
 	var/mob/living/basic/bot/bot_pawn = controller.pawn
@@ -110,7 +141,15 @@
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
 // only clear the target if they get healed
-/datum/ai_behavior/tend_to_patient/finish_action(datum/ai_controller/basic_controller/bot/controller, succeeded, target_key, threshold, damage_type_healer, access_flags, is_stationary)
+/datum/ai_behavior/tend_to_patient/finish_action(
+	datum/ai_controller/basic_controller/bot/controller,
+	succeeded,
+	target_key,
+	threshold,
+	list/healable_damage_types,
+	access_flags,
+	is_stationary
+)
 	. = ..()
 	var/atom/target = controller.blackboard[target_key]
 	if(!succeeded)
@@ -121,19 +160,26 @@
 		controller.clear_blackboard_key(target_key)
 		return
 
-	if(QDELETED(target) || !check_if_healed(target, threshold, damage_type_healer, access_flags))
+	if(QDELETED(target) || !check_if_healed(target, threshold, healable_damage_types, access_flags))
 		return
 
 	var/datum/action/cooldown/bot_announcement/announcement = controller.blackboard[BB_ANNOUNCE_ABILITY]
 	announcement?.announce(pick(controller.blackboard[BB_AFTERHEAL_SPEECH]))
 	controller.clear_blackboard_key(target_key)
 
-/datum/ai_behavior/tend_to_patient/proc/check_if_healed(mob/living/carbon/human/patient, threshold, damage_type_healer, access_flags)
+/datum/ai_behavior/tend_to_patient/proc/check_if_healed(
+	mob/living/carbon/human/patient,
+	threshold,
+	list/healable_damage_types = list(),
+	access_flags
+)
 	if(access_flags & BOT_COVER_EMAGGED)
 		return (patient.stat > CONSCIOUS)
-	var/patient_damage = (damage_type_healer == HEAL_ALL_DAMAGE) ? patient.get_total_damage() : patient.get_current_damage_of_type(damagetype = damage_type_healer)
-	return (patient_damage <= threshold)
-
+	for(var/damage_string in healable_damage_types)
+		var/patient_damage = patient.get_current_damage_of_type(damagetype = damage_string)
+		if(patient_damage >= threshold)
+			return FALSE
+	return TRUE
 
 /datum/ai_planning_subtree/handle_medbot_speech
 	var/speech_chance = 5

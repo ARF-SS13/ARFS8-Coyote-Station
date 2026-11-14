@@ -99,21 +99,28 @@
 	var/skin = "generic"
 	/// How much healing do we do at a time?
 	var/heal_amount = 2.5
+	/// How long does it take to complete a heal?
+	var/heal_time = 2 SECONDS
 	/// How much healing multiplier do we have from upgrades?
 	VAR_FINAL/heal_multiplier = 1.0
 	/// Start healing when they have this much damage in a category
 	var/heal_threshold = 10
 	/// What damage type does this bot support. Because the default is brute, if the medkit is brute-oriented there is a slight bonus to healing. set to "all" for it to heal any of the 4 base damage types
-	var/damage_type_healer = BRUTE
+	var/damage_type_healer = BRUTELOSS
+	var/list/healable_damage_types // set by init
 
 	///Flags Medbots use to decide how they should be acting.
 	var/medical_mode_flags = MEDBOT_DECLARE_CRIT | MEDBOT_SPEAK_MODE
-	//Selections:  MEDBOT_DECLARE_CRIT | MEDBOT_STATIONARY_MODE | MEDBOT_SPEAK_MODE | MEDBOT_TIPPED_MODE
+	//Selections:  MEDBOT_DECLARE_CRIT | MEDBOT_STATIONARY_MODE | MEDBOT_SPEAK_MODE | MEDBOT_TIPPED_MODE | MEDBOT_SUPERSTATIONARY_MODE
 
 	/// techweb linked to the medbot
 	var/datum/techweb/linked_techweb
 	///our tipper
 	var/datum/weakref/tipper
+	///last person we healed
+	var/datum/weakref/last_healed
+	var/datum/looping_sound/medbot_healing/soundloop //100% stolen from microwaves
+	var/stop_timer
 
 /mob/living/basic/bot/medbot/proc/set_speech_keys()
 	if(isnull(ai_controller))
@@ -149,17 +156,31 @@
 		traits_prevent_checks = prevent_checks,\
 	)
 	RegisterSignal(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, PROC_REF(pre_attack))
+	soundloop = new(src, FALSE)
+	judge_doctoral_thesis(mapload)
+	parse_healies()
+	return INITIALIZE_HINT_LATELOAD
 
+
+/mob/living/basic/bot/medbot/proc/judge_doctoral_thesis(mapload)
 	if(!HAS_TRAIT(SSstation, STATION_TRAIT_MEDBOT_MANIA) || !mapload || !is_station_level(z))
-		return INITIALIZE_HINT_LATELOAD
-
+		return
 	skin = "adv"
 	update_appearance()
-	damage_type_healer = HEAL_ALL_DAMAGE
+	damage_type_healer = HEAL_ALL_DAMAGE_FLAGS
 	if(prob(50))
 		name += ", PhD."
 
-	return INITIALIZE_HINT_LATELOAD
+/mob/living/basic/bot/medbot/proc/parse_healies()
+	healable_damage_types = list()
+	for(var/damage_flag in HEAL_DAMAGE_CHECKLIST)
+		if(!(damage_type_healer & damage_flag))
+			continue
+		var/heal_string = GLOB.heal_flag_2_string[damage_flag]
+		if(!heal_string || !(heal_string in HEAL_DAMAGE_THINGS))
+			stack_trace("ALERTA: heal_flag_2_string lacks damage type '[damage_flag]'!!")
+			continue
+		healable_damage_types |= heal_string
 
 /mob/living/basic/bot/medbot/LateInitialize()
 	if(!CONFIG_GET(flag/no_default_techweb_link) && !linked_techweb)
@@ -172,13 +193,21 @@
 		for(var/datum/design/medibot_upgrade/design in linked_techweb.get_researched_design_datums())
 			heal_multiplier += design.additive_multiplier
 
+/mob/living/basic/bot/medbot/Destroy()
+	last_healed = null
+	tipper = null
+	QDEL_NULL(soundloop)
+	if(stop_timer)
+		deltimer(stop_timer)
+	. = ..()
+
 /mob/living/basic/bot/medbot/on_craft_completion(list/components, datum/crafting_recipe/current_recipe, atom/crafter)
 	. = ..()
 	var/obj/item/storage/medkit/medkit = locate() in contents
 	medkit_type = medkit
 	health_analyzer = locate(/obj/item/healthanalyzer) in contents
 	skin = medkit.get_medbot_skin()
-	damage_type_healer = initial(medkit.damagetype_healed) ? initial(medkit.damagetype_healed) : BRUTE
+	damage_type_healer = medkit::damagetype_healed || BRUTE
 	update_appearance()
 
 /mob/living/basic/bot/medbot/update_icon_state()
@@ -222,7 +251,7 @@
 		data["custom_controls"]["heal_threshold"] = heal_threshold
 		data["custom_controls"]["speaker"] = medical_mode_flags & MEDBOT_SPEAK_MODE
 		data["custom_controls"]["crit_alerts"] = medical_mode_flags & MEDBOT_DECLARE_CRIT
-		data["custom_controls"]["stationary_mode"] = medical_mode_flags & MEDBOT_STATIONARY_MODE
+		data["custom_controls"]["stationary_mode"] = (medical_mode_flags & MEDBOT_STATIONARY_MODE) || (medical_mode_flags & MEDBOT_SUPERSTATIONARY_MODE)
 	return data
 
 // Actions received from TGUI
@@ -235,17 +264,19 @@
 		if("heal_threshold")
 			var/adjust_num = round(text2num(params["threshold"]))
 			heal_threshold = adjust_num
-			if(heal_threshold < 5)
-				heal_threshold = 5
-			if(heal_threshold > 75)
-				heal_threshold = 75
+			if(heal_threshold < 1)
+				heal_threshold = 1
+			if(heal_threshold > 500)
+				heal_threshold = 500
 		if("speaker")
 			medical_mode_flags ^= MEDBOT_SPEAK_MODE
 		if("crit_alerts")
 			medical_mode_flags ^= MEDBOT_DECLARE_CRIT
 		if("stationary_mode")
-			medical_mode_flags ^= MEDBOT_STATIONARY_MODE
-
+			if(medical_mode_flags & MEDBOT_SUPERSTATIONARY_MODE)
+				speak("Sorry, [user]! I can't move!")
+			else
+				medical_mode_flags ^= MEDBOT_STATIONARY_MODE
 	update_appearance()
 
 /mob/living/basic/bot/medbot/emag_effects(mob/user)
@@ -314,13 +345,16 @@
 	SIGNAL_HANDLER
 
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		INVOKE_ASYNC(src, PROC_REF(stop_healing))
 		return
 	if(!iscarbon(target))
+		INVOKE_ASYNC(src, PROC_REF(stop_healing))
 		return
 	// SKYRAT EDIT ADDITION START - Skip trying to heal synths
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
 		if(human_target.mob_biotypes & MOB_ROBOTIC)
+			INVOKE_ASYNC(src, PROC_REF(stop_healing))
 			return
 	// SKYRAT EDIT ADDITION END
 	INVOKE_ASYNC(src, PROC_REF(medicate_patient), target)
@@ -330,44 +364,77 @@
 	if(DOING_INTERACTION(src, TEND_DAMAGE_INTERACTION))
 		return
 
-	if (!(bot_access_flags & BOT_COVER_EMAGGED))
-		if((damage_type_healer == HEAL_ALL_DAMAGE && patient.get_total_damage() <= heal_threshold) || (!(damage_type_healer == HEAL_ALL_DAMAGE) && patient.get_current_damage_of_type(damage_type_healer) <= heal_threshold))
-			to_chat(src, "[patient] is healthy! Your programming prevents you from tending the wounds of anyone with less than [heal_threshold + 1] [damage_type_healer == HEAL_ALL_DAMAGE ? "total" : damage_type_healer] damage.")
-			return
+	// safety timer, just in case something runtimes
+	stop_timer = addtimer(CALLBACK(src, PROC_REF(stop_healing)), heal_time * 3, (TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE))
+	var/list/heal_list = list()
+	if (bot_access_flags & BOT_COVER_EMAGGED)
+		heal_list = healable_damage_types
+	else
+		for(var/damage_string in healable_damage_types)
+			var/hurtamt = patient.get_current_damage_of_type(damage_string)
+			if(hurtamt >= heal_threshold)
+				heal_list |= damage_string
+	if(!LAZYLEN(heal_list))
+		var/can_heal = english_list(healable_damage_types, null, "or")
+		to_chat(src, "[patient] is healthy! Your programming prevents you from tending the wounds of anyone with less than [heal_threshold + 1] damage of [can_heal].")
+		stop_healing()
+		return
 
-	update_bot_mode(new_mode = BOT_HEALING, update_hud = FALSE)
-	patient.visible_message("[src] is trying to tend the wounds of [patient]", span_userdanger("[src] is trying to tend your wounds!"))
-	if(!do_after(src, delay = 2 SECONDS, target = patient, interaction_key = TEND_DAMAGE_INTERACTION))
-		update_bot_mode(new_mode = BOT_IDLE)
+	var/mob/living/previous = GET_WEAKREF(last_healed)
+	var/is_continuation = previous == patient
+	start_healing(patient, is_continuation)
+	if(!do_after(src, delay = heal_time, target = patient, interaction_key = TEND_DAMAGE_INTERACTION))
+		stop_healing()
 		return
 	var/modified_heal_amount = heal_amount * heal_multiplier
-	var/done_healing = FALSE
-	if(damage_type_healer == BRUTE && medkit_type == /obj/item/storage/medkit/brute)
-		modified_heal_amount *= 1.1
 	if(bot_access_flags & BOT_COVER_EMAGGED)
 		patient.reagents?.add_reagent(/datum/reagent/toxin/chloralhydrate, 5)
 		log_combat(src, patient, "pretended to tend wounds on", "internal tools")
-	else if(damage_type_healer == HEAL_ALL_DAMAGE)
-		patient.heal_ordered_damage(amount = modified_heal_amount, damage_types = list(BRUTE, BURN, TOX, OXY))
-		log_combat(src, patient, "tended the wounds of", "internal tools")
-		if(patient.get_total_damage() <= heal_threshold)
-			done_healing = TRUE
 	else
-		patient.heal_damage_type(heal_amount = modified_heal_amount, damagetype = damage_type_healer)
-		log_combat(src, patient, "tended the wounds of", "internal tools")
-		if(patient.get_current_damage_of_type(damage_type_healer) <= heal_threshold)
-			done_healing = TRUE
-
-	patient.visible_message(span_notice("[src] tends the wounds of [patient]!"), "[span_infoplain(span_green("[src] tends your wounds!"))]")
-
-	if(done_healing)
-		visible_message(span_infoplain("[src] places [p_their()] tools back into [p_themselves()]."))
-		to_chat(src, "[patient] is now healthy!")
-		update_bot_mode(new_mode = BOT_IDLE)
+		var/healing_remaining = modified_heal_amount
+		for(var/damage_string in heal_list)
+			var/amt_healed = patient.heal_damage_type(heal_amount = healing_remaining, damagetype = damage_string)
+			log_combat(src, patient, "tended the wounds of", "internal tools")
+			healing_remaining -= amt_healed
+			if(patient.get_current_damage_of_type(damage_string) <= heal_threshold)
+				heal_list -= damage_string
+			if(healing_remaining <= 0)
+				break
+	patient.visible_message(
+		span_notice("[src] tends the wounds of [patient]!"),
+		"[span_infoplain(span_green("[src] tends your wounds!"))]")
+	if(!LAZYLEN(heal_list)) // no more things need healing
+		stop_healing(TRUE)
 		return
-
 	if(patient.IsReachableBy(src))
 		melee_attack(patient)
+	else
+		stop_healing()
+
+/mob/living/basic/bot/medbot/proc/stop_healing(finished)
+	update_bot_mode(new_mode = BOT_IDLE)
+	var/mob/whomst = GET_WEAKREF(last_healed)
+	last_healed = null
+	soundloop.stop()
+	if(stop_timer)
+		deltimer(stop_timer)
+		stop_timer = null
+	if(finished)
+		playsound(src, 'sound/machines/microwave/microwave-end.ogg', 50, TRUE)
+		if(whomst)
+			visible_message(span_infoplain("[src] finishes up tending [whomst]'s injuries!"))
+		else
+			visible_message(span_infoplain("[src] finishes up tending to [p_their()] patient!"))
+		speak("Good as new!")
+
+/mob/living/basic/bot/medbot/proc/start_healing(mob/patient, continuation)
+	update_bot_mode(new_mode = BOT_HEALING, update_hud = FALSE)
+	last_healed = WEAKREF(patient)
+	soundloop.start()
+	if(!continuation)
+		patient.visible_message(
+			"[src] is trying to tend the wounds of [patient]",
+			span_userdanger("[src] is trying to tend your wounds!"))
 
 /mob/living/basic/bot/medbot/proc/on_techweb_research(datum/source, datum/design/medibot_upgrade/design)
 	SIGNAL_HANDLER
@@ -425,14 +492,14 @@
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
 	skin = "bezerk"
-	damage_type_healer = HEAL_ALL_DAMAGE
+	damage_type_healer = HEAL_ALL_DAMAGE_FLAGS
 	heal_amount = 10
 
 /mob/living/basic/bot/medbot/derelict
 	name = "\improper Old Medibot"
 	desc = "Looks like it hasn't been modified since the late 2080s."
 	skin = "bezerk"
-	damage_type_healer = HEAL_ALL_DAMAGE
+	damage_type_healer = HEAL_ALL_DAMAGE_FLAGS
 	medical_mode_flags = MEDBOT_SPEAK_MODE
 	heal_threshold = 0
 	heal_amount = 5
@@ -442,12 +509,12 @@
 	desc = "A medibot stolen from a Nanotrasen station and upgraded by the Syndicate. Despite their best efforts at reprogramming, it still appears visibly upset near nuclear explosives."
 	health = 40
 	maxHealth = 40
-	skin = "bezerk"
+	skin = "bezerk" //https://youtu.be/9TRemrRaPjc?list=RD9TRemrRaPjc
 	req_one_access = list(ACCESS_SYNDICATE)
 	bot_mode_flags = parent_type::bot_mode_flags & ~BOT_MODE_REMOTE_ENABLED
 	radio_key = /obj/item/encryptionkey/syndicate
 	radio_channel = RADIO_CHANNEL_SYNDICATE
-	damage_type_healer = HEAL_ALL_DAMAGE
+	damage_type_healer = HEAL_ALL_DAMAGE_FLAGS
 	faction = list(ROLE_SYNDICATE)
 	heal_threshold = 0
 	heal_amount = 5
@@ -475,5 +542,20 @@
 	SIGNAL_HANDLER
 
 	INVOKE_ASYNC(src, PROC_REF(speak), pick(emagged_announcements))
+
+
+/mob/living/basic/bot/medbot/headsurgeon
+	name = "\improper Head Surgeon"
+	desc = "Medical's number-one autonomous medic, here to make medical's life less of a miserable, transactional \
+		nightmare for minor every-day booboos. Despite being our Head Surgeon, he isn't actually licensed for surgery, \
+		anything more complicated than an ouchie should be handled by someone who can actually hold a scalpel!"
+	skin = "stationary"
+	damage_type_healer = BRUTELOSS | FIRELOSS //worse than a medibot
+	heal_amount = 1 //also worse than a medibot
+	heal_time = 1 SECONDS
+	medical_mode_flags = MEDBOT_DECLARE_CRIT | MEDBOT_SPEAK_MODE | MEDBOT_SUPERSTATIONARY_MODE
+	move_force = MOVE_FORCE_OVERPOWERING
+	move_resist = MOVE_FORCE_OVERPOWERING
+	pull_force = MOVE_FORCE_OVERPOWERING
 
 #undef TEND_DAMAGE_INTERACTION
