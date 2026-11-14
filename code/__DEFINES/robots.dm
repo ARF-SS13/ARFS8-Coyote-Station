@@ -237,15 +237,26 @@ DEFINE_BITFIELD(security_mode_flags, list(
 #define MEDBOT_SPEAK_MODE (1<<2)
 /// is the bot currently tipped over?
 #define MEDBOT_TIPPED_MODE (1<<3)
+///if the bot will always sit still no matter what, like a fuckin statue
+#define MEDBOT_SUPERSTATIONARY_MODE (1<<4)
 
 ///can we heal all damage?
-#define HEAL_ALL_DAMAGE "all_damage"
+#define HEAL_ALL_DAMAGE_FLAGS (BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS|STAMINALOSS)
+#define HEAL_DAMAGE_CHECKLIST list(BRUTELOSS,FIRELOSS,TOXLOSS,OXYLOSS,STAMINALOSS)
+#define HEAL_DAMAGE_THINGS list(BRUTE,BURN,TOX,OXY,STAMINA)
+GLOBAL_ALIST_INIT(heal_flag_2_string, alist(
+	BRUTELOSS    = BRUTE,
+	FIRELOSS     = BURN,
+	TOXLOSS      = TOX,
+	OXYLOSS      = OXY,
+	STAMINALOSS  = STAMINA))
 
 DEFINE_BITFIELD(medical_mode_flags, list(
 	"MEDBOT_DECLARE_CRIT" = MEDBOT_DECLARE_CRIT,
 	"MEDBOT_STATIONARY_MODE" = MEDBOT_STATIONARY_MODE,
 	"MEDBOT_SPEAK_MODE" = MEDBOT_SPEAK_MODE,
 	"MEDBOT_TIPPED_MODE" = MEDBOT_TIPPED_MODE,
+	"MEDBOT_SUPERSTATIONARY_MODE" = MEDBOT_SUPERSTATIONARY_MODE,
 ))
 
 ///Whether we are stationary or not

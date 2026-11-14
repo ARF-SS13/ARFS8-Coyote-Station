@@ -222,3 +222,19 @@
 	)
 	mid_length = 5 SECONDS
 	volume = 50
+
+/datum/looping_sound/medbot_healing
+	start_sound = 'modular_coyote/sounds/medbot/medbot_start.ogg'
+	start_length = 1 SECONDS
+	mid_sounds = list(
+		'modular_coyote/sounds/medbot/medbot_mid_1.ogg',
+		'modular_coyote/sounds/medbot/medbot_mid_2.ogg',
+		'modular_coyote/sounds/medbot/medbot_mid_3.ogg',
+		'modular_coyote/sounds/medbot/medbot_mid_4.ogg',
+		'modular_coyote/sounds/medbot/medbot_mid_5.ogg',
+		'modular_coyote/sounds/medbot/medbot_mid_6.ogg',
+	)
+	mid_length = 2 SECONDS
+	end_sound = 'modular_coyote/sounds/medbot/medbot_end.ogg'
+	end_volume = 60
+	volume = 40

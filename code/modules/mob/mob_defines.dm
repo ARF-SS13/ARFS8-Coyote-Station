@@ -69,7 +69,7 @@
 	/// Mob bitflags
 	var/mob_flags = NONE
 
-	/// Whether a mob is alive or dead. TODO: Move this to living - Nodrak (2019, still here)
+	/// Whether a mob is alive or dead. TODO: Move this to living - Nodrak (2019, still here) - Superlagg (2026, still here)
 	var/stat = CONSCIOUS
 
 	/**

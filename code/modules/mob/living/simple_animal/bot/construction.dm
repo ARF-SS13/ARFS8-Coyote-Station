@@ -292,7 +292,7 @@
 				medbot.robot_arm = robot_arm
 				medbot.health_analyzer = healthanalyzer
 				var/obj/item/storage/medkit/medkit = medkit_type
-				medbot.damage_type_healer = initial(medkit.damagetype_healed) ? initial(medkit.damagetype_healed) : BRUTE
+				medbot.damage_type_healer = medkit::damagetype_healed || BRUTE
 				qdel(src)
 
 

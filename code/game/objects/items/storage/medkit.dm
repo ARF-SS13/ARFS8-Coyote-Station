@@ -99,7 +99,7 @@
 	desc = "An suspicous coloured medkit full of advanced medical equipment."
 	icon_state = "medkit_tactical_lite"
 	inhand_icon_state = "medkit-tactical-lite"
-	damagetype_healed = HEAL_ALL_DAMAGE
+	damagetype_healed = HEAL_ALL_DAMAGE_FLAGS
 	storage_type = /datum/storage/medkit/surgery
 
 /obj/item/storage/medkit/surgery_syndie/PopulateContents()
@@ -146,7 +146,7 @@
 	desc = "A specialized medical kit for when the ordnance lab <i>-spontaneously-</i> burns down."
 	icon_state = "medkit_burn"
 	inhand_icon_state = "medkit-ointment"
-	damagetype_healed = BURN
+	damagetype_healed = FIRELOSS
 
 /obj/item/storage/medkit/fire/get_medbot_skin()
 	return "burn"
@@ -170,7 +170,7 @@
 	desc = "Used to treat toxic blood content and radiation poisoning."
 	icon_state = "medkit_toxin"
 	inhand_icon_state = "medkit-toxin"
-	damagetype_healed = TOX
+	damagetype_healed = TOXLOSS
 
 /obj/item/storage/medkit/toxin/get_medbot_skin()
 	return "tox"
@@ -197,7 +197,7 @@
 	desc = "A box full of oxygen goodies."
 	icon_state = "medkit_o2"
 	inhand_icon_state = "medkit-o2"
-	damagetype_healed = OXY
+	damagetype_healed = OXYLOSS
 
 /obj/item/storage/medkit/o2/get_medbot_skin()
 	return "oxy"
@@ -221,7 +221,7 @@
 	desc = "A first aid kit for when you get toolboxed."
 	icon_state = "medkit_brute"
 	inhand_icon_state = "medkit-brute"
-	damagetype_healed = BRUTE
+	damagetype_healed = BRUTELOSS
 
 /obj/item/storage/medkit/brute/get_medbot_skin()
 	return "brute"
@@ -248,7 +248,7 @@
 	icon_state = "medkit_advanced"
 	inhand_icon_state = "medkit-advanced"
 	custom_premium_price = PAYCHECK_COMMAND * 6
-	damagetype_healed = HEAL_ALL_DAMAGE
+	damagetype_healed = HEAL_ALL_DAMAGE_FLAGS
 
 /obj/item/storage/medkit/advanced/get_medbot_skin()
 	return "adv"
@@ -267,7 +267,7 @@
 	name = "combat first aid kit"
 	icon_state = "medkit_tactical_lite"
 	inhand_icon_state = "medkit-tactical-lite"
-	damagetype_healed = HEAL_ALL_DAMAGE
+	damagetype_healed = HEAL_ALL_DAMAGE_FLAGS
 
 /obj/item/storage/medkit/tactical_lite/get_medbot_skin()
 	return "bezerk"
@@ -289,7 +289,7 @@
 	desc = "I hope you've got insurance."
 	icon_state = "medkit_tactical"
 	inhand_icon_state = "medkit-tactical"
-	damagetype_healed = HEAL_ALL_DAMAGE
+	damagetype_healed = HEAL_ALL_DAMAGE_FLAGS
 	storage_type = /datum/storage/medkit/tactical
 
 /obj/item/storage/medkit/tactical/get_medbot_skin()
