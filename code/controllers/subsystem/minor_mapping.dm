@@ -13,6 +13,7 @@ SUBSYSTEM_DEF(minor_mapping)
 		/mob/living/basic/snail = 16,
 		/mob/living/basic/stoat = 10,
 		/mob/living/basic/regal_rat/controlled = 2,
+		/mob/living/basic/carp/minnow = 36,
 	)
 
 /datum/controller/subsystem/minor_mapping/Initialize()
@@ -38,26 +39,28 @@ SUBSYSTEM_DEF(minor_mapping)
 	var/turf/open/proposed_turf
 	while((to_spawn > 0) && exposed_wires.len)
 		proposed_turf = pick_n_take(exposed_wires)
-		if (!valid_mouse_turf(proposed_turf))
-			continue
-
-		to_spawn--
-
 		var/picked_path
 		if(HAS_TRAIT(SSstation, STATION_TRAIT_SPIDER_INFESTATION) && prob(PROB_SPIDER_REPLACEMENT))
 			picked_path = /mob/living/basic/spider/maintenance
 		else
 			picked_path = pick_weight(vermin_chances)
 
+		if (!valid_vermin_turf(proposed_turf, picked_path))
+			continue
+
+		to_spawn--
+
 		new picked_path(proposed_turf)
 
 /// Returns true if a mouse won't die if spawned on this turf
-/datum/controller/subsystem/minor_mapping/proc/valid_mouse_turf(turf/open/proposed_turf)
+/datum/controller/subsystem/minor_mapping/proc/valid_vermin_turf(turf/open/proposed_turf, mob/living/basic/proposed_vermin)
 	if(!istype(proposed_turf))
 		return FALSE
+	if(proposed_vermin.habitable_atmos == null)
+		return TRUE
 	var/datum/gas_mixture/turf/turf_gasmix = proposed_turf.air
 	var/turf_temperature = proposed_turf.temperature
-	return turf_gasmix.has_gas(/datum/gas/oxygen, 5) && turf_temperature < NPC_DEFAULT_MAX_TEMP && turf_temperature > NPC_DEFAULT_MIN_TEMP
+	return turf_gasmix.has_gas(/datum/gas/oxygen, proposed_vermin.habitable_atmos["min_oxy"]) && turf_temperature < NPC_DEFAULT_MAX_TEMP && turf_temperature > NPC_DEFAULT_MIN_TEMP
 
 /datum/controller/subsystem/minor_mapping/proc/place_satchels(satchel_amount)
 	var/list/turfs = find_satchel_suitable_turfs()

@@ -42,7 +42,7 @@
 	track = EVENT_TRACK_MUNDANE
 	tags = list(TAG_COMMUNAL)
 
-/datum/round_event_control/mice_migration
+/datum/round_event_control/vermin_migration
 	track = EVENT_TRACK_MUNDANE
 	tags = list(TAG_DESTRUCTIVE)
 
