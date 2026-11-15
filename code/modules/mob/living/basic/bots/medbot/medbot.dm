@@ -29,68 +29,29 @@
 	path_image_color = "#d9d9f4"
 
 	///anouncements when we find a target to heal
-	var/static/list/wait_announcements = list(
-		MEDIBOT_VOICED_HOLD_ON = 'sound/mobs/non-humanoids/medbot/coming.ogg',
-		MEDIBOT_VOICED_WANT_TO_HELP = 'sound/mobs/non-humanoids/medbot/help.ogg',
-		MEDIBOT_VOICED_YOU_ARE_INJURED = 'sound/mobs/non-humanoids/medbot/injured.ogg',
-	)
-
+	var/datum/bark_pack/wait_announcements = /datum/bark_pack/medibot/wait_for_me
 	///announcements after we heal someone
-	var/static/list/afterheal_announcements = list(
-		MEDIBOT_VOICED_ALL_PATCHED_UP = 'sound/mobs/non-humanoids/medbot/patchedup.ogg',
-		MEDIBOT_VOICED_APPLE_A_DAY = 'sound/mobs/non-humanoids/medbot/apple.ogg',
-		MEDIBOT_VOICED_FEEL_BETTER = 'sound/mobs/non-humanoids/medbot/feelbetter.ogg',
-	)
+	var/datum/bark_pack/afterheal_announcements = /datum/bark_pack/medibot/finished_healing
 
 	///announcements when we are healing someone near death
-	var/static/list/near_death_announcements = list(
-		MEDIBOT_VOICED_STAY_WITH_ME = 'sound/mobs/non-humanoids/medbot/no.ogg',
-		MEDIBOT_VOICED_LIVE = 'sound/mobs/non-humanoids/medbot/live.ogg',
-		MEDIBOT_VOICED_NEVER_LOST = 'sound/mobs/non-humanoids/medbot/lost.ogg',
-	)
+	var/datum/bark_pack/near_death_announcements = /datum/bark_pack/medibot/patient_died
 	///announcements when we are idle
-	var/static/list/idle_lines = list(
-		MEDIBOT_VOICED_DELICIOUS = 'sound/mobs/non-humanoids/medbot/delicious.ogg',
-		MEDIBOT_VOICED_PLASTIC_SURGEON = 'sound/mobs/non-humanoids/medbot/surgeon.ogg',
-		MEDIBOT_VOICED_MASK_ON = 'sound/mobs/non-humanoids/medbot/radar.ogg',
-		MEDIBOT_VOICED_ALWAYS_A_CATCH = 'sound/mobs/non-humanoids/medbot/catch.ogg',
-		MEDIBOT_VOICED_LIKE_FLIES = 'sound/mobs/non-humanoids/medbot/flies.ogg',
-		MEDIBOT_VOICED_SUFFER = 'sound/mobs/non-humanoids/medbot/why.ogg',
-	)
+	var/datum/bark_pack/idle_lines = /datum/bark_pack/medibot/idle_normal
+
 	///announcements when we are emagged
-	var/static/list/emagged_announcements = list(
-		MEDIBOT_VOICED_FUCK_YOU = 'sound/mobs/non-humanoids/medbot/fuck_you.ogg',
-		MEDIBOT_VOICED_NOT_A_GAME = 'sound/mobs/non-humanoids/medbot/turn_off.ogg',
-		MEDIBOT_VOICED_IM_DIFFERENT = 'sound/mobs/non-humanoids/medbot/im_different.ogg',
-		MEDIBOT_VOICED_FOURTH_WALL = 'sound/mobs/non-humanoids/medbot/close.ogg',
-		MEDIBOT_VOICED_SHINDEMASHOU = 'sound/mobs/non-humanoids/medbot/shindemashou.ogg',
-	)
+	var/datum/bark_pack/emagged_announcements = /datum/bark_pack/medibot/idle_emagged
+
 	///announcements when we are being tipped
-	var/static/list/tipped_announcements = list(
-		MEDIBOT_VOICED_WAIT = 'sound/mobs/non-humanoids/medbot/hey_wait.ogg',
-		MEDIBOT_VOICED_DONT = 'sound/mobs/non-humanoids/medbot/please_dont.ogg',
-		MEDIBOT_VOICED_TRUSTED_YOU = 'sound/mobs/non-humanoids/medbot/i_trusted_you.ogg',
-		MEDIBOT_VOICED_NO_SAD = 'sound/mobs/non-humanoids/medbot/nooo.ogg',
-		MEDIBOT_VOICED_OH_FUCK = 'sound/mobs/non-humanoids/medbot/oh_fuck.ogg',
-	)
+	var/datum/bark_pack/tipped_announcements = /datum/bark_pack/medibot/being_tipped
+
 	///announcements when we are being untipped
-	var/static/list/untipped_announcements = list(
-		MEDIBOT_VOICED_FORGIVE = 'sound/mobs/non-humanoids/medbot/forgive.ogg',
-		MEDIBOT_VOICED_THANKS = 'sound/mobs/non-humanoids/medbot/thank_you.ogg',
-		MEDIBOT_VOICED_GOOD_PERSON = 'sound/mobs/non-humanoids/medbot/youre_good.ogg',
-	)
+	var/datum/bark_pack/untipped_announcements = /datum/bark_pack/medibot/was_untipped
+
 	///announcements when we are worried
-	var/static/list/worried_announcements = list(
-		MEDIBOT_VOICED_PUT_BACK = 'sound/mobs/non-humanoids/medbot/please_put_me_back.ogg',
-		MEDIBOT_VOICED_IM_SCARED = 'sound/mobs/non-humanoids/medbot/please_im_scared.ogg',
-		MEDIBOT_VOICED_NEED_HELP = 'sound/mobs/non-humanoids/medbot/dont_like.ogg',
-		MEDIBOT_VOICED_THIS_HURTS = 'sound/mobs/non-humanoids/medbot/pain_is_real.ogg',
-		MEDIBOT_VOICED_THE_END = 'sound/mobs/non-humanoids/medbot/is_this_the_end.ogg',
-		MEDIBOT_VOICED_NOOO = 'sound/mobs/non-humanoids/medbot/nooo.ogg',
-	)
-	var/static/list/misc_announcements= list(
-		MEDIBOT_VOICED_CHICKEN = 'sound/mobs/non-humanoids/medbot/i_am_chicken.ogg',
-	)
+	var/datum/bark_pack/worried_announcements = /datum/bark_pack/medibot/idle_tipped
+
+	var/datum/bark_pack/misc_announcements = /datum/bark_pack/medibot/idle_chicken
+
 	/// drop determining variable
 	var/health_analyzer = /obj/item/healthanalyzer
 	/// drop determining variable
@@ -125,12 +86,12 @@
 /mob/living/basic/bot/medbot/proc/set_speech_keys()
 	if(isnull(ai_controller))
 		return
-	ai_controller.set_blackboard_key(BB_NEAR_DEATH_SPEECH, near_death_announcements)
-	ai_controller.set_blackboard_key(BB_WAIT_SPEECH, wait_announcements)
-	ai_controller.set_blackboard_key(BB_AFTERHEAL_SPEECH, afterheal_announcements)
-	ai_controller.set_blackboard_key(BB_IDLE_SPEECH, idle_lines)
-	ai_controller.set_blackboard_key(BB_EMAGGED_SPEECH, emagged_announcements)
-	ai_controller.set_blackboard_key(BB_WORRIED_ANNOUNCEMENTS, worried_announcements)
+	ai_controller.set_blackboard_key(BB_NEAR_DEATH_SPEECH, SSbarks.get_barks(near_death_announcements))
+	ai_controller.set_blackboard_key(BB_WAIT_SPEECH, SSbarks.get_barks(wait_announcements))
+	ai_controller.set_blackboard_key(BB_AFTERHEAL_SPEECH, SSbarks.get_barks(afterheal_announcements))
+	ai_controller.set_blackboard_key(BB_IDLE_SPEECH, SSbarks.get_barks(idle_lines))
+	ai_controller.set_blackboard_key(BB_EMAGGED_SPEECH, SSbarks.get_barks(emagged_announcements))
+	ai_controller.set_blackboard_key(BB_WORRIED_ANNOUNCEMENTS, SSbarks.get_barks(worried_announcements))
 
 /mob/living/basic/bot/medbot/Initialize(mapload, new_skin)
 	. = ..()
@@ -232,7 +193,16 @@
 
 //this is sin
 /mob/living/basic/bot/medbot/generate_speak_list()
-	var/static/list/finalized_speak_list = (idle_lines + wait_announcements + afterheal_announcements + near_death_announcements + emagged_announcements + tipped_announcements + untipped_announcements + worried_announcements + misc_announcements)
+	var/list/finalized_speak_list = list()
+	finalized_speak_list += SSbarks.get_barks(idle_lines)
+	finalized_speak_list += SSbarks.get_barks(wait_announcements)
+	finalized_speak_list += SSbarks.get_barks(afterheal_announcements)
+	finalized_speak_list += SSbarks.get_barks(near_death_announcements)
+	finalized_speak_list += SSbarks.get_barks(emagged_announcements)
+	finalized_speak_list += SSbarks.get_barks(tipped_announcements)
+	finalized_speak_list += SSbarks.get_barks(untipped_announcements)
+	finalized_speak_list += SSbarks.get_barks(worried_announcements)
+	finalized_speak_list += SSbarks.get_barks(misc_announcements)
 	return finalized_speak_list
 
 
@@ -530,19 +500,15 @@
 
 /mob/living/basic/bot/medbot/nukie/proc/nuke_disarm()
 	SIGNAL_HANDLER
-
-	INVOKE_ASYNC(src, PROC_REF(speak), pick(untipped_announcements))
+	INVOKE_ASYNC(src, PROC_REF(speak), pick(SSbarks.get_barks(untipped_announcements)))
 
 /mob/living/basic/bot/medbot/nukie/proc/nuke_arm()
 	SIGNAL_HANDLER
-
-	INVOKE_ASYNC(src, PROC_REF(speak), pick(worried_announcements))
+	INVOKE_ASYNC(src, PROC_REF(speak), pick(SSbarks.get_barks(worried_announcements)))
 
 /mob/living/basic/bot/medbot/nukie/proc/nuke_detonate()
 	SIGNAL_HANDLER
-
-	INVOKE_ASYNC(src, PROC_REF(speak), pick(emagged_announcements))
-
+	INVOKE_ASYNC(src, PROC_REF(speak), pick(SSbarks.get_barks(emagged_announcements)))
 
 /mob/living/basic/bot/medbot/headsurgeon
 	name = "\improper Head Surgeon"
@@ -551,11 +517,22 @@
 		anything more complicated than an ouchie should be handled by someone who can actually hold a scalpel!"
 	skin = "stationary"
 	damage_type_healer = BRUTELOSS | FIRELOSS //worse than a medibot
-	heal_amount = 1 //also worse than a medibot
+	heal_amount = 0.5 //also worse than a medibot
 	heal_time = 1 SECONDS
-	medical_mode_flags = MEDBOT_DECLARE_CRIT | MEDBOT_SPEAK_MODE | MEDBOT_SUPERSTATIONARY_MODE
+	medical_mode_flags = MEDBOT_DECLARE_CRIT | MEDBOT_SPEAK_MODE | MEDBOT_SUPERSTATIONARY_MODE | MEDBOT_STATIONARY_MODE
+	density = TRUE
 	move_force = MOVE_FORCE_OVERPOWERING
 	move_resist = MOVE_FORCE_OVERPOWERING
 	pull_force = MOVE_FORCE_OVERPOWERING
+	wait_announcements        = /datum/bark_pack/awful_medibot/wait_for_me
+	afterheal_announcements   = /datum/bark_pack/awful_medibot/wait_for_me
+	near_death_announcements  = /datum/bark_pack/awful_medibot/wait_for_me
+	idle_lines                = /datum/bark_pack/awful_medibot/wait_for_me
+	emagged_announcements     = /datum/bark_pack/awful_medibot/wait_for_me
+	tipped_announcements      = /datum/bark_pack/awful_medibot/wait_for_me
+	untipped_announcements    = /datum/bark_pack/awful_medibot/wait_for_me
+	worried_announcements     = /datum/bark_pack/awful_medibot/wait_for_me
+	misc_announcements        = /datum/bark_pack/awful_medibot/wait_for_me
+
 
 #undef TEND_DAMAGE_INTERACTION

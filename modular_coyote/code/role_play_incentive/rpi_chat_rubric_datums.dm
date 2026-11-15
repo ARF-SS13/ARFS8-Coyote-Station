@@ -1,7 +1,7 @@
 /datum/rpi_chat_rubric
 	var/saymode = ""
 	var/base_length = 75
-	var/pay_per_point = 30
+	var/pay_per_point = 20
 	var/mult_per_listener = 1.1
 	var/optimal_distance = 4 // tiles, euclidean
 	var/max_distance = 10 // tiles, also euclidean
@@ -40,7 +40,7 @@
 /datum/rpi_chat_rubric/emote
 	saymode = SAYMODE_EMOTE
 	base_length = 50
-	pay_per_point = 100
+	pay_per_point = 30
 
 /datum/rpi_chat_rubric/emote_quick
 	saymode = SAYMODE_EMOTE_QUICK
@@ -49,8 +49,8 @@
 
 /datum/rpi_chat_rubric/subtle
 	saymode = SAYMODE_SUBTLE
-	base_length = 50
-	pay_per_point = 150 // get paid money to sex
+	base_length = 150
+	pay_per_point = 30 // get paid money to sex
 
 
 
