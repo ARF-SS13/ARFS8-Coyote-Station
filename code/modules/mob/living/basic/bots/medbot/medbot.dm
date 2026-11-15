@@ -52,6 +52,8 @@
 
 	var/datum/bark_pack/misc_announcements = /datum/bark_pack/medibot/idle_chicken
 
+	var/chatty_chance = 5
+
 	/// drop determining variable
 	var/health_analyzer = /obj/item/healthanalyzer
 	/// drop determining variable
@@ -194,15 +196,15 @@
 //this is sin
 /mob/living/basic/bot/medbot/generate_speak_list()
 	var/list/finalized_speak_list = list()
-	finalized_speak_list += SSbarks.get_barks(idle_lines)
-	finalized_speak_list += SSbarks.get_barks(wait_announcements)
-	finalized_speak_list += SSbarks.get_barks(afterheal_announcements)
-	finalized_speak_list += SSbarks.get_barks(near_death_announcements)
-	finalized_speak_list += SSbarks.get_barks(emagged_announcements)
-	finalized_speak_list += SSbarks.get_barks(tipped_announcements)
-	finalized_speak_list += SSbarks.get_barks(untipped_announcements)
-	finalized_speak_list += SSbarks.get_barks(worried_announcements)
-	finalized_speak_list += SSbarks.get_barks(misc_announcements)
+	finalized_speak_list |= SSbarks.get_barks(idle_lines)
+	finalized_speak_list |= SSbarks.get_barks(wait_announcements)
+	finalized_speak_list |= SSbarks.get_barks(afterheal_announcements)
+	finalized_speak_list |= SSbarks.get_barks(near_death_announcements)
+	finalized_speak_list |= SSbarks.get_barks(emagged_announcements)
+	finalized_speak_list |= SSbarks.get_barks(tipped_announcements)
+	finalized_speak_list |= SSbarks.get_barks(untipped_announcements)
+	finalized_speak_list |= SSbarks.get_barks(worried_announcements)
+	finalized_speak_list |= SSbarks.get_barks(misc_announcements)
 	return finalized_speak_list
 
 
@@ -524,6 +526,7 @@
 	move_force = MOVE_FORCE_OVERPOWERING
 	move_resist = MOVE_FORCE_OVERPOWERING
 	pull_force = MOVE_FORCE_OVERPOWERING
+	chatty_chance = 15
 	wait_announcements        = /datum/bark_pack/awful_medibot/wait_for_me
 	afterheal_announcements   = /datum/bark_pack/awful_medibot/wait_for_me
 	near_death_announcements  = /datum/bark_pack/awful_medibot/wait_for_me
