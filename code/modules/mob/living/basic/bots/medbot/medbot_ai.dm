@@ -182,7 +182,6 @@
 	return TRUE
 
 /datum/ai_planning_subtree/handle_medbot_speech
-	var/speech_chance = 5
 
 /datum/ai_planning_subtree/handle_medbot_speech/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
 	var/mob/living/basic/bot/medbot/bot_pawn = controller.pawn
@@ -191,9 +190,11 @@
 		return
 
 	var/currently_tipped = bot_pawn.medical_mode_flags & MEDBOT_TIPPED_MODE
-	speech_chance = ((bot_pawn.bot_access_flags & BOT_COVER_EMAGGED) || currently_tipped) ? 15 : initial(speech_chance)
+	var/saychance = bot_pawn.chatty_chance
+	if(bot_pawn.bot_access_flags & BOT_COVER_EMAGGED || currently_tipped)
+		saychance *= 3
 
-	if(!SPT_PROB(speech_chance, seconds_per_tick))
+	if(!SPT_PROB(saychance, seconds_per_tick))
 		return
 
 	controller.queue_behavior(/datum/ai_behavior/handle_medbot_speech, BB_ANNOUNCE_ABILITY, bot_pawn.mode, bot_pawn.bot_access_flags, currently_tipped)
