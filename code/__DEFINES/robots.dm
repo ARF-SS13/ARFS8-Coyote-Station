@@ -239,6 +239,8 @@ DEFINE_BITFIELD(security_mode_flags, list(
 #define MEDBOT_TIPPED_MODE (1<<3)
 ///if the bot will always sit still no matter what, like a fuckin statue
 #define MEDBOT_SUPERSTATIONARY_MODE (1<<4)
+///you cant make it shut up
+#define MEDBOT_SUPERSPEAK_MODE (1<<5)
 
 ///can we heal all damage?
 #define HEAL_ALL_DAMAGE_FLAGS (BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS|STAMINALOSS)
