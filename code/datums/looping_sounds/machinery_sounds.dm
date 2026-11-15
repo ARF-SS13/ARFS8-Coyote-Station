@@ -234,7 +234,7 @@
 		'modular_coyote/sounds/medbot/medbot_mid_5.ogg',
 		'modular_coyote/sounds/medbot/medbot_mid_6.ogg',
 	)
-	mid_length = 2 SECONDS
+	mid_length = 1.8 SECONDS
 	end_sound = 'modular_coyote/sounds/medbot/medbot_end.ogg'
-	end_volume = 60
-	volume = 40
+	end_volume = 100
+	volume = 60

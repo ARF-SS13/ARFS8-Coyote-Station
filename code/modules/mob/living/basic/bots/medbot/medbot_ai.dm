@@ -186,7 +186,7 @@
 /datum/ai_planning_subtree/handle_medbot_speech/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
 	var/mob/living/basic/bot/medbot/bot_pawn = controller.pawn
 	//we cant speak!
-	if(!(bot_pawn.medical_mode_flags & MEDBOT_SPEAK_MODE))
+	if(!(bot_pawn.medical_mode_flags & MEDBOT_SPEAK_MODE && !(bot_pawn.medical_mode_flags & MEDBOT_SUPERSPEAK_MODE)))
 		return
 
 	var/currently_tipped = bot_pawn.medical_mode_flags & MEDBOT_TIPPED_MODE
@@ -210,7 +210,7 @@
 
 	if(currently_tipped)
 		speech_to_pick_from = controller.blackboard[BB_WORRIED_ANNOUNCEMENTS]
-	else if(cover_flags & BOT_COVER_EMAGGED)
+	else if(cover_flags & BOT_COVER_EMAGGED || prob(5))
 		speech_to_pick_from = controller.blackboard[BB_EMAGGED_SPEECH]
 	else if(mode == BOT_IDLE)
 		speech_to_pick_from = controller.blackboard[BB_IDLE_SPEECH]
