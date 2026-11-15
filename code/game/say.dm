@@ -225,7 +225,8 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	message_data[SATA_RADIO_FREQ_COLOR]  = radio_freq_color
 	message_data[SATA_RADIO_FREQ_NAME]   = radio_freq_name
 	message_data[SATA_SPANS]             = islist(message_data[SATA_SPANS]) ? message_data[SATA_SPANS] | spans : spans
-
+	if(message_data[SATA_MESSAGE_HEARD_OVERRIDE])
+		raw_message = message_data[SATA_MESSAGE_HEARD]
 
 	//This proc uses [] because it is faster than continually appending strings. Thanks BYOND.
 	//Basic span
@@ -239,7 +240,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	//Radio freq/name display
 	var/freqpart = radio_freq ? "\[[get_radio_name(radio_freq, radio_freq_name)]\] " : ""
 	//Speaker name
-	var/namepart = speaker.get_message_voice(visible_name)
+	var/namepart = message_data[SATA_DISPLAYED_NAME] || speaker.get_message_voice(visible_name)
 
 	message_data[SATA_RADIO_TAG] = freqpart
 	message_data[SATA_BODY_SPAN_CLASS] = spanp1_class

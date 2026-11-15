@@ -35,6 +35,15 @@ SUBSYSTEM_DEF(narrative)
 	var/list/comfy_trackers = list()
 	var/spider_chance = 0
 	var/ratboy_chance = 0
+
+	var/list/banned_area_cache = list()
+
+	var/current_interference_level = 0
+	var/radio_blackout = FALSE
+	var/radios_need_update = FALSE
+	var/blackout_active_until = 0
+	var/blackout_cooldown_until = 0
+
 	var/phase_1_start = 0
 	var/phase_2_start = 30 MINUTES
 	var/phase_3_start = 1 HOURS
@@ -44,6 +53,8 @@ SUBSYSTEM_DEF(narrative)
 	var/phase_min = 1
 	var/phase_max = 6
 	var/phase_override = null
+
+	var/debug_radio_merger_lag = FALSE
 
 /datum/controller/subsystem/narrative/Initialize()
 	build_episode_list()
@@ -84,6 +95,23 @@ SUBSYSTEM_DEF(narrative)
 /datum/controller/subsystem/narrative/proc/GetRatboyChance()
 	return ratboy_chance
 
+/datum/controller/subsystem/narrative/proc/OnRadioMessageReceived(
+	atom/movable/hearer,
+	frequency,
+	list/data,
+	list/spans,
+	list/radio_data,
+	obj/item/radio/best_radio
+)
+	if(!current_episode)
+		return
+	if(!isliving(hearer))
+		return
+	var/mob/living/hearer_living = hearer
+	if(!hearer_living.client)
+		return
+	current_episode.OnRadioMessageReceived(hearer_living, frequency, data, spans, radio_data, best_radio)
+
 /datum/controller/subsystem/narrative/proc/get_round_phase(override)
 	var/round_phase = 1
 	if(!isnull(override))
@@ -106,6 +134,40 @@ SUBSYSTEM_DEF(narrative)
 			round_phase = 6
 	round_phase = clamp(round_phase, phase_min, phase_max)
 	return round_phase
+
+/datum/controller/subsystem/narrative/proc/typecache_banned_areas(flags)
+	if(LAZYLEN(SSnarrative.banned_area_cache["[flags]"]))
+		return // already there
+	SSnarrative.banned_area_cache["[flags]"] = list()
+	var/list/typecache_precum = list()
+	if(flags & NARRATIVE_AREA_FLAG_ERP_ZONES)
+		typecache_precum |= SIZE_WHITELISTED_AREAS
+	if(flags & NARRATIVE_AREA_FLAG_RUINS)
+		typecache_precum |= /area/ruin
+	if(flags & NARRATIVE_AREA_FLAG_SPACE)
+		typecache_precum |= /area/space
+	if(flags & NARRATIVE_AREA_FLAG_MAINTS)
+		typecache_precum |= /area/station/maintenance
+	if(flags & NARRATIVE_AREA_FLAG_ATMOS)
+		typecache_precum |= /area/station/engineering/atmos
+	SSnarrative.banned_area_cache["[flags]"] = typecacheof(typecache_precum)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

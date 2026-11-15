@@ -229,7 +229,16 @@
 /datum/episode/proc/main_event_fired(event)
 	main_event_status = 1
 
-
+/datum/episode/proc/OnRadioMessageReceived(
+	atom/movable/hearer,
+	frequency,
+	list/data,
+	list/spans,
+	list/radio_data,
+	obj/item/radio/best_radio
+)
+	for(var/datum/episode_thread/thr in event_threads)
+		thr.OnRadioMessageReceived(hearer, frequency, data, spans, radio_data, best_radio)
 
 
 

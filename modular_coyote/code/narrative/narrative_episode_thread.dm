@@ -46,3 +46,14 @@
 			continue
 		return event
 
+/datum/episode_thread/proc/OnRadioMessageReceived(
+	atom/movable/hearer,
+	frequency,
+	list/data,
+	list/spans,
+	list/radio_data,
+	obj/item/radio/best_radio
+)
+	var/datum/episode_event/currevent = get_current_event()
+	if(currevent)
+		currevent.OnRadioMessageReceived(hearer, frequency, data, spans, radio_data, best_radio)

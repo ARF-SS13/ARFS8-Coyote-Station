@@ -56,33 +56,55 @@
 
 	if(target)
 		severity = EXPLODE_LIGHT
+	var/scrape_amount = 0
+	var/hotspot = FALSE
+	var/breaktile = FALSE
+	var/spawn_metal = FALSE
+	var/lattice_replacement = FALSE
 
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
-			ScrapeAway(2, flags = CHANGETURF_INHERIT_AIR)
+			scrape_amount = 2
+			hotspot = TRUE
+			breaktile = TRUE
 		if(EXPLODE_HEAVY)
 			switch(rand(1, 3))
 				if(1)
 					if (!ispath(baseturf_at_depth(2), /turf/open/floor))
-						attempt_lattice_replacement()
+						lattice_replacement = TRUE
 					else
-						ScrapeAway(2, flags = CHANGETURF_INHERIT_AIR)
+						scrape_amount = 2
 					if(prob(33))
-						new /obj/item/stack/sheet/iron(src)
+						spawn_metal = TRUE
 				if(2)
-					ScrapeAway(2, flags = CHANGETURF_INHERIT_AIR)
+					scrape_amount = 2
 				if(3)
 					if(prob(80))
-						ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
+						scrape_amount = 1
 					else
-						break_tile()
-					hotspot_expose(1000,CELL_VOLUME)
+						breaktile = TRUE
+					hotspot = TRUE
 					if(prob(33))
-						new /obj/item/stack/sheet/iron(src)
+						spawn_metal = TRUE
 		if(EXPLODE_LIGHT)
 			if (prob(50))
-				src.break_tile()
-				src.hotspot_expose(1000,CELL_VOLUME)
+				breaktile = TRUE
+				hotspot = TRUE
+
+	if(explosion_no_breach && scrape_amount > 0)
+		var/turf/open/floor/T = baseturf_at_depth(scrape_amount)
+		if(T && isopenspaceturf(T))
+			scrape_amount = max(scrape_amount - 1, 0)
+	if(scrape_amount > 0)
+		ScrapeAway(scrape_amount, flags = CHANGETURF_INHERIT_AIR)
+	if(breaktile)
+		break_tile()
+	if(hotspot)
+		hotspot_expose(1000, CELL_VOLUME)
+	if(!explosion_no_breach && lattice_replacement)
+		attempt_lattice_replacement()
+	if(spawn_metal)
+		new /obj/item/stack/sheet/iron(src)
 
 	return FALSE
 

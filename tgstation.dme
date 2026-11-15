@@ -7082,6 +7082,8 @@
 #include "modular_coyote\code\narrative\sand_storm_ep\sand_storm_episode.dm"
 #include "modular_coyote\code\narrative\sand_storm_ep\sand_storm_event_customs.dm"
 #include "modular_coyote\code\narrative\sand_storm_ep\sand_storm_informations.dm"
+#include "modular_coyote\code\narrative\starevil_ep\starevil_customs.dm"
+#include "modular_coyote\code\narrative\starevil_ep\starevil_informations.dm"
 #include "modular_coyote\code\narrative\station_infestation_ep\station_infestation_episode.dm"
 #include "modular_coyote\code\narrative\station_infestation_ep\station_infestation_game_events.dm"
 #include "modular_coyote\code\narrative\station_infestation_ep\station_infestation_informations.dm"

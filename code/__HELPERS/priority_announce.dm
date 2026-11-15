@@ -248,19 +248,20 @@
 			preferred_announcer = SSstation.announcer
 
 		var/computed_sound = sound_override
-		if(!computed_sound)
-			computed_sound = preferred_announcer.get_rand_alert_sound()
-		else if(preferred_announcer.event_sounds[computed_sound])
-			var/list/announcer_key = preferred_announcer.event_sounds[computed_sound]
-			computed_sound = pick(announcer_key)
-		else if(computed_sound == ANNOUNCER_COMMAND_REPORT)
-			computed_sound = preferred_announcer.get_rand_report_sound()
-		else if(computed_sound == ANNOUNCER_RANDOM_WELCOME)
-			computed_sound = preferred_announcer.get_rand_welcome_sound()
+		if(!istype(computed_sound, /sound))
+			if(!computed_sound)
+				computed_sound = preferred_announcer.get_rand_alert_sound()
+			else if(preferred_announcer.event_sounds[computed_sound])
+				var/list/announcer_key = preferred_announcer.event_sounds[computed_sound]
+				computed_sound = pick(announcer_key)
+			else if(computed_sound == ANNOUNCER_COMMAND_REPORT)
+				computed_sound = preferred_announcer.get_rand_report_sound()
+			else if(computed_sound == ANNOUNCER_RANDOM_WELCOME)
+				computed_sound = preferred_announcer.get_rand_welcome_sound()
 
-		// couldnt find ANYTHING fallback please FALLBACK!!!
-		else if(GLOB.announcer_keys.Find(computed_sound) || computed_sound == ANNOUNCER_RANDOM_ALERT)
-			computed_sound = preferred_announcer.get_rand_alert_sound()
+			// couldnt find ANYTHING fallback please FALLBACK!!!
+			else if(GLOB.announcer_keys.Find(computed_sound) || computed_sound == ANNOUNCER_RANDOM_ALERT)
+				computed_sound = preferred_announcer.get_rand_alert_sound()
 
 		if(!isnull(computed_sound))
 			computed_sound = sound(computed_sound)
@@ -272,7 +273,7 @@
 			if(is_type_in_typecache(A, quiet_areas)) //These areas don't hear it as loudly
 				target.playsound_local(get_turf(target), sound_to_play, 30, FALSE)
 			else
-				target.playsound_local(get_turf(target), sound_to_play, 70, FALSE)
+				target.playsound_local(get_turf(target), sound_to_play, 45, FALSE)
 
 	// SPLUT EDIT CHANGE END
 		to_chat(target, announcement)

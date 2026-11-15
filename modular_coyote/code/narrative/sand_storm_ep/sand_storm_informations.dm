@@ -11,7 +11,7 @@
 	bridge_mail_sender = "Nix Isia, Delta-Shift Maintenance Lead"
 	bridge_mail_message = "\
 		Delta-Shift's maintenance check has been completed successfully, as per ARFS protocols. She's all yours!<br><br>\
-		It wasn't easy! Another comet hit Emma*, which ejected a shitload of debris into orbit, which pelted us for \
+		It wasn't easy! Another comet hit Elizabeth*, which ejected a shitload of debris into orbit, which pelted us for \
 		the greater part of the shift. It was a real mess, tore up the solar panels and nearly tore open the hull. \
 		Of course, nothing Delta-Shift can't handle! We fixed everything and swept up the dust, so whatever state the \
 		station ends up most certainly cannot be blamed on us!<br><br>\
@@ -19,9 +19,9 @@
 		your shift. Likely just a bunch of dust and sand, nothing too catastrophic, but it is still likely to cause a lot \
 		of damage to the station. Watch the windows and weaker walls closely during your shift!<br><br>\
 		Stay safe out there!<br><br><br>\
-		* The moon orbiting Elizabeth**<br>\
+		* The moon orbiting Emma**<br>\
 		** The planet we're both*** orbiting<br>\
-		*** This station and Emma*"
+		*** This station and Elizabeth*"
 
 /datum/episode_event/information/sand_storm_information/phase_1_part_2
 	unlock_phase = 1
@@ -33,7 +33,7 @@
 	station_announcement_sender = "GekkerTec Intrasystem Monitoring System"
 	station_announcement_message = "\
 		Attention crew, this is Arlo-VI with an astro-environmental update.\n\n\
-		Approximately 7 days ago, a comet impacted Emma, our host planet's moon. This collision ejected a significant \
+		Approximately 7 days ago, a comet impacted Elizabeth, our host planet's moon. This collision ejected a significant \
 		amount of debris into orbit, which as of a few days ago has been steadily intersecting the station's orbital path.\n\n\
 		Environmental sensors indicate that the debris is likely to continue intersecting the station's orbit for the \
 		forseeable future. Previous shifts have reported the debris composition to be primarily dust and small rocky fragments, \
@@ -130,7 +130,7 @@
 		You did well to navigate through this hazardous section of the debris field, continue to exercise caution as \
 		residual debris may still pose a threat to the station's external systems.\n\n\
 		-- Arlo-VI, Station Diagnostic Subpersona"
-	station_announcement_sound = ANNOUNCER_METEORS
+	station_announcement_sound = ANNOUNCER_COMMAND_REPORT
 	station_announcement_color = "blue"
 
 

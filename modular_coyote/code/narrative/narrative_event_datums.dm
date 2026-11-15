@@ -38,7 +38,8 @@
 	var/min_delay = 5 SECONDS
 	/// maximum delay, for events that can have a variable start time
 	var/max_delay = 10 SECONDS
-
+	/// banned areas, turns into a typecache
+	var/banned_area_flags = NARRATIVE_AREA_FLAG_ERP_ZONES | NARRATIVE_AREA_FLAG_RUINS
 
 /datum/episode_event/New(datum/episode/our_episode)
 	parent = our_episode
@@ -100,4 +101,27 @@
 /datum/episode_event/proc/get_cooldown()
 	var/delay = rand(min_cooldown, min_cooldown * 2)
 	return delay
+
+/datum/episode_event/proc/OnRadioMessageReceived(
+	atom/movable/hearer,
+	frequency,
+	list/data,
+	list/spans,
+	list/radio_data,
+	obj/item/radio/best_radio
+)
+	// Default implementation does nothing, meant to be overridden by specific events.
+	return
+
+/datum/episode_event/proc/is_in_banned_area(area/A, atom/thing)
+	if(!islist(SSnarrative.banned_area_cache["[banned_area_flags]"]))
+		SSnarrative.typecache_banned_areas(banned_area_flags)
+	if(!LAZYLEN(SSnarrative.banned_area_cache["[banned_area_flags]"]))
+		return FALSE
+	if(!isarea(A))
+		if(istype(thing))
+			A = get_area(thing)
+		if(!isarea(A))
+			return FALSE
+	return SSnarrative.banned_area_cache["[banned_area_flags]"][A]
 

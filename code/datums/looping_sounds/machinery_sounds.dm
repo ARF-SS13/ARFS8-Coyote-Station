@@ -222,3 +222,10 @@
 	)
 	mid_length = 5 SECONDS
 	volume = 50
+
+/datum/looping_sound/cme_existing
+	mid_sounds = list(
+		'modular_coyote/sounds/cme_event/bfg_fly.ogg',
+	)
+	mid_length = 3 SECONDS
+	volume = 50

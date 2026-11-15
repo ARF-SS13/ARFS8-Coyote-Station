@@ -210,7 +210,23 @@ ADMIN_VERB(check_bomb_impacts, R_DEBUG, "Check Bomb Impact", "See what the effec
  * - explosion_direction: The angle in which the explosion is pointed (for directional explosions.)
  * - explosion_arc: The angle of the arc covered by a directional explosion (if 360 the explosion is non-directional.)
  */
-/proc/explosion(atom/origin, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 0, flame_range = null, flash_range = null, adminlog = TRUE, ignorecap = FALSE, silent = FALSE, smoke = FALSE, protect_epicenter = FALSE, atom/explosion_cause = null, explosion_direction = 0, explosion_arc = 360)
+/proc/explosion(
+	atom/origin,
+	devastation_range = 0,
+	heavy_impact_range = 0,
+	light_impact_range = 0,
+	flame_range = null,
+	flash_range = null,
+	adminlog = TRUE,
+	ignorecap = FALSE,
+	silent = FALSE,
+	smoke = FALSE,
+	protect_epicenter = FALSE,
+	atom/explosion_cause = null,
+	explosion_direction = 0,
+	explosion_arc = 360,
+	explosion_no_breach = FALSE,
+)
 	. = SSexplosions.explode(arglist(args))
 
 
@@ -228,12 +244,29 @@ ADMIN_VERB(check_bomb_impacts, R_DEBUG, "Check Bomb Impact", "See what the effec
  * - flame_range: The range at which the explosion should produce hotspots.
  * - silent: Whether to generate/execute sound effects.
  * - smoke: Whether to generate a smoke cloud provided the explosion is powerful enough to warrant it.
+ * - explosion_no_breach: Whether the explosion should avoid breaching turfs. Defaults to FALSE.
  * - protect_epicenter: Whether to leave the epicenter turf unaffected by the explosion
  * - explosion_cause: [Optional] The atom that caused the explosion, when different to the origin. Used for logging.
  * - explosion_direction: The angle in which the explosion is pointed (for directional explosions.)
  * - explosion_arc: The angle of the arc covered by a directional explosion (if 360 the explosion is non-directional.)
  */
-/datum/controller/subsystem/explosions/proc/explode(atom/origin, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 0, flame_range = null, flash_range = null, adminlog = TRUE, ignorecap = FALSE, silent = FALSE, smoke = FALSE, protect_epicenter = FALSE, atom/explosion_cause = null, explosion_direction = 0, explosion_arc = 360)
+/datum/controller/subsystem/explosions/proc/explode(
+	atom/origin,
+	devastation_range = 0,
+	heavy_impact_range = 0,
+	light_impact_range = 0,
+	flame_range = null,
+	flash_range = null,
+	adminlog = TRUE,
+	ignorecap = FALSE,
+	silent = FALSE,
+	smoke = FALSE,
+	protect_epicenter = FALSE,
+	atom/explosion_cause = null,
+	explosion_direction = 0,
+	explosion_arc = 360,
+	explosion_no_breach = FALSE,
+)
 	var/list/arguments = list(
 		EXARG_KEY_ORIGIN = origin,
 		EXARG_KEY_DEV_RANGE = devastation_range,
@@ -297,7 +330,23 @@ ADMIN_VERB(check_bomb_impacts, R_DEBUG, "Check Bomb Impact", "See what the effec
  * - explosion_direction: The angle in which the explosion is pointed (for directional explosions.)
  * - explosion_arc: The angle of the arc covered by a directional explosion (if 360 the explosion is non-directional.)
  */
-/datum/controller/subsystem/explosions/proc/propagate_blastwave(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flame_range, flash_range, adminlog, ignorecap, silent, smoke, protect_epicenter, atom/explosion_cause, explosion_direction, explosion_arc)
+/datum/controller/subsystem/explosions/proc/propagate_blastwave(
+	atom/epicenter,
+	devastation_range,
+	heavy_impact_range,
+	light_impact_range,
+	flame_range,
+	flash_range,
+	adminlog,
+	ignorecap,
+	silent,
+	smoke,
+	protect_epicenter,
+	atom/explosion_cause,
+	explosion_direction,
+	explosion_arc,
+	explosion_no_breach = FALSE,
+)
 	epicenter = get_turf(epicenter)
 	if(!epicenter)
 		return
@@ -466,7 +515,7 @@ ADMIN_VERB(check_bomb_impacts, R_DEBUG, "Check Bomb Impact", "See what the effec
 		else
 			explode.explosion_throw_details = list(max_range - dist, epicenter, max_range, severity)
 			held_throwturf += explode
-
+		explode.explosion_no_breach = explode.explosion_no_breach || explosion_no_breach
 
 	var/took = (REALTIMEOFDAY - started_at) / 10
 
@@ -672,12 +721,15 @@ ADMIN_VERB(check_bomb_impacts, R_DEBUG, "Check Bomb Impact", "See what the effec
 
 	if(currentpart == SSEXPLOSIONS_TURFS)
 		currentpart = SSEXPLOSIONS_MOVABLES
+		var/list/to_un_breach = list()
 
 		timer = TICK_USAGE_REAL
 		var/list/low_turf = lowturf
 		lowturf = list()
 		for(var/thing in low_turf)
 			var/turf/turf_thing = thing
+			if(turf_thing.explosion_no_breach)
+				to_un_breach |= turf_thing
 			EX_ACT(turf_thing, EXPLODE_LIGHT)
 		cost_lowturf = MC_AVERAGE(cost_lowturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -686,6 +738,8 @@ ADMIN_VERB(check_bomb_impacts, R_DEBUG, "Check Bomb Impact", "See what the effec
 		medturf = list()
 		for(var/thing in med_turf)
 			var/turf/turf_thing = thing
+			if(turf_thing.explosion_no_breach)
+				to_un_breach |= turf_thing
 			EX_ACT(turf_thing, EXPLODE_HEAVY)
 		cost_medturf = MC_AVERAGE(cost_medturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
@@ -694,8 +748,13 @@ ADMIN_VERB(check_bomb_impacts, R_DEBUG, "Check Bomb Impact", "See what the effec
 		highturf = list()
 		for(var/thing in high_turf)
 			var/turf/turf_thing = thing
+			if(turf_thing.explosion_no_breach)
+				to_un_breach |= turf_thing
 			EX_ACT(turf_thing, EXPLODE_DEVASTATE)
 		cost_highturf = MC_AVERAGE(cost_highturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
+
+		for(var/turf/t in to_un_breach)
+			t.explosion_no_breach = FALSE
 
 		timer = TICK_USAGE_REAL
 		var/list/flame_turf = flameturf
