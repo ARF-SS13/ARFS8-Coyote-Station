@@ -82,7 +82,7 @@
 	head = /obj/item/clothing/head/soft/black
 	shoes = /obj/item/clothing/shoes/laceup
 	l_pocket = /obj/item/modular_computer/pda/bridge_assistant
-	r_pocket = /obj/item/gun/energy/e_gun/mini
+	r_pocket = /obj/item/melee/baton/telescopic/bronze
 	pda_slot = ITEM_SLOT_LPOCKET
 
 // Coffeemaker time!
