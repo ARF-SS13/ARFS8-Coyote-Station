@@ -34,7 +34,7 @@
 	if(retaining_thing)
 		var/damage_would_break = (atom_integrity - damage2do) <= 0
 		if(damage_would_break)
-			damage2do = damage2do - (atom_integrity * 0.5)
+			damage2do = atom_integrity * 0.5
 	if(damage2do > 0)
 		take_damage(damage2do, BRUTE, BOMB, TRUE)
 	return TRUE

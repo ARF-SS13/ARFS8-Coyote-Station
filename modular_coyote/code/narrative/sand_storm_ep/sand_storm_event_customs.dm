@@ -1,7 +1,6 @@
 #define WINDOW_BASE_HEALTH 150
 GLOBAL_VAR(meteor_direction)
-/datum/episode_event/meteors
-	event = null
+/datum/episode_event/threadded/meteors
 	var/next_meteor = 0
 	var/meteor_interval_min = 1 MINUTES
 	var/meteor_interval_max = 5 MINUTES
@@ -11,8 +10,9 @@ GLOBAL_VAR(meteor_direction)
 	var/list/meteor_types = list(
 		/obj/effect/meteor/episode/dust = 10,
 	)
+	var/list/meteor_timers = list()
 
-/datum/episode_event/meteors/run_event(force, delay)
+/datum/episode_event/threadded/meteors/run_event(force, delay)
 	if(!LAZYLEN(meteor_types))
 		return FALSE
 	if(!force && next_meteor > world.time)
@@ -26,12 +26,11 @@ GLOBAL_VAR(meteor_direction)
 	for(var/i in 1 to number_of_meteors)
 		curr += timespread
 		var/meteor = pick_weight_take(meteor_types)
-		spawn_meteor_episode(meteor, curr, center_of_mass)
+		meteor_timers += spawn_meteor_episode(meteor, curr, center_of_mass)
 	next_meteor = world.time + dley
-	if(is_finished(force))
-		finished = TRUE
+	return TRUE
 
-/datum/episode_event/meteors/is_finished(force)
+/datum/episode_event/threadded/meteors/is_finished(force)
 	. = ..()
 	if(.)
 		return TRUE
@@ -39,7 +38,12 @@ GLOBAL_VAR(meteor_direction)
 		if(meteor_types[meteor_type] > 0)
 			return FALSE
 	return TRUE
-/datum/episode_event/meteors/phase_1
+
+/datum/episode_event/threadded/meteors/on_finished(force)
+	for(var/timer in meteor_timers)
+		deltimer(timer)
+
+/datum/episode_event/threadded/meteors/phase_1
 	unlock_phase = 1
 	end_phase = 1
 	min_meteors = 2
@@ -47,23 +51,23 @@ GLOBAL_VAR(meteor_direction)
 	meteor_interval_min = 10 MINUTES
 	meteor_interval_max = 15 MINUTES
 
-/datum/episode_event/meteors/phase_1/dust
+/datum/episode_event/threadded/meteors/phase_1/dust
 	meteor_types = list(
 		/obj/effect/meteor/episode/dust = 4,
 	)
 
-/datum/episode_event/meteors/phase_1/sand
+/datum/episode_event/threadded/meteors/phase_1/sand
 	meteor_types = list(
 		/obj/effect/meteor/episode/sand = 2,
 	)
 
-/datum/episode_event/meteors/phase_2
+/datum/episode_event/threadded/meteors/phase_2
 	unlock_phase = 2
 	end_phase = 2
 	meteor_interval_min = 5 MINUTES
 	meteor_interval_max = 15 MINUTES
 
-/datum/episode_event/meteors/phase_2/dust
+/datum/episode_event/threadded/meteors/phase_2/dust
 	min_meteors = 4
 	max_meteors = 7
 	meteor_types = list(
@@ -71,7 +75,7 @@ GLOBAL_VAR(meteor_direction)
 		/obj/effect/meteor/episode/dust/rich = 20,
 	)
 
-/datum/episode_event/meteors/phase_2/sand
+/datum/episode_event/threadded/meteors/phase_2/sand
 	min_meteors = 2
 	max_meteors = 3
 	meteor_types = list(
@@ -79,13 +83,13 @@ GLOBAL_VAR(meteor_direction)
 		/obj/effect/meteor/episode/sand/rich = 20,
 	)
 
-/datum/episode_event/meteors/phase_3
+/datum/episode_event/threadded/meteors/phase_3
 	unlock_phase = 3
 	end_phase = 3
 	meteor_interval_min = 5 MINUTES
 	meteor_interval_max = 15 MINUTES
 
-/datum/episode_event/meteors/phase_3/dust
+/datum/episode_event/threadded/meteors/phase_3/dust
 	min_meteors = 6
 	max_meteors = 7 // 6 7 (jiggles boobs)
 	meteor_types = list(
@@ -93,7 +97,7 @@ GLOBAL_VAR(meteor_direction)
 		/obj/effect/meteor/episode/dust/rich = 20,
 	)
 
-/datum/episode_event/meteors/phase_3/sand
+/datum/episode_event/threadded/meteors/phase_3/sand
 	min_meteors = 2
 	max_meteors = 3
 	meteor_types = list(
@@ -102,13 +106,13 @@ GLOBAL_VAR(meteor_direction)
 	)
 
 // phase 4, let them have it
-/datum/episode_event/meteors/phase_4
+/datum/episode_event/threadded/meteors/phase_4
 	unlock_phase = 4
 	end_phase = 4
 	meteor_interval_min = 2 MINUTES
 	meteor_interval_max = 7 MINUTES
 
-/datum/episode_event/meteors/phase_4/dust
+/datum/episode_event/threadded/meteors/phase_4/dust
 	min_meteors = 10
 	max_meteors = 15
 	meteor_types = list(
@@ -117,7 +121,7 @@ GLOBAL_VAR(meteor_direction)
 		/obj/effect/meteor/episode/dust/resource = 50,
 	)
 
-/datum/episode_event/meteors/phase_4/sand
+/datum/episode_event/threadded/meteors/phase_4/sand
 	min_meteors = 5
 	max_meteors = 7
 	meteor_types = list(
@@ -127,7 +131,7 @@ GLOBAL_VAR(meteor_direction)
 	)
 
 // some sporadic meteors for the hard episode
-/datum/episode_event/meteors/phase_4/meteor
+/datum/episode_event/threadded/meteors/phase_4/meteor
 	min_meteors = 1
 	max_meteors = 2
 	center_of_mass = TRUE
@@ -136,20 +140,20 @@ GLOBAL_VAR(meteor_direction)
 		/obj/effect/meteor/episode/meteor/mean = 10,
 	)
 
-/datum/episode_event/meteors/phase_4/meteor/easy
+/datum/episode_event/threadded/meteors/phase_4/meteor/easy
 	min_meteors = 1
 	max_meteors = 1
 	meteor_types = list(
 		/obj/effect/meteor/episode/meteor = 10,
 	)
 
-/datum/episode_event/meteors/phase_5
+/datum/episode_event/threadded/meteors/phase_5
 	unlock_phase = 5
 	end_phase = 5
 	meteor_interval_min = 10 MINUTES
 	meteor_interval_max = 10 MINUTES
 
-/datum/episode_event/meteors/phase_5/dust
+/datum/episode_event/threadded/meteors/phase_5/dust
 	min_meteors = 3
 	max_meteors = 4
 	meteor_types = list(
@@ -157,7 +161,7 @@ GLOBAL_VAR(meteor_direction)
 		/obj/effect/meteor/episode/dust/rich = 50,
 	)
 
-/datum/episode_event/meteors/phase_5/sand
+/datum/episode_event/threadded/meteors/phase_5/sand
 	min_meteors = 1
 	max_meteors = 1
 	meteor_types = list(
@@ -165,13 +169,13 @@ GLOBAL_VAR(meteor_direction)
 		/obj/effect/meteor/episode/sand/rich = 50,
 	)
 
-/datum/episode_event/meteors/phase_6
+/datum/episode_event/threadded/meteors/phase_6
 	unlock_phase = 6
 	end_phase = 6
 	meteor_interval_min = 10 MINUTES
 	meteor_interval_max = 10 MINUTES
 
-/datum/episode_event/meteors/phase_6/dust
+/datum/episode_event/threadded/meteors/phase_6/dust
 	min_meteors = 1
 	max_meteors = 2
 	meteor_types = list(
@@ -179,7 +183,7 @@ GLOBAL_VAR(meteor_direction)
 		/obj/effect/meteor/episode/dust/rich = 50,
 	)
 
-/datum/episode_event/meteors/phase_6/sand
+/datum/episode_event/threadded/meteors/phase_6/sand
 	min_meteors = 2
 	max_meteors = 3
 	meteor_types = list(
@@ -187,13 +191,13 @@ GLOBAL_VAR(meteor_direction)
 		/obj/effect/meteor/episode/sand/rich = 50,
 	)
 
-/datum/episode_event/meteors/dust/resource
+/datum/episode_event/threadded/meteors/dust/resource
 	min_meteors = 2
 	max_meteors = 2
 	meteor_types = list(
 		/obj/effect/meteor/episode/dust/resource = 100,
 	)
-/datum/episode_event/meteors/sand/resource
+/datum/episode_event/threadded/meteors/sand/resource
 	min_meteors = 1
 	max_meteors = 1
 	meteor_types = list(

@@ -60,6 +60,8 @@
 
 		handle_gravity(seconds_per_tick)
 
+		handle_narrative_effects(seconds_per_tick)
+
 	if(living_flags & QUEUE_NUTRITION_UPDATE)
 		update_nutrition()
 		living_flags &= ~QUEUE_NUTRITION_UPDATE
@@ -131,6 +133,9 @@
 /mob/living/proc/handle_gravity(seconds_per_tick)
 	if(gravity_state > STANDARD_GRAVITY)
 		handle_high_gravity(gravity_state, seconds_per_tick)
+
+/mob/living/proc/handle_narrative_effects(seconds_per_tick)
+	SSnarrative.handle_life_effects(src, seconds_per_tick)
 
 /mob/living/proc/gravity_animate()
 	if(!get_filter("gravity"))

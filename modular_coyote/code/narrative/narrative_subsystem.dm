@@ -31,12 +31,18 @@ SUBSYSTEM_DEF(narrative)
 	var/list/all_episodes = list()
 	var/list/potential_episodes = list()
 	var/datum/episode/current_episode = null
+	var/datum/episode/forced_episode = /datum/episode/starevil
 	// so people who are fucking each other's brains out wont count towards the pop
 	var/list/comfy_trackers = list()
 	var/spider_chance = 0
 	var/ratboy_chance = 0
 
 	var/list/banned_area_cache = list()
+
+	var/anonymize_chance = 0
+	var/word_corruption_chance = 0
+	var/letter_corruption_chance = 0
+	var/letter_light_corruption_chance = 0
 
 	var/current_interference_level = 0
 	var/radio_blackout = FALSE
@@ -54,7 +60,7 @@ SUBSYSTEM_DEF(narrative)
 	var/phase_max = 6
 	var/phase_override = null
 
-	var/debug_radio_merger_lag = FALSE
+	var/debug_radio_merger_lag = TRUE
 
 /datum/controller/subsystem/narrative/Initialize()
 	build_episode_list()
@@ -75,13 +81,17 @@ SUBSYSTEM_DEF(narrative)
 	current_episode.fire()
 
 /datum/controller/subsystem/narrative/proc/build_episode_list()
-	// for(var/datum/episode/ep as anything in subtypesof(/datum/episode))
-	// 	all_episodes += new ep()
-	all_episodes += new /datum/episode/sand_storm()
+	for(var/datum/episode/ep as anything in subtypesof(/datum/episode))
+		all_episodes += new ep()
 
 /// spends the first couple minutes of the round checking the player count and such for
 /// which episodes may be a good idea to do. or just picks one at random cus i gotta get this damn thing done at some point
 /datum/controller/subsystem/narrative/proc/check_tv_guide()
+	if(forced_episode)
+		for(var/datum/episode/ep as anything in all_episodes)
+			if(ep.type == forced_episode::type)
+				current_episode = ep
+				return
 	if(LAZYLEN(all_episodes))
 		current_episode = pick(all_episodes)
 	else
@@ -94,6 +104,18 @@ SUBSYSTEM_DEF(narrative)
 
 /datum/controller/subsystem/narrative/proc/GetRatboyChance()
 	return ratboy_chance
+
+/datum/controller/subsystem/narrative/proc/get_episode_title(capspls)
+	if(current_episode)
+		if(capspls)
+			return uppertext(current_episode.name)
+		return current_episode.name
+	return null
+
+/datum/controller/subsystem/narrative/proc/handle_life_effects(mob/living/them, seconds_per_tick)
+	if(!current_episode)
+		return
+	current_episode.handle_life_effects(them, seconds_per_tick)
 
 /datum/controller/subsystem/narrative/proc/OnRadioMessageReceived(
 	atom/movable/hearer,

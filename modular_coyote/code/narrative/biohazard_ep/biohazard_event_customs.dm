@@ -1,17 +1,17 @@
 
-/datum/episode_event/biohazard_vent_spew
+/datum/episode_event/threadded/biohazard_vent_spew
 	event = /datum/round_event_control/scrubber_overflow
 	weight = 5
 	unlock_phase = 2
 	end_phase = 6
 
-/datum/episode_event/scrubber_overflow_catastrophic/biohazard
+/datum/episode_event/threadded/scrubber_overflow_catastrophic/biohazard
 	event = /datum/round_event_control/scrubber_overflow/catastrophic
 
-/datum/episode_event/scrubber_overflow_every_vent/biohazard
+/datum/episode_event/threadded/scrubber_overflow_every_vent/biohazard
 	event = /datum/round_event_control/scrubber_overflow/every_vent
 
-/datum/episode_event/scrubber_overflow_threatening/biohazard
+/datum/episode_event/threadded/scrubber_overflow_threatening/biohazard
 	event = /datum/round_event_control/scrubber_overflow/threatening
 
 

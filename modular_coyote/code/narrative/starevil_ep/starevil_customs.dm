@@ -4,7 +4,7 @@
 // - Anonymize the sender of radio transmissions
 // - Replace parts of words with staticky noise
 // - complete blackout
-/datum/episode_event/radio_interference
+/datum/episode_event/threadded/radio_interference // for the love of all that is hunkydory, only have one of tghese active at a time! though im not your mom and you can do whatever you want
 	event = null
 	// per-sendage probabilities for different types of interference
 	// in percent
@@ -21,12 +21,13 @@
 	var/blackout_min_cooldown = 0
 	var/blackout_max_cooldown = 0
 
-/datum/episode_event/radio_interference/run_event(force, delay)
+/datum/episode_event/threadded/radio_interference/run_event(force, delay)
 	update_current_interference_level()
 	update_blackout_status()
 	update_radios()
+	return TRUE
 
-/datum/episode_event/radio_interference/OnRadioMessageReceived(
+/datum/episode_event/threadded/radio_interference/OnRadioMessageReceived(
 	mob/living/hearer,
 	frequency,
 	list/data,
@@ -54,7 +55,7 @@
 		blackout = SSnarrative.radio_blackout
 		)
 
-/datum/episode_event/radio_interference/proc/blackout(list/radio_data)
+/datum/episode_event/threadded/radio_interference/proc/blackout(list/radio_data)
 	if(SSnarrative.blackout_active_until < world.time)
 		return FALSE
 	// bluckedout!
@@ -62,7 +63,7 @@
 	cool_radio_scramble(radio_data, 100, 100, 100, 100, radio_data, force = TRUE, blackout = TRUE)
 	return TRUE
 
-/datum/episode_event/radio_interference/proc/anonymize(list/radio_data, force = FALSE, blackout = FALSE)
+/datum/episode_event/threadded/radio_interference/proc/anonymize(list/radio_data, force = FALSE, blackout = FALSE)
 	if(!prob(anonymize_chance) && !force && !blackout)
 		return
 	var/static/list/anonynames = list(
@@ -80,7 +81,7 @@
 	radio_data[SATA_DISPLAYED_NAME] = anonyname
 	return TRUE
 
-/datum/episode_event/radio_interference/proc/try_run_blackout()
+/datum/episode_event/threadded/radio_interference/proc/try_run_blackout()
 	if(SSnarrative.blackout_active_until > world.time)
 		return
 	if(SSnarrative.blackout_cooldown_until > world.time)
@@ -94,19 +95,23 @@
 	SSnarrative.blackout_cooldown_until = world.time + blackout_cooldown_dur
 	SSnarrative.radios_need_update = TRUE
 
-/datum/episode_event/radio_interference/proc/update_current_interference_level()
+/datum/episode_event/threadded/radio_interference/proc/update_current_interference_level()
+	SSnarrative.anonymize_chance = anonymize_chance
+	SSnarrative.word_corruption_chance = word_corruption_chance
+	SSnarrative.letter_corruption_chance = letter_corruption_chance
+	SSnarrative.letter_light_corruption_chance = letter_light_corruption_chance
 	if(SSnarrative.current_interference_level != interference_level)
 		SSnarrative.radios_need_update = TRUE
 	SSnarrative.current_interference_level = interference_level
 
-/datum/episode_event/radio_interference/proc/update_blackout_status()
+/datum/episode_event/threadded/radio_interference/proc/update_blackout_status()
 	try_run_blackout()
 	var/am_blout = SSnarrative.blackout_active_until > world.time
 	if(SSnarrative.radio_blackout != am_blout)
 		SSnarrative.radios_need_update = TRUE
 	SSnarrative.radio_blackout = am_blout
 
-/datum/episode_event/radio_interference/proc/update_radios(force = FALSE)
+/datum/episode_event/threadded/radio_interference/proc/update_radios(force = FALSE)
 	if(!SSnarrative.radios_need_update)
 		return
 	SSnarrative.radios_need_update = FALSE
@@ -114,7 +119,7 @@
 	for(var/obj/item/radio/rad as anything in radios)
 		rad.update_interference()
 
-/datum/episode_event/radio_interference/proc/get_every_fucking_radio()
+/datum/episode_event/threadded/radio_interference/proc/get_every_fucking_radio()
 	var/list/radios = list()
 	if(SSnarrative.debug_radio_merger_lag)
 		rustg_time_reset("radil_mergar_lage")
@@ -126,7 +131,7 @@
 	return radios
 
 
-/datum/episode_event/radio_interference/starevil/phase_1
+/datum/episode_event/threadded/radio_interference/starevil/phase_1
 	unlock_phase = 1
 	end_phase = 1
 	anonymize_chance = 0
@@ -141,13 +146,13 @@
 	blackout_min_cooldown = 0
 	blackout_max_cooldown = 0
 
-/datum/episode_event/radio_interference/starevil/phase_2
+/datum/episode_event/threadded/radio_interference/starevil/phase_2
 	unlock_phase = 2
 	end_phase = 2
 	anonymize_chance = 0
-	corruption_chance = 5
-	word_corruption_chance = 2
-	letter_corruption_chance = 10
+	corruption_chance = 100
+	word_corruption_chance = 1
+	letter_corruption_chance = 4
 	letter_light_corruption_chance = 100
 	interference_level = 1
 	blackout_chance = 0
@@ -156,13 +161,13 @@
 	blackout_min_cooldown = 0
 	blackout_max_cooldown = 0
 
-/datum/episode_event/radio_interference/starevil/phase_3
+/datum/episode_event/threadded/radio_interference/starevil/phase_3
 	unlock_phase = 3
 	end_phase = 3
-	anonymize_chance = 10
-	corruption_chance = 10
+	anonymize_chance = 25
+	corruption_chance = 100
 	word_corruption_chance = 5
-	letter_corruption_chance = 15
+	letter_corruption_chance = 10
 	letter_light_corruption_chance = 100
 	interference_level = 1
 	blackout_chance = 2
@@ -171,13 +176,13 @@
 	blackout_min_cooldown = 20 SECONDS
 	blackout_max_cooldown = 40 SECONDS
 
-/datum/episode_event/radio_interference/starevil/phase_4
+/datum/episode_event/threadded/radio_interference/starevil/phase_4
 	unlock_phase = 4
 	end_phase = 4
 	anonymize_chance = 50
-	corruption_chance = 50
+	corruption_chance = 100
 	word_corruption_chance = 10
-	letter_corruption_chance = 50
+	letter_corruption_chance = 80
 	letter_light_corruption_chance = 50
 	interference_level = 3
 	blackout_chance = 5
@@ -186,7 +191,7 @@
 	blackout_min_cooldown = 20 SECONDS
 	blackout_max_cooldown = 30 SECONDS
 
-/datum/episode_event/radio_interference/starevil/phase_5
+/datum/episode_event/threadded/radio_interference/starevil/phase_5
 	unlock_phase = 5
 	end_phase = 5
 	anonymize_chance = 0
@@ -197,7 +202,7 @@
 	interference_level = 1
 	blackout_chance = 0
 
-/datum/episode_event/radio_interference/starevil/phase_6
+/datum/episode_event/threadded/radio_interference/starevil/phase_6
 	unlock_phase = 6
 	end_phase = 6
 	anonymize_chance = 0
@@ -209,14 +214,14 @@
 	blackout_chance = 0
 
 // lightfucker pro
-/datum/episode_event/lightfucker_pro
+/datum/episode_event/threadded/lightfucker_pro
 	event = null
 	var/max_infected_lights = 0
 	var/next_infect = 0
 	var/min_infect_cooldown = 0
 	var/max_infect_cooldown = 0
 
-/datum/episode_event/lightfucker_pro/run_event(force, delay)
+/datum/episode_event/threadded/lightfucker_pro/run_event(force, delay)
 	if(max_infected_lights <= 0)
 		return
 	if(next_infect == 0)
@@ -243,13 +248,24 @@
 		L.set_overloading(TRUE)
 		did = L
 		break
+	return TRUE
 
-/datum/episode_event/lightfucker_pro/starevil/phase_1
+/datum/episode_event/threadded/lightfucker_pro/is_finished(phase)
+	. = ..()
+	if(.)
+		return TRUE
+	if(max_infected_lights <= 0)
+		return TRUE
+	if(LAZYLEN(SSmachines.overloading_lights) >= max_infected_lights)
+		return TRUE
+	return FALSE
+
+/datum/episode_event/threadded/lightfucker_pro/starevil/phase_1
 	unlock_phase = 1
 	end_phase = 1
 	max_infected_lights = 0
 
-/datum/episode_event/lightfucker_pro/starevil/phase_2
+/datum/episode_event/threadded/lightfucker_pro/starevil/phase_2
 	unlock_phase = 2
 	end_phase = 2
 	max_infected_lights = 1
@@ -257,7 +273,7 @@
 	min_infect_cooldown = 10 SECONDS
 	max_infect_cooldown = 30 SECONDS
 
-/datum/episode_event/lightfucker_pro/starevil/phase_3
+/datum/episode_event/threadded/lightfucker_pro/starevil/phase_3
 	unlock_phase = 3
 	end_phase = 3
 	max_infected_lights = 3
@@ -265,7 +281,7 @@
 	min_infect_cooldown = 5 MINUTES
 	max_infect_cooldown = 10 MINUTES
 
-/datum/episode_event/lightfucker_pro/starevil/phase_4
+/datum/episode_event/threadded/lightfucker_pro/starevil/phase_4
 	unlock_phase = 4
 	end_phase = 4
 	max_infected_lights = 20
@@ -273,7 +289,7 @@
 	min_infect_cooldown = 2 MINUTES
 	max_infect_cooldown = 5 MINUTES
 
-/datum/episode_event/lightfucker_pro/starevil/phase_5
+/datum/episode_event/threadded/lightfucker_pro/starevil/phase_5
 	unlock_phase = 5
 	end_phase = 5
 	max_infected_lights = 1
@@ -281,7 +297,7 @@
 	min_infect_cooldown = 1 MINUTES
 	max_infect_cooldown = 3 MINUTES
 
-/datum/episode_event/lightfucker_pro/starevil/phase_6
+/datum/episode_event/threadded/lightfucker_pro/starevil/phase_6
 	unlock_phase = 6
 	end_phase = 6
 	max_infected_lights = 0
@@ -290,7 +306,7 @@
 	max_infect_cooldown = 3 MINUTES
 
 /// CORONAL MASS EJECTION EPISODE EVENT YEAH BUDDY
-/datum/episode_event/coronal_mass_ejection
+/datum/episode_event/threadded/coronal_mass_ejection
 	event = null
 	banned_area_flags = parent_type::banned_area_flags | NARRATIVE_AREA_FLAG_SPACE | NARRATIVE_AREA_FLAG_MAINTS | NARRATIVE_AREA_FLAG_ATMOS
 	var/list/cme_stock = list()
@@ -300,7 +316,7 @@
 	var/min_cme_spawns_per_fire = 1
 	var/max_cme_spawns_per_fire = 1
 
-/datum/episode_event/coronal_mass_ejection/run_event(force, delay)
+/datum/episode_event/threadded/coronal_mass_ejection/run_event(force, delay)
 	if(!LAZYLEN(cme_stock))
 		return
 	if(next_cme_strike == 0)
@@ -308,12 +324,21 @@
 	if(world.time < next_cme_strike)
 		return
 	next_cme_strike = world.time + rand(min_cme_cooldown, max_cme_cooldown)
+	// Adjust the CME time, based on how messed up the radio communication is
+	// cus these can cause some serious damage if not found, and the announcement is kinda important
+	var/extramod = 1
+	if(SSnarrative.radio_blackout)
+		extramod += 1.5
+	if(SSnarrative.word_corruption_chance > 5)
+		extramod += 1
+	if(SSnarrative.letter_corruption_chance > 50)
+		extramod += 1
 	// pick a CME
 	var/num2spawn = rand(min_cme_spawns_per_fire, max_cme_spawns_per_fire)
 	var/list/spawned = list()
 	for(var/i in 1 to num2spawn)
 		var/obj/effect/cme/C = pick_weight_take(cme_stock)
-		if(!istype(C))
+		if(!ispath(C))
 			break
 		var/tries = 5
 		while(tries)
@@ -321,7 +346,7 @@
 			var/turf/T = get_safe_random_station_turf_equal_weight()
 			if(!isopenturf(T) || is_in_banned_area(get_area(T), T))
 				continue
-			new C(T, (1 + (num2spawn * 0.5)))
+			new C(T, (1 + (num2spawn * 0.5) + (extramod - 1)))
 			spawned += C
 			break
 	// alert the crew!
@@ -348,9 +373,27 @@
 		message += "Consult Research for anomaly neutralization devices!"
 		message += "Warning: Be alert for fires, extreme heat, and electrical discharges in affected areas!"
 		message += "-- Fuzzy Foxxo, Station Diagnostic Subpersona"
-		minor_announce(message.Join("\n"), "ARFS Diagnostics Update", sound_override = sound('modular_skyrat/modules/cme/sound/cme_warning.ogg'))
+		var/messtring = message.Join("\n")
+		messtring = cool_radio_scramble(
+			messtring,
+			100,
+			SSnarrative.word_corruption_chance,
+			SSnarrative.letter_corruption_chance,
+			SSnarrative.letter_light_corruption_chance
+		)
+		minor_announce(messtring, "ARFS Diagnostics Update", sound_override = sound('modular_skyrat/modules/cme/sound/cme_warning.ogg', volume = 40))
+	return TRUE
 
-/datum/episode_event/coronal_mass_ejection/starevil/phase3
+/datum/episode_event/threadded/coronal_mass_ejection/starevil/is_finished(force)
+	. = ..()
+	if(.)
+		return TRUE
+	for(var/C in cme_stock)
+		if(cme_stock[C] > 0)
+			return FALSE
+	return TRUE
+
+/datum/episode_event/threadded/coronal_mass_ejection/starevil/phase3
 	unlock_phase = 3
 	end_phase = 3
 	cme_stock = list(
@@ -361,7 +404,7 @@
 	min_cme_spawns_per_fire = 1
 	max_cme_spawns_per_fire = 1
 
-/datum/episode_event/coronal_mass_ejection/starevil/phase4
+/datum/episode_event/threadded/coronal_mass_ejection/starevil/phase4
 	unlock_phase = 4
 	end_phase = 4
 	cme_stock = list(
@@ -375,7 +418,7 @@
 	min_cme_spawns_per_fire = 1
 	max_cme_spawns_per_fire = 3
 
-/datum/episode_event/coronal_mass_ejection/starevil/phase5
+/datum/episode_event/threadded/coronal_mass_ejection/starevil/phase5
 	unlock_phase = 5
 	end_phase = 5
 	cme_stock = list(
@@ -387,8 +430,240 @@
 	min_cme_spawns_per_fire = 1
 	max_cme_spawns_per_fire = 1
 
+/// makes space painful
+/datum/episode_event/threadded/make_space_painful
+	event = null
+	does_life_effects = TRUE
+	var/does_damage
+	var/brute_armor = MELEE
+	var/min_brute_dps = 0
+	var/max_brute_dps = 0
+	var/fire_armor = FIRE
+	var/min_burn_dps = 0
+	var/max_burn_dps = 0
+	var/burn_temperature = PLASMA_UPPER_TEMPERATURE
+	var/min_tox_dps = 0
+	var/max_tox_dps = 0
+	var/tox_armor = BIO
+	var/tox_respects_toxinlovers = TRUE
+	var/damage_chance = 0
+	/// if not null, stop applying damage when this object is damaged
+	/// otherwise, check the mobs stat
+	var/stop_hurting_when_this_damaged
+	var/alist/valid_stats = alist(
+		CONSCIOUS = TRUE,
+		SOFT_CRIT = TRUE,
+		HARD_CRIT = TRUE,
+	)
+	var/fire_stack = 0
+	var/max_fire_stack = 5
+	var/min_temp_change = 0
+	var/max_temp_change = 0
+	var/list/damage_messages = list()
+	var/list/fire_messages = list()
+	var/list/sounds = list()
+
+/datum/episode_event/threadded/make_space_painful/do_life_effects(mob/living/liver, seconds_per_tick)
+	if(!isliving(liver) || !damage_chance)
+		return
+	// are they outside?
+	var/turf/T = get_turf(liver)
+	if(!isspaceturf(T))
+		var/area/A = T.loc
+		if(!istype(A, /area/space))
+			return // not in space, probably
+	if(!prob(damage_chance))
+		return
+	// damage sector
+	// too messed up?
+	if(isnull(stop_hurting_when_this_damaged))
+		if(!valid_stats[liver.stat])
+			return // stat aint in the thin gwe want to be
+	else
+		var/hurtedness = liver.get_total_damage()
+		if(hurtedness >= stop_hurting_when_this_damaged)
+			return
+	// okay mess em up!
+	var/did_something = FALSE
+	var/space_suited = liver.calculate_affecting_pressure(0) >= (ONE_ATMOSPHERE * 0.9)
+	var/uninsulation = 1
+	if(iscarbon(liver))
+		var/mob/living/carbon/carbor = liver
+		uninsulation -= carbor.get_insulation_protection(burn_temperature) || 0
+	if(does_damage())
+		var/brute_dps = rand(min_brute_dps, max_brute_dps)
+		var/burn_dps = rand(min_burn_dps, max_burn_dps)
+		var/tox_dps = rand(min_tox_dps, max_tox_dps)
+		var/overall_mult = 1
+		if(space_suited)
+			overall_mult *= 0.5
+		burn_dps *= max(uninsulation, 0.05)
+		// and the individual type multipliers for armor
+		var/brute_armor_mult = 1
+		var/burn_armor_mult = 1
+		var/tox_armor_mult = 1
+		if(brute_dps > 0)
+			brute_armor_mult = 100 - liver.run_armor_check(
+				def_zone = null,
+				attack_flag = brute_armor,
+				silent=TRUE,
+			)
+		if(burn_dps > 0)
+			burn_armor_mult = 100 - liver.run_armor_check(
+				def_zone = null,
+				attack_flag = fire_armor,
+				silent=TRUE,
+			)
+		if(tox_dps > 0)
+			tox_armor_mult = 100 - liver.run_armor_check(
+				def_zone = null,
+				attack_flag = tox_armor,
+				silent=TRUE,
+			)
+		brute_dps *= (brute_armor_mult / 100) * overall_mult * seconds_per_tick
+		burn_dps *= (burn_armor_mult / 100) * overall_mult * seconds_per_tick
+		tox_dps *= (tox_armor_mult / 100) * overall_mult * seconds_per_tick
+		if(!tox_respects_toxinlovers && HAS_TRAIT(liver, TRAIT_TOXINLOVER))
+			tox_dps *= -1 // basically ignoring toxinlover
+		if(brute_dps || burn_dps || tox_dps)
+			did_something = TRUE
+			liver.take_overall_damage(
+				brute_dps,
+				burn_dps,
+			)
+			liver.adjust_tox_loss(tox_dps)
+	// fire them!
+	if(fire_stack)
+		var/litaf = liver.on_fire
+		liver.adjust_fire_stacks(fire_stack, /datum/status_effect/fire_handler/fire_stacks/spaceproof)
+		liver.ignite_mob(!LAZYLEN(fire_messages))
+		if(!litaf && liver.on_fire)
+			if(LAZYLEN(fire_messages))
+				var/fire_message = pick(fire_messages)
+				if(fire_message)
+					to_chat(liver, span_userdanger(fire_message))
+			did_something = TRUE
+	if(did_something)
+		if(prob(5))
+			if(LAZYLEN(damage_messages))
+				var/damage_message = pick(damage_messages)
+				if(damage_message)
+					to_chat(liver, span_userdanger(damage_message))
+			if(LAZYLEN(sounds))
+				var/sound = pick(sounds)
+				if(sound)
+					liver.playsound_local(liver, sound, 60, TRUE)
+
+/datum/episode_event/threadded/make_space_painful/proc/does_damage()
+	if(!isnull(does_damage))
+		return does_damage
+	if(min_brute_dps != 0 && max_brute_dps != 0)
+		goto yes
+	if(min_burn_dps != 0 && max_burn_dps != 0)
+		goto yes
+	if(min_tox_dps != 0 && max_tox_dps != 0)
+		goto yes
+	does_damage = FALSE
+	goto donezo
+	yes:
+	does_damage = TRUE
+	goto donezo
+	donezo:
+	return does_damage // bite me
+
+/datum/episode_event/threadded/make_space_painful/starevil/phase_3
+	unlock_phase = 3
+	end_phase = 3
+	fire_armor = FIRE
+	min_burn_dps = 1
+	max_burn_dps = 2
+	burn_temperature = PLASMA_UPPER_TEMPERATURE
+	damage_chance = 5
+	stop_hurting_when_this_damaged = 50
+	valid_stats = alist(
+		CONSCIOUS = TRUE,
+	)
+	fire_stack = 1
+	damage_messages = list(
+		"Solar winds lap at your flesh!",
+		"The sun burns!",
+		"Stellar heat sears your skin!",
+	)
+	fire_messages = list(
+		"Solar flames engulf your body! It burns even in the vacuum of space!"
+	)
+
+/datum/episode_event/threadded/make_space_painful/starevil/phase_4
+	unlock_phase = 4
+	end_phase = 4
+	event = null
+	fire_armor = FIRE
+	min_burn_dps = 5
+	max_burn_dps = 10
+	burn_temperature = PLASMA_UPPER_TEMPERATURE
+	damage_chance = 25
+	stop_hurting_when_this_damaged = null
+	valid_stats = alist(
+		CONSCIOUS = TRUE,
+	)
+	fire_stack = 1
+	damage_messages = list(
+		"The Sun! IT BURNS!! Get back inside!",
+	)
+	fire_messages = list(
+		"Solar flames engulf your body! It burns even in the vacuum of space!"
+	)
 
 
+
+
+
+
+
+// to use when i want to make events look great and have time to do it, whcihs it not gnow
+/datum/episode_event/threadded/change_space_appearance
+	var/planet_layer =     /atom/movable/screen/parallax_layer/planet
+	var/first_layer =      /atom/movable/screen/parallax_layer/layer_1
+	var/second_layer =     /atom/movable/screen/parallax_layer/layer_2
+	var/third_layer =      /atom/movable/screen/parallax_layer/layer_3
+	var/asteroids_layer =  /atom/movable/screen/parallax_layer/asteroids
+	var/space_gas_layer =  /atom/movable/screen/parallax_layer/random/space_gas
+
+
+
+
+/atom/movable/screen/parallax_layer/layer_1/starevil
+
+
+/atom/movable/screen/parallax_layer/layer_2/starevil
+
+
+/atom/movable/screen/parallax_layer/layer_3/starevil
+
+
+/atom/movable/screen/parallax_layer/planet/starevil
+
+/atom/movable/screen/parallax_layer/asteroids
+	icon_state = "asteroids"
+	layer = 4
+
+
+/atom/movable/screen/parallax_layer/random/space_gas/starevil
+	var/starcolor = "#ffb790"
+	parallax_color = list(
+		0,0,0,0,
+		2,2,0,0,
+		0,0,0,0,
+		0,0,0,1,
+		0,0,0,0) // pale yellow, color matrix
+
+/atom/movable/screen/parallax_layer/random/space_gas/starevil/apply_global_effects()
+	. = ..()
+	set_base_starlight(starcolor)
+
+/atom/movable/screen/parallax_layer/random/space_gas/starevil/p2
+
+/atom/movable/screen/parallax_layer/random/space_gas/starevil/p3
 
 
 
@@ -422,7 +697,7 @@
 				if(blackout || prob(letter_corruption_chance))
 					var/bv = lowertext("[worb[j]]")
 					var/list/corrdat = list()
-					if(prob(letter_light_corruption_chance) || (blackout && prob(80)))
+					if(prob(letter_light_corruption_chance) && !blackout)
 						corrdat = GLOB.corruptions[bv]
 					if(!LAZYLEN(corrdat))
 						corrdat = GLOB.corruptions[pick(GLOB.corruptions)]
@@ -439,7 +714,7 @@
 		radio_data[SATA_MESSAGE_HEARD_OVERRIDE] = message_in
 	return message_in
 
-GLOBAL_LIST_INIT(corruptions, corruptions = list(
+GLOBAL_LIST_INIT(corruptions, list(
 		"a" = list("@", "4", "Æ", "α", "á", "à", "ä", "â", "ᵜ", "ª", "Ɐ", "Ⱥ", "Ꜳ", "ꜳ", "Ꜽ", "Ꜻ"),
 		"b" = list("8", "ß", "Ƃ", "β", "฿", "Ƀ"),
 		"c" = list("ç", "¢", "Ƈ", "Ȼ", "Ꞓ", "ꞓ"),
@@ -497,4 +772,6 @@ GLOBAL_LIST_INIT(corruptions, corruptions = list(
 		"~" = list("˜", "∼", "≈"),
 		"`" = list("´", "‘", "’", "‛"),
 		"|" = list("I", "l", "1", "¡"),
+		"'" = list("`", "‘", "’", "‛"),
+		"/" = list("\\", "∕", "／", "⧸", "⧹", "⧺", "⧻"),
 		))

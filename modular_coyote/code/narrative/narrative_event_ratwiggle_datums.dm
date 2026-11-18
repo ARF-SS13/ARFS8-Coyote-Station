@@ -1,10 +1,9 @@
-/datum/episode_event/ratwiggle_modifier
+/datum/episode_event/threadded/ratwiggle_modifier
 	min_cooldown = 2 MINUTES
 	weight = 10
 	unlock_phase = 1
 	end_phase = 6
 	max_runs = -1
-	is_progressive = TRUE
 	/// attempts to move the cooldown for ratwiggle events, by this much, to that much
 	/// cooldown multiplier for ratwiggle events.
 	var/rw_cooldown_percent_change = 0
@@ -23,7 +22,7 @@
 	var/rw_ignore_cooldowns = FALSE
 	var/rw_ignore_cooldowns_hostiles = FALSE
 
-/datum/episode_event/ratwiggle_modifier/run_event(force)
+/datum/episode_event/threadded/ratwiggle_modifier/run_event(force)
 	if(rw_cooldown_percent_change)
 		SSratwiggle.cooldown_percent = drift_towards_by(
 			SSratwiggle.cooldown_percent,
@@ -35,18 +34,16 @@
 			rw_budget_percent_target,
 			rw_budget_percent_change)
 
-		SSratwiggle.hostile_weight = rw_hostile_weighting
-		SSratwiggle.can_spawn_superhostile = rw_super_hostile
-		SSratwiggle.ignore_max_spawnable = rw_ignore_max_spawnable
-		SSratwiggle.ignore_cooldowns = rw_ignore_cooldowns
-		SSratwiggle.only_hostiles = rw_only_hostiles
-		SSratwiggle.can_spawn_superhostile = rw_super_hostile
-		SSratwiggle.ignore_cooldowns_hostiles = rw_ignore_cooldowns_hostiles
-		SSratwiggle.ignore_max_spawnable_hostiles = rw_ignore_max_spawnable_hostiles
-	if(is_finished(force))
-		finished = TRUE
+	SSratwiggle.hostile_weight = rw_hostile_weighting
+	SSratwiggle.can_spawn_superhostile = rw_super_hostile
+	SSratwiggle.ignore_max_spawnable = rw_ignore_max_spawnable
+	SSratwiggle.ignore_cooldowns = rw_ignore_cooldowns
+	SSratwiggle.only_hostiles = rw_only_hostiles
+	SSratwiggle.can_spawn_superhostile = rw_super_hostile
+	SSratwiggle.ignore_cooldowns_hostiles = rw_ignore_cooldowns_hostiles
+	SSratwiggle.ignore_max_spawnable_hostiles = rw_ignore_max_spawnable_hostiles
 
-/datum/episode_event/ratwiggle_modifier/is_finished(force)
+/datum/episode_event/threadded/ratwiggle_modifier/is_finished(force)
 	. = ..()
 	if(.)
 		return TRUE

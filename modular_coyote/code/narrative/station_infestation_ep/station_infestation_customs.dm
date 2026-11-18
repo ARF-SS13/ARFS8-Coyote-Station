@@ -100,7 +100,7 @@
 
 /// ratwigglers!
 
-/datum/episode_event/ratwiggle_modifier/critter_round
+/datum/episode_event/threadded/ratwiggle_modifier/critter_round
 	min_cooldown = 1 MINUTES
 	weight = 5
 	unlock_phase = 1
@@ -110,17 +110,17 @@
 	rw_budget_percent_change = 0
 	rw_budget_percent_target = 100
 
-/datum/episode_event/ratwiggle_modifier/critter_round/phase_1
+/datum/episode_event/threadded/ratwiggle_modifier/critter_round/phase_1
 	unlock_phase = 1
 	end_phase = 1
 
-/datum/episode_event/ratwiggle_modifier/critter_round/phase_2
+/datum/episode_event/threadded/ratwiggle_modifier/critter_round/phase_2
 	unlock_phase = 2
 	end_phase = 2
 	rw_cooldown_percent_change = 10
 	rw_cooldown_percent_target = 150
 
-/datum/episode_event/ratwiggle_modifier/critter_round/phase_3
+/datum/episode_event/threadded/ratwiggle_modifier/critter_round/phase_3
 	unlock_phase = 3
 	end_phase = 3
 	rw_cooldown_percent_change = 20
@@ -131,7 +131,7 @@
 	rw_ignore_max_spawnable = TRUE
 	rw_hostile_weighting = 2
 
-/datum/episode_event/ratwiggle_modifier/critter_round/phase_4
+/datum/episode_event/threadded/ratwiggle_modifier/critter_round/phase_4
 	unlock_phase = 4
 	end_phase = 4
 	rw_cooldown_percent_change = 100
@@ -146,7 +146,7 @@
 	rw_ignore_max_spawnable = TRUE
 	rw_ignore_max_spawnable_hostiles = TRUE
 
-/datum/episode_event/ratwiggle_modifier/critter_round/phase_5
+/datum/episode_event/threadded/ratwiggle_modifier/critter_round/phase_5
 	unlock_phase = 5
 	end_phase = 5
 	rw_cooldown_percent_change = 100
@@ -157,7 +157,7 @@
 	rw_ignore_max_spawnable = FALSE
 	rw_ignore_max_spawnable_hostiles = FALSE
 
-/datum/episode_event/ratwiggle_modifier/critter_round/phase_6
+/datum/episode_event/threadded/ratwiggle_modifier/critter_round/phase_6
 	unlock_phase = 6
 	end_phase = 6
 	rw_cooldown_percent_change = 100

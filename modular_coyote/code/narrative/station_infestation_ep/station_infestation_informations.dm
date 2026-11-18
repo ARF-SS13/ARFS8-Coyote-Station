@@ -1,6 +1,6 @@
-/datum/episode_event/information/station_infestation_information
+/datum/episode_event/threadded/information/station_infestation_information
 
-/datum/episode_event/information/station_infestation_information/phase_1
+/datum/episode_event/threadded/information/station_infestation_information/phase_1
 	unlock_phase = 1
 	min_delay = 30 SECONDS
 	max_delay = 90 SECONDS
@@ -20,7 +20,7 @@
 		Environmental controls are stable, and all systems are nominal.<br><br>\
 		Have a nice shift! And do try to leave some of the station intact for me this time. :3<br>"
 
-/datum/episode_event/information/station_infestation_information/phase_2
+/datum/episode_event/threadded/information/station_infestation_information/phase_2
 	unlock_phase = 2
 	min_delay = 30 SECONDS
 	max_delay = 10 MINUTES
@@ -37,10 +37,10 @@
 		In the mean time, please remain vigilant of any unusual critter activity throughout the station. Stay safe, \
 		those critters can be quite nasty!\n\n\
 		-- Fuzzy Foxxo, Station Diagnostic Subpersona"
-	station_announcement_sound = ANNOUNCER_COMMAND_REPORT
+	station_announcement_sound = 'modular_coyote/sounds/notice/notice2.ogg'
 	station_announcement_color = "blue"
 
-/datum/episode_event/information/station_infestation_information/phase_3
+/datum/episode_event/threadded/information/station_infestation_information/phase_3
 	unlock_phase = 3
 	min_delay = 30 SECONDS
 	max_delay = 10 MINUTES
@@ -58,11 +58,11 @@
 		self-defense measures.\n\n\
 		Stay safe, crew!\n\n\
 		-- Fuzzy Foxxo, Station Diagnostic Subpersona"
-	station_announcement_sound = ANNOUNCER_COMMAND_REPORT
+	station_announcement_sound = 'modular_coyote/sounds/notice/notice3.ogg'
 	station_announcement_color = "red"
 
 // antag release!
-/datum/episode_event/information/station_infestation_information/phase_4
+/datum/episode_event/threadded/information/station_infestation_information/phase_4
 	unlock_phase = 4
 	min_delay = 30 SECONDS
 	max_delay = 10 MINUTES
@@ -80,10 +80,10 @@
 		Security, you know what to do!\n\n\
 		Stay safe, crew!\n\n\
 		-- Fuzzy Foxxo, Station Diagnostic Subpersona"
-	station_announcement_sound = ANNOUNCER_COMMAND_REPORT
+	station_announcement_sound = 'modular_coyote/sounds/notice/notice7.ogg'
 	station_announcement_color = "red"
 
-/datum/episode_event/information/station_infestation_information/phase_4_part_2
+/datum/episode_event/threadded/information/station_infestation_information/phase_4_part_2
 	unlock_phase = 5
 	min_delay = 8 MINUTES
 	max_delay = 10 MINUTES
@@ -101,10 +101,10 @@
 		On the brighter side, the spiders and chryssalids appear to be territorial, and thus one will attack the other if encountered.\n\n\
 		Stay safe, crew!\n\n\
 		-- Fuzzy Foxxo, Station Diagnostic Subpersona"
-	station_announcement_sound = ANNOUNCER_COMMAND_REPORT
+	station_announcement_sound = 'modular_coyote/sounds/notice/notice7.ogg'
 	station_announcement_color = "red"
 
-/datum/episode_event/information/station_infestation_information/phase_5
+/datum/episode_event/threadded/information/station_infestation_information/phase_5
 	unlock_phase = 5
 	min_delay = 30 SECONDS
 	max_delay = 10 MINUTES
@@ -121,7 +121,7 @@
 		At any rate, if possible, finish off any remaining hostile entities, and give yourselves a pat on the back for your efforts!\n\n\
 		Stay safe, crew!\n\n\
 		-- Fuzzy Foxxo, Station Diagnostic Subpersona"
-	station_announcement_sound = ANNOUNCER_COMMAND_REPORT
+	station_announcement_sound = 'modular_coyote/sounds/notice/notice1.ogg'
 	station_announcement_color = "green"
 
 

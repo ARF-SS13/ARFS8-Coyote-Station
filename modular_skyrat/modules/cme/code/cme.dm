@@ -231,14 +231,15 @@
 	var/zap_interval_max = 10 SECONDS
 	var/zap_range = 5
 	var/zap_damage = 10
+	var/zap_sound = 'modular_coyote/sounds/effects/zapblast.ogg'
 
 	var/list/gasses_emit_tick = list(
 		"o2=1;hydrogen=1;TEMP=450",
 	)
 	var/gas_emit_burst = "plasma=10;TEMP=500"
 	var/gas_emit_burst_safe = "halon=30;TEMP=293.15"
-	var/spawn_sound = 'modular_coyote/sounds/cme_event/bfg_shoot.ogg'
-	var/burst_sound = 'modular_coyote/sounds/cme_event/bfg_explode.ogg'
+	var/spawn_sound = 'modular_coyote/sounds/cme_event/cme_spawn.ogg'
+	var/burst_sound = 'modular_coyote/sounds/cme_event/cme_explode.ogg'
 	var/gas_spurt_sound = 'modular_coyote/sounds/cme_event/cme_sizzle.ogg'
 	var/neutralize_sound = 'modular_coyote/sounds/cme_event/cme_neutralized.ogg'
 	var/datum/looping_sound/cme_existing/soundloop
@@ -344,12 +345,12 @@
 	burst_time = (delay_duration * burst_time_mult) + world.time
 	next_gas_spurt = rand(gas_spurt_interval_min, gas_spurt_interval_max) + world.time
 	next_zap = rand(zap_interval_min, zap_interval_max) + world.time
-	playsound(src, spawn_sound, 75, TRUE, 20, ignore_walls = TRUE)
+	playsound(src, spawn_sound, 100, TRUE, 20, ignore_walls = TRUE)
 	var/turf/open/T = get_turf(src)
 	if(gas_emit_spawn && isopenturf(T))
 		T.atmos_spawn_air(gas_emit_spawn)
 	START_PROCESSING(SSprocessing, src)
-	soundloop = new(src,  FALSE)
+	soundloop = new(src, TRUE)
 
 /obj/effect/cme/Destroy(force)
 	QDEL_NULL(soundloop)
@@ -397,11 +398,12 @@
 	if(neutralized)
 		return
 	next_zap = rand(zap_interval_min, zap_interval_max) + world.time
+	playsound(src, zap_sound, 100, TRUE, 20, ignore_walls = TRUE)
 	tesla_zap(
 		src,
 		zap_range,
 		zap_damage * 600,
-		0,
+		zap_damage * 100,
 	)
 
 /obj/effect/cme/proc/burst()

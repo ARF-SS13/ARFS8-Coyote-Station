@@ -225,7 +225,10 @@
 
 /datum/looping_sound/cme_existing
 	mid_sounds = list(
-		'modular_coyote/sounds/cme_event/bfg_fly.ogg',
+		'modular_coyote/sounds/cme_event/cme_exist.ogg',
 	)
 	mid_length = 3 SECONDS
-	volume = 50
+	volume = 100
+	extra_range = 25
+	falloff_exponent = 2
+	falloff_distance = 10

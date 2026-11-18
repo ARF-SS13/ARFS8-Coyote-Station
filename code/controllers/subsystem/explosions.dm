@@ -27,6 +27,7 @@ SUBSYSTEM_DEF(explosions)
 	var/list/medturf = list()
 	var/list/highturf = list()
 	var/list/flameturf = list()
+	var/list/to_un_breach = list()
 
 	/// List of turfs to throw the contents of
 	var/list/throwturf = list()
@@ -282,6 +283,7 @@ ADMIN_VERB(check_bomb_impacts, R_DEBUG, "Check Bomb Impact", "See what the effec
 		EXARG_KEY_EXPLOSION_CAUSE = explosion_cause ? explosion_cause : origin,
 		EXARG_KEY_EXPLOSION_DIRECTION = explosion_direction,
 		EXARG_KEY_EXPLOSION_ARC = explosion_arc,
+		EXARG_KEY_EXPLOSION_NO_BREACH = explosion_no_breach,
 	)
 	var/atom/location = isturf(origin) ? origin : origin.loc
 	if(SEND_SIGNAL(origin, COMSIG_ATOM_EXPLODE, arguments) & COMSIG_CANCEL_EXPLOSION)
@@ -721,7 +723,6 @@ ADMIN_VERB(check_bomb_impacts, R_DEBUG, "Check Bomb Impact", "See what the effec
 
 	if(currentpart == SSEXPLOSIONS_TURFS)
 		currentpart = SSEXPLOSIONS_MOVABLES
-		var/list/to_un_breach = list()
 
 		timer = TICK_USAGE_REAL
 		var/list/low_turf = lowturf
@@ -752,9 +753,6 @@ ADMIN_VERB(check_bomb_impacts, R_DEBUG, "Check Bomb Impact", "See what the effec
 				to_un_breach |= turf_thing
 			EX_ACT(turf_thing, EXPLODE_DEVASTATE)
 		cost_highturf = MC_AVERAGE(cost_highturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
-
-		for(var/turf/t in to_un_breach)
-			t.explosion_no_breach = FALSE
 
 		timer = TICK_USAGE_REAL
 		var/list/flame_turf = flameturf
@@ -798,6 +796,9 @@ ADMIN_VERB(check_bomb_impacts, R_DEBUG, "Check Bomb Impact", "See what the effec
 				continue
 			EX_ACT(movable_thing, EXPLODE_LIGHT)
 		cost_low_mov_atom = MC_AVERAGE(cost_low_mov_atom, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
+		for(var/turf/t in to_un_breach)
+			t.explosion_no_breach = FALSE
+		to_un_breach = list()
 
 		/// Throwing only becomes acceptable after the explosions process, so we don't miss stuff that explosions GENERATE
 		throwturf = held_throwturf

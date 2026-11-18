@@ -8,7 +8,7 @@
 	var/turf/T = null
 	if(center_of_mass)
 		T = locate(floor(world.maxx / 2), floor(world.maxy / 2), 1)
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteor), meteor, GLOB.meteor_direction, T), delay)
+	return addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteor), meteor, GLOB.meteor_direction, T), delay, TIMER_STOPPABLE)
 
 /proc/spawn_meteor(list/meteor_types, direction, atom/target, distance_from_edge = 0)
 	if (SSmapping.is_planetary())

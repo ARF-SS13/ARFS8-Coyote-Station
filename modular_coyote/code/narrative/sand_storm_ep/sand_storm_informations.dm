@@ -1,6 +1,6 @@
-/datum/episode_event/information/sand_storm_information
+/datum/episode_event/threadded/information/sand_storm_information
 
-/datum/episode_event/information/sand_storm_information/phase_1
+/datum/episode_event/threadded/information/sand_storm_information/phase_1
 	unlock_phase = 1
 	min_delay = 2 MINUTES
 	max_delay = 5 MINUTES
@@ -23,7 +23,7 @@
 		** The planet we're both*** orbiting<br>\
 		*** This station and Elizabeth*"
 
-/datum/episode_event/information/sand_storm_information/phase_1_part_2
+/datum/episode_event/threadded/information/sand_storm_information/phase_1_part_2
 	unlock_phase = 1
 	min_delay = 10 MINUTES
 	max_delay = 15 MINUTES
@@ -41,10 +41,10 @@
 		external surfaces, such as windows and weaker walls.\n\n\
 		Sensors indicate that the debris will come from the %DIRECTION%, relative to the station's North axis.\n\n\
 		-- Arlo-VI, Station Diagnostic Subpersona"
-	station_announcement_sound = ANNOUNCER_COMMAND_REPORT
+	station_announcement_sound = 'modular_coyote/sounds/notice/notice1.ogg'
 	station_announcement_color = null
 
-/datum/episode_event/information/sand_storm_information/get_announcement_message()
+/datum/episode_event/threadded/information/sand_storm_information/get_announcement_message()
 	var/direct = "unknown direction"
 	switch(GLOB.meteor_direction)
 		if(NORTH)
@@ -58,7 +58,7 @@
 	var/msg = replacetext(station_announcement_message, "%DIRECTION%", direct)
 	return msg
 
-/datum/episode_event/information/sand_storm_information/phase_2
+/datum/episode_event/threadded/information/sand_storm_information/phase_2
 	unlock_phase = 2
 	min_delay = 10 MINUTES
 	max_delay = 15 MINUTES
@@ -77,10 +77,10 @@
 		resources, as while the danger remains, the materials can be exceptionally useful for repairs to the station.\n\n\
 		As a reminder, the debris will be coming from the %DIRECTION%, relative to the station's North axis.\n\n\
 		-- Arlo-VI, Station Diagnostic Subpersona"
-	station_announcement_sound = ANNOUNCER_COMMAND_REPORT
+	station_announcement_sound = 'modular_coyote/sounds/notice/notice3.ogg'
 	station_announcement_color = "red"
 
-/datum/episode_event/information/sand_storm_information/phase_3
+/datum/episode_event/threadded/information/sand_storm_information/phase_3
 	unlock_phase = 3
 	min_delay = 15 MINUTES
 	max_delay = 20 MINUTES
@@ -96,10 +96,10 @@
 		half an hour. Be prepared for immediate engineering response and take all necessary safety precautions.\n\n\
 		As a reminder, the debris will be coming from the %DIRECTION%, relative to the station's North axis.\n\n\
 		-- Arlo-VI, Station Diagnostic Subpersona"
-	station_announcement_sound = ANNOUNCER_COMMAND_REPORT
+	station_announcement_sound = 'modular_coyote/sounds/notice/notice7.ogg'
 	station_announcement_color = "red"
 
-/datum/episode_event/information/sand_storm_information/phase_4
+/datum/episode_event/threadded/information/sand_storm_information/phase_4
 	unlock_phase = 4
 	min_delay = 5 MINUTES
 	max_delay = 7 MINUTES
@@ -112,10 +112,10 @@
 		Environmental sensors indicate that large debris fragments are approaching the station, impacts imminent!\n\n\
 		As a reminder, the debris will be coming from the %DIRECTION%, relative to the station's North axis.\n\n\
 		-- Arlo-VI, Station Diagnostic Subpersona"
-	station_announcement_sound = ANNOUNCER_METEORS
+	station_announcement_sound = 'modular_coyote/sounds/notice/notice12.ogg'
 	station_announcement_color = "red"
 
-/datum/episode_event/information/sand_storm_information/phase_5
+/datum/episode_event/threadded/information/sand_storm_information/phase_5
 	unlock_phase = 5
 	min_delay = 5 MINUTES
 	max_delay = 7 MINUTES
@@ -130,7 +130,7 @@
 		You did well to navigate through this hazardous section of the debris field, continue to exercise caution as \
 		residual debris may still pose a threat to the station's external systems.\n\n\
 		-- Arlo-VI, Station Diagnostic Subpersona"
-	station_announcement_sound = ANNOUNCER_COMMAND_REPORT
+	station_announcement_sound = 'modular_coyote/sounds/notice/notice3.ogg'
 	station_announcement_color = "blue"
 
 

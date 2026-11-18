@@ -88,7 +88,7 @@
 	/// fancy overload sequence thing for lights!
 	var/overloadable = TRUE
 	var/overloading = FALSE
-	var/overload_coefficient = 1 MINUTES
+	var/overload_coefficient = 1
 	var/overload_threshold_heat = 15 MINUTES
 	var/overload_threshold_explode = 30 MINUTES
 	var/overload_time_spent = 0
@@ -431,7 +431,7 @@
 		if("increasing")
 			overload_time_spent += d_t
 		if("decreasing")
-			overload_time_spent -= d_t
+			overload_time_spent -= (d_t * (2 MINUTES))
 	if(overload_time_spent < 0)
 		overload_time_spent = 0
 		stop_overload()
@@ -439,7 +439,9 @@
 	if(can_overload_explode())
 		explode_overload()
 		return FALSE
-	overload_coefficient = trunc(overload_time_spent / 10) + 1
+	overload_coefficient = trunc(overload_time_spent / (1 MINUTES)) + 1
+	if(prob(5 * overload_coefficient))
+		do_sparks(2)
 	adjust_overload_filter()
 	adjust_overload_color()
 	inflict_overload_heat()
@@ -461,13 +463,9 @@
 	stop_overload()
 	// spawn a mole or so of plasma, hydrogen, and halon!
 	var/turf/local_turf = get_turf(src)
-	var/datum/gas_mixture/air_contents = local_turf.return_air()
-	air_contents.assert_gases(/datum/gas/hydrogen, /datum/gas/plasma, /datum/gas/halon)
-	air_contents.gases[/datum/gas/hydrogen][MOLES] = 1
-	air_contents.gases[/datum/gas/plasma][MOLES] = 1
-	air_contents.gases[/datum/gas/halon][MOLES] = 1
-	local_turf.air_update_turf(FALSE, FALSE)
-	explosion(src, 0, 0, 1, 2, 4, smoke = TRUE)
+	var/gas_emit_spawn = "plasma=10;hydrogen=10;tritium=10;TEMP=500"
+	local_turf.atmos_spawn_air(gas_emit_spawn)
+	explosion(local_turf, 0, 0, 1, 2, 15, smoke = TRUE)
 	do_sparks(2)
 	burn_out()
 
@@ -477,13 +475,14 @@
 		overload_filter = null
 		return
 	var/size = 10
-	var/offset = overload_coefficient
+	var/offset = overload_coefficient * 5
 	if(overload_coefficient > size)
 		size = overload_coefficient
 	var/bcolor = light ? light.light_color : color
 	var/list/da_params = drop_shadow_filter(0, 0, size, offset, bcolor)
 
 	if(!overload_filter)
+		overload_filter = "overload_filter"
 		add_filter(
 			overload_filter,
 			10,
@@ -504,7 +503,7 @@
 	if(!local_turf)
 		return
 	var/datum/gas_mixture/enviroment = local_turf.return_air()
-	var/target_temp = T20C + (overload_coefficient * 5)
+	var/target_temp = T20C + (overload_coefficient * 50)
 	if(enviroment.temperature >= target_temp)
 		return
 	var/list/turfs = (local_turf.atmos_adjacent_turfs || list()) + local_turf
@@ -520,14 +519,14 @@
 	if(cease || !overloading)
 		overload_energy_mult = 1
 		return
-	overload_energy_mult = (overload_coefficient * 2)
+	overload_energy_mult = (overload_coefficient * 20)
 	return TRUE
 
 /obj/machinery/light/proc/adjust_overload_brightness(cease)
 	if(cease || !overloading)
 		overload_brightness_mult = 1
 		return
-	overload_brightness_mult = 1 + (overload_coefficient * 0.25)
+	overload_brightness_mult = 1 + (overload_coefficient * 2)
 	return TRUE
 
 /obj/machinery/light/proc/set_overloading(activate, progress = 30 SECONDS)
@@ -538,6 +537,7 @@
 	else
 		SSmachines.overloading_lights -= src
 		stop_overload()
+	update(FALSE, TRUE)
 
 /obj/machinery/light/proc/burn_out()
 	if(status == LIGHT_OK)
@@ -915,7 +915,7 @@
 	return exposed_temperature > 673
 
 /obj/machinery/light/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
+	if(!overloading && prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		break_light_tube()
 
 /obj/machinery/light/proc/on_light_eater(obj/machinery/light/source, datum/light_eater)

@@ -115,7 +115,7 @@
 	for(var/datum/episode_event/main_event        as anything in main_events)
 		main_events -= main_event
 		main_events += new main_event(src)
-	for(var/datum/episode_event/misc_event       as anything in misc_events)
+	for(var/datum/episode_event/misc_event        as anything in misc_events)
 		misc_events -= misc_event
 		misc_events += new misc_event(src)
 	for(var/datum/episode_event/background_event  as anything in background_events)
@@ -181,7 +181,7 @@
 	var/datum/episode_event/event_to_fire = get_random_valid_event(eventlist)
 	if(!event_to_fire)
 		return
-	if(!event_to_fire.try_run_event(FALSE, iance))
+	if(!event_to_fire.try_run_event(FALSE, iance, phase))
 		return
 	var/cd = get_random_event_cooldown(phase, which)
 	if(which == "misc")
@@ -240,7 +240,9 @@
 	for(var/datum/episode_thread/thr in event_threads)
 		thr.OnRadioMessageReceived(hearer, frequency, data, spans, radio_data, best_radio)
 
-
+/datum/episode/proc/handle_life_effects(mob/living/them, seconds_per_tick)
+	for(var/datum/episode_thread/thr in event_threads)
+		thr.handle_life_effects(them, seconds_per_tick)
 
 
 

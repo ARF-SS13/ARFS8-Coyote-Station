@@ -36,8 +36,8 @@
 	)
 
 	background_events = list(
-		/datum/episode_event/meteors/dust/resource,
-		/datum/episode_event/meteors/sand/resource,
+		/datum/episode_event/threadded/meteors/dust/resource,
+		/datum/episode_event/threadded/meteors/sand/resource,
 	)
 
 /datum/episode/New()
@@ -48,41 +48,41 @@
 ///
 /datum/episode_thread/dust_storm
 	events = list(
-		/datum/episode_event/meteors/phase_1/dust,
-		/datum/episode_event/meteors/phase_2/dust,
-		/datum/episode_event/meteors/phase_3/dust,
-		/datum/episode_event/meteors/phase_4/dust,
-		/datum/episode_event/meteors/phase_5/dust,
-		/datum/episode_event/meteors/phase_6/dust,
+		/datum/episode_event/threadded/meteors/phase_1/dust,
+		/datum/episode_event/threadded/meteors/phase_2/dust,
+		/datum/episode_event/threadded/meteors/phase_3/dust,
+		/datum/episode_event/threadded/meteors/phase_4/dust,
+		/datum/episode_event/threadded/meteors/phase_5/dust,
+		/datum/episode_event/threadded/meteors/phase_6/dust,
 	)
 
 /datum/episode_thread/sand_storm
 	events = list(
-		/datum/episode_event/meteors/phase_1/sand,
-		/datum/episode_event/meteors/phase_2/sand,
-		/datum/episode_event/meteors/phase_3/sand,
-		/datum/episode_event/meteors/phase_4/sand,
-		/datum/episode_event/meteors/phase_5/sand,
-		/datum/episode_event/meteors/phase_6/sand,
+		/datum/episode_event/threadded/meteors/phase_1/sand,
+		/datum/episode_event/threadded/meteors/phase_2/sand,
+		/datum/episode_event/threadded/meteors/phase_3/sand,
+		/datum/episode_event/threadded/meteors/phase_4/sand,
+		/datum/episode_event/threadded/meteors/phase_5/sand,
+		/datum/episode_event/threadded/meteors/phase_6/sand,
 	)
 
 /datum/episode_thread/meteor_storm
 	events = list(
-		/datum/episode_event/meteors/phase_4/meteor,
+		/datum/episode_event/threadded/meteors/phase_4/meteor,
 	)
 
 /datum/episode_thread/meteor_storm_easy
 	events = list(
-		/datum/episode_event/meteors/phase_4/meteor/easy,
+		/datum/episode_event/threadded/meteors/phase_4/meteor/easy,
 	)
 
 ///
 /datum/episode_thread/sand_storm_announcements
 	events = list(
-		/datum/episode_event/information/sand_storm_information/phase_1,
-		/datum/episode_event/information/sand_storm_information/phase_1_part_2,
-		/datum/episode_event/information/sand_storm_information/phase_2,
-		/datum/episode_event/information/sand_storm_information/phase_3,
-		/datum/episode_event/information/sand_storm_information/phase_4,
-		/datum/episode_event/information/sand_storm_information/phase_5,
+		/datum/episode_event/threadded/information/sand_storm_information/phase_1,
+		/datum/episode_event/threadded/information/sand_storm_information/phase_1_part_2,
+		/datum/episode_event/threadded/information/sand_storm_information/phase_2,
+		/datum/episode_event/threadded/information/sand_storm_information/phase_3,
+		/datum/episode_event/threadded/information/sand_storm_information/phase_4,
+		/datum/episode_event/threadded/information/sand_storm_information/phase_5,
 	)

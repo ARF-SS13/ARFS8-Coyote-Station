@@ -91,17 +91,17 @@
 				breaktile = TRUE
 				hotspot = TRUE
 
-	if(explosion_no_breach && scrape_amount > 0)
-		var/turf/open/floor/T = baseturf_at_depth(scrape_amount)
-		if(T && isopenspaceturf(T))
-			scrape_amount = max(scrape_amount - 1, 0)
+	if(explosion_no_breach)
+		scrape_amount = 0
+		breaktile = TRUE
+		lattice_replacement = FALSE
 	if(scrape_amount > 0)
 		ScrapeAway(scrape_amount, flags = CHANGETURF_INHERIT_AIR)
 	if(breaktile)
 		break_tile()
 	if(hotspot)
 		hotspot_expose(1000, CELL_VOLUME)
-	if(!explosion_no_breach && lattice_replacement)
+	if(lattice_replacement)
 		attempt_lattice_replacement()
 	if(spawn_metal)
 		new /obj/item/stack/sheet/iron(src)

@@ -20,11 +20,7 @@
 	var/alert_once = FALSE
 	var/last_ran = 0
 	var/times_ran = 0
-	var/max_runs = 1
-	/// storyline/communication event stuff, for events that can repeat until a certain condition is finished
-	var/is_progressive = FALSE
-	/// marks that this storyline/communication event is finished, and can move onto the next one
-	var/finished = FALSE
+	var/max_runs = -1
 	/// min time a repeat or the next event can happen
 	var/min_cooldown = 5 MINUTES
 	/// weighted chance to run this
@@ -40,6 +36,8 @@
 	var/max_delay = 10 SECONDS
 	/// banned areas, turns into a typecache
 	var/banned_area_flags = NARRATIVE_AREA_FLAG_ERP_ZONES | NARRATIVE_AREA_FLAG_RUINS
+	/// hook into the narrative subsystem's life effects signal for progressive events that need to react to living mob updates
+	var/does_life_effects = FALSE
 
 /datum/episode_event/New(datum/episode/our_episode)
 	parent = our_episode
@@ -54,13 +52,14 @@
 		if(!istype(event, /datum/round_event_control))
 			CRASH("!!! EVENT NOT FOUND FOR [src.type]: [eventype]!!!")
 
-/datum/episode_event/proc/try_run_event(force, delay)
-	if(!can_run(SSnarrative.get_round_phase(), force))
+/datum/episode_event/proc/try_run_event(force, delay, phase)
+	if(!can_run(phase, force))
 		return FALSE
 	if(run_event(force, delay))
 		do_post_run(force)
 	return TRUE
 
+/// often overridden by specific event types to implement custom run clawgic
 /datum/episode_event/proc/run_event(force, delay)
 	if(!event)
 		return FALSE
@@ -70,33 +69,18 @@
 /datum/episode_event/proc/do_post_run(force)
 	times_ran += 1
 	last_ran = world.time
-	if(is_progressive && is_finished())
-		finished = TRUE
 
 /datum/episode_event/proc/can_run(phase, force)
 	if(force)
 		return TRUE
-	if(is_progressive && is_finished())
-		return FALSE
 	if(max_runs != -1 && times_ran >= max_runs)
 		return FALSE
 	if(last_ran + min_cooldown > world.time)
 		return FALSE
 	phase ||= SSnarrative.get_round_phase()
-	if(is_progressive)
-		if(phase < unlock_phase)
-			return FALSE
-	else
-		if(phase < unlock_phase || phase > end_phase)
-			return FALSE
-	return TRUE
-
-/// fpor progressive evetns
-/datum/episode_event/proc/is_finished(phase)
-	phase ||= SSnarrative.get_round_phase()
 	if(phase < unlock_phase || phase > end_phase)
-		return TRUE
-	return finished
+		return FALSE
+	return TRUE
 
 /datum/episode_event/proc/get_cooldown()
 	var/delay = rand(min_cooldown, min_cooldown * 2)
@@ -124,4 +108,14 @@
 		if(!isarea(A))
 			return FALSE
 	return SSnarrative.banned_area_cache["[banned_area_flags]"][A]
+
+/datum/episode_event/proc/try_life_effects(mob/living/liver, seconds_per_tick)
+	if(!does_life_effects)
+		return
+	if(!can_run())
+		return
+	do_life_effects(liver, seconds_per_tick)
+
+/datum/episode_event/proc/do_life_effects(mob/living/liver, seconds_per_tick)
+	return
 

@@ -39,3 +39,6 @@
 #define NARRATIVE_AREA_FLAG_SPACE (1 << 2)
 #define NARRATIVE_AREA_FLAG_MAINTS (1 << 3)
 #define NARRATIVE_AREA_FLAG_ATMOS (1 << 4)
+
+#define COMSIG_NARRATIVE_LIFE_EFFECTS "narrative_life_effects"
+

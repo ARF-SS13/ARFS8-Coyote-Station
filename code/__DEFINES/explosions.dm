@@ -58,6 +58,8 @@
 #define EXARG_KEY_EXPLOSION_DIRECTION STRINGIFY(explosion_direction)
 /// For directional explosions, the angle covered by the explosion, centred on EXPLOSION_DIRECTION.
 #define EXARG_KEY_EXPLOSION_ARC STRINGIFY(explosion_arc)
+/// no break floor
+#define EXARG_KEY_EXPLOSION_NO_BREACH STRINGIFY(explosion_no_breach)
 
 // Explodable component deletion values
 /// Makes the explodable component queue to reset its exploding status when it detonates.
