@@ -21,8 +21,11 @@
 	var/last_ran = 0
 	var/times_ran = 0
 	var/max_runs = -1
+	/// cooldown: the time after the event has run before another event can run (mostly for threaded)
 	/// min time a repeat or the next event can happen
 	var/min_cooldown = 5 MINUTES
+	/// max time a repeat or the next event can happen
+	var/max_cooldown = 10 MINUTES
 	/// weighted chance to run this
 	var/weight = 1
 	/// next two are for constant and warmup events, ignored for leadup/main
@@ -30,10 +33,6 @@
 	var/unlock_phase = 1
 	/// the last phase this can run in, inclusive
 	var/end_phase = 6
-	/// initial delay, minimum time
-	var/min_delay = 5 SECONDS
-	/// maximum delay, for events that can have a variable start time
-	var/max_delay = 10 SECONDS
 	/// banned areas, turns into a typecache
 	var/banned_area_flags = NARRATIVE_AREA_FLAG_ERP_ZONES | NARRATIVE_AREA_FLAG_RUINS
 	/// hook into the narrative subsystem's life effects signal for progressive events that need to react to living mob updates
@@ -53,7 +52,8 @@
 			CRASH("!!! EVENT NOT FOUND FOR [src.type]: [eventype]!!!")
 
 /datum/episode_event/proc/try_run_event(force, delay, phase)
-	if(!can_run(phase, force))
+	var/list/happencode = list()
+	if(!can_run(phase, force, happencode))
 		return FALSE
 	if(run_event(force, delay))
 		do_post_run(force)
@@ -83,9 +83,7 @@
 	return TRUE
 
 /datum/episode_event/proc/get_cooldown()
-	var/delay = rand(min_cooldown, min_cooldown * 2)
-	return delay
-
+	return rand(min_cooldown, max_cooldown)
 /datum/episode_event/proc/OnRadioMessageReceived(
 	atom/movable/hearer,
 	frequency,

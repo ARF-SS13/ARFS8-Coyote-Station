@@ -22,16 +22,15 @@ SUBSYSTEM_DEF(narrative)
 	name = "Narrative"
 	runlevels = RUNLEVEL_GAME
 	flags = SS_BACKGROUND | SS_KEEP_TIMING
-	wait = 10 SECONDS
+	wait = 5 SECONDS
 	dependencies = list(
 		// we kinda need it lol
 		/datum/controller/subsystem/gamemode,
 	)
 
 	var/list/all_episodes = list()
-	var/list/potential_episodes = list()
 	var/datum/episode/current_episode = null
-	var/datum/episode/forced_episode = /datum/episode/starevil
+	var/datum/episode/forced_episode = /datum/episode/filler
 	// so people who are fucking each other's brains out wont count towards the pop
 	var/list/comfy_trackers = list()
 	var/spider_chance = 0
@@ -71,7 +70,7 @@ SUBSYSTEM_DEF(narrative)
 		"Don't touch that dial!",
 		"Coming soon to a space station near you!",
 	)
-	spawn(10 SECONDS)
+	spawn(20 SECONDS)
 		to_chat(world, span_boldnotice("Initialized [LAZYLEN(all_episodes)] distinct potential episodes! [pick(thingse)]"))
 
 /datum/controller/subsystem/narrative/fire(resumed)
@@ -107,6 +106,8 @@ SUBSYSTEM_DEF(narrative)
 
 /datum/controller/subsystem/narrative/proc/get_episode_title(capspls)
 	if(current_episode)
+		if(current_episode.noname)
+			return null
 		if(capspls)
 			return uppertext(current_episode.name)
 		return current_episode.name

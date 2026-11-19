@@ -4,6 +4,7 @@
 		"The Wheel of Runtimes",
 	)
 	var/desc = "The station tries to use an improperly configured episode! Will Dan survive all the bug reports?"
+	var/noname = FALSE
 	/// One of these will be our big main round event, like blob or meteors or something
 	/// though if one resolves too quickly we might need another main event to keep things going
 	var/list/main_events = list()
@@ -41,7 +42,6 @@
 		/datum/episode_event/grey_tide,
 		/datum/episode_event/grid_check,
 		/datum/episode_event/mass_hallucination,
-		/datum/episode_event/processor_overload,
 		/datum/episode_event/mice_migration,
 		/datum/episode_event/wormholes,
 	)
@@ -61,17 +61,17 @@
 	var/background_cooldown_min_phase_1 = 10 MINUTES
 	var/background_cooldown_max_phase_1 = 15 MINUTES
 
-	var/background_cooldown_min_phase_2 = 5 MINUTES
+	var/background_cooldown_min_phase_2 = 7 MINUTES
 	var/background_cooldown_max_phase_2 = 10 MINUTES
 
-	var/background_cooldown_min_phase_3 = 3 MINUTES
-	var/background_cooldown_max_phase_3 = 5 MINUTES
+	var/background_cooldown_min_phase_3 = 5 MINUTES
+	var/background_cooldown_max_phase_3 = 10 MINUTES
 
-	var/background_cooldown_min_phase_4 = 7 MINUTES
-	var/background_cooldown_max_phase_4 = 10 MINUTES
+	var/background_cooldown_min_phase_4 = 4 MINUTES
+	var/background_cooldown_max_phase_4 = 7 MINUTES
 
-	var/background_cooldown_min_phase_5 = 5 MINUTES
-	var/background_cooldown_max_phase_5 = 7 MINUTES
+	var/background_cooldown_min_phase_5 = 10 MINUTES
+	var/background_cooldown_max_phase_5 = 10 MINUTES
 
 	var/background_cooldown_min_phase_6 = 20 MINUTES
 	var/background_cooldown_max_phase_6 = 25 MINUTES
@@ -109,8 +109,9 @@
 	var/recommended_sci = 0
 
 /datum/episode/New()
-	if(LAZYLEN(names))
-		name = pick(names)
+	if(!noname)
+		if(LAZYLEN(names))
+			name = pick(names)
 	// init the events
 	for(var/datum/episode_event/main_event        as anything in main_events)
 		main_events -= main_event

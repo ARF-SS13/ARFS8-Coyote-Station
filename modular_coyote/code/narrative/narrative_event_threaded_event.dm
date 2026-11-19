@@ -8,7 +8,15 @@
 /datum/episode_event/threadded
 	event = null // you can put an actual event here if you want, if you *want*
 	var/ignore_times_ran = TRUE
-	var/ignore_cooldown = TRUE
+	var/ignore_delay = TRUE
+	/// Delay: the time after the event is chosen to run before it actually executes
+	/// initial delay, minimum time
+	var/min_delay = 1 SECONDS
+	/// maximum delay, for events that can have a variable start time
+	var/max_delay = 1 SECONDS
+	/// use an initial delay?
+	var/use_initial_delay = TRUE
+	var/delayed_until = 0
 	var/finished = FALSE
 
 /datum/episode_event/threadded/try_run_event(force, delay, phase)
@@ -18,7 +26,6 @@
 	do_post_run(force, phase)
 	return TRUE
 
-/// often overridden by specific event types to implement custom run clawgic
 /datum/episode_event/threadded/run_event(force, delay, phase)
 	return TRUE
 
@@ -27,7 +34,7 @@
 	last_ran = world.time
 	try_to_finish(phase)
 
-/datum/episode_event/threadded/can_run(phase, force)
+/datum/episode_event/threadded/can_run(phase, force, delay_doesnt_block)
 	if(force)
 		return TRUE
 	if(is_finished(phase))
@@ -35,8 +42,10 @@
 	if(!ignore_times_ran)
 		if(times_ran >= max_runs)
 			return FALSE
-	if(!ignore_cooldown)
-		if(last_ran + min_cooldown > world.time)
+	if(!ignore_delay)
+		if(use_initial_delay && delayed_until == 0)
+			delayed_until = world.time + get_delay()
+		if(delayed_until > world.time && !delay_doesnt_block)
 			return FALSE
 	phase ||= SSnarrative.get_round_phase()
 	if(phase < unlock_phase)
@@ -62,8 +71,7 @@
 		return TRUE
 	return finished
 
-/datum/episode_event/threadded/get_cooldown()
-	var/delay = rand(min_cooldown, min_cooldown * 2)
-	return delay
+/datum/episode_event/threadded/proc/get_delay()
+	return rand(min_delay, max_delay)
 
 

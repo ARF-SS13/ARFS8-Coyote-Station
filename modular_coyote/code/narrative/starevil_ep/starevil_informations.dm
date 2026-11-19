@@ -175,12 +175,12 @@
 	max_delay = 3 MINUTES
 
 	station_announcement = TRUE
-	station_announcement_title = "ARFS Diagnostics Update"
-	station_announcement_sender = "GekkerTec Environmental Management System"
+	station_announcement_title = "ARFS Operations Update"
+	station_announcement_sender = "GekkerTec Operational Management System"
 	station_announcement_message = "\
 		Attention crew, this is Fuzzy Foxxo with your station diagnostics update!\n\n\
 		%%oopsie%%\n\n\
-		-- Fuzzy Foxxo, Station Diagnostic Subpersona"
+		-- Fuzzy Foxxo, Station Operations Subpersona"
 	station_announcement_sound = 'modular_coyote/sounds/notice/notice1.ogg'
 	station_announcement_color = "blue"
 

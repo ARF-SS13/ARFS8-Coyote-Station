@@ -26,8 +26,8 @@
 	max_delay = 10 MINUTES
 
 	station_announcement = TRUE
-	station_announcement_title = "ARFS Diagnostics Update"
-	station_announcement_sender = "GekkerTec Environmental Management System"
+	station_announcement_title = "ARFS Operations Update"
+	station_announcement_sender = "GekkerTec Operational Management System"
 	station_announcement_message = "\
 		Attention crew, this is Fuzzy Foxxo with your station diagnostics update!\n\n\
 		Environmental sensors are reporting a marked increase in biological activity within the station's substructures, \
@@ -36,7 +36,7 @@
 		season, though we will continue to monitor the situation and provide updates as necessary.\n\n\
 		In the mean time, please remain vigilant of any unusual critter activity throughout the station. Stay safe, \
 		those critters can be quite nasty!\n\n\
-		-- Fuzzy Foxxo, Station Diagnostic Subpersona"
+		-- Fuzzy Foxxo, Station Operations Subpersona"
 	station_announcement_sound = 'modular_coyote/sounds/notice/notice2.ogg'
 	station_announcement_color = "blue"
 
@@ -46,8 +46,8 @@
 	max_delay = 10 MINUTES
 
 	station_announcement = TRUE
-	station_announcement_title = "ARFS Diagnostics Update"
-	station_announcement_sender = "GekkerTec Environmental Management System"
+	station_announcement_title = "ARFS Operations Update"
+	station_announcement_sender = "GekkerTec Operational Management System"
 	station_announcement_message = "\
 		Attention crew, this is Fuzzy Foxxo with your station diagnostics update!\n\n\
 		Biological activity within the station has steadily increased since the last diagnostics report. Critter hostility has \
@@ -57,7 +57,7 @@
 		If it is anything like the current infestations, the crew may want to take immediate precautions and prepare for possible \
 		self-defense measures.\n\n\
 		Stay safe, crew!\n\n\
-		-- Fuzzy Foxxo, Station Diagnostic Subpersona"
+		-- Fuzzy Foxxo, Station Operations Subpersona"
 	station_announcement_sound = 'modular_coyote/sounds/notice/notice3.ogg'
 	station_announcement_color = "red"
 
@@ -68,8 +68,8 @@
 	max_delay = 10 MINUTES
 
 	station_announcement = TRUE
-	station_announcement_title = "ARFS Diagnostics Update"
-	station_announcement_sender = "GekkerTec Environmental Management System"
+	station_announcement_title = "ARFS Operations Update"
+	station_announcement_sender = "GekkerTec Operational Management System"
 	station_announcement_message = "\
 		Attention crew, this is Fuzzy Foxxo with your station diagnostics update!\n\n\
 		Hostile biological entities have been detected within the station, originating from multiple deep-substructure locations! \
@@ -79,7 +79,7 @@
 		Medical is advised to prepare for potential casualties and ensure that all medical supplies are readily accessible.\n\n\
 		Security, you know what to do!\n\n\
 		Stay safe, crew!\n\n\
-		-- Fuzzy Foxxo, Station Diagnostic Subpersona"
+		-- Fuzzy Foxxo, Station Operations Subpersona"
 	station_announcement_sound = 'modular_coyote/sounds/notice/notice7.ogg'
 	station_announcement_color = "red"
 
@@ -89,8 +89,8 @@
 	max_delay = 10 MINUTES
 
 	station_announcement = TRUE
-	station_announcement_title = "ARFS Diagnostics Update"
-	station_announcement_sender = "GekkerTec Environmental Management System"
+	station_announcement_title = "ARFS Operations Update"
+	station_announcement_sender = "GekkerTec Operational Management System"
 	station_announcement_message = "\
 		Attention crew, this is Fuzzy Foxxo with your station diagnostics update!\n\n\
 		The situation has escalated significantly, with more hostile biological entities emerging from the deep-substructure!\n\n\
@@ -100,7 +100,7 @@
 		members until the threat has been neutralized.\n\n\
 		On the brighter side, the spiders and chryssalids appear to be territorial, and thus one will attack the other if encountered.\n\n\
 		Stay safe, crew!\n\n\
-		-- Fuzzy Foxxo, Station Diagnostic Subpersona"
+		-- Fuzzy Foxxo, Station Operations Subpersona"
 	station_announcement_sound = 'modular_coyote/sounds/notice/notice7.ogg'
 	station_announcement_color = "red"
 
@@ -110,8 +110,8 @@
 	max_delay = 10 MINUTES
 
 	station_announcement = TRUE
-	station_announcement_title = "ARFS Diagnostics Update"
-	station_announcement_sender = "GekkerTec Environmental Management System"
+	station_announcement_title = "ARFS Operations Update"
+	station_announcement_sender = "GekkerTec Operational Management System"
 	station_announcement_message = "\
 		Attention crew, this is Fuzzy Foxxo with your station diagnostics update!\n\n\
 		Reports indicate that the hostile entities are gradually being contained, and their threat level is decreasing.\n\n\
@@ -120,7 +120,7 @@
 		the invasion had passed. Very peculiar!\n\n\
 		At any rate, if possible, finish off any remaining hostile entities, and give yourselves a pat on the back for your efforts!\n\n\
 		Stay safe, crew!\n\n\
-		-- Fuzzy Foxxo, Station Diagnostic Subpersona"
+		-- Fuzzy Foxxo, Station Operations Subpersona"
 	station_announcement_sound = 'modular_coyote/sounds/notice/notice1.ogg'
 	station_announcement_color = "green"
 

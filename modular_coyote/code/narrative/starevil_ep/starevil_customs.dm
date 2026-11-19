@@ -372,7 +372,7 @@
 				message += "Intensity: Omega! Multiple cataclysmic anomalies detected! Neutralize immediately, or all is lost!"
 		message += "Consult Research for anomaly neutralization devices!"
 		message += "Warning: Be alert for fires, extreme heat, and electrical discharges in affected areas!"
-		message += "-- Fuzzy Foxxo, Station Diagnostic Subpersona"
+		message += "-- Fuzzy Foxxo, Station Operations Subpersona"
 		var/messtring = message.Join("\n")
 		messtring = cool_radio_scramble(
 			messtring,

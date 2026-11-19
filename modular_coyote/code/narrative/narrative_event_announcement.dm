@@ -4,8 +4,9 @@
 	max_runs = 1
 	min_cooldown = 30 SECONDS
 	unlock_phase = 1
+	ignore_delay = FALSE
 	min_delay = 30 SECONDS
-	max_delay = 10 MINUTES
+	max_delay = 1 MINUTES
 	// bridge mail stuff
 	var/bridge_mail = FALSE
 	var/bridge_mail_label = "ARFS Diagnostics Report"
@@ -14,13 +15,13 @@
 	var/bridge_mail_message = "Oh no!"
 	// station announcement stuff (works with bridge mail)
 	var/station_announcement = FALSE
-	var/station_announcement_title = "ARFS Diagnostics Update"
+	var/station_announcement_title = "ARFS Operations Update"
 	var/station_announcement_sender = "ARFS"
 	var/station_announcement_message = "Oh no!"
 	var/station_announcement_sound = ANNOUNCER_COMMAND_REPORT
 	var/station_announcement_color = "green"
 
-/datum/episode_event/threadded/information/run_event(force, delay)
+/datum/episode_event/threadded/information/run_event(force, delay, phase)
 	if(bridge_mail)
 		send_bridge_mail()
 	if(station_announcement)
