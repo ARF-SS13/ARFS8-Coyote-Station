@@ -30,11 +30,13 @@ SUBSYSTEM_DEF(narrative)
 
 	var/list/all_episodes = list()
 	var/datum/episode/current_episode = null
-	var/datum/episode/forced_episode = /datum/episode/filler
+	var/datum/episode/forced_episode = /datum/episode/starevil
 	// so people who are fucking each other's brains out wont count towards the pop
 	var/list/comfy_trackers = list()
 	var/spider_chance = 0
 	var/ratboy_chance = 0
+
+	var/list/life_active_events = list()
 
 	var/list/banned_area_cache = list()
 
@@ -114,9 +116,10 @@ SUBSYSTEM_DEF(narrative)
 	return null
 
 /datum/controller/subsystem/narrative/proc/handle_life_effects(mob/living/them, seconds_per_tick)
-	if(!current_episode)
+	if(!LAZYLEN(life_active_events))
 		return
-	current_episode.handle_life_effects(them, seconds_per_tick)
+	for(var/datum/episode_event/threadded/event as anything in life_active_events)
+		event.try_life_effects(them, seconds_per_tick)
 
 /datum/controller/subsystem/narrative/proc/OnRadioMessageReceived(
 	atom/movable/hearer,

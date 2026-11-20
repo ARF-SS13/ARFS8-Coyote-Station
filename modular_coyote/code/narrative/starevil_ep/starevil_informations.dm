@@ -19,8 +19,6 @@
 
 /datum/episode_event/threadded/information/starevil_information/phase_1
 	unlock_phase = 1
-	min_delay = 2 MINUTES
-	max_delay = 5 MINUTES
 
 	bridge_mail = TRUE
 	bridge_mail_label = "ARFS Shift-Change Maintenance Report"
@@ -39,8 +37,8 @@
 
 /datum/episode_event/threadded/information/starevil_information/phase_1_part_2
 	unlock_phase = 1
-	min_delay = 10 MINUTES
-	max_delay = 15 MINUTES
+	min_delay = 4 MINUTES
+	max_delay = 5 MINUTES
 
 	station_announcement = TRUE
 	station_announcement_title = "ARFS Astro-Environmental Update"
@@ -59,8 +57,8 @@
 
 /datum/episode_event/threadded/information/starevil_information/phase_2
 	unlock_phase = 2
-	min_delay = 10 MINUTES
-	max_delay = 15 MINUTES
+	min_delay = 4 MINUTES
+	max_delay = 5 MINUTES
 
 	corruption_chance = 100
 	word_corruption_chance = 2
@@ -103,6 +101,7 @@
 		time for me to do so.\n\n\
 		Expect anomalous bluespace bubbles consistent with coronal mass ejection events. I will assist in locating these when they \
 		happen, though you will need to neutralize them yourselves. Consult Research for anomaly neutralizers.\n\n\
+		Of course, you can also cool them down with fire extinguishing measures if available.\n\n\
 		It should go without saying to remain inside during this period of intense stellar activity, as exposure to the Sun's \
 		elevated thermal radiation can be extremely hazardous, even through most space suits and shielding.\n\n\
 		-- Arlo-VI, Station Diagnostic Subpersona"

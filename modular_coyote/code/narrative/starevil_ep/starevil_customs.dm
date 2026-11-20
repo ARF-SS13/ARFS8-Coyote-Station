@@ -413,20 +413,19 @@
 		/obj/effect/cme/extreme = 10,
 		/obj/effect/cme/armageddon = 2,
 	)
-	min_cme_cooldown = 3 MINUTES
-	max_cme_cooldown = 5 MINUTES
+	min_cme_cooldown = 5 MINUTES
+	max_cme_cooldown = 8 MINUTES
 	min_cme_spawns_per_fire = 1
-	max_cme_spawns_per_fire = 3
+	max_cme_spawns_per_fire = 2
 
 /datum/episode_event/threadded/coronal_mass_ejection/starevil/phase5
 	unlock_phase = 5
 	end_phase = 5
 	cme_stock = list(
 		/obj/effect/cme = 100,
-		/obj/effect/cme/moderate = 50,
 	)
-	min_cme_cooldown = 10 MINUTES
-	max_cme_cooldown = 15 MINUTES
+	min_cme_cooldown = 15 MINUTES
+	max_cme_cooldown = 20 MINUTES
 	min_cme_spawns_per_fire = 1
 	max_cme_spawns_per_fire = 1
 

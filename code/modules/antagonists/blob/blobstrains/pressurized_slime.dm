@@ -29,7 +29,7 @@
 		if(prob(probchance))
 			T.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = 5 SECONDS)
 			for(var/obj/O in T)
-				O.extinguish()
+				O.extinguish(10)
 			for(var/mob/living/L in T)
 				L.adjust_wet_stacks(2.5)
 				L.extinguish_mob()

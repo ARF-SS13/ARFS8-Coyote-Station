@@ -89,6 +89,8 @@
 	var/fallback_icon_state
 	/// When ordered in a restaurant, what custom order do we create?
 	var/restaurant_order = /datum/custom_order/reagent/drink
+	/// extinguishing power, purely for CMEs
+	var/extinguish_power = 0
 
 /datum/reagent/New()
 	SHOULD_CALL_PARENT(TRUE)

@@ -107,13 +107,4 @@
 			return FALSE
 	return SSnarrative.banned_area_cache["[banned_area_flags]"][A]
 
-/datum/episode_event/proc/try_life_effects(mob/living/liver, seconds_per_tick)
-	if(!does_life_effects)
-		return
-	if(!can_run())
-		return
-	do_life_effects(liver, seconds_per_tick)
-
-/datum/episode_event/proc/do_life_effects(mob/living/liver, seconds_per_tick)
-	return
 

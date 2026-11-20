@@ -238,11 +238,19 @@
 	)
 	var/gas_emit_burst = "plasma=10;TEMP=500"
 	var/gas_emit_burst_safe = "halon=30;TEMP=293.15"
+	var/cooling_gasses = list(
+		"water_vapor=30;TEMP=293.15",
+	)
 	var/spawn_sound = 'modular_coyote/sounds/cme_event/cme_spawn.ogg'
 	var/burst_sound = 'modular_coyote/sounds/cme_event/cme_explode.ogg'
 	var/gas_spurt_sound = 'modular_coyote/sounds/cme_event/cme_sizzle.ogg'
 	var/neutralize_sound = 'modular_coyote/sounds/cme_event/cme_neutralized.ogg'
 	var/datum/looping_sound/cme_existing/soundloop
+
+	var/max_extinguish_hp = 50
+	var/extinguish_hp = 50
+	var/extinguished = FALSE
+	var/spray_text_cooldown = 0
 
 /obj/effect/cme/moderate
 	name = "Class II bluespace stellar ejecta translocation anomaly"
@@ -274,7 +282,8 @@
 	)
 	gas_emit_burst = "plasma=15;hydrogen=30;o2=45;TEMP=500"
 	gas_emit_burst_safe = "halon=30;TEMP=293.15"
-
+	max_extinguish_hp = 60
+	extinguish_hp = 60
 
 /obj/effect/cme/extreme
 	name = "Class X bluespace stellar ejecta translocation anomaly"
@@ -307,6 +316,8 @@
 	)
 	gas_emit_burst = "plasma=30;hydrogen=30;o2=60;TEMP=500"
 	gas_emit_burst_safe = "halon=30;TEMP=293.15"
+	max_extinguish_hp = 80
+	extinguish_hp = 80
 
 /obj/effect/cme/armageddon
 	badness = 10
@@ -339,6 +350,8 @@
 	)
 	gas_emit_burst = "tritium=100;hydrogen=50;plasma=50;o2=200;TEMP=500"
 	gas_emit_burst_safe = "halon=30;TEMP=293.15"
+	max_extinguish_hp = 100
+	extinguish_hp = 100
 
 /obj/effect/cme/Initialize(mapload, burst_time_mult = 1)
 	. = ..()
@@ -365,11 +378,37 @@
 	if(neutralized)
 		. += span_green("The anomalous rift appears to have been neutralized, and should fade away in around [timeleft].")
 		return
+	if(extinguished)
+		. += span_notice("The anomalous rift has been fully cooled down, but still requires neutralization!")
+		. += span_alert("It should fade within around [timeleft].")
+		. += span_green("Neutralize it, it might be full of goodies!")
+		return
+	else if(extinguish_hp < max_extinguish_hp)
+		var/fraction = extinguish_hp / max_extinguish_hp
+		. += span_alert("WARNING: Rift is partially cooled! Extinguish progress: [fraction*100]%.")
+		. += span_notice("Continue using fire extinguishing measures to fully cool the rift!")
 	. += span_alert("WARNING: Rift is active! Expected detonation in around [span_phobia(timeleft)].")
 	. += span_alert("Beware its electrical and gaseous emissions!")
 	. += span_green("It appears to be similar to common anomalies, try using an anomaly neutralizer!")
 
+/obj/effect/cme/extinguish(ext_power)
+	. = ..()
+	if(extinguish_hp <= 0)
+		return
+	extinguish_hp -= ext_power
+	if(prob(35))
+		spew_gas(TRUE, TRUE)
+	if(extinguish_hp <= 0)
+		make_extinguished()
+	else
+		if(world.time < spray_text_cooldown)
+			return
+		spray_text_cooldown = world.time + 0.2 SECONDS
+		visible_message(span_notice("[src] sizzles as it cools down! Keep extinguishing it until it is fully cooled!"))
+
 /obj/effect/cme/process(seconds_per_tick)
+	if(!extinguished && extinguish_hp <= 0)
+		make_extinguished()
 	if(world.time > burst_time)
 		spew_gas(TRUE)
 		bfg_zap(TRUE)
@@ -379,17 +418,37 @@
 		spew_gas()
 		bfg_zap()
 
-/obj/effect/cme/proc/spew_gas(force = FALSE)
-	if(!LAZYLEN(gasses_emit_tick))
+/obj/effect/cme/proc/make_extinguished()
+	if(extinguished)
 		return
+	extinguished = TRUE
+	visible_message(span_boldnotice("[src] has been cooled down fully! It should be safe now. It needs neutralizing though!"))
+	var/matrix/me = transform
+	me.Scale(0.75, 0.75)
+	transform = me
+	color = COLOR_WHITE
+	light_color = COLOR_WHITE
+	spew_gas(TRUE, TRUE)
+	anomalyNeutralize()
+
+/obj/effect/cme/proc/spew_gas(force = FALSE, cooling_stuff = FALSE)
+	if(cooling_stuff)
+		if(!LAZYLEN(cooling_gasses))
+			return
+	else
+		if(!LAZYLEN(gasses_emit_tick))
+			return
 	if(neutralized)
-		return
+		cooling_stuff = TRUE
 	if(!force && world.time < next_gas_spurt)
 		return
-	next_gas_spurt = rand(gas_spurt_interval_min, gas_spurt_interval_max) + world.time
+	next_gas_spurt = (rand(gas_spurt_interval_min, gas_spurt_interval_max) * get_extinguish_fraction()) + world.time
 	var/turf/open/T = get_turf(src)
 	if(isopenturf(T))
-		T.atmos_spawn_air(pick(gasses_emit_tick))
+		if(cooling_stuff)
+			T.atmos_spawn_air(pick(cooling_gasses))
+		else
+			T.atmos_spawn_air(pick(gasses_emit_tick))
 	playsound(src, gas_spurt_sound, 100, TRUE)
 
 /obj/effect/cme/proc/bfg_zap(force = FALSE)
@@ -397,7 +456,7 @@
 		return
 	if(neutralized)
 		return
-	next_zap = rand(zap_interval_min, zap_interval_max) + world.time
+	next_zap = (rand(zap_interval_min, zap_interval_max) * get_extinguish_fraction()) + world.time
 	playsound(src, zap_sound, 100, TRUE, 20, ignore_walls = TRUE)
 	tesla_zap(
 		src,
@@ -405,6 +464,11 @@
 		zap_damage * 600,
 		zap_damage * 100,
 	)
+
+// goes up as the anomalous rift is being extinguished
+/obj/effect/cme/proc/get_extinguish_fraction()
+	var/fraction = extinguish_hp / max_extinguish_hp
+	return 1 + (1 - fraction) * 2
 
 /obj/effect/cme/proc/burst()
 	if(neutralized)
@@ -440,10 +504,15 @@
 	var/turf/T = get_turf(src)
 	playsound(src, neutralize_sound, 100, TRUE)
 	new /obj/effect/particle_effect/fluid/smoke/bad(T)
+	visible_message(span_notice("[src] stabilizes! Looks like it'll fade away soon!"))
 	color = COLOR_WHITE
 	light_color = COLOR_WHITE
 	neutralized = TRUE
-	for(var/i in 1 to loots)
+	var/numloots = loots
+	if(extinguished)
+		numloots *= 2
+	for(var/i in 1 to numloots)
 		var/atom/movable/loot = pick_weight(GLOB.cme_loot_list)
 		new loot(T)
+	burst_time = world.time + 5 SECONDS
 

@@ -33,7 +33,7 @@
 	if(world.time < next_event_cooldown)
 		return // still in cooldown, cannot fire the next event yet
 
-	current_event = get_current_event(phase) // pop!
+	current_event = get_current_event(phase, TRUE) // pop!
 	if(!current_event)
 		return // might be in a cooldown or waiting for the next event to become available
 
@@ -45,14 +45,19 @@
 		next_event_cooldown = world.time + current_event.get_cooldown() // assuming each event has its own cooldown after finishing
 		events -= current_event
 		finished_events += current_event
+		current_event = null
 
 // fetches the appropriate current event
 // advances if the current event has been completed or is no longer valid
-/datum/episode_thread/proc/get_current_event(phase)
+/datum/episode_thread/proc/get_current_event(phase, clear_current = FALSE)
 	if(current_event && !current_event.is_finished())
 		return current_event
+	if(clear_current)
+		current_event = null
 	for(var/datum/episode_event/threadded/event in events)
 		if(event.is_finished())
+			continue
+		if(!event.can_run(phase, FALSE, TRUE))
 			continue
 		return event
 

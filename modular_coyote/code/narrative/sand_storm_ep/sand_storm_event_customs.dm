@@ -40,6 +40,7 @@ GLOBAL_VAR(meteor_direction)
 	return TRUE
 
 /datum/episode_event/threadded/meteors/on_finished(force)
+	. = ..()
 	for(var/timer in meteor_timers)
 		deltimer(timer)
 

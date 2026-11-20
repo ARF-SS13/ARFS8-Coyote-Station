@@ -19,6 +19,10 @@
 	var/delayed_until = 0
 	var/finished = FALSE
 
+/datum/episode_event/threadded/Destroy(force)
+	SSnarrative.life_active_events -= src
+	. = ..()
+
 /datum/episode_event/threadded/try_run_event(force, delay, phase)
 	if(!can_run(phase, force))
 		return FALSE
@@ -33,6 +37,8 @@
 	times_ran += 1
 	last_ran = world.time
 	try_to_finish(phase)
+	if(!is_finished(phase))
+		SSnarrative.life_active_events |= src
 
 /datum/episode_event/threadded/can_run(phase, force, delay_doesnt_block)
 	if(force)
@@ -61,6 +67,8 @@
 	return TRUE
 
 /datum/episode_event/threadded/proc/on_finished(phase)
+	if(does_life_effects)
+		SSnarrative.life_active_events -= src
 	return TRUE
 
 /datum/episode_event/threadded/proc/is_finished(phase)
@@ -74,4 +82,14 @@
 /datum/episode_event/threadded/proc/get_delay()
 	return rand(min_delay, max_delay)
 
+/datum/episode_event/threadded/proc/try_life_effects(mob/living/liver, seconds_per_tick)
+	if(!does_life_effects)
+		SSnarrative.life_active_events -= src
+		return
+	if(!can_run())
+		return
+	do_life_effects(liver, seconds_per_tick)
+
+/datum/episode_event/threadded/proc/do_life_effects(mob/living/liver, seconds_per_tick)
+	return
 

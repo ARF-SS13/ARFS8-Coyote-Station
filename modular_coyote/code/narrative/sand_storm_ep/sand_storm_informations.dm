@@ -2,8 +2,6 @@
 
 /datum/episode_event/threadded/information/sand_storm_information/phase_1
 	unlock_phase = 1
-	min_delay = 2 MINUTES
-	max_delay = 5 MINUTES
 
 	bridge_mail = TRUE
 	bridge_mail_label = "ARFS Shift-Change Maintenance Report"
@@ -25,8 +23,8 @@
 
 /datum/episode_event/threadded/information/sand_storm_information/phase_1_part_2
 	unlock_phase = 1
-	min_delay = 10 MINUTES
-	max_delay = 15 MINUTES
+	min_delay = 3 MINUTES
+	max_delay = 7 MINUTES
 
 	station_announcement = TRUE
 	station_announcement_title = "ARFS Astro-Environmental Update"
@@ -60,8 +58,6 @@
 
 /datum/episode_event/threadded/information/sand_storm_information/phase_2
 	unlock_phase = 2
-	min_delay = 10 MINUTES
-	max_delay = 15 MINUTES
 
 	station_announcement = TRUE
 	station_announcement_title = "ARFS Astro-Environmental Update"
@@ -82,8 +78,6 @@
 
 /datum/episode_event/threadded/information/sand_storm_information/phase_3
 	unlock_phase = 3
-	min_delay = 15 MINUTES
-	max_delay = 20 MINUTES
 
 	station_announcement = TRUE
 	station_announcement_title = "ARFS Astro-Environmental Update"
@@ -101,8 +95,6 @@
 
 /datum/episode_event/threadded/information/sand_storm_information/phase_4
 	unlock_phase = 4
-	min_delay = 5 MINUTES
-	max_delay = 7 MINUTES
 
 	station_announcement = TRUE
 	station_announcement_title = "ARFS Astro-Environmental Update"
@@ -117,8 +109,6 @@
 
 /datum/episode_event/threadded/information/sand_storm_information/phase_5
 	unlock_phase = 5
-	min_delay = 5 MINUTES
-	max_delay = 7 MINUTES
 
 	station_announcement = TRUE
 	station_announcement_title = "ARFS Astro-Environmental Update"

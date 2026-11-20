@@ -2,8 +2,6 @@
 
 /datum/episode_event/threadded/information/station_infestation_information/phase_1
 	unlock_phase = 1
-	min_delay = 30 SECONDS
-	max_delay = 90 SECONDS
 
 	bridge_mail = TRUE
 	bridge_mail_label = "ARFS Shift-Change Maintenance Report"
@@ -22,8 +20,6 @@
 
 /datum/episode_event/threadded/information/station_infestation_information/phase_2
 	unlock_phase = 2
-	min_delay = 30 SECONDS
-	max_delay = 10 MINUTES
 
 	station_announcement = TRUE
 	station_announcement_title = "ARFS Operations Update"
@@ -42,8 +38,6 @@
 
 /datum/episode_event/threadded/information/station_infestation_information/phase_3
 	unlock_phase = 3
-	min_delay = 30 SECONDS
-	max_delay = 10 MINUTES
 
 	station_announcement = TRUE
 	station_announcement_title = "ARFS Operations Update"
@@ -64,8 +58,6 @@
 // antag release!
 /datum/episode_event/threadded/information/station_infestation_information/phase_4
 	unlock_phase = 4
-	min_delay = 30 SECONDS
-	max_delay = 10 MINUTES
 
 	station_announcement = TRUE
 	station_announcement_title = "ARFS Operations Update"
@@ -106,8 +98,6 @@
 
 /datum/episode_event/threadded/information/station_infestation_information/phase_5
 	unlock_phase = 5
-	min_delay = 30 SECONDS
-	max_delay = 10 MINUTES
 
 	station_announcement = TRUE
 	station_announcement_title = "ARFS Operations Update"
