@@ -25,14 +25,14 @@
 	station_announcement_title = "ARFS Operations Update"
 	station_announcement_sender = "GekkerTec Operational Management System"
 	station_announcement_message = "\
-		Attention crew, this is Fuzzy Foxxo with your station diagnostics update!\n\n\
+		Attention crew, this is Violet-HY with your station diagnostics update!\n\n\
 		Environmental sensors are reporting a marked increase in biological activity within the station's substructures, \
 		particularly involving atmospheric control systems and maintenance areas. \
 		Not entirely unexpected given the biodome's resident ecological systems. Likely just rat breeding \
 		season, though we will continue to monitor the situation and provide updates as necessary.\n\n\
 		In the mean time, please remain vigilant of any unusual critter activity throughout the station. Stay safe, \
 		those critters can be quite nasty!\n\n\
-		-- Fuzzy Foxxo, Station Operations Subpersona"
+		-- Violet-HY, Station Operations Subpersona"
 	station_announcement_sound = 'modular_coyote/sounds/notice/notice2.ogg'
 	station_announcement_color = "blue"
 
@@ -43,7 +43,7 @@
 	station_announcement_title = "ARFS Operations Update"
 	station_announcement_sender = "GekkerTec Operational Management System"
 	station_announcement_message = "\
-		Attention crew, this is Fuzzy Foxxo with your station diagnostics update!\n\n\
+		Attention crew, this is Violet-HY with your station diagnostics update!\n\n\
 		Biological activity within the station has steadily increased since the last diagnostics report. Critter hostility has \
 		also been escalating, with multiple reports of aggressive critter encounters throughout the station. This is not normal \
 		behavior for the station's ecosystem, and immediate caution is advised for everyone on station at all times.\n\n\
@@ -51,7 +51,7 @@
 		If it is anything like the current infestations, the crew may want to take immediate precautions and prepare for possible \
 		self-defense measures.\n\n\
 		Stay safe, crew!\n\n\
-		-- Fuzzy Foxxo, Station Operations Subpersona"
+		-- Violet-HY, Station Operations Subpersona"
 	station_announcement_sound = 'modular_coyote/sounds/notice/notice3.ogg'
 	station_announcement_color = "red"
 
@@ -63,7 +63,7 @@
 	station_announcement_title = "ARFS Operations Update"
 	station_announcement_sender = "GekkerTec Operational Management System"
 	station_announcement_message = "\
-		Attention crew, this is Fuzzy Foxxo with your station diagnostics update!\n\n\
+		Attention crew, this is Violet-HY with your station diagnostics update!\n\n\
 		Hostile biological entities have been detected within the station, originating from multiple deep-substructure locations! \
 		They seem to be using the station's ventilation machinery and maintenance corridors to move throughout the station!\n\n\
 		Crew members are advised to arm themselves with whatever weapons or defensive tools are available to them, and seal off \
@@ -71,7 +71,7 @@
 		Medical is advised to prepare for potential casualties and ensure that all medical supplies are readily accessible.\n\n\
 		Security, you know what to do!\n\n\
 		Stay safe, crew!\n\n\
-		-- Fuzzy Foxxo, Station Operations Subpersona"
+		-- Violet-HY, Station Operations Subpersona"
 	station_announcement_sound = 'modular_coyote/sounds/notice/notice7.ogg'
 	station_announcement_color = "red"
 
@@ -84,7 +84,7 @@
 	station_announcement_title = "ARFS Operations Update"
 	station_announcement_sender = "GekkerTec Operational Management System"
 	station_announcement_message = "\
-		Attention crew, this is Fuzzy Foxxo with your station diagnostics update!\n\n\
+		Attention crew, this is Violet-HY with your station diagnostics update!\n\n\
 		The situation has escalated significantly, with more hostile biological entities emerging from the deep-substructure!\n\n\
 		Visual reports indicate the entities to be 'spider-like' in nature, and deadly in close combat. Those fangs look venomous! \
 		Additionally, there appear to be larger, faster-moving entities designated 'chryssalid' that pose a severe threat to \
@@ -92,7 +92,7 @@
 		members until the threat has been neutralized.\n\n\
 		On the brighter side, the spiders and chryssalids appear to be territorial, and thus one will attack the other if encountered.\n\n\
 		Stay safe, crew!\n\n\
-		-- Fuzzy Foxxo, Station Operations Subpersona"
+		-- Violet-HY, Station Operations Subpersona"
 	station_announcement_sound = 'modular_coyote/sounds/notice/notice7.ogg'
 	station_announcement_color = "red"
 
@@ -103,14 +103,14 @@
 	station_announcement_title = "ARFS Operations Update"
 	station_announcement_sender = "GekkerTec Operational Management System"
 	station_announcement_message = "\
-		Attention crew, this is Fuzzy Foxxo with your station diagnostics update!\n\n\
+		Attention crew, this is Violet-HY with your station diagnostics update!\n\n\
 		Reports indicate that the hostile entities are gradually being contained, and their threat level is decreasing.\n\n\
 		I am still reading high levels of biological activity in the station's substructure, however the overall aggression \
 		seems to be diminishing. Reason is unclear, my best guess is that whatever external influence that initially triggered \
 		the invasion had passed. Very peculiar!\n\n\
 		At any rate, if possible, finish off any remaining hostile entities, and give yourselves a pat on the back for your efforts!\n\n\
 		Stay safe, crew!\n\n\
-		-- Fuzzy Foxxo, Station Operations Subpersona"
+		-- Violet-HY, Station Operations Subpersona"
 	station_announcement_sound = 'modular_coyote/sounds/notice/notice1.ogg'
 	station_announcement_color = "green"
 

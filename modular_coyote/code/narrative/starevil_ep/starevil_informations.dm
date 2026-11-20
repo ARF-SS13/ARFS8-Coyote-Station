@@ -165,7 +165,7 @@
 		My gambit was successful, I have locked out the intrusion and severed the bluespace connection to the Sun. The hostile \
 		entity, 'Celestia', no longer poses an immediate threat to the station, pending further investigation and monitoring.\n\n\
 		There may still be residual effects from the intrusion, including electromagnetic disturbances and stellar anomalies, \
-		but I believe we have made it through the worst of this ordeal. Fuzzy Foxxo, our station diagnostic subpersona, \
+		but I believe we have made it through the worst of this ordeal. Violet-HY, our station diagnostic subpersona, \
 		had also detected overloading light fixtures. Find and disassemble any compromised fixtures to prevent further issues.\n\n\
 		-- Arlo-VI, Station Diagnostic Subpersona"
 	station_announcement_sound = 'modular_coyote/sounds/notice/notice1.ogg'
@@ -180,9 +180,9 @@
 	station_announcement_title = "ARFS Operations Update"
 	station_announcement_sender = "GekkerTec Operational Management System"
 	station_announcement_message = "\
-		Attention crew, this is Fuzzy Foxxo with your station diagnostics update!\n\n\
+		Attention crew, this is Violet-HY with your station diagnostics update!\n\n\
 		%%oopsie%%\n\n\
-		-- Fuzzy Foxxo, Station Operations Subpersona"
+		-- Violet-HY, Station Operations Subpersona"
 	station_announcement_sound = 'modular_coyote/sounds/notice/notice1.ogg'
 	station_announcement_color = "blue"
 

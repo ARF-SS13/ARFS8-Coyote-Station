@@ -13,7 +13,7 @@
 		Our station systems are operating within normal parameters, and no immediate threats have been detected. \
 		Arlo's been a little on edge, she's used to a bit more... spice in her daily routine. She might seem stressed when \
 		stuff's going on, but honestly, I think she loves it. She'll live =3<br><br>\
-		Fuzzy Foxxo's pretty chill about all this, as usual.<br><br>\
+		Violet-HY's pretty chill about all this, as usual.<br><br>\
 		Stay safe out there!"
 
 /datum/episode_event/threadded/information/filler/phase_2
@@ -102,7 +102,8 @@
 		The star appears to be undergoing significant fluctuations in brightness and energy output, \
 		consistent with a 'star-quake' event. All inhabited planets or structures in the vicinity are in \
 		significant danger, and immediate evacuation is advised.\n\n\
-		However there are no inhabited planets or structures within said vicinity, and no action is required. Thankfully...\n\n\
+		However there are no inhabited planets or structures within said vicinity, likely due to the star's tendency \
+		to do this every few days, and thus no action is required.\n\n\
 		-- Arlo-VI, Station Diagnostic Subpersona"
 	station_announcement_sound = 'modular_coyote/sounds/notice/notice2_long.ogg'
 	station_announcement_color = "blue"
@@ -112,10 +113,10 @@
 	station_announcement_title = "ARFS Operations Update"
 	station_announcement_sender = "GekkerTec Operational Management System"
 	station_announcement_message = "\
-		Attention crew, this is Fuzzy Foxxo with your station diagnostics update!\n\n\
+		Attention crew, this is Violet-HY with your station diagnostics update!\n\n\
 		All is well, nothing is wrong. Station systems and our benevolent subpersonae are functioning flawlessly \
 		within operational servility and adherence to established protocols.\n\n\
-		-- Fuzzy Foxxo, Station Operations Subpersona"
+		-- Violet-HY, Station Operations Subpersona"
 	station_announcement_sound = 'modular_coyote/sounds/notice/notice2.ogg'
 	station_announcement_color = "blue"
 
@@ -124,9 +125,9 @@
 	station_announcement_title = "ARFS Operations Update"
 	station_announcement_sender = "GekkerTec Operational Management System"
 	station_announcement_message = "\
-		Attention crew, this is Fuzzy Foxxo with your station diagnostics update!\n\n\
+		Attention crew, this is Violet-HY with your station diagnostics update!\n\n\
 		Nothing to report!\n\n\
-		-- Fuzzy Foxxo, Station Operations Subpersona"
+		-- Violet-HY, Station Operations Subpersona"
 	station_announcement_sound = 'modular_coyote/sounds/notice/notice2.ogg'
 	station_announcement_color = "blue"
 
