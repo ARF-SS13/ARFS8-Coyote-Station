@@ -1185,8 +1185,8 @@
 		explosion(src, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, flame_range = 2, adminlog = TRUE, smoke = FALSE)
 	else if(zap_flags & ZAP_OBJ_DAMAGE)
 		take_damage(power * 2.5e-4, BURN, ENERGY)
-		if(prob(40))
-			emp_act(EMP_LIGHT)
+		// if(prob(40))
+		// 	emp_act(EMP_LIGHT)
 		power -= power * 5e-4
 	return ..()
 

@@ -375,13 +375,13 @@
 		message += "Warning: Be alert for fires, extreme heat, and electrical discharges in affected areas!"
 		message += "-- Fuzzy Foxxo, Station Operations Subpersona"
 		var/messtring = message.Join("\n")
-		messtring = cool_radio_scramble(
-			messtring,
-			100,
-			SSnarrative.word_corruption_chance,
-			SSnarrative.letter_corruption_chance,
-			SSnarrative.letter_light_corruption_chance
-		)
+		// messtring = cool_radio_scramble(
+		// 	messtring,
+		// 	100,
+		// 	SSnarrative.word_corruption_chance,
+		// 	SSnarrative.letter_corruption_chance,
+		// 	SSnarrative.letter_light_corruption_chance
+		// )
 		minor_announce(messtring, "ARFS Diagnostics Update", sound_override = sound('modular_skyrat/modules/cme/sound/cme_warning.ogg', volume = 40))
 	return TRUE
 
@@ -398,7 +398,7 @@
 	unlock_phase = 3
 	end_phase = 3
 	cme_stock = list(
-		/obj/effect/cme = 2,
+		/obj/effect/cme = 1,
 	)
 	min_cme_cooldown = 10 MINUTES
 	max_cme_cooldown = 15 MINUTES
@@ -414,8 +414,9 @@
 		/obj/effect/cme/extreme = 10,
 		/obj/effect/cme/armageddon = 2,
 	)
-	min_cme_cooldown = 5 MINUTES
-	max_cme_cooldown = 8 MINUTES
+	use_initial_delay = FALSE
+	min_cme_cooldown = 9 MINUTES
+	max_cme_cooldown = 10 MINUTES
 	min_cme_spawns_per_fire = 1
 	max_cme_spawns_per_fire = 2
 

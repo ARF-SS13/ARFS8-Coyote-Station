@@ -6,16 +6,17 @@
 	var/blackouted = FALSE
 
 /datum/episode_event/threadded/information/starevil_information/get_announcement_message()
-	return cool_radio_scramble(
-		station_announcement_message,
-		corruption_chance,
-		word_corruption_chance,
-		letter_corruption_chance,
-		letter_light_corruption_chance,
-		list(),
-		force = TRUE,
-		blackout = blackouted,
-	)
+	return station_announcement_message
+	// return cool_radio_scramble(
+	// 	station_announcement_message,
+	// 	corruption_chance,
+	// 	word_corruption_chance,
+	// 	letter_corruption_chance,
+	// 	letter_light_corruption_chance,
+	// 	list(),
+	// 	force = TRUE,
+	// 	blackout = blackouted,
+	// )
 
 /datum/episode_event/threadded/information/starevil_information/phase_1
 	unlock_phase = 1
@@ -119,6 +120,8 @@
 	station_announcement_message = "\
 		Attention crew, this is Arlo-VI with an astro-environmental update.\n\n\
 		Stellar activity is increasing, station communications and lighting networks are overloaded. System shielding is failing. \
+		Protect yourselves against the incoming stellar anomalies. Wear insulated gloves, fire-resistant clothing, and air tanks \
+		to ensure your survival. Keep a fire extinguisher on you at all times.\n\n\
 		Crew members are-_...<$$&@!$ <CONNECTION LOST>\n\n\
 		Witness the Sun in all Her overwhelming brilliance. You will soon accept Her radiant dominion.\n\n\
 		Engaging bluespace matter transmission coils now. Release yourselves upon her gifts, and join Her legacy.\n\n\

@@ -227,8 +227,8 @@
 	var/gas_emit_spawn = "o2=5;hydrogen=5;TEMP=450"
 
 	var/next_zap = 0
-	var/zap_interval_min = 10 SECONDS
-	var/zap_interval_max = 10 SECONDS
+	var/zap_interval_min = 20 SECONDS
+	var/zap_interval_max = 35 SECONDS
 	var/zap_range = 5
 	var/zap_damage = 10
 	var/zap_sound = 'modular_coyote/sounds/effects/zapblast.ogg'
@@ -239,7 +239,7 @@
 	var/gas_emit_burst = "plasma=10;TEMP=500"
 	var/gas_emit_burst_safe = "pluoxium=30;TEMP=293.15"
 	var/cooling_gasses = list(
-		"water_vapor=30;TEMP=293.15",
+		"helium=30;TEMP=293.15",
 	)
 	var/spawn_sound = 'modular_coyote/sounds/cme_event/cme_spawn.ogg'
 	var/burst_sound = 'modular_coyote/sounds/cme_event/cme_explode.ogg'
@@ -272,8 +272,8 @@
 	gas_spurt_interval_min = 10 SECONDS
 	gas_spurt_interval_max = 20 SECONDS
 	gas_emit_spawn = "o2=15;plasma=15;TEMP=550"
-	zap_interval_min = 5 SECONDS
-	zap_interval_max = 15 SECONDS
+	zap_interval_min = 20 SECONDS
+	zap_interval_max = 25 SECONDS
 	zap_range = 7
 	zap_damage = 20
 	gasses_emit_tick = list(
@@ -305,8 +305,8 @@
 	gas_spurt_interval_min = 5 SECONDS
 	gas_spurt_interval_max = 15 SECONDS
 	gas_emit_spawn = "o2=30;plasma=10;tritium=10;hydrogen=10;TEMP=550"
-	zap_interval_min = 5 SECONDS
-	zap_interval_max = 15 SECONDS
+	zap_interval_min = 15 SECONDS
+	zap_interval_max = 20 SECONDS
 	zap_range = 7
 	zap_damage = 20
 	gasses_emit_tick = list(
@@ -339,7 +339,7 @@
 	gas_spurt_interval_min = 5 SECONDS
 	gas_spurt_interval_max = 7 SECONDS
 	gas_emit_spawn = "o2=15;plasma=15;TEMP=550"
-	zap_interval_min = 5 SECONDS
+	zap_interval_min = 10 SECONDS
 	zap_interval_max = 15 SECONDS
 	zap_range = 10
 	zap_damage = 30
@@ -390,6 +390,7 @@
 	. += span_alert("WARNING: Rift is active! Expected detonation in around [span_phobia(timeleft)].")
 	. += span_alert("Beware its electrical and gaseous emissions!")
 	. += span_green("It appears to be similar to common anomalies, try using an anomaly neutralizer!")
+	. += span_green("Protip: Wear insulated gloves, and spray it with an extinguisher if you don't have an anomaly neutralizer!")
 
 /obj/effect/cme/extinguish(ext_power)
 	. = ..()

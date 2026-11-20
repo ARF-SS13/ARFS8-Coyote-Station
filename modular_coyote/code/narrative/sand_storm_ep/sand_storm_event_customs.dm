@@ -265,7 +265,6 @@ GLOBAL_VAR(meteor_direction)
 		/obj/effect/decal/cleanable/generic,
 		/obj/effect/decal/cleanable/dirt,
 		/obj/effect/decal/cleanable/glass,
-		/obj/effect/decal/cleanable/rubble,
 	)
 	var/next_dirt = 0
 	var/dirt_cd_min = 1 SECONDS
