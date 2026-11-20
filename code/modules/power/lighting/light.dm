@@ -475,7 +475,7 @@
 		overload_filter = null
 		return
 	var/size = 10
-	var/offset = overload_coefficient * 5
+	var/offset = overload_coefficient * 2
 	if(overload_coefficient > size)
 		size = overload_coefficient
 	var/bcolor = light ? light.light_color : color

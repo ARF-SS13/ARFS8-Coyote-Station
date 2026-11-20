@@ -106,6 +106,8 @@
 /obj/item/radio/Initialize(mapload)
 	set_wires(new /datum/wires/radio(src))
 	. = ..()
+	if(src.type == /obj/item/radio)
+		interference_resistance = RADIO_INTERFERENCE_RESISTANCE_MAX
 
 	if(ispath(keyslot))
 		keyslot = new keyslot()
@@ -320,6 +322,8 @@
 		return
 	if(!talking_movable.try_speak(message, ignore_spam = TRUE, filterproof = TRUE))
 		return
+	if(!islist(message_data[SATA_SPANS]))
+		message_data[SATA_SPANS] = list()
 
 	if(use_command)
 		spans |= SPAN_COMMAND
@@ -764,6 +768,7 @@
 	subspace_switchable = TRUE
 	dog_fashion = null
 	canhear_range = 0
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_LOW
 
 /obj/item/radio/borg/resetChannels()
 	. = ..()
@@ -776,6 +781,7 @@
 /obj/item/radio/borg/syndicate
 	special_channels = RADIO_SPECIAL_SYNDIE
 	keyslot = /obj/item/encryptionkey/syndicate
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_MAX
 
 /obj/item/radio/borg/syndicate/Initialize(mapload)
 	. = ..()
@@ -783,6 +789,7 @@
 
 /obj/item/radio/off // Station bounced radios, their only difference is spawning with the speakers off, this was made to help the lag.
 	dog_fashion = /datum/dog_fashion/back
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_MAX
 
 /obj/item/radio/off/Initialize(mapload)
 	. = ..()
@@ -795,6 +802,7 @@
 	freerange = TRUE
 	freqlock = RADIO_FREQENCY_LOCKED
 	radio_noise = FALSE
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_HIGH
 
 /obj/item/radio/entertainment/Initialize(mapload)
 	. = ..()
@@ -846,6 +854,7 @@
 	icon_state = "microphone"
 	inhand_icon_state = "microphone"
 	canhear_range = 3
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_MAX
 
 // In case you want to map it in/spawn it for some reason
 /obj/item/radio/toy

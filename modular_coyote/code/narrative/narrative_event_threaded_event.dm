@@ -80,7 +80,8 @@
 	return finished
 
 /datum/episode_event/threadded/proc/get_delay()
-	return rand(min_delay, max_delay)
+	var/vale = rand(min_delay, max_delay)
+	return SSnarrative.timescale_cooldown(vale)
 
 /datum/episode_event/threadded/proc/try_life_effects(mob/living/liver, seconds_per_tick)
 	if(!does_life_effects)

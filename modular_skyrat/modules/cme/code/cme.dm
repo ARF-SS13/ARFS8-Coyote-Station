@@ -237,7 +237,7 @@
 		"o2=1;hydrogen=1;TEMP=450",
 	)
 	var/gas_emit_burst = "plasma=10;TEMP=500"
-	var/gas_emit_burst_safe = "halon=30;TEMP=293.15"
+	var/gas_emit_burst_safe = "pluoxium=30;TEMP=293.15"
 	var/cooling_gasses = list(
 		"water_vapor=30;TEMP=293.15",
 	)
@@ -277,11 +277,11 @@
 	zap_range = 7
 	zap_damage = 20
 	gasses_emit_tick = list(
-		"o2=4;plasma=4;TEMP=450",
-		"o2=3;hydrogen=3;TEMP=450",
+		"o2=10;plasma=10;TEMP=450",
+		"o2=10;hydrogen=10;TEMP=450",
 	)
 	gas_emit_burst = "plasma=15;hydrogen=30;o2=45;TEMP=500"
-	gas_emit_burst_safe = "halon=30;TEMP=293.15"
+	gas_emit_burst_safe = "pluoxium=30;TEMP=293.15"
 	max_extinguish_hp = 60
 	extinguish_hp = 60
 
@@ -310,12 +310,12 @@
 	zap_range = 7
 	zap_damage = 20
 	gasses_emit_tick = list(
-		"o2=4;plasma=4;TEMP=450",
-		"o2=3;hydrogen=3;TEMP=450",
-		"o2=2;tritium=2;TEMP=450",
+		"o2=7;plasma=7;TEMP=450",
+		"o2=7;hydrogen=7;TEMP=450",
+		"o2=7;tritium=7;TEMP=450",
 	)
 	gas_emit_burst = "plasma=30;hydrogen=30;o2=60;TEMP=500"
-	gas_emit_burst_safe = "halon=30;TEMP=293.15"
+	gas_emit_burst_safe = "pluoxium=30;TEMP=293.15"
 	max_extinguish_hp = 80
 	extinguish_hp = 80
 
@@ -331,7 +331,7 @@
 	cme_light_range_upper = CME_ARMAGEDDON_LIGHT_RANGE_UPPER
 	cme_heavy_range_lower = CME_ARMAGEDDON_HEAVY_RANGE_LOWER
 	cme_heavy_range_upper = CME_ARMAGEDDON_HEAVY_RANGE_UPPER
-	loots = 5
+	loots = 7
 	explode_light = 5
 	explode_heavy = 6
 	explode_devastate = 4
@@ -349,7 +349,7 @@
 		"o2=5;tritium=5;TEMP=450"
 	)
 	gas_emit_burst = "tritium=100;hydrogen=50;plasma=50;o2=200;TEMP=500"
-	gas_emit_burst_safe = "halon=30;TEMP=293.15"
+	gas_emit_burst_safe = "pluoxium=30;TEMP=293.15"
 	max_extinguish_hp = 100
 	extinguish_hp = 100
 
@@ -438,7 +438,7 @@
 	else
 		if(!LAZYLEN(gasses_emit_tick))
 			return
-	if(neutralized)
+	if(neutralized || extinguished)
 		cooling_stuff = TRUE
 	if(!force && world.time < next_gas_spurt)
 		return
@@ -454,7 +454,7 @@
 /obj/effect/cme/proc/bfg_zap(force = FALSE)
 	if(!force && world.time < next_zap)
 		return
-	if(neutralized)
+	if(neutralized || extinguished)
 		return
 	next_zap = (rand(zap_interval_min, zap_interval_max) * get_extinguish_fraction()) + world.time
 	playsound(src, zap_sound, 100, TRUE, 20, ignore_walls = TRUE)
@@ -508,9 +508,8 @@
 	color = COLOR_WHITE
 	light_color = COLOR_WHITE
 	neutralized = TRUE
+	T.atmos_spawn_air(gas_emit_burst_safe)
 	var/numloots = loots
-	if(extinguished)
-		numloots *= 2
 	for(var/i in 1 to numloots)
 		var/atom/movable/loot = pick_weight(GLOB.cme_loot_list)
 		new loot(T)

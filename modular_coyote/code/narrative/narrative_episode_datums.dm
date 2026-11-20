@@ -225,7 +225,8 @@
 		return 0
 	var/lowest = vars[low_varname]
 	var/highest = vars[high_varname]
-	return rand(lowest, highest)
+	var/vale = rand(lowest, highest)
+	return SSnarrative.timescale_cooldown(vale)
 
 /datum/episode/proc/main_event_fired(event)
 	main_event_status = 1

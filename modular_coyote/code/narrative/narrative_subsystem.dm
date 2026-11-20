@@ -27,6 +27,7 @@ SUBSYSTEM_DEF(narrative)
 		// we kinda need it lol
 		/datum/controller/subsystem/gamemode,
 	)
+	var/wait_override
 
 	var/list/all_episodes = list()
 	var/datum/episode/current_episode = null
@@ -61,7 +62,9 @@ SUBSYSTEM_DEF(narrative)
 	var/phase_max = 6
 	var/phase_override = null
 
-	var/debug_radio_merger_lag = TRUE
+	var/timescale_factor = 1
+
+	var/debug_radio_merger_lag = FALSE
 
 /datum/controller/subsystem/narrative/Initialize()
 	build_episode_list()
@@ -80,6 +83,13 @@ SUBSYSTEM_DEF(narrative)
 		check_tv_guide()
 		return
 	current_episode.fire()
+	if(timescale_factor == 1)
+		wait = initial(wait)
+		return
+	if(!isnull(wait_override))
+		wait = wait_override
+	else
+		wait = initial(wait) / timescale_factor
 
 /datum/controller/subsystem/narrative/proc/build_episode_list()
 	for(var/datum/episode/ep as anything in subtypesof(/datum/episode))
@@ -145,7 +155,7 @@ SUBSYSTEM_DEF(narrative)
 	else if(!isnull(phase_override))
 		round_phase = phase_override
 	else
-		var/roundtime_elapsed = world.time - SSticker.round_start_time
+		var/roundtime_elapsed = get_scaled_time()
 		if(roundtime_elapsed < phase_2_start)
 			round_phase = 1
 		else if(roundtime_elapsed < phase_3_start)
@@ -160,6 +170,12 @@ SUBSYSTEM_DEF(narrative)
 			round_phase = 6
 	round_phase = clamp(round_phase, phase_min, phase_max)
 	return round_phase
+
+/datum/controller/subsystem/narrative/proc/get_scaled_time()
+	return (world.time - SSticker.round_start_time) * timescale_factor
+
+/datum/controller/subsystem/narrative/proc/timescale_cooldown(vale)
+	return vale / timescale_factor
 
 /datum/controller/subsystem/narrative/proc/typecache_banned_areas(flags)
 	if(LAZYLEN(SSnarrative.banned_area_cache["[flags]"]))

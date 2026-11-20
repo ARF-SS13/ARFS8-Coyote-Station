@@ -27,7 +27,7 @@ GLOBAL_VAR(meteor_direction)
 		curr += timespread
 		var/meteor = pick_weight_take(meteor_types)
 		meteor_timers += spawn_meteor_episode(meteor, curr, center_of_mass)
-	next_meteor = world.time + dley
+	next_meteor = world.time + SSnarrative.timescale_cooldown(dley)
 	return TRUE
 
 /datum/episode_event/threadded/meteors/is_finished(force)
