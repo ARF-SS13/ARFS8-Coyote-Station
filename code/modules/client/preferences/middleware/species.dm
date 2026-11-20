@@ -101,8 +101,8 @@ GLOBAL_LIST_EMPTY(species_static_tgui)
 
 /proc/get_species_data(datum/species/species)
 	var/list/spedat = list()
-	var/spedesc = species.get_species_description()
-	var/spelore = species.get_species_lore()
+	var/spedesc = "Pending lore update!" // species.get_species_description()
+	var/spelore = "Pending lore update!" // species.get_species_lore()
 	spedat["name"]              = species.name
 	spedat["id"]                = species.id
 	spedat["desc"]              = LAZYLISTIFY(spedesc)
