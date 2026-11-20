@@ -1,6 +1,6 @@
 /datum/species/snail
-	name = "\improper Snailperson"
-	plural_form = "Snailpeople"
+	name = "\improper Luminoid"
+	plural_form = "Luminoidian"
 	id = SPECIES_SNAIL
 	inherent_traits = list(
 		TRAIT_MUTANT_COLORS,
