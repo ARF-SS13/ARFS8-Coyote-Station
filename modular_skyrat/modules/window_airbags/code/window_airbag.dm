@@ -62,7 +62,7 @@
 	icon = 'modular_skyrat/modules/inflatables/icons/inflatable.dmi'
 	icon_state = "airbag_safe"
 	base_icon_state = "airbag"
-	max_integrity = 10
+	max_integrity = 1000
 	/// The time in which we deploy
 	var/detonate_time = 2 SECONDS
 	/// The item we drop on detonation

@@ -162,7 +162,7 @@
 	for(var/obj/item/radio/called_radio as anything in radios)
 		called_radio.on_receive_message(data)
 
-	// From the list of radios, find all mobs who can hear those.
+	// From the list of radios, find all mobs who can hear those, and their best radio too
 	var/list/receive = get_hearers_in_radio_ranges(radios)
 
 	// Add observers who have ghost radio enabled.
@@ -179,9 +179,11 @@
 		if(!hearer)
 			stack_trace("null found in the hearers list returned by the spatial grid. this is bad")
 			continue
+		var/obj/item/radio/best_radio = receive[hearer]
 		spans -= blacklisted_spans
 		var/list/radio_data = message_data.Copy()
 		radio_data[SATA_VC_SOURCE] = source
+		SSnarrative.OnRadioMessageReceived(hearer, frequency, data, spans, radio_data, best_radio)
 		hearer.Hear(virt, language, message, frequency, data["frequency_name"], data["frequency_color"], spans, radio_data, message_range = INFINITY)
 
 	// This following recording is intended for research and feedback in the use of department radio channels

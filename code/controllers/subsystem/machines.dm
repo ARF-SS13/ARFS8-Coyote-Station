@@ -29,6 +29,8 @@ SUBSYSTEM_DEF(machines)
 	///List of all powernets on the server.
 	var/list/datum/powernet/powernets = list()
 
+	var/list/overloading_lights = list()
+
 /datum/controller/subsystem/machines/Initialize()
 	makepowernets()
 	fire()

@@ -7,6 +7,7 @@
 	freqlock = RADIO_FREQENCY_LOCKED
 	light_power = 1
 	light_range = 1.6
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_MAX
 
 /obj/item/radio/weather_monitor/update_overlays()
 	. = ..()

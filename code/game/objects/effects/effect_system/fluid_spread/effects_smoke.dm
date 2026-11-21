@@ -321,7 +321,7 @@
 	for(var/mob/living/potential_tinder in chilly)
 		potential_tinder.extinguish_mob()
 	for(var/obj/item/potential_tinder in chilly)
-		potential_tinder.extinguish()
+		potential_tinder.extinguish(100)
 
 /datum/effect_system/fluid_spread/smoke/freezing/start(log = FALSE)
 	if(blast)

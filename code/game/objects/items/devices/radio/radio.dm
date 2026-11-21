@@ -97,9 +97,17 @@
 	/// A very brief cooldown to prevent "important" radio sounds from overlapping.
 	COOLDOWN_DECLARE(important_audio_cooldown)
 
+	var/interference_resistance = RADIO_INTERFERENCE_RESISTANCE_NONE
+	var/interfered_with = FALSE
+	var/next_sparks = 0
+	var/sparks_cd_min = 10 SECONDS
+	var/sparks_cd_max = 30 SECONDS
+
 /obj/item/radio/Initialize(mapload)
 	set_wires(new /datum/wires/radio(src))
 	. = ..()
+	if(src.type == /obj/item/radio)
+		interference_resistance = RADIO_INTERFERENCE_RESISTANCE_MAX
 
 	if(ispath(keyslot))
 		keyslot = new keyslot()
@@ -314,6 +322,8 @@
 		return
 	if(!talking_movable.try_speak(message, ignore_spam = TRUE, filterproof = TRUE))
 		return
+	if(!islist(message_data[SATA_SPANS]))
+		message_data[SATA_SPANS] = list()
 
 	if(use_command)
 		spans |= SPAN_COMMAND
@@ -596,6 +606,20 @@
 		. += span_notice("It can be attached and modified.")
 	else
 		. += span_notice("It cannot be modified or attached.")
+	if(interference_resistance > 0)
+		. += span_notice("The stellar radiation shielding guarantees resistance to Class [interference_resistance] solar interference and below.")
+	if(SSnarrative.current_interference_level > interference_resistance)
+		. += span_alert("There is an electrical hum coming from inside the device. The circuitry seems to be struggling against the current stellar interference.")
+		if(SSnarrative.radio_blackout)
+			var/howlong = SSnarrative.blackout_active_until - world.time
+			var/howtime = DisplayTimeText(howlong)
+			if(on)
+				if(listening)
+					. += span_alert("The speaker is emitting a constant distorted crackle. Don't expect this thing to work properly for another [howtime].")
+				else
+					. += span_alert("The circuitry is humming and sparking violently. Don't expect this thing to work properly for another [howtime].")
+			else
+				. += span_alert("The device is currently fucked up due to the stellar interference. Don't expect it to work properly for another [howtime].")
 
 /obj/item/radio/update_overlays()
 	. = ..()
@@ -605,6 +629,36 @@
 		. += overlay_mic_idle
 	if(listening && overlay_speaker_idle)
 		. += overlay_speaker_idle
+	if(SSnarrative.radio_blackout || SSnarrative.current_interference_level > interference_resistance)
+		. += image('icons/effects/effects.dmi', src, "electricity")
+
+/obj/item/radio/proc/update_interference()
+	var/was_interfered_with = interfered_with
+	if(SSnarrative.radio_blackout || SSnarrative.current_interference_level > interference_resistance)
+		interfered_with = TRUE
+	else
+		interfered_with = FALSE
+	if(was_interfered_with && !interfered_with)
+		STOP_PROCESSING(SSobj, src)
+	else if(!was_interfered_with && interfered_with)
+		if(ismob(loc) || isturf(loc))
+			do_sparks(1, FALSE, get_turf(src))
+		START_PROCESSING(SSobj, src)
+	update_icon()
+
+/obj/item/radio/process()
+	update_interference()
+	if(!interfered_with)
+		return PROCESS_KILL
+	if(world.time < next_sparks)
+		return
+	next_sparks = world.time + rand(sparks_cd_min, sparks_cd_max)
+	if(!ismob(loc) && !isturf(loc))
+		return
+	if(prob(SSnarrative.current_interference_level))
+		do_sparks(1, FALSE, get_turf(src))
+	if(SSnarrative.radio_blackout && prob(20))
+		do_sparks(1, FALSE, get_turf(src))
 
 /obj/item/radio/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
 	if(user.combat_mode && tool.tool_behaviour == TOOL_SCREWDRIVER)
@@ -714,6 +768,7 @@
 	subspace_switchable = TRUE
 	dog_fashion = null
 	canhear_range = 0
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_LOW
 
 /obj/item/radio/borg/resetChannels()
 	. = ..()
@@ -726,6 +781,7 @@
 /obj/item/radio/borg/syndicate
 	special_channels = RADIO_SPECIAL_SYNDIE
 	keyslot = /obj/item/encryptionkey/syndicate
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_MAX
 
 /obj/item/radio/borg/syndicate/Initialize(mapload)
 	. = ..()
@@ -733,6 +789,7 @@
 
 /obj/item/radio/off // Station bounced radios, their only difference is spawning with the speakers off, this was made to help the lag.
 	dog_fashion = /datum/dog_fashion/back
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_MAX
 
 /obj/item/radio/off/Initialize(mapload)
 	. = ..()
@@ -745,6 +802,7 @@
 	freerange = TRUE
 	freqlock = RADIO_FREQENCY_LOCKED
 	radio_noise = FALSE
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_HIGH
 
 /obj/item/radio/entertainment/Initialize(mapload)
 	. = ..()
@@ -796,6 +854,7 @@
 	icon_state = "microphone"
 	inhand_icon_state = "microphone"
 	canhear_range = 3
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_MAX
 
 // In case you want to map it in/spawn it for some reason
 /obj/item/radio/toy

@@ -310,6 +310,7 @@ do { \
 	name = "radio headset"
 	actions_types = list(/datum/action/item_action/chameleon/change/headset)
 	action_slots = ALL
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_HIGH
 
 /obj/item/radio/headset/chameleon/broken
 

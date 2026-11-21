@@ -1,5 +1,5 @@
 /datum/storyteller/coyote
-	name = "Coyote Versus Space"
+	name = "Coyote Classic"
 	desc = "This storyteller focuses more on the environmental side of danger than that of your fellow crew. \
 	Events are heavily weighted towards PVE threats toward the station and crew, and you can (generally) rely on your fellow spacefolk to be (at least somewhat) benign!"
 	welcome_text = "Welcome, Space Coyote!"
@@ -25,3 +25,9 @@
 	threshold_major = 7000
 	threshold_crewset = 2400000
 	threshold_ghostset = 6000000
+
+// surprise, this does nothing
+/datum/storyteller/coyote/process(delta_time)
+	return
+
+
