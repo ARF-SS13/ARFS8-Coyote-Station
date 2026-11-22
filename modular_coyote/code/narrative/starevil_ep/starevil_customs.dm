@@ -90,9 +90,9 @@
 		return
 	var/blackout_dur = rand(blackout_min_duration, blackout_max_duration)
 	var/blackout_cooldown_dur = rand(blackout_min_cooldown, blackout_max_cooldown)
-	SSnarrative.blackout_active_until = world.time + SSnarrative.timescale_cooldown(blackout_dur)
+	SSnarrative.blackout_active_until = world.time + (SSnarrative.timescale_cooldown(blackout_dur) * (SSnarrative.get_action_scalar() || 1))
 	SSnarrative.radio_blackout = TRUE
-	SSnarrative.blackout_cooldown_until = world.time + SSnarrative.timescale_cooldown(blackout_cooldown_dur)
+	SSnarrative.blackout_cooldown_until = world.time + (SSnarrative.timescale_cooldown(blackout_cooldown_dur) * (SSnarrative.get_action_scalar(TRUE) || 1))
 	SSnarrative.radios_need_update = TRUE
 
 /datum/episode_event/threadded/radio_interference/proc/update_current_interference_level()
@@ -225,12 +225,12 @@
 	if(max_infected_lights <= 0)
 		return
 	if(next_infect == 0)
-		next_infect = world.time + SSnarrative.timescale_cooldown(rand(min_infect_cooldown, max_infect_cooldown))
+		next_infect = world.time + (SSnarrative.timescale_cooldown(rand(min_infect_cooldown, max_infect_cooldown)) * (SSnarrative.get_action_scalar(TRUE) || 1))
 	if(LAZYLEN(SSmachines.overloading_lights) >= max_infected_lights)
 		return
 	if(world.time < next_infect)
 		return
-	next_infect = world.time + SSnarrative.timescale_cooldown(rand(min_infect_cooldown, max_infect_cooldown))
+	next_infect = world.time + (SSnarrative.timescale_cooldown(rand(min_infect_cooldown, max_infect_cooldown)) * (SSnarrative.get_action_scalar(TRUE) || 1))
 	var/obj/machinery/light/did = null
 	// find a valadable light
 	var/list/lights = SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/light)
@@ -245,7 +245,8 @@
 		var/area/A = get_area(L)
 		if(is_in_banned_area(A))
 			continue
-		L.set_overloading(TRUE)
+		var/start_progress = 30 SECONDS * (SSnarrative.get_action_scalar() || 1)
+		L.set_overloading(TRUE, start_progress)
 		did = L
 		break
 	return TRUE
@@ -320,10 +321,10 @@
 	if(!LAZYLEN(cme_stock))
 		return
 	if(next_cme_strike == 0)
-		next_cme_strike = world.time + SSnarrative.timescale_cooldown(rand(min_cme_cooldown, max_cme_cooldown))
+		next_cme_strike = world.time + (SSnarrative.timescale_cooldown(rand(min_cme_cooldown, max_cme_cooldown)) * (SSnarrative.get_action_scalar(TRUE) || 1))
 	if(world.time < next_cme_strike)
 		return
-	next_cme_strike = world.time + SSnarrative.timescale_cooldown(rand(min_cme_cooldown, max_cme_cooldown))
+	next_cme_strike = world.time + (SSnarrative.timescale_cooldown(rand(min_cme_cooldown, max_cme_cooldown)) * (SSnarrative.get_action_scalar(TRUE) || 1))
 	// Adjust the CME time, based on how messed up the radio communication is
 	// cus these can cause some serious damage if not found, and the announcement is kinda important
 	var/extramod = 1

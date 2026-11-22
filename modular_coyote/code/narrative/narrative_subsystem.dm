@@ -40,6 +40,8 @@ SUBSYSTEM_DEF(narrative)
 	var/spider_chance = 50
 	var/ratboy_chance = 50
 
+	var/action_scalar_override = null
+
 	var/list/vote_options = list()
 
 	var/list/life_active_events = list()
@@ -174,6 +176,16 @@ SUBSYSTEM_DEF(narrative)
 		options[opt] = (voted_for == opt.option_value)
 	return options
 
+/datum/controller/subsystem/narrative/proc/get_action_scalar(inverted = FALSE)
+	if(!isnull(action_scalar_override))
+		if(inverted)
+			return 1 / action_scalar_override
+		return action_scalar_override
+	if(!winning_option)
+		return 1
+	if(inverted)
+		return winning_option.action_scalar_inverse
+	return winning_option.action_scalar
 
 /// spends the first couple minutes of the round checking the player count and such for
 /// which episodes may be a good idea to do. or just picks one at random cus i gotta get this damn thing done at some point
@@ -197,6 +209,8 @@ SUBSYSTEM_DEF(narrative)
 			current_episode = pick(all_episodes)
 	else
 		CRASH("No episodes available to pick from! Screw you!")
+	if(current_episode)
+		current_episode.start_episode(winning_option)
 
 
 // make these check the current episode for the spider and ratboy chances instead of using static values
@@ -334,6 +348,14 @@ SUBSYSTEM_DEF(narrative)
 	var/option_name = ""
 	var/option_description = ""
 	var/option_value = 0
+	var/action_scalar = 1
+	var/action_scalar_inverse = 1
+	var/action_scalar_min = 1
+	var/action_scalar_max = 1
+
+/datum/narrative_vote_option/ New()
+	action_scalar = rand(action_scalar_min*1000, action_scalar_max*1000) / 1000 // cus rand does ints, and i want decimales
+	action_scalar_inverse = 1 / action_scalar
 
 /datum/narrative_vote_option/high_intensity
 	option_name = "Ayla, the Full Throttle Fennec"
@@ -342,23 +364,27 @@ SUBSYSTEM_DEF(narrative)
 		make for an intense, if chaotic, storytelling experience! It's all action for this sandy little thing... until she \
 		inevitably crashes about halfway through the shift and falls asleep."
 	option_value = 3
+	action_scalar_min = 1.5
+	action_scalar_max = 1.75
 
 /datum/narrative_vote_option/medium_intensity
 	option_name = "Anna, the Active Vulpine"
 	option_description = \
-		"Vote for Anna the Active Vulpine as our storyteller. She brings a steady paw to the happenings of the station, here to \
-		tailor the narrative to its participants (you!). While she can be just as intense as her sister Tizzy at times, she'll \
-		at least try to scale the intensity to match those who can handle it."
+		"Vote for Anna the Active Vulpine as our storyteller. The middle sister of the three, she brings a steady paw to the \
+		happenings of the station, here to tell a story that isn't quite as intense as Ayla's, yet with more things happening \
+		than Mia's low-key approach."
 	option_value = 2
+	action_scalar_min = 0.75
+	action_scalar_max = 1.15
 
 /datum/narrative_vote_option/low_intensity
 	option_name = "Mia, the Eepy Vixen"
 	option_description = \
 		"Vote for Mia the Eepy Vixen as our storyteller. Mia's a little low-energy, she'd like a bit less intensity if that's \
-		alright with you. She doesn't really have a story in mind, no real narrative direction, just a bunch of station stuff \
-		happening at its own pace. While her storytelling tends to be fairly chill, the she still likes to toss in occasional \
+		alright with you. While her storytelling tends to be fairly chill, the she still likes to toss in occasional \
 		bursts of stuff happening to keep things interesting at the very least!"
 	option_value = 1
+	// no action scalar for low intensity, it only runs filler episodes that dont really scale
 
 
 

@@ -55,7 +55,7 @@
 	var/list/happencode = list()
 	if(!can_run(phase, force, happencode))
 		return FALSE
-	if(run_event(force, SSnarrative.timescale_cooldown(delay)))
+	if(run_event(force, SSnarrative.timescale_cooldown(delay) * (SSnarrative.get_action_scalar(TRUE) || 1)))
 		do_post_run(force)
 	return TRUE
 
@@ -83,7 +83,7 @@
 	return TRUE
 
 /datum/episode_event/proc/get_cooldown()
-	return SSnarrative.timescale_cooldown(rand(min_cooldown, max_cooldown))
+	return SSnarrative.timescale_cooldown(rand(min_cooldown, max_cooldown)) * (SSnarrative.get_action_scalar(TRUE) || 1)
 
 /datum/episode_event/proc/OnRadioMessageReceived(
 	atom/movable/hearer,

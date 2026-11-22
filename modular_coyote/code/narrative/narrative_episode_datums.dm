@@ -102,6 +102,8 @@
 	/// the phase where the main event is expected to occur, usually following the reveal phase
 	var/main_event_phase = 4
 
+	var/action_scalar = 1
+
 	// the recommended numbers for this episode!
 	var/recommended_players = 0
 	var/recommended_engis = 0
@@ -148,6 +150,8 @@
 	fire_threads(phase)
 	// then, we try minor events and background events based on their chances
 	try_random_event(phase)
+
+/datum/episode/proc/start_episode(datum/narrative_vote_option/option)
 
 /// these re in order, top to bottom, one must be finished and the second must be firable to uh fire
 /datum/episode/proc/fire_threads(phase)
@@ -227,7 +231,7 @@
 	var/lowest = vars[low_varname]
 	var/highest = vars[high_varname]
 	var/vale = rand(lowest, highest)
-	return SSnarrative.timescale_cooldown(vale)
+	return SSnarrative.timescale_cooldown(vale) * SSnarrative.get_action_scalar(TRUE)
 
 /datum/episode/proc/main_event_fired(event)
 	main_event_status = 1

@@ -20,14 +20,14 @@ GLOBAL_VAR(meteor_direction)
 	if(!GLOB.meteor_direction)
 		GLOB.meteor_direction = pick(GLOB.cardinals)
 	var/number_of_meteors = rand(min_meteors, max_meteors)
-	var/dley = rand(meteor_interval_min, meteor_interval_max)
+	var/dley = SSnarrative.timescale_cooldown(rand(meteor_interval_min, meteor_interval_max)) * (SSnarrative.get_action_scalar(TRUE) || 1)
 	var/timespread = dley / max(number_of_meteors, 1)
 	var/curr = 0
 	for(var/i in 1 to number_of_meteors)
 		curr += timespread
 		var/meteor = pick_weight_take(meteor_types)
 		meteor_timers += spawn_meteor_episode(meteor, curr, center_of_mass)
-	next_meteor = world.time + SSnarrative.timescale_cooldown(dley)
+	next_meteor = world.time + dley
 	return TRUE
 
 /datum/episode_event/threadded/meteors/is_finished(force)
