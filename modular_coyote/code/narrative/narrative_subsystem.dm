@@ -31,11 +31,16 @@ SUBSYSTEM_DEF(narrative)
 
 	var/list/all_episodes = list()
 	var/datum/episode/current_episode = null
-	var/datum/episode/forced_episode = /datum/episode/starevil
+	var/datum/episode/forced_episode = null
+	var/datum/narrative_vote_option/winning_option = null
+	var/action_episode_wanted = FALSE
+	var/ignore_pop_count = FALSE
 	// so people who are fucking each other's brains out wont count towards the pop
 	var/list/comfy_trackers = list()
-	var/spider_chance = 0
-	var/ratboy_chance = 0
+	var/spider_chance = 50
+	var/ratboy_chance = 50
+
+	var/list/vote_options = list()
 
 	var/list/life_active_events = list()
 
@@ -66,8 +71,12 @@ SUBSYSTEM_DEF(narrative)
 
 	var/debug_radio_merger_lag = FALSE
 
+	var/datum/narrative_episode_vote/votie
+	var/awaiting_vote = TRUE
+
 /datum/controller/subsystem/narrative/Initialize()
 	build_episode_list()
+	start_the_vote()
 	// load_episode_history()
 	. = ..()
 	var/list/thingse = list(
@@ -80,6 +89,9 @@ SUBSYSTEM_DEF(narrative)
 
 /datum/controller/subsystem/narrative/fire(resumed)
 	if(!current_episode)
+		if(awaiting_vote)
+			awaiting_vote = check_da_vote()
+			return
 		check_tv_guide()
 		return
 	current_episode.fire()
@@ -91,9 +103,77 @@ SUBSYSTEM_DEF(narrative)
 	else
 		wait = initial(wait) / timescale_factor
 
+/datum/controller/subsystem/narrative/proc/start_the_vote()
+	vote_options = list()
+	vote_options += new /datum/narrative_vote_option/high_intensity()
+	vote_options += new /datum/narrative_vote_option/medium_intensity()
+	vote_options += new /datum/narrative_vote_option/low_intensity()
+	votie = new /datum/narrative_episode_vote()
+	votie.start_vote()
+
+/datum/controller/subsystem/narrative/proc/has_vote_active()
+	if(!votie)
+		return FALSE
+	return votie.vote_active
+
+/datum/controller/subsystem/narrative/proc/check_da_vote()
+	if(current_episode)
+		return
+	if(!votie)
+		return
+	if(forced_episode)
+		return
+	if(!votie.vote_active)
+		return
+	// is it over? as in, is game playing now yet?
+	if(SSticker.current_state < GAME_STATE_PLAYING)
+		return TRUE
+	// ok determine which episode we're doing
+	votie.tally_and_finish()
+	awaiting_vote = FALSE
+	// should be a number bertween 1 and 3
+	var/numbor = trunc(votie.vote_result)
+	var/fractio = fract(votie.vote_result)
+	if(fractio > 0)
+		if(fractio >= 0.5)
+			if(prob(fractio * 100))
+				numbor += 1
+		else if(fractio < 0.5)
+			if(prob((1 - fractio) * 100))
+				numbor -= 1
+	numbor = clamp(numbor, 1, 3)
+	switch(numbor)
+		if(1)
+			action_episode_wanted = FALSE
+		if(2)
+			action_episode_wanted = prob(50)
+		if(3)
+			action_episode_wanted = TRUE
+			ignore_pop_count = TRUE
+	winning_option = get_option_for_numbor(numbor)
+	message_admins("Narrative vote: [numbor], action_episode_wanted=[action_episode_wanted], ignore_pop_count=[ignore_pop_count]")
+	check_tv_guide()
+
 /datum/controller/subsystem/narrative/proc/build_episode_list()
 	for(var/datum/episode/ep as anything in subtypesof(/datum/episode))
 		all_episodes += new ep()
+
+/datum/controller/subsystem/narrative/proc/get_option_for_numbor(numbor)
+	for(var/datum/narrative_vote_option/opt in vote_options)
+		if(opt.option_value == numbor)
+			return opt
+	return null
+
+/datum/controller/subsystem/narrative/proc/get_splash_vote_options(ckey)
+	if(!votie || !votie.vote_active)
+		return null
+	ckey = extract_ckey(ckey)
+	var/list/options = list()
+	var/voted_for = votie.votes[ckey] // 1, 2, 3, or null
+	for(var/datum/narrative_vote_option/opt in vote_options)
+		options[opt] = (voted_for == opt.option_value)
+	return options
+
 
 /// spends the first couple minutes of the round checking the player count and such for
 /// which episodes may be a good idea to do. or just picks one at random cus i gotta get this damn thing done at some point
@@ -104,7 +184,17 @@ SUBSYSTEM_DEF(narrative)
 				current_episode = ep
 				return
 	if(LAZYLEN(all_episodes))
-		current_episode = pick(all_episodes)
+		var/list/potential_episodes = list()
+		for(var/datum/episode/ep as anything in all_episodes)
+			if(!action_episode_wanted && !ep.is_actiony)
+				potential_episodes += ep
+				continue
+			else if(action_episode_wanted && ep.is_actiony)
+				potential_episodes += ep
+		if(LAZYLEN(potential_episodes))
+			current_episode = pick(potential_episodes)
+		else
+			current_episode = pick(all_episodes)
 	else
 		CRASH("No episodes available to pick from! Screw you!")
 
@@ -194,20 +284,81 @@ SUBSYSTEM_DEF(narrative)
 		typecache_precum |= /area/station/engineering/atmos
 	SSnarrative.banned_area_cache["[flags]"] = typecacheof(typecache_precum)
 
+/*
+	* currently just a vote to determine the heat level the players want
+	* each vote has a value: low, normal, intense
+	* results arent gonna be revealed, but
+*/
+/datum/narrative_episode_vote
+	/// The result of the vote, null if undecided
+	var/vote_result = null
+	/// The list of individual votes cast
+	var/list/votes = list()
+	/// is the vote going?
+	var/vote_active = FALSE
+
+/datum/narrative_episode_vote/proc/start_vote()
+	vote_active = TRUE
+	vote_result = null
+	votes = list()
+
+/datum/narrative_episode_vote/proc/cast_vote(who, choose)
+	if(!vote_active)
+		return
+	who = extract_ckey(who)
+	votes[who] = choose
+
+/datum/narrative_episode_vote/proc/override_result(new_result)
+	vote_result = new_result
+	vote_active = FALSE // good game, i win
+
+/datum/narrative_episode_vote/proc/tally_and_finish()
+	if(LAZYLEN(votes) <= 0) // nobody voted? fuck you, im picking
+		vote_result = 2
+		goto just_end_it
+	// average out the votes to determine the most popular choice
+	var/votevalue_sum = 0
+	for(var/ckey in votes)
+		votevalue_sum += votes[ckey]
+	vote_result = votevalue_sum / LAZYLEN(votes)
+	just_end_it:
+	vote_active = FALSE
+	message_admins("Narrative vote concluded with result: [vote_result]")
 
 
 
 
 
 
+/datum/narrative_vote_option
+	var/option_name = ""
+	var/option_description = ""
+	var/option_value = 0
 
+/datum/narrative_vote_option/high_intensity
+	option_name = "Ayla, the Full Throttle Fennec"
+	option_description = \
+		"Vote for Ayla the Full Throttle Fennec as our storyteller. This energetic critter has some serious zoomies that will \
+		make for an intense, if chaotic, storytelling experience! It's all action for this sandy little thing... until she \
+		inevitably crashes about halfway through the shift and falls asleep."
+	option_value = 3
 
+/datum/narrative_vote_option/medium_intensity
+	option_name = "Anna, the Active Vulpine"
+	option_description = \
+		"Vote for Anna the Active Vulpine as our storyteller. She brings a steady paw to the happenings of the station, here to \
+		tailor the narrative to its participants (you!). While she can be just as intense as her sister Tizzy at times, she'll \
+		at least try to scale the intensity to match those who can handle it."
+	option_value = 2
 
-
-
-
-
-
+/datum/narrative_vote_option/low_intensity
+	option_name = "Mia, the Eepy Vixen"
+	option_description = \
+		"Vote for Mia the Eepy Vixen as our storyteller. Mia's a little low-energy, she'd like a bit less intensity if that's \
+		alright with you. She doesn't really have a story in mind, no real narrative direction, just a bunch of station stuff \
+		happening at its own pace. While her storytelling tends to be fairly chill, the she still likes to toss in occasional \
+		bursts of stuff happening to keep things interesting at the very least!"
+	option_value = 1
 
 
 
@@ -221,7 +372,6 @@ SUBSYSTEM_DEF(narrative)
 /datum/comfy_tracker
 	var/user_ckey = ""
 	var/last_meaningful_action = 0
-
 
 
 

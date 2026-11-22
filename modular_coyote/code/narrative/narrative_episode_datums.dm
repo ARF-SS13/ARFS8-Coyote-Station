@@ -5,6 +5,7 @@
 	)
 	var/desc = "The station tries to use an improperly configured episode! Will Dan survive all the bug reports?"
 	var/noname = FALSE
+	var/is_actiony = TRUE
 	/// One of these will be our big main round event, like blob or meteors or something
 	/// though if one resolves too quickly we might need another main event to keep things going
 	var/list/main_events = list()

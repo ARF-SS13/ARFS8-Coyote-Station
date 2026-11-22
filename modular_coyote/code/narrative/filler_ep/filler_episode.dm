@@ -1,6 +1,7 @@
 /datum/episode/filler
 	desc = "Just a regular breather episode with nothing too catastrophic happening."
 	noname = TRUE
+	is_actiony = FALSE
 	main_events = list()
 
 	event_threads = list(
