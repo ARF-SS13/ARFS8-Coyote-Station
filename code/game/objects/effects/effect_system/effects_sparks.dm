@@ -5,12 +5,24 @@
 // will always spawn at the items location.
 /////////////////////////////////////////////
 
-/proc/do_sparks(number, cardinal_only, atom/source, atom/holder = null, spark_type = /datum/effect_system/basic/spark_spread)
+/proc/do_sparks(
+	number,
+	cardinal_only,
+	atom/source,
+	atom/holder = null,
+	spark_type = /datum/effect_system/basic/spark_spread)
 	var/datum/effect_system/basic/spark_spread/sparks = new spark_type(get_turf(source), number, cardinal_only)
 	if (holder)
 		sparks.attach(holder)
 	sparks.autocleanup = TRUE
 	sparks.start()
+
+/proc/do_quantum_sparks(
+	number,
+	cardinal_only,
+	atom/source,
+	atom/holder = null)
+	return do_sparks(number, cardinal_only, source, holder, /datum/effect_system/basic/spark_spread/quantum)
 
 /obj/effect/particle_effect/sparks
 	name = "sparks"

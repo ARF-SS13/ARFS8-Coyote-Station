@@ -278,34 +278,36 @@
 	if(postmarked)
 		. += "mail_nt"
 
-/// Fills this mail crate with N pieces of mail, where N is the lower of the amount var passed, and the maximum capacity of this crate. If N is larger than the number of alive human players, the excess will be junkmail.
-/obj/structure/closet/crate/mail/proc/populate(amount)
-	var/mail_count = min(amount, storage_capacity)
-	// Fills the
+/proc/make_some_mail(atom/where, amount)
+	if(istype(where, /obj/structure/closet))
+		amount = min(amount, where:storage_capacity)
 	var/list/mail_recipients = list()
 
 	for(var/mob/living/carbon/human/human in GLOB.player_list)
-		if(human.stat == DEAD || !human.mind)
+		if(!human.mind)
 			continue
-		// Skip wizards, nuke ops, cyborgs; Centcom does not send them mail
-		if(!(human.mind.assigned_role.job_flags & JOB_CREW_MEMBER))
-			continue
-
 		mail_recipients += human.mind
 
-	for(var/i in 1 to mail_count)
+	for(var/i in 1 to amount)
 		var/obj/item/mail/new_mail
-		if(prob(FULL_CRATE_LETTER_ODDS))
+		if(prob(50))
 			new_mail = new /obj/item/mail(src)
 		else
 			new_mail = new /obj/item/mail/envelope(src)
 
-		var/datum/mind/recipient = pick_n_take(mail_recipients)
+		var/datum/mind/recipient = pick(mail_recipients)
 		if(recipient)
 			new_mail.initialize_for_recipient(recipient)
 		else
 			new_mail.junk_mail()
 
+
+
+/// Fills this mail crate with N pieces of mail, where N is the lower of the amount var passed, and the maximum capacity of this crate. If N is larger than the number of alive human players, the excess will be junkmail.
+/obj/structure/closet/crate/mail/proc/populate(amount)
+	var/mail_count = min(amount, storage_capacity)
+	// Fills the crate with mail, up to the specified amount or the crate's storage capacity, whichever is lower.
+	make_some_mail(src, mail_count)
 	update_icon()
 
 /// Crate for mail that automatically depletes the economy subsystem's pending mail counter.
