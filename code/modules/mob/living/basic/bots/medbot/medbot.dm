@@ -29,68 +29,31 @@
 	path_image_color = "#d9d9f4"
 
 	///anouncements when we find a target to heal
-	var/static/list/wait_announcements = list(
-		MEDIBOT_VOICED_HOLD_ON = 'sound/mobs/non-humanoids/medbot/coming.ogg',
-		MEDIBOT_VOICED_WANT_TO_HELP = 'sound/mobs/non-humanoids/medbot/help.ogg',
-		MEDIBOT_VOICED_YOU_ARE_INJURED = 'sound/mobs/non-humanoids/medbot/injured.ogg',
-	)
-
+	var/datum/bark_pack/wait_announcements = /datum/bark_pack/medibot/wait_for_me
 	///announcements after we heal someone
-	var/static/list/afterheal_announcements = list(
-		MEDIBOT_VOICED_ALL_PATCHED_UP = 'sound/mobs/non-humanoids/medbot/patchedup.ogg',
-		MEDIBOT_VOICED_APPLE_A_DAY = 'sound/mobs/non-humanoids/medbot/apple.ogg',
-		MEDIBOT_VOICED_FEEL_BETTER = 'sound/mobs/non-humanoids/medbot/feelbetter.ogg',
-	)
+	var/datum/bark_pack/afterheal_announcements = /datum/bark_pack/medibot/finished_healing
 
 	///announcements when we are healing someone near death
-	var/static/list/near_death_announcements = list(
-		MEDIBOT_VOICED_STAY_WITH_ME = 'sound/mobs/non-humanoids/medbot/no.ogg',
-		MEDIBOT_VOICED_LIVE = 'sound/mobs/non-humanoids/medbot/live.ogg',
-		MEDIBOT_VOICED_NEVER_LOST = 'sound/mobs/non-humanoids/medbot/lost.ogg',
-	)
+	var/datum/bark_pack/near_death_announcements = /datum/bark_pack/medibot/patient_died
 	///announcements when we are idle
-	var/static/list/idle_lines = list(
-		MEDIBOT_VOICED_DELICIOUS = 'sound/mobs/non-humanoids/medbot/delicious.ogg',
-		MEDIBOT_VOICED_PLASTIC_SURGEON = 'sound/mobs/non-humanoids/medbot/surgeon.ogg',
-		MEDIBOT_VOICED_MASK_ON = 'sound/mobs/non-humanoids/medbot/radar.ogg',
-		MEDIBOT_VOICED_ALWAYS_A_CATCH = 'sound/mobs/non-humanoids/medbot/catch.ogg',
-		MEDIBOT_VOICED_LIKE_FLIES = 'sound/mobs/non-humanoids/medbot/flies.ogg',
-		MEDIBOT_VOICED_SUFFER = 'sound/mobs/non-humanoids/medbot/why.ogg',
-	)
+	var/datum/bark_pack/idle_lines = /datum/bark_pack/medibot/idle_normal
+
 	///announcements when we are emagged
-	var/static/list/emagged_announcements = list(
-		MEDIBOT_VOICED_FUCK_YOU = 'sound/mobs/non-humanoids/medbot/fuck_you.ogg',
-		MEDIBOT_VOICED_NOT_A_GAME = 'sound/mobs/non-humanoids/medbot/turn_off.ogg',
-		MEDIBOT_VOICED_IM_DIFFERENT = 'sound/mobs/non-humanoids/medbot/im_different.ogg',
-		MEDIBOT_VOICED_FOURTH_WALL = 'sound/mobs/non-humanoids/medbot/close.ogg',
-		MEDIBOT_VOICED_SHINDEMASHOU = 'sound/mobs/non-humanoids/medbot/shindemashou.ogg',
-	)
+	var/datum/bark_pack/emagged_announcements = /datum/bark_pack/medibot/idle_emagged
+
 	///announcements when we are being tipped
-	var/static/list/tipped_announcements = list(
-		MEDIBOT_VOICED_WAIT = 'sound/mobs/non-humanoids/medbot/hey_wait.ogg',
-		MEDIBOT_VOICED_DONT = 'sound/mobs/non-humanoids/medbot/please_dont.ogg',
-		MEDIBOT_VOICED_TRUSTED_YOU = 'sound/mobs/non-humanoids/medbot/i_trusted_you.ogg',
-		MEDIBOT_VOICED_NO_SAD = 'sound/mobs/non-humanoids/medbot/nooo.ogg',
-		MEDIBOT_VOICED_OH_FUCK = 'sound/mobs/non-humanoids/medbot/oh_fuck.ogg',
-	)
+	var/datum/bark_pack/tipped_announcements = /datum/bark_pack/medibot/being_tipped
+
 	///announcements when we are being untipped
-	var/static/list/untipped_announcements = list(
-		MEDIBOT_VOICED_FORGIVE = 'sound/mobs/non-humanoids/medbot/forgive.ogg',
-		MEDIBOT_VOICED_THANKS = 'sound/mobs/non-humanoids/medbot/thank_you.ogg',
-		MEDIBOT_VOICED_GOOD_PERSON = 'sound/mobs/non-humanoids/medbot/youre_good.ogg',
-	)
+	var/datum/bark_pack/untipped_announcements = /datum/bark_pack/medibot/was_untipped
+
 	///announcements when we are worried
-	var/static/list/worried_announcements = list(
-		MEDIBOT_VOICED_PUT_BACK = 'sound/mobs/non-humanoids/medbot/please_put_me_back.ogg',
-		MEDIBOT_VOICED_IM_SCARED = 'sound/mobs/non-humanoids/medbot/please_im_scared.ogg',
-		MEDIBOT_VOICED_NEED_HELP = 'sound/mobs/non-humanoids/medbot/dont_like.ogg',
-		MEDIBOT_VOICED_THIS_HURTS = 'sound/mobs/non-humanoids/medbot/pain_is_real.ogg',
-		MEDIBOT_VOICED_THE_END = 'sound/mobs/non-humanoids/medbot/is_this_the_end.ogg',
-		MEDIBOT_VOICED_NOOO = 'sound/mobs/non-humanoids/medbot/nooo.ogg',
-	)
-	var/static/list/misc_announcements= list(
-		MEDIBOT_VOICED_CHICKEN = 'sound/mobs/non-humanoids/medbot/i_am_chicken.ogg',
-	)
+	var/datum/bark_pack/worried_announcements = /datum/bark_pack/medibot/idle_tipped
+
+	var/datum/bark_pack/misc_announcements = /datum/bark_pack/medibot/idle_chicken
+
+	var/chatty_chance = 5
+
 	/// drop determining variable
 	var/health_analyzer = /obj/item/healthanalyzer
 	/// drop determining variable
@@ -99,31 +62,41 @@
 	var/skin = "generic"
 	/// How much healing do we do at a time?
 	var/heal_amount = 2.5
+	/// How long does it take to complete a heal?
+	var/heal_time = 2 SECONDS
 	/// How much healing multiplier do we have from upgrades?
 	VAR_FINAL/heal_multiplier = 1.0
 	/// Start healing when they have this much damage in a category
 	var/heal_threshold = 10
 	/// What damage type does this bot support. Because the default is brute, if the medkit is brute-oriented there is a slight bonus to healing. set to "all" for it to heal any of the 4 base damage types
-	var/damage_type_healer = BRUTE
+	var/damage_type_healer = BRUTELOSS
+	var/list/healable_damage_types // set by init
 
 	///Flags Medbots use to decide how they should be acting.
 	var/medical_mode_flags = MEDBOT_DECLARE_CRIT | MEDBOT_SPEAK_MODE
-	//Selections:  MEDBOT_DECLARE_CRIT | MEDBOT_STATIONARY_MODE | MEDBOT_SPEAK_MODE | MEDBOT_TIPPED_MODE
+	//Selections:  MEDBOT_DECLARE_CRIT | MEDBOT_STATIONARY_MODE | MEDBOT_SPEAK_MODE | MEDBOT_TIPPED_MODE | MEDBOT_SUPERSTATIONARY_MODE
 
 	/// techweb linked to the medbot
 	var/datum/techweb/linked_techweb
 	///our tipper
 	var/datum/weakref/tipper
+	///last person we healed
+	var/datum/weakref/last_healed
+	var/datum/looping_sound/medbot_healing/soundloop //100% stolen from microwaves
+	var/stop_timer
+	var/wait_announce_cd = 0
+	var/very_chatty = FALSE
+	var/am_healing = FALSE
 
 /mob/living/basic/bot/medbot/proc/set_speech_keys()
 	if(isnull(ai_controller))
 		return
-	ai_controller.set_blackboard_key(BB_NEAR_DEATH_SPEECH, near_death_announcements)
-	ai_controller.set_blackboard_key(BB_WAIT_SPEECH, wait_announcements)
-	ai_controller.set_blackboard_key(BB_AFTERHEAL_SPEECH, afterheal_announcements)
-	ai_controller.set_blackboard_key(BB_IDLE_SPEECH, idle_lines)
-	ai_controller.set_blackboard_key(BB_EMAGGED_SPEECH, emagged_announcements)
-	ai_controller.set_blackboard_key(BB_WORRIED_ANNOUNCEMENTS, worried_announcements)
+	ai_controller.set_blackboard_key(BB_NEAR_DEATH_SPEECH, SSbarks.get_barks(near_death_announcements))
+	ai_controller.set_blackboard_key(BB_WAIT_SPEECH, SSbarks.get_barks(wait_announcements))
+	ai_controller.set_blackboard_key(BB_AFTERHEAL_SPEECH, SSbarks.get_barks(afterheal_announcements))
+	ai_controller.set_blackboard_key(BB_IDLE_SPEECH, SSbarks.get_barks(idle_lines))
+	ai_controller.set_blackboard_key(BB_EMAGGED_SPEECH, SSbarks.get_barks(emagged_announcements))
+	ai_controller.set_blackboard_key(BB_WORRIED_ANNOUNCEMENTS, SSbarks.get_barks(worried_announcements))
 
 /mob/living/basic/bot/medbot/Initialize(mapload, new_skin)
 	. = ..()
@@ -149,17 +122,31 @@
 		traits_prevent_checks = prevent_checks,\
 	)
 	RegisterSignal(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, PROC_REF(pre_attack))
+	soundloop = new(src, FALSE)
+	judge_doctoral_thesis(mapload)
+	parse_healies()
+	return INITIALIZE_HINT_LATELOAD
 
+
+/mob/living/basic/bot/medbot/proc/judge_doctoral_thesis(mapload)
 	if(!HAS_TRAIT(SSstation, STATION_TRAIT_MEDBOT_MANIA) || !mapload || !is_station_level(z))
-		return INITIALIZE_HINT_LATELOAD
-
+		return
 	skin = "adv"
 	update_appearance()
-	damage_type_healer = HEAL_ALL_DAMAGE
+	damage_type_healer = HEAL_ALL_DAMAGE_FLAGS
 	if(prob(50))
 		name += ", PhD."
 
-	return INITIALIZE_HINT_LATELOAD
+/mob/living/basic/bot/medbot/proc/parse_healies()
+	healable_damage_types = list()
+	for(var/damage_flag in HEAL_DAMAGE_CHECKLIST)
+		if(!(damage_type_healer & damage_flag))
+			continue
+		var/heal_string = GLOB.heal_flag_2_string[damage_flag]
+		if(!heal_string || !(heal_string in HEAL_DAMAGE_THINGS))
+			stack_trace("ALERTA: heal_flag_2_string lacks damage type '[damage_flag]'!!")
+			continue
+		healable_damage_types |= heal_string
 
 /mob/living/basic/bot/medbot/LateInitialize()
 	if(!CONFIG_GET(flag/no_default_techweb_link) && !linked_techweb)
@@ -172,13 +159,21 @@
 		for(var/datum/design/medibot_upgrade/design in linked_techweb.get_researched_design_datums())
 			heal_multiplier += design.additive_multiplier
 
+/mob/living/basic/bot/medbot/Destroy()
+	last_healed = null
+	tipper = null
+	QDEL_NULL(soundloop)
+	if(stop_timer)
+		deltimer(stop_timer)
+	. = ..()
+
 /mob/living/basic/bot/medbot/on_craft_completion(list/components, datum/crafting_recipe/current_recipe, atom/crafter)
 	. = ..()
 	var/obj/item/storage/medkit/medkit = locate() in contents
 	medkit_type = medkit
 	health_analyzer = locate(/obj/item/healthanalyzer) in contents
 	skin = medkit.get_medbot_skin()
-	damage_type_healer = initial(medkit.damagetype_healed) ? initial(medkit.damagetype_healed) : BRUTE
+	damage_type_healer = medkit::damagetype_healed || BRUTE
 	update_appearance()
 
 /mob/living/basic/bot/medbot/update_icon_state()
@@ -203,7 +198,16 @@
 
 //this is sin
 /mob/living/basic/bot/medbot/generate_speak_list()
-	var/static/list/finalized_speak_list = (idle_lines + wait_announcements + afterheal_announcements + near_death_announcements + emagged_announcements + tipped_announcements + untipped_announcements + worried_announcements + misc_announcements)
+	var/list/finalized_speak_list = list()
+	finalized_speak_list |= SSbarks.get_barks(idle_lines)
+	finalized_speak_list |= SSbarks.get_barks(wait_announcements)
+	finalized_speak_list |= SSbarks.get_barks(afterheal_announcements)
+	finalized_speak_list |= SSbarks.get_barks(near_death_announcements)
+	finalized_speak_list |= SSbarks.get_barks(emagged_announcements)
+	finalized_speak_list |= SSbarks.get_barks(tipped_announcements)
+	finalized_speak_list |= SSbarks.get_barks(untipped_announcements)
+	finalized_speak_list |= SSbarks.get_barks(worried_announcements)
+	finalized_speak_list |= SSbarks.get_barks(misc_announcements)
 	return finalized_speak_list
 
 
@@ -222,7 +226,7 @@
 		data["custom_controls"]["heal_threshold"] = heal_threshold
 		data["custom_controls"]["speaker"] = medical_mode_flags & MEDBOT_SPEAK_MODE
 		data["custom_controls"]["crit_alerts"] = medical_mode_flags & MEDBOT_DECLARE_CRIT
-		data["custom_controls"]["stationary_mode"] = medical_mode_flags & MEDBOT_STATIONARY_MODE
+		data["custom_controls"]["stationary_mode"] = (medical_mode_flags & MEDBOT_STATIONARY_MODE) || (medical_mode_flags & MEDBOT_SUPERSTATIONARY_MODE)
 	return data
 
 // Actions received from TGUI
@@ -235,17 +239,21 @@
 		if("heal_threshold")
 			var/adjust_num = round(text2num(params["threshold"]))
 			heal_threshold = adjust_num
-			if(heal_threshold < 5)
-				heal_threshold = 5
-			if(heal_threshold > 75)
-				heal_threshold = 75
+			if(heal_threshold < 1)
+				heal_threshold = 1
+			if(heal_threshold > 500)
+				heal_threshold = 500
 		if("speaker")
+			if(medical_mode_flags & MEDBOT_SUPERSPEAK_MODE)
+				return // aint shutting this thing up
 			medical_mode_flags ^= MEDBOT_SPEAK_MODE
 		if("crit_alerts")
 			medical_mode_flags ^= MEDBOT_DECLARE_CRIT
 		if("stationary_mode")
-			medical_mode_flags ^= MEDBOT_STATIONARY_MODE
-
+			if(medical_mode_flags & MEDBOT_SUPERSTATIONARY_MODE)
+				speak("Sorry, [user]! I can't move!")
+			else
+				medical_mode_flags ^= MEDBOT_STATIONARY_MODE
 	update_appearance()
 
 /mob/living/basic/bot/medbot/emag_effects(mob/user)
@@ -274,7 +282,7 @@
  * user - the mob who is tipping us over
  */
 /mob/living/basic/bot/medbot/proc/pre_tip_over(mob/user)
-	speak(pick(worried_announcements))
+	speak(pick(SSbarks.get_barks(worried_announcements)))
 
 /*
  * Proc used in a callback for after this medibot is tipped by the tippable component.
@@ -285,6 +293,7 @@
 	medical_mode_flags |= MEDBOT_TIPPED_MODE
 	tipper = WEAKREF(user)
 	playsound(src, 'sound/machines/warning-buzzer.ogg', 50)
+	speak(pick(SSbarks.get_barks(tipped_announcements)))
 	if(prob(10))
 		speak("PSYCH ALERT: Crewmember [user.name] recorded displaying antisocial tendencies torturing bots in [get_area(src)]. Please schedule psych evaluation.", radio_channel)
 
@@ -306,68 +315,126 @@
 	if(isnull(tipper_mob))
 		return
 	if(tipper_mob == user)
-		speak(MEDIBOT_VOICED_FORGIVE)
+		// speak(MEDIBOT_VOICED_FORGIVE)
+		speak(pick(SSbarks.get_barks(untipped_announcements)))
 		return
-	speak(pick(untipped_announcements))
+	speak(pick(SSbarks.get_barks(untipped_announcements)))
 
 /mob/living/basic/bot/medbot/proc/pre_attack(mob/living/puncher, atom/target)
 	SIGNAL_HANDLER
 
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		INVOKE_ASYNC(src, PROC_REF(stop_healing))
 		return
 	if(!iscarbon(target))
+		INVOKE_ASYNC(src, PROC_REF(stop_healing))
 		return
 	// SKYRAT EDIT ADDITION START - Skip trying to heal synths
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
 		if(human_target.mob_biotypes & MOB_ROBOTIC)
+			INVOKE_ASYNC(src, PROC_REF(stop_healing))
 			return
 	// SKYRAT EDIT ADDITION END
-	INVOKE_ASYNC(src, PROC_REF(medicate_patient), target)
+	start_heal_loop(target)
 	return COMPONENT_HOSTILE_NO_ATTACK
 
-/mob/living/basic/bot/medbot/proc/medicate_patient(mob/living/carbon/human/patient)
-	if(DOING_INTERACTION(src, TEND_DAMAGE_INTERACTION))
+/mob/living/basic/bot/medbot/proc/start_heal_loop(mob/living/carbon/human/patient)
+	if(DOING_INTERACTION(src, TEND_DAMAGE_INTERACTION) || am_healing)
+		return
+	INVOKE_ASYNC(src, PROC_REF(heal_loop), patient)
+
+/mob/living/basic/bot/medbot/proc/patient_is_damaged_enough_to_heal(damage_string, amount)
+	return amount >= heal_threshold
+
+/mob/living/basic/bot/medbot/proc/heal_loop(mob/living/carbon/human/patient)
+	// safety timer, just in case something runtimes
+	var/mob/living/previous = GET_WEAKREF(last_healed)
+	var/is_continuation = previous == patient
+	// safety to break everything in case everything breaks
+	stop_timer = addtimer(CALLBACK(src, PROC_REF(stop_healing)), heal_time * 3, (TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE))
+	var/list/heal_list = list()
+	if (bot_access_flags & BOT_COVER_EMAGGED)
+		heal_list = healable_damage_types
+	else
+		for(var/damage_string in healable_damage_types)
+			var/hurtamt = patient.get_current_damage_of_type(damage_string)
+			if(patient_is_damaged_enough_to_heal(damage_string, hurtamt))
+				heal_list |= damage_string
+	if(!LAZYLEN(heal_list))
+		var/can_heal = english_list(healable_damage_types, null, "or")
+		to_chat(src, "[patient] is healthy! Your programming prevents you from tending the wounds of anyone with less than [heal_threshold + 1] damage of [can_heal].")
+		stop_healing(is_continuation)
 		return
 
-	if (!(bot_access_flags & BOT_COVER_EMAGGED))
-		if((damage_type_healer == HEAL_ALL_DAMAGE && patient.get_total_damage() <= heal_threshold) || (!(damage_type_healer == HEAL_ALL_DAMAGE) && patient.get_current_damage_of_type(damage_type_healer) <= heal_threshold))
-			to_chat(src, "[patient] is healthy! Your programming prevents you from tending the wounds of anyone with less than [heal_threshold + 1] [damage_type_healer == HEAL_ALL_DAMAGE ? "total" : damage_type_healer] damage.")
-			return
-
-	update_bot_mode(new_mode = BOT_HEALING, update_hud = FALSE)
-	patient.visible_message("[src] is trying to tend the wounds of [patient]", span_userdanger("[src] is trying to tend your wounds!"))
-	if(!do_after(src, delay = 2 SECONDS, target = patient, interaction_key = TEND_DAMAGE_INTERACTION))
-		update_bot_mode(new_mode = BOT_IDLE)
+	start_healing(patient, is_continuation)
+	if(!do_after(src, delay = heal_time, target = patient, interaction_key = TEND_DAMAGE_INTERACTION))
+		stop_healing()
 		return
-	var/modified_heal_amount = heal_amount * heal_multiplier
-	var/done_healing = FALSE
-	if(damage_type_healer == BRUTE && medkit_type == /obj/item/storage/medkit/brute)
-		modified_heal_amount *= 1.1
+	var/healed_amount = 0
 	if(bot_access_flags & BOT_COVER_EMAGGED)
 		patient.reagents?.add_reagent(/datum/reagent/toxin/chloralhydrate, 5)
+		healed_amount = 100
 		log_combat(src, patient, "pretended to tend wounds on", "internal tools")
-	else if(damage_type_healer == HEAL_ALL_DAMAGE)
-		patient.heal_ordered_damage(amount = modified_heal_amount, damage_types = list(BRUTE, BURN, TOX, OXY))
-		log_combat(src, patient, "tended the wounds of", "internal tools")
-		if(patient.get_total_damage() <= heal_threshold)
-			done_healing = TRUE
 	else
-		patient.heal_damage_type(heal_amount = modified_heal_amount, damagetype = damage_type_healer)
-		log_combat(src, patient, "tended the wounds of", "internal tools")
-		if(patient.get_current_damage_of_type(damage_type_healer) <= heal_threshold)
-			done_healing = TRUE
-
-	patient.visible_message(span_notice("[src] tends the wounds of [patient]!"), "[span_infoplain(span_green("[src] tends your wounds!"))]")
-
-	if(done_healing)
-		visible_message(span_infoplain("[src] places [p_their()] tools back into [p_themselves()]."))
-		to_chat(src, "[patient] is now healthy!")
-		update_bot_mode(new_mode = BOT_IDLE)
+		var/healing_remaining = heal_amount * heal_multiplier
+		for(var/damage_string in heal_list)
+			var/amt_healed = patient.heal_damage_type(heal_amount = healing_remaining, damagetype = damage_string)
+			log_combat(src, patient, "tended the wounds of", "internal tools")
+			healing_remaining -= amt_healed
+			healed_amount += amt_healed
+			if(!patient_is_damaged_enough_to_heal(damage_string, patient.get_current_damage_of_type(damage_string)))
+				heal_list -= damage_string
+			if(healing_remaining <= 0)
+				break
+	if(healed_amount > 0)
+		patient.visible_message(
+			span_notice("[src] tends the wounds of [patient]!"),
+			"[span_infoplain(span_green("[src] tends your wounds!"))]")
+	else
+		stop_healing(TRUE)
 		return
-
 	if(patient.IsReachableBy(src))
-		melee_attack(patient)
+		INVOKE_ASYNC(src, PROC_REF(heal_loop), patient)
+	else
+		stop_healing()
+	// next iteration will check if we're truly done
+
+/mob/living/basic/bot/medbot/proc/stop_healing(finished)
+	if(!am_healing)
+		return
+	am_healing = FALSE
+	update_bot_mode(new_mode = BOT_IDLE)
+	var/mob/whomst = GET_WEAKREF(last_healed)
+	last_healed = null
+	soundloop.stop()
+	if(stop_timer)
+		deltimer(stop_timer)
+		stop_timer = null
+	if(finished)
+		playsound(src, 'sound/machines/microwave/microwave-end.ogg', 50, TRUE)
+		if(whomst)
+			visible_message(span_infoplain("[src] finishes up tending [whomst]'s injuries!"))
+		else
+			visible_message(span_infoplain("[src] finishes up tending to [p_their()] patient!"))
+
+/mob/living/basic/bot/medbot/proc/start_healing(mob/patient, continuation)
+	am_healing = TRUE
+	update_bot_mode(new_mode = BOT_HEALING, update_hud = FALSE)
+	last_healed = WEAKREF(patient)
+	soundloop.start()
+	if(very_chatty)
+		if(wait_announce_cd < world.time && prob(5))
+			speak(pick(SSbarks.get_barks(wait_announcements)))
+			wait_announce_cd = world.time + 8 SECONDS
+	if(continuation)
+		return
+	if(wait_announce_cd < world.time)
+		speak(pick(SSbarks.get_barks(wait_announcements)))
+		wait_announce_cd = world.time + 8 SECONDS
+	patient.visible_message(
+		"[src] is trying to tend the wounds of [patient]",
+		span_userdanger("[src] is trying to tend your wounds!"))
 
 /mob/living/basic/bot/medbot/proc/on_techweb_research(datum/source, datum/design/medibot_upgrade/design)
 	SIGNAL_HANDLER
@@ -425,14 +492,14 @@
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
 	skin = "bezerk"
-	damage_type_healer = HEAL_ALL_DAMAGE
+	damage_type_healer = HEAL_ALL_DAMAGE_FLAGS
 	heal_amount = 10
 
 /mob/living/basic/bot/medbot/derelict
 	name = "\improper Old Medibot"
 	desc = "Looks like it hasn't been modified since the late 2080s."
 	skin = "bezerk"
-	damage_type_healer = HEAL_ALL_DAMAGE
+	damage_type_healer = HEAL_ALL_DAMAGE_FLAGS
 	medical_mode_flags = MEDBOT_SPEAK_MODE
 	heal_threshold = 0
 	heal_amount = 5
@@ -442,12 +509,12 @@
 	desc = "A medibot stolen from a Nanotrasen station and upgraded by the Syndicate. Despite their best efforts at reprogramming, it still appears visibly upset near nuclear explosives."
 	health = 40
 	maxHealth = 40
-	skin = "bezerk"
+	skin = "bezerk" //https://youtu.be/9TRemrRaPjc?list=RD9TRemrRaPjc
 	req_one_access = list(ACCESS_SYNDICATE)
 	bot_mode_flags = parent_type::bot_mode_flags & ~BOT_MODE_REMOTE_ENABLED
 	radio_key = /obj/item/encryptionkey/syndicate
 	radio_channel = RADIO_CHANNEL_SYNDICATE
-	damage_type_healer = HEAL_ALL_DAMAGE
+	damage_type_healer = HEAL_ALL_DAMAGE_FLAGS
 	faction = list(ROLE_SYNDICATE)
 	heal_threshold = 0
 	heal_amount = 5
@@ -463,17 +530,45 @@
 
 /mob/living/basic/bot/medbot/nukie/proc/nuke_disarm()
 	SIGNAL_HANDLER
-
-	INVOKE_ASYNC(src, PROC_REF(speak), pick(untipped_announcements))
+	INVOKE_ASYNC(src, PROC_REF(speak), pick(SSbarks.get_barks(untipped_announcements)))
 
 /mob/living/basic/bot/medbot/nukie/proc/nuke_arm()
 	SIGNAL_HANDLER
-
-	INVOKE_ASYNC(src, PROC_REF(speak), pick(worried_announcements))
+	INVOKE_ASYNC(src, PROC_REF(speak), pick(SSbarks.get_barks(worried_announcements)))
 
 /mob/living/basic/bot/medbot/nukie/proc/nuke_detonate()
 	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(speak), pick(SSbarks.get_barks(emagged_announcements)))
 
-	INVOKE_ASYNC(src, PROC_REF(speak), pick(emagged_announcements))
+/mob/living/basic/bot/medbot/headsurgeon
+	name = "\improper Head Surgeon"
+	desc = "Medical's number-one autonomous medic, here to make medical's life less of a miserable, transactional \
+		nightmare for minor every-day booboos. Despite being our Head Surgeon, he isn't actually licensed for surgery, \
+		anything more complicated than an ouchie should be handled by someone who can actually hold a scalpel!"
+	skin = "stationary"
+	damage_type_healer = BRUTELOSS | FIRELOSS //worse than a medibot
+	heal_amount = 0.5 //also worse than a medibot
+	heal_time = 1 SECONDS
+	medical_mode_flags = MEDBOT_DECLARE_CRIT | MEDBOT_SPEAK_MODE | MEDBOT_SUPERSTATIONARY_MODE | MEDBOT_STATIONARY_MODE | MEDBOT_SUPERSPEAK_MODE
+	density = TRUE
+	move_force = MOVE_FORCE_OVERPOWERING
+	move_resist = MOVE_FORCE_OVERPOWERING
+	pull_force = MOVE_FORCE_OVERPOWERING
+	chatty_chance = 15
+	wait_announcements        = /datum/bark_pack/awful_medibot/wait_for_me
+	afterheal_announcements   = /datum/bark_pack/awful_medibot/finished_healing
+	near_death_announcements  = /datum/bark_pack/awful_medibot/patient_died
+	idle_lines                = /datum/bark_pack/awful_medibot/idle_normal
+	emagged_announcements     = /datum/bark_pack/awful_medibot/idle_emagged
+	tipped_announcements      = /datum/bark_pack/awful_medibot/being_tipped
+	untipped_announcements    = /datum/bark_pack/awful_medibot/was_untipped
+	worried_announcements     = /datum/bark_pack/awful_medibot/idle_tipped
+	misc_announcements        = /datum/bark_pack/awful_medibot/idle_chicken
+	very_chatty = TRUE
+
+/mob/living/basic/bot/medbot/headsurgeon/Initialize(mapload, new_skin)
+	. = ..()
+	add_traits(list(TRAIT_NOMOBSWAP, TRAIT_NO_TELEPORT, TRAIT_STRONG_GRABBER), INNATE_TRAIT) // never suffer a bitch to fuck with you
+
 
 #undef TEND_DAMAGE_INTERACTION
