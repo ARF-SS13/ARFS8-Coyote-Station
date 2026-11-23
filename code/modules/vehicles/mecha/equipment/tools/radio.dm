@@ -48,3 +48,4 @@
 
 /obj/item/radio/mech
 	subspace_transmission = TRUE
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_LOW

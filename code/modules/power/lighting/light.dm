@@ -85,6 +85,19 @@
 	///break if moved, if false also makes it ignore if the wall its on breaks
 	var/break_if_moved = TRUE
 
+	/// fancy overload sequence thing for lights!
+	var/overloadable = TRUE
+	var/overloading = FALSE
+	var/overload_coefficient = 1
+	var/overload_threshold_heat = 15 MINUTES
+	var/overload_threshold_explode = 30 MINUTES
+	var/overload_time_spent = 0
+	var/overload_energy_mult = 1
+	var/overload_brightness_mult = 1
+	var/overload_shifted_color
+	var/overload_filter
+
+
 // create a new lighting fixture
 /obj/machinery/light/Initialize(mapload)
 	. = ..()
@@ -140,6 +153,7 @@
 	update(trigger = FALSE)
 
 /obj/machinery/light/Destroy()
+	SSmachines.overloading_lights -= src
 	var/area/local_area = get_room_area()
 	if(local_area)
 		on = FALSE
@@ -234,7 +248,9 @@
 		if(LIGHT_BROKEN,LIGHT_BURNED,LIGHT_EMPTY)
 			on = FALSE
 	low_power_mode = FALSE
-
+	if(overloading)
+		START_PROCESSING(SSmachines, src)
+		SSmachines.overloading_lights |= src
 	if(on)
 		var/brightness_set = brightness
 		var/power_set = bulb_power
@@ -284,6 +300,10 @@
 				// BUBBER EDIT ADDITION END
 		if (cached_color_filter)
 			color_set = apply_matrix_to_color(color_set, cached_color_filter["color"], cached_color_filter["space"] || COLORSPACE_RGB)
+		//overload heehoo
+		if(overloading)
+			brightness_set *= overload_brightness_mult
+			power_set *= overload_brightness_mult
 		var/matching = light && brightness_set == light.light_range && power_set == light.light_power && color_set == light.light_color
 		if(!matching)
 			switchcount++
@@ -327,6 +347,7 @@
 			static_power_used_new = ceil(nightshift_brightness * nightshift_light_power * power_consumption_rate)
 		else
 			static_power_used_new = ceil(brightness * bulb_power * power_consumption_rate)
+		static_power_used_new *= max(1, overload_energy_mult)
 		if(static_power_used != static_power_used_new) //Consumption changed - update
 			removeStaticPower(static_power_used, AREA_USAGE_STATIC_LIGHT)
 			static_power_used = static_power_used_new
@@ -349,18 +370,174 @@
 	return TRUE
 
 /obj/machinery/light/process(seconds_per_tick)
+	var/die = TRUE
 	if(has_power())
-		// If the cell is done mooching station power, and reagents don't need processing, stop processing
-		if(is_full_charge() && !reagents)
-			return PROCESS_KILL
-		if(cell)
-			charge_cell(LIGHT_EMERGENCY_POWER_USE * seconds_per_tick, cell = cell) //Recharge emergency power automatically while not using it
-	if(reagents) //with most reagents coming out at 300, and with most meaningful reactions coming at 370+, this rate gives a few seconds of time to place it in and get out of dodge regardless of input.
-		reagents.adjust_thermal_energy(8 * reagents.total_volume * SPECIFIC_HEAT_DEFAULT * seconds_per_tick)
-		reagents.handle_reactions()
+		if(cell && !is_full_charge())
+			charge_cell(LIGHT_EMERGENCY_POWER_USE * seconds_per_tick, cell = cell)
+			die = FALSE
+		if(reagents) //with most reagents coming out at 300, and with most meaningful reactions coming at 370+, this rate gives a few seconds of time to place it in and get out of dodge regardless of input.
+			reagents.adjust_thermal_energy(8 * reagents.total_volume * SPECIFIC_HEAT_DEFAULT * seconds_per_tick)
+			reagents.handle_reactions()
+			die = FALSE
+	if(update_overload(seconds_per_tick))
+		die = FALSE
 	if(low_power_mode && !use_emergency_power(LIGHT_EMERGENCY_POWER_USE * seconds_per_tick))
 		update(trigger = FALSE, play_sound = FALSE) // BUBBER EDIT CHANGE - LIGHTING - Original: update(FALSE) //Disables emergency mode and sets the color to normal
+	if(die)
 		return PROCESS_KILL
+
+/obj/machinery/light/proc/can_overload()
+	if(!overloadable)
+		return FALSE
+	if(get_overload_direction() != "increasing")
+		return FALSE
+	if(!is_station_level(z))
+		return FALSE
+	return TRUE
+
+/obj/machinery/light/proc/get_overload_direction()
+	if(!has_power())
+		return "decreasing"
+	if(turned_off())
+		return "decreasing"
+	if(!on)
+		return "decreasing"
+	if(low_power_mode)
+		return "stable"
+	switch(status)
+		if(LIGHT_OK)
+			return "increasing"
+		if(LIGHT_BROKEN, LIGHT_BURNED)
+			return "stable"
+	return "decreasing"
+
+/obj/machinery/light/proc/can_overload_explode()
+	if(!overloading)
+		return FALSE
+	if(overload_time_spent < overload_threshold_explode)
+		return FALSE
+	if(get_overload_direction() != "increasing")
+		return FALSE
+	return TRUE
+
+/obj/machinery/light/proc/update_overload(time_passed)
+	if(!overloading || !overloadable)
+		SSmachines.overloading_lights -= src
+		return FALSE
+	var/o_dir = get_overload_direction()
+
+	var/d_t = time_passed * 10 // deciseconds
+	switch(o_dir)
+		if("increasing")
+			overload_time_spent += d_t
+		if("decreasing")
+			overload_time_spent -= (d_t * (2 MINUTES))
+	if(overload_time_spent < 0)
+		overload_time_spent = 0
+		stop_overload()
+		return FALSE
+	if(can_overload_explode())
+		explode_overload()
+		return FALSE
+	overload_coefficient = trunc(overload_time_spent / (1 MINUTES)) + 1
+	if(prob(5 * overload_coefficient))
+		do_sparks(2)
+	adjust_overload_filter()
+	adjust_overload_color()
+	inflict_overload_heat()
+	return TRUE
+
+/obj/machinery/light/proc/stop_overload()
+	if(!overloading)
+		return
+	overloading = FALSE
+	SSmachines.overloading_lights -= src
+	overload_coefficient = 1
+	adjust_overload_brightness(TRUE)
+	adjust_overload_filter(TRUE)
+	inflict_overload_heat(TRUE)
+	adjust_overload_energy(TRUE)
+	overload_time_spent = 0
+
+/obj/machinery/light/proc/explode_overload()
+	stop_overload()
+	// spawn a mole or so of plasma, hydrogen, and halon!
+	var/turf/local_turf = get_turf(src)
+	var/gas_emit_spawn = "plasma=10;hydrogen=10;tritium=10;TEMP=500"
+	local_turf.atmos_spawn_air(gas_emit_spawn)
+	explosion(local_turf, 0, 0, 1, 2, 15, smoke = TRUE)
+	do_sparks(2)
+	burn_out()
+
+/obj/machinery/light/proc/adjust_overload_filter(cease)
+	if(cease || !overloading)
+		remove_filter(overload_filter, TRUE)
+		overload_filter = null
+		return
+	var/size = 10
+	var/offset = overload_coefficient * 2
+	if(overload_coefficient > size)
+		size = overload_coefficient
+	var/bcolor = light ? light.light_color : color
+	var/list/da_params = drop_shadow_filter(0, 0, size, offset, bcolor)
+
+	if(!overload_filter)
+		overload_filter = "overload_filter"
+		add_filter(
+			overload_filter,
+			10,
+			da_params,
+			TRUE
+		)
+	else
+		transition_filter(overload_filter, da_params, 4 SECONDS, QUAD_EASING)
+	return TRUE
+
+/obj/machinery/light/proc/adjust_overload_color(cease)
+	return // todo: this
+
+/obj/machinery/light/proc/inflict_overload_heat(cease)
+	if(cease || !overloading || overload_time_spent < overload_threshold_heat)
+		return
+	var/turf/local_turf = get_turf(src)
+	if(!local_turf)
+		return
+	var/datum/gas_mixture/enviroment = local_turf.return_air()
+	var/target_temp = T20C + (overload_coefficient * 50)
+	if(enviroment.temperature >= target_temp)
+		return
+	var/list/turfs = (local_turf.atmos_adjacent_turfs || list()) + local_turf
+	var/required_energy = abs(enviroment.temperature - target_temp) * enviroment.heat_capacity()
+
+	for(var/turf/open/turf in turfs)
+		var/datum/gas_mixture/turf_gasmix = turf.return_air()
+		turf_gasmix.temperature += required_energy / max(0.01, turf_gasmix.heat_capacity())
+		turf.air_update_turf(FALSE, FALSE)
+	return TRUE
+
+/obj/machinery/light/proc/adjust_overload_energy(cease)
+	if(cease || !overloading)
+		overload_energy_mult = 1
+		return
+	overload_energy_mult = (overload_coefficient * 20)
+	return TRUE
+
+/obj/machinery/light/proc/adjust_overload_brightness(cease)
+	if(cease || !overloading)
+		overload_brightness_mult = 1
+		return
+	overload_brightness_mult = 1 + (overload_coefficient * 2)
+	return TRUE
+
+/obj/machinery/light/proc/set_overloading(activate, progress = 30 SECONDS)
+	if(activate)
+		overloading = TRUE
+		SSmachines.overloading_lights |= src
+		update_overload(progress)
+	else
+		SSmachines.overloading_lights -= src
+		stop_overload()
+	update(FALSE, TRUE)
 
 /obj/machinery/light/proc/burn_out()
 	if(status == LIGHT_OK)
@@ -738,7 +915,7 @@
 	return exposed_temperature > 673
 
 /obj/machinery/light/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
+	if(!overloading && prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		break_light_tube()
 
 /obj/machinery/light/proc/on_light_eater(obj/machinery/light/source, datum/light_eater)

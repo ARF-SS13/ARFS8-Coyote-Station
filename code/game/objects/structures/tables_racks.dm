@@ -1098,7 +1098,7 @@
 			COMSIG_ATOM_SURGERY_FINISHED,
 			COMSIG_LIVING_UPDATING_SURGERY_STATE,
 		))
-		if (patient.external && patient.external == air_tank)
+		if (iscarbon(patient) && patient.external && patient.external == air_tank)
 			patient.close_externals()
 
 	SEND_SIGNAL(src, COMSIG_OPERATING_TABLE_SET_PATIENT, new_patient)

@@ -251,6 +251,8 @@
  * Returns: The amount of energy the cell received.
  */
 /obj/machinery/proc/charge_cell(amount, obj/item/stock_parts/power_store/cell, grid_only = FALSE, channel = AREA_USAGE_EQUIP)
+	if(!cell)
+		return 0
 	var/demand = use_energy(min(amount, cell.used_charge()), channel = channel, ignore_apc = grid_only)
 	var/power_given = cell.give(demand)
 	return power_given

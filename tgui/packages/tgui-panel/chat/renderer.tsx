@@ -412,6 +412,8 @@ class ChatRenderer {
     for (let i = from; i >= to; i--) {
       const message = this.messages[i];
       if (!message.extraData) continue;
+      if (!message.extraData.message_data) continue;
+      if (!message.extraData.saymode_data) continue;
       if (
         message?.extraData?.message_data?.name_displayed ===
         predicate?.extraData?.message_data?.name_displayed
@@ -421,7 +423,7 @@ class ChatRenderer {
           !message.type.startsWith(MESSAGE_TYPE_INTERNAL) &&
           // Text payload must fully match
           now <
-            message.createdAt + message.extraData.message_data.msg_splice_timeout;
+            message.createdAt + message.extraData.message_data?.msg_splice_timeout;
         if (matches) {
           // merge conditions:
           // if saymode is the same, merge body

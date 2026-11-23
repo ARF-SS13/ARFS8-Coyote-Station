@@ -16,6 +16,8 @@
 	/// If TRUE, gains TRAIT_MOPABLE on init - thus this cleanable will cleaned if its turf is cleaned
 	/// Set to FALSE for things that hang high on the walls or things which generally shouldn't be mopped up
 	var/is_mopped = TRUE
+	var/list/streak_diseases = list() // Diseases that will be spread when this decal streaks across surfaces.
+	var/obj/effect/decal/cleanable/streak_atom
 
 /obj/effect/decal/cleanable/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
@@ -139,3 +141,35 @@
 /turf/proc/spawn_glitter(glitter_colors)
 	var/obj/effect/decal/cleanable/glitter/new_glitter = spawn_unique_cleanable(/obj/effect/decal/cleanable/glitter)
 	new_glitter.color = pick_weight(glitter_colors)
+
+
+/obj/effect/decal/cleanable/proc/coolstreak(list/directions = list(), mapload = FALSE)
+	SEND_SIGNAL(src, COMSIG_GIBS_STREAK, directions)
+	if(!LAZYLEN(directions))
+		directions = GLOB.alldirs
+	var/direction = pick(directions)
+	var/delay = 2
+	var/range = pick(0, 200; 1, 150; 2, 50; 3, 17; 50) //the 3% chance of 50 steps is intentional and played for laughs.
+	if(!step_to(src, get_step(src, direction), 0))
+		return
+
+	if(!mapload)
+		var/datum/move_loop/loop = GLOB.move_manager.move_to(src, get_step(src, direction), delay = delay, timeout = range * delay, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+		RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(cool_spread_movement_effects))
+		return
+
+	for (var/i in 1 to range)
+		create_coolsplatter()
+
+		if (!step_to(src, get_step(src, direction), 0))
+			break
+
+/obj/effect/decal/cleanable/proc/create_coolsplatter()
+	var/turf/my_turf = get_turf(src)
+	if(!isgroundlessturf(my_turf) || GET_TURF_BELOW(my_turf))
+		new streak_atom(my_turf)
+
+/obj/effect/decal/cleanable/proc/cool_spread_movement_effects(datum/move_loop/has_target/source)
+	SIGNAL_HANDLER
+	if(!NeverShouldHaveComeHere(loc))
+		new streak_atom(loc)

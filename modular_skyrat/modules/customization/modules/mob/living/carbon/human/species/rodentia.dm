@@ -1,5 +1,5 @@
 /datum/species/rodentia
-	name = "Rodentia" //Concept pulled from SS14.  Love you Chokovit. <3 ~Fenny
+	name = "Peaco" //Concept pulled from SS14.  Love you Chokovit. <3 ~Fenny
 	id = SPECIES_RODENTIA
 	inherent_traits = list(
 		TRAIT_ADVANCEDTOOLUSER,

@@ -14,6 +14,11 @@ SUBSYSTEM_DEF(minor_mapping)
 		/mob/living/basic/stoat = 10,
 		/mob/living/basic/regal_rat/controlled = 2,
 	)
+	var/list/vermin_chances_minus_ratking = list(
+		/mob/living/basic/mouse = 72,
+		/mob/living/basic/snail = 16,
+		/mob/living/basic/stoat = 10,
+	)
 
 /datum/controller/subsystem/minor_mapping/Initialize()
 // This whole subsystem just introduces a lot of odd confounding variables into unit test situations,
@@ -33,9 +38,11 @@ SUBSYSTEM_DEF(minor_mapping)
 #endif
 
 /// Spawns some critters on exposed wires, usually but not always mice
-/datum/controller/subsystem/minor_mapping/proc/trigger_migration(to_spawn=10)
+/datum/controller/subsystem/minor_mapping/proc/trigger_migration(to_spawn=10, spiders_too, ratboy_too = TRUE)
 	var/list/exposed_wires = find_exposed_wires()
 	var/turf/open/proposed_turf
+	var/spiders = HAS_TRAIT(SSstation, STATION_TRAIT_SPIDER_INFESTATION) || spiders_too
+	var/spider_chance = spiders ? SSnarrative.GetSpiderChance() : 0
 	while((to_spawn > 0) && exposed_wires.len)
 		proposed_turf = pick_n_take(exposed_wires)
 		if (!valid_mouse_turf(proposed_turf))
@@ -44,10 +51,13 @@ SUBSYSTEM_DEF(minor_mapping)
 		to_spawn--
 
 		var/picked_path
-		if(HAS_TRAIT(SSstation, STATION_TRAIT_SPIDER_INFESTATION) && prob(PROB_SPIDER_REPLACEMENT))
+		if(spiders && prob(spider_chance))
 			picked_path = /mob/living/basic/spider/maintenance
 		else
-			picked_path = pick_weight(vermin_chances)
+			if(ratboy_too && prob(SSnarrative.GetRatboyChance()))
+				picked_path = pick_weight(vermin_chances)
+			else
+				picked_path = pick_weight(vermin_chances_minus_ratking)
 
 		new picked_path(proposed_turf)
 

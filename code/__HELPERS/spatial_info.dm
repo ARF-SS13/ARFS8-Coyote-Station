@@ -212,7 +212,12 @@
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	for(var/obj/item/radio/radio as anything in radios)
-		. |= get_hearers_in_LOS(radio.canhear_range, radio)
+		for(var/atom/movable/hearer as anything in get_hearers_in_LOS(radio.canhear_range, radio))
+			var/obj/item/radio/r = .[hearer]
+			if(r)
+				.[hearer] = r.interference_resistance > radio.interference_resistance ? r : radio
+				continue
+			.[hearer] = radio
 
 /// A filter to be applied to get_hearers_in_x, that removes any non-mob hearers, converting them to their relevant mob if one exists (such as dullahan heads).
 /// Modifies input list.

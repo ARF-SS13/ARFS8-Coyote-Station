@@ -463,7 +463,7 @@
 	for(var/mob/living/potential_tinder in location)
 		potential_tinder.extinguish_mob()
 	for(var/obj/item/potential_tinder in location)
-		potential_tinder.extinguish()
+		potential_tinder.extinguish(100)
 
 /datum/effect_system/fluid_spread/foam/metal/resin/halon
 	effect_type = /obj/effect/particle_effect/fluid/foam/metal/resin/halon

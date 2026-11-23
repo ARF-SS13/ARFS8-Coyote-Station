@@ -345,6 +345,8 @@ SUBSYSTEM_DEF(ticker)
 		for(var/holidayname in GLOB.holidays)
 			var/datum/holiday/holiday = GLOB.holidays[holidayname]
 			to_chat(world, span_info(holiday.greet()))
+	for(var/mob/dead/new_player/player as anything in GLOB.new_player_list)
+		player.update_title_screen()
 
 	PostSetup()
 

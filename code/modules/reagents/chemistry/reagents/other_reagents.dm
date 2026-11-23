@@ -111,6 +111,7 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED|REAGENT_CLEANS
 	default_container = /obj/item/reagent_containers/cup/glass/waterbottle
 	var/cooling_temperature = 2
+	extinguish_power = 2
 
 	evaporates = TRUE //SKYRAT EDIT ADDITION
 /datum/glass_style/shot_glass/water
@@ -159,7 +160,7 @@
 
 /datum/reagent/water/expose_obj(obj/exposed_obj, reac_volume, methods=TOUCH, show_message=TRUE)
 	. = ..()
-	exposed_obj.extinguish()
+	exposed_obj.extinguish(extinguish_power * reac_volume)
 	exposed_obj.wash(CLEAN_TYPE_ACID)
 	// Monkey cube
 	if(istype(exposed_obj, /obj/item/food/monkeycube))
@@ -2738,6 +2739,7 @@
 	if(SPT_PROB(16, seconds_per_tick))
 		to_chat(affected_mob, "You should sit down and take a rest...")
 
+//! COYOTE TODO: Turn into Fenom, turns u into a shortstack
 /datum/reagent/gondola_mutation_toxin
 	name = "Tranquility"
 	description = "A highly mutative liquid of unknown origin."

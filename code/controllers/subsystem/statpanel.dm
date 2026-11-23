@@ -42,6 +42,9 @@ SUBSYSTEM_DEF(statpanels)
 		var/current_date = "[time2text(world.realtime, "DDD Month DD")], [CURRENT_STATION_YEAR]"
 		var/round_started = SSautotransfer.GetRoundStartTime()
 		var/round_should_end_on = SSautotransfer.GetProjectedRoundEndTime()
+		var/storyteller_override
+		if(SSnarrative.winning_option)
+			storyteller_override = SSnarrative.winning_option.option_name
 		// BUBBER EDIT ADDITION END - Extra stat panel info
 
 		global_data += list(
@@ -49,7 +52,7 @@ SUBSYSTEM_DEF(statpanels)
 			"Connected: [GLOB.clients.len] | Active: [active_players]/[CONFIG_GET(number/hard_popcap)] | Observing: [observing_players]", // BUBBER EDIT ADDITION - Extra stat panel info
 			"OOC: [GLOB.ooc_allowed ? "Enabled" : "Disabled"]", // BUBBER EDIT ADDITION - Extra stat panel info
 			" ", // BUBBER EDIT ADDITION - Extra stat panel info
-			"Storyteller: [SSgamemode.storyteller ? SSgamemode.storyteller.name : "N/A"]", // BUBBER EDIT ADDITION - Extra stat panel info
+			"Storyteller: [storyteller_override ? storyteller_override : (SSgamemode.storyteller ? SSgamemode.storyteller.name : "N/A")]", // BUBBER EDIT ADDITION - Extra stat panel info
 			"Station Time: [station_time_timestamp(format = "hh:mm")], [current_date]", // BUBBER EDIT CHANGE - Extra stat panel info - ORIGINAL: "Station Time: [station_time_timestamp()]"
 			"Round Start: [round_started]",
 			"Round Time: [time2text(real_round_time, "hh:mm:ss", 0)]", // BUBBER EDIT CHANGE - Extra stat panel info - ORIGINAL: "Round Time: [ROUND_TIME()]"

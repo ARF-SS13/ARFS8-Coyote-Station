@@ -26,6 +26,8 @@
 	var/list/override_types
 	/// For how much firestacks does one our stack count
 	var/stack_modifier = 1
+	/// Is it spaceproof?
+	var/spaceproof = FALSE
 
 /datum/status_effect/fire_handler/refresh(mob/living/new_owner, new_stacks, forced = FALSE)
 	if(forced)
@@ -132,11 +134,17 @@
 	owner.update_appearance(UPDATE_OVERLAYS)
 	update_particles()
 
+/datum/status_effect/fire_handler/fire_stacks/spaceproof
+	id = "fire_stacks_spaceproof"
+	spaceproof = TRUE
+	enemy_types = list(/datum/status_effect/fire_handler/wet_stacks, /datum/status_effect/fire_handler/fire_stacks)
+	stack_limit = 1
+
 /datum/status_effect/fire_handler/fire_stacks
 	id = "fire_stacks" //fire_stacks and wet_stacks should have different IDs or else has_status_effect won't work
 	remove_on_fullheal = TRUE
 
-	enemy_types = list(/datum/status_effect/fire_handler/wet_stacks)
+	enemy_types = list(/datum/status_effect/fire_handler/wet_stacks, /datum/status_effect/fire_handler/fire_stacks/spaceproof)
 	stack_modifier = 1
 
 	/// If we're on fire
@@ -184,10 +192,11 @@
 		qdel(src)
 		return TRUE
 
-	var/datum/gas_mixture/air = owner.loc.return_air()
-	if(!air.gases[/datum/gas/oxygen] || air.gases[/datum/gas/oxygen][MOLES] < 1)
-		qdel(src)
-		return TRUE
+	if(!spaceproof)
+		var/datum/gas_mixture/air = owner.loc.return_air()
+		if(!air.gases[/datum/gas/oxygen] || air.gases[/datum/gas/oxygen][MOLES] < 1)
+			qdel(src)
+			return TRUE
 
 	deal_damage(seconds_between_ticks)
 
@@ -374,7 +383,7 @@ BUBBER EDIT RESET THIS TG BACK TO MASTER ONCE YOU GET FISH INFUSION*/
 /datum/status_effect/fire_handler/wet_stacks
 	id = "wet_stacks"
 
-	enemy_types = list(/datum/status_effect/fire_handler/fire_stacks)
+	enemy_types = list(/datum/status_effect/fire_handler/fire_stacks, /datum/status_effect/fire_handler/fire_stacks/spaceproof)
 	stack_modifier = -1
 	/// If the mob has the TRAIT_SLIPPERY_WHEN_WET trait, the mob gets this component while it's wet
 	var/datum/component/slippery/slipperiness

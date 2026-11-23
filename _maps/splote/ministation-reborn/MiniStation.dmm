@@ -6302,6 +6302,7 @@
 	dir = 9
 	},
 /obj/structure/cable,
+/obj/effect/landmark/start/hangover,
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/lobby)
 "dvY" = (
@@ -11947,6 +11948,7 @@
 /obj/structure/chair/greyscale{
 	dir = 8
 	},
+/obj/effect/landmark/start/hangover,
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/lobby)
 "gBS" = (
@@ -39163,10 +39165,7 @@
 	dir = 10
 	},
 /obj/machinery/airalarm/directional/south,
-/obj/structure/chair/greyscale{
-	dir = 4
-	},
-/obj/effect/landmark/start/hangover,
+/mob/living/basic/bot/medbot/headsurgeon,
 /turf/open/floor/iron/white,
 /area/station/medical/medbay/lobby)
 "uNf" = (

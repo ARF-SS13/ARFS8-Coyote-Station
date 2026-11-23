@@ -219,8 +219,8 @@
 			return TRUE
 		//SKYRAT EDIT ADDITION END
 
-	if(moving_diagonally)//no mob swap during diagonal moves.
-		return TRUE
+	// if(moving_diagonally)//no mob swap during diagonal moves.
+	// 	return TRUE
 
 	//SPLURT EDIT ADDITION BEGIN - FEATURE_NAME - (sizecode)
 	//handle micro bumping on help intent
@@ -1873,7 +1873,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	if(fire_stacks <= 0)
 		return FALSE
 
-	var/datum/status_effect/fire_handler/fire_stacks/fire_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks)
+	var/datum/status_effect/fire_handler/fire_stacks/fire_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks) || has_status_effect(/datum/status_effect/fire_handler/fire_stacks/spaceproof)
 	if(!fire_status || fire_status.on_fire)
 		return FALSE
 

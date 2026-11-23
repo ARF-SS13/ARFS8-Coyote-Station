@@ -175,6 +175,19 @@
 	if(HAS_TRAIT(owner, TRAIT_SLIPPERY) && stacks <= 0.5) // Removed just before we hit 0 and delete the /status_effect/
 		REMOVE_TRAIT(owner, TRAIT_SLIPPERY, SPECIES_TRAIT)
 
+
+
+
+/obj/item/organ/tongue/akula
+	say_mod = "bubbles"
+
+/obj/item/organ/tongue/akula/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/bubble_icon_override, "fish", BUBBLE_ICON_PRIORITY_ORGAN)
+
+
+
+
 #undef DRY_UP_TIME
 #undef WETSTACK_INITIAL
 #undef WETSTACK_THRESHOLD
