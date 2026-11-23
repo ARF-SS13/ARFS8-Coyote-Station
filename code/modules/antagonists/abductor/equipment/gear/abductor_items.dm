@@ -510,6 +510,7 @@ Return to step 11 of normal process."}
 	icon = 'icons/obj/antags/abductor.dmi'
 	icon_state = "abductor_headset"
 	keyslot2 = /obj/item/encryptionkey/heads/captain
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_MAX
 
 /obj/item/radio/headset/abductor/Initialize(mapload)
 	. = ..()

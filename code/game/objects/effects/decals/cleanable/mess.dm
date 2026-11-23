@@ -38,6 +38,7 @@
 	icon = 'icons/obj/debris.dmi'
 	icon_state = "tiny"
 	beauty = -100
+	streak_atom = /obj/effect/decal/cleanable/glass
 
 /obj/effect/decal/cleanable/glass/Initialize(mapload)
 	. = ..()
@@ -74,6 +75,7 @@
 	beauty = -75
 	/// Set to FALSE if your dirt has no smoothing sprites
 	var/is_tileable = TRUE
+	streak_atom = /obj/effect/decal/cleanable/dirt
 
 /obj/effect/decal/cleanable/dirt/Initialize(mapload)
 	. = ..()

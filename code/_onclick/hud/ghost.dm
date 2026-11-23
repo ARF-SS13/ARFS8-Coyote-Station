@@ -169,9 +169,9 @@
 	using.screen_loc = ui_ghost_settings
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/minigames_menu(null, src)
-	using.screen_loc = ui_ghost_minigames
-	static_inventory += using
+	// using = new /atom/movable/screen/ghost/minigames_menu(null, src)
+	// using.screen_loc = ui_ghost_minigames
+	// static_inventory += using
 
 	using = new /atom/movable/screen/language_menu/ghost(null, src)
 	using.screen_loc = ui_ghost_language_menu

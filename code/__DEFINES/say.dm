@@ -49,6 +49,7 @@
 /// datas set by the listener
 #define SATA_MESSAGE_HEARD       "message_heard"
 #define SATA_MESSAGE_COMPILED    "heard_composed_message"
+#define SATA_MESSAGE_HEARD_OVERRIDE "message_heard_override"
 #define SATA_DISPLAYED_SAYMODE   "saymode_composed"
 #define SATA_DISPLAYED_NAME      "displayed_name"
 #define SATA_RADIO_FREQ_COLOR    "radio_freq_color"

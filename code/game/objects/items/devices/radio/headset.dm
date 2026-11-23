@@ -205,6 +205,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	desc = "This is used by your elite security force. Protects ears from flashbangs."
 	icon_state = "sec_headset_alt"
 	worn_icon_state = "sec_headset_alt"
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_LOW
 
 /obj/item/radio/headset/headset_sec/alt/Initialize(mapload)
 	. = ..()
@@ -272,6 +273,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	icon_state = "com_headset"
 	worn_icon_state = "com_headset"
 	keyslot = /obj/item/encryptionkey/headset_com
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_LOW
 
 /obj/item/radio/headset/headset_com/bridgebunny
 	name = "bridge assistant radio headset"
@@ -284,17 +286,20 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	command = TRUE
 	icon_state = "com_headset"
 	worn_icon_state = "com_headset"
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_LOW
 
 /obj/item/radio/headset/heads/captain
 	name = "\proper the captain's headset"
 	desc = "The headset of the king."
 	keyslot = /obj/item/encryptionkey/heads/captain
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_MEDIUM
 
 /obj/item/radio/headset/heads/captain/alt
 	name = "\proper the captain's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs."
 	icon_state = "com_headset_alt"
 	worn_icon_state = "com_headset_alt"
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_MEDIUM
 
 /obj/item/radio/headset/heads/captain/alt/Initialize(mapload)
 	. = ..()
@@ -330,6 +335,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	name = "\proper the chief engineer's headset"
 	desc = "The headset of the guy in charge of keeping the station powered and undamaged."
 	keyslot = /obj/item/encryptionkey/heads/ce
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_MAX
 
 /obj/item/radio/headset/heads/cmo
 	name = "\proper the chief medical officer's headset"
@@ -390,6 +396,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	worn_icon_state = "cent_headset"
 	keyslot = /obj/item/encryptionkey/headset_cent
 	keyslot2 = /obj/item/encryptionkey/headset_com
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_MAX
 
 /obj/item/radio/headset/headset_cent/empty
 	keyslot = null
@@ -421,6 +428,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	name = "\proper Integrated Subspace Transceiver"
 	keyslot2 = new /obj/item/encryptionkey/ai
 	command = TRUE
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_MEDIUM
 
 /obj/item/radio/headset/silicon/human_ai
 	name = "\proper Disconnected Subspace Transceiver"

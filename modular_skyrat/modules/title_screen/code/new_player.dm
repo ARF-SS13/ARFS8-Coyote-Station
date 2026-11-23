@@ -57,6 +57,21 @@
 		play_lobby_button_sound("play_lobby_button_sound")
 		return
 
+	if(href_list["narrative_vote"])
+		play_lobby_button_sound()
+		if(!SSnarrative.awaiting_vote || !SSnarrative.has_vote_active() || SSticker.current_state >= GAME_STATE_PLAYING)
+			to_chat(src, span_warning("The storyteller vote is no longer active!"))
+			return
+		for(var/datum/narrative_vote_option/option in SSnarrative.vote_options)
+			if(href_list["narrative_vote"] != "[option.option_value]")
+				continue
+			SSnarrative.votie.cast_vote(ckey, option.option_value)
+			play_lobby_button_sound()
+			client << output(option.option_value, "title_browser:update_storyteller_vote")
+			return
+		to_chat(src, span_warning("That storyteller vote option is invalid."))
+		return
+
 	if(href_list["observe"])
 		play_lobby_button_sound("observe")
 		if(!unvetted_notified && !trigger_unvetted_warning())
@@ -308,11 +323,11 @@
 	switch(which)
 		if("preferences", "join", "visual_chat")
 			snd = 'modular_coyote/sounds/menu/save_click.ogg'
-		if("observe", "ready")
+		if("observe", "ready", "vote_on")
 			snd = 'modular_coyote/sounds/menu/tab_click.ogg'
 		if("unready")
 			snd = 'modular_coyote/sounds/menu/remove_click.ogg'
-		if("cantreadyornot")
+		if("cantreadyornot", "vote_off")
 			snd = 'modular_coyote/sounds/menu/bad_click.ogg'
 		if("play_lobby_button_sound")
 			snd = 'modular_coyote/sounds/menu/remove.ogg'

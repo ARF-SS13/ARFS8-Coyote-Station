@@ -131,18 +131,17 @@
 				);
 				opacity: 0.95;
 				padding: 1em;
-				transition: opacity 0.3s ease;
 			}
 
 
 			.container_nav.inactive,
 			.container_logo.inactive {
-				opacity: 0.2;
+				opacity: 1;
 			}
 
 			.container_nav.hidden,
 			.container_logo.hidden {
-				opacity: 0;
+				opacity: 1;
 			}
 
 			.container_nav hr {
@@ -170,7 +169,6 @@
 				cursor: pointer;
 				white-space: nowrap;
 				overflow: hidden;
-				transition: transform 0.3s ease;
 			}
 
 			.menu_button:hover {
@@ -274,8 +272,8 @@
 			let isMenuHidden = false;
 
 			// Configuration variables - can be adjusted
-			const FADE_DELAY = 100;    // Time before starting to fade (ms)
-			const HIDE_DELAY = 1500;   // Time before completely hiding (ms)
+			const FADE_DELAY = 1000000000000;    // Time before starting to fade (ms)
+			const HIDE_DELAY = 1500000000000;   // Time before completely hiding (ms)
 
 			// Handle menu visibility transitions
 			function updateMenuVisibility() {
@@ -369,7 +367,7 @@
 					const logoImg = document.createElement('img');
 					logoImg.className = 'logo_image';
 					logoImg.src = 'https://i.gyazo.com/4eea83c17c63f33a09b3f3721e32fdee.png';
-					logoImg.alt = 'SPLURT Title Logo';
+					logoImg.alt = 'ARFS Title Logo';
 					logoContainer.appendChild(logoImg);
 					document.body.appendChild(logoContainer);
 				}

@@ -44,6 +44,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	var/list/image/blueprint_data //for the station blueprints, images of objects eg: pipes
 
 	var/list/explosion_throw_details
+	var/explosion_no_breach = FALSE // temporary var that prevents a turf from being destroyed in a blast
 
 	var/requires_activation //add to air processing after initialize?
 	var/changing_turf = FALSE

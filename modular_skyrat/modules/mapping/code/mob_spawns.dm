@@ -502,6 +502,7 @@
 	name = "cybersun captain headset"
 	desc = "The headset of the boss."
 	command = TRUE
+	interference_resistance = RADIO_INTERFERENCE_RESISTANCE_HIGH
 
 
 //OBJECTS//

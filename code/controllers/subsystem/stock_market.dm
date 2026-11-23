@@ -188,7 +188,7 @@ SUBSYSTEM_DEF(stock_market)
  * Adjusts prices and quantities for all (base) materials based on chance, RPI, and round phase
  *  */
 /datum/controller/subsystem/stock_market/proc/update_market()
-	var/roundphase = get_round_phase()
+	var/roundphase = SSnarrative.get_round_phase()
 	var/rpi_score = SSrpi.GetMatMarketScalar()
 	var/rpimaxeff = 10
 	var/rpi_eff = clamp(rpi_score/rpimaxeff, 0, 1)

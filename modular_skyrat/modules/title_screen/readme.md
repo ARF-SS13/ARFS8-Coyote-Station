@@ -30,6 +30,7 @@ Elements:
 .menu_newpoll - This is the new polls text, so players attention is brought to it, flashes in and out with @ pollsmove animation.
 .container_notice - This is the admin notice container for when an admin sets the title notice. This button is under fun in the admin tab.
 .menu_notice - Admin notice text.
+.vote_text / .vote_option / .vote_tooltip - Menu-styled storyteller vote links and descriptions, shown above the vote container on hover. Selecting a link casts or changes the player's vote while voting is active.
 .unchecked - Unchecked ☒ box.
 .checked - Checked ☑ box.
 REMEMBER, DO NOT EDIT THESE ELEMENT NAMES ELSE THE LOBBYSCREEN WILL BREAK.
