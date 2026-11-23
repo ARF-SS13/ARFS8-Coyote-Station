@@ -1,3 +1,10 @@
+/datum/species/humaloidagazenolamonachuvaldthumonalontrointavonidithrofanthalondalonamunzarianii
+	name = "Humanid"
+	roundstart = TRUE
+	category = "humanlike"
+	category_master = /datum/species/humaloidagazenolamonachuvaldthumonalontrointavonidithrofanthalondalonamunzarianii
+	default_species = /datum/species/human
+
 //Subtype of human
 /datum/species/human/felinid
 	name = "Felinid"
@@ -5,6 +12,7 @@
 	examine_limb_id = SPECIES_HUMAN
 	mutantbrain = /obj/item/organ/brain/felinid
 	mutanttongue = /obj/item/organ/tongue/cat
+	category = "humanlike"
 	/* SKYRAT EDIT REMOVAL - CUSTOMIZATION
 	mutantears = /obj/item/organ/ears/cat
 	mutanteyes = /obj/item/organ/eyes/felinid

@@ -9,6 +9,7 @@
 	hardcore_value = 5
 	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_TRAUMALIKE
 	mail_goodies = list(/obj/item/reagent_containers/syringe/convermol) // to help breathing
+	hidden_quirk = TRUE
 
 /datum/quirk/claustrophobia/add(client/client_source)
 	quirk_holder.AddComponentFrom(type, /datum/component/fearful, list(/datum/terror_handler/simple_source/claustrophobia, /datum/terror_handler/simple_source/clausophobia))

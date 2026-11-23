@@ -57,9 +57,9 @@
 		if(loadout_item.is_disabled())
 			continue // this just falls off silently
 		// SKYRAT EDIT ADDITION
-		else if(owner_client)
-			if(loadout_item?.ckeywhitelist && !(owner_client?.ckey in loadout_item.ckeywhitelist))
-				continue
+		// else if(owner_client)
+		// 	if(loadout_item?.ckeywhitelist && !(owner_client?.ckey in loadout_item.ckeywhitelist))
+		// 		continue
 		// SKYRAT EDIT END
 
 		// Set into sanitize list using converted path key

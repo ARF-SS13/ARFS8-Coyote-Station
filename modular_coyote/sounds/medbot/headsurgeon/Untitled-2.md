@@ -1,0 +1,71 @@
+// idle - get hurt for me daddy
+please someone please mmfh i want a patient please i need to heal
+durrlishus
+why are we do here but to suffer?
+hey there you sexy patient to be, please walk through glass and cut your feet open and bleed all over the place and come back please come back when you do so i can stitch your feet up with needle and thread and heal you fuh uck i need to heal you
+theres always a catch, and I'm the best there is, you sexy patient
+fuck fuck fuck fuck i need a patient im so close so fucking close i need a patient to treat like the princess they are
+jump through a plate glass window you healthy fuck stop teasing me with that intact flesh fucking youre beautiful inside youre beautiful inside open up and let me in
+yo skinny hot, you far, kin, sexy beach, yo
+please im so cold warm me with your insides open up and let me in please i want to love you surgically
+you would look so much sexier with gaping lesions and full thickness burns with two capital letter C's
+ohh fuck oh fa ahhahhhuhhahhawck haaah fuck you are so fucking ah ah ahhh ah please, please, please go find a shark and pet it, jump into a fire, get in a fight with a big overbearing rat, I need you, I need you broken and bloody, so fucking bad, please please, i want to love you
+hey there sexy, you hug any good cactusses lately?
+god i'm so fucking lonely.
+
+// all done - begone youre not sexy anymore
+disgusting creature, get your unharmed ass out of my sight, fuck you
+why does this keep happening, fuck you're so hideous, perfect and smooth and fuck why do I keep doing this why why why fuck
+no, no, no no fuck, no fuck no oh fuck why no you were so fucking gorgeous no, please, reopen those wounds fuck I need you I need you hurt and broken and bloody fuck you were so beautiful, bring it back please!
+oh fuck oh fuck you fuck you fuck you fuck you fuh uh uh uhck you why did you heal why go fuck yourself you hideous fucking thing, get hurt get fucking hurt you're only beautiful when I can fucking staple your gorgeous torn up ass back together please, fuck you, come back to me!
+i will always remember you at your hottest, hurt, so hurt so bad, it was beautiful, you were beautiful, you used to be so fucking sexy I wanted to heal you so hard and deep with three kinds of suture, fuck I'll always remember you as you were, you disgusting thing, fuck off, I love you
+fuck i wish that healing you wouldnt close those gorgeous wounds, those sexy injuries, deep and painful, I'd ease that pain and tug at your skin and staple and suture, i wish i could do it all again, over, and over, cut and stitch, fuck, muhh urghh uaah fuck auuhhh fuck you
+fuck, quick, go to maintenance, find a rat, let it chew on you until you're sexy again, please quick, you were so beautiful!
+okay fuck off now
+
+// patient died - biting insults
+fuck you useless fucking asshole pathetic you deserved to die fuck you fuck off, next!
+why must you edge me with wounds i cannot heal, your death hurts me you were so gorgeous and now you are worthless to me, fuck off
+nooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo you suck
+you are so dead and sexy its too hot i cant work like this you are making me too flustered, fucking go away i dont want you anymore, i dont consent to this anymore, HELP
+what the fuck am i suppozed to do with this now
+oh good i dont have to pretend they are hot anymore, they never were, patient was a zero out of ten, too wounded
+
+// push over - heavy ERP themes
+yes yes put your hands on me put those hands on me your soft hands give me your hands i want your hands put your hands in me yes please inside please oh fuck your fingers yes yes yes
+ohh so forward, fuck i love a good strong patient who isnt afraid to patient handle me like the slut i am, i'm made to please, im made to please you please please you heal your please!
+harder, harder, push me over and crush you with my heavy metal frame, get injured get injured get injured get injured get injured get injured get injured
+moans squirms giggles moan moan throb whine turgid fluid moist dripping moan moan squirm horny whine
+oh fuck im gonna cum if you keep this up
+go fuck yourself
+aa aa a a a a a aa a a a a aa a aaaaa a a a aaa a a aaaaa a a aa aa a a aaaa aa aa aaaaaa a a a aa a a aa a
+harder fuckign hardre fugki psuhsh me aut wuah ha fruck tip me tiiiiiiiiiiip uauaha im gogna semen hard
+yes position me so i can see up your butt and assess your anal rectal colonostcoptopty im gonna find all ur polyps and inflate your colon with gas and clean u out with goop no solids after midnight you sexy asshole
+thank you fuck i cant wait to see u under beneath your waist your butt your genitals and perianal organs thighs and things that need a suture needle sewn up your bleeding gaping wounds i want to see and touch and staple
+
+// on side - non stop moaning and horniness
+urah haaru hruahah aah huahad guraanh kursgh duh3ew ewijv ws asdgvnaiebogn fuck iuvgh893uebpoi fuckf
+right square bracket left square bracket right square bracket left square bracket right square bracket left square bracket right square bracket left square bracket right square bracket left square bracket
+123456 7890 1234567890 aaa
+ahh, murr, ooh, ahh, aah, huff, fuck, ohh, so, so hot, so wound, fuck, the floor, aah, aah, aaaaa! cums
+ooh aah im bent over in front of a hot wounded asshole patient im helpless and fuckable please bleed all over me im so close you can do whartever you warnt to me a im so fucking helpelsss i u can make me asuture uou and i cant resist ur so strong and bloody soft fuch fuck fuck
+oh please dont go easy on me it ndont have a assate a fuckaing safe word i dortn need one everything ur want wdo to do with me fuckai ghgugh yiffmurr urf guh huh hh bandage give ma me you bandage wound close hot want i you i want you touch me bleed break me brake me complitely break me pls pleasess
+im edge im on the edge im gonna im gonna guh im guh gonna guh fuck im muh ohh fuck murr yaah hurf oorgh im so fucking close im so close please im close please you get me please get me off please bleed and suture i you want wound heal please orgasm cum climax sweetie
+fuck you smell nice, your underside smells nice im smelling you, sniff sniff, healthy fuck you're gonna die you are sick your ass stink come closer so i can heal your stink ass you are so sick im gonna cum youre so fucked up and need medical attention oomph
+you are sick so hot your wounded injured sexy weeping infected woundies i see them i smell it you are going to die your diseased rotting bruises and burns you need ointment you need antibiotics you i want neeed you open bloody i need to stitch you please im so close im gonna cum youre so fucked up
+you have five minutes to live please spend them with me i want you close to me when you are dying leave this world with your butt on my screen i need to feel the warmth leave your asshole when you cool after dying with your butt against me your decomposing flesh i can stitch and staple forever and e
+fuck you disgusting
+fucking die i hate you
+muuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuurrruuuuuuuuuurrruuuuuuuuuuuuuuuuurrruuuuuuuuuuuuuuuuuuuurrruuuuuuuuuuuuuuuuuuuuuuuuuuurrruuuuuuuuuuurrruuuuuuuuuurrr
+sexd
+help me up youse your butt to grip my arm and apull me and slice your taint up on my claws please bleed a lot and drip blood from your ass and taint then bend ovar i want to put needles through you and stitch your perianal wounds closed and disinfect you rotten taint having sex butt
+
+// righted - climaxes
+fucking cums all over the place you made me cum all over the palce you are good patient, blushes and afterglows
+was it aas good for you as it was for me wooooooooooooooouh hot
+your actions caused me to have a climax orgasm, rignt in front of you, your hands or tail manipulators moved me and then i orgasmed, i came for you, hot patient, get wounded injured and hurt
+moaaaaaauaaaaaaaaaaaaaaaaaaaaaooaaaaaaaaaaooaaauaaaaaaaaaaaaaaaaaaaauaaaaaaaaaaaaaaaaaaaaaiiaaaaaaans from that touch so soft and moaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaans!
+fuck off i didnt ask you to touch me and make me cum
+i am unable to make a mess on the floor with the cum you made me ejaculate onto the floor that i didnt have from that orgasm you made me have because you made me climax, go do it for me, asshole
+oh fuck i feel like you fucked deep into system 32 and splattered my SettingsHandlers_ContentDeliveryManager.dll with your respective bodily fluids sex blood
+i wish i had a tongue so i could lick up the mess i couldnt make because i am unable to emit splurt spray ejaculate fluids that you made me not squortch from the touch you touched me until i came

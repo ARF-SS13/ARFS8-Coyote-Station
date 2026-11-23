@@ -7,7 +7,7 @@
 
 
 /datum/preference/choiced/digitigrade_legs/create_default_value()
-	return DIGITIGRADE_LEGS
+	return NORMAL_LEGS
 
 /datum/preference/choiced/digitigrade_legs/init_possible_values()
 	return list(NORMAL_LEGS, DIGITIGRADE_LEGS)
@@ -24,8 +24,7 @@
  * * preferences - The relevant character preferences.
  */
 /datum/preference/choiced/digitigrade_legs/proc/is_usable(datum/prefs_holder/preferences)
-	var/datum/species/species_type = preferences.read_preference(/datum/preference/choiced/species)
-	return initial(species_type.digitigrade_customization) == DIGITIGRADE_OPTIONAL
+	return TRUE
 
 /datum/preference/choiced/digitigrade_legs/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	if(!preferences || !is_usable(preferences))

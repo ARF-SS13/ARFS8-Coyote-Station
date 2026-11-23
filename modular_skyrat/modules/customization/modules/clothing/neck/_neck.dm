@@ -43,7 +43,7 @@
 	icon_state = "cemantle"
 
 /obj/item/clothing/neck/mantle/hosmantle
-	name = "\proper the head of security's mantle"
+	name = "\proper the warden's mantle"
 	desc = "A plated mantle that one might wrap around the upper torso. The 'scales' of the garment signify the members of security and how you're carrying them on your shoulders."
 	icon_state = "hosmantle"
 

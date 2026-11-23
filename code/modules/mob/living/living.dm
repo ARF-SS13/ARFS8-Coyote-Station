@@ -219,8 +219,8 @@
 			return TRUE
 		//SKYRAT EDIT ADDITION END
 
-	if(moving_diagonally)//no mob swap during diagonal moves.
-		return TRUE
+	// if(moving_diagonally)//no mob swap during diagonal moves.
+	// 	return TRUE
 
 	//SPLURT EDIT ADDITION BEGIN - FEATURE_NAME - (sizecode)
 	//handle micro bumping on help intent

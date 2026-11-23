@@ -56,28 +56,28 @@
 /obj/structure/closet/secure_closet/hos/PopulateContents()
 	..()
 
-	new /obj/item/disk/computer/command/hos(src)
-	new /obj/item/radio/headset/heads/hos(src)
-	new /obj/item/radio/headset/heads/hos/alt(src)
-	new /obj/item/storage/bag/garment/hos(src)
-	new /obj/item/storage/lockbox/medal/sec(src)
-	new /obj/item/megaphone/sec(src)
-	new /obj/item/holosign_creator/security(src)
-	new /obj/item/storage/lockbox/loyalty(src)
-	new /obj/item/storage/box/flashbangs(src)
+//	new /obj/item/disk/computer/command/hos(src)
+//	new /obj/item/radio/headset/heads/hos(src)
+//	new /obj/item/radio/headset/heads/hos/alt(src)
+//	new /obj/item/storage/bag/garment/hos(src)
+//	new /obj/item/storage/lockbox/medal/sec(src)
+//	new /obj/item/megaphone/sec(src)
+//	new /obj/item/holosign_creator/security(src)
+//	new /obj/item/storage/lockbox/loyalty(src)
+//	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/shield/riot/tele(src)
-	new /obj/item/storage/belt/security/full(src)
-	new /obj/item/circuitboard/machine/techfab/department/security(src)
-	new /obj/item/storage/photo_album/hos(src)
-	new /obj/item/card/id/departmental_budget/sec(src) //SKYRAT EDIT ADDITION
-	new /obj/item/bodycam_upgrade(src) //SPLURT ADDITION - Bodycameras, if you couldn't tell by the file name.
+//	new /obj/item/storage/belt/security/full(src)
+//	new /obj/item/circuitboard/machine/techfab/department/security(src)
+//	new /obj/item/storage/photo_album/hos(src)
+//	new /obj/item/card/id/departmental_budget/sec(src) //SKYRAT EDIT ADDITION
+//	new /obj/item/bodycam_upgrade(src) //SPLURT ADDITION - Bodycameras, if you couldn't tell by the file name.
 
-/obj/structure/closet/secure_closet/hos/populate_contents_immediate()
-	. = ..()
+///obj/structure/closet/secure_closet/hos/populate_contents_immediate()
+//	. = ..()
 
 	// Traitor steal objectives
-	new /obj/item/gun/energy/e_gun/hos(src)
-	new /obj/item/pinpointer/nuke(src)
+//	new /obj/item/gun/energy/e_gun/hos(src)
+//	new /obj/item/pinpointer/nuke(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"
@@ -87,7 +87,8 @@
 /obj/structure/closet/secure_closet/warden/PopulateContents()
 	..()
 	new /obj/item/dog_bone(src)
-	new /obj/item/radio/headset/headset_sec(src)
+	new /obj/item/radio/headset/heads/hos(src)
+	new /obj/item/radio/headset/heads/hos/alt(src)
 	new /obj/item/holosign_creator/security(src)
 	new /obj/item/storage/bag/garment/warden(src)
 	new /obj/item/storage/box/zipties(src)
@@ -95,6 +96,21 @@
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/bodycam_upgrade(src)
+
+	new /obj/item/card/id/departmental_budget/sec(src)
+	new /obj/item/storage/photo_album/hos(src)
+	new /obj/item/circuitboard/machine/techfab/department/security(src)
+	new /obj/item/megaphone/sec(src)
+	new /obj/item/storage/lockbox/medal/sec(src)
+	new /obj/item/disk/computer/command/hos(src)
+	new /obj/item/clothing/glasses/hud/security/sunglasses/gars(src)
+
+/obj/structure/closet/secure_closet/warden/populate_contents_immediate()
+	. = ..()
+
+	// Traitor steal objectives
+	new /obj/item/gun/energy/e_gun/hos(src)
+	new /obj/item/pinpointer/nuke(src)
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"

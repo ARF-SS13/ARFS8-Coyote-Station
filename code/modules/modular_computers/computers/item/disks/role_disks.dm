@@ -40,8 +40,8 @@
 	)
 
 /obj/item/disk/computer/command/hos
-	name = "head of security data disk"
-	desc = "Removable disk used to download essential HoS tablet apps."
+	name = "warden data disk"
+	desc = "Removable disk used to download essential warden tablet apps."
 	icon_state = "datadisk9"
 	starting_programs = list(
 		/datum/computer_file/program/records/security,

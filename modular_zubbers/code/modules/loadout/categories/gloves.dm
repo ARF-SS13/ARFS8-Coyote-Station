@@ -108,7 +108,7 @@
 /datum/loadout_item/gloves/tactical_maid //Donor item for skyefree
 	name = "Tactical Maid Gloves"
 	item_path = /obj/item/clothing/gloves/tactical_maid
-	donator_only = TRUE
+	//donator_only = TRUE
 
 /datum/loadout_item/gloves/color/black/security
 	name = "Security Gloves"
@@ -151,7 +151,7 @@
 /datum/loadout_item/gloves/hypnoring_sharkenning
 	name = "Suspiciously Glossy Ring"
 	item_path = /obj/item/clothing/gloves/ring/hypno/sharkenning
-	ckeywhitelist = list("thesharkenning", "tecktonic")
+//ckeywhitelist = list("thesharkenning", "tecktonic")
 
 /datum/loadout_item/gloves/lt3_gloves
 	name = "Charcoal Fingerless Gloves"
@@ -181,7 +181,7 @@
 /datum/loadout_item/gloves/hypnoring_bippy
 	name = "Hypnodemon's Ring"
 	item_path = /obj/item/clothing/gloves/ring/hypno/bippys
-	ckeywhitelist = list("bippys")
+//ckeywhitelist = list("bippys")
 
 /datum/loadout_item/gloves/latex_gloves
 	name = "Latex Gloves"

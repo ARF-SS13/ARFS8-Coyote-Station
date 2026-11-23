@@ -3,7 +3,7 @@
 	name = "combat medical kit"
 	desc = "Now with 100% less bullshit."
 	icon_state = "medkit_tactical"
-	damagetype_healed = "all"
+	damagetype_healed = HEAL_ALL_DAMAGE_FLAGS
 
 /obj/item/storage/medkit/expeditionary/PopulateContents()
 	if(empty)

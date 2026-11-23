@@ -13,12 +13,12 @@
 /datum/loadout_item/toys/plush/moffplush_lovers
 	name = "Lovers Moth Plushie"
 	item_path = /obj/item/toy/plush/moth/lovers
-	donator_only = TRUE //Donor item for Basicguy20
+	//donator_only = TRUE //Donor item for Basicguy20
 
 /datum/loadout_item/toys/plush/chirp_plush
 	name = "Chirpy Synth Plushie"
 	item_path = /obj/item/toy/plush/chirp_plush
-	donator_only = TRUE //Donor item for potatomedic.
+	//donator_only = TRUE //Donor item for potatomedic.
 
 /datum/loadout_item/toys/plush/bigdeer_plush
 	name = "Big Deer Plushie"
@@ -27,7 +27,7 @@
 /datum/loadout_item/toys/plush/bubbledragon
 	name = "Bubbledragon Plushie"
 	item_path = /obj/item/toy/plush/bubbledragon
-	donator_only = TRUE
+	//donator_only = TRUE
 
 /datum/loadout_item/toys/plush/especiallystrange
 	name = "Ironmoon Tajaran Plushie"
@@ -36,12 +36,12 @@
 /datum/loadout_item/toys/plush/headcrab
 	name = "Headcrab Plushie"
 	item_path = /obj/item/toy/plush/headcrab
-	donator_only = TRUE
+	//donator_only = TRUE
 
 /datum/loadout_item/toys/plush/Bellybird
 	name = "Belly Bird Plushie"
 	item_path = /obj/item/toy/plush/bellybird
-	donator_only = TRUE
+	//donator_only = TRUE
 
 /datum/loadout_item/toys/plush/tiredtesh
 	name = "Tired Teshari Plushie"

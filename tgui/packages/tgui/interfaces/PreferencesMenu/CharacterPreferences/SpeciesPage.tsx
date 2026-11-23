@@ -43,13 +43,15 @@ export function SpeciesPage(props: SpeciesPageProps) {
 
   const slot2: string[] = currentSpecies.category
     ? Object.values(speciesList)
-        .filter((species) => species.category === currentSpecies.category)
+        .filter((species) => species.category === currentSpecies.category
+          && !species.is_folder)
         .map((species) => species.id)
     : [];
 
   const slot3: string[] = currentSpecies.sub_category && currentSpecies.category
     ? Object.values(speciesList)
-        .filter((species) => species.sub_category === currentSpecies.sub_category)
+        .filter((species) => species.sub_category === currentSpecies.sub_category
+          && !species.is_folder)
         .map((species) => species.id)
     : [];
 
@@ -64,14 +66,14 @@ export function SpeciesPage(props: SpeciesPageProps) {
     ? Object.values(speciesList).filter(
         (species) =>
           species.sub_category === currentSpecies.sub_category &&
-          species.is_folder,
+          !species.is_folder,
       )[0]?.name || currentSpecies.name
     : currentSpecies.name;
   const slot3Selected: string = currentSpecies.sub_sub_category
     ? Object.values(speciesList).filter(
         (species) =>
           species.sub_sub_category === currentSpecies.sub_sub_category &&
-          species.is_folder,
+          !species.is_folder,
       )[0]?.name || currentSpecies.name
     : currentSpecies.name;
 
@@ -257,7 +259,7 @@ export function SpeciesPage(props: SpeciesPageProps) {
     </div>
   );
 
-  const content = currentTab === 1 ? descriptionContent : mechanicsContent;
+  const content = mechanicsContent;
   const contentContainerStyle: React.CSSProperties = {
     minHeight: 0,
     overflowX: 'hidden',
@@ -281,9 +283,9 @@ export function SpeciesPage(props: SpeciesPageProps) {
       <Stack fill overflow="hidden">
         <Stack.Item width="300px">{leftsideContainer}</Stack.Item>
         <Stack.Item grow style={{ minHeight: 0 }}>
-          <Section fill title={currentSpecies.name} fitted>
+          <Section fill /* title={currentSpecies.name} */ fitted>
             <Stack vertical fill>
-              <Stack.Item>{rightTabs}</Stack.Item>
+
               <Stack.Item grow style={contentContainerStyle}>
                 {content}
               </Stack.Item>

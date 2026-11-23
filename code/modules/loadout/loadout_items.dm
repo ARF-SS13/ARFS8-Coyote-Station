@@ -103,9 +103,9 @@ GLOBAL_LIST_INIT(all_loadout_categories, init_loadout_categories())
 
 	// SKYRAT EDIT ADDITION
 	// Let's sanitize in case somebody inserted the player's byond name instead of ckey in canonical form
-	if(ckeywhitelist)
-		for (var/i = 1, i <= length(ckeywhitelist), i++)
-			ckeywhitelist[i] = ckey(ckeywhitelist[i])
+	// if(ckeywhitelist)
+	// 	for (var/i = 1, i <= length(ckeywhitelist), i++)
+	// 		ckeywhitelist[i] = ckey(ckeywhitelist[i])
 	// SKYRAT EDIT END
 
 /datum/loadout_item/Destroy(force, ...)
@@ -400,11 +400,11 @@ GLOBAL_LIST_INIT(all_loadout_categories, init_loadout_categories())
 		displayed_text[FA_ICON_CALENDAR_CHECK] = "Only available: [required_holiday]"
 
 	// SKYRAT EDIT ADDITION
-	if(donator_only)
-		displayed_text[FA_ICON_MONEY_BILL] = "Donator only"
+	// if(donator_only)
+	// 	displayed_text[FA_ICON_MONEY_BILL] = "Donator only"
 
-	if(ckeywhitelist)
-		displayed_text[FA_ICON_LOCK] = "Player Whitelist: [ckeywhitelist.Join(", ")]"
+	// if(ckeywhitelist)
+	// 	displayed_text[FA_ICON_LOCK] = "Player Whitelist: [ckeywhitelist.Join(", ")]"
 
 	if(restricted_roles || blacklisted_roles)
 		var/list/tooltip_text = list()

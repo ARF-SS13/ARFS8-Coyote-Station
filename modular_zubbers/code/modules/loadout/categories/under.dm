@@ -3,7 +3,7 @@
 /datum/loadout_item/uniform/security/hecu
 	name = "Urban Camouflage BDU"
 	item_path = /obj/item/clothing/under/rank/security/officer/hecu
-	donator_only = TRUE
+	//donator_only = TRUE
 	restricted_roles = list(ALL_JOBS_SEC, JOB_BLUESHIELD)
 
 /datum/loadout_item/uniform/security/camo
@@ -68,27 +68,27 @@
 /datum/loadout_item/uniform/security/corrections_officer
 	name = "Correction's Officer Jumpsuit"
 	item_path = /obj/item/clothing/under/rank/security/corrections_officer
-	restricted_roles = list(JOB_CORRECTIONS_OFFICER, JOB_WARDEN)
+	restricted_roles = list(JOB_CORRECTIONS_OFFICER)
 
 /datum/loadout_item/uniform/security/corrections_officer
 	name = "Correction's Officer Jumpskirt"
 	item_path = /obj/item/clothing/under/rank/security/corrections_officer/skirt
-	restricted_roles = list(JOB_CORRECTIONS_OFFICER, JOB_WARDEN)
+	restricted_roles = list(JOB_CORRECTIONS_OFFICER)
 
 /datum/loadout_item/uniform/security/corrections_officer
 	name = "Correction's Officer Sweater"
 	item_path = /obj/item/clothing/under/rank/security/corrections_officer/sweater
-	restricted_roles = list(JOB_CORRECTIONS_OFFICER, JOB_WARDEN)
+	restricted_roles = list(JOB_CORRECTIONS_OFFICER)
 
 /datum/loadout_item/uniform/security/corrections_officer
 	name = "Correction's Officer Sweater Skirt"
 	item_path = /obj/item/clothing/under/rank/security/corrections_officer/sweater/skirt
-	restricted_roles = list(JOB_CORRECTIONS_OFFICER, JOB_WARDEN)
+	restricted_roles = list(JOB_CORRECTIONS_OFFICER)
 
 /datum/loadout_item/uniform/miscellaneous/tactical_maid //Donor item for skyefree
 	name = "Tactical Maid Costume"
 	item_path = /obj/item/clothing/under/misc/maid/tactical
-	donator_only = TRUE
+	//donator_only = TRUE
 
 /datum/loadout_item/uniform/miscellaneous/bubber/clown/skirt/red
 	name = "Clown Skirt"

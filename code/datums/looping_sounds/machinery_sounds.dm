@@ -232,3 +232,19 @@
 	extra_range = 25
 	falloff_exponent = 2
 	falloff_distance = 10
+
+/datum/looping_sound/medbot_healing
+	start_sound = 'modular_coyote/sounds/medbot/medbot_start.ogg'
+	start_length = 1 SECONDS
+	mid_sounds = list(
+		'modular_coyote/sounds/medbot/medbot_mid_1.ogg',
+		'modular_coyote/sounds/medbot/medbot_mid_2.ogg',
+		'modular_coyote/sounds/medbot/medbot_mid_3.ogg',
+		'modular_coyote/sounds/medbot/medbot_mid_4.ogg',
+		'modular_coyote/sounds/medbot/medbot_mid_5.ogg',
+		'modular_coyote/sounds/medbot/medbot_mid_6.ogg',
+	)
+	mid_length = 1.8 SECONDS
+	end_sound = 'modular_coyote/sounds/medbot/medbot_end.ogg'
+	end_volume = 100
+	volume = 60

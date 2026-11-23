@@ -1,7 +1,6 @@
 /datum/job/head_of_security
 	title = JOB_HEAD_OF_SECURITY
-	description = "Coordinate security personnel, ensure they are not corrupt, \
-		make sure every department is protected."
+	description = "Watch over the Brig and Prison Wing, manage incarceration of wrongdoers, issue equipment to security, dispatch Security and coordinate with Command."
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	head_announce = RADIO_CHANNEL_SECURITY
 	faction = FACTION_STATION
@@ -17,7 +16,7 @@
 	config_tag = "HEAD_OF_SECURITY"
 
 	outfit = /datum/outfit/job/hos
-	plasmaman_outfit = /datum/outfit/plasmaman/head_of_security
+	plasmaman_outfit = /datum/outfit/plasmaman/warden
 	departments_list = list(
 		/datum/job_department/security,
 		/datum/job_department/command,
@@ -34,7 +33,7 @@
 	bounty_types = CIV_JOB_SEC
 
 	family_heirlooms = list(/obj/item/book/manual/wiki/security_space_law)
-	rpg_title = "Guard Leader"
+	rpg_title = "Captain of the Guard"
 	job_flags = STATION_JOB_FLAGS | HEAD_OF_STAFF_JOB_FLAGS | JOB_ANTAG_PROTECTED
 
 	human_authority = JOB_AUTHORITY_HUMANS_ONLY
@@ -44,35 +43,22 @@
 /datum/job/head_of_security/get_captaincy_announcement(mob/living/captain)
 	return "Due to staffing shortages, newly promoted Acting Captain [captain.real_name] on deck!"
 
-/datum/job/head_of_security/after_spawn(mob/living/spawned, client/player_client)
-	. = ..()
-	if(!ishuman(spawned) || !prob(PIG_COP_PROBABILITY))
-		return
-	var/mob/living/carbon/human/piggy = spawned
-	for (var/obj/item/bodypart/ham as anything in piggy.bodyparts)
-		// These are string lists
-		ham.butcher_drops = ham.butcher_drops.Copy()
-		for (var/meat_type in ham.butcher_drops)
-			if (!ispath(meat_type, /obj/item/food/meat/slab))
-				continue
-			ham.butcher_drops[/obj/item/food/meat/slab/pig] = ham.butcher_drops[meat_type]
-			ham.butcher_drops -= meat_type
-		ham.butcher_drops = string_list(ham.butcher_drops)
+
 
 /datum/outfit/job/hos
-	name = "Head of Security"
+	name = "Warden"
 	jobtype = /datum/job/head_of_security
 
 	id = /obj/item/card/id/advanced/silver
 	id_trim = /datum/id_trim/job/head_of_security
-	uniform = /obj/item/clothing/under/rank/security/head_of_security
-	suit = /obj/item/clothing/suit/armor/hos/trenchcoat
-	suit_store = /obj/item/gun/energy/e_gun
-	belt = /obj/item/storage/belt/security/full_hos
+	uniform = /obj/item/clothing/under/rank/security/warden
+	suit = /obj/item/clothing/suit/armor/vest/warden/alt
+	suit_store = /obj/item/gun/energy/e_gun/advtaser
+	belt = /obj/item/storage/belt/security/full
 	ears = /obj/item/radio/headset/heads/hos/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	gloves = /obj/item/clothing/gloves/color/black/security
-	head = /obj/item/clothing/head/hats/hos/beret
+	head = /obj/item/clothing/head/hats/warden/red
 	shoes = /obj/item/clothing/shoes/jackboots/sec
 	l_pocket = /obj/item/modular_computer/pda/heads/hos
 	r_pocket = /obj/item/flashlight/seclite
@@ -91,7 +77,7 @@
 	implants = list(/obj/item/implant/mindshield)
 
 /datum/outfit/job/hos/mod
-	name = "Head of Security (MODsuit)"
+	name = "Warden (MODsuit)"
 
 	suit_store = /obj/item/tank/internals/oxygen
 	back = /obj/item/mod/control/pre_equipped/safeguard

@@ -4,6 +4,7 @@
 	desc = "You have a lethal condition in your brain that is slowly destroying it. Better bring some mannitol!"
 	medical_record_text = "Patient has a lethal condition in their brain that is slowly causing brain death."
 	icon = FA_ICON_BRAIN
+	hidden_quirk = TRUE
 
 // Override of Brain Tumor quirk for robotic/synthetic species with posibrains.
 // Does not appear in TGUI or the character preferences window.

@@ -1,6 +1,14 @@
+/datum/species/reptar
+	name = "Reptilid"
+	roundstart = TRUE
+	category = "reptar"
+	category_master = /datum/species/reptar
+	default_species = /datum/species/unathi
+
 /datum/species/unathi
-	name = "Lizardperson (Generic)"
+	name = "Unathi"
 	id = SPECIES_UNATHI
+	category = "reptar"
 	inherent_traits = list(
 		TRAIT_ADVANCEDTOOLUSER,
 		TRAIT_CAN_STRIP,
