@@ -353,7 +353,7 @@ SUBSYSTEM_DEF(narrative)
 	var/action_scalar_min = 1
 	var/action_scalar_max = 1
 
-/datum/narrative_vote_option/ New()
+/datum/narrative_vote_option/New()
 	action_scalar = rand(action_scalar_min*1000, action_scalar_max*1000) / 1000 // cus rand does ints, and i want decimales
 	action_scalar_inverse = 1 / action_scalar
 
