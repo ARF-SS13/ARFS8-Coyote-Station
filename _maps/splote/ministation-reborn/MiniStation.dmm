@@ -18,6 +18,9 @@
 	pixel_x = 33;
 	pixel_y = -2
 	},
+/obj/machinery/modular_computer/preset/cargochat/cargo{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/station/cargo/storage)
 "aay" = (
@@ -2354,7 +2357,6 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/open/floor/iron,
 /area/station/cargo/storage)
 "brH" = (
@@ -2925,6 +2927,7 @@
 "bHk" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/closet/crate,
 /turf/open/floor/iron/textured_large,
 /area/station/cargo/storage)
 "bHt" = (
@@ -3513,6 +3516,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/recharge_station,
 /turf/open/floor/iron,
 /area/station/cargo/storage)
 "bUw" = (
@@ -4315,8 +4319,6 @@
 /turf/open/floor/iron/textured_large,
 /area/station/cargo/storage)
 "cqv" = (
-/obj/vehicle/ridden/golfcart/loaded,
-/obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/trimline/brown/filled/line,
 /turf/open/floor/iron,
 /area/station/cargo/storage)
@@ -6395,20 +6397,12 @@
 /turf/open/floor/iron,
 /area/station/hallway/floor2/aft)
 "dyD" = (
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/power_store/cell/high{
-	pixel_x = -6;
-	pixel_y = 9
-	},
-/obj/item/key/golfcart{
-	pixel_x = 7;
-	pixel_y = 10
-	},
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 6
 	},
 /obj/machinery/light,
+/obj/effect/turf_decal/bot,
+/obj/machinery/recharge_station,
 /turf/open/floor/iron,
 /area/station/cargo/storage)
 "dyP" = (
@@ -14859,11 +14853,24 @@
 /turf/open/floor/iron,
 /area/station/commons/fitness/recreation)
 "ich" = (
-/obj/structure/tank_dispenser/oxygen,
+/obj/structure/closet/emcloset/wall{
+	pixel_x = 33;
+	pixel_y = -2
+	},
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/power_store/cell/high{
+	pixel_x = -6;
+	pixel_y = 9
+	},
+/obj/item/key/golfcart{
+	pixel_x = 7;
+	pixel_y = 10
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/station/cargo/storage)
 "ici" = (
@@ -22803,9 +22810,11 @@
 /turf/open/floor/iron,
 /area/station/hallway/floor2/aft)
 "mrR" = (
-/obj/machinery/suit_storage_unit/mining/eva,
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
+	},
+/obj/vehicle/ridden/golfcart/loaded{
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/station/cargo/storage)
@@ -31421,11 +31430,11 @@
 	dir = 4
 	},
 /obj/machinery/light_switch/directional/east,
-/obj/machinery/recharge_station,
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
 /obj/machinery/camera/autoname/directional/east,
+/obj/structure/mailbox,
 /turf/open/floor/iron,
 /area/station/cargo/storage)
 "qKK" = (
@@ -38811,15 +38820,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/station/command/heads_quarters/ce)
-"uBu" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/obj/machinery/modular_computer/preset/cargochat/cargo{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/station/cargo/storage)
 "uBV" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -75226,7 +75226,7 @@ ich
 mrR
 brp
 qKF
-uBu
+brp
 xAy
 aam
 dyD
