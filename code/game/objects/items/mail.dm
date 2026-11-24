@@ -1,7 +1,7 @@
 /// Mail is tamper-evident and unresealable, postmarked by CentCom for an individual recepient.
 /obj/item/mail
 	name = "mail"
-	gender = NEUTER
+	gender = FEMALE // fe-mail
 	desc = "An officially postmarked, tamper-evident parcel regulated by CentCom and made of high-quality materials."
 	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "mail_small"
@@ -12,6 +12,7 @@
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
+	var/bounty = 100
 	/// Destination tagging for the mail sorter.
 	var/sort_tag = 0
 	/// Weak reference to who this mail is for and who can open it.
@@ -101,6 +102,8 @@
 		. += postmark_image
 
 /obj/item/mail/attackby(obj/item/W, mob/user, list/modifiers, list/attack_modifiers)
+	if(istype(W, /obj/item/card/id))
+		return unwrap(W, user)
 	// Destination tagging
 	if(istype(W, /obj/item/dest_tagger))
 		var/obj/item/dest_tagger/destination_tag = W
@@ -120,27 +123,45 @@
 
 
 /obj/item/mail/attack_self(mob/user)
-	if(!unwrap(user))
-		return FALSE
-	return after_unwrap(user)
+	return unwrap(user, user)
+
+/obj/item/mail/proc/is_right_recipient(opener)
+	if(!recipient_ref)
+		return TRUE
+	var/datum/mind/intended_recipient = GET_WEAKREF(recipient_ref)
+	if(!intended_recipient)
+		return TRUE
+	if(istype(opener, /obj/item/card/id))
+		var/obj/item/card/id/card = opener
+		var/card_uid = card.original_owner_uid
+		var/mob/mo = intended_recipient.current
+		if(!mo)
+			return TRUE
+		var/mind_uid = mo.m_uid
+		return card_uid == mind_uid
+	if(istype(opener, /mob))
+		var/mob/applyer = opener
+		// extract a most likely mind
+		var/datum/mind/cool_mind = applyer.mind
+		return cool_mind == intended_recipient
 
 /// proc for unwrapping a mail. Goes just for an unwrapping procces, returns FALSE if it fails.
-/obj/item/mail/proc/unwrap(mob/user)
-	if(recipient_ref)
-		var/datum/mind/recipient = recipient_ref.resolve()
-		// If the recipient's mind has gone, then anyone can open their mail
-		// whether a mind can actually be qdel'd is an exercise for the reader
-		if(recipient && recipient != user?.mind)
-			to_chat(user, span_notice("You can't open somebody else's mail! That's <em>illegal</em>!"))
+/obj/item/mail/proc/unwrap(checker, mob/user)
+	if(!is_right_recipient(checker))
+		if(istype(checker, /obj/item/card/id))
+			to_chat(user, span_alert("That ID doesn't match the intended recipient!"))
+			return FALSE
+		else
+			to_chat(user, span_notice("That's not your mail! Go find "))
 			return FALSE
 
 	balloon_alert(user, "unwrapping...")
 	if(!do_after(user, 1.5 SECONDS, target = user))
 		return FALSE
-	return TRUE
+	return after_unwrap(user, TRUE)
 
 // proc that goes after unwrapping a mail.
-/obj/item/mail/proc/after_unwrap(mob/user)
+/obj/item/mail/proc/after_unwrap(mob/user, opened_properly)
 	user.temporarilyRemoveItemFromInventory(src, force = TRUE)
 	for(var/obj/stuff as anything in contents) // Mail and envelope actually can have more than 1 item.
 		if(isitem(stuff))
@@ -148,8 +169,44 @@
 		else
 			stuff.forceMove(drop_location())
 	playsound(loc, 'sound/items/poster/poster_ripped.ogg', vol = 50, vary = TRUE)
+	// pay everyone! if its something with a recipient
+	// also assumes that it was opened by the recipient (or someone with their ID)
+	if(recipient_ref && opened_properly)
+		var/datum/mind/recipient = GET_WEAKREF(recipient_ref)
+		var/mob/recipient_mob = recipient.current
+		var/datum/bank_account/account = extract_bank_account(recipient)
+		if(account)
+			account.adjust_money(bounty, "Mail Payward")
+			var/datum/rpi_departmental_scoreboard/dept
+			if(account.account_job && account.account_job.paycheck_department)
+				dept = SSrpi.departmental_scoreboards[account.account_job.paycheck_department]
+			else // idk pick one
+				var/idk = pick(SSrpi.departmental_scoreboards)
+				dept = SSrpi.departmental_scoreboards[idk]
+			if(dept)
+				dept.payout_department(user, bounty)
+		// now pay cargo for being a good little cargo
+		var/datum/rpi_departmental_scoreboard/dept_cargo = SSrpi.departmental_scoreboards[ACCOUNT_CAR]
+		if(dept_cargo)
+			dept_cargo.payout_department(user, bounty)
+		aas_config_announce(
+			/datum/aas_config_entry/mail_opened_good,
+			list("PAYOUT" = bounty),
+			src,
+			list(RADIO_CHANNEL_SUPPLY)
+		)
 	qdel(src)
 	return TRUE
+
+/datum/aas_config_entry/mail_opened_good
+	name = "Cargo Alert: Mail Opened Properly"
+	general_tooltip = "Announces when a piece of mail has been opened by the intended recipient. No variables provided"
+	announcement_lines_map = list(
+		"Message" = "ARFS-MAILSERV: Successful mail delivery bonus: %PAYOUT"
+	)
+	vars_and_tooltips_map = list(
+		"PAYOUT" = "The amount of money paid out to the recipient for opening the mail.",
+	)
 
 
 /obj/item/mail/examine_more(mob/user)
@@ -281,19 +338,14 @@
 /proc/make_some_mail(atom/where, amount)
 	if(istype(where, /obj/structure/closet))
 		amount = min(amount, where:storage_capacity)
-	var/list/mail_recipients = list()
-
-	for(var/mob/living/carbon/human/human in GLOB.player_list)
-		if(!human.mind)
-			continue
-		mail_recipients += human.mind
+	var/list/mail_recipients = get_mailable_minds()
 
 	for(var/i in 1 to amount)
 		var/obj/item/mail/new_mail
 		if(prob(50))
-			new_mail = new /obj/item/mail(src)
+			new_mail = new /obj/item/mail(where)
 		else
-			new_mail = new /obj/item/mail/envelope(src)
+			new_mail = new /obj/item/mail/envelope(where)
 
 		var/datum/mind/recipient = pick(mail_recipients)
 		if(recipient)
@@ -301,7 +353,17 @@
 		else
 			new_mail.junk_mail()
 
-
+/proc/get_mailable_minds()
+	var/list/viable_minds = list()
+	for(var/mob/player as anything in GLOB.player_list)//prevents crew members falling in love with nuke ops they never met, and other annoying hijinks
+		if(!player.client || !player.mind || isnewplayer(player))
+			continue
+		// SKYRAT EDIT ADDITION START - Players in the interlink can't be obsession targets
+		if(SSticker.IsRoundInProgress() && istype(get_area(player), /area/centcom/interlink))
+			continue
+		// SKYRAT EDIT END
+		viable_minds += player.mind
+	return viable_minds
 
 /// Fills this mail crate with N pieces of mail, where N is the lower of the amount var passed, and the maximum capacity of this crate. If N is larger than the number of alive human players, the excess will be junkmail.
 /obj/structure/closet/crate/mail/proc/populate(amount)
