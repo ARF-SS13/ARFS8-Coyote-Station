@@ -61,6 +61,9 @@
 	if(istext(something))
 		var/client/cl = LAZYACCESS(GLOB.directory, something)
 		return cl?.mob
+	if(istype(something, /datum/mind))
+		var/datum/mind/mind = something
+		return mind.current
 	return null
 
 /proc/extract_current_character_slot(mob/user, null_is_ok)
@@ -115,4 +118,22 @@
 	for(var/datum/csnip_verbset/verbset in SSdans_cool_prefs.verbsets)
 		text = verbset.replace_token(text, focus)
 	return text
+
+/// hey i wanna pay someone, time to check 40 different things to figure out where it goes
+/proc/extract_bank_account(something)
+	if(istype(something, /datum/bank_account))
+		return something
+	if(istype(something, /obj/item/card/id))
+		var/obj/item/card/id/card = something
+		return card.registered_account
+	// now its gonna get a bit hazier, hold onto ur butts, cus its time to go digging
+	var/mob/possiblemob = extract_mob(something)
+	if(possiblemob)
+		var/mob_uid = possiblemob.m_uid
+		for(var/ind in SSeconomy.bank_accounts_by_id)
+			var/datum/bank_account/account = SSeconomy.bank_accounts_by_id[ind]
+			if(account && account.original_owner_uid == mob_uid)
+				return account
+
+
 

@@ -64,7 +64,8 @@
 	((max(distance - falloff_distance, 0) ** (1 / falloff_exponent)) / ((max(max_distance, distance) - falloff_distance) ** (1 / falloff_exponent)) * volume)
 
 ///Default range of a sound.
-#define SOUND_RANGE 17
+// #define SOUND_RANGE 17
+#define SOUND_RANGE 30
 #define MEDIUM_RANGE_SOUND_EXTRARANGE -5
 ///default extra range for sounds considered to be quieter
 #define SHORT_RANGE_SOUND_EXTRARANGE -9
@@ -73,7 +74,7 @@
 ///Percentage of sound's range where no falloff is applied
 #define SOUND_DEFAULT_FALLOFF_DISTANCE 1 //For a normal sound this would be 1 tile of no falloff
 ///The default exponent of sound falloff
-#define SOUND_FALLOFF_EXPONENT 6
+#define SOUND_FALLOFF_EXPONENT 8
 
 #define SOUND_MINIMUM_PRESSURE 10
 
