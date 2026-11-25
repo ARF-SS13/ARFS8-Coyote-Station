@@ -2719,7 +2719,15 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	on_fall()
 	if(body_position == STANDING_UP) //force them on the ground
 		set_body_position(LYING_DOWN)
-		set_lying_angle(pick(LYING_ANGLE_EAST, LYING_ANGLE_WEST))
+		var/langle = 0
+		switch(dir)
+			if(EAST, NORTHEAST, SOUTHEAST)
+				langle = LYING_ANGLE_EAST
+			if(WEST, NORTHWEST, SOUTHWEST)
+				langle = LYING_ANGLE_WEST
+			else
+				langle = pick(LYING_ANGLE_EAST, LYING_ANGLE_WEST)
+		set_lying_angle(langle)
 
 /// Proc to append behavior to the condition of being floored. Called when the condition ends.
 /mob/living/proc/on_floored_end()
