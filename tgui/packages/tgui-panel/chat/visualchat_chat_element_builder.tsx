@@ -52,7 +52,7 @@ export function Sanitate(str) {
 export function VisualChatify(
   saymodeData: VCSaymodeData,
   messageData: VCMessageData,
-  theme: string = 'dark',
+  theme?: string,
 ): VCAssemblerHolder {
   const { name_displayed, displayed_saymode, body_text, compiled_message } =
     messageData;
@@ -69,14 +69,11 @@ export function VisualChatify(
 
   if (!messageData.use_settings) {
     // use what we got, but good
-    const stylePack =
-      theme === 'light'
-        ? GetVCChatStylePack(VCStylePackEnum.light, messageData.differentiator)
-        : GetVCChatStylePack(
-            VCStylePackEnum.default,
-            messageData.differentiator,
-          );
-    // logger.log(`using style pack ${theme === 'light' ? 'light' : 'def'}`);
+    const stylePack = GetVCChatStylePack(
+      theme === 'light' ? VCStylePackEnum.light : VCStylePackEnum.default,
+      messageData.differentiator,
+    );
+
     vcaOut.outerBoxStyle = {
       ...stylePack.Swag,
       ...stylePack.OuterBackground,
@@ -164,7 +161,11 @@ export function AssembleVisualChatElement(
   );
 
   const coolImage = (
-    <Stack.Item shrink style={{ ...vch.pfpBoxStyle, height: '100cqv' }}>
+    <Stack.Item
+      shrink
+      className="VisualChat__pfp"
+      style={{ ...vch.pfpBoxStyle, height: '100cqv' }}
+    >
       <img
         src={vch.pfpImageLink}
         style={{ ...vch.pfpImageStyle }}
@@ -177,11 +178,11 @@ export function AssembleVisualChatElement(
     case VCDisplayMode.FullWithoutImage:
     case VCDisplayMode.Full:
       return (
-        <Box style={{ ...vch.outerBoxStyle }}>
+        <Box className="VisualChat__outer" style={{ ...vch.outerBoxStyle }}>
           {injectedStyle}
           <Stack fill>
             {/* Profile picture */}
-            {displayMode !== VCDisplayMode.FullWithoutImage && coolImage}
+            {displayMode === VCDisplayMode.FullWithoutImage ? null : coolImage}
             {/* Name and message */}
             <Stack.Item grow>
               <Stack fill vertical>
@@ -198,7 +199,7 @@ export function AssembleVisualChatElement(
 
                 <Stack.Item
                   style={{ ...vch.messageStyle }}
-                  className="coolcoolflash"
+                  className="coolcoolflash VisualChat__message"
                   grow
                 >
                   <Box
@@ -218,15 +219,17 @@ export function AssembleVisualChatElement(
     case VCDisplayMode.Combined:
     case VCDisplayMode.CombinedWithoutImage:
       return (
-        <Box style={{ ...vch.outerBoxStyle }}>
+        <Box className="VisualChat__outer" style={{ ...vch.outerBoxStyle }}>
           <Stack fill>
             {/* Profile picture */}
-            {displayMode !== VCDisplayMode.CombinedWithoutImage && coolImage}
+            {displayMode === VCDisplayMode.CombinedWithoutImage
+              ? null
+              : coolImage}
             {/* Name and message */}
             <Stack.Item
               grow
               style={{ ...vch.messageStyle }}
-              className="coolcoolflash"
+              className="coolcoolflash VisualChat__message"
             >
               <span>{vch.nameFull}</span>
               <Box
@@ -240,15 +243,17 @@ export function AssembleVisualChatElement(
     case VCDisplayMode.PreCompiled:
     case VCDisplayMode.PreCompiledWithoutImage:
       return (
-        <Box style={{ ...vch.outerBoxStyle }}>
+        <Box className="VisualChat__outer" style={{ ...vch.outerBoxStyle }}>
           <Stack fill>
             {/* Profile picture */}
-            {displayMode !== VCDisplayMode.PreCompiledWithoutImage && coolImage}
+            {displayMode === VCDisplayMode.PreCompiledWithoutImage
+              ? null
+              : coolImage}
             {/* Name and message */}
             <Stack.Item
               grow
               style={{ ...vch.messageStyle }}
-              className="coolcoolflash"
+              className="coolcoolflash VisualChat__message"
             >
               <Box
                 id="vcmsg"

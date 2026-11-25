@@ -14,8 +14,9 @@
 	anchored = TRUE
 	var/on = FALSE
 	var/max_nearby_mails = 20
-	var/per_mail_interval = 5 MINUTES
-	var/min_mail_per_spawn = 3
+	var/per_mail_interval = 15 MINUTES
+	var/min_mail_per_spawn = 1
+	var/max_mail_per_spawn = 20
 	var/timeleft_till_next_mail = 0
 	var/help_document_delay = 20 SECONDS
 	var/help_document_cooldown = 0
@@ -113,7 +114,7 @@
 		placement_turf = get_turf(src)
 	yiff:
 	var/crewoids = min_mail_per_spawn + LAZYLEN(get_mailable_minds())
-	var/mail_count = rand(min_mail_per_spawn, crewoids)
+	var/mail_count = min(rand(min_mail_per_spawn, crewoids), max_mail_per_spawn)
 	// destination confirmed!
 	playsound(src, 'sound/machines/ping.ogg', 40, TRUE)
 	summon_mail_effect(placement_turf)

@@ -130,13 +130,14 @@ export type VCMessageData = {
   merge_name_too: boolean; // merge into oncoming traffic BEEP BEEP *ded*
   hide_pfp: boolean;
   differentiator: VCDiff;
+  uniqueish_id: string;
 };
 
 export type VCDiff = {
   h: number;
   s: number;
   v: number;
-}
+};
 
 export type VCDataPack = {
   saymode_data: VCSaymodeData;
@@ -187,7 +188,7 @@ export enum VCTT {
   VCToggleSee = 'vc_toggle_see',
   VCRange = 'vc_range',
 
-  VCToggleShowOwn = 'vc_toggle_show_own'
+  VCToggleShowOwn = 'vc_toggle_show_own',
 }
 
 // ------------------------------------------------------------------

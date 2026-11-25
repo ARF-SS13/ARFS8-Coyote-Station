@@ -14,6 +14,7 @@
 	var/durty_character = FALSE
 	/// offset for this slot's chat color, subtle but yeah
 	var/list/differentiator = list() // h, s, v
+	var/uniqueish_id = ""
 
 /datum/vc_preference_holder/New(parent, thekind = "human", theslot = "0")
 	parent_manager = parent
@@ -127,7 +128,7 @@
 	return FALSE
 
 /datum/vc_preference_holder/proc/set_differentiator_value()
-	var/seed = "[parent_manager.owner_ckey]_[slot]_[kind]_[parent_manager.chatman_data["favorite_shark"]]_[SSvisualchat.debug_seed_offsetter]" || "cute_lasercat"
+	var/seed = "[parent_manager.owner_ckey]_[slot]_[kind]_[parent_manager.chatman_data["favorite_shark"]]_[SSvisualchat.debug_seed_offsetter]"
 	var/h = 0
 	var/s = 0
 	var/v = 0
@@ -147,5 +148,6 @@
 	if(v <= 5)
 		v = -v
 	differentiator = list("h" = h, "s" = s, "v" = v)
+	uniqueish_id = seed
 
 

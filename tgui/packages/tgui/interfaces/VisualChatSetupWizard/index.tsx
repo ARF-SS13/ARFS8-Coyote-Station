@@ -707,6 +707,7 @@ function GenerateMessageData(saydat: VCSaymodeData): VCMessageData {
     merge_name_too: false,
     hide_pfp: false,
     differentiator: { h: 0, s: 0, v: 0 } as VCDiff,
+    uniqueish_id: 'bingus',
   };
   return ourMessageData; // ya know i was expecting a lot more stuff
 }
