@@ -173,7 +173,6 @@
 	// also assumes that it was opened by the recipient (or someone with their ID)
 	if(recipient_ref && opened_properly)
 		var/datum/mind/recipient = GET_WEAKREF(recipient_ref)
-		var/mob/recipient_mob = recipient.current
 		var/datum/bank_account/account = extract_bank_account(recipient)
 		if(account)
 			account.adjust_money(bounty, "Mail Payward")
