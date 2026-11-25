@@ -7,10 +7,11 @@
 import { createRoot } from 'react-dom/client';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { createLogger } from 'tgui/logging';
-import { Tooltip } from 'tgui-core/components';
+import { Box, Stack, Tooltip } from 'tgui-core/components';
 import { EventEmitter } from 'tgui-core/events';
 import { classes } from 'tgui-core/react';
 import { store } from '../events/store';
+import { settingsAtom } from '../settings/atoms';
 import { scrollTrackingAtom } from './atom';
 import {
   COMBINE_MAX_MESSAGES,
@@ -160,6 +161,14 @@ class ChatRenderer {
         logger.debug('tracking', this.scrollTracking);
       }
     };
+    let theme = store.get(settingsAtom).theme;
+    store.sub(settingsAtom, () => {
+      const nextTheme = store.get(settingsAtom).theme;
+      if (nextTheme !== theme) {
+        theme = nextTheme;
+        this.updateVisualChatTheme(nextTheme);
+      }
+    });
     // Periodic message pruning
     setInterval(() => this.pruneMessages(), MESSAGE_PRUNE_INTERVAL);
   }
@@ -202,6 +211,68 @@ class ChatRenderer {
   assignStyle(style = {}) {
     for (const key of Object.keys(style)) {
       this.rootNode!.style.setProperty(key, style[key]);
+    }
+  }
+
+  updateVisualChatTheme(theme: string) {
+    const messages = new Set([...this.messages, ...this.visibleMessages]);
+    const template = document.createElement('template');
+    for (const message of messages) {
+      if (
+        !this.isVisualChatMessage(message) ||
+        !message.extraData ||
+        message.extraData.message_data.use_settings ||
+        message.text ||
+        !(message.node instanceof HTMLElement)
+      ) {
+        continue;
+      }
+
+      try {
+        const styles = VisualChatify(
+          message.extraData.saymode_data,
+          message.extraData.message_data,
+          theme,
+        );
+        template.innerHTML = renderToStaticMarkup(
+          <>
+            <Box className="VisualChat__outer" style={styles.outerBoxStyle} />
+            <Stack.Item
+              grow
+              className="VisualChat__message"
+              style={styles.messageStyle}
+            />
+            <Stack.Item
+              shrink
+              className="VisualChat__pfp"
+              style={{ ...styles.pfpBoxStyle, height: '100cqv' }}
+            />
+          </>,
+        );
+
+        for (const region of ['outer', 'message', 'pfp']) {
+          const selector = `.VisualChat__${region}`;
+          const target = message.node.querySelector(selector);
+          const source = template.content.querySelector(selector);
+          if (!target) {
+            if (region !== 'pfp') {
+              logger.error(`Missing VisualChat ${region} region`, message);
+            }
+            continue;
+          }
+          if (!source) {
+            throw new Error(`Missing VisualChat ${region} style`);
+          }
+          const style = source.getAttribute('style');
+          if (style === null) {
+            target.removeAttribute('style');
+          } else {
+            target.setAttribute('style', style);
+          }
+        }
+      } catch (error) {
+        logger.error('Failed to update VisualChat theme', error);
+      }
     }
   }
 
@@ -556,11 +627,10 @@ class ChatRenderer {
           node.textContent = message.text;
         } else if (amVC && message.extraData) {
           try {
-            // const settings = store.get(settingsAtom);
-            // const theme = settings.theme || 'dark';
             const vcAssData = VisualChatify(
               message.extraData.saymode_data,
               message.extraData.message_data,
+              store.get(settingsAtom).theme,
             );
             if (!vcAssData) throw new Error('no vc data');
             const visualChatElement = AssembleVisualChatElement(vcAssData);
