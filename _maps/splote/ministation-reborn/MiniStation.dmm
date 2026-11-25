@@ -915,9 +915,6 @@
 "aAp" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/effect/turf_decal/siding/wood/corner{
-	dir = 1
-	},
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -2854,12 +2851,9 @@
 /turf/open/floor/plating,
 /area/station/service/cafeteria)
 "bFe" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/effect/landmark/start/hangover,
-/turf/open/floor/wood,
-/area/station/service/library)
+/obj/machinery/vending/games,
+/turf/open/floor/stone,
+/area/station/service/hydroponics/park)
 "bFI" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -11285,11 +11279,14 @@
 /turf/open/floor/plating/airless,
 /area/station/science/ordnance/bomb)
 "gjN" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green{
+	pixel_x = -9;
+	pixel_y = 3
 	},
-/obj/machinery/airalarm/directional/west,
-/turf/open/floor/wood,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/open/floor/wood/tile,
 /area/station/service/library)
 "gkd" = (
 /obj/machinery/air_sensor/plasma_tank,
@@ -13488,9 +13485,6 @@
 /area/station/science/ordnance/storage)
 "huf" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/effect/turf_decal/siding/wood/corner{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -15805,6 +15799,7 @@
 	dir = 4
 	},
 /obj/machinery/newscaster/directional/west,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/wood,
 /area/station/service/library)
 "iIf" = (
@@ -22086,9 +22081,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/cable,
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/wood,
 /area/station/service/library)
@@ -27016,8 +27008,8 @@
 	dir = 1
 	},
 /obj/machinery/light/small/directional/west,
-/obj/structure/bookcase/random,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/machinery/vending/games,
 /turf/open/floor/iron/dark,
 /area/station/service/library)
 "osG" = (
@@ -27380,14 +27372,14 @@
 "oDL" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
 /obj/structure/chair/stool/directional/north,
 /obj/effect/landmark/start/hangover,
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 6
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/station/service/library)
@@ -27636,6 +27628,7 @@
 /obj/structure/closet/emcloset/wall{
 	pixel_x = -29
 	},
+/obj/structure/chair/stool/directional/south,
 /turf/open/floor/wood,
 /area/station/service/library)
 "oNB" = (
@@ -30613,9 +30606,11 @@
 /turf/open/floor/stone,
 /area/station/service/hydroponics/park)
 "qro" = (
-/obj/effect/turf_decal/siding/wood,
 /obj/structure/chair/stool/directional/south,
 /obj/effect/landmark/start/hangover,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/station/service/library)
 "qso" = (
@@ -33604,11 +33599,11 @@
 /turf/open/floor/circuit/green,
 /area/station/commons/toilet)
 "rSY" = (
-/obj/structure/table/wood,
-/obj/effect/landmark/event_spawn,
-/obj/item/paper_bin,
-/obj/item/pen,
-/turf/open/floor/wood/tile,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/chair/stool/directional/west,
+/turf/open/floor/wood,
 /area/station/service/library)
 "rTc" = (
 /obj/machinery/navbeacon{
@@ -39242,7 +39237,7 @@
 /area/station/medical/medbay/central)
 "uPB" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lamp/green,
+/obj/effect/landmark/event_spawn,
 /turf/open/floor/wood/tile,
 /area/station/service/library)
 "uQd" = (
@@ -138955,7 +138950,7 @@ wzv
 sts
 tGt
 oNs
-bFe
+srs
 gjN
 iHK
 osc
@@ -139212,7 +139207,7 @@ qiX
 qiX
 uVe
 aac
-srs
+gLh
 uPB
 iXV
 fac
@@ -139469,7 +139464,7 @@ qiX
 qiX
 ktG
 qro
-gLh
+rSY
 rSY
 oDL
 dNA
@@ -202970,7 +202965,7 @@ yhZ
 heG
 izc
 dXZ
-wna
+bFe
 hjs
 sjr
 wna
