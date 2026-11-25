@@ -1,5 +1,11 @@
-/mob/living/proc/robot_talk(message, list/spans = list(), list/message_mods = list())
-	log_sayverb_talk(message, message_mods, tag="binary")
+/// binary chat
+/mob/living/proc/robot_talk(message, list/spans = list(), list/message_data = list())
+	log_sayverb_talk(message, message_data, tag="binary")
+	message_data[SATA_MESSAGE_SPOKEN] = message
+	message_data[SATA_MESSAGE_HEARD] = message
+	message_data[SATA_VC_SOURCE] = message_data[SATA_VC_SOURCE] || src
+	message_data[SATA_SPEAKER] = message_data[SATA_SPEAKER] || src
+	message_data[SATA_VERB] = say_mod(message, message_data)
 
 	var/designation = "Default Cyborg"
 	spans |= SPAN_ROBOT
@@ -18,7 +24,7 @@
 	var/messagepart = generate_messagepart(
 		message,
 		spans,
-		message_mods,
+		message_data,
 	)
 
 	var/namepart = name
@@ -33,27 +39,35 @@
 		designation = brain.mainframe.job
 
 	for(var/mob/hearing_mob in GLOB.player_list)
+		var/list/herdlist = message_data.Copy()
 		if(hearing_mob.binarycheck())
+			var/message_thing = ""
 			if(isAI(hearing_mob))
-				to_chat(
-					hearing_mob,
-					span_binarysay("\
+				message_thing = span_binarysay("\
 						Robotic Talk, \
 						<a href='byond://?src=[REF(hearing_mob)];track=[html_encode(namepart)]'>[span_name("[namepart] ([designation])")]</a> \
 						<span class='message'>[messagepart]</span>\
-					"),
-					type = MESSAGE_TYPE_RADIO,
-					avoid_highlighting = (src == hearing_mob)
-				)
-			else
+					")
+				herdlist[SATA_MESSAGE_COMPILED] = message_thing
 				to_chat(
 					hearing_mob,
-					span_binarysay("\
+					message_thing,
+					type = MESSAGE_TYPE_RADIO,
+					avoid_highlighting = (src == hearing_mob),
+					extra_data = herdlist,
+				)
+			else
+				message_thing = span_binarysay("\
 						Robotic Talk, \
 						[span_name("[namepart]")] <span class='message'>[messagepart]</span>\
-					"),
+					")
+				herdlist[SATA_MESSAGE_COMPILED] = message_thing
+				to_chat(
+					hearing_mob,
+					message_thing,
 					type = MESSAGE_TYPE_RADIO,
-					avoid_highlighting = (src == hearing_mob)
+					avoid_highlighting = (src == hearing_mob),
+					extra_data = herdlist,
 				)
 
 		if(isobserver(hearing_mob))
@@ -67,16 +81,18 @@
 				following = ai.eyeobj
 
 			var/follow_link = FOLLOW_LINK(hearing_mob, following)
-
-			to_chat(
-				hearing_mob,
-				span_binarysay("\
+			var/message_cool = span_binarysay("\
 					[follow_link] \
 					Robotic Talk, \
 					[span_name("[namepart]")] <span class='message'>[messagepart]</span>\
-				"),
+				")
+			herdlist[SATA_MESSAGE_COMPILED] = message_cool
+			to_chat(
+				hearing_mob,
+				message_cool,
 				type = MESSAGE_TYPE_RADIO,
-				avoid_highlighting = (src == hearing_mob)
+				avoid_highlighting = (src == hearing_mob),
+				extra_data = herdlist,
 			)
 
 /mob/living/silicon/binarycheck()
@@ -85,17 +101,17 @@
 		return FALSE
 	return TRUE
 
-/mob/living/silicon/radio(message, list/message_mods = list(), list/spans, language)
+/mob/living/silicon/radio(message, list/message_data = list(), list/spans, language)
 	. = ..()
 	if(.)
 		return
-	if(message_mods[MODE_HEADSET])
+	if(message_data[MODE_HEADSET])
 		if(radio)
-			radio.talk_into(src, message, , spans, language, message_mods)
+			radio.talk_into(src, message, , spans, language, message_data)
 		return NOPASS
-	else if(message_mods[RADIO_EXTENSION] in GLOB.default_radio_channels)
+	else if(message_data[SATA_RADIO_EXTENSION] in GLOB.default_radio_channels)
 		if(radio)
-			radio.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
+			radio.talk_into(src, message, message_data[SATA_RADIO_EXTENSION], spans, language, message_data)
 			return NOPASS
 
 	return FALSE

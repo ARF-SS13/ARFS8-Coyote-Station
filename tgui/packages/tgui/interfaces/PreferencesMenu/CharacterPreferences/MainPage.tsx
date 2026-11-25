@@ -1,6 +1,6 @@
 import { sortBy } from 'es-toolkit';
 import { filter, map } from 'es-toolkit/compat';
-import { type ReactNode, useState, Fragment } from 'react';
+import { Fragment, type ReactNode, useState } from 'react';
 import { useBackend } from 'tgui/backend';
 import { sendAct } from 'tgui/events/act';
 import {
@@ -45,7 +45,7 @@ const CLOTHING_SELECTION_CELL_SIZE = 48;
 const CLOTHING_SELECTION_WIDTH = 5.4;
 const CLOTHING_SELECTION_MULTIPLIER = 5.2;
 
-type CharacterControlsProps = {
+export type CharacterControlsProps = {
   handleRotate: (backwards: boolean) => void; // BUBBER EDIT CHANGE - Original: handleRotate: () => void;
   handleOpenSpecies: () => void;
   handleFood: () => void; // BUBBER EDIT ADDITION
@@ -54,9 +54,11 @@ type CharacterControlsProps = {
   showGender: boolean;
   canDeleteCharacter: boolean;
   handleDeleteCharacter: () => void;
+  showSpecies: boolean; // BUBBER EDIT ADDITION
+  showDelete: boolean; // BUBBER EDIT ADDITION
 };
 
-function CharacterControls(props: CharacterControlsProps) {
+export function CharacterControls(props: CharacterControlsProps) {
   return (
     <Stack>
       <Stack.Item>
@@ -81,15 +83,17 @@ function CharacterControls(props: CharacterControlsProps) {
       </Stack.Item>
       {/* BUBBER EDIT ADDITION END */}
 
-      <Stack.Item>
-        <Button
-          onClick={props.handleOpenSpecies}
-          fontSize="22px"
-          icon="paw"
-          tooltip="Species"
-          tooltipPosition="top"
-        />
-      </Stack.Item>
+      {props.showSpecies && (
+        <Stack.Item>
+          <Button
+            onClick={props.handleOpenSpecies}
+            fontSize="22px"
+            icon="paw"
+            tooltip="Species"
+            tooltipPosition="top"
+          />
+        </Stack.Item>
+      )}
 
       {props.showGender && (
         <Stack.Item>
@@ -100,17 +104,18 @@ function CharacterControls(props: CharacterControlsProps) {
         </Stack.Item>
       )}
       {/* BUBBER EDIT ADDITION START */}
-      <Stack.Item>
-        <Button
-          onClick={props.handleFood}
-          fontSize="22px"
-          icon="drumstick-bite"
-          tooltip="Edit Food Preferences"
-          tooltipPosition="top"
-        />
-      </Stack.Item>
-      {/* BUBBER EDIT ADDITION END */}
+        <Stack.Item>
+          <Button
+            onClick={props.handleFood}
+            fontSize="22px"
+            icon="drumstick-bite"
+            tooltip="Edit Food Preferences"
+            tooltipPosition="top"
+          />
+        </Stack.Item>
 
+      {/* BUBBER EDIT ADDITION END */}
+      {props.showDelete && (
       <Stack.Item>
         <Button
           onClick={props.handleDeleteCharacter}
@@ -122,6 +127,7 @@ function CharacterControls(props: CharacterControlsProps) {
           disabled={!props.canDeleteCharacter}
         />
       </Stack.Item>
+      )}
     </Stack>
   );
 }
@@ -381,12 +387,18 @@ type PreferenceListProps = {
   preferences: Record<string, unknown>;
   randomizations: Record<string, RandomSetting>;
   maxHeight: string;
+  mixins?: Record<string, unknown>;
   children?: ReactNode;
 };
 
+// The main thing for character preferences! Its whats shown under the Character Tab
+// and filtered by whats in the search bar
 export function PreferenceList(props: PreferenceListProps) {
   const { act } = useBackend<PreferencesMenuData>();
-  const { preferences, randomizations, maxHeight, children } = props;
+  const { preferences, randomizations, maxHeight, mixins, children } = props;
+
+  // combines the preferences with the mixins, alphabetically sorts them, and returns the sorted array of entries
+  const mixed_in_prefs = mixins ? { ...preferences, ...mixins } : preferences;
 
   return (
     <Stack.Item
@@ -401,15 +413,13 @@ export function PreferenceList(props: PreferenceListProps) {
       maxHeight={maxHeight}
     >
       <LabeledList>
-        {sortPreferences(Object.entries(preferences)).map(
+        {sortPreferences(Object.entries(mixed_in_prefs)).map(
           ([featureId, value]) => {
             const feature = features[featureId];
             const randomSetting = randomizations[featureId];
 
             if (feature === undefined) {
-              return (
-                <Fragment key={featureId} />
-              );
+              return <Fragment key={featureId} />;
             }
 
             return (
@@ -417,6 +427,7 @@ export function PreferenceList(props: PreferenceListProps) {
                 key={featureId}
                 label={feature.name}
                 tooltip={feature.description}
+                tooltipPosition="right"
                 verticalAlign="middle"
               >
                 <Stack fill>
@@ -442,8 +453,6 @@ export function PreferenceList(props: PreferenceListProps) {
           },
         )}
       </LabeledList>
-
-      {children}
     </Stack.Item>
   );
 }
@@ -487,7 +496,9 @@ export function MainPage(props: MainPageProps) {
   const serverData = useServerPrefs();
 
   const currentSpeciesData =
-    serverData?.species[data.character_preferences.misc.species];
+    data.server_species_data?.species_list[
+      data.character_preferences.misc.species
+    ];
 
   const contextualPreferences =
     data.character_preferences.secondary_features || [];
@@ -681,6 +692,8 @@ export function MainPage(props: MainPageProps) {
                   ).length > 1
                 }
                 handleDeleteCharacter={() => setDeleteCharacterPopupOpen(true)}
+                showSpecies={true}
+                showDelete={true}
               />
             </Stack.Item>
 

@@ -1186,6 +1186,7 @@
 	else if(zap_flags & ZAP_OBJ_DAMAGE)
 		take_damage(power * 2.5e-4, BURN, ENERGY)
 		if(prob(40))
+			emag_act()
 			emp_act(EMP_LIGHT)
 		power -= power * 5e-4
 	return ..()

@@ -31,6 +31,7 @@ export function AlertModal(props) {
     message = '',
     timeout,
     title,
+    forceHTML,
   } = data;
 
   // Stolen wholesale from fontcode
@@ -45,7 +46,13 @@ export function AlertModal(props) {
 
   const [selected, setSelected] = useState(0);
 
-  const windowWidth = 345 + (buttons.length > 2 ? 55 : 0);
+  const windowWidth =
+    325 +
+    (large_buttons ? 50 : 0) +
+    (message.length > 30 ? 50 : 0) +
+    (message.length > 60 ? 50 : 0) +
+    (message.length > 100 ? 50 : 0) +
+    (message.length > 200 ? 50 : 0);
 
   // very accurate estimate of padding for each num of buttons
   const paddingMagicNumber = 67 / buttons.length + 23;
@@ -60,10 +67,13 @@ export function AlertModal(props) {
 
   // Dynamically sets window dimensions
   const windowHeight =
-    120 +
-    (isVerbose ? largeSpacing * buttons.length : 0) +
-    (message.length > 30 ? Math.ceil(message.length / 4) : 0) +
-    (message.length && large_buttons ? 5 : 0);
+    135 +
+    (message.length > 30 ? Math.ceil(message.length / 5) : 0) +
+    (message.length > 100 ? 75 : 0) +
+    (message.length && large_buttons ? 5 : 0) +
+    (message.length > 400 ? message.length / 10 : 0) +
+    (message.length > 800 ? message.length / 10 : 0) +
+    (isVerbose ? largeSpacing : 0);
 
   /** Changes button selection, etc */
   function keyDownHandler(event: KeyboardEvent<HTMLDivElement>) {
@@ -103,9 +113,17 @@ export function AlertModal(props) {
         <Section fill>
           <Stack fill vertical>
             <Stack.Item m={1}>
-              <Box color="label" overflow="hidden">
-                {message}
-              </Box>
+              {forceHTML ? (
+                <Box
+                  color="label"
+                  dangerouslySetInnerHTML={{ __html: message }}
+                  overflow="hidden"
+                />
+              ) : (
+                <Box color="label" overflow="hidden">
+                  {message}
+                </Box>
+              )}
             </Stack.Item>
             <Stack.Item grow>
               {!!autofocus && <Autofocus />}

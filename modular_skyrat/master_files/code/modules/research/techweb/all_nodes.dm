@@ -220,21 +220,17 @@
 /////////////////////////weaponry tech/////////////////////////
 
 
-/datum/techweb_node/electric_weapons/New()
-	design_ids += list(
-		"medigun_speed",
-	)
-	return ..()
+// /datum/techweb_node/electric_weapons/New()
+// 	design_ids += list(
+// 		"medigun_speed",
+// 	)
+// 	return ..()
 
 ////////////////////////Alien technology////////////////////////
 
 /datum/techweb_node/alien_surgery/New()
 	design_ids += list(
-		"brute3medicell",
-		"burn3medicell",
-		"oxy3medicell",
 		"surgical_processor",
-		"toxin3medicell",
 	)
 	return ..()
 

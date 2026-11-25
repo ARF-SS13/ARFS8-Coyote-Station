@@ -160,6 +160,19 @@
 	new /obj/item/camera(src)
 	new /obj/item/wallframe/telescreen/entertainment(src)
 
+/obj/item/storage/box/hero/rifleman
+	name = "Red Army rifleman - 1940s"
+	desc = "When the politics are stripped away, there is nothing more heroic than an individual laying down their life in defense of their homeland."
+
+/obj/item/storage/box/hero/rifleman/PopulateContents()
+	new /obj/item/gun/ballistic/rifle/mosin/random(src)
+	new /obj/item/storage/box/m762r(src)
+	new /obj/item/clothing/head/costume/ushanka(src)
+	new /obj/item/clothing/under/costume/soviet(src) // I am NOT CONTENT with this uniform. needs to be the older khaki kind but I haven't the time to fix it rn. maybe history's been distorted in the far future
+	new /obj/item/clothing/shoes/russian(src)
+	new /obj/item/clothing/suit/armor/vest/russian(src)
+
+
 /obj/item/storage/box/holy
 	name = "Templar Kit"
 	/// This item is used to generate a preview image for this set.

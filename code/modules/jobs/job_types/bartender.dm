@@ -50,13 +50,13 @@
 	neck = /obj/item/clothing/neck/bowtie
 	uniform = /obj/item/clothing/under/costume/buttondown/slacks/service
 	suit = /obj/item/clothing/suit/armor/vest
-	backpack_contents = list(
-		/obj/item/storage/box/beanbag = 1,
-		)
-	belt = /obj/item/modular_computer/pda/bar
+	suit_store = /obj/item/gun/ballistic/shotgun/doublebarrel
+	belt = /obj/item/storage/belt/shotgun_bandolier/bar
 	ears = /obj/item/radio/headset/headset_srv
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	shoes = /obj/item/clothing/shoes/laceup
+	l_pocket = /obj/item/modular_computer/pda/bar
+	pda_slot = ITEM_SLOT_LPOCKET
 
 	skillchips = list(/obj/item/skillchip/drunken_brawler)
 

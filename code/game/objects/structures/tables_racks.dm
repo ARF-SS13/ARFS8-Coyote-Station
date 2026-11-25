@@ -29,6 +29,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_TABLES
 	canSmoothWith = SMOOTH_GROUP_TABLES
+	tracking_category = CATTRACK_TABLES
 	var/static/list/turf_traits = list(TRAIT_TURF_IGNORE_SLOWDOWN, TRAIT_TURF_IGNORE_SLIPPERY, TRAIT_IMMERSE_STOPPED)
 	///a bit fucky, I know. but this is needed to get sorted on init smoothing groups stored
 	var/list/on_init_smoothed_vars
@@ -1097,7 +1098,7 @@
 			COMSIG_ATOM_SURGERY_FINISHED,
 			COMSIG_LIVING_UPDATING_SURGERY_STATE,
 		))
-		if (patient.external && patient.external == air_tank)
+		if (iscarbon(patient) && patient.external && patient.external == air_tank)
 			patient.close_externals()
 
 	SEND_SIGNAL(src, COMSIG_OPERATING_TABLE_SET_PATIENT, new_patient)

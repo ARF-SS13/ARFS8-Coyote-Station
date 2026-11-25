@@ -12,7 +12,8 @@
 	speed = 1.25
 	can_be_held = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	pass_flags = TINY_CREATURE_PASS
+	layer = TINY_CREATURE_LAYER
 
 	verb_say = "chitters"
 	verb_ask = "chitters inquisitively"

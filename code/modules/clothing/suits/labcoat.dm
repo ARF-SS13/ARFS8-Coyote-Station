@@ -29,6 +29,7 @@
 		/obj/item/storage/pill_bottle,
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/plasmaman,
+		/obj/item/storage/medkit, //so doctors have somewhere to put their medkit on spawn
 	)
 	armor_type = /datum/armor/toggle_labcoat
 	species_exception = list(/datum/species/golem)
@@ -68,6 +69,7 @@
 	allowed += /obj/item/crowbar/power/paramedic
 	//START SKYRAT EDIT ADDITION
 	allowed += /obj/item/storage/medkit
+	allowed += /obj/item/emergency_bed
 	//END SKYRAT EDIT
 
 /obj/item/clothing/suit/toggle/labcoat/mad
@@ -136,6 +138,7 @@
 		/obj/item/shovel,
 		/obj/item/shovel/serrated,
 		/obj/item/trench_tool,
+		/obj/item/storage/medkit,
 	)
 
 /obj/item/clothing/suit/toggle/labcoat/science
@@ -161,6 +164,10 @@
 	greyscale_config = /datum/greyscale_config/labcoat
 	greyscale_config_worn = /datum/greyscale_config/labcoat/worn
 	greyscale_colors = "#EEEEEE#88242D#88242D#39393F"
+
+/obj/item/clothing/suit/toggle/labcoat/roboticist/Initialize(mapload) // you're a medic, harry
+	. = ..()
+	allowed += /obj/item/storage/medkit
 
 /obj/item/clothing/suit/toggle/labcoat/interdyne
 	name = "interdyne labcoat"

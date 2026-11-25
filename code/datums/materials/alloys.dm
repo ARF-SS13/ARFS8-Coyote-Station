@@ -49,6 +49,9 @@
 	fishing_difficulty_modifier = 5
 	fishing_experience_multiplier = 1.1
 	fishing_gravity_mult = 1.6
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_COMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_UNCOMMON
 
 /datum/material/alloy/plasteel/on_applied(atom/target, mat_amount, multiplier)
 	. = ..()
@@ -86,6 +89,9 @@
 	fishing_difficulty_modifier = -7
 	fishing_cast_range = 1
 	fishing_experience_multiplier = 0.95
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_COMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_UNCOMMON
 
 /datum/material/alloy/plastitanium/on_applied(atom/target, mat_amount, multiplier)
 	. = ..()
@@ -125,6 +131,9 @@
 	fishing_difficulty_modifier = 5
 	fishing_experience_multiplier = 1.3
 	fishing_gravity_mult = 0.9
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_COMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_UNCOMMON
 
 /** Titaniumglass
  *
@@ -153,6 +162,9 @@
 	fishing_difficulty_modifier = -5
 	fishing_experience_multiplier = 1.25
 	fishing_gravity_mult = 0.95
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_COMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_UNCOMMON
 
 /** Plastitanium Glass
  *
@@ -181,6 +193,9 @@
 	fish_weight_modifier = 1.2
 	fishing_experience_multiplier = 1.5
 	fishing_gravity_mult = 0.9
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_COMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_UNCOMMON
 
 /** Alien Alloy
  *
@@ -215,6 +230,9 @@
 	fishing_deceleration_mult = 1.5
 	fishing_bounciness_mult = 0.5
 	fishing_gravity_mult = 2
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_EXOTIC
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_RARE
 
 /datum/material/alloy/alien/on_applied(atom/target, mat_amount, multiplier)
 	. = ..()

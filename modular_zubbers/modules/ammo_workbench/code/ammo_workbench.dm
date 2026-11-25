@@ -417,7 +417,7 @@
 		loaded_datadisk = null
 		disk_error = ""
 		disk_error_type = ""
-
+/* arfs: get ammo from cargo, talk to people
 /datum/design/board/ammo_workbench
 	name = "Machine Design (Ammunitions Workbench)"
 	desc = "A machine, somewhat akin to a lathe, made specifically for manufacturing ammunition. It has a slot for ammunition containers, like magazines or stripper clips."
@@ -425,7 +425,7 @@
 	build_path = /obj/item/circuitboard/machine/ammo_workbench
 	category = list(RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_FAB)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
-
+*/
 
 //MISC MACHINE PROCS
 

@@ -7,7 +7,7 @@
 
 	for(var/ckey in players)
 		var/mob/dead/new_player/player = players[ckey]
-		var/datum/preferences/prefs = player.client?.prefs
+		var/datum/prefs_holder/prefs = player.client?.prefs
 		var/display = null
 		var/datum/job/J = prefs?.get_highest_priority_job()
 		var/title = J?.title

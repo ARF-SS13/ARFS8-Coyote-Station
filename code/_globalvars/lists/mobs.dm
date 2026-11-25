@@ -3,7 +3,7 @@ GLOBAL_LIST_EMPTY(admins) //all clients whom are admins
 GLOBAL_PROTECT(admins)
 GLOBAL_LIST_EMPTY(deadmins) //all ckeys who have used the de-admin verb.
 
-GLOBAL_LIST_EMPTY(directory) //all ckeys with associated client
+GLOBAL_LIST_EMPTY(directory) //all ckeys with associated client // ckeys are static, clients are not, so, yeah
 GLOBAL_LIST_EMPTY(stealthminID) //reference list with IDs that store ckeys, for stealthmins
 
 /// List of types of abstract mob which shouldn't usually exist in the world on its own if we're spawning random mobs
@@ -84,13 +84,19 @@ GLOBAL_LIST_INIT_TYPED(species_prototypes, /datum/species, init_species_prototyp
 /proc/init_species_list()
 	var/list/species_list = list()
 	for(var/datum/species/species_path as anything in subtypesof(/datum/species))
-		species_list[initial(species_path.id)] = species_path
+		var/datum/species/species = new species_path()
+		species_list[species.id] = species.type
+		qdel(species)
 	return species_list
 
 /proc/init_species_prototypes()
 	var/list/species_list = list()
 	for(var/species_type in subtypesof(/datum/species))
 		species_list[species_type] = new species_type()
+		if(!species_list[species_type])
+			message_admins("Failed to create species prototype for [species_type]")
+			stack_trace("Failed to create species prototype for [species_type]")
+			species_list -= species_type
 	return species_list
 
 GLOBAL_LIST_EMPTY(latejoin_ai_cores)

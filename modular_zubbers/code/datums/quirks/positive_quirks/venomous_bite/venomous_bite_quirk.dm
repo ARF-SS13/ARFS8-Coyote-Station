@@ -72,7 +72,7 @@
 
 	return data
 
-/datum/preference/choiced/venomous_bite_venom/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/venomous_bite_venom/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	if (!.)
 		return FALSE

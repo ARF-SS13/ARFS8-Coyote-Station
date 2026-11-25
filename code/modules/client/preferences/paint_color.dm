@@ -4,7 +4,7 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
 
-/datum/preference/color/paint_color/is_accessible(datum/preferences/preferences)
+/datum/preference/color/paint_color/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 

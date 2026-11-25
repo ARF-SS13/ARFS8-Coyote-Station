@@ -22,3 +22,5 @@
 
 /// Determines if the transfer vote can be started by anyone or not.
 /datum/config_entry/flag/allow_vote_transfer
+
+//! cool config, didnt read, aint gonna use it

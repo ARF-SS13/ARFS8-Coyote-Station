@@ -15,6 +15,9 @@
 	/// We need to track who was the ORIGINAL firer of the projectile specifically to ensure deflects work correctly
 	VAR_PRIVATE/datum/weakref/initial_firer_weakref
 
+/obj/projectile/energy/electrode/short
+	range = 3
+
 /obj/projectile/energy/electrode/is_hostile_projectile()
 	return TRUE
 

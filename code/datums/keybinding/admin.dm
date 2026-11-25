@@ -1,4 +1,5 @@
 /datum/keybinding/admin
+/datum/keybinding/admin
 	category = CATEGORY_ADMIN
 	weight = WEIGHT_ADMIN
 
@@ -136,4 +137,17 @@
 	if(.)
 		return
 	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/display_tags)
+	return TRUE
+
+/datum/keybinding/admin/reload_tgui
+	hotkey_keys = list("*")
+	name = "reload_tgui"
+	full_name = "Reload TGUI"
+	description = "Reload the TGUI interface"
+
+/datum/keybinding/admin/reload_tgui/down(client/user, turf/target, mousepos_x, mousepos_y)
+	. = ..()
+	if(.)
+		return
+	user.refresh_tgui()
 	return TRUE

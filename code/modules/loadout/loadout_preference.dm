@@ -16,11 +16,11 @@
 	return
 
 // Sanitize on load to ensure no invalid paths from older saves get in
-/datum/preference/loadout/deserialize(input, datum/preferences/preferences)
+/datum/preference/loadout/deserialize(input, datum/prefs_holder/preferences)
 	return sanitize_loadout_list(input, preferences.parent?.mob, preferences.parent) // SKYRAT EDIT CHANGE parent
 
 // Default value is null - the loadout list is a lazylist
-/datum/preference/loadout/create_default_value(datum/preferences/preferences)
+/datum/preference/loadout/create_default_value(datum/prefs_holder/preferences)
 	return null
 
 /datum/preference/loadout/is_valid(value)
@@ -57,9 +57,9 @@
 		if(loadout_item.is_disabled())
 			continue // this just falls off silently
 		// SKYRAT EDIT ADDITION
-		else if(owner_client)
-			if(loadout_item?.ckeywhitelist && !(owner_client?.ckey in loadout_item.ckeywhitelist))
-				continue
+		// else if(owner_client)
+		// 	if(loadout_item?.ckeywhitelist && !(owner_client?.ckey in loadout_item.ckeywhitelist))
+		// 		continue
 		// SKYRAT EDIT END
 
 		// Set into sanitize list using converted path key

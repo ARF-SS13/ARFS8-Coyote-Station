@@ -265,7 +265,7 @@
 	return HAS_TRAIT(source, TRAIT_CAN_SIGN_ON_COMMS) ? NONE : COMPONENT_CANNOT_USE_RADIO
 
 /// Replaces emphatic punctuation with periods. Changes tonal indicator and emotes based on what is typed.
-/datum/component/sign_language/proc/on_say(mob/living/carbon/carbon_parent, list/speech_args)
+/datum/component/sign_language/proc/on_say(mob/living/carbon/carbon_parent, list/speech_args, list/message_data)
 	SIGNAL_HANDLER
 
 	// The original message
@@ -307,6 +307,7 @@
 	// remove the ! and ? symbols from message at the end
 	message = sanitize_message(message)
 	speech_args[SPEECH_MESSAGE] = message
+	message_data[SATA_MESSAGE_SPOKEN] = message
 
 /// Send a visible message depending on the tone of the message that the sender is trying to convey to the world.
 /datum/component/sign_language/proc/emote_tone(mob/living/carbon/carbon_parent, emote_tone)

@@ -221,6 +221,7 @@
 #define TRAM_WALL_LAYER 2.59
 
 #define BELOW_OPEN_DOOR_LAYER 2.6
+#define TINY_CREATURE_LAYER 2.605
 ///Anything below this layer is to be considered completely (visually) under water by the immerse layer.
 #define WATER_LEVEL_LAYER 2.61
 #define BLASTDOOR_LAYER 2.65

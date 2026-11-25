@@ -36,9 +36,13 @@
 
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"
+	desc = "A spare electrical supplies locker, tied into the station manifest. Below 10 people the locker is open access."
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	icon_state = "eng"
 	icon_door = "eng_elec"
+	lowpop_count = 5
+	lowpop_access_all = list()
+	lowpop_access_any = list()
 
 /obj/structure/closet/secure_closet/engineering_electrical/PopulateContents()
 	..()
@@ -60,6 +64,8 @@
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	icon_state = "eng"
 	icon_door = "eng_weld"
+
+
 
 /obj/structure/closet/secure_closet/engineering_welding/PopulateContents()
 	..()

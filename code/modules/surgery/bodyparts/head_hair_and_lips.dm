@@ -52,6 +52,8 @@
 	hairstyle = target.hairstyle
 	hair_alpha = target.hair_alpha || target_species.hair_alpha // BUBBER EDIT - Customization - Original: hair_alpha = target_species.hair_alpha
 	hair_color = target.hair_color
+	hairstyle_2 = target.hairstyle_2
+	hair_color_2 = target.hair_color_2
 	facial_hairstyle = target.facial_hairstyle
 	facial_hair_alpha = target_species.facial_hair_alpha
 	facial_hair_color = target.facial_hair_color
@@ -121,6 +123,7 @@
 				. += facial_hair_gradient_overlay
 
 	var/list/all_hair_overlays = list()
+	var/list/second_layer_overlays = list()
 	if(!(show_debrained && (head_flags & HEAD_DEBRAIN)) && !hair_hidden && hairstyle && (head_flags & HEAD_HAIR))
 		var/datum/sprite_accessory/hair/hair_sprite_accessory = SSaccessories.hairstyles_list[hairstyle]
 		if(hair_sprite_accessory)
@@ -167,6 +170,52 @@
 					// SKYRAT EDIT ADDITION END
 					. += hair_gradient_overlay
 
+		//i'm just going to paste the rest of this for the second hairstyle. whats the worst that could happen.
+		var/datum/sprite_accessory/hair/hair_sprite_accessory_2 = SSaccessories.hairstyles_list[hairstyle_2]
+		if(hair_sprite_accessory_2)
+			//Hair masks
+			var/icon/base_icon = icon(hair_sprite_accessory_2.getCachedIcon(hair_masks))
+			//Overlay
+			second_layer_overlays += image(base_icon, layer=-HAIR_LAYER-1, dir = image_dir)
+			//If we have any hair appendages (ponytails, etc.) sticking out on a particular side, we need to add an additional hair layer to go above hats/helmets for the sides they stick out on
+			if(LAZYLEN(hair_sprite_accessory_2.hair_appendages_outer))
+				var/strictly_masked_zones = NONE
+				for(var/datum/hair_mask/mask as anything in hair_masks)
+					strictly_masked_zones |= mask.strict_coverage_zones
+				for(var/appendage_icon_state in hair_sprite_accessory_2.hair_appendages_outer)
+					var/appendage_zone = hair_sprite_accessory_2.hair_appendages_outer[appendage_icon_state]
+					if(!(appendage_zone & strictly_masked_zones)) // if there are no strict masks in this zone
+						second_layer_overlays += image(hair_sprite_accessory_2.icon, icon_state=appendage_icon_state, layer=-OUTER_HAIR_LAYER-1, dir = image_dir)
+			for(var/image/hair_overlay as anything in second_layer_overlays)
+				hair_overlay.alpha = hair_alpha
+				hair_overlay.pixel_z = hair_sprite_accessory_2.y_offset
+				// SKYRAT EDIT ADDITION - Species hair offset
+				if(LAZYFIND(owner?.dna?.species?.offset_features, OFFSET_HAIR))
+					hair_overlay.pixel_w += owner.dna.species.offset_features[OFFSET_HAIR][INDEX_X]
+					hair_overlay.pixel_z += owner.dna.species.offset_features[OFFSET_HAIR][INDEX_Y]
+				// SKYRAT EDIT ADDITION END
+				//Emissive blocker
+				if(blocks_emissive != EMISSIVE_BLOCK_NONE)
+					var/mutable_appearance/em_block = emissive_blocker(hair_overlay.icon, hair_overlay.icon_state, location, alpha = hair_alpha)
+					if (dropped)
+						em_block = image(em_block, dir = SOUTH)
+					hair_overlay.overlays += em_block
+				//Offsets
+				worn_face_offset?.apply_offset(hair_overlay)
+				. += hair_overlay
+				//Gradients
+				var/hair_gradient_style = get_hair_gradient_style(GRADIENT_HAIR_LAYER_TWO_KEY)
+				if(hair_gradient_style != "None")
+					var/hair_gradient_color = get_hair_gradient_color(GRADIENT_HAIR_LAYER_TWO_KEY)
+					var/image/hair_gradient_overlay = get_gradient_overlay(base_icon, hair_overlay.layer, SSaccessories.hair_gradients_list[hair_gradient_style], hair_gradient_color, dropped)
+					hair_gradient_overlay.pixel_z = hair_sprite_accessory.y_offset
+					// SKYRAT EDIT ADDITION - Species hair offset
+					if(LAZYFIND(owner?.dna?.species?.offset_features, OFFSET_HAIR))
+						hair_gradient_overlay.pixel_w += owner.dna.species.offset_features[OFFSET_HAIR][INDEX_X]
+						hair_gradient_overlay.pixel_z += owner.dna.species.offset_features[OFFSET_HAIR][INDEX_Y]
+					// SKYRAT EDIT ADDITION END
+					. += hair_gradient_overlay
+
 	if(show_debrained && (head_flags & HEAD_DEBRAIN))
 		. += get_debrain_overlay(dropped)
 
@@ -186,6 +235,10 @@
 		SET_OVERLAY_VALUE(facial_hair_overlay, color, facial_hair_color)
 		for(var/image/hair_overlay as anything in all_hair_overlays)
 			SET_OVERLAY_VALUE(hair_overlay, color, hair_color)
+
+
+	for(var/image/hair_overlay as anything in second_layer_overlays)
+		SET_OVERLAY_VALUE(hair_overlay, color, hair_color_2)
 	//HAIR COLOR END
 
 	return .
@@ -291,6 +344,18 @@
 	if(update)
 		update_body_parts()
 
+/mob/living/proc/set_hairstyle_2(new_style, update = TRUE)
+	return
+
+/mob/living/carbon/human/set_hairstyle_2(new_style, update = TRUE)
+	var/obj/item/bodypart/head/my_head = get_bodypart(BODY_ZONE_HEAD)
+
+	hairstyle_2 = new_style
+	my_head?.hairstyle_2 = new_style
+
+	if(update)
+		update_body_parts()
+
 /**
  * Set the hair color of a human.
  * Override instead sets the override value, it will not be changed away from the override value until override is set to null.
@@ -308,6 +373,22 @@
 	else
 		hair_color = hex_string
 		my_head?.hair_color = hex_string
+
+	if(update)
+		update_body_parts()
+
+/mob/living/proc/set_haircolor_2(hex_string, override, update = TRUE)
+	return
+
+/mob/living/carbon/human/set_haircolor_2(hex_string, override, update = TRUE)
+	var/obj/item/bodypart/head/my_head = get_bodypart(BODY_ZONE_HEAD)
+
+	if(override)
+		// aight, no head? tough luck
+		my_head?.override_hair_color = hex_string
+	else
+		hair_color_2 = hex_string
+		my_head?.hair_color_2 = hex_string
 
 	if(update)
 		update_body_parts()
@@ -349,17 +430,17 @@
  * Set the hair gradient style of a human.
  * Update calls update_body_parts().
  **/
-/mob/living/proc/set_hair_gradient_style(new_style, update = TRUE)
+/mob/living/proc/set_hair_gradient_style(new_style, update = TRUE, key = GRADIENT_HAIR_KEY)
 	return
 
-/mob/living/carbon/human/set_hair_gradient_style(new_style, update = TRUE)
-	if(LAZYACCESS(grad_style, GRADIENT_HAIR_KEY) == new_style)
+/mob/living/carbon/human/set_hair_gradient_style(new_style, update = TRUE, key = GRADIENT_HAIR_KEY)
+	if(LAZYACCESS(grad_style, key) == new_style)
 		return
 	var/obj/item/bodypart/head/my_head = get_bodypart(BODY_ZONE_HEAD)
 
-	LAZYSET(grad_style, GRADIENT_HAIR_KEY, new_style)
+	LAZYSET(grad_style, key, new_style)
 	if(my_head)
-		LAZYSET(my_head.gradient_styles, GRADIENT_HAIR_KEY, new_style)
+		LAZYSET(my_head.gradient_styles, key, new_style)
 
 	if(update)
 		update_body_parts()
@@ -403,17 +484,17 @@
  * Set the hair gradient color of a human.
  * Update calls update_body_parts().
  **/
-/mob/living/proc/set_hair_gradient_color(new_color, update = TRUE)
+/mob/living/proc/set_hair_gradient_color(new_color, update = TRUE, key = GRADIENT_HAIR_KEY)
 	return
 
-/mob/living/carbon/human/set_hair_gradient_color(new_color, update = TRUE)
-	if(LAZYACCESS(grad_color, GRADIENT_HAIR_KEY) == new_color)
+/mob/living/carbon/human/set_hair_gradient_color(new_color, update = TRUE, key = GRADIENT_HAIR_KEY)
+	if(LAZYACCESS(grad_color, key) == new_color)
 		return
 	var/obj/item/bodypart/head/my_head = get_bodypart(BODY_ZONE_HEAD)
 
-	LAZYSET(grad_color, GRADIENT_HAIR_KEY, new_color)
+	LAZYSET(grad_color, key, new_color)
 	if(my_head)
-		LAZYSET(my_head.gradient_colors, GRADIENT_HAIR_KEY, new_color)
+		LAZYSET(my_head.gradient_colors, key, new_color)
 
 	if(update)
 		update_body_parts()

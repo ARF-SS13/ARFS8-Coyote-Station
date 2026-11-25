@@ -350,8 +350,8 @@
 		var/final_desired_atom = desired_atom
 		new final_desired_atom(candidate_turf)
 
-/datum/area_spawn/export_gate/materials
-	desired_atom = /obj/item/flatpack/materials_market
+// /datum/area_spawn/export_gate/materials
+// 	desired_atom = /obj/item/flatpack/materials_market
 
 /datum/design/board/export_gate
 	name = "Export Gate Board"

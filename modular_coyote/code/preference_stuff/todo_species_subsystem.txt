@@ -1,0 +1,84 @@
+// ╔═════════╤══════════════════════════════════╗
+// ║ File    │ species_subsystem.dm             ║
+// ║ Date    │ 1991-12-17 23:59:59.999999999    ║
+// ║ Author  │ Daniel K. (Fox)                  ║
+// ║ License │ BYOBB                            ║
+// ║ Quote   │ "Im a fox"                       ║
+// ╟─────────┼──────────────────────────────────╨────────────────────────────────────────────────────╖
+// ║         │                                                                                       ║
+// ║  (===)  │ This is a simple subsystem that handles organizing specieses and stuff                ║
+// ║  (===)  │ Work in progress cus the old system is like woven into the whole codebase and will    ║
+// ║  (===)  │ need a whole on megarefacntreoning to change over.                                    ║
+// ║         │                                                                                       ║
+// ╟─────────┼───────────────────────────────────────────────────────────────────────────────────────╢
+// ║  ----   │  ===================================================================================  ║
+// ╚═════════╧═══════════════════════════════════════════════════════════════════════════════════════╝
+
+SUBSYSTEM_DEF(species)
+	name = "Species"
+	flags = SS_NO_FIRE // its uh, complicated
+
+	// flat list of species that are selectable at roundstart
+	var/list/roundstart_races = list()
+	/// An assoc list of species IDs to type paths
+	var/list/species_list = list()
+	/// List of all species prototypes to reference, assoc [type] = prototype
+	var/list/datum/species/species_prototypes = list()
+	/// An assoc list of species types to their features (from get_features())
+	var/list/features_by_species = list()
+
+/datum/controller/subsystem/species/PreInit()
+	init_species_prototypes()
+	init_species_list()
+	generate_selectable_species_and_languages()
+	map_species()
+	var/numspecies = LAZYLEN(species_list)
+	to_chat(world, span_captaincast("Initialized [numspecies] specieses!"))
+
+/datum/controller/subsystem/species/proc/map_species()
+
+
+/datum/controller/subsystem/species/proc/get_selectable_species()
+	RETURN_TYPE(/list)
+	if (!LAZYLEN(roundstart_races))
+		roundstart_races = generate_selectable_species_and_languages()
+	return roundstart_races
+
+/**
+ * Generates species available to choose in character setup at roundstart
+ *
+ * This proc generates which species are available to pick from in character setup.
+ * If there are no available roundstart species, defaults to human.
+ */
+/datum/controller/subsystem/species/proc/generate_selectable_species_and_languages()
+	var/list/selectable_species = list()
+
+	for(var/species_type in subtypesof(/datum/species))
+		var/datum/species/species = species_prototypes[species_type]
+		if(!species.check_roundstart_eligible())
+			continue
+		selectable_species += species.id
+		var/datum/language_holder/temp_holder = GLOB.prototype_language_holders[species.species_language_holder]
+		for(var/datum/language/spoken_language as anything in temp_holder.understood_languages)
+			GLOB.uncommon_roundstart_languages |= spoken_language
+	GLOB.uncommon_roundstart_languages -= /datum/language/common
+	if(!selectable_species.len)
+		selectable_species += SPECIES_HUMAN
+	roundstart_races = selectable_species
+	return selectable_species
+
+/datum/controller/subsystem/species/proc/init_species_list()
+	var/list/a_species_list = list()
+	for(var/datum/species/species_path as anything in subtypesof(/datum/species))
+		a_species_list[initial(species_path.id)] = species_path
+	species_list = a_species_list
+	return a_species_list
+
+/datum/controller/subsystem/species/proc/init_species_prototypes()
+	var/list/b_species_list = list()
+	for(var/species_type in subtypesof(/datum/species))
+		b_species_list[species_type] = new species_type()
+	species_prototypes = b_species_list
+	return b_species_list
+
+

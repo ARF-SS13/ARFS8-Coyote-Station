@@ -26,7 +26,6 @@ export const ServerPrefs = createContext<ServerData | undefined>({
   loadout: {
     loadout_tabs: [],
   },
-  species: {},
   background_state: {
     /* BUBBER EDIT ADDITION: Background Selection - LINES 26 - 29 */
     choices: [],

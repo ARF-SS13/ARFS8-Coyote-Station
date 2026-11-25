@@ -3,7 +3,7 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "favorite_interactions"
 
-/datum/preference/blob/favorite_interactions/is_accessible(datum/preferences/preferences)
+/datum/preference/blob/favorite_interactions/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 

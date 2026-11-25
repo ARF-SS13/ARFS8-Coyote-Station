@@ -15,6 +15,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	interaction_flags_mouse_drop = NEED_HANDS
 	strip_delay = 10 SECONDS
+	slowdown = 1 // I'm sorry but you don't get to just ignore all hazards and threats with your super suit on at literally all times. maybe take it off once in a while when you aren't actively working
 	armor_type = /datum/armor/none
 	actions_types = list(
 		/datum/action/item_action/mod/deploy,
@@ -223,13 +224,13 @@
 
 	if(active)
 		balloon_alert(wearer, "unit active!")
-		playsound(src, 'sound/machines/scanner/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
+		playsound(src, 'sound/machines/defib/defib_failed.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 
 	for(var/obj/item/part as anything in get_parts())
 		if(part.loc != src)
 			balloon_alert(user, "parts extended!")
-			playsound(src, 'sound/machines/scanner/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
+			playsound(src, 'sound/machines/defib/defib_failed.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 
 	return ..()
@@ -255,7 +256,7 @@
 /obj/item/mod/control/screwdriver_act(mob/living/user, obj/item/screwdriver)
 	if(active || activating || ai_controller)
 		balloon_alert(user, "unit active!")
-		playsound(src, 'sound/machines/scanner/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		playsound(src, 'sound/machines/defib/defib_failed.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return ITEM_INTERACT_BLOCKING
 	balloon_alert(user, "[open ? "closing" : "opening"] cover...")
 	screwdriver.play_tool_sound(src, 100)
@@ -273,14 +274,14 @@
 /obj/item/mod/control/crowbar_act(mob/living/user, obj/item/crowbar)
 	if(!open)
 		balloon_alert(user, "cover closed!")
-		playsound(src, 'sound/machines/scanner/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		playsound(src, 'sound/machines/defib/defib_failed.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return ITEM_INTERACT_BLOCKING
 	if(!allowed(user))
 		balloon_alert(user, "insufficient access!")
-		playsound(src, 'sound/machines/scanner/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		playsound(src, 'sound/machines/defib/defib_failed.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return ITEM_INTERACT_BLOCKING
 	if(SEND_SIGNAL(src, COMSIG_MOD_MODULE_REMOVAL, user) & MOD_CANCEL_REMOVAL)
-		playsound(src, 'sound/machines/scanner/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		playsound(src, 'sound/machines/defib/defib_failed.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return ITEM_INTERACT_BLOCKING
 	if(length(modules))
 		var/list/removable_modules = list()
@@ -297,7 +298,7 @@
 		SEND_SIGNAL(src, COMSIG_MOD_MODULE_REMOVED, user)
 		return ITEM_INTERACT_SUCCESS
 	balloon_alert(user, "no modules!")
-	playsound(src, 'sound/machines/scanner/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+	playsound(src, 'sound/machines/defib/defib_failed.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	return ITEM_INTERACT_BLOCKING
 
 // Makes use of tool act to prevent shoving stuff into our internal storage
@@ -335,7 +336,7 @@
 	if(istype(tool, /obj/item/mod/module))
 		if(!open)
 			balloon_alert(user, "cover closed!")
-			playsound(src, 'sound/machines/scanner/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+			playsound(src, 'sound/machines/defib/defib_failed.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ITEM_INTERACT_BLOCKING
 		install(tool, user)
 		SEND_SIGNAL(src, COMSIG_MOD_MODULE_ADDED, user)
@@ -343,11 +344,11 @@
 	if(istype(tool, /obj/item/mod/core))
 		if(!open)
 			balloon_alert(user, "cover closed!")
-			playsound(src, 'sound/machines/scanner/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+			playsound(src, 'sound/machines/defib/defib_failed.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ITEM_INTERACT_BLOCKING
 		if(core)
 			balloon_alert(user, "already has core!")
-			playsound(src, 'sound/machines/scanner/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+			playsound(src, 'sound/machines/defib/defib_failed.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ITEM_INTERACT_BLOCKING
 		var/obj/item/mod/core/attacking_core = tool
 		attacking_core.install(src)
@@ -562,24 +563,24 @@
 		if(is_type_in_list(new_module, old_module.incompatible_modules) || is_type_in_list(old_module, new_module.incompatible_modules))
 			if(user && !silent) // Bubber Edit: Silent arg
 				balloon_alert(user, "incompatible with [old_module]!")
-				playsound(src, 'sound/machines/scanner/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+				playsound(src, 'sound/machines/defib/defib_failed.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE //Bubber Edit: Return False
 	var/complexity_with_module = complexity
 	complexity_with_module += new_module.complexity
 	if(complexity_with_module > complexity_max)
 		if(user && !silent) // Bubber Edit: Silent arg
 			balloon_alert(user, "above complexity max!")
-			playsound(src, 'sound/machines/scanner/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+			playsound(src, 'sound/machines/defib/defib_failed.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE //Bubber Edit: Return False
 	if(!new_module.has_required_parts(mod_parts))
 		if(user && !silent) // Bubber Edit: Silent arg
 			balloon_alert(user, "lacking required parts!")
-			playsound(src, 'sound/machines/scanner/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+			playsound(src, 'sound/machines/defib/defib_failed.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE //Bubber Edit:
 	if(!new_module.can_install(src))
 		if(user && !silent) // Bubber Edit: Silent arg
 			balloon_alert(user, "can't install!")
-			playsound(src, 'sound/machines/scanner/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+			playsound(src, 'sound/machines/defib/defib_failed.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE // Bubber edit: Return False
 	if(SEND_SIGNAL(src, COMSIG_MOD_TRY_INSTALL_MODULE, new_module, user) & MOD_ABORT_INSTALL)
 		return
@@ -622,7 +623,7 @@
 /obj/item/mod/control/proc/update_access(mob/user, obj/item/card/id/card)
 	if(!allowed(user))
 		balloon_alert(user, "insufficient access!")
-		playsound(src, 'sound/machines/scanner/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		playsound(src, 'sound/machines/defib/defib_failed.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	req_access = card.access.Copy()
 	balloon_alert(user, "access updated")

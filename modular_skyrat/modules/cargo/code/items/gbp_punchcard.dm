@@ -132,11 +132,11 @@
 	build_path = /obj/machinery/gbp_redemption
 	req_components = list(
 		/datum/stock_part/servo = 1)
-
+/*
 /datum/outfit/job/assistant/pre_equip(mob/living/carbon/human/human, visualsOnly)
 	. = ..()
 	backpack_contents += list(/obj/item/gbp_punchcard/starting)
-
+*/
 /datum/design/board/gbp_machine
 	name = "Good Assistant Points Redemption Machine Board"
 	desc = "The circuit board for a Good Assistant Points Redemption Machine."

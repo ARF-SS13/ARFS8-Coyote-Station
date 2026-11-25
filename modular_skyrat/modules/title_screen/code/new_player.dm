@@ -53,11 +53,37 @@
 	if(client.interviewee)
 		return FALSE
 
-	if(href_list["observe"])
+	if(href_list["play_lobby_button_sound"])
+		play_lobby_button_sound("play_lobby_button_sound")
+		return
+
+	if(href_list["narrative_vote"])
 		play_lobby_button_sound()
+		if(!SSnarrative.awaiting_vote || !SSnarrative.has_vote_active() || SSticker.current_state >= GAME_STATE_PLAYING)
+			to_chat(src, span_warning("The storyteller vote is no longer active!"))
+			return
+		for(var/datum/narrative_vote_option/option in SSnarrative.vote_options)
+			if(href_list["narrative_vote"] != "[option.option_value]")
+				continue
+			SSnarrative.votie.cast_vote(ckey, option.option_value)
+			play_lobby_button_sound()
+			client << output(option.option_value, "title_browser:update_storyteller_vote")
+			return
+		to_chat(src, span_warning("That storyteller vote option is invalid."))
+		return
+
+	if(href_list["observe"])
+		play_lobby_button_sound("observe")
 		if(!unvetted_notified && !trigger_unvetted_warning())
 			return FALSE
 		make_me_an_observer()
+		return
+
+	if(href_list["visual_chat"])
+		play_lobby_button_sound("visual_chat")
+		if(!unvetted_notified && !trigger_unvetted_warning())
+			return FALSE
+		SSvisualchat.OpenSettingsControlPanel(src)
 		return
 
 	if(href_list["job_traits"])
@@ -84,54 +110,53 @@
 
 	if(href_list["toggle_antag"])
 		play_lobby_button_sound()
-		var/datum/preferences/preferences = client.prefs
+		var/datum/prefs_holder/preferences = client.prefs
 		preferences.write_preference(GLOB.preference_entries[/datum/preference/toggle/be_antag], !preferences.read_preference(/datum/preference/toggle/be_antag))
 		client << output(preferences.read_preference(/datum/preference/toggle/be_antag), "title_browser:toggle_antag")
 		return
 
 	if(href_list["character_setup"])
-		play_lobby_button_sound()
-		var/datum/preferences/preferences = client.prefs
+		play_lobby_button_sound("preferences")
+		var/datum/prefs_holder/preferences = client.prefs
 		preferences.current_window = PREFERENCE_TAB_CHARACTER_PREFERENCES
 		preferences.update_static_data(src)
 		preferences.ui_interact(src)
 		return
 
 	if(href_list["game_options"])
-		play_lobby_button_sound()
-		var/datum/preferences/preferences = client.prefs
+		play_lobby_button_sound("preferences")
+		var/datum/prefs_holder/preferences = client.prefs
 		preferences.current_window = PREFERENCE_TAB_GAME_PREFERENCES
 		preferences.update_static_data(usr)
 		preferences.ui_interact(usr)
 		return
 
 	if(href_list["toggle_ready"])
-		play_lobby_button_sound()
 		// Prevent readying up after the round has begun setting up or is already playing
-		if(SSticker.current_state >= GAME_STATE_SETTING_UP)
-			to_chat(src, span_notice("The round is starting. You cannot ready up at this time."))
+
+		if(!prerequisites_met(TRUE))
 			return FALSE
-		if(CONFIG_GET(flag/min_flavor_text))
-			var/datum/preferences/preferences = client.prefs
-			var/uses_silicon_flavortext = (is_silicon_job(preferences?.get_highest_priority_job()) && length_char(client?.prefs?.read_preference(/datum/preference/text/silicon_flavor_text)) < CONFIG_GET(number/silicon_flavor_text_character_requirement))
-			var/uses_normal_flavortext = (!is_silicon_job(preferences?.get_highest_priority_job()) && length_char(client?.prefs?.read_preference(/datum/preference/text/flavor_text)) < CONFIG_GET(number/flavor_text_character_requirement))
-			if(uses_silicon_flavortext)
-				to_chat(src, span_notice("You need at least [CONFIG_GET(number/silicon_flavor_text_character_requirement)] characters of Silicon Flavor Text to ready up for the round. You have [length_char(client.prefs.read_preference(/datum/preference/text/silicon_flavor_text))] characters."))
-				return
-			if(uses_normal_flavortext)
-				to_chat(src, span_notice("You need at least [CONFIG_GET(number/flavor_text_character_requirement)] characters of Flavor Text to ready up for the round. You have [length_char(client.prefs.read_preference(/datum/preference/text/flavor_text))] characters."))
-				return
 
 		if(!unvetted_notified && !trigger_unvetted_warning())
+			play_lobby_button_sound("cantreadyornot")
 			return FALSE
 		ready = is_ready_to_play() ? PLAYER_NOT_READY : PLAYER_READY_TO_PLAY
+		if(ready == PLAYER_READY_TO_PLAY)
+			play_lobby_button_sound("ready")
+		else
+			play_lobby_button_sound("unready")
+
 		client << output(ready, "title_browser:toggle_ready")
 		return
 
 	if(href_list["late_join"])
-		play_lobby_button_sound()
 		if(!unvetted_notified && !trigger_unvetted_warning())
+			play_lobby_button_sound("cantreadyornot")
 			return FALSE
+		if(!prerequisites_met())
+			return FALSE
+		play_lobby_button_sound("join")
+
 		GLOB.latejoin_menu.ui_interact(usr)
 		return
 
@@ -180,6 +205,106 @@
 	//SPLURT EDIT END
 	src << browse(dat, "window=title_browser")
 
+/// can we actually join the thing?
+/mob/dead/new_player/proc/prerequisites_met(amreadying)
+	if(amreadying)
+		if(SSticker.current_state >= GAME_STATE_SETTING_UP)
+			to_chat(src, span_notice("The round is starting. You cannot ready up at this time."))
+			play_lobby_button_sound("cantreadyornot")
+			return FALSE
+	var/am_admin = is_admin(client)
+	var/list/bads = list()
+	if(CONFIG_GET(flag/min_flavor_text))
+		if(is_silicon_job(client?.prefs?.get_highest_priority_job()))
+			var/lengt = length_char(client?.prefs?.read_preference(/datum/preference/text/silicon_flavor_text))
+			if(lengt < CONFIG_GET(number/silicon_flavor_text_character_requirement))
+				var/need = CONFIG_GET(number/silicon_flavor_text_character_requirement)
+				var/got = length_char(client?.prefs?.read_preference(/datum/preference/text/silicon_flavor_text))
+				bads["silicon_flavor_text"] = list(got, need)
+		if(!is_silicon_job(client?.prefs?.get_highest_priority_job()))
+			var/lengt = length_char(client?.prefs?.read_preference(/datum/preference/text/flavor_text))
+			if(lengt < CONFIG_GET(number/flavor_text_character_requirement))
+				var/need = CONFIG_GET(number/flavor_text_character_requirement)
+				var/got = length_char(client?.prefs?.read_preference(/datum/preference/text/flavor_text))
+				bads["flavor_text"] = list(got, need)
+	// why do we check if client exists every line? cus clients are slippery little bastards and can vanish at any time
+	var/list/temperaments      = client?.prefs?.read_preference(/datum/preference/character_snippets/temperaments)
+	var/list/builds            = client?.prefs?.read_preference(/datum/preference/character_snippets/builds)
+	var/list/early_backgrounds = client?.prefs?.read_preference(/datum/preference/character_snippets/early_backgrounds)
+	var/list/adult_backgrounds = client?.prefs?.read_preference(/datum/preference/character_snippets/adult_backgrounds)
+	var/temperament_count       = LAZYLEN(temperaments)
+	var/build_count             = LAZYLEN(builds)
+	var/early_background_count  = LAZYLEN(early_backgrounds)
+	var/adult_background_count  = LAZYLEN(adult_backgrounds)
+	var/list/mins = SSdans_cool_prefs.get_min_for()
+	if(temperament_count < mins[CSNIP_TEMPERAMENT])
+		bads["temperament"] = list(temperament_count, mins[CSNIP_TEMPERAMENT])
+	if(build_count < mins[CSNIP_BUILD])
+		bads["build"] = list(build_count, mins[CSNIP_BUILD])
+	if(early_background_count < mins[CSNIP_EARLY_BACKGROUND])
+		bads["early_background"] = list(early_background_count, mins[CSNIP_EARLY_BACKGROUND])
+	if(adult_background_count < mins[CSNIP_ADULT_BACKGROUND])
+		bads["adult_background"] = list(adult_background_count, mins[CSNIP_ADULT_BACKGROUND])
+
+	if(!LAZYLEN(bads))
+		return TRUE // okay have a good round!
+
+	var/chooses = list(
+		"Okay!",
+		"Sure!",
+		"I understand!",
+	)
+
+	var/message = "Oh dear, your character needs some extra work before you can get into the round!<br>"
+	message += "Here's what's missing:<br><br>"
+	if("silicon_flavor_text" in bads)
+		message += "<b>Silicon Flavor Text</b><br>"
+		message += "Your flavor text is [bads["silicon_flavor_text"][1]] characters long.<br>"
+		message += "However, you need at least [bads["silicon_flavor_text"][2]] characters of Silicon Flavor Text to ready up for the round.<br><br>"
+	if("flavor_text" in bads)
+		message += "<b>Flavor Text</b><br>"
+		message += "Your flavor text is [bads["flavor_text"][1]] characters long.<br>"
+		message += "However, you need at least [bads["flavor_text"][2]] characters of Flavor Text to ready up for the round.<br><br>"
+	if("temperament" in bads)
+		message += "<b>Temperament</b><br>"
+		message += "You have [bads["temperament"][1]] temperament(s) selected.<br>"
+		message += "However, you need at least [bads["temperament"][2]] temperament(s) to ready up for the round.<br><br>"
+	if("build" in bads)
+		message += "<b>Build</b><br>"
+		message += "You have [bads["build"][1]] build(s) selected.<br>"
+		message += "However, you need at least [bads["build"][2]] build(s) to ready up for the round.<br><br>"
+	if("early_background" in bads)
+		message += "<b>Early Background</b><br>"
+		message += "You have [bads["early_background"][1]] early background(s) selected.<br>"
+		message += "However, you need at least [bads["early_background"][2]] early background(s) to ready up for the round.<br><br>"
+	if("adult_background" in bads)
+		message += "<b>Adult Background</b><br>"
+		message += "You have [bads["adult_background"][1]] adult background(s) selected.<br>"
+		message += "However, you need at least [bads["adult_background"][2]] adult background(s) to ready up for the round.<br><br>"
+	if(am_admin)
+		message += "<br>...however, you're an admin! You can ignore these requirements and ready up anyway if you want."
+		chooses = list(
+			"Let me in anyway!",
+			"Okay ill go do that i guess!"
+		)
+	else
+		message += "<br>Please fix these issues before you can ready up for the round! ♥"
+	to_chat(src, span_abductor(message))
+	play_lobby_button_sound("cantreadyornot")
+	var/confirm = tgui_alert(
+		src,
+		message,
+		"Oh no!",
+		chooses,
+		null,
+		null,
+		null,
+		TRUE,
+	)
+	if(am_admin && confirm == "Let me in anyway!")
+		return TRUE
+	return FALSE
+
 /datum/asset/simple/lobby
 	assets = list(
 		"FixedsysExcelsior3.01Regular.ttf" = 'html/browser/FixedsysExcelsior3.01Regular.ttf',
@@ -193,8 +318,22 @@
 		winset(client, "title_browser", "is-disabled=true;is-visible=false")
 		winset(client, "status_bar", "is-visible=true")
 
-/mob/dead/new_player/proc/play_lobby_button_sound()
-	SEND_SOUND(src, sound('modular_skyrat/master_files/sound/effects/save.ogg'))
+/mob/dead/new_player/proc/play_lobby_button_sound(which)
+	var/snd = 'modular_coyote/sounds/menu/add_click.ogg'
+	switch(which)
+		if("preferences", "join", "visual_chat")
+			snd = 'modular_coyote/sounds/menu/save_click.ogg'
+		if("observe", "ready", "vote_on")
+			snd = 'modular_coyote/sounds/menu/tab_click.ogg'
+		if("unready")
+			snd = 'modular_coyote/sounds/menu/remove_click.ogg'
+		if("cantreadyornot", "vote_off")
+			snd = 'modular_coyote/sounds/menu/bad_click.ogg'
+		if("play_lobby_button_sound")
+			snd = 'modular_coyote/sounds/menu/remove.ogg'
+		else
+			snd = 'modular_coyote/sounds/menu/add_click.ogg'
+	SEND_SOUND(src, sound(snd))
 
 /**
  * Allows the player to select a server to join from any loaded servers.

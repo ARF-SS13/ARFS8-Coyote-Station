@@ -116,27 +116,41 @@
 		new /obj/item/stack/sheet/iron(src)
 
 /turf/closed/wall/ex_act(severity, target)
-	if(target == src)
-		dismantle_wall(1,1)
-		return TRUE
+	var/am_retaining_wall = FALSE
+	if(explosion_no_breach)
+		am_retaining_wall = borders_space(src)
 
-	switch(severity)
-		if(EXPLODE_DEVASTATE)
-			//SN src = null
-			var/turf/NT = ScrapeAway()
-			NT.contents_explosion(severity, target)
+	if(!am_retaining_wall)
+		if(target == src)
+			dismantle_wall(1,1)
 			return TRUE
-		if(EXPLODE_HEAVY)
-			dismantle_wall(prob(50), TRUE)
-		if(EXPLODE_LIGHT)
-			if (prob(hardness))
-				dismantle_wall(0,1)
+
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
+				//SN src = null
+				var/turf/NT = ScrapeAway()
+				NT.contents_explosion(severity, target)
+				return TRUE
+			if(EXPLODE_HEAVY)
+				dismantle_wall(prob(50), TRUE)
+			if(EXPLODE_LIGHT)
+				if (prob(hardness))
+					dismantle_wall(0,1)
 
 	if(!density)
 		return ..()
 
 	return TRUE
 
+/// if this turf is destroyed, it could let all the space air in
+/proc/borders_space(atom/what)
+	if(!what)
+		return FALSE
+	for(var/direct in GLOB.alldirs)
+		var/turf/T = get_step(what,direct)
+		if(is_space_or_openspace(T))
+			return TRUE
+	return FALSE
 
 /turf/closed/wall/blob_act(obj/structure/blob/B)
 	if(prob(50))

@@ -23,7 +23,7 @@
 	return
 
 
-/datum/preference/name/deserialize(input, datum/preferences/preferences)
+/datum/preference/name/deserialize(input, datum/prefs_holder/preferences)
 	return reject_bad_name("[input]", allow_numbers)
 
 
@@ -49,14 +49,14 @@
 	target.name = value
 	target.log_mob_tag("TAG: [target.tag] RENAMED: [key_name(target)]")
 
-/datum/preference/name/real_name/create_informed_default_value(datum/preferences/preferences)
+/datum/preference/name/real_name/create_informed_default_value(datum/prefs_holder/preferences)
 	return generate_random_name_species_based(
 		preferences.read_preference(/datum/preference/choiced/gender),
 		TRUE,
 		preferences.read_preference(/datum/preference/choiced/species),
 	)
 
-/datum/preference/name/real_name/deserialize(input, datum/preferences/preferences)
+/datum/preference/name/real_name/deserialize(input, datum/prefs_holder/preferences)
 	input = ..(input)
 	if (!input)
 		return input
@@ -76,7 +76,7 @@
 	group = "backup_human"
 	savefile_key = "human_name"
 
-/datum/preference/name/backup_human/create_informed_default_value(datum/preferences/preferences)
+/datum/preference/name/backup_human/create_informed_default_value(datum/prefs_holder/preferences)
 	return generate_random_name(preferences.read_preference(/datum/preference/choiced/gender))
 
 /datum/preference/name/clown
@@ -168,7 +168,7 @@
 /datum/preference/name/operative_alias/create_default_value()
 	return pick(GLOB.operative_aliases)
 
-/datum/preference/name/operative_alias/is_accessible(datum/preferences/preferences)
+/datum/preference/name/operative_alias/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -197,7 +197,7 @@
 	return !isnull(permissive_sanitize_name(value))
 
 
-/datum/preference/name/hacker_alias/deserialize(input, datum/preferences/preferences)
+/datum/preference/name/hacker_alias/deserialize(input, datum/prefs_holder/preferences)
 	return permissive_sanitize_name(input)
 
 

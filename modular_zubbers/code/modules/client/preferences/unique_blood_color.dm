@@ -9,7 +9,7 @@
 /datum/preference/color/input_blood_color/create_default_value()
 	return BLOOD_COLOR_BLACK
 
-/datum/preference/color/input_blood_color/is_accessible(datum/preferences/preferences)
+/datum/preference/color/input_blood_color/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
@@ -28,7 +28,7 @@
 /datum/preference/choiced/select_blood_color/create_default_value()
 	return "Custom"
 
-/datum/preference/choiced/select_blood_color/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/select_blood_color/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 

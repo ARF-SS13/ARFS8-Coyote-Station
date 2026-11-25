@@ -29,6 +29,7 @@
 	attack_sound = 'sound/mobs/non-humanoids/frog/reee.ogg'
 	butcher_results = list(/obj/item/food/nugget = 1)
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	layer = TINY_CREATURE_LAYER
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = FRIENDLY_SPAWN
 	can_be_held = TRUE

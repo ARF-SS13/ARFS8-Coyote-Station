@@ -38,9 +38,10 @@
 	LAZYNULL(soapboxers)
 
 ///Gives a mob a unique say span
-/datum/component/soapbox/proc/soapbox_speech(datum/source, list/speech_args)
+/datum/component/soapbox/proc/soapbox_speech(datum/source, list/speech_args, list/message_data)
 	SIGNAL_HANDLER
 	speech_args[SPEECH_SPANS] |= SPAN_SOAPBOX
+	message_data[SATA_SPANS] |= SPAN_SOAPBOX
 
 /datum/component/soapbox/proc/add_connect_loc_behalf_to_parent()
 	AddComponent(/datum/component/connect_loc_behalf, parent, loc_connections)

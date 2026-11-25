@@ -224,9 +224,8 @@
 	cost = CARGO_CRATE_VALUE * 12
 	contains = list(
 		/obj/item/food/rationpack,
-		/obj/item/ammo_box/speedloader/strilka310,
-		/obj/item/ammo_box/speedloader/strilka310/surplus,
-		/obj/effect/spawner/random/armory/strilka,
+		/obj/effect/spawner/random/armory/mosin_ammo,
+		/obj/item/gun/ballistic/rifle/mosin/random,
 		/obj/item/gun_maintenance_supplies,
 		/obj/item/clothing/suit/armor/vest/russian,
 		/obj/item/clothing/head/helmet/rus_helmet,

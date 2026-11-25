@@ -6,6 +6,7 @@
 	inhand_icon_state = "generic_delivery"
 	lefthand_file = 'icons/mob/inhands/items/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items/devices_righthand.dmi'
+	w_class = WEIGHT_CLASS_SMALL
 	/// How many uses this item has before being deleted
 	var/uses = 1
 	/// Used in the deployment message - What company is sending the equipment, flavor
@@ -140,7 +141,7 @@
 	inhand_icon_state = "self_delivery"
 	company_source = "S.E.L.F."
 	company_message = span_bold("Request status: Received. Package status: Delivered. Notes: To assure optimal value, use supplied Interdyne-brand autosurgeons to change implantment status.")
-
+	w_class = WEIGHT_CLASS_NORMAL
 /obj/item/choice_beacon/augments/generate_display_names()
 	var/static/list/augment_list
 	if(!augment_list)

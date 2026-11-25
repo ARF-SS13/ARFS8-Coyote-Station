@@ -29,7 +29,7 @@
 	if(!istype(occupant))
 		return FALSE
 
-	var/datum/preferences/occupant_prefs = occupant?.client?.prefs
+	var/datum/prefs_holder/occupant_prefs = occupant?.client?.prefs
 	if(!istype(occupant_prefs))
 		return FALSE
 

@@ -1,5 +1,21 @@
 import { CheckboxInput, type FeatureToggle } from '../../base';
 
+export const hear_rumors: FeatureToggle = {
+  name: 'Overhear rumors',
+  category: 'ERP',
+  description:
+    'Toggle whether or not you will randomly overhear rumors about other people... or general nethack tips.',
+  component: CheckboxInput,
+};
+
+export const hear_horny_rumors: FeatureToggle = {
+  name: 'Overhear horny rumors',
+  category: 'ERP',
+  description:
+    'Toggle whether or not those rumors you overhear can be of a horny nature, if any exist!',
+  component: CheckboxInput,
+};
+
 export const butt_enlargement_pref: FeatureToggle = {
   name: 'Butt enlargement',
   category: 'ERP',
@@ -40,12 +56,12 @@ export const forced_neverboner_pref: FeatureToggle = {
   component: CheckboxInput,
 };
 
-export const custom_genital_fluids_pref: FeatureToggle = {
-  name: 'Custom genital fluids',
-  category: 'ERP',
-  description: 'Allow custom genital fluids.',
-  component: CheckboxInput,
-};
+// export const custom_genital_fluids_pref: FeatureToggle = {
+//   name: 'Custom genital fluids',
+//   category: 'ERP',
+//   description: 'Allow custom genital fluids.',
+//   component: CheckboxInput,
+// };
 
 export const cumflation_pref: FeatureToggle = {
   name: 'Cumflation',

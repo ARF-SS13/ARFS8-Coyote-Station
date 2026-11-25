@@ -517,6 +517,8 @@
 		'sound/mobs/non-humanoids/beepsky/criminal.ogg',
 		'sound/mobs/non-humanoids/beepsky/justice.ogg',
 		'sound/mobs/non-humanoids/beepsky/freeze.ogg',
+		'sound/mobs/non-humanoids/beepsky/insult.ogg', //return to tradition
+
 		), 50, FALSE)
 
 /mob/living/simple_animal/bot/secbot/explode()

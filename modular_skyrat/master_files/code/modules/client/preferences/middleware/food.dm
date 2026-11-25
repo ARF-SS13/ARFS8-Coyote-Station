@@ -8,7 +8,7 @@ GLOBAL_DATUM_INIT(food_prefs_menu, /datum/food_prefs_menu, new)
 
 // Hahahaha, it LIVES!
 
-/datum/preference_middleware/food/apply_to_human(mob/living/carbon/human/target, datum/preferences/preferences, visuals_only = FALSE)
+/datum/preference_middleware/food/apply_to_human(mob/living/carbon/human/target, datum/prefs_holder/preferences, visuals_only = FALSE)
 	if(!length(preferences.food_preferences) || isdummy(target))
 		return
 	var/datum/species/species_type = preferences.read_preference(/datum/preference/choiced/species)
@@ -57,7 +57,7 @@ GLOBAL_DATUM_INIT(food_prefs_menu, /datum/food_prefs_menu, new)
 	if(.)
 		return
 
-	var/datum/preferences/preferences = ui?.user?.client?.prefs
+	var/datum/prefs_holder/preferences = ui?.user?.client?.prefs
 	if(!preferences)
 		return
 
@@ -96,7 +96,7 @@ GLOBAL_DATUM_INIT(food_prefs_menu, /datum/food_prefs_menu, new)
 			preferences.food_preferences[food_name] = food_preference
 			return TRUE
 
-/datum/preferences/ui_state(mob/user)
+/datum/prefs_holder/ui_state(mob/user)
 	return GLOB.always_state
 
 /datum/food_prefs_menu/ui_status(mob/user, datum/ui_state/state)
@@ -109,7 +109,7 @@ GLOBAL_DATUM_INIT(food_prefs_menu, /datum/food_prefs_menu, new)
 	)
 
 /datum/food_prefs_menu/ui_data(mob/user)
-	var/datum/preferences/preferences = user.client.prefs
+	var/datum/prefs_holder/preferences = user.client.prefs
 
 	var/datum/species/species_type = preferences.read_preference(/datum/preference/choiced/species)
 	var/datum/species/species = new species_type
@@ -124,7 +124,7 @@ GLOBAL_DATUM_INIT(food_prefs_menu, /datum/food_prefs_menu, new)
 	return data
 
 /// Checks the provided preferences datum to make sure the food pref values are valid. Does not check if the food preferences value is null.
-/datum/food_prefs_menu/proc/is_food_invalid(datum/preferences/preferences)
+/datum/food_prefs_menu/proc/is_food_invalid(datum/prefs_holder/preferences)
 	var/liked_food_length = 0
 	var/disliked_food_length = 0
 	var/toxic_food_length = 0

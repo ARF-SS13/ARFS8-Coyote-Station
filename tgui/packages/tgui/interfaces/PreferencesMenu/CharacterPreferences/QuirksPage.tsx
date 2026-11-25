@@ -1,4 +1,6 @@
+/** biome-ignore-all assist/source/organizeImports: <eat my butt> */
 import { filter } from 'es-toolkit/compat';
+import { BackgroundsAndSuchPage } from './BackgroundsAndSuchPage';
 import { useState } from 'react';
 import { useBackend } from 'tgui/backend';
 import {
@@ -22,6 +24,7 @@ import { useRandomToggleState } from '../useRandomToggleState';
 import { useServerPrefs } from '../useServerPrefs';
 import { getRandomization, PreferenceList } from './MainPage';
 import { PersonalityPage } from './PersonalityPage';
+import { TemperamentsAndBuildsPage } from './TemperamentsAndBuildsPage';
 
 function getColorValueClass(quirk: Quirk) {
   if (quirk.value > 0) {
@@ -109,8 +112,7 @@ function QuirkDisplay(props: QuirkDisplayProps) {
         pointerEvents: props.quirkActionLocked ? 'none' : 'auto',
       }}
       onClick={() => {
-        if (quirkActionLocked)
-          return;
+        if (quirkActionLocked) return;
         if (selected) {
           setCustomizationExpanded(false);
         }
@@ -519,7 +521,9 @@ function QuirkPage() {
 
                 withQuirkDebounce(() => {
                   setSelectedQuirks(
-                    selectedQuirks.filter((otherQuirk) => quirkName !== otherQuirk),
+                    selectedQuirks.filter(
+                      (otherQuirk) => quirkName !== otherQuirk,
+                    ),
                   );
 
                   act('remove_quirk', { quirk: quirk.name });
@@ -549,9 +553,9 @@ function QuirkPage() {
 }
 
 export function QuirkPersonalityPage() {
-  const [contentPage, setContentPage] = useState<'quirks' | 'personality'>(
-    'quirks',
-  );
+  const [contentPage, setContentPage] = useState<
+    'quirks' | 'personality' | 'temperaments_and_builds' | 'backgrounds'
+  >('quirks');
 
   return (
     <Stack fill vertical>
@@ -579,10 +583,40 @@ export function QuirkPersonalityPage() {
               Personality
             </Button>
           </Stack.Item>
+          <Stack.Item grow>
+            <Button
+              selected={contentPage === 'temperaments_and_builds'}
+              onClick={() => setContentPage('temperaments_and_builds')}
+              fluid
+              align="center"
+              fontSize="14px"
+            >
+              Temperaments & Builds
+            </Button>
+          </Stack.Item>
+          <Stack.Item grow>
+            <Button
+              selected={contentPage === 'backgrounds'}
+              onClick={() => setContentPage('backgrounds')}
+              fluid
+              align="center"
+              fontSize="14px"
+            >
+              Backgrounds
+            </Button>
+          </Stack.Item>
         </Stack>
       </Stack.Item>
       <Stack.Item grow>
-        {contentPage === 'personality' ? <PersonalityPage /> : <QuirkPage />}
+        {contentPage === 'personality' ? (
+          <PersonalityPage />
+        ) : contentPage === 'temperaments_and_builds' ? (
+          <TemperamentsAndBuildsPage />
+        ) : contentPage === 'backgrounds' ? (
+          <BackgroundsAndSuchPage />
+        ) : (
+          <QuirkPage />
+        )}
       </Stack.Item>
     </Stack>
   );

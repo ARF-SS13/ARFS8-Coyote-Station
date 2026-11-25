@@ -7,5 +7,5 @@
 /datum/preference/toggle/rds_limit/apply_to_human(mob/living/carbon/human/target, value)
 	return
 
-/datum/preference/toggle/rds_limit/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/rds_limit/is_accessible(datum/prefs_holder/preferences)
 	return ..() && (/datum/quirk/insanity::name in preferences.all_quirks)

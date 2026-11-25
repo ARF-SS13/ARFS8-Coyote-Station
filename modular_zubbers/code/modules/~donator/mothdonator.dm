@@ -63,7 +63,7 @@
 /datum/preference/choiced/pet_gender/create_default_value()
 	return PLURAL
 
-/datum/preference/choiced/pet_gender/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/pet_gender/is_accessible(datum/prefs_holder/preferences)
 	if (!..())
 		return FALSE
 

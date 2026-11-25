@@ -179,7 +179,6 @@
 	SIGNAL_HANDLER
 	hearing_args[HEARING_RAW_MESSAGE] = "<span class='[speech_effect_span]'>[hearing_args[HEARING_RAW_MESSAGE]]</span>"
 
-
 /// Cool filter that I'm using for some of this :)))
 /proc/phase_filter(size)
 	. = list("type" = "wave")

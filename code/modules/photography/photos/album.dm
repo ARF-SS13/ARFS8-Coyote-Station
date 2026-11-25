@@ -81,7 +81,7 @@
 	save_everything()
 
 /obj/item/storage/photo_album/hos
-	name = "photo album (Head of Security)"
+	name = "photo album (Warden)"
 	icon_state = "album_blue"
 	persistence_id = "HoS"
 

@@ -1022,7 +1022,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	minigames_menu.ui_interact(src)
 
 /mob/dead/observer/default_lighting_cutoff()
-	var/datum/preferences/prefs = client?.prefs
+	var/datum/prefs_holder/prefs = client?.prefs
 	if(!prefs || (client?.combo_hud_enabled && prefs.toggles & COMBOHUD_LIGHTING))
 		return ..()
 	return GLOB.ghost_lightings[prefs.read_preference(/datum/preference/choiced/ghost_lighting)]

@@ -62,6 +62,8 @@
 #define ITEM_SLOT_HANDCUFFED (1<<17)
 /// Legcuff slot (bolas, beartraps)
 #define ITEM_SLOT_LEGCUFFED (1<<18)
+/// this thing doesnt go ANYWHERE
+#define ITEM_SLOT_DONT_PUT_ANYWHERE (1<<31)
 
 /// Total amount of slots
 #define SLOTS_AMT 27 // Keep this up to date! //SPLURT EDIT - Original: 19
@@ -305,6 +307,27 @@ GLOBAL_LIST_INIT(security_vest_allowed, list(
 	/obj/item/storage/belt/holster/energy,
 	/obj/item/gun/ballistic/shotgun/automatic/combat/compact,
 	/obj/item/pen/red/security,
+))
+
+// ...I just wanted to be able to tuck the station charter somewhere prestigious
+GLOBAL_LIST_INIT(capcarapace_allowed, list(
+	/obj/item/detective_scanner,
+	/obj/item/flashlight,
+	/obj/item/gun/ballistic,
+	/obj/item/gun/energy,
+	/obj/item/lighter,
+	/obj/item/melee/baton,
+	/obj/item/reagent_containers/spray/pepper,
+	/obj/item/restraints/handcuffs,
+	/obj/item/storage/fancy/cigarettes,
+	/obj/item/taperecorder,
+	/obj/item/tank/internals/emergency_oxygen,
+	/obj/item/tank/internals/plasmaman,
+	/obj/item/storage/belt/holster/detective,
+	/obj/item/storage/belt/holster/nukie,
+	/obj/item/storage/belt/holster/energy,
+	/obj/item/gun/ballistic/shotgun/automatic/combat/compact,
+	/obj/item/station_charter,
 ))
 
 GLOBAL_LIST_INIT(security_wintercoat_allowed, list(

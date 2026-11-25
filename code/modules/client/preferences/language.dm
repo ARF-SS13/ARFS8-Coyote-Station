@@ -7,7 +7,7 @@
 /datum/preference/choiced/language/create_default_value()
 	return "Random"
 
-/datum/preference/choiced/language/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/language/is_accessible(datum/prefs_holder/preferences)
 	if (!..())
 		return FALSE
 
@@ -52,7 +52,7 @@
 	default_value = TRUE
 	can_randomize = FALSE
 
-/datum/preference/toggle/language_speakable/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/language_speakable/is_accessible(datum/prefs_holder/preferences)
 	if(!..())
 		return FALSE
 
@@ -70,7 +70,7 @@
 /datum/preference/choiced/language_skill/create_default_value()
 	return "100%"
 
-/datum/preference/choiced/language_skill/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/language_skill/is_accessible(datum/prefs_holder/preferences)
 	if(!..())
 		return FALSE
 	if(preferences.read_preference(/datum/preference/toggle/language_speakable))
@@ -93,7 +93,7 @@
 /datum/preference/choiced/csl_strength/create_default_value()
 	return "90%"
 
-/datum/preference/choiced/csl_strength/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/csl_strength/is_accessible(datum/prefs_holder/preferences)
 	return ..() && (/datum/quirk/csl::name in preferences.all_quirks)
 
 /datum/preference/choiced/csl_strength/init_possible_values()

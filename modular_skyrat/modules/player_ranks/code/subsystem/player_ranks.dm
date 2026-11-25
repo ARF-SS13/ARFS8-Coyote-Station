@@ -118,7 +118,7 @@ SUBSYSTEM_DEF(player_ranks)
  * Arguments:
  * * prefs - The preferences datum to check the donator_status eligibility.
  */
-/datum/controller/subsystem/player_ranks/proc/update_prefs_donator_status(datum/preferences/prefs)
+/datum/controller/subsystem/player_ranks/proc/update_prefs_donator_status(datum/prefs_holder/prefs)
 	if(!prefs || !prefs.parent)
 		return
 

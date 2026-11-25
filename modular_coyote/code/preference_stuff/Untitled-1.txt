@@ -1,0 +1,93 @@
+	// clear it
+	switch(params["rumor_act"])
+		if("rumor_add")
+			var/uid = generate_rumor_uid()
+			rumors["[uid]"] = list("txt" = "[get_random_rumor(user)]", "horny" = "no")
+			preferences.write_preference(GLOB.preference_entries[/datum/preference/rumors/the_actual_rumors], rumors)
+			to_chat(user, span_notice("Okay! Added a new rumor with uid [uid]!"))
+			return TRUE
+		if("rumor_edit_text")
+			var/rumor_uid = params["rumor_uid"]
+			var/list/rumordat = rumors["[rumor_uid]"]
+			if(LAZYLEN(rumordat))
+				var/thetext = rumordat["txt"]
+				var/new_text = tgui_input_text(
+					user,
+					"Edit the text of this rumor. Maximum length is 512 characters. Special characters may be clipped, multiline should be okay.",
+					"Edit rumor: [thetext]",
+					thetext,
+					512,
+					TRUE,
+					TRUE,
+					null,
+					null,
+					TRUE,
+				)
+				if(new_text == TGUI_TEXT_MODAL_CANCEL_TOKEN)
+					to_chat(user, span_notice("Okay never mind!!"))
+					return TRUE
+				if(!new_text)
+					var/r_u_sure = tgui_alert(
+						user,
+						"Are you sure you want to clear the flavor text for this background?",
+						"Clear Flavor Text?",
+						list("Yes, clear it", "No, cancel!"),
+					)
+					if(r_u_sure != "Yes, clear it")
+						to_chat(user, span_notice("Okay never mind!!"))
+						return TRUE
+				if(new_text != thetext)
+					rumors["[rumor_uid]"]["txt"] = new_text
+					preferences.write_preference(GLOB.preference_entries[/datum/preference/rumors/the_actual_rumors], rumors)
+					to_chat(user, span_notice("Okay! Updated rumor text to: [new_text]"))
+				return TRUE
+		if("rumor_toggle_nsfw")
+			var/rumor_uid = params["rumor_uid"]
+			var/list/rumordat = rumors["[rumor_uid]"]
+			if(LAZYLEN(rumordat))
+				var/old_horny = rumordat["horny"]
+				var/new_horny = (old_horny == "yes") ? "no" : "yes"
+				rumors["[rumor_uid]"]["horny"] = new_horny
+				preferences.write_preference(GLOB.preference_entries[/datum/preference/rumors/the_actual_rumors], rumors)
+				to_chat(user, span_notice("Okay! Updated rumor horny status to: [new_horny]"))
+			return TRUE
+		if("rumor_delete")
+			var/rumor_uid = params["rumor_uid"]
+			if(rumors["[rumor_uid]"])
+				rumors -= "[rumor_uid]"
+				preferences.write_preference(GLOB.preference_entries[/datum/preference/rumors/the_actual_rumors], rumors)
+				to_chat(user, span_notice("Okay! Deleted rumor with uid: [rumor_uid]"))
+			return TRUE
+		if("rumor_move_up", "rumor_move_down")
+			var/go_up = (params["rumor_act"] == "rumor_move_up")
+			var/rumor_uid = params["rumor_uid"]
+			var/my_index = 1
+			for(var/rumorkey in rumors)
+				if(rumorkey == rumor_uid)
+					break
+				my_index += 1
+			var/swap_index = (go_up ? my_index - 1 : my_index + 1)
+			if(swap_index < 1 || swap_index > LAZYLEN(rumors))
+				to_chat(user, span_notice("Cannot move rumor [rumor_uid] [go_up ? "up" : "down"] any further!"))
+				return TRUE
+			var/swap_with = LAZYACCESS(rumors, swap_index)
+			if(!swap_with)
+				to_chat(user, span_notice("Cannot move rumor [rumor_uid] [go_up ? "up" : "down"] any further!"))
+				return TRUE
+			var/list/current = rumors["[rumor_uid]"]
+			var/list/target = rumors["[swap_with]"]
+			rumors["[rumor_uid]"] = target
+			rumors["[swap_with]"] = current
+			preferences.write_preference(GLOB.preference_entries[/datum/preference/rumors/the_actual_rumors], rumors)
+			to_chat(user, span_notice("Okay! Moved rumor [rumor_uid] [go_up ? "up" : "down"]!"))
+			return TRUE
+		if("rumor_toggle_public")
+			var/rumor_uid = params["rumor_uid"]
+			var/list/rumordat = rumors["[rumor_uid]"]
+			if(LAZYLEN(rumordat))
+				var/old_public = rumordat["public"]
+				var/new_public = (old_public == "yes") ? "no" : "yes"
+				rumors["[rumor_uid]"]["public"] = new_public
+				preferences.write_preference(GLOB.preference_entries[/datum/preference/rumors/the_actual_rumors], rumors)
+				to_chat(user, span_notice("Okay! Updated rumor public status to: [new_public]"))
+			return TRUE

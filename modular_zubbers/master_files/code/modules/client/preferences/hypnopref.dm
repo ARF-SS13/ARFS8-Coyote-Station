@@ -9,7 +9,7 @@
 /datum/preference/choiced/erp_status_hypno/create_default_value()
 	return "Ask"
 
-/datum/preference/choiced/erp_status_hypno/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/erp_status_hypno/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
@@ -18,7 +18,7 @@
 
 	return preferences.read_preference(/datum/preference/toggle/master_erp_preferences)
 
-/datum/preference/choiced/erp_status_hypno/deserialize(input, datum/preferences/preferences)
+/datum/preference/choiced/erp_status_hypno/deserialize(input, datum/prefs_holder/preferences)
 	if(CONFIG_GET(flag/disable_erp_preferences))
 		return "No"
 
@@ -26,5 +26,5 @@
 		return "No"
 	. = ..()
 
-/datum/preference/choiced/erp_status_hypno/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/erp_status_hypno/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE

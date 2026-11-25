@@ -538,10 +538,20 @@
  * A would have a 60% chance of being picked, after which it would decrease by one and the new list would be
  * A = 5, B = 3, C = 1, D = 0
  * Tt would then have a 55.55...% to be picked, rinse and repeat
+ * oh yeah its in place so it changes the original list
 */
 /proc/pick_weight_take(list/list_to_pick)
 	. = pick_weight(list_to_pick)
 	list_to_pick[.]--
+
+/**
+* Like pick_weight, but removes the picked element from the list
+* also its in place, changes the original list
+*/
+/proc/pick_weight_remove(list/list_to_pick)
+	. = pick_weight(list_to_pick)
+	if(.)
+		list_to_pick -= .
 
 /**
 * Picks n items from a list. The same index will not be chosen more than once.
@@ -715,8 +725,8 @@
 	return sortTim(record_list, order >= 0 ? GLOBAL_PROC_REF(cmp_records_asc) : GLOBAL_PROC_REF(cmp_records_dsc))
 
 ///sort any value in a list
-/proc/sort_list(list/list_to_sort, cmp=/proc/cmp_text_asc)
-	return sortTim(list_to_sort.Copy(), cmp)
+/proc/sort_list(list/list_to_sort, cmp=/proc/cmp_text_asc, ass = FALSE)
+	return sortTim(list_to_sort.Copy(), cmp, ass)
 
 ///uses sort_list() but uses the var's name specifically. This should probably be using mergeAtom() instead
 /proc/sort_names(list/list_to_sort, order=1)

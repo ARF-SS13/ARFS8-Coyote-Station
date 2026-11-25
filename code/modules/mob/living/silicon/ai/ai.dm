@@ -830,10 +830,10 @@
 	var/list/viewscale = getviewsize(client.view)
 	return get_dist(src, A) <= max(viewscale[1]*0.5,viewscale[2]*0.5)
 
-/mob/living/silicon/ai/proc/relay_speech(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
-	var/raw_translation = translate_language(speaker, message_language, raw_message, spans, message_mods)
+/mob/living/silicon/ai/proc/relay_speech(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_data = list())
+	var/raw_translation = translate_language(speaker, message_language, raw_message, spans, message_data)
 	var/atom/movable/source = speaker.GetSource() || speaker // is the speaker virtual/radio
-	var/treated_message = source.generate_messagepart(raw_translation, spans, message_mods)
+	var/treated_message = source.generate_messagepart(raw_translation, spans, message_data)
 
 	var/start = "Relayed Speech: "
 	var/namepart = speaker.get_message_voice()
@@ -854,12 +854,20 @@
 				jobpart = "[holo.Impersonation.job]"
 			else if(usr?.job) // not great, but AI holograms have no other usable ref
 				jobpart = "[usr.job]"
-
-	var/rendered = "<i><span class='game say'>[start][span_name("[hrefpart][namepart] ([jobpart])</a> ")]<span class='message'>[treated_message]</span></span></i>"
+	var/namechunk = "[start][span_name("[hrefpart][namepart] ([jobpart])</a>")]"
+	var/messagechunk = "<span class='message'>[treated_message]</span>"
+	var/rendered = "<i><span class='game say'>[namechunk][messagechunk]</span></i>"
+	message_data[SATA_SPEAKER] = speaker
+	message_data[SATA_VC_SOURCE] = source
+	message_data[SATA_MESSAGE_COMPILED] = rendered
+	message_data[SATA_DISPLAYED_NAME] = namechunk
+	message_data[SATA_MESSAGE_HEARD] = treated_message
+	message_data[SATA_VERB] = source.say_mod(raw_message, message_data)
+	//! coyote todo: An anonymize function for vchat
 
 	if (client?.prefs.read_preference(/datum/preference/toggle/enable_runechat) && (client.prefs.read_preference(/datum/preference/toggle/enable_runechat_non_mobs) || ismob(speaker)))
 		create_chat_message(speaker, message_language, raw_message, spans)
-	show_message(rendered, 2)
+	show_message(rendered, 2, message_data = message_data)
 
 /mob/living/silicon/ai/fully_replace_character_name(oldname,newname)
 	..()

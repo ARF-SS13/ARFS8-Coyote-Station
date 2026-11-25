@@ -9,7 +9,7 @@
 /datum/preference/choiced/fandom/init_possible_values()
 	return GLOB.fandom_choices.Copy()
 
-/datum/preference/choiced/fandom/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/fandom/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	if(!.)
 		return FALSE

@@ -148,7 +148,7 @@
 	access = ACCESS_MEDICAL
 	contains = list(/obj/item/defibrillator/compact)
 	crate_name = "compact defibrillator crate"
-
+/* no.
 /datum/supply_pack/medical/medigun
 	name = "CWM-479 Medigun"
 	desc = "Contains a single VeyMedical CWM-479 model medical gun; cells not included."
@@ -168,7 +168,7 @@
 		/obj/item/weaponcell/medical/toxin,
 	)
 	crate_name = "medicell replacement crate"
-
+*/
 /*
 *	SECURITY
 */
@@ -201,14 +201,14 @@
 	crate_name = "helmet crate"
 
 /datum/supply_pack/security/deployablebarricades
-	name = "C.U.C.K.S Deployable Barricades"
+	name = "Deployable Barricade Crate"
 	desc = "Two cases of deployable barricades, for all your fortification needs."
 	cost = CARGO_CRATE_VALUE * 4
 	contains = list(
 		/obj/item/storage/barricade,
 		/obj/item/storage/barricade,
 	)
-	crate_name = "C.U.C.K.S Crate"
+	crate_name = "barricade crate"
 
 /*
 *	ENGINEERING

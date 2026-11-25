@@ -1,6 +1,6 @@
 /*
 /// Fully randomizes everything in the character.
-/datum/preferences/proc/randomise_appearance_prefs(randomise_flags = ALL)
+/datum/prefs_holder/proc/randomise_appearance_prefs(randomise_flags = ALL)
 	if(randomise_flags & RANDOMIZE_SPECIES)
 		var/rando_race = GLOB.species_list[pick(GLOB.roundstart_races)]
 		pref_species = new rando_race()
@@ -8,17 +8,17 @@
 		real_name = pref_species.random_name(gender, TRUE)
 
 /// Randomizes the character according to preferences.
-/datum/preferences/proc/apply_character_randomization_prefs(antag_override = FALSE)
+/datum/prefs_holder/proc/apply_character_randomization_prefs(antag_override = FALSE)
 	return
 
-/datum/preferences/proc/random_species()
+/datum/prefs_holder/proc/random_species()
 	var/random_species_type = GLOB.species_list[pick(GLOB.roundstart_races)]
 	set_new_species(random_species_type)
 	if(randomise[RANDOM_NAME])
 		real_name = pref_species.random_name(gender,1)
 
 ///Setup the random hardcore quirks and give the character the new score prize.
-/datum/preferences/proc/hardcore_random_setup(mob/living/carbon/human/character)
+/datum/prefs_holder/proc/hardcore_random_setup(mob/living/carbon/human/character)
 	var/next_hardcore_score = select_hardcore_quirks()
 	character.hardcore_survival_score = next_hardcore_score ** 1.2  //30 points would be about 60 score
 
@@ -26,7 +26,7 @@
  * Goes through all quirks that can be used in hardcore mode and select some based on a random budget.
  * Returns the new value to be gained with this setup, plus the previously earned score.
  **/
-/datum/preferences/proc/select_hardcore_quirks()
+/datum/prefs_holder/proc/select_hardcore_quirks()
 	. = 0
 
 	var/quirk_budget = rand(8, 35)
@@ -72,7 +72,7 @@
 		available_hardcore_quirks -= picked_quirk
 
 
-/datum/preferences/proc/update_preview_icon()
+/datum/prefs_holder/proc/update_preview_icon()
 	// Determine what job is marked as 'High' priority, and dress them up as such.
 	var/datum/job/previewJob
 	var/highest_pref = 0
@@ -115,7 +115,7 @@
 
 //This proc makes sure that we only have the parts that the species should have, add missing ones, remove extra ones(should any be changed)
 //Also, this handles missing color keys
-/datum/preferences/proc/validate_species_parts()
+/datum/prefs_holder/proc/validate_species_parts()
 	if(!pref_species)
 		return
 
@@ -149,7 +149,7 @@
 	if(!allow_advanced_colors)
 		reset_colors()
 
-/datum/preferences/proc/validate_color_keys_for_part(key)
+/datum/prefs_holder/proc/validate_color_keys_for_part(key)
 	var/datum/sprite_accessory/SA = SSaccessories.sprite_accessories[key][mutant_bodyparts[key][MUTANT_INDEX_NAME]]
 	var/list/colorlist = mutant_bodyparts[key][MUTANT_INDEX_COLOR_LIST]
 	if(SA.color_src == USE_MATRIXED_COLORS && colorlist.len != 3)
@@ -157,7 +157,7 @@
 	else if (SA.color_src == USE_ONE_COLOR && colorlist.len != 1)
 		mutant_bodyparts[key][MUTANT_INDEX_COLOR_LIST] = SA.get_default_color(features, pref_species)
 
-/datum/preferences/proc/set_new_species(new_species_path)
+/datum/prefs_holder/proc/set_new_species(new_species_path)
 	pref_species = new new_species_path()
 	var/list/new_features = pref_species.get_random_features() //We do this to keep flavor text, genital sizes etc.
 	for(var/key in new_features)
@@ -177,7 +177,7 @@
 	try_get_common_language()
 	validate_languages()
 
-/datum/preferences/proc/reset_colors()
+/datum/prefs_holder/proc/reset_colors()
 	for(var/key in mutant_bodyparts)
 		var/datum/sprite_accessory/SA = SSaccessories.sprite_accessories[key][mutant_bodyparts[key][MUTANT_INDEX_NAME]]
 		if(SA.always_color_customizable)
@@ -190,7 +190,7 @@
 			var/datum/body_marking/BM = GLOB.body_markings[key]
 			bml[key] = BM.get_default_color(features, pref_species)
 
-/datum/preferences/proc/equip_preference_loadout(mob/living/carbon/human/H, just_preview = FALSE, datum/job/choosen_job, blacklist, initial)
+/datum/prefs_holder/proc/equip_preference_loadout(mob/living/carbon/human/H, just_preview = FALSE, datum/job/choosen_job, blacklist, initial)
 	if(!ishuman(H))
 		return
 	var/list/items_to_pack = list()
@@ -212,7 +212,7 @@
 	return items_to_pack
 
 //This needs to be a seperate proc because the character could not have the proper backpack during the moment of loadout equip
-/datum/preferences/proc/add_packed_items(mob/living/carbon/human/H, list/packed_items, del_on_fail = TRUE)
+/datum/prefs_holder/proc/add_packed_items(mob/living/carbon/human/H, list/packed_items, del_on_fail = TRUE)
 	//Here we stick loadout items that couldn't be equipped into a bag.
 	var/obj/item/back_item = H.back
 	for(var/item in packed_items)

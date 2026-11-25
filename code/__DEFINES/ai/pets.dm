@@ -34,6 +34,10 @@
 #define BB_PARROT_REPEAT_STRING "BB_parrot_repeat_string"
 /// The odds that this parrot will repeat back a string
 #define BB_PARROT_REPEAT_PROBABILITY "BB_parrot_repeat_probability"
+/// The odds that this parrot will say a NetHack rumor
+#define BB_PARROT_SAY_NETHACK_RUMOR "BB_parrot_say_nethack_rumor"
+/// The odds that this parrot will say a non-saucy rumor
+#define BB_PARROT_SAY_NON_SAUCY_RUMOR "BB_parrot_say_non_saucy_rumor"
 /// The odds that this parrot will choose another string to repeat
 #define BB_PARROT_PHRASE_CHANGE_PROBABILITY "BB_parrot_phrase_change_probability"
 /// A copy of the string buffer that we end the shift with. DO NOT ACCESS THIS DIRECTLY - YOU SHOULD USE THE COMPONENT IN MOST CASES
@@ -52,6 +56,10 @@
 #define BB_HOARD_LOCATION_RANGE "hoard_location_range"
 /// key that holds items we arent interested in hoarding
 #define BB_IGNORE_ITEMS "ignore_items"
+
+#define BB_PARROT_NEXT_SAY "BB_PARROT_NEXT_SAY"
+#define BB_PARROT_SAY_COOLDOWN_MIN "BB_PARROT_SAY_COOLDOWN_MIN"
+#define BB_PARROT_SAY_COOLDOWN_MAX "BB_PARROT_SAY_COOLDOWN_MAX"
 
 // Cultist pet keys
 ///our ability to summon runes

@@ -1,26 +1,16 @@
-/datum/supply_pack/security/armory/wt551
-	name = "WT-551 Autorifle Crate"
-	desc = "Contains a pair of WT-551 Autorifles pre-loaded with less-lethal rubber-tipped rounds. Additional ammo sold seperately. Backwards-compatible with WT-550 magazines. Nanotrasen reminds you that the other weapon is for a friend, and not for going guns akimbo."
+/datum/supply_pack/security/armory/wt550
+	name = "WT-550 Autorifle Crate"
+	desc = "Contains a pair of WT-550 Autorifles loaded with lethal ammo. Ballistic firearms are not part of the standard security service kit, however they may still be requisitioned for emergent situations in which energy blasts or powercells may fail."
 	cost = CARGO_CRATE_VALUE * 10
-	contains = list(/obj/item/gun/ballistic/automatic/wt550/security = 3)
+	contains = list(/obj/item/gun/ballistic/automatic/wt550 = 2)
 	crate_name = "wt-550 autorifle crate"
 
 /datum/supply_pack/security/armory/wt550_ammo_regular
-	name = "WT-550/WT-551 Autorifle Ammo Crate (Regular)"
-	desc = "Contains 4 magazines with lethal regular rounds for the WT-551."
+	name = "WT-550 Autorifle Ammo Crate"
+	desc = "Contains 4 magazines with standard lethal rounds for the WT-550."
 	cost = CARGO_CRATE_VALUE * 4 //these are printable, price can be lowered safely to 800ish
 	contains = list(/obj/item/ammo_box/magazine/wt550m9 = 4)
 	crate_name = "wt-550 magazine crate (regular)"
-
-/datum/supply_pack/security/ammo
-	contains = list(/obj/item/ammo_box/advanced/s12gauge/bean = 3,
-					/obj/item/ammo_box/advanced/s12gauge/rubber = 3,
-					/obj/item/ammo_box/speedloader/c38/trac,
-					/obj/item/ammo_box/speedloader/c38/hotshot,
-					/obj/item/ammo_box/speedloader/c38/iceblox,
-				)
-//This makes the Security ammo crate use the cool advanced ammo boxes instead of the old ones
-
 
 /datum/supply_pack/security/secmed_technician
 	name = "Security Medic Kit Crate - Technician"
@@ -69,31 +59,12 @@
 	access_any = list(ACCESS_SECURITY, ACCESS_ROBOTICS)
 	access_view = FALSE
 
-/datum/supply_pack/security/pepperballguns
-	name = "Pepperball Gun Crate"
-	desc = "Contains three pepperball guns, a non-lethal weapon that fires pepper-filled projectiles."
-	cost = CARGO_CRATE_VALUE * 4.5
-	contains = list(/obj/item/storage/toolbox/guncase/skyrat/pistol/pepperball = 3)
-	access = ACCESS_SECURITY
-
 /datum/supply_pack/security/Tasers
 	name = "Taser Crate"
 	desc = "Contains three hybrid tasers, a non-lethal weapon that fires electric projectiles and features a secondary disabler."
 	cost = CARGO_CRATE_VALUE * 5.5
 	contains = list(/obj/item/gun/energy/e_gun/advtaser = 3)
 	access = ACCESS_SECURITY
-
-/datum/supply_pack/security/laser
-	cost = CARGO_CRATE_VALUE * 7
-
-/datum/supply_pack/security/armory/energy
-	desc = "Contains three energy guns, capable of firing both nonlethal and lethal \
-		blasts of light."
-	cost = CARGO_CRATE_VALUE * 7
-	contains = list(/obj/item/gun/energy/e_gun = 3)
-
-/datum/supply_pack/security/armory/laser_carbine
-	cost = CARGO_CRATE_VALUE * 7
 
 /datum/supply_pack/security/combine
 	name = "Civil Protection Uniforms"
@@ -110,93 +81,6 @@
 			)
 	crate_name = "benefactor supply crate"
 	discountable = SUPPLY_PACK_RARE_DISCOUNTABLE
-
-/datum/supply_pack/security/ntusp
-	name = "NT22-HCS Crate"
-	desc = "Three NT22-HCS 'Enforcer' pistol cases, each containing a weapon and a power pack."
-	cost = CARGO_CRATE_VALUE * 5.5
-	access = ACCESS_SECURITY
-	contains = list(/obj/item/storage/toolbox/guncase/skyrat/pistol/ntusp,
-					/obj/item/storage/toolbox/guncase/skyrat/pistol/ntusp,
-					/obj/item/storage/toolbox/guncase/skyrat/pistol/ntusp)
-	crate_name = "nt22-hcs crate"
-
-/datum/supply_pack/security/ntmp5
-	name = "NT22-HCS-MP Crate"
-	desc = "Three NT22-HCS-MP 'Lancer' submachine gun cases, each containing a weapon and a power pack. Each weapon can retract its stock to fit inside backpacks."
-	cost = CARGO_CRATE_VALUE * 6.5
-	access = ACCESS_SECURITY
-	contains = list(/obj/item/storage/toolbox/guncase/skyrat/pistol/ntmp5,
-					/obj/item/storage/toolbox/guncase/skyrat/pistol/ntmp5,
-					/obj/item/storage/toolbox/guncase/skyrat/pistol/ntmp5)
-	crate_name = "nt22-hcs-mp crate"
-
-/datum/supply_pack/security/miecz
-	name = "Miecz Submachine Gun Single-Pack"
-	crate_name = "Miecz submachine gun crate"
-	desc = "Contains a Miecz submachine gun and a spare magazine for it."
-	contains = list(/obj/item/gun/ballistic/automatic/miecz = 1,
-	/obj/item/ammo_box/magazine/miecz = 1)
-	cost = CARGO_CRATE_VALUE * 10
-	access = ACCESS_SECURITY
-
-/datum/supply_pack/security/mieczammo
-	name = "Miecz Submachine Gun Ammo Crate"
-	crate_name = "Miecz submachine gun ammo crate"
-	desc = "Contains 4 magazines for the Miecz submachine gun."
-	contains = list(/obj/item/ammo_box/magazine/miecz = 4)
-	cost = CARGO_CRATE_VALUE * 4
-	access = ACCESS_SECURITY
-/datum/supply_pack/security/armory/archery_kit
-	name = "Archery Crate"
-	desc = "Two hardlight bows capable of defeating armor, alongside a mix of lethal and non/less-than-lethal arrows."
-	cost = CARGO_CRATE_VALUE * 6
-	contains = list(
-		/obj/item/gun/ballistic/bow/security,
-		/obj/item/gun/ballistic/bow/security,
-		/obj/item/storage/bag/quiver/lesser/security/armory,
-		/obj/item/storage/bag/quiver/lesser/security/armory,
-	)
-
-/obj/item/storage/bag/quiver/lesser/security/armory
-
-/obj/item/storage/bag/quiver/lesser/security/armory/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/ammo_casing/arrow/blunt = 3,
-		/obj/item/ammo_casing/arrow = 6,
-		/obj/item/ammo_casing/arrow/taser = 1
-	)
-
-	generate_items_inside(items_inside, src)
-
-/datum/supply_pack/security/armory/lethal_arrows
-	name = "Arrow Crate"
-	desc = "Two quivers containing nine normal arrows and one randomly selected specialty arrow."
-	cost = CARGO_CRATE_VALUE * 3
-	contains = list(
-		/obj/item/storage/bag/quiver/lesser/security/lethal,
-		/obj/item/storage/bag/quiver/lesser/security/lethal
-	)
-
-/obj/item/storage/bag/quiver/lesser/security/lethal
-
-/obj/item/storage/bag/quiver/lesser/security/lethal/PopulateContents()
-	var/static/list/static_items = list(
-		/obj/item/ammo_casing/arrow = 9
-	)
-	/// Typepath -> Weight
-	var/static/list/bonus_items = list(
-		/obj/item/ammo_casing/arrow/sticky = 10,
-		/obj/item/ammo_casing/arrow/poison = 10,
-		/obj/item/ammo_casing/arrow/plastic = 6,
-		/obj/item/ammo_casing/arrow/bronze = 1,
-		/obj/item/ammo_casing/arrow/taser = 1,
-	)
-
-	var/list/obj/item/ammo_casing/arrow/to_spawn = static_items.Copy()
-	to_spawn[pick_weight(bonus_items)] = 1
-
-	generate_items_inside(to_spawn, src)
 
 /datum/supply_pack/security/armory/tacticool_laser_crate
 	name = "Tacticool energy gun crate"

@@ -12,14 +12,8 @@
 		"Brig Physician",
 		"Combat Medic",
 		"Special Operations Medic",
+		"Novice Security Medic",
 	)
-
-/datum/job/orderly/New()
-	alt_titles |= list(
-		"Medical Attendant",
-		"Medical Support Technician",
-	)
-	. = ..()
 
 //New titles for Blacksmith
 /datum/job/blacksmith
@@ -39,15 +33,12 @@
 	alt_titles = list(
 		"Bridge Assistant",
 		"Bridge Secretary",
-		"Bridge Coffee Maker",
 		"Command Deck Assistant",
 		"Bridge Aide",
 		"Bridge Attendant",
 		"Captain's Assistant",
-		"Coffee Officer",
 		"Bridge Support",
 		"Bridge Liaison",
-		"Command Entertainment Officer",
 		"Bridge Concierge",
 		"Bridge Steward",
 		"Bridge Custodian",
@@ -58,18 +49,13 @@
 		"Coffee Brewer",
 		"Supervisor of Coffee",
 		"Command Aide",
-		"Lackey",
 		"Bridge Maid",
 		"Command Cadet",
-		"Assistant to the Regional Manager",
-		"Assistant Manager Supervisor Junior",
 		"Bridge Underling",
 		"Bridge Taskrunner",
-		"Clipboard Jockey",
 		"Paperwork Specialist",
 		"Manager Representative",
-		"Head Assistant",
-		"Bridge Tour Coordinator",
+		"Bridge Bunny",
 	)
 
 /datum/job/paramedic/New()

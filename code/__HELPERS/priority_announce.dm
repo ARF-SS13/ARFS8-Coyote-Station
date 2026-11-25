@@ -37,7 +37,18 @@
  * * encode_title - if TRUE, the title will be HTML encoded
  * * encode_text - if TRUE, the text will be HTML encoded
  */
-/proc/priority_announce(text, title = "", sound, type, sender_override, has_important_message = FALSE, list/mob/players = GLOB.player_list, encode_title = TRUE, encode_text = TRUE, color_override)
+/proc/priority_announce(
+	text,
+	title = "",
+	sound,
+	type,
+	sender_override,
+	has_important_message = FALSE,
+	list/mob/players = GLOB.player_list,
+	encode_title = TRUE,
+	encode_text = TRUE,
+	color_override
+)
 	if(!text)
 		return
 
@@ -92,7 +103,7 @@
 
 	dispatch_announcement_to_players(finalized_announcement, players, sound)
 
-	if(isnull(sender_override) && players == GLOB.player_list)
+	if(players == GLOB.player_list)
 		if(length(title) > 0)
 			GLOB.news_network.submit_article(title + "<br><br>" + text, "[command_name()]", NEWSCASTER_STATION_ANNOUNCEMENTS, null)
 		else
@@ -237,19 +248,20 @@
 			preferred_announcer = SSstation.announcer
 
 		var/computed_sound = sound_override
-		if(!computed_sound)
-			computed_sound = preferred_announcer.get_rand_alert_sound()
-		else if(preferred_announcer.event_sounds[computed_sound])
-			var/list/announcer_key = preferred_announcer.event_sounds[computed_sound]
-			computed_sound = pick(announcer_key)
-		else if(computed_sound == ANNOUNCER_COMMAND_REPORT)
-			computed_sound = preferred_announcer.get_rand_report_sound()
-		else if(computed_sound == ANNOUNCER_RANDOM_WELCOME)
-			computed_sound = preferred_announcer.get_rand_welcome_sound()
+		if(!istype(computed_sound, /sound))
+			if(!computed_sound)
+				computed_sound = preferred_announcer.get_rand_alert_sound()
+			else if(preferred_announcer.event_sounds[computed_sound])
+				var/list/announcer_key = preferred_announcer.event_sounds[computed_sound]
+				computed_sound = pick(announcer_key)
+			else if(computed_sound == ANNOUNCER_COMMAND_REPORT)
+				computed_sound = preferred_announcer.get_rand_report_sound()
+			else if(computed_sound == ANNOUNCER_RANDOM_WELCOME)
+				computed_sound = preferred_announcer.get_rand_welcome_sound()
 
-		// couldnt find ANYTHING fallback please FALLBACK!!!
-		else if(GLOB.announcer_keys.Find(computed_sound) || computed_sound == ANNOUNCER_RANDOM_ALERT)
-			computed_sound = preferred_announcer.get_rand_alert_sound()
+			// couldnt find ANYTHING fallback please FALLBACK!!!
+			else if(GLOB.announcer_keys.Find(computed_sound) || computed_sound == ANNOUNCER_RANDOM_ALERT)
+				computed_sound = preferred_announcer.get_rand_alert_sound()
 
 		if(!isnull(computed_sound))
 			computed_sound = sound(computed_sound)
@@ -261,7 +273,7 @@
 			if(is_type_in_typecache(A, quiet_areas)) //These areas don't hear it as loudly
 				target.playsound_local(get_turf(target), sound_to_play, 30, FALSE)
 			else
-				target.playsound_local(get_turf(target), sound_to_play, 70, FALSE)
+				target.playsound_local(get_turf(target), sound_to_play, 45, FALSE)
 
 	// SPLUT EDIT CHANGE END
 		to_chat(target, announcement)

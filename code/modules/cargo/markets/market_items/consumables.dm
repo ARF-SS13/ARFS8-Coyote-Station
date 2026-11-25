@@ -64,7 +64,7 @@
 	price_min = CARGO_CRATE_VALUE * 0.05
 	price_max = CARGO_CRATE_VALUE * 0.3
 	availability_prob = 50
-
+/*
 /datum/market_item/consumable/pumpup
 	name = "Maintenance Pump-Up"
 	desc = "Resist any Baton stun with this handy device!"
@@ -74,7 +74,7 @@
 	price_min = CARGO_CRATE_VALUE * 0.25
 	price_max = CARGO_CRATE_VALUE * 0.75
 	availability_prob = 90
-
+*/
 /datum/market_item/consumable/methshipment
 	name = "Wholesale Methaphemtamine Shipment"
 	desc = "Dealer quantity! Don't get high on your own supply. Or do. You already bought it."

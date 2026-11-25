@@ -1,0 +1,1 @@
+Attributions for some sprites within 'pokemon32.dmi', 'pokemon64.dmi', 'pokemon96.dmi', and the pmon folder can be found here: https://github.com/PMDCollab/SpriteCollab/blob/master/credit_names.txt

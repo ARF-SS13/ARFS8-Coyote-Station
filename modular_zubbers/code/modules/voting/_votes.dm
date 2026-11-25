@@ -32,3 +32,12 @@
 /datum/vote/transfer_vote/finalize_vote(winning_option)
 	has_ran = TRUE
 	return ..()
+
+/datum/vote/transfer_vote/can_be_initiated(forced = FALSE)
+	if(!..())
+		return
+
+	if(!SSautotransfer.can_has_transfer_vote)
+		return FALSE
+
+	return VOTE_AVAILABLE

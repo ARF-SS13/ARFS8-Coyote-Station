@@ -60,16 +60,13 @@
 	id_trim = /datum/id_trim/job/chief_medical_officer
 	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
 	suit = /obj/item/clothing/suit/toggle/labcoat/cmo
-	suit_store = /obj/item/flashlight/pen/paramedic
-	backpack_contents = list(
-		/obj/item/melee/baton/telescopic/silver = 1,
-		)
-	belt = /obj/item/modular_computer/pda/heads/cmo
+	suit_store = /obj/item/storage/medkit/surgery
+	belt = /obj/item/melee/baton/telescopic/silver
 	ears = /obj/item/radio/headset/heads/cmo
 	shoes = /obj/item/clothing/shoes/sneakers/white
-	l_pocket = /obj/item/laser_pointer/blue
+	l_pocket = /obj/item/modular_computer/pda/heads/cmo
 	r_pocket = /obj/item/pinpointer/crew
-	l_hand = /obj/item/storage/medkit/surgery
+	pda_slot = ITEM_SLOT_LPOCKET
 
 	backpack = /obj/item/storage/backpack/chief_medic
 	satchel = /obj/item/storage/backpack/satchel/chief_medic
@@ -92,5 +89,4 @@
 	head = null
 	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
 	mask = /obj/item/clothing/mask/breath/medical
-	r_pocket = /obj/item/flashlight/pen/paramedic
 	internals_slot = ITEM_SLOT_SUITSTORE

@@ -1,4 +1,4 @@
-// THIS IS A SKYRAT UI FILE
+// THIS IS A SKYRAT UI FILE // coyote too
 import { useState } from 'react';
 import {
   Box,
@@ -12,6 +12,38 @@ import {
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+
+// export type RumorData = {
+//   uid: string;
+//   text: string;
+//   horny: number;
+//   public: number;
+//   secret: number;
+//   specificable: number;
+//   position: RumorPosition;
+//   times_spread: number;
+//   deleted_time: number | null;
+//   created_time: number;
+//   modified_time: number;
+// };
+
+// export type RumorExamineData = {
+//   horny_ones: RumorData[];
+//   tame_ones: RumorData[];
+// };
+
+// no enums? no problem! any struct is an enum if you believe hard enough!
+const ExaminePanelTabs = Object.freeze({
+  FlavorText: 1,
+  NSFW: 2,
+  CustomSpecies: 3,
+});
+
+const ExaminePanelLowerTabs = Object.freeze({
+  OOCNotes: 1,
+  CharacterAdvert: 2,
+  Rumors: 3,
+});
 
 const formatURLs = (text) => {
   if (!text) return;
@@ -42,8 +74,11 @@ const formatURLs = (text) => {
 };
 
 export const ExaminePanel = () => {
-  const [tabIndex, setTabIndex] = useState(1);
-  const [lowerTabIndex, setLowerTabIndex] = useState(1);
+  const [tabIndex, setTabIndex] = useState(ExaminePanelTabs.FlavorText);
+  const [showRumorsNSFW, toggleShowRumorsNSFW] = useState(false);
+  const [lowerTabIndex, setLowerTabIndex] = useState(
+    ExaminePanelLowerTabs.OOCNotes,
+  );
   const [page, setPage] = useState('main');
   const { act, data } = useBackend();
 
@@ -57,14 +92,41 @@ export const ExaminePanel = () => {
     custom_species,
     custom_species_lore,
     character_ad,
+    rumors,
     headshot,
     headshot_nsfw,
     art_ref,
     art_ref_nsfw,
   } = data;
+  const { rumor_examine } = rumors; // <RumorExamineData>
 
   const handlePageChange = (page, newPage) => {
     setPage(newPage);
+  };
+
+  const rumorStyle = {
+    marginBottom: '10px',
+    padding: '5px',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '#00f0fd60',
+    borderRadius: '5px',
+    backgroundColor: '#00f0fd28',
+  };
+  const rumorHornyStyle = {
+    ...rumorStyle,
+    borderColor: '#ff00ff60',
+    backgroundColor: '#ff00ff28',
+  };
+
+  const makeRumor = (rumor) => {
+    // <RumorData>
+    const { uid, text, horny } = rumor;
+    return (
+      <div key={uid} style={horny ? rumorHornyStyle : rumorStyle}>
+        <div>{formatURLs(text)}</div>
+      </div>
+    );
   };
 
   //This does not fix the problem, however, it does make it work right now. I am so sorry.
@@ -74,6 +136,17 @@ export const ExaminePanel = () => {
       setPreviewKey(1);
     }, 200);
   }
+
+  // show horny rumors?
+  const [showHornyRumors, setShowHornyRumors] = useState(false);
+  const rumorsNormal =
+    rumor_examine?.tame_ones?.map((rumor) => makeRumor(rumor)) || [];
+  const rumorsHorny = showHornyRumors
+    ? rumor_examine?.horny_ones?.map((rumor) => makeRumor(rumor)) || []
+    : [];
+  const rumorsDisplay = showHornyRumors
+    ? [...rumorsNormal, ...rumorsHorny]
+    : rumorsNormal;
 
   return (
     <Window
@@ -145,7 +218,7 @@ export const ExaminePanel = () => {
                     >
                       <img
                         src={
-                          tabIndex === 2
+                          tabIndex === ExaminePanelTabs.NSFW
                             ? resolveAsset(headshot_nsfw)
                             : resolveAsset(headshot)
                         }
@@ -160,8 +233,8 @@ export const ExaminePanel = () => {
                 <Box height="610px">
                   <Tabs fluid>
                     <Tabs.Tab
-                      selected={tabIndex === 1}
-                      onClick={() => setTabIndex(1)}
+                      selected={tabIndex === ExaminePanelTabs.FlavorText}
+                      onClick={() => setTabIndex(ExaminePanelTabs.FlavorText)}
                     >
                       <Section
                         fitted
@@ -170,8 +243,8 @@ export const ExaminePanel = () => {
                       />
                     </Tabs.Tab>
                     <Tabs.Tab
-                      selected={tabIndex === 2}
-                      onClick={() => setTabIndex(2)}
+                      selected={tabIndex === ExaminePanelTabs.NSFW}
+                      onClick={() => setTabIndex(ExaminePanelTabs.NSFW)}
                     >
                       <Section
                         fitted
@@ -180,8 +253,10 @@ export const ExaminePanel = () => {
                       />
                     </Tabs.Tab>
                     <Tabs.Tab
-                      selected={tabIndex === 3}
-                      onClick={() => setTabIndex(3)}
+                      selected={tabIndex === ExaminePanelTabs.CustomSpecies}
+                      onClick={() =>
+                        setTabIndex(ExaminePanelTabs.CustomSpecies)
+                      }
                     >
                       <Section
                         fitted
@@ -192,7 +267,7 @@ export const ExaminePanel = () => {
                       />
                     </Tabs.Tab>
                   </Tabs>
-                  {tabIndex === 1 && (
+                  {tabIndex === ExaminePanelTabs.FlavorText && (
                     <Section
                       style={{ 'overflow-y': 'scroll' }}
                       fitted
@@ -206,7 +281,7 @@ export const ExaminePanel = () => {
                       {formatURLs(flavor_text)}
                     </Section>
                   )}
-                  {tabIndex === 2 && (
+                  {tabIndex === ExaminePanelTabs.NSFW && (
                     <Section
                       style={{ 'overflow-y': 'scroll' }}
                       fitted
@@ -220,7 +295,7 @@ export const ExaminePanel = () => {
                       {formatURLs(flavor_text_nsfw)}
                     </Section>
                   )}
-                  {tabIndex === 3 && (
+                  {tabIndex === ExaminePanelTabs.CustomSpecies && (
                     <Section
                       style={{ 'overflow-y': 'scroll' }}
                       fitted
@@ -238,8 +313,12 @@ export const ExaminePanel = () => {
                   )}
                   <Tabs fluid>
                     <Tabs.Tab
-                      selected={lowerTabIndex === 1}
-                      onClick={() => setLowerTabIndex(1)}
+                      selected={
+                        lowerTabIndex === ExaminePanelLowerTabs.OOCNotes
+                      }
+                      onClick={() =>
+                        setLowerTabIndex(ExaminePanelLowerTabs.OOCNotes)
+                      }
                     >
                       <Section
                         fitted
@@ -248,8 +327,12 @@ export const ExaminePanel = () => {
                       />
                     </Tabs.Tab>
                     <Tabs.Tab
-                      selected={lowerTabIndex === 2}
-                      onClick={() => setLowerTabIndex(2)}
+                      selected={
+                        lowerTabIndex === ExaminePanelLowerTabs.CharacterAdvert
+                      }
+                      onClick={() =>
+                        setLowerTabIndex(ExaminePanelLowerTabs.CharacterAdvert)
+                      }
                     >
                       <Section
                         fitted
@@ -257,8 +340,38 @@ export const ExaminePanel = () => {
                         style={{ textAlign: 'center' }}
                       />
                     </Tabs.Tab>
+                    <Tabs.Tab
+                      selected={lowerTabIndex === ExaminePanelLowerTabs.Rumors}
+                      onClick={(event) => {
+                        setLowerTabIndex(ExaminePanelLowerTabs.Rumors);
+                      }}
+                    >
+                      <Section
+                        fitted
+                        title={'Rumors'}
+                        style={{ textAlign: 'center' }}
+                        buttons={
+                          <Button
+                            backgroundColor={
+                              showHornyRumors ? 'pink' : 'default'
+                            }
+                            tooltip={
+                              showHornyRumors
+                                ? 'Hide NSFW Rumors'
+                                : 'Show NSFW Rumors'
+                            }
+                            onClick={(event) => {
+                              setShowHornyRumors(!showHornyRumors);
+                              event.stopPropagation();
+                            }}
+                          >
+                            🍆
+                          </Button>
+                        }
+                      />
+                    </Tabs.Tab>
                   </Tabs>
-                  {lowerTabIndex === 1 && (
+                  {lowerTabIndex === ExaminePanelLowerTabs.OOCNotes && (
                     <Section
                       style={{ 'overflow-y': 'scroll' }}
                       preserveWhitespace
@@ -271,7 +384,7 @@ export const ExaminePanel = () => {
                       <Stack.Item>{formatURLs(ooc_notes)}</Stack.Item>
                     </Section>
                   )}
-                  {lowerTabIndex === 2 && (
+                  {lowerTabIndex === ExaminePanelLowerTabs.CharacterAdvert && (
                     <Section
                       style={{ 'overflow-y': 'scroll' }}
                       preserveWhitespace
@@ -282,6 +395,23 @@ export const ExaminePanel = () => {
                       lineHeight="1.5"
                     >
                       <Stack.Item>{formatURLs(character_ad)}</Stack.Item>
+                    </Section>
+                  )}
+                  {lowerTabIndex === ExaminePanelLowerTabs.Rumors && (
+                    <Section
+                      style={{ 'overflow-y': 'scroll' }}
+                      preserveWhitespace
+                      fitted
+                      minHeight="35%"
+                      maxHeight="35%"
+                      fontSize="14px"
+                      lineHeight="1.5"
+                    >
+                      {rumorsDisplay.length > 0 ? (
+                        rumorsDisplay
+                      ) : (
+                        <div>No rumors here! At least not yet =3</div>
+                      )}
                     </Section>
                   )}
                 </Box>

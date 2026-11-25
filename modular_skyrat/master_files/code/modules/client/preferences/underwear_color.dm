@@ -8,7 +8,7 @@
 /datum/preference/color/underwear_color/apply_to_human(mob/living/carbon/human/target, value)
 	target.underwear_color = value
 
-/datum/preference/color/underwear_color/is_accessible(datum/preferences/preferences)
+/datum/preference/color/underwear_color/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
@@ -25,7 +25,7 @@
 /datum/preference/color/undershirt_color/apply_to_human(mob/living/carbon/human/target, value)
 	target.undershirt_color = value
 
-/datum/preference/color/undershirt_color/is_accessible(datum/preferences/preferences)
+/datum/preference/color/undershirt_color/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
@@ -41,7 +41,7 @@
 /datum/preference/color/socks_color/apply_to_human(mob/living/carbon/human/target, value)
 	target.socks_color = value
 
-/datum/preference/color/socks_color/is_accessible(datum/preferences/preferences)
+/datum/preference/color/socks_color/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 
@@ -59,7 +59,7 @@
 /datum/preference/color/bra_color/apply_to_human(mob/living/carbon/human/target, value)
 	target.bra_color = value
 
-/datum/preference/color/bra_color/is_accessible(datum/preferences/preferences)
+/datum/preference/color/bra_color/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 

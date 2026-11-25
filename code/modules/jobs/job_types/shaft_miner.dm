@@ -35,20 +35,13 @@
 	id_trim = /datum/id_trim/job/shaft_miner
 	uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland
 	skillchips = list(/obj/item/skillchip/job/miner)
-	backpack_contents = list(
-		/obj/item/flashlight/seclite = 1,
-		/obj/item/knife/combat/survival = 1,
-		/obj/item/mining_voucher = 1,
-		/obj/item/suit_voucher = 1, //SKYRAT EDIT: Suit_Voucher is an addition
-		/obj/item/stack/marker_beacon/ten = 1,
-		/obj/item/t_scanner/adv_mining_scanner/lesser = 1,
-	)
-	belt = /obj/item/modular_computer/pda/shaftminer
+	belt = /obj/item/storage/belt/mining/miner
 	ears = /obj/item/radio/headset/headset_cargo/mining
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/workboots/mining
-	l_pocket = /obj/item/reagent_containers/hypospray/medipen/survival
+	l_pocket = /obj/item/modular_computer/pda/shaftminer
 	r_pocket = /obj/item/storage/bag/ore //causes issues if spawned in backpack
+	pda_slot = ITEM_SLOT_LPOCKET
 
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer

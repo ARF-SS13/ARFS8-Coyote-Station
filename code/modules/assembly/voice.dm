@@ -33,9 +33,9 @@
 	. = ..()
 	. += span_notice("Use a multitool to swap between \"inclusive\", \"exclusive\", \"recognizer\", and \"voice sensor\" mode.")
 
-/obj/item/assembly/voice/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, list/spans, list/message_mods = list(), message_range)
+/obj/item/assembly/voice/Hear(atom/movable/speaker, message_language, raw_message, radio_freq, radio_freq_name, radio_freq_color, list/spans, list/message_data = list(), message_range)
 	. = ..()
-	if(message_mods[WHISPER_MODE] || message_mods[MODE_RELAY]) //Too quiet lad
+	if(message_data[WHISPER_MODE] || message_data[MODE_RELAY]) //Too quiet lad
 		return FALSE
 	if(speaker == src)
 		return FALSE

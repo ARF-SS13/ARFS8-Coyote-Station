@@ -84,7 +84,7 @@ There are several things that need to be remembered:
 		var/obj/item/clothing/under/uniform = w_uniform
 		update_hud_uniform(uniform)
 
-		if(HAS_TRAIT(uniform, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDEJUMPSUIT))
+		if(HAS_TRAIT(uniform, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDEJUMPSUIT) || IsFeral())
 			return
 
 		var/target_overlay = uniform.icon_state
@@ -164,7 +164,7 @@ There are several things that need to be remembered:
 		var/obj/item/worn_item = wear_id
 		update_hud_id(worn_item)
 
-		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON))
+		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || IsFeral())
 			return
 
 		var/icon_file = 'icons/mob/clothing/id.dmi'
@@ -210,7 +210,7 @@ There are several things that need to be remembered:
 	var/obj/item/worn_item = gloves
 	update_hud_gloves(worn_item)
 
-	if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDEGLOVES))
+	if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDEGLOVES) || IsFeral())
 		return
 
 	var/icon_file = 'icons/mob/clothing/hands.dmi'
@@ -266,7 +266,7 @@ There are several things that need to be remembered:
 		var/obj/item/worn_item = glasses
 		update_hud_glasses(worn_item)
 
-		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDEEYES))
+		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDEEYES) || IsFeral())
 			return
 
 		var/icon_file = 'icons/mob/clothing/eyes.dmi'
@@ -305,7 +305,7 @@ There are several things that need to be remembered:
 		var/obj/item/worn_item = ears
 		update_hud_ears(worn_item)
 
-		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDEEARS))
+		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDEEARS) || IsFeral())
 			return
 
 		var/icon_file = 'icons/mob/clothing/ears.dmi'
@@ -339,7 +339,7 @@ There are several things that need to be remembered:
 		var/obj/item/worn_item = wear_neck
 		update_hud_neck(wear_neck)
 
-		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDENECK))
+		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDENECK) || IsFeral())
 			return
 
 		var/icon_file = 'icons/mob/clothing/neck.dmi'
@@ -384,7 +384,7 @@ There are several things that need to be remembered:
 		var/obj/item/worn_item = shoes
 		update_hud_shoes(worn_item)
 
-		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDESHOES))
+		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDESHOES) || IsFeral())
 			return
 
 		var/icon_file = DEFAULT_SHOES_FILE
@@ -437,7 +437,7 @@ There are several things that need to be remembered:
 		var/obj/item/worn_item = s_store
 		update_hud_s_store(worn_item)
 
-		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDESUITSTORAGE))
+		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDESUITSTORAGE) || IsFeral())
 			return
 
 		var/mutable_appearance/s_store_overlay = worn_item.build_worn_icon(default_layer = SUIT_STORE_LAYER, default_icon_file = 'icons/mob/clothing/belt_mirror.dmi')
@@ -456,7 +456,7 @@ There are several things that need to be remembered:
 		var/obj/item/worn_item = head
 		update_hud_head(worn_item)
 
-		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDEHEADGEAR))
+		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDEHEADGEAR) || IsFeral())
 			return
 
 		var/icon_file = 'icons/mob/clothing/head/default.dmi'
@@ -498,7 +498,7 @@ There are several things that need to be remembered:
 		var/obj/item/worn_item = belt
 		update_hud_belt(worn_item)
 
-		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDEBELT))
+		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDEBELT) || IsFeral())
 			return
 
 		var/icon_file = 'icons/mob/clothing/belt.dmi'
@@ -534,7 +534,7 @@ There are several things that need to be remembered:
 		var/obj/item/worn_item = wear_suit
 		update_hud_wear_suit(worn_item)
 
-		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON))
+		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || IsFeral())
 			return
 
 		var/icon_file = DEFAULT_SUIT_FILE
@@ -609,7 +609,7 @@ There are several things that need to be remembered:
 		var/obj/item/worn_item = wear_mask
 		update_hud_wear_mask(worn_item)
 
-		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDEMASK))
+		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || (obscured_slots & HIDEMASK) || IsFeral())
 			return
 
 		var/icon_file = 'icons/mob/clothing/mask.dmi'
@@ -651,7 +651,7 @@ There are several things that need to be remembered:
 		var/mutable_appearance/back_overlay
 		update_hud_back(worn_item)
 
-		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON))
+		if(HAS_TRAIT(worn_item, TRAIT_NO_WORN_ICON) || IsFeral())
 			return
 
 		var/icon_file = 'icons/mob/clothing/back.dmi'
@@ -1243,7 +1243,7 @@ mutant_styles: The mutant style - taur bodytype, STYLE_TESHARI, etc. // SKYRAT E
 
 /mob/living/carbon/human/proc/update_eyes()
 	remove_overlay(EYES_LAYER)
-	if(HAS_TRAIT(src, TRAIT_HUSK) || HAS_TRAIT(src, TRAIT_INVISIBLE_MAN))
+	if(HAS_TRAIT(src, TRAIT_HUSK) || HAS_TRAIT(src, TRAIT_INVISIBLE_MAN) || IsFeral())
 		return
 	var/obj/item/bodypart/head/noggin = get_bodypart(BODY_ZONE_HEAD)
 	if(!(noggin?.head_flags & HEAD_EYESPRITES))

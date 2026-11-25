@@ -6,7 +6,7 @@
 	maximum = BODY_SIZE_MAX
 	step = 0.01
 
-/datum/preference/numeric/body_size/is_accessible(datum/preferences/preferences)
+/datum/preference/numeric/body_size/is_accessible(datum/prefs_holder/preferences)
 	var/passed_initial_check = ..(preferences)
 	return passed_initial_check
 

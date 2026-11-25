@@ -96,6 +96,7 @@
 		/obj/item/kitchen,
 		/obj/item/knife/kitchen,
 		/obj/item/storage/bag/tray,
+		/obj/item/choice_beacon/ingredient,
 	)
 	toggle_noun = "sleeves"
 	species_exception = list(/datum/species/golem)
@@ -115,6 +116,7 @@
 		/obj/item/kitchen,
 		/obj/item/knife/kitchen,
 		/obj/item/storage/bag/tray,
+		/obj/item/choice_beacon/ingredient,
 	)
 
 //Detective

@@ -11,7 +11,7 @@
 	exclude_types = list(/obj/item/food/grown)
 
 /datum/export/food/get_base_cost(obj/item/food/object)
-	if(HAS_TRAIT(object, TRAIT_FOOD_SILVER))
-		return FOOD_PRICE_WORTHLESS
+	// if(HAS_TRAIT(object, TRAIT_FOOD_SILVER))
+	// 	return FOOD_PRICE_WORTHLESS
 
 	return object.venue_value ? object.venue_value : ..()

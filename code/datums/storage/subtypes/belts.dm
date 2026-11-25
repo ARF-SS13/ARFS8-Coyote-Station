@@ -105,11 +105,15 @@
 		/obj/item/grenade,
 		/obj/item/holosign_creator/security,
 		/obj/item/knife/combat,
+		/obj/item/knife/combat/survival,
 		/obj/item/melee/baton,
 		/obj/item/radio,
 		/obj/item/reagent_containers/spray/pepper,
 		/obj/item/restraints/handcuffs,
 		/obj/item/restraints/legcuffs/bola,
+		/obj/item/reagent_containers/spray/civilian_pepper,
+		/obj/item/gun/energy/civilian_taser,
+		/obj/item/gun/energy/disabler,
 	))
 
 ///Webbing security belt
@@ -163,6 +167,7 @@
 		/obj/item/wrench,
 		/obj/item/wormhole_jaunter,
 		/obj/item/skeleton_key,
+		/obj/item/mining_voucher,
 	))
 
 ///Primitive mining belt
@@ -281,6 +286,41 @@
 	set_holdable(list(
 		/obj/item/ammo_casing/strilka310,
 		/obj/item/ammo_casing/shotgun,
+		/obj/item/ammo_casing/patrol,
+		/obj/item/ammo_casing/c357,
+		/obj/item/ammo_casing/junk,
+		/obj/item/ammo_casing/m762r,
+	))
+
+///Shotgun Bandolier belt
+/datum/storage/shot_bandolier_belt
+	max_slots = 24
+	max_total_storage = 24
+	numerical_stacking = TRUE
+	allow_quick_gather = TRUE
+	allow_quick_empty = TRUE
+
+/datum/storage/shot_bandolier_belt/New(atom/parent, max_slots, max_specific_storage, max_total_storage, rustle_sound, remove_rustle_sound)
+	. = ..()
+	set_holdable(list(
+		/obj/item/ammo_casing/shotgun,
+		/obj/item/ammo_casing/patrol,
+		/obj/item/ammo_casing/junk,
+	))
+
+///Shotgun ammo box
+/datum/storage/cartridge_box
+	screen_max_columns = 6 // makes the bullets fit more neatly on the screen without two apparent empty slots
+	max_slots = 12
+	max_total_storage = 12
+	allow_quick_gather = TRUE
+	allow_quick_empty = TRUE
+
+/datum/storage/shot_bandolier_belt/New(atom/parent, max_slots, max_specific_storage, max_total_storage, rustle_sound, remove_rustle_sound)
+	. = ..()
+	set_holdable(list(
+		/obj/item/ammo_casing/strilka310,
+		/obj/item/ammo_casing/shotgun,
 		/obj/item/ammo_casing/c357,
 		/obj/item/ammo_casing/junk,
 	))
@@ -290,6 +330,29 @@
 	max_slots = 3
 	max_specific_storage = WEIGHT_CLASS_SMALL
 	silent = TRUE
+
+///funnypack
+/datum/storage/funny_pack
+	max_specific_storage = WEIGHT_CLASS_NORMAL
+	max_slots = 4
+	max_total_storage = 9 // can fit 3 small items plus a box of balloons
+
+/datum/storage/funny_pack/New(atom/parent, max_slots, max_specific_storage, max_total_storage, rustle_sound, remove_rustle_sound)
+	. = ..()
+	set_holdable(list(
+		/obj/item/storage/box/balloons,
+		/obj/item/reagent_containers/spray/waterflower,
+		/obj/item/modular_computer/pda,
+		/obj/item/instrument/bikehorn,
+		/obj/item/stamp,
+		/obj/item/card/id,
+		/obj/item/clothing/mask,
+		/obj/item/food/grown,
+		/obj/item/bikehorn,
+		/obj/item/disk/nuclear,
+		/obj/item/soap,
+		/obj/item/grown/bananapeel,
+	)) // could add more stuff later
 
 ///Sabre belt
 /datum/storage/sabre_belt

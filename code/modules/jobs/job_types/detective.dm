@@ -55,21 +55,19 @@
 	id_trim = /datum/id_trim/job/detective
 	uniform = /obj/item/clothing/under/rank/security/detective
 	suit = /obj/item/clothing/suit/toggle/jacket/det_trench
-	backpack_contents = list(
-		/obj/item/detective_scanner = 1,
-		/obj/item/melee/baton = 1,
-		/obj/item/storage/box/evidence = 1,
-		)
-	belt = /obj/item/modular_computer/pda/detective
-	ears = /obj/item/radio/headset/headset_sec/alt
+	suit_store = /obj/item/melee/baton
+	belt = /obj/item/storage/belt/holster/detective/full
+	ears = /obj/item/radio/headset/headset_sec // a more slim headset for a lower profile
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/fedora/det_hat
 	mask = /obj/item/cigarette
 	neck = /obj/item/clothing/neck/tie/detective
 	shoes = /obj/item/clothing/shoes/sneakers/brown
-	l_pocket = /obj/item/toy/crayon/white
-	r_pocket = /obj/item/lighter
+	l_pocket = /obj/item/modular_computer/pda/detective
+	r_pocket = /obj/item/detective_scanner
+	pda_slot = ITEM_SLOT_LPOCKET
 
+	box = /obj/item/storage/box/survival/detective // fits a couple extras in here to clear up backpack storage
 	chameleon_extras = list(
 		/obj/item/clothing/glasses/sunglasses,
 		/obj/item/gun/ballistic/revolver/c38/detective,

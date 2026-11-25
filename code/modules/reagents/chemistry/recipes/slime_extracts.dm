@@ -155,7 +155,7 @@
 	for(var/i in 1 to 4 + rand(1,2))
 		var/chosen = getbork()
 		var/obj/item/food_item = new chosen(T)
-		ADD_TRAIT(food_item, TRAIT_FOOD_SILVER, INNATE_TRAIT)
+		// ADD_TRAIT(food_item, TRAIT_FOOD_SILVER, INNATE_TRAIT)
 		if(prob(5))//Fry it!
 			food_item.AddElement(/datum/element/fried_item, rand(15, 60) SECONDS)
 		if(prob(5))//Grill it!

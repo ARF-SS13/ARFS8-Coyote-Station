@@ -61,7 +61,7 @@
 	head = /obj/item/clothing/head/utility/hardhat/dblue
 	shoes = /obj/item/clothing/shoes/laceup
 	l_pocket = /obj/item/modular_computer/pda/telecomms
-	r_pocket = /obj/item/holosign_creator/atmos
+	r_pocket = /obj/item/paper/monitorkey
 
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel/eng
@@ -71,10 +71,6 @@
 	box = /obj/item/storage/box/survival/engineer
 	pda_slot = ITEM_SLOT_LPOCKET
 	skillchips = list(/obj/item/skillchip/job/engineer)
-
-	backpack_contents = list(
-		/obj/item/paper/monitorkey,
-	)
 
 /obj/item/modular_computer/pda/telecomms
 	name = "telecomms PDA"

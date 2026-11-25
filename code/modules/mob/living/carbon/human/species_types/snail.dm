@@ -1,6 +1,6 @@
 /datum/species/snail
-	name = "\improper Snailperson"
-	plural_form = "Snailpeople"
+	name = "\improper Luminoid"
+	plural_form = "Luminoidian"
 	id = SPECIES_SNAIL
 	inherent_traits = list(
 		TRAIT_MUTANT_COLORS,
@@ -59,12 +59,6 @@
 		SPECIES_PERK_NAME = "Shelled",
 		SPECIES_PERK_DESC = "The back of a Snailperson is covered in an armored shell, which is effectively an unremovable backpack. \
 			Good for keeping your things from being stolen, but bad for needing to wear a MODsuit, or disguising.",
-	))
-	to_add += list(list(
-		SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
-		SPECIES_PERK_ICON = FA_ICON_SKULL_CROSSBONES,
-		SPECIES_PERK_NAME = "Salty",
-		SPECIES_PERK_DESC = "Being evolved from Snails, Snailpeople are extremely susceptible to salt, which burns them.",
 	))
 	to_add += list(list(
 		SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,

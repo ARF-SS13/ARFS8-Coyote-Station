@@ -1,5 +1,5 @@
 /// Cleans up any invalid languages. Typically happens on language renames and codedels.
-/datum/preferences/proc/sanitize_languages()
+/datum/prefs_holder/proc/sanitize_languages()
 	var/languages_edited = FALSE
 	for(var/lang_path in languages)
 		if(!lang_path)
@@ -20,7 +20,7 @@
 	return languages_edited
 
 /// Cleans any quirks that should be hidden, or just simply don't exist from quirk code.
-/datum/preferences/proc/sanitize_quirks()
+/datum/prefs_holder/proc/sanitize_quirks()
 	var/quirks_edited = FALSE
 	for(var/datum/quirk/quirk as anything in all_quirks)
 		if(!quirk || !(quirk in SSquirks.quirks))

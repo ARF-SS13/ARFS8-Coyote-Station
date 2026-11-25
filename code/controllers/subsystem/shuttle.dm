@@ -17,6 +17,7 @@ SUBSYSTEM_DEF(shuttle)
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
 
+	var/shuttle_call_initial_lockout = 2 HOURS
 	/// A list of all the mobile docking ports.
 	var/list/mobile_docking_ports = list()
 	/// A list of all the stationary docking ports.
@@ -328,9 +329,8 @@ SUBSYSTEM_DEF(shuttle)
 /// Check if we can call the evac shuttle.
 /// Returns TRUE if we can. Otherwise, returns a string detailing the problem.
 /datum/controller/subsystem/shuttle/proc/canEvac()
-	var/shuttle_refuel_delay = CONFIG_GET(number/shuttle_refuel_delay)
-	if(world.time - SSticker.round_start_time < shuttle_refuel_delay)
-		return "The emergency shuttle is refueling. Please wait [DisplayTimeText(shuttle_refuel_delay - (world.time - SSticker.round_start_time))] before attempting to call."
+	if(world.time - SSticker.round_start_time < shuttle_call_initial_lockout)
+		return "The emergency shuttle is not available yet. Please wait [DisplayTimeText(shuttle_call_initial_lockout - (world.time - SSticker.round_start_time))] before attempting to call."
 
 	switch(emergency.mode)
 		if(SHUTTLE_RECALL)
@@ -457,6 +457,8 @@ SUBSYSTEM_DEF(shuttle)
 
 /// Actually work on canceling the emergency shuttle recall. Returns TRUE if successful, FALSE otherwise.
 /datum/controller/subsystem/shuttle/proc/cancel_evac(mob/user)
+	if(!user)
+		return FALSE
 	if(!can_recall(user))
 		return FALSE
 
@@ -468,7 +470,7 @@ SUBSYSTEM_DEF(shuttle)
 
 /// Can this user recall the emergency shuttle? Returns TRUE if they can, otherwise returns FALSE.
 /datum/controller/subsystem/shuttle/proc/can_recall(mob/user)
-	if(isnull(emergency) || emergency.mode != SHUTTLE_CALL)
+	if(isnull(emergency) || emergency.mode != SHUTTLE_CALL || !user)
 		return FALSE
 
 	var/is_admin = !!user.client?.holder

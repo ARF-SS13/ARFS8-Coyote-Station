@@ -63,7 +63,7 @@
 #define COMSIG_MOVABLE_PRE_HEAR "movable_pre_hear"
 	///cancel hearing the message because we're doing something else presumably
 	#define COMSIG_MOVABLE_CANCEL_HEARING (1<<0)
-///from base of atom/movable/Hear(): (proc args list(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), message_range))
+///from base of atom/movable/Hear(): (proc args list(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_data = list(), message_range))
 #define COMSIG_MOVABLE_HEAR "movable_hear"
 	#define HEARING_SPEAKER 1
 	#define HEARING_LANGUAGE 2

@@ -215,7 +215,7 @@ ADMIN_VERB(drop_everything, R_ADMIN, "Drop Everything", ADMIN_VERB_NO_DESCRIPTIO
 	else
 		return
 
-	var/datum/preferences/P
+	var/datum/prefs_holder/P
 	if(C)
 		P = C.prefs
 	else

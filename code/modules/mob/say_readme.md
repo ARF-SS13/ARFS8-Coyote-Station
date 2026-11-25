@@ -67,13 +67,13 @@ global procs
 		Checks that our atom can vocally speak at all.
 		Does not (and should not) include any feedback on its own.
 
-	Hear(atom/movable/speaker, message_langs, raw_message, radio_freq, spans, message_mods, message_range)
+	Hear(atom/movable/speaker, message_langs, raw_message, radio_freq, spans, message_data, message_range)
 		This proc handles hearing. What it does varies. For mobs, it treats the message with hearer-specific things
 		like language and deafness, then outputs it to the hearer.
 
 		IMPORTANT NOTE: If radio_freq is not null, the code will assume that the speaker is virtual! (more info on this in the Radios section below)
 
-	send_speech(message, range, source, bubble_type, spans, list/message_mods)
+	send_speech(message, range, source, bubble_type, spans, list/message_data)
 		This proc composes a list of hearers (things with the HEAR_1 flag + dead people) and calls Hear() on them.
 		Message treatment or composition of output are not done by this proc, these are handled by the rest of
 		say() and the hearer respectively.
@@ -82,7 +82,7 @@ global procs
 		Modifies the message by comparing the languages of the speaker with the languages of the hearer.
 		Called on the hearer.
 
-	generate_messagepart(input, spans, list/message_mods)
+	generate_messagepart(input, spans, list/message_data)
 		Either adds a lone custom say verb, or a verb and quotes to a message. Also attaches span classes to a message.
 		Verbs are determined by verb_say/verb_ask/verb_yell/verb_sing variables. Called on the speaker.
 
@@ -90,7 +90,7 @@ global procs
 	say_dead(message)
 		Sends a message to all dead people. Does not use Hear().
 
-	compose_message(message, atom/movable/speaker, message_langs, raw_message, radio_freq, freq_name, freq_color, spans, list/message_mods)
+	compose_message(message, atom/movable/speaker, message_langs, raw_message, radio_freq, freq_name, freq_color, spans, list/message_data)
 		Composes the message mobs see on their screen when they hear something.
 
 	compose_track_href(message, atom/movable/speaker, message_langs, raw_message, radio_freq)
@@ -107,21 +107,21 @@ global procs
 		The say() of mob_living is significantly more complex than that of objects.
 		Most of the extra code has to do with radios and message treatment.
 
-	send_speech(message, range, source, bubble_type, spans, list/message_mods)
+	send_speech(message, range, source, bubble_type, spans, list/message_data)
 		mob/living's send_speech allows mobs one tile outside of the defined range to still hear the message,
 		but starred with the stars() proc.
 
 	check_emote(message)
 		Checks if the message begins with an * and is thus an emote.
 
-	get_message_mods(message, list/message_mods)
+	get_message_mods(message, list/message_data)
 		Checks the start of the message for each of the components it could contain, stores that info in mods, and returns a trimmed list
 
 	treat_message(message)
 		What it says on the tin. Treats the message according to flags set on the mob.
 		Also handles captilization of the message
 
-	radio(message, list/message_mods = list(), spans)
+	radio(message, list/message_data = list(), spans)
 		Handles talking into radios. Uses a switch to determine what radio to speak into and in which manner to do so.
 
 		Return is a bitflag.
@@ -141,7 +141,7 @@ global procs
 	mode
 		The UID we use for this channel
 
-	handle_message(message, list/message_mods, datum/language/language)
+	handle_message(message, list/message_data, datum/language/language)
 		Intercepts say() after it's done all of it's message building.
 		If this returns true we stop say(), if it returns false we keep going
 ```

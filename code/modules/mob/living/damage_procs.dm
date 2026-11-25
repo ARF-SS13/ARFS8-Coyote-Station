@@ -207,6 +207,8 @@
 		if(EFFECT_UNCONSCIOUS)
 			Unconscious(effect * hit_percent)
 
+	UpdateFeralBody() //coyote add
+
 	return TRUE
 
 /**

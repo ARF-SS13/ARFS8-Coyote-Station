@@ -145,7 +145,7 @@
  * Used when the quirk has been gained and no client is attached to the mob.
  */
 /datum/quirk/proc/on_quirk_holder_first_login(mob/living/source)
-	SIGNAL_HANDLER
+	// SIGNAL_HANDLER
 
 	UnregisterSignal(source, COMSIG_MOB_LOGIN)
 	post_add()
@@ -294,7 +294,7 @@
 
 /mob/living/proc/transfer_quirk_datums(mob/living/to_mob)
 	// We could be done before the client was moved or after the client was moved
-	var/datum/preferences/to_pass = client || to_mob.client
+	var/datum/prefs_holder/to_pass = client || to_mob.client
 
 	for(var/datum/quirk/quirk as anything in quirks)
 		quirk.remove_from_current_holder(quirk_transfer = TRUE)

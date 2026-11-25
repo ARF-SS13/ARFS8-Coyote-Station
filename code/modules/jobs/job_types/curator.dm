@@ -41,17 +41,12 @@
 
 	id_trim = /datum/id_trim/job/curator
 	uniform = /obj/item/clothing/under/rank/civilian/curator
-	backpack_contents = list(
-		/obj/item/barcodescanner = 1,
-		/obj/item/choice_beacon/hero = 1,
-		/obj/item/glassblowing/magnifying_glass, //SKYRAT EDIT: Magnifying Glass
-	)
-	belt = /obj/item/modular_computer/pda/curator
+	belt = /obj/item/storage/bag/books/curator
 	ears = /obj/item/radio/headset/headset_srvent
 	shoes = /obj/item/clothing/shoes/laceup
-	l_pocket = /obj/item/laser_pointer/green
-	r_pocket = /obj/item/key/displaycase
-	l_hand = /obj/item/storage/bag/books
+	l_pocket = /obj/item/modular_computer/pda/curator
+	r_pocket = /obj/item/choice_beacon/hero
+	pda_slot = ITEM_SLOT_LPOCKET
 
 	accessory = /obj/item/clothing/accessory/pocketprotector/full
 

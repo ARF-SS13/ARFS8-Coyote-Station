@@ -5,7 +5,7 @@
 //TODO: Everytime I try currently, it makes the NSFW headshot overwrite the regular headshot, both of which aren't associated with this. It's super weird.
 
 
-/datum/preferences
+/datum/prefs_holder
 	var/headshot_nsfw = ""
 	var/headshot_silicon = ""
 	var/headshot_silicon_nsfw = ""
@@ -21,7 +21,7 @@
 /datum/preference/text/flavor_text_nsfw/create_default_value()
 	return ""
 
-/datum/preference/text/flavor_text_nsfw/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/text/flavor_text_nsfw/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	target.dna.features["flavor_text_nsfw"] = value
 
 /datum/preference/text/low_arousal
@@ -30,7 +30,7 @@
 	savefile_key = "low_arousal_text"
 	maximum_value_length = 100
 
-/datum/preference/text/low_arousal/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/text/low_arousal/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	target.dna.features["low_arousal"] = value
 
 /datum/preference/text/medium_arousal
@@ -39,7 +39,7 @@
 	savefile_key = "medium_arousal_text"
 	maximum_value_length = 100
 
-/datum/preference/text/medium_arousal/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/text/medium_arousal/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	target.dna.features["medium_arousal"] = value
 
 /datum/preference/text/high_arousal
@@ -48,7 +48,7 @@
 	savefile_key = "high_arousal_text"
 	maximum_value_length = 100
 
-/datum/preference/text/high_arousal/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/text/high_arousal/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	target.dna.features["high_arousal"] = value
 
 //This is just a silicon variant of the NSFW flavor text.
@@ -56,7 +56,7 @@
 	category = PREFERENCE_CATEGORY_SILICON_PREFS
 	savefile_key = "silicon_flavor_text_nsfw"
 
-/datum/preference/text/flavor_text_nsfw/silicon/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/text/flavor_text_nsfw/silicon/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 //Lets the client choose when their NSFW flavor text is visible on a per-character basis.
@@ -65,7 +65,7 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "show_flavor_text_nsfw"
 
-/datum/preference/choiced/show_nsfw_flavor_text/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/show_nsfw_flavor_text/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 //These are our options for when NSFW flavor text is shown. Always On = Always Visible, Nude Only means only when they are not wearing a uniform, and Never means it is never visible.
@@ -81,7 +81,7 @@
 /datum/preference/text/headshot/nsfw
 	savefile_key = "headshot_nsfw"
 
-/datum/preference/text/headshot/nsfw/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/text/headshot/nsfw/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	target.dna.features["headshot_nsfw"] = value
 
 /datum/preference/text/headshot/nsfw/apply_headshot(value)
@@ -95,7 +95,7 @@
 	category = PREFERENCE_CATEGORY_SILICON_PREFS
 	savefile_key = "headshot_silicon"
 
-/datum/preference/text/headshot/silicon/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/text/headshot/silicon/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/text/headshot/silicon/apply_headshot(value)
@@ -109,7 +109,7 @@
 /datum/preference/text/headshot/silicon/nsfw
 	savefile_key = "headshot_silicon_nsfw"
 
-/datum/preference/text/headshot/silicon/nsfw/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/text/headshot/silicon/nsfw/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/text/headshot/silicon/nsfw/apply_headshot(value)
@@ -123,7 +123,7 @@
 
 /datum/preference/text/headshot/art_ref
 
-/datum/preference/text/headshot/art_ref/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/text/headshot/art_ref/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	target.dna.features["art_ref"] = value
 
 /datum/preference/text/headshot/art_ref/apply_headshot(value)
@@ -139,7 +139,7 @@
 	default_value = FALSE
 
 
-/datum/preference/toggle/art_ref_nsfw/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/art_ref_nsfw/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 //OOC notes for Silicons. Overwrites regular OOC notes when you are playing a Silicon character.
@@ -148,7 +148,7 @@
 	category = PREFERENCE_CATEGORY_SILICON_PREFS
 	savefile_key = "ooc_notes_silicon"
 
-/datum/preference/text/ooc_notes/silicon/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/text/ooc_notes/silicon/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 //Custom species and lore for silicons, also known as "Custom Model." This allows silicons to define a custom species rather than receiving, by default "A cyborg unit." BORING.
@@ -156,14 +156,14 @@
 	category = PREFERENCE_CATEGORY_SILICON_PREFS
 	savefile_key = "custom_species_silicon"
 
-/datum/preference/text/custom_species/silicon/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/text/custom_species/silicon/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/text/custom_species_lore/silicon
 	category = PREFERENCE_CATEGORY_SILICON_PREFS
 	savefile_key = "custom_species_lore_silicon"
 
-/datum/preference/text/custom_species_lore/silicon/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/text/custom_species_lore/silicon/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 //Config entry for the Silicon flavor text requirement

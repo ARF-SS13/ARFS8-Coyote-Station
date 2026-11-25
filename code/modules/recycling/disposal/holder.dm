@@ -197,8 +197,15 @@
 /obj/structure/disposalholder/relaymove(mob/living/user, direction)
 	if(user.incapacitated)
 		return
+	var/list/message_data = list()
+	message_data[SATA_SPEAKER] = user
+	message_data[SATA_VC_SOURCE] = user
+	message_data[SATA_SAYMODE] = SAYMODE_EMOTE_QUICK
 	for(var/mob/M in range(5, get_turf(src)))
-		M.show_message("<FONT size=[max(0, 5 - get_dist(src, M))]>CLONG, clong!</FONT>", MSG_AUDIBLE)
+		var/msge = "<FONT size=[max(0, 5 - get_dist(src, M))]>CLONG, clong!</FONT>"
+		var/list/receiver_message_data = message_data.Copy()
+		receiver_message_data[SATA_MESSAGE_HEARD] = msge
+		M.show_message(msge, MSG_AUDIBLE, message_data = receiver_message_data)
 	playsound(src.loc, 'sound/effects/clang.ogg', 50, FALSE, FALSE)
 
 /// Called to vent all gas in holder to a location

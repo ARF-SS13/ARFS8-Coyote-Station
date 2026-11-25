@@ -9,7 +9,7 @@
 /datum/preference/choiced/vox_bodycolor/create_default_value()
 	return "default"
 
-/datum/preference/choiced/vox_bodycolor/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/vox_bodycolor/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	if(!.)
 		return FALSE

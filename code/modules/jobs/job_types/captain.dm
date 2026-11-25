@@ -66,16 +66,14 @@
 	id_trim = /datum/id_trim/job/captain
 	uniform = /obj/item/clothing/under/rank/captain
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace
-	backpack_contents = list(
-		/obj/item/melee/baton/telescopic/gold = 1,
-		/obj/item/station_charter = 1,
-		)
-	belt = /obj/item/modular_computer/pda/heads/captain
+	suit_store = /obj/item/station_charter
+	belt = /obj/item/melee/baton/telescopic/gold
 	ears = /obj/item/radio/headset/heads/captain/alt
 	glasses = /obj/item/clothing/glasses/sunglasses
 	gloves = /obj/item/clothing/gloves/captain
 	head = /obj/item/clothing/head/hats/caphat
 	shoes = /obj/item/clothing/shoes/laceup
+	l_pocket = /obj/item/modular_computer/pda/heads/captain
 	r_pocket = /obj/item/flashlight/seclite // BUBBER EDIT ADDITION
 
 	backpack = /obj/item/storage/backpack/captain

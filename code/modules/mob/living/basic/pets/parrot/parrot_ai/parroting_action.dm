@@ -6,6 +6,9 @@
 /datum/ai_planning_subtree/parrot_as_in_repeat/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
 	var/atom/speaking_pawn = controller.pawn
 
+	if(controller.blackboard[BB_PARROT_NEXT_SAY] > world.time)
+		return
+
 	var/switch_up_probability = controller.blackboard[BB_PARROT_PHRASE_CHANGE_PROBABILITY]
 	if(SPT_PROB(switch_up_probability, seconds_per_tick) || isnull(controller.blackboard[BB_PARROT_REPEAT_STRING]))
 		if(SEND_SIGNAL(speaking_pawn, COMSIG_NEEDS_NEW_PHRASE) & NO_NEW_PHRASE_AVAILABLE)
@@ -14,10 +17,21 @@
 	if(!SPT_PROB(controller.blackboard[BB_PARROT_REPEAT_PROBABILITY], seconds_per_tick))
 		return
 
-	var/potential_string = controller.blackboard[BB_PARROT_REPEAT_STRING]
+	var/potential_string
+	if(SPT_PROB(controller.blackboard[BB_PARROT_SAY_NON_SAUCY_RUMOR], seconds_per_tick))
+		if(SPT_PROB(controller.blackboard[BB_PARROT_SAY_NETHACK_RUMOR], seconds_per_tick))
+			potential_string = SSrumormill.get_random_nethack_rumor(TRUE)
+		else
+			potential_string = SSrumormill.get_random_non_saucy_rumor(TRUE)
+	else
+		potential_string = controller.blackboard[BB_PARROT_REPEAT_STRING]
+
 	if(isnull(potential_string))
 		stack_trace("Parrot As In Repeat Subtree somehow is getting a null potential string while not getting `NO_NEW_PHRASE_AVAILABLE`!")
 		return
+
+	var/cd_r = rand(controller.blackboard[BB_PARROT_SAY_COOLDOWN_MIN], controller.blackboard[BB_PARROT_SAY_COOLDOWN_MAX])
+	controller.set_blackboard_key(BB_PARROT_NEXT_SAY, cd_r)
 
 	controller.queue_behavior(/datum/ai_behavior/perform_speech/parrot, potential_string)
 
@@ -27,6 +41,8 @@
 /datum/ai_behavior/perform_speech/parrot/perform(seconds_per_tick, datum/ai_controller/controller, list/speech, speech_sound)
 	var/mob/living/basic/parrot/speaking_pawn = controller.pawn
 	var/list/available_channels = speaking_pawn.get_available_channels()
+	if(istext(speech))
+		speech = list("line" = speech, "voice" = speaking_pawn?.voice || "invalid", "pitch" = speaking_pawn?.pitch || 0)
 	var/modified_speech = speech["line"]
 	var/use_radio = prob(50) // we might not even use the radio if we even have a channel
 

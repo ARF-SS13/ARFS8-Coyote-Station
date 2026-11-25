@@ -1,7 +1,7 @@
 /////////////////////////////////////////
 /////////////////Weapons/////////////////
 /////////////////////////////////////////
-
+/*
 /datum/design/c38/sec
 	id = "c38_sec"
 	build_type = PROTOLATHE | AWAY_LATHE
@@ -274,7 +274,7 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
 	autolathe_exportable = FALSE
-
+*/
 /* BUBBER EDIT REMOVAL BEGIN
 /datum/design/mag_autorifle
 	name = "WT-550 Autorifle Magazine (4.6x30mm) (Lethal)"
@@ -353,7 +353,7 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
 	autolathe_exportable = FALSE
-
+/* infinite ammo is a lil much for now. maybe we re-add it later
 /datum/design/nuclear_gun
 	name = "Advanced Energy Gun Part Kit (Lethal/Nonlethal)"
 	desc = "The kit for an energy gun with an experimental miniaturized reactor."
@@ -366,7 +366,7 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
 	autolathe_exportable = FALSE
-
+*/
 /datum/design/tele_shield
 	name = "Telescopic Riot Shield"
 	desc = "An advanced riot shield made of lightweight materials that collapses for easy storage."
@@ -528,7 +528,7 @@
 		RND_CATEGORY_EQUIPMENT + RND_SUBCATEGORY_EQUIPMENT_SCIENCE
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE
-
+/*
 /datum/design/lasershell
 	name = "Scatter Laser Shotgun Shell (Lethal)"
 	desc = "A high-tech shotgun shell which houses an internal capacitor and laser focusing crystal inside of a shell casing. \
@@ -594,7 +594,7 @@
 		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_AMMO
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
-
+*/
 /datum/design/suppressor
 	name = "Suppressor"
 	desc = "A reverse-engineered suppressor that fits on most small arms with threaded barrels."
@@ -627,6 +627,7 @@
 	materials = list(/datum/material/iron =SHEET_MATERIAL_AMOUNT * 2.5, /datum/material/glass =HALF_SHEET_MATERIAL_AMOUNT * 1.5, /datum/material/uranium =HALF_SHEET_MATERIAL_AMOUNT * 1.5, /datum/material/silver =HALF_SHEET_MATERIAL_AMOUNT * 1.5)
 	build_path = /obj/item/weaponcrafting/gunkit/ebow
 	category = list(
+		RND_CATEGORY_HACKED,
 		RND_CATEGORY_WEAPONS + RND_SUBCATEGORY_WEAPONS_KITS
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
@@ -639,7 +640,9 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_CATEGORY_ITEM_MATERIAL = SHEET_MATERIAL_AMOUNT * 4.5, MAT_CATEGORY_ITEM_MATERIAL_COMPLEMENTARY = SHEET_MATERIAL_AMOUNT * 1.5)
 	build_path = /obj/item/melee/cleric_mace
-	category = list(RND_CATEGORY_IMPORTED)
+	category = list(
+		RND_CATEGORY_HACKED,
+		RND_CATEGORY_IMPORTED)
 
 /datum/design/liberator_gun
 	name = "The Liberator"
@@ -648,7 +651,9 @@
 	build_type = AUTOLATHE
 	materials = list(/datum/material/plastic = SHEET_MATERIAL_AMOUNT * 2, /datum/material/iron = SMALL_MATERIAL_AMOUNT * 15)
 	build_path = /obj/item/gun/ballistic/automatic/pistol/doorhickey
-	category = list(RND_CATEGORY_IMPORTED)
+	category = list(
+		RND_CATEGORY_HACKED,
+		RND_CATEGORY_IMPORTED)
 
 /datum/design/stun_boomerang
 	name = "OZtek Boomerang"

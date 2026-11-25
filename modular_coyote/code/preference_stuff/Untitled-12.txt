@@ -1,0 +1,326 @@
+/// just a big list, but cuter
+// /datum/rumor_load
+// 	var/ckey
+// 	var/char_slot
+// 	var/char_name
+// 	var/online
+// 	var/list/rumor_chunks = list()
+
+// /datum/rumor_load/Destroy(force)
+// 	QDEL_LIST(rumor_chunks)
+// 	. = ..()
+
+// /datum/rumor_q_paquette
+// 	var/datum/rumor_load/my_load
+// 	var/rumor_text
+// 	var/is_nsfw
+// 	var/is_specifiable
+// 	var/source_name
+// 	var/ckey_source // the poor player who'll have their secrets exposed
+// /datum/rumor_q_paquette/target_end
+// 	var/when_to_do_it
+// 	var/ckey_target // the lucky player who'll get the rumor
+
+// /datum/rumor_q_paquette/New(my_load)
+// 	src.my_load = my_load
+
+// /datum/rumor_q_paquette/Destroy(force)
+// 	my_load = null
+// 	. = ..()
+
+// /datum/controller/subsystem/rumormill/proc/get_rumors_to_spread()
+// 	if(rm_gather_next == 0)
+// 		rm_gather_next = world.time + rm_gather_initial_delay
+// 		return
+// 	if(LAZYLEN(rm_rumors_to_spread))
+// 		if(rm_gather_next > world.time)
+// 			return
+// 		rm_gather_next = world.time + rm_gather_interval
+// 	QDEL_LIST_ASSOC_VAL(rm_rumors_to_spread)
+// 	// poll all the rumor holders, and get a list of rumors to spread
+// 	var/cutoff = world.time - rm_stale_cutoff
+// 	var/cutoff_hard = world.time - rm_stale_cutoff_hard
+// 	// metrics?
+// 	var/numonline = 0
+// 	var/numoffline = 0
+// 	var/numskipped_source_used = 0
+// 	var/numskipped_stale = 0
+// 	var/numskipped_stale_hard = 0
+// 	var/numskipped_offlineprob = 0
+// 	var/numskipped_notpublic = 0
+// 	var/numskipped_cuteprob = 0
+// 	var/num_rumors_specificable = 0
+// 	var/num_rumors_gathered = 0
+// 	var/num_rumors_gathered_horny = 0
+// 	for(var/ckey in rumors)
+// 		var/datum/rumor_holder/rholder = GetRumorHolder(ckey)
+// 		var/client/C = LAZYACCESS(GLOB.directory, ckey)
+// 		if(rm_sources_used[ckey] > world.time)
+// 			numskipped_source_used += 1
+// 			continue
+// 		var/mob/living/current_mob = C?.mob
+// 		var/current_slot = extract_current_character_slot(current_mob, TRUE)
+// 		var/online = C
+// 		if(!online)
+// 			// check if the account's been online recently enough
+// 			var/last_online = rholder.last_online
+// 			if(last_online < cutoff_hard)
+// 				numskipped_stale_hard += 1
+// 				continue
+// 			if(last_online < cutoff)
+// 				if(!prob(rm_pick_stale_chance))
+// 					numskipped_stale += 1
+// 					continue
+// 				numoffline += 1
+// 		else
+// 			numonline += 1
+// 		// titterate
+// 		for(var/char_slot in rholder.rumor_slots)
+// 			if(!LAZYLEN(rholder.rumor_slots[char_slot]))
+// 				continue
+// 			var/char_online = !!C && (current_slot == char_slot)
+// 			var/datum/rumor_load/rl = new
+// 			rl.ckey = ckey
+// 			rl.char_slot = char_slot
+// 			rl.online = char_online
+// 			rl.char_name = rholder.get_character_name(char_slot)
+// 			rl.rumor_chunks = list()
+// 			for(var/datum/rumor/really_cool_rumor in rholder.get_all_rumors(char_slot, FALSE))
+// 				if(!really_cool_rumor)
+// 					continue
+// 				if(!really_cool_rumor.is_public)
+// 					numskipped_notpublic += 1
+// 					continue
+// 				if(!char_online)
+// 					if(!prob(rm_pick_offline_chance))
+// 						numskipped_offlineprob += 1
+// 						continue
+// 				if(!prob(rm_spread_chance))
+// 					numskipped_cuteprob += 1
+// 					continue
+// 				// success! maybe, add it to the list of rumors to spread
+// 				var/datum/rumor_queued/queued_rumor = new(rl)
+// 				queued_rumor.ckey_source = ckey
+// 				queued_rumor.rumor_text = really_cool_rumor.rumor_text
+// 				queued_rumor.is_nsfw = really_cool_rumor.is_nsfw
+// 				queued_rumor.is_specifiable = really_cool_rumor.is_specifiable
+// 				queued_rumor.source_name = really_cool_rumor.source_name
+// 				rl.rumor_chunks += queued_rumor
+// 				if(really_cool_rumor.is_specifiable)
+// 					num_rumors_specificable += 1
+// 				if(really_cool_rumor.is_nsfw)
+// 					num_rumors_gathered_horny += 1
+// 				num_rumors_gathered += 1
+// 			if(LAZYLEN(rl.rumor_chunks))
+// 				if(!LAZYLEN(rm_rumors_to_spread))
+// 					rm_rumors_to_spread = list()
+// 				rm_rumors_to_spread["[ckey]"] += rl
+// 	if(debug_stats)
+// 		var/list/titters = list()
+// 		titters["now"] = time2text(world.realtime)
+// 		titters["rumors_sources"] = sourcez
+// 		titters["rumors_online"] = numonline
+// 		titters["rumors_offline"] = numoffline
+// 		titters["rumors_skipped_source_used"] = numskipped_source_used
+// 		titters["rumors_skipped_stale"] = numskipped_stale
+// 		titters["rumors_skipped_stale_hard"] = numskipped_stale_hard
+// 		titters["rumors_skipped_offlineprob"] = numskipped_offlineprob
+// 		titters["rumors_skipped_notpublic"] = numskipped_notpublic
+// 		titters["rumors_skipped_cuteprob"] = numskipped_cuteprob
+// 		titters["rumors_specificable"] = num_rumors_specificable
+// 		titters["rumors_gathered"] = num_rumors_gathered
+// 		titters["rumors_gathered_horny"] = num_rumors_gathered_horny
+// 		output_stats(titters, "GATHER_STATS")
+
+// /datum/controller/subsystem/rumormill/proc/get_some_people_to_spread_em_too()
+// 	// already got some targets
+// 	if(LAZYLEN(rm_targets_queued) && rm_force_new_targets_next > world.time)
+// 		return
+// 	rm_force_new_targets_next = world.time + rm_spread_interval_max
+// 	var/list/online_players = list()
+// 	for(var/ckey in GLOB.directory)
+// 		var/client/C = GLOB.directory[ckey]
+// 		if(!C)
+// 			continue
+// 		var/mob/living/current_mob = C.mob
+// 		if(!isliving(current_mob))
+// 			continue
+// 		if(!safe_read_pref(current_mob, /datum/preference/toggle/rumors/hear_rumors))
+// 			continue
+// 		online_players |= ckey
+// 	for(var/ckey in online_players)
+// 		var/datum/rumor/rumor_what = pick_rumor_for_target(ckey)
+// 		if(!rumor_what)
+// 			continue
+// 		var/q = new /datum/rumor_queued()
+// 		q.rumor_text = rumor_what.rumor_text
+// 		q.is_nsfw = rumor_what.is_nsfw
+// 		q.is_specifiable = rumor_what.is_specifiable
+// 		q.when_to_do_it = world.time + rand(rm_spread_interval_min, rm_spread_interval_max)
+// 		var/source_ckey = rumor_what.my_holder.c_key
+// 		var/mob/living/source_mob = extract_mob(source_ckey)
+// 		q.ckey_source = source_ckey
+// 		q.source_name = source_mob?.name || source_ckey
+// 		q.ckey_target = ckey
+// 		rm_targets_queued[ckey] = q
+// 		// see u soon!
+
+// 	if(debug_stats)
+// 		var/list/titters = list()
+// 		titters["now"] = time2text(world.realtime)
+// 		titters["rumors_targets_queued"] = LAZYLEN(rm_targets_queued)
+// 		output_stats(titters, "TARGETS_QUEUED")
+
+
+	// ckey = list(slots)
+	var/list/sources = list()
+
+	var/list/elligable_targets = list()
+	for(var/ckey in GLOB.directory)
+		var/client/C = GLOB.directory[ckey]
+		if(!C)
+			continue
+		var/mob/living/current_mob = C.mob
+		if(!isliving(current_mob))
+			continue
+		if(!safe_read_pref(current_mob, /datum/preference/toggle/rumors/hear_rumors))
+			continue
+		elligable_targets |= ckey
+
+	var/list/truly_elligable_targets = elligable_targets - rm_targets_used
+	if(!LAZYLEN(truly_elligable_targets))
+		rm_targets_used = list()
+	else
+		elligable_targets = truly_elligable_targets
+
+	var/do_offline = prob(rm_pick_offline_chance)
+	var/do_nethack = !do_offline && prob(rm_chance_to_just_be_some_silly_net_hack_rumor)
+	var/screwed_it = FALSE
+	screw_it_do_nethack:
+
+	if(do_nethack)
+		goto do_some_nethack_rumors
+	else
+		var/tried_again = FALSE
+		try_again:
+		for(var/ckey in rumors)
+			if(rm_sources_used[ckey] > world.time)
+				continue
+			var/online_slot = get_online_character_slot(ckey)
+			var/datum/rumor_holder/rholder = GetRumorHolder(ckey)
+			for(var/i in 1 to LAZYLEN(rholder.rumor_slots))
+				if(do_offline)
+					if(online_slot == i)
+						continue
+				else
+					if(online_slot != i)
+						continue
+				if(!LAZYLEN(rholder.rumor_slots[i]))
+					continue
+				var/list/rumors = rholder.get_all_rumors(i, FALSE)
+				if(!LAZYLEN(rumors))
+					continue
+				var/char_slot = i
+				if(!islist(sources[ckey]))
+					sources[ckey] = list()
+				sources[ckey] |= char_slot
+				rm_sources_used[ckey] = world.time + rm_source_stale_time
+		if(!LAZYLEN(sources))
+			if(!tried_again)
+				rm_sources_used = list()
+				tried_again = TRUE
+				goto try_again
+			else
+				return
+
+	var/list/lucky_targets = list()
+	if(LAZYLEN(elligable_targets) <= rm_target_batch_size)
+		lucky_targets = elligable_targets
+	else
+		for(var/i in 1 to rm_target_batch_size)
+			var/ckey = pick(elligable_targets)
+			lucky_targets |= ckey
+			rm_targets_used |= ckey
+			elligable_targets -= ckey
+
+	// ckey = list(slots)
+	do_some_nethack_rumors:
+	var/list/lucky_sources = list()
+	if(do_nethack)
+		goto do_some_nethack_rumors_only
+	var/moretries = 20
+	while(moretries > 0)
+		moretries -= 1
+		var/ckey = pick(sources)
+		var/char_slot = pick(sources[ckey])
+		// do they have any rumors in this slot?
+		var/datum/rumor_holder/rholder = GetRumorHolder(ckey)
+		if(!LAZYLEN(rholder.rumor_slots[char_slot]))
+			sources[ckey] -= char_slot
+			if(!LAZYLEN(sources[ckey]))
+				sources -= ckey
+			continue
+		if(!islist(lucky_sources[ckey]))
+			lucky_sources[ckey] = list()
+		lucky_sources[ckey] |= char_slot
+
+	// if we have no sources, just pick a random nethack rumor and send it to a random target
+	if(!LAZYLEN(lucky_sources))
+		if(screwed_it || do_nethack)
+			CRASH("RumorMill: No sources to spread rumors from, and no nethack rumors to send either! This is bad!")
+		screwed_it = TRUE
+		do_nethack = TRUE
+		goto screw_it_do_nethack
+
+	do_some_nethack_rumors_only:
+	var/list/used_condoms = list()
+	var/list/used_bottoms = list()
+	var/succeeded = FALSE
+
+	// send em!
+	for(var/winnerckey in lucky_targets)
+		// should be online
+		if(do_nethack)
+			var/datum/rumor/nethack_rumor = get_random_nethack_rumor(FALSE, TRUE)
+			send_rumor_to_target(winnerckey, nethack_rumor)
+			succeeded = TRUE
+			continue
+		var/horny = HORNYMODE_NONE
+		if(safe_read_pref(winnerckey, /datum/preference/toggle/rumors/hear_horny_rumors))
+			horny = HORNYMODE_EITHEROR
+			if(prob(50))
+				horny = HORNYMODE_ONLYHORNY
+		var/datum/rumor/really_cool_rumor
+		for(var/ckey in lucky_sources) // prioritize the top
+			if(!debug && ckey == winnerckey)
+				continue // yeah we already know about them
+			var/char_slot = pick(lucky_sources[ckey])
+			var/datum/rumor_holder/source_rholder = GetRumorHolder(ckey)
+			try_again:
+			really_cool_rumor = source_rholder.get_a_rumor(char_slot, horny, FALSE, TRUE)
+			if(!really_cool_rumor)
+				if(horny == HORNYMODE_ONLYHORNY)
+					horny = HORNYMODE_EITHEROR
+					goto try_again
+				else
+					continue
+			if(really_cool_rumor)
+				send_rumor_to_target(winnerckey, really_cool_rumor)
+				if(!islist(used_condoms[winnerckey]))
+					used_condoms[winnerckey] = list()
+				used_condoms[winnerckey][really_cool_rumor.rumor_uid] = world.time + rm_source_stale_time
+				used_bottoms[ckey] = world.time + rm_source_stale_time
+				succeeded = TRUE
+				break
+	if(succeeded && !do_nethack)
+		rm_rumors_used |= used_condoms
+		rm_sources_used |= used_bottoms
+		if(debug_stats)
+			var/list/titters = list()
+			titters["now"] = time2text(world.realtime)
+			titters["rumors_targets_queued"] = LAZYLEN(rm_targets_queued)
+			titters["rumors_targets_used"] = LAZYLEN(rm_targets_used)
+			titters["rumors_sources_used"] = LAZYLEN(rm_sources_used)
+			output_stats(titters, "SPREAD_STATS")
+		if(debug)
+			output_debug("RumorMill: Spread rumors to [LAZYLEN(lucky_targets)] lucky targets from [LAZYLEN(lucky_sources)] lucky sources!", TRUE)

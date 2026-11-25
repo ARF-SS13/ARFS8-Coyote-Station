@@ -30,6 +30,7 @@
 	var/mob/living/carbon/human/speaker
 	var/list/datum/language/understood_languages = hallucinator.get_language_holder().understood_languages
 	var/understood_language
+	var/list/message_data = list()
 
 	if(!force_radio)
 		var/list/valid_humans = list()
@@ -120,10 +121,17 @@
 
 	if(plus_runechat)
 		hallucinator.create_chat_message(speaker, understood_language, chosen, spans)
+	message_data[SATA_VC_SOURCE] = speaker
+	message_data[SATA_SPEAKER] = speaker
+	message_data[SATA_MESSAGE_HEARD] = chosen
+	message_data[SATA_MESSAGE_SPOKEN] = chosen
+	message_data[SATA_MESSAGE_RANGE] = 9
+	message_data[SATA_LANGUAGE] = understood_language
+	message_data[SATA_SPANS] = spans
 
 	// And actually show them the message, for real.
-	var/message = hallucinator.compose_message(speaker, understood_language, chosen, is_radio ? "[FREQ_COMMON]" : null, is_radio ? RADIO_CHANNEL_COMMON : null, is_radio ? RADIO_COLOR_COMMON : null, spans, visible_name = TRUE)
-	to_chat(hallucinator, message)
+	var/message = hallucinator.compose_message(speaker, understood_language, chosen, is_radio ? "[FREQ_COMMON]" : null, is_radio ? RADIO_CHANNEL_COMMON : null, is_radio ? RADIO_COLOR_COMMON : null, spans, message_data, TRUE)
+	to_chat(hallucinator, message, extra_data = message_data)
 
 	// Then clean up.
 	qdel(src)

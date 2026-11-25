@@ -5,14 +5,14 @@
 	priority = PREFERENCE_PRIORITY_BODYPARTS + 0.1
 	default_value = FALSE
 
-/datum/preference/toggle/naga_soles/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/naga_soles/is_accessible(datum/prefs_holder/preferences)
 	if (!..())
 		return FALSE
 
 	var/datum/sprite_accessory/taur_mode = SSaccessories.sprite_accessories["taur"][preferences.read_preference(/datum/preference/choiced/mutant_choice/taur)]
 	return (istype(taur_mode, /datum/sprite_accessory/taur/naga) || istype(taur_mode, /datum/sprite_accessory/taur/synthliz/synthnaga))
 
-/datum/preference/toggle/naga_soles/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/naga_soles/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	if (value)
 		return
 	var/obj/item/organ/taur_body/serpentine/snake_body = target.get_organ_slot(ORGAN_SLOT_EXTERNAL_TAUR)
@@ -26,14 +26,14 @@
 	priority = PREFERENCE_PRIORITY_BODYPARTS + 0.1
 	default_value = FALSE
 
-/datum/preference/toggle/synthetic_taur/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/synthetic_taur/is_accessible(datum/prefs_holder/preferences)
 	if (!..())
 		return FALSE
 
 	var/datum/sprite_accessory/taur_mode = SSaccessories.sprite_accessories["taur"][preferences.read_preference(/datum/preference/choiced/mutant_choice/taur)]
 	return !istype(taur_mode, /datum/sprite_accessory/taur/none)
 
-/datum/preference/toggle/synthetic_taur/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/synthetic_taur/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	if (!value)
 		return
 

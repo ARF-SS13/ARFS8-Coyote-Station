@@ -1042,7 +1042,7 @@ ADMIN_VERB(export_save_to_dev_preference, R_DEBUG, "Export Save as Dev Preferenc
 	if(is_guest_key(user.key))
 		tgui_alert(user, "Guests don't have preferences to export.", "Export Failed", list("OK"))
 		return
-	var/datum/preferences/user_prefs = user.prefs
+	var/datum/prefs_holder/user_prefs = user.prefs
 	var/datum/json_savefile/dev_save = new(DEV_PREFS_PATH)
 	user_prefs.save_preferences()
 	user_prefs.savefile.copy_to_savefile(dev_save)

@@ -96,9 +96,14 @@
 			var/vol = clamp(100 - ((dist - 7) * 5), 10, 100)
 			scream_hearer.playsound_local(src, 'modular_skyrat/modules/horrorform/sound/horror_scream_reverb.ogg', vol, 1, frequency)
 
+	var/message_data = list()
+	message_data[SATA_MESSAGE_HEARD] = message
+	message_data[SATA_SPEAKER] = src
+	message_data[SATA_VC_SOURCE] = src
+	message_data[SATA_SAYMODE] = SAYMODE_YELL
 	for(var/mob/scream_hearer in range(35, src))
 		if(scream_hearer && scream_hearer.client && scream_hearer.stat == DEAD && (scream_hearer.client.prefs.chat_toggles & CHAT_GHOSTSIGHT) && !(scream_hearer in viewers(get_turf(src), null)))
-			scream_hearer.show_message(message)
+			scream_hearer.show_message(message, message_data = message_data)
 
 	audible_message(message)
 

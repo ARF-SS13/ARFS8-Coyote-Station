@@ -90,6 +90,24 @@ GLOBAL_LIST_EMPTY(startup_messages)
 	else
 		dat += {"<img src="loading_screen.gif" class="bg" alt="">"}
 
+		//adds in a cool javascript function to make mousing over anything with class "menu_button" play a sound effect
+		// does it by artificially clicking an href link that goes to byond://?src=[text_ref(src)];play_lobby_button_sound=1, which then calls the proc in new_player.dm to play the sound on the server side, which is more reliable than the above method
+		dat += {"
+			<a href='byond://?src=[text_ref(src)];play_lobby_button_sound=1' id="boop" style="display:none;"></a>
+			<script>
+				document.addEventListener('DOMContentLoaded', () => {
+					const triggers = document.querySelectorAll('.menu_button:not(.vote_text), .vote_option');
+					triggers.forEach(trigger => {
+						trigger.addEventListener('mouseenter', function() {
+							if (document.querySelector('#boop')) {
+								document.querySelector('#boop').click();
+							}
+						});
+					});
+				});
+			</script>
+		"}
+
 		if(SStitle.current_notice)
 			dat += {"
 			<div class="container_notice">
@@ -97,31 +115,108 @@ GLOBAL_LIST_EMPTY(startup_messages)
 			</div>
 		"}
 
-		dat += {"<div class="container_nav">"}
+		dat += {"<div class="container_nav" id="nav_container">"}
+		if(SSnarrative.awaiting_vote && SSticker.current_state != GAME_STATE_PLAYING) // hole new bawks
+			dat += {"
+				<style>
+					#vote_container {
+						top: auto;
+						bottom: calc(100% + 1vmin);
+						left: 0;
+						width: 100%;
+						transform: none;
+					}
+					#vote_container .vote_text {
+						margin: 0;
+						overflow: visible;
+						cursor: default;
+					}
+					#vote_container .vote_option {
+						cursor: pointer;
+						font-size: 3.5vmin;
+					}
+					#vote_container .vote_option:hover {
+						text-decoration: underline;
+					}
+					#vote_container .vote_text:hover,
+					#vote_container .vote_text:active {
+						padding-left: 5vmin;
+						transform: none;
+					}
+					#vote_container .vote_text:hover::before {
+						content: none;
+					}
+					#vote_container .vote_tooltip {
+						display: none;
+						position: absolute;
+						box-sizing: border-box;
+						bottom: 100%;
+						left: 0;
+						width: 100%;
+						padding: 1vmin;
+						border: 2px solid white;
+						border-radius: 4px;
+						background: #111;
+						color: white;
+						font-size: 2vmin;
+						line-height: 1.3;
+						white-space: normal;
+						text-shadow: none;
+						pointer-events: none;
+						z-index: 1000;
+					}
+					#vote_container .vote_option:hover .vote_tooltip {
+						display: block;
+					}
+					#vote_container .vote_option:hover .vote_tooltip {
+						z-index: 0;
+					}
+				</style>
+			"}
+			dat += {"<div class='container_nav' id='vote_container'>"}
+			dat += {"<div class='menu_button vote_text'>Vote for your preferred storyteller!</div>"}
+			var/list/vote_options = SSnarrative.get_splash_vote_options(ckey)
+			if(!LAZYLEN(vote_options))
+				dat += {"<div class='menu_button vote_text'>...okay they're all asleep, sorry!</div>"}
+			else
+				for(var/datum/narrative_vote_option/opt in vote_options)
+					var/voted_for_text = "<span class='unchecked'>☒</span> "
+					if(vote_options[opt])
+						voted_for_text = "<span class='checked'>☑</span> "
+					dat += {"
+						<a class='menu_button vote_text vote_option' datum-bingus='#boop'
+							href='byond://?src=[text_ref(src)];narrative_vote=[opt.option_value]'
+							data-vote-value='[opt.option_value]'>
+							[voted_for_text][html_encode(opt.option_name)]
+							<span class='vote_tooltip' role='tooltip'>[html_encode(opt.option_description)]</span>
+						</a>
+					"}
+			dat += {"</div>"}
 
 		if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
-			dat += {"<a id="ready" class="menu_button" href='byond://?src=[text_ref(src)];toggle_ready=1'>[ready == PLAYER_READY_TO_PLAY ? "<span class='checked'>☑</span> READY" : "<span class='unchecked'>☒</span> READY"]</a>"}
+			dat += {"<a id="ready" class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];toggle_ready=1'>[ready == PLAYER_READY_TO_PLAY ? "<span class='checked'>☑</span> READY" : "<span class='unchecked'>☒</span> READY"]</a>"}
 		else
 			dat += {"
-				<a class="menu_button" href='byond://?src=[text_ref(src)];late_join=1'>JOIN GAME</a>
-				<a class="menu_button" href='byond://?src=[text_ref(src)];view_manifest=1'>CREW MANIFEST</a>
+				<a class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];late_join=1'>JOIN GAME</a>
+				<a class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];view_manifest=1'>CREW MANIFEST</a>
 			"}
-			// dat += {"<a class="menu_button" href='byond://?src=[text_ref(src)];character_directory=1'>CHARACTER DIRECTORY</a>"}
+			// dat += {"<a class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];character_directory=1'>CHARACTER DIRECTORY</a>"}
 
-		dat += {"<a class="menu_button" href='byond://?src=[text_ref(src)];observe=1'>OBSERVE</a>"}
+		dat += {"<a class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];observe=1'>OBSERVE</a>"}
 
 		dat += {"
 			<hr>
-			<a class="menu_button" href='byond://?src=[text_ref(src)];character_setup=1'>SETUP CHARACTER (<span id="character_slot">[uppertext(client.prefs.read_preference(/datum/preference/name/real_name))]</span>)</a>
-			<a class="menu_button" href='byond://?src=[text_ref(src)];game_options=1'>GAME OPTIONS</a>
-			<!-- <a id="be_antag" class="menu_button" href='byond://?src=[text_ref(src)];toggle_antag=1'>[client.prefs.read_preference(/datum/preference/toggle/be_antag) ? "<span class='checked'>☑</span> BE ANTAGONIST" : "<span class='unchecked'>☒</span> BE ANTAGONIST"]</a> -->
+			<a class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];visual_chat=1'>SETUP VISUAL CHAT</a>
+			<a class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];character_setup=1'>SETUP CHARACTER (<span id="character_slot">[uppertext(client.prefs.read_preference(/datum/preference/name/real_name))]</span>)</a>
+			<a class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];game_options=1'>GAME OPTIONS</a>
+			<!-- <a id="be_antag" class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];toggle_antag=1'>[client.prefs.read_preference(/datum/preference/toggle/be_antag) ? "<span class='checked'>☑</span> BE ANTAGONIST" : "<span class='unchecked'>☒</span> BE ANTAGONIST"]</a> -->
 			<!-- SPLURT STATION EDIT: Server swap button removed - not needed for single server setup -->
 			<!-- <hr> -->
-			<!--  <a class="menu_button" href='byond://?src=[text_ref(src)];server_swap=1'>SWAP SERVERS</a> -->
+			<!--  <a class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];server_swap=1'>SWAP SERVERS</a> -->
 		"}
 
 		if(length(GLOB.lobby_station_traits))
-			dat += {"<a class="menu_button" href='byond://?src=[text_ref(src)];job_traits=1'>JOB TRAITS</a>"}
+			dat += {"<a class="menu_button" datum-bingus="#boop" href='byond://?src=[text_ref(src)];job_traits=1'>JOB TRAITS</a>"}
 
 		if(!is_guest_key(src.key))
 			dat += playerpolls()
@@ -129,6 +224,14 @@ GLOBAL_LIST_EMPTY(startup_messages)
 		dat += "</div>"
 		dat += {"
 		<script language="JavaScript">
+			function update_storyteller_vote(vote) {
+				document.querySelectorAll('.vote_option').forEach(function(option) {
+					var checked = option.getAttribute('data-vote-value') === String(vote);
+					var mark = option.querySelector('span');
+					mark.className = checked ? 'checked' : 'unchecked';
+					mark.textContent = checked ? '☑' : '☒';
+				});
+			}
 			const PLAYER_READY_TO_PLAY = "[PLAYER_READY_TO_PLAY]"
 			const PLAYER_NOT_READY = "[PLAYER_NOT_READY]"
 			var ready_mark = document.getElementById("ready");

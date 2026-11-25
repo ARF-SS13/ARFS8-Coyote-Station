@@ -10,7 +10,7 @@
 /obj/item/radio/headset/headset_sec
 	radiosound = 'modular_skyrat/modules/radiosound/sound/radio/security.ogg'
 
-/obj/item/radio/headset/talk_into(mob/living/mob_in_question, message, channel, list/spans, datum/language/language, list/message_mods, direct = TRUE)
+/obj/item/radio/headset/talk_into(mob/living/mob_in_question, message, channel, list/spans, datum/language/language, list/message_data, direct = TRUE)
 	if(radiosound && listening)
 		playsound(mob_in_question, radiosound, radio_sound_volume, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT)
 	. = ..()

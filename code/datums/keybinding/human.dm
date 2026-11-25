@@ -6,7 +6,7 @@
 	return ishuman(user.mob)
 
 /datum/keybinding/human/quick_equip
-	hotkey_keys = list("R")
+	hotkey_keys = list("E")
 	name = "quick_equip"
 	full_name = "Quick equip"
 	description = "Quickly puts an item in the best slot available"
@@ -21,7 +21,7 @@
 	return TRUE
 
 /datum/keybinding/human/quick_equip_belt
-	hotkey_keys = list("ShiftR")
+	hotkey_keys = list("ShiftE")
 	name = "quick_equip_belt"
 	full_name = "Quick equip belt"
 	description = "Put held thing in belt or take out most recent thing from belt"
@@ -49,7 +49,7 @@
 	keybind_signal = COMSIG_KB_HUMAN_BAGEQUIP_DOWN
 
 /datum/keybinding/human/quick_equip_belt/quick_equip_suit_storage
-	hotkey_keys = list("ShiftQ")
+	hotkey_keys = list("ShiftG")
 	name = "quick_equip_suit_storage"
 	full_name = "Quick equip suit storage slot"
 	description = "Put held thing in suit storage slot item or take out most recent thing from suit storage slot item"

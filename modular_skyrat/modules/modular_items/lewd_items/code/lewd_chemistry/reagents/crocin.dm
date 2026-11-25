@@ -15,7 +15,7 @@
 	var/thought_probability = 2
 
 	/// A list of possible emotes the chem is able to trigger
-	var/list/possible_aroused_emotes = list("moan", "blush")
+	var/list/possible_aroused_emotes = list()
 
 	/// A list of possible to_chat messages the chem is able to trigger
 	var/list/possible_aroused_thoughts = list(
@@ -26,8 +26,8 @@
 
 
 /datum/reagent/drug/aphrodisiac/crocin/life_effects(mob/living/carbon/human/exposed_mob)
-	if(prob(emote_probability))
-		exposed_mob.emote(pick(possible_aroused_emotes))
+	// if(prob(emote_probability))
+	// 	exposed_mob.emote(pick(possible_aroused_emotes))
 	if(prob(thought_probability))
 		var/displayed_thought = pick(possible_aroused_thoughts)
 		to_chat(exposed_mob, span_notice("[displayed_thought]"))

@@ -9,7 +9,7 @@
 /datum/preference/choiced/chipped/init_possible_values()
 	return list("Random") + assoc_to_keys(GLOB.quirk_chipped_choice)
 
-/datum/preference/choiced/chipped/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/chipped/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	if (!.)
 		return FALSE

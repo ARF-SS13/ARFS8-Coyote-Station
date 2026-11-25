@@ -38,6 +38,9 @@ type ContentPrefsInfo = {
   vore_enable_pref: boolean;
   vore_overlays: boolean;
   vore_overlay_options: boolean;
+  // rumor stuff
+  hear_rumors: boolean;
+  hear_horny_rumors: boolean;
 };
 
 type ContentPreferencesTabProps = {
@@ -84,6 +87,9 @@ export const ContentPreferencesTab = ({
     vore_enable_pref,
     vore_overlays,
     vore_overlay_options,
+    //rumors
+    hear_rumors,
+    hear_horny_rumors,
   } = data;
 
   const renderToggle = (
@@ -142,6 +148,19 @@ export const ContentPreferencesTab = ({
           )}
 
           {/* Core ERP Preferences */}
+          {renderToggle(
+            'hear_rumors',
+            hear_rumors,
+            'Overhear Rumors',
+            'Toggle whether or not you will randomly overhear rumors about other people... or general nethack tips.',
+          )}
+          {hear_rumors &&
+            renderToggle(
+              'hear_horny_rumors',
+              hear_horny_rumors,
+              'Overhear Horny Rumors',
+              'Toggle whether or not those rumors you overhear can be of a horny nature, if any exist!',
+            )}
           {renderToggle('erp_sounds_pref', erp_sounds_pref, 'ERP Sounds')}
           {renderToggle('sextoy_pref', sextoy_pref, 'Sex Toy Interaction')}
           {renderToggle(

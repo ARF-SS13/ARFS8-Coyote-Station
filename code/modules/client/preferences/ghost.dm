@@ -18,7 +18,7 @@
 	ghost.ghost_accs = value
 	ghost.update_appearance()
 
-/datum/preference/choiced/ghost_accessories/deserialize(input, datum/preferences/preferences)
+/datum/preference/choiced/ghost_accessories/deserialize(input, datum/prefs_holder/preferences)
 	// Old ghost preferences used to be 1/50/100.
 	// Whoever did that wasted an entire day of my time trying to get those sent
 	// properly, so I'm going to buck them.
@@ -154,7 +154,7 @@
 
 	ghost.update_sight()
 
-/datum/preference/choiced/ghost_others/deserialize(input, datum/preferences/preferences)
+/datum/preference/choiced/ghost_others/deserialize(input, datum/prefs_holder/preferences)
 	// Old ghost preferences used to be 1/50/100.
 	// Whoever did that wasted an entire day of my time trying to get those sent
 	// properly, so I'm going to buck them.

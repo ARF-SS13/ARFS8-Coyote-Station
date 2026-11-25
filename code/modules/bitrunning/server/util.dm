@@ -153,7 +153,7 @@
 	if(isnull(entry_atom))
 		return
 	// BUBBER EDIT BEGIN - PREFS!
-	var/datum/preferences/pref
+	var/datum/prefs_holder/pref
 	var/load_loadout = FALSE
 	var/obj/item/disk/bitrunning/prefs/prefdisk = locate() in neo.get_contents()
 	if(prefdisk)

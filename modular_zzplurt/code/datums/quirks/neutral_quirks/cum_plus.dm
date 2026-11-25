@@ -12,6 +12,7 @@
 	medical_record_text = "Patient exhibits increased production of sexual fluids."
 	icon = FA_ICON_HEART_CIRCLE_PLUS
 	erp_quirk = TRUE
+	hidden_quirk = TRUE
 
 // Note: Increasing size increases production rate
 // Production scales based on size and mob arousal

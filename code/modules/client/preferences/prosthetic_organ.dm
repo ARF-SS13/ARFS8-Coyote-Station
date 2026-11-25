@@ -9,7 +9,7 @@
 /datum/preference/choiced/prosthetic_organ/init_possible_values()
 	return list("Random") + GLOB.organ_choice
 
-/datum/preference/choiced/prosthetic_organ/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/prosthetic_organ/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	if (!.)
 		return FALSE

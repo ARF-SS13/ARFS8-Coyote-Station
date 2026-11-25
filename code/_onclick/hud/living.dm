@@ -23,5 +23,8 @@
 	healthdoll = new /atom/movable/screen/healthdoll/living(null, src)
 	infodisplay += healthdoll
 
+	posebutt = new /atom/movable/screen/posebutton(null, src)
+	infodisplay += posebutt
+
 	stamina = new /atom/movable/screen/stamina(null, src)
 	infodisplay += stamina

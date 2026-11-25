@@ -78,12 +78,12 @@
 	name = "Space-Ruin Luna"
 	description = "Please note for ethical concerns all experimentation regarding writing artificial intelligence units to beleive they are A, A fictional character and B, human have been suspended. Have a pleasant shift."
 
-/datum/map_template/ruin/space/skyrat/blackmarket
-	id = "blackmarket"
-	suffix = "blackmarket.dmm"
-	name = "Space-Ruin Black Market"
-	description = "Market's open."
-	always_place = TRUE
+// /datum/map_template/ruin/space/skyrat/blackmarket
+// 	id = "blackmarket"
+// 	suffix = "blackmarket.dmm"
+// 	name = "Space-Ruin Black Market"
+// 	description = "Market's open."
+// 	always_place = TRUE
 
 /datum/map_template/ruin/space/skyrat/shuttle8532
 	id = "shuttle8532"
@@ -164,12 +164,13 @@
 	name = "Space-Ruin Gorilla"
 	description = "There is no need to be upset."
 
-/datum/map_template/ruin/space/skyrat/escapefromtarkon
-	suffix = "port_tarkon.dmm"
-	name = "Space-Ruin Port Tarkon"
-	id = "escapefromtarkon"
-	description = "An ambitious goal, A step forward, A trial run for the Tarkon drill, ment to implant mining stations within meteors. Decades of disaster have, however, left this one... Unattended for far too long."
-	always_place = TRUE
+// /datum/map_template/ruin/space/skyrat/escapefromtarkon
+// 	suffix = "port_tarkon.dmm"
+// 	name = "Space-Ruin Port Tarkon"
+// 	id = "escapefromtarkon"
+// 	description = "An ambitious goal, A step forward, A trial run for the Tarkon drill, ment to implant mining stations within meteors. Decades of disaster have, however, left this one... Unattended for far too long."
+// 	always_place = FALSE
+// 	unpickable = TRUE
 
 /obj/modular_map_root/port_tarkon
 	config_file = "strings/modular_maps/skyrat/PortTarkon.toml"

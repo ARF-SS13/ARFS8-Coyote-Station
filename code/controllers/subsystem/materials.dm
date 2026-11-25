@@ -167,3 +167,14 @@ SUBSYSTEM_DEF(materials)
 			combo[GET_MATERIAL_REF(mat)] = OPTIMAL_COST(materials_declaration[mat] * multiplier)
 		material_combos[combo_index] = combo
 	return combo
+
+/datum/controller/subsystem/materials/proc/get_description_for(datum/material/mat)
+	if(istype(mat))
+		mat = mat.type
+	if(!ispath(mat, /datum/material))
+		return "Some kind of unknown material, yet unknown to those who dont know about it. May have certain properties."
+	var/desc = mat::desc
+	var/obj/item/stack/ass_cheet = mat::sheet_type
+	if(ispath(ass_cheet))
+		desc += "<p>[ass_cheet::desc]<p>"
+	return desc

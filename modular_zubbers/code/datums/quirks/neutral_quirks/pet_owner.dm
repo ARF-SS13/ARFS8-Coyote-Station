@@ -106,7 +106,7 @@ GLOBAL_LIST_INIT(possible_player_pet, list(
 /datum/preference/choiced/pet_owner/create_default_value()
 	return "Random"
 
-/datum/preference/choiced/pet_owner/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/pet_owner/is_accessible(datum/prefs_holder/preferences)
 	if (!..())
 		return FALSE
 
@@ -122,7 +122,7 @@ GLOBAL_LIST_INIT(possible_player_pet, list(
 	can_randomize = FALSE
 	maximum_value_length = 32
 
-/datum/preference/text/pet_name/is_accessible(datum/preferences/preferences)
+/datum/preference/text/pet_name/is_accessible(datum/prefs_holder/preferences)
 	if (!..())
 		return FALSE
 
@@ -140,7 +140,7 @@ GLOBAL_LIST_INIT(possible_player_pet, list(
 	savefile_identifier = PREFERENCE_CHARACTER
 	can_randomize = FALSE
 
-/datum/preference/text/pet_desc/is_accessible(datum/preferences/preferences)
+/datum/preference/text/pet_desc/is_accessible(datum/prefs_holder/preferences)
 	if (!..())
 		return FALSE
 

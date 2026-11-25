@@ -11,7 +11,7 @@
 	price_max = CARGO_CRATE_VALUE * 2.5
 	stock_max = 3
 	availability_prob = 40
-
+/*
 /datum/market_item/clothing/durathread_vest
 	name = "Durathread Vest"
 	desc = "Don't let them tell you this stuff is \"Like asbestos\" or \"Pulled from the market for safety concerns\". It could be the difference between a robusting and a retaliation."
@@ -41,7 +41,7 @@
 	price_max = CARGO_CRATE_VALUE * 3.5
 	stock_max = 3
 	availability_prob = 50
-
+*/
 /datum/market_item/clothing/full_spacesuit_set
 	name = "\improper Nanotrasen Branded Spacesuit Box"
 	desc = "A few boxes of \"Old Style\" space suits fell off the back of a space truck."
@@ -79,7 +79,7 @@
 	price_max = CARGO_CRATE_VALUE * 10
 	stock_max = 1
 	availability_prob = 40
-
+/*
 /datum/market_item/clothing/anti_sec_pin
 	name = "Subversive Pin"
 	desc = "Exclusive and fashionable red pin from a limited run, proclaiming your allegiance to enemies of the Nanotrasen corporation. \
@@ -90,7 +90,7 @@
 	price_max = CARGO_CRATE_VALUE * 1.5
 	stock_max = 5
 	availability_prob = 70
-
+*/
 /datum/market_item/clothing/floortileset
 	name = "Floor-tile Camouflage Uniform"
 	desc = "Hey there, looking to surprise somebody? Spy? Steal? Then you're lucky, meet our newest \
@@ -103,7 +103,7 @@
 	price_max = CARGO_CRATE_VALUE
 	stock_max = 3
 	availability_prob = 40
-
+/*
 /datum/market_item/clothing/collar_bomb
 	name = "Collar Bomb Kit"
 	desc = "An unpatented and questionably ethical kit consisting of a low-yield explosive collar and a remote to trigger it."
@@ -112,3 +112,4 @@
 	price_max = CARGO_CRATE_VALUE * 4.5
 	stock_max = 3
 	availability_prob = 60
+*/

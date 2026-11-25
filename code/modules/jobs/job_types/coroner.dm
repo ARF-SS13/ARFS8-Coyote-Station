@@ -49,23 +49,20 @@
 	jobtype = /datum/job/coroner
 	id_trim = /datum/id_trim/job/coroner
 
-	box = /obj/item/storage/box/survival/medical
-	backpack_contents = list(
-		/obj/item/storage/box/bodybags = 1,
-		/obj/item/autopsy_scanner = 1,
-		/obj/item/storage/medkit/coroner = 1,
-	)
+	box = /obj/item/storage/box/survival/medical/coroner
 
-	belt = /obj/item/modular_computer/pda/coroner
+	belt = /obj/item/autopsy_scanner
 	ears = /obj/item/radio/headset/headset_srvmed
 	gloves = /obj/item/clothing/gloves/latex/coroner
 	head = /obj/item/clothing/head/utility/surgerycap/black
-	l_pocket = /obj/item/clipboard //good for storing autopsy reports and taking notes
-	r_pocket = /obj/item/reagent_containers/dropper
+	l_pocket = /obj/item/modular_computer/pda/coroner
+	r_pocket = /obj/item/clipboard
 	mask = /obj/item/clothing/mask/surgical
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	suit = /obj/item/clothing/suit/toggle/labcoat/coroner
+	suit_store = /obj/item/storage/medkit/coroner
 	uniform = /obj/item/clothing/under/rank/medical/scrubs/coroner
+	pda_slot = ITEM_SLOT_LPOCKET
 
 	backpack = /obj/item/storage/backpack/coroner
 	satchel = /obj/item/storage/backpack/satchel/coroner

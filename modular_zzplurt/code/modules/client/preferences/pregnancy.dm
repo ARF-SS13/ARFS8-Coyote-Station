@@ -3,7 +3,7 @@
 // /datum/preference/numeric/pregnancy
 // 	abstract_type = /datum/preference/numeric/pregnancy
 
-// /datum/preference/numeric/pregnancy/is_accessible(datum/preferences/preferences)
+// /datum/preference/numeric/pregnancy/is_accessible(datum/prefs_holder/preferences)
 // 	return FALSE
 // 	// if (!..(preferences))
 // 	// 	return FALSE
@@ -13,13 +13,13 @@
 
 // 	// return preferences.read_preference(/datum/preference/toggle/master_erp_preferences)
 
-// /datum/preference/numeric/pregnancy/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+// /datum/preference/numeric/pregnancy/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 // 	return FALSE
 
 // /datum/preference/toggle/pregnancy
 // 	abstract_type = /datum/preference/toggle/pregnancy
 
-// /datum/preference/toggle/pregnancy/is_accessible(datum/preferences/preferences)
+// /datum/preference/toggle/pregnancy/is_accessible(datum/prefs_holder/preferences)
 // 	return FALSE
 // 	// if (!..(preferences))
 // 	// 	return FALSE
@@ -29,13 +29,13 @@
 
 // 	// return preferences.read_preference(/datum/preference/toggle/master_erp_preferences)
 
-// /datum/preference/toggle/pregnancy/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+// /datum/preference/toggle/pregnancy/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 // 	return FALSE
 
 // /datum/preference/choiced/pregnancy
 // 	abstract_type = /datum/preference/choiced/pregnancy
 
-// /datum/preference/choiced/pregnancy/is_accessible(datum/preferences/preferences)
+// /datum/preference/choiced/pregnancy/is_accessible(datum/prefs_holder/preferences)
 // 	return FALSE
 // 	// if (!..(preferences))
 // 	// 	return FALSE
@@ -45,7 +45,7 @@
 
 // 	// return preferences.read_preference(/datum/preference/toggle/master_erp_preferences)
 
-// /datum/preference/choiced/pregnancy/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+// /datum/preference/choiced/pregnancy/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 // 	return FALSE
 
 // /// Chance to get pregnant when someone climaxes inside you, simple stuff

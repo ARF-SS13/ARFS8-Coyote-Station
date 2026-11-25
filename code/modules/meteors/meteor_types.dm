@@ -21,6 +21,7 @@
 	var/z_original
 	///Used for determining which meteors are most interesting
 	var/threat = 0
+	var/floor_hit_effects = TRUE
 
 	//Potential items to spawn when you die
 	var/list/meteordrop = list(/obj/item/stack/ore/iron)
@@ -65,8 +66,9 @@
 		var/turf/T = get_turf(loc)
 		ram_turf(T)
 
-		if(prob(10) && !ispassmeteorturf(T))//randomly takes a 'hit' from ramming
-			get_hit()
+		if(floor_hit_effects)
+			if(prob(10) && !ispassmeteorturf(T))//randomly takes a 'hit' from ramming
+				get_hit(T)
 
 	if(z != z_original || loc == get_turf(dest))
 		moved_off_z()
@@ -76,10 +78,13 @@
 
 /obj/effect/meteor/Bump(atom/A)
 	. = ..() //What could go wrong
+	impact(A)
+
+/obj/effect/meteor/proc/impact(atom/A)
 	if(A)
 		ram_turf(get_turf(A))
-		playsound(src.loc, meteorsound, 40, TRUE)
-		get_hit()
+		playsound(src.loc, meteorsound, 40, TRUE, 10)
+		get_hit(A)
 
 /obj/effect/meteor/proc/chase_target(atom/chasing, delay, home)
 	if(!isatom(chasing))
@@ -113,7 +118,7 @@
 
 //process getting 'hit' by colliding with a dense object
 //or randomly when ramming turfs
-/obj/effect/meteor/proc/get_hit()
+/obj/effect/meteor/proc/get_hit(atom/hit_thing)
 	hits--
 	if(hits <= 0)
 		make_debris()

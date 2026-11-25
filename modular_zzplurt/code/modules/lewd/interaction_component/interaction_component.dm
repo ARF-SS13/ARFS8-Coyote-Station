@@ -26,7 +26,7 @@
 		"belly_enlargement_pref" = /datum/preference/toggle/erp/belly_enlargement,
 		"belly_shrinkage_pref" = /datum/preference/toggle/erp/belly_shrinkage,
 		"forced_neverboner_pref" = /datum/preference/toggle/erp/forced_neverboner,
-		"custom_genital_fluids_pref" = /datum/preference/toggle/erp/custom_genital_fluids,
+		// "custom_genital_fluids_pref" = /datum/preference/toggle/erp/custom_genital_fluids,
 		"cumflation_pref" = /datum/preference/toggle/erp/cumflation,
 		"cumflates_partners_pref" = /datum/preference/toggle/erp/cumflates_partners,
 		"knotting_pref" = /datum/preference/toggle/erp/knotting,
@@ -36,7 +36,9 @@
 		// Vore prefs
 		"vore_enable_pref" = /datum/preference/toggle/erp/vore_enable,
 		"vore_overlays" = /datum/preference/toggle/erp/vore_overlays,
-		"vore_overlay_options" = /datum/preference/toggle/erp/vore_overlay_options
+		"vore_overlay_options" = /datum/preference/toggle/erp/vore_overlay_options,
+		"hear_rumors" = /datum/preference/toggle/rumors/hear_rumors,
+		"hear_horny_rumors" = /datum/preference/toggle/rumors/hear_horny_rumors
 	)
 	/// List of character preference paths mapped to their types
 	var/static/list/character_preference_paths = list(

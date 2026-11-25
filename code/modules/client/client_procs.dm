@@ -304,7 +304,7 @@ GLOBAL_LIST_INIT(unrecommended_builds, list(
 		prefs.load_savefile() // just to make sure we have the latest data
 		prefs.apply_all_client_preferences()
 	else
-		prefs = new /datum/preferences(src)
+		prefs = new /datum/prefs_holder(src)
 		GLOB.preferences_datums[ckey] = prefs
 	prefs.last_ip = address //these are gonna be used for banning
 	prefs.last_id = computer_id //these are gonna be used for banning
@@ -329,7 +329,7 @@ GLOBAL_LIST_INIT(unrecommended_builds, list(
 			if (!joined_player_ckey || joined_player_ckey == ckey)
 				continue
 
-			var/datum/preferences/joined_player_preferences = GLOB.preferences_datums[joined_player_ckey]
+			var/datum/prefs_holder/joined_player_preferences = GLOB.preferences_datums[joined_player_ckey]
 			if(!joined_player_preferences)
 				continue //this shouldn't happen.
 
@@ -1062,8 +1062,8 @@ GLOBAL_LIST_INIT(unrecommended_builds, list(
  * Arguments:
  * * direct_prefs - the preference we're going to get keybinds from
  */
-/client/proc/update_special_keybinds(datum/preferences/direct_prefs)
-	var/datum/preferences/D = prefs || direct_prefs
+/client/proc/update_special_keybinds(datum/prefs_holder/direct_prefs)
+	var/datum/prefs_holder/D = prefs || direct_prefs
 	if(!D?.key_bindings)
 		return
 	movement_keys = list()

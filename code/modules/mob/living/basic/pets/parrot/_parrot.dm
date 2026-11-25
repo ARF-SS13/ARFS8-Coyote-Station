@@ -54,6 +54,12 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	var/speech_probability_rate = 5
 	/// The generic probability odds we have to switch out our speech string
 	var/speech_shuffle_rate = 30
+	var/speech_rumor_rate = 10
+	var/speech_nethack_rumor_rate = 10
+
+	var/last_speak = 0
+	var/speak_cooldown_min = 1 MINUTES
+	var/speak_cooldown_max = 10 MINUTES
 
 	/// Contains all of the perches that parrots will generally sit on until something catches their eye.
 	var/static/list/desired_perches = typecacheof(list(
@@ -158,22 +164,22 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	. = ..()
 	. += "Held Item: [held_item]"
 
-/mob/living/basic/parrot/radio(message, list/message_mods = list(), list/spans, language) //literally copied from human/radio(), but there's no other way to do this. at least it's better than it used to be.
+/mob/living/basic/parrot/radio(message, list/message_data = list(), list/spans, language) //literally copied from human/radio(), but there's no other way to do this. at least it's better than it used to be.
 	. = ..()
 	if(. != NONE)
 		return
 
-	if(message_mods[MODE_HEADSET])
+	if(message_data[MODE_HEADSET])
 		if(ears)
-			ears.talk_into(src, message, , spans, language, message_mods)
+			ears.talk_into(src, message, , spans, language, message_data)
 		return ITALICS | REDUCE_RANGE
-	else if(message_mods[RADIO_EXTENSION] == MODE_DEPARTMENT)
+	else if(message_data[SATA_RADIO_EXTENSION] == MODE_DEPARTMENT)
 		if(ears)
-			ears.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
+			ears.talk_into(src, message, message_data[SATA_RADIO_EXTENSION], spans, language, message_data)
 		return ITALICS | REDUCE_RANGE
-	else if(message_mods[RADIO_EXTENSION] in GLOB.default_radio_channels)
+	else if(message_data[SATA_RADIO_EXTENSION] in GLOB.default_radio_channels)
 		if(ears)
-			ears.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
+			ears.talk_into(src, message, message_data[SATA_RADIO_EXTENSION], spans, language, message_data)
 			return ITALICS | REDUCE_RANGE
 
 	return NONE
@@ -351,11 +357,11 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 	if(health < maxHealth)
 		adjust_brute_loss(-10)
+	last_speak = 0 // talk nowish!
 	speech_probability_rate *= 1.27
 	speech_shuffle_rate += 10
 	update_speech_blackboards()
 	return TRUE
-
 /// Handles special behavior whenever we are injured.
 /mob/living/basic/parrot/proc/on_injured(mob/living/basic/source, mob/living/attacker, attack_flags)
 	SIGNAL_HANDLER
@@ -417,7 +423,12 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 /// Updates our speech blackboards mob-side to reflect the current speech on the controller to ensure everything is synchronized.
 /mob/living/basic/parrot/proc/update_speech_blackboards()
 	ai_controller.set_blackboard_key(BB_PARROT_REPEAT_PROBABILITY, speech_probability_rate)
+	ai_controller.set_blackboard_key(BB_PARROT_SAY_NETHACK_RUMOR, speech_nethack_rumor_rate)
+	ai_controller.set_blackboard_key(BB_PARROT_SAY_NON_SAUCY_RUMOR, speech_rumor_rate)
 	ai_controller.set_blackboard_key(BB_PARROT_PHRASE_CHANGE_PROBABILITY, speech_shuffle_rate)
+	ai_controller.set_blackboard_key(BB_PARROT_NEXT_SAY, last_speak)
+	ai_controller.set_blackboard_key(BB_PARROT_SAY_COOLDOWN_MIN, speak_cooldown_min)
+	ai_controller.set_blackboard_key(BB_PARROT_SAY_COOLDOWN_MAX, speak_cooldown_max)
 
 /// Will simply set up the headset for the parrot to use. Stub, implemented on subtypes.
 /mob/living/basic/parrot/proc/setup_headset()

@@ -5,8 +5,8 @@
 		they all eventually die."
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	faction = FACTION_STATION
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 0
+	spawn_positions = 0
 	supervisors = SUPERVISOR_HOS
 	minimal_player_age = 7
 	exp_requirements = 300
@@ -40,22 +40,10 @@
 		/obj/item/storage/box/lethalshot = 5
 	)
 	rpg_title = "Jailor"
-	job_flags = STATION_JOB_FLAGS | JOB_BOLD_SELECT_TEXT | JOB_ANTAG_PROTECTED
+//	job_flags = STATION_JOB_FLAGS | JOB_BOLD_SELECT_TEXT | JOB_ANTAG_PROTECTED
+	job_flags = STATION_JOB_DISABLED_FLAGS
 
-/datum/job/warden/after_spawn(mob/living/spawned, client/player_client)
-	. = ..()
-	if(!ishuman(spawned) || !prob(PIG_COP_PROBABILITY))
-		return
-	var/mob/living/carbon/human/piggy = spawned
-	for (var/obj/item/bodypart/ham as anything in piggy.bodyparts)
-		// These are string lists
-		ham.butcher_drops = ham.butcher_drops.Copy()
-		for (var/meat_type in ham.butcher_drops)
-			if (!ispath(meat_type, /obj/item/food/meat/slab))
-				continue
-			ham.butcher_drops[/obj/item/food/meat/slab/pig] = ham.butcher_drops[meat_type]
-			ham.butcher_drops -= meat_type
-		ham.butcher_drops = string_list(ham.butcher_drops)
+
 
 /datum/outfit/job/warden
 	name = "Warden"
@@ -64,15 +52,16 @@
 	id_trim = /datum/id_trim/job/warden
 	uniform = /obj/item/clothing/under/rank/security/warden
 	suit = /obj/item/clothing/suit/armor/vest/warden/alt
-	suit_store = /obj/item/gun/energy/disabler
-	belt = /obj/item/modular_computer/pda/warden
+	suit_store = /obj/item/gun/energy/e_gun/advtaser
+	belt = /obj/item/storage/belt/security/full
 	ears = /obj/item/radio/headset/headset_sec/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	gloves = /obj/item/clothing/gloves/color/black/security
 	head = /obj/item/clothing/head/hats/warden/red
 	shoes = /obj/item/clothing/shoes/jackboots/sec
-	l_pocket = /obj/item/restraints/handcuffs
-	r_pocket = /obj/item/assembly/flash/handheld
+	l_pocket = /obj/item/modular_computer/pda/warden
+	r_pocket = /obj/item/flashlight/seclite
+	pda_slot = ITEM_SLOT_LPOCKET
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec

@@ -10,7 +10,7 @@
 	var/static/link_regex = regex(@"i\.gyazo.com|.\.l3n\.co|static\.f-list\.net/images/|images2\.imgbox\.com|thumbs2\.imgbox\.com|files\.catbox\.moe") // Catbox, Imgbox, Gyazo, Lensdump, or F-List
 	var/static/list/valid_extensions = list("jpg", "png", "jpeg") // Regex works fine, if you know how it works
 
-/datum/preference/text/headshot/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/text/headshot/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	target.dna.features["headshot"] = value
 
 /datum/preference/text/headshot/is_valid(value)

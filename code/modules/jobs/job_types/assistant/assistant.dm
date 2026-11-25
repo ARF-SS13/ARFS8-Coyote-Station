@@ -55,6 +55,7 @@ Assistant
 	jobtype = /datum/job/assistant
 	id_trim = /datum/id_trim/job/assistant
 	belt = /obj/item/modular_computer/pda/assistant
+	r_pocket = /obj/item/gbp_punchcard/starting
 
 /datum/outfit/job/assistant/pre_equip(mob/living/carbon/human/target)
 	..()

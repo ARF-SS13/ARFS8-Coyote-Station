@@ -14,7 +14,7 @@
 #define UTC_YEAR time2text(world.realtime,"YYYY",NO_TIMEZONE)
 
 /// In-universe, SS13 is set 540 years in the future from the real-world day, hence this number for determining the year-offset for the in-game year.
-#define STATION_YEAR_OFFSET 540
+#define STATION_YEAR_OFFSET 650
 
 #define JANUARY 1
 #define FEBRUARY 2
@@ -71,6 +71,9 @@ When using time2text(), please use "DDD" to find the weekday. Refrain from using
 #define HOURS MINUTES*60
 
 #define DAYS HOURS*24
+
+#define WEEKS DAYS*7
+
 #define YEARS DAYS*365 //fuck leap days, they were removed in 2069
 
 #define TICKS *world.tick_lag

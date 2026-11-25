@@ -210,7 +210,7 @@
 	circuit = /obj/item/circuitboard/computer/research
 
 /obj/machinery/computer/security/hos
-	name = "\improper Head of Security's camera console"
+	name = "\improper Warden's camera console"
 	desc = "A custom security console with added access to the labor camp network."
 	network = list(CAMERANET_NETWORK_SS13, CAMERANET_NETWORK_LABOR)
 	circuit = null

@@ -14,7 +14,7 @@
 	else
 		return uni_icon('icons/mob/silicon/ai.dmi', resolve_ai_icon_sync(value))
 
-/datum/preference/choiced/ai_core_display/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/ai_core_display/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 

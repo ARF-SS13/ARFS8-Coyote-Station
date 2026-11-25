@@ -12,7 +12,7 @@
 /// Note: This will frequently cause erorrs and have seemingly infinitely repeating procs on the current good byond version
 /// It'll be fixed when we can update to latest for dev but you likely can't do that right now (since debugging hasn't been fixed yet)
 /// BIGGER, MORE IMPORTANT NOTE: Should not be used on master maybe ever, introspection like this is mostly useful for debugging
-/// if you have another use I suspect you are just creating god's strongest footgun and should rethink things
+/// if you have another use I suspect you are just creating god's strongest footgun and should rethink things // make me
 /proc/dump_stack(max_depth = STACK_DEPTH_SEARCH_LIMIT)
 	var/list/proc_paths = list()
 	var/crashed = FALSE
@@ -28,13 +28,14 @@
 		//I just do not trust this construct to work reliably
 		crashed = TRUE
 
+	var/stringified = json_encode(proc_paths)
+
 	if(crashed)
 		stack_trace("dump_stack's stack walking crashed after walking [length(proc_paths)] procs, Last Read: [proc_paths[length(proc_paths)]] Last Accessed: [stack_entry]")
-		return proc_paths
 
 	if(depth > max_depth)
 		stack_trace("dump_stack's stack walking exceeded our soft limit after walking [length(proc_paths)] procs, Last Read: [proc_paths[length(proc_paths)]] Next Accessed: [stack_entry]")
-		return proc_paths
-	return proc_paths
+
+	return stringified
 
 #undef STACK_DEPTH_SEARCH_LIMIT

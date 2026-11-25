@@ -413,9 +413,17 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 
 	return spawned_mobs
 
-// Displays a message in deadchat, sent by source. source is not linkified, message is, to avoid stuff like character names to be linkified.
-// Automatically gives the class deadsay to the whole message (message + source)
-/proc/deadchat_broadcast(message, source=null, mob/follow_target=null, turf/turf_target=null, speaker_key=null, message_type=DEADCHAT_REGULAR, admin_only=FALSE)
+/// Displays a message in deadchat, sent by source. source is not linkified, message is, to avoid stuff like character names to be linkified.
+/// Automatically gives the class deadsay to the whole message (message + source)
+/// does not support visualchat... yet!
+/proc/deadchat_broadcast(
+	message,
+	source=null,
+	mob/follow_target=null,
+	turf/turf_target=null,
+	speaker_key=null,
+	message_type=DEADCHAT_REGULAR,
+	admin_only=FALSE)
 	message = span_deadsay("[source][span_linkify(message)]")
 
 	if(admin_only)
@@ -426,7 +434,7 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 		var/toggles = TOGGLES_DEFAULT
 		var/list/ignoring
 		if(M.client?.prefs)
-			var/datum/preferences/prefs = M.client?.prefs
+			var/datum/prefs_holder/prefs = M.client?.prefs
 			chat_toggles = prefs.chat_toggles
 			toggles = prefs.toggles
 			ignoring = prefs.ignoring
@@ -741,6 +749,8 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 ///Returns a list of strings for a given slot flag.
 /proc/parse_slot_flags(slot_flags)
 	var/list/slot_strings = list()
+	if(slot_flags & ITEM_SLOT_DONT_PUT_ANYWHERE)
+		slot_strings += "nowhere"
 	if(slot_flags & ITEM_SLOT_BACK)
 		slot_strings += "back"
 	if(slot_flags & ITEM_SLOT_MASK)

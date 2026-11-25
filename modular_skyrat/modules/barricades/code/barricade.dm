@@ -763,8 +763,8 @@
 
 //An item thats meant to be a template for quickly deploying stuff like barricades
 /obj/item/quickdeploy
-	name = "C.U.C.K.S"
-	desc = "Compact Universal Complex Kinetic Self-expanding Barricade. Great for deploying quick fortifications."
+	name = "Deployable Barricade" // HAHAHAHAHAHAHAH C.U.C.K.! THEY CALLED IT C.U.C.K.! THAT'S SO FUCKING FUNNY! HAHAHAHAHHAHAHAHA!!! NOW NOBODY IS ALLOWED TO TAKE ANY SITUATION INVOLVING ONE WITH ANY LEVEL OF SERIOUS TONE! WE'RE MEDIUM RP BY THE WAY
+	desc = "A folding barricade. Great for deploying quick fortifications."
 	icon = 'modular_skyrat/modules/barricades/icons/barricade.dmi'
 	w_class = WEIGHT_CLASS_SMALL //While this is small, normal 50 stacks of metal is NORMAL so this is a bit on the bad space to cade ratio
 	var/delay = 0 //Delay on deploying the thing
@@ -830,7 +830,7 @@
 
 /obj/item/storage/barricade
 	icon = 'modular_skyrat/modules/barricades/icons/barricade.dmi'
-	name = "C.U.C.K.S box"
+	name = "barricade box"
 	desc = "Contains several deployable barricades."
 	icon_state = "box_metal"
 	w_class = WEIGHT_CLASS_NORMAL

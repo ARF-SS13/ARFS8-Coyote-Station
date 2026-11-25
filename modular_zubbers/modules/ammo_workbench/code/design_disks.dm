@@ -15,7 +15,7 @@
 /obj/item/disk/ammo_workbench/advanced/on_bench_install(obj/machinery/ammo_workbench/ammobench)
 	ammobench.allowed_harmful = TRUE
 	ammobench.allowed_advanced = TRUE
-
+/*
 /datum/design/disk/ammo_workbench_lethal
 	name = "Ammo Workbench Advanced Munitions Datadisk"
 	id = "ammoworkbench_disk_lethal"
@@ -28,3 +28,4 @@
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_SECURITY,
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
+*/

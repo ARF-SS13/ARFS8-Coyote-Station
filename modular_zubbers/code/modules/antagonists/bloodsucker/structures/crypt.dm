@@ -637,6 +637,7 @@
 
 	for(var/mob/dead_mob in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(dead_mob, user)
+		//? todo: Visual chat for dead stuff here
 		to_chat(dead_mob, "[link] [rendered]")
 
 	speech_args[SPEECH_MESSAGE] = ""

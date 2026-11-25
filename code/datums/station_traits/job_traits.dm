@@ -70,6 +70,7 @@
 	return our_job.player_old_enough(player) && ..()
 
 /// Adds a gorilla to the cargo department, replacing the sloth and the mech
+/*
 /datum/station_trait/job/cargorilla
 	name = "Cargo Gorilla"
 	button_desc = "Sign up to become the Cargo Gorilla, a peaceful shepherd of boxes."
@@ -101,6 +102,7 @@
 	// monkey carries the crates, the age of robot is over
 	if(GLOB.cargo_ripley)
 		qdel(GLOB.cargo_ripley)
+*/
 /* // Bubber EDIT Start - We're adding BA back!!!
 /datum/station_trait/job/bridge_assistant
 	name = "Bridge Assistant"
@@ -155,6 +157,7 @@
 	new /obj/item/reagent_containers/cup/coffeepot(picked_turf)
 	new /obj/item/storage/box/coffeepack(picked_turf)
 */
+/*
 /datum/station_trait/job/veteran_advisor
 	name = "Veteran Advisor"
 	button_desc = "Sign up to become a DISABLED but hard boiled Veteran Advisor of Nanotrasen Security Force. Advise HoS and Captain, train Officers, all while fighting your PTSD."
@@ -162,7 +165,7 @@
 	report_message = "Veteran Security Advisor has been assigned to your station to help with Security matters."
 	show_in_report = TRUE
 	job_to_add = /datum/job/veteran_advisor
-
+*/
 /* SKYRAT EDIT -- REMOVAL -- We handle the lobby a bit differently for time being
 /datum/station_trait/job/veteran_advisor/on_lobby_button_update_overlays(atom/movable/screen/lobby/button/sign_up/lobby_button, list/overlays)
 	. = ..()

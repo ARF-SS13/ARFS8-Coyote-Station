@@ -63,7 +63,7 @@
 	price_min = CARGO_CRATE_VALUE * 1.75
 	price_max = CARGO_CRATE_VALUE * 4
 	availability_prob = 30
-
+/*
 /datum/market_item/tool/riot_shield
 	name = "Riot Shield"
 	desc = "Protect yourself from an unexpected Riot at your local Police department!"
@@ -92,3 +92,4 @@
 	price_max = CARGO_CRATE_VALUE * 2
 	stock_max = 3
 	availability_prob = 40
+*/

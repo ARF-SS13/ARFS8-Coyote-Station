@@ -345,11 +345,12 @@ GLOBAL_VAR_INIT(changeling_zombies_detected,FALSE)
 
 	COOLDOWN_START(src,limb_regen_cooldown,CHANGELING_ZOMBIE_LIMB_REGEN_TIME)
 
-/datum/component/changeling_zombie_infection/proc/handle_speech(datum/source, list/speech_args)
+/datum/component/changeling_zombie_infection/proc/handle_speech(datum/source, list/speech_args, list/message_data)
 
 	SIGNAL_HANDLER
 
 	speech_args[SPEECH_SPANS] |= SPAN_ITALICS
+	message_data[SATA_SPANS] |= SPAN_ITALICS
 
 	var/message = "[speech_args[SPEECH_MESSAGE]] "
 

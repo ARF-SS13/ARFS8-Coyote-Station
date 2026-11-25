@@ -335,6 +335,15 @@
 		mod.wearer.visible_message("As [mod.wearer] flips, [mod.wearer.buckled_mobs[1]] flies off of [mod.wearer.p_their()] back!")
 		mod.wearer.unbuckle_all_mobs()
 
+	var/turf/open/current_turf = get_turf(mod.wearer)
+	var/turf/open/openspace/turf_above = get_step_multiz(mod.wearer, UP)
+	if(!turf_above && istype(current_turf) && current_turf.planetary_atmos) //nothing holding you down
+		var/turf/somewhere = get_offset_target_turf(get_turf(mod.wearer), rand(-5, 5), rand(-5, 5))
+		mod.wearer.throw_at(somewhere, 10, 1, activator)
+		playsound(src, 'sound/machines/click.ogg', 75)
+		to_chat(mod.wearer, span_userdanger("The atrocinator flings you in a high arc, not finding a ceiling!"))
+		return
+
 	playsound(src, 'sound/effects/curse/curseattack.ogg', 50)
 	mod.wearer.AddElement(/datum/element/forced_gravity, NEGATIVE_GRAVITY)
 	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(check_upstairs))
@@ -410,9 +419,10 @@
 
 #undef FLY_TIME
 
-/obj/item/mod/module/atrocinator/proc/on_talk(datum/source, list/speech_args)
+/obj/item/mod/module/atrocinator/proc/on_talk(datum/source, list/speech_args, list/message_data)
 	SIGNAL_HANDLER
 	speech_args[SPEECH_SPANS] |= "upside_down"
+	message_data[SATA_SPANS] |= "upside_down"
 
 /// Prevent someone from being buckled to the wearer while atrocinator is active
 /obj/item/mod/module/atrocinator/proc/on_someone_buckled(datum/source, mob/living/buckled_mob, mob/living/buckler)

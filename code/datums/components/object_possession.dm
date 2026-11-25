@@ -28,6 +28,8 @@
 	// we can expect to be possessed by either a nonliving or a living mob
 	RegisterSignals(parent, list(COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, COMSIG_MOB_CLIENT_PRE_NON_LIVING_MOVE), PROC_REF(on_move))
 	RegisterSignals(parent, list(COMSIG_MOB_GHOSTIZED, COMSIG_KB_ADMIN_AGHOST_DOWN), PROC_REF(end_possession))
+	RegisterSignals(target, COMSIG_EXTRACT_CLIENT, PROC_REF(extract_the_client))
+	RegisterSignals(target, COMSIG_EXTRACT_CKEY, PROC_REF(extract_the_ckey))
 
 /datum/component/object_possession/Destroy()
 	cleanup_object_binding()
@@ -37,6 +39,8 @@
 		COMSIG_MOB_CLIENT_PRE_NON_LIVING_MOVE,
 		COMSIG_MOB_GHOSTIZED,
 	))
+	UnregisterSignal(possessed, COMSIG_EXTRACT_CLIENT)
+	UnregisterSignal(possessed, COMSIG_EXTRACT_CKEY)
 
 	var/mob/user = parent
 	var/atom/movable/screen/alert/alert_to_clear = screen_alert_ref?.resolve()
@@ -52,6 +56,22 @@
 
 	stashed_name = old_component.stashed_name
 
+/datum/component/object_possession/proc/extract_the_client(datum/source, list/setzup)
+	SIGNAL_HANDLER
+	if(!setzup)
+		return
+	var/client/C = extract_client(parent)
+	setzup = list(C)
+	return !!C
+
+/datum/component/object_possession/proc/extract_the_ckey(datum/source, list/setzup)
+	SIGNAL_HANDLER
+	if(!setzup)
+		return
+	var/client/C = extract_client(parent)
+	setzup = list(C)
+	return !!C
+
 /// Binds the mob to the object and sets up the naming and everything.
 /// Returns FALSE if we don't bind, TRUE if we succeed.
 /datum/component/object_possession/proc/bind_to_new_object(obj/target)
@@ -64,6 +84,13 @@
 	stashed_name = user.real_name
 	possessed = target
 
+	if(user.vc_override_key && !target.vc_override_key)
+		target.vc_override_key = user.vc_override_key
+	if(user.prefs_character_ckey)
+		target.prefs_character_ckey = user.prefs_character_ckey
+	if(user.prefs_character_slot)
+		target.prefs_character_slot = user.prefs_character_slot
+
 	user.forceMove(target)
 	user.real_name = target.name
 	user.name = target.name
@@ -75,6 +102,8 @@
 	target.AddElement(/datum/element/weather_listener, /datum/weather/sand_storm, ZTRAIT_SANDSTORM, GLOB.sand_storm_sounds)
 
 	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(end_possession))
+	RegisterSignal(target, COMSIG_EXTRACT_CLIENT, PROC_REF(extract_the_client))
+	RegisterSignal(target, COMSIG_EXTRACT_CKEY, PROC_REF(extract_the_ckey))
 	return TRUE
 
 /// Cleans up everything pertinent to the current possessed object.
@@ -89,6 +118,7 @@
 	possessed.RemoveElement(/datum/element/weather_listener, /datum/weather/sand_storm, ZTRAIT_SANDSTORM, GLOB.sand_storm_sounds)
 	possessed.RemoveElement(/datum/element/weather_listener, /datum/weather/snow_storm, ZTRAIT_SNOWSTORM, GLOB.snowstorm_sounds)
 	UnregisterSignal(possessed, COMSIG_QDELETING)
+	UnregisterSignal(possessed, COMSIG_EXTRACT_CLIENT)
 
 	if(!isnull(stashed_name))
 		poltergeist.real_name = stashed_name

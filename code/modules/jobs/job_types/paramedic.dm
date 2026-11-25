@@ -47,10 +47,7 @@
 	id_trim = /datum/id_trim/job/paramedic
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
 	suit = /obj/item/clothing/suit/toggle/labcoat/paramedic
-	suit_store = /obj/item/flashlight/pen/paramedic
-	backpack_contents = list(
-		/obj/item/emergency_bed = 1,
-		)
+	suit_store = /obj/item/emergency_bed
 	belt = /obj/item/storage/belt/medical/paramedic
 	ears = /obj/item/radio/headset/headset_med
 	head = /obj/item/clothing/head/soft/paramedic
@@ -64,18 +61,16 @@
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
 	messenger = /obj/item/storage/backpack/messenger/med
 
-	box = /obj/item/storage/box/survival/medical
+	box = /obj/item/storage/box/survival/medical/emergency
 	chameleon_extras = /obj/item/gun/syringe
 	pda_slot = ITEM_SLOT_LPOCKET
 
 /datum/outfit/job/doctor/mod
 	name = "Paramedic (MODsuit)"
 
-	suit_store = /obj/item/tank/internals/oxygen
 	back = /obj/item/mod/control/pre_equipped/medical
 	suit = null
 	head = null
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
 	mask = /obj/item/clothing/mask/breath/medical
-	r_pocket = /obj/item/flashlight/pen
 	internals_slot = ITEM_SLOT_SUITSTORE

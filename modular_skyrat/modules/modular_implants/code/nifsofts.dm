@@ -74,8 +74,8 @@
 	update_theme()
 
 /datum/nifsoft/Destroy()
-	if(active)
-		activate()
+	// if(active)
+	// 	activate() //! idk why dm is suddenly going nuts over these things
 
 	linked_mob = null
 

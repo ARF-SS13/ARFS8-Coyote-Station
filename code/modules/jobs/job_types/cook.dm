@@ -70,14 +70,12 @@
 	id_trim = /datum/id_trim/job/cook/chef
 	uniform = /obj/item/clothing/under/costume/buttondown/slacks/service
 	suit = /obj/item/clothing/suit/toggle/chef
-	backpack_contents = list(
-		/obj/item/choice_beacon/ingredient = 1,
-		/obj/item/sharpener = 1,
-	)
+	suit_store = /obj/item/choice_beacon/ingredient
 	belt = /obj/item/modular_computer/pda/cook
 	ears = /obj/item/radio/headset/headset_srv
 	head = /obj/item/clothing/head/utility/chefhat
 	mask = /obj/item/clothing/mask/fakemoustache/italian
+	r_pocket = /obj/item/sharpener
 
 	skillchips = list(/obj/item/skillchip/job/chef)
 

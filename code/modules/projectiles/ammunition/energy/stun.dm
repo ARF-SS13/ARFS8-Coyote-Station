@@ -7,6 +7,15 @@
 	firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect
 	muzzle_flash_color = LIGHT_COLOR_DIM_YELLOW
 
+/obj/item/ammo_casing/energy/electrode/civilian
+	projectile_type = /obj/projectile/energy/electrode/short
+	select_name = "stun"
+	fire_sound = 'sound/items/weapons/taser.ogg'
+	e_cost = LASER_SHOTS(1.99, STANDARD_CELL_CHARGE) // you get one shot, plus some wiggle juice
+	harmful = FALSE
+	firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect
+	muzzle_flash_color = LIGHT_COLOR_DIM_YELLOW
+
 //BUBBER EDIT START
 /obj/item/ammo_casing/energy/electrode/sec
 	projectile_type = /obj/projectile/energy/electrode/sec

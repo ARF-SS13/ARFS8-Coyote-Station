@@ -51,7 +51,7 @@
 /datum/station_trait/galactic_grant/on_round_start()
 	var/datum/bank_account/cargo_bank = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	cargo_bank.adjust_money(rand(2000, 5000))
-
+/* expanding survival boxes a bit, no more room anymore
 /datum/station_trait/premium_internals_box
 	name = "Premium internals boxes"
 	trait_type = STATION_TRAIT_POSITIVE
@@ -59,6 +59,7 @@
 	show_in_report = TRUE
 	report_message = "The internals boxes for your crew have been upsized and filled with bonus equipment."
 	trait_to_give = STATION_TRAIT_PREMIUM_INTERNALS
+*/
 
 /datum/station_trait/bountiful_bounties
 	name = "Bountiful bounties"
@@ -153,7 +154,7 @@
 
 /datum/station_trait/quick_shuttle/on_round_start()
 	. = ..()
-	SSshuttle.supply.callTime *= 0.5
+	SSshuttle.supply?.callTime *= 0.5
 
 /datum/station_trait/deathrattle_department
 	name = "deathrattled department"

@@ -507,7 +507,7 @@
 	if (isnull(ckey))
 		return // sanity
 
-	var/datum/preferences/victim_prefs = source.prefs
+	var/datum/prefs_holder/victim_prefs = source.prefs
 	if (!victim_prefs)
 		return
 

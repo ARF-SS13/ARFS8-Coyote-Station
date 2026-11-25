@@ -70,19 +70,19 @@
 /datum/preference/choiced/facial_hairstyle/create_default_value()
 	return /datum/sprite_accessory/facial_hair/shaved::name
 
-/datum/preference/choiced/facial_hairstyle/create_informed_default_value(datum/preferences/preferences)
-	var/gender = preferences.read_preference(/datum/preference/choiced/gender)
-	var/species_type = preferences.read_preference(/datum/preference/choiced/species)
-	var/datum/species/species_real = GLOB.species_prototypes[species_type]
-	if(!gender || !species_real || !species_real.sexes)
-		return ..()
+/datum/preference/choiced/facial_hairstyle/create_informed_default_value(datum/prefs_holder/preferences)
+	// var/gender = preferences.read_preference(/datum/preference/choiced/gender)
+	// var/species_type = preferences.read_preference(/datum/preference/choiced/species)
+	// var/datum/species/species_real = GLOB.species_prototypes[species_type]
+	// if(!gender || !species_real || !species_real.sexes)
+	// 	return ..()
 
-	var/picked_beard = random_facial_hairstyle(gender)
-	var/datum/sprite_accessory/beard_style = SSaccessories.facial_hairstyles_list[picked_beard]
-	if(!beard_style || !beard_style.natural_spawn || beard_style.locked) // Invalid, go with god(bald)
-		return ..()
+	// var/picked_beard = random_facial_hairstyle(gender)
+	// var/datum/sprite_accessory/beard_style = SSaccessories.facial_hairstyles_list[picked_beard]
+	// if(!beard_style || !beard_style.natural_spawn || beard_style.locked) // Invalid, go with god(bald)
+	// 	return ..()
 
-	return picked_beard
+	return /datum/sprite_accessory/facial_hair/shaved::name
 
 /datum/preference/choiced/facial_hairstyle/compile_constant_data()
 	var/list/data = ..()
@@ -101,8 +101,8 @@
 /datum/preference/color/facial_hair_color/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_facial_haircolor(value, update = FALSE)
 
-/datum/preference/color/facial_hair_color/create_informed_default_value(datum/preferences/preferences)
-	return preferences.read_preference(/datum/preference/color/hair_color) || random_hair_color()
+/datum/preference/color/facial_hair_color/create_informed_default_value(datum/prefs_holder/preferences)
+	return preferences.read_preference(/datum/preference/color/hair_color) || "#593029"
 
 /datum/preference/choiced/facial_hair_gradient
 	priority = PREFERENCE_PRORITY_LATE_BODY_TYPE
@@ -131,7 +131,7 @@
 /datum/preference/color/facial_hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_facial_hair_gradient_color(new_color = value, update = FALSE)
 
-/datum/preference/color/facial_hair_gradient/is_accessible(datum/preferences/preferences)
+/datum/preference/color/facial_hair_gradient/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 	return preferences.read_preference(/datum/preference/choiced/facial_hair_gradient) != /datum/sprite_accessory/gradient/none::name
@@ -143,14 +143,20 @@
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_head_flag = HEAD_HAIR
 
-/datum/preference/color/hair_color/has_relevant_feature(datum/preferences/preferences)
+/datum/preference/color/hair_color/layer_two
+	savefile_key = "hair_color_2"
+
+/datum/preference/color/hair_color/has_relevant_feature(datum/prefs_holder/preferences)
 	return ..() || (/datum/quirk/item_quirk/bald::name in preferences.all_quirks)
 
 /datum/preference/color/hair_color/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_haircolor(value, update = FALSE)
 
-/datum/preference/color/hair_color/create_informed_default_value(datum/preferences/preferences)
-	return random_hair_color()
+/datum/preference/color/hair_color/layer_two/apply_to_human(mob/living/carbon/human/target, value)
+	target.set_haircolor_2(value, update = FALSE)
+
+/datum/preference/color/hair_color/create_informed_default_value(datum/prefs_holder/preferences)
+	return "#B25A63"
 
 /datum/preference/choiced/hairstyle
 	priority = PREFERENCE_PRIORITY_BODY_TYPE // Happens after gender so we can picka hairstyle based on that
@@ -161,8 +167,12 @@
 	should_generate_icons = TRUE
 	relevant_head_flag = HEAD_HAIR
 
-/datum/preference/choiced/hairstyle/has_relevant_feature(datum/preferences/preferences)
-	return ..() || (/datum/quirk/item_quirk/bald::name in preferences.all_quirks)
+/datum/preference/choiced/hairstyle/layer_two
+	savefile_key = "hairstyle_name_2"
+	main_feature_name = "Hairstyle 2"
+
+/datum/preference/choiced/hairstyle/has_relevant_feature(datum/prefs_holder/preferences)
+	return ..() || (/datum/sprite_accessory/hair/bald::name in preferences.all_quirks)
 
 /datum/preference/choiced/hairstyle/init_possible_values()
 	return assoc_to_keys_features(SSaccessories.hairstyles_list)
@@ -174,27 +184,37 @@
 /datum/preference/choiced/hairstyle/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_hairstyle(value, update = FALSE)
 
+/datum/preference/choiced/hairstyle/layer_two/apply_to_human(mob/living/carbon/human/target, value)
+	target.set_hairstyle_2(value, update = FALSE)
+
 /datum/preference/choiced/hairstyle/create_default_value()
-	return /datum/sprite_accessory/hair/bald::name
+	return /datum/sprite_accessory/hair/bob2::name
 
-/datum/preference/choiced/hairstyle/create_informed_default_value(datum/preferences/preferences)
-	var/gender = preferences.read_preference(/datum/preference/choiced/gender)
-	var/species_type = preferences.read_preference(/datum/preference/choiced/species)
-	var/datum/species/species_real = GLOB.species_prototypes[species_type]
-	if(!gender || !species_real || !species_real.sexes)
-		return ..()
+/datum/preference/choiced/hairstyle/create_informed_default_value(datum/prefs_holder/preferences)
+	// var/gender = preferences.read_preference(/datum/preference/choiced/gender)
+	// var/species_type = preferences.read_preference(/datum/preference/choiced/species)
+	// var/datum/species/species_real = GLOB.species_prototypes[species_type]
+	// if(!gender || !species_real || !species_real.sexes)
+	// 	return ..()
 
-	var/picked_hair = random_hairstyle(gender)
-	var/datum/sprite_accessory/hair_style = SSaccessories.hairstyles_list[picked_hair]
-	if(!hair_style || !hair_style.natural_spawn || hair_style.locked) // Invalid, go with god(bald)
-		return ..()
+	// var/picked_hair = random_hairstyle(gender)
+	// var/datum/sprite_accessory/hair_style = SSaccessories.hairstyles_list[picked_hair]
+	// if(!hair_style || !hair_style.natural_spawn || hair_style.locked) // Invalid, go with god(bald)
+	// 	return ..()
 
-	return picked_hair
+	return /datum/sprite_accessory/hair/bob2::name
 
 /datum/preference/choiced/hairstyle/compile_constant_data()
 	var/list/data = ..()
 
 	data[SUPPLEMENTAL_FEATURE_KEY] = /datum/preference/color/hair_color::savefile_key
+
+	return data
+
+/datum/preference/choiced/hairstyle/layer_two/compile_constant_data()
+	var/list/data = ..()
+
+	data[SUPPLEMENTAL_FEATURE_KEY] = /datum/preference/color/hair_color/layer_two::savefile_key
 
 	return data
 
@@ -225,7 +245,25 @@
 /datum/preference/color/hair_gradient/apply_to_human(mob/living/carbon/human/target, value)
 	target.set_hair_gradient_color(new_color = value, update = FALSE)
 
-/datum/preference/color/hair_gradient/is_accessible(datum/preferences/preferences)
+/datum/preference/color/hair_gradient/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 	return preferences.read_preference(/datum/preference/choiced/hair_gradient) != /datum/sprite_accessory/gradient/none::name
+
+
+/datum/preference/choiced/hair_gradient/two
+	savefile_key = "hair_gradient_2"
+
+/datum/preference/choiced/hair_gradient/two/apply_to_human(mob/living/carbon/human/target, value)
+	target.set_hair_gradient_style(new_style = value, update = FALSE, key = GRADIENT_HAIR_LAYER_TWO_KEY)
+
+/datum/preference/color/hair_gradient/two
+	savefile_key = "hair_gradient_color_2"
+
+/datum/preference/color/hair_gradient/two/apply_to_human(mob/living/carbon/human/target, value)
+	target.set_hair_gradient_color(new_color = value, update = FALSE, key = GRADIENT_HAIR_LAYER_TWO_KEY)
+
+/datum/preference/color/hair_gradient/two/is_accessible(datum/prefs_holder/preferences)
+	if (!..(preferences))
+		return FALSE
+	return preferences.read_preference(/datum/preference/choiced/hair_gradient/two) != /datum/sprite_accessory/gradient/none::name

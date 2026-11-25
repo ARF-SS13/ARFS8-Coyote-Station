@@ -46,11 +46,11 @@
 	id_trim = /datum/id_trim/job/medical_doctor
 	uniform = /obj/item/clothing/under/rank/medical/doctor
 	suit = /obj/item/clothing/suit/toggle/labcoat
-	suit_store = /obj/item/flashlight/pen
+	suit_store = /obj/item/storage/medkit/surgery
 	belt = /obj/item/modular_computer/pda/medical
 	ears = /obj/item/radio/headset/headset_med
 	shoes = /obj/item/clothing/shoes/sneakers/white
-	l_hand = /obj/item/storage/medkit/surgery
+	r_pocket = /obj/item/flashlight/pen
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med

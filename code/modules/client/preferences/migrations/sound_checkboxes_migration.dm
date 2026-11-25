@@ -8,7 +8,7 @@
  * Changed Radio noise tick pref to numeric slider
  */
 
-/datum/preferences/proc/migrate_boolean_sound_prefs_to_default_volume()
+/datum/prefs_holder/proc/migrate_boolean_sound_prefs_to_default_volume()
 	var/ambience_pref = savefile.get_entry("sound_ambience_volume")
 	var/ship_ambience_pref = savefile.get_entry("sound_ship_ambience_volume")
 	var/lobby_music_pref = savefile.get_entry("sound_lobby_volume")
@@ -20,7 +20,7 @@
 	return
 
 
-/datum/preferences/proc/migrate_boolean_sound_prefs_to_default_volume_v2()
+/datum/prefs_holder/proc/migrate_boolean_sound_prefs_to_default_volume_v2()
 	var/list/entries = list(
 		/datum/preference/numeric/volume/sound_ai_vox = savefile.get_entry("sound_ai_vox"),
 		/datum/preference/numeric/volume/sound_midi = savefile.get_entry("sound_midi"),

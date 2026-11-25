@@ -9,6 +9,7 @@
 	quirk_flags = QUIRK_HIDE_FROM_SCAN | QUIRK_PROCESSES
 	erp_quirk = TRUE
 	var/mob/living/carbon/human/last_dom
+	hidden_quirk = TRUE
 
 /datum/quirk/well_trained/add(client/client_source)
 	. = ..()

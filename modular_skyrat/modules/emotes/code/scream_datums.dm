@@ -73,7 +73,7 @@ GLOBAL_LIST_EMPTY(scream_types)
 	female_screamsounds = null
 
 /datum/scream_type/wilhelm
-	name = "Classic Scream"
+	name = "Wilhelm Scream"
 	male_screamsounds = list('sound/mobs/humanoids/human/scream/wilhelm_scream.ogg')
 	female_screamsounds = null
 

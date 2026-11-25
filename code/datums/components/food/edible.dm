@@ -383,6 +383,12 @@ Behavior that's still missing from this component that original food items had t
 		return
 	var/fullness = eater.get_fullness() + 10 //The theoretical fullness of the person eating if they were to eat this
 
+	var/list/message_data = list()
+	message_data[SATA_MESSAGE_HEARD] = ""
+	message_data[SATA_SPEAKER] = feeder // feeder is the one performing the action, especially if theyr the eater
+	message_data[SATA_VC_SOURCE] = feeder
+	message_data[SATA_SAYMODE] = SAYMODE_EMOTE
+
 	var/time_to_eat = (eater == feeder) ? eat_time : EAT_TIME_FORCE_FEED
 	if(HAS_TRAIT(eater, TRAIT_VORACIOUS) && !HAS_TRAIT(eater, TRAIT_GLUTTON)) //with TRAIT_GLUTTON you consume food without delay
 		if(fullness < NUTRITION_LEVEL_FAT || (eater != feeder)) // No extra delay when being forcefed
@@ -411,8 +417,8 @@ Behavior that's still missing from this component that original food items had t
 				message_to_nearby_audience = span_warning("[eater] cannot force any more of \the [parent] to go down [eater.p_their()] throat!")
 				message_to_consumer = span_warning("You cannot force any more of \the [parent] to go down your throat!")
 				message_to_blind_consumer = message_to_consumer
-				eater.show_message(message_to_consumer, MSG_VISUAL, message_to_blind_consumer)
-				eater.visible_message(message_to_nearby_audience, ignored_mobs = eater)
+				message_data[SATA_MESSAGE_HEARD] = message_to_nearby_audience
+				eater.visible_message(message_to_nearby_audience, message_to_consumer, message_to_blind_consumer, ignored_mobs = eater, message_data = message_data)
 				//if we're too full, return because we can't eat whatever it is we're trying to eat
 				return
 		else if(fullness > 500)
@@ -434,39 +440,51 @@ Behavior that's still missing from this component that original food items had t
 
 		//if we're blind, we want to feel how hungrily we ate that food
 		message_to_blind_consumer = message_to_consumer
-		eater.show_message(message_to_consumer, MSG_VISUAL, message_to_blind_consumer)
-		eater.visible_message(message_to_nearby_audience, ignored_mobs = eater)
+		message_data[SATA_MESSAGE_HEARD] = message_to_nearby_audience
+		eater.visible_message(message_to_nearby_audience, message_to_consumer, message_to_blind_consumer, ignored_mobs = eater, message_data = message_data)
 
 	else //If you're feeding it to someone else.
 		if(isbrain(eater))
 			to_chat(feeder, span_warning("[eater] doesn't seem to have a mouth!"))
 			return
 		if(fullness <= (600 * (1 + eater.overeatduration / (2000 SECONDS))) || HAS_TRAIT(eater, TRAIT_VORACIOUS))
+			var/munchmsg = span_danger("[feeder] attempts to [eater.get_bodypart(BODY_ZONE_HEAD) ? "feed [eater] [parent]." : "stuff [parent] down [eater]'s throat hole! Gross."]")
+			message_data[SATA_MESSAGE_HEARD] = munchmsg
 			eater.visible_message(
-				span_danger("[feeder] attempts to [eater.get_bodypart(BODY_ZONE_HEAD) ? "feed [eater] [parent]." : "stuff [parent] down [eater]'s throat hole! Gross."]"),
-				span_userdanger("[feeder] attempts to [eater.get_bodypart(BODY_ZONE_HEAD) ? "feed you [parent]." : "stuff [parent] down your throat hole! Gross."]")
+				munchmsg,
+				span_userdanger("[feeder] attempts to [eater.get_bodypart(BODY_ZONE_HEAD) ? "feed you [parent]." : "stuff [parent] down your throat hole! Gross."]"),
+				message_data = message_data
 			)
 			if(eater.is_blind())
-				to_chat(eater, span_userdanger("You feel someone trying to feed you something!"))
+				message_data[SATA_MESSAGE_HEARD] = span_userdanger("You feel someone trying to feed you something!")
+				to_chat(eater, span_userdanger("You feel someone trying to feed you something!"), extra_data = message_data)
 		else
+			var/munchmsg = span_danger("[feeder] cannot force any more of [parent] down [eater]'s [eater.get_bodypart(BODY_ZONE_HEAD) ? "throat!" : "throat hole! Eugh."]")
+			message_data[SATA_MESSAGE_HEARD] = munchmsg
 			eater.visible_message(
-				span_danger("[feeder] cannot force any more of [parent] down [eater]'s [eater.get_bodypart(BODY_ZONE_HEAD) ? "throat!" : "throat hole! Eugh."]"),
-				span_userdanger("[feeder] cannot force any more of [parent] down your [eater.get_bodypart(BODY_ZONE_HEAD) ? "throat!" : "throat hole! Eugh."]")
+				munchmsg,
+				span_userdanger("[feeder] cannot force any more of [parent] down your [eater.get_bodypart(BODY_ZONE_HEAD) ? "throat!" : "throat hole! Eugh."]"),
+				message_data = message_data
 			)
 			if(eater.is_blind())
-				to_chat(eater, span_userdanger("You're too full to eat what's being fed to you!"))
+				message_data[SATA_MESSAGE_HEARD] = span_userdanger("You're too full to eat what's being fed to you!")
+				to_chat(eater, span_userdanger("You're too full to eat what's being fed to you!"), extra_data = message_data)
 			return
 		if(!do_after(feeder, delay = time_to_eat, target = eater)) //Wait 3-ish seconds before you can feed
 			return
 		if(IsFoodGone(owner, feeder))
 			return
 		log_combat(feeder, eater, "fed", owner.reagents.get_reagent_log_string())
+		var/munchmsg = span_danger("[feeder] forces [eater] to eat [parent]!")
+		message_data[SATA_MESSAGE_HEARD] = munchmsg
 		eater.visible_message(
-			span_danger("[feeder] forces [eater] to eat [parent]!"),
-			span_userdanger("[feeder] forces you to eat [parent]!")
+			munchmsg,
+			span_userdanger("[feeder] forces you to eat [parent]!"),
+			message_data = message_data
 		)
 		if(eater.is_blind())
-			to_chat(eater, span_userdanger("You're forced to eat something!"))
+			message_data[SATA_MESSAGE_HEARD] = span_userdanger("You're forced to eat something!")
+			to_chat(eater, span_userdanger("You're forced to eat something!"), extra_data = message_data)
 
 	TakeBite(eater, feeder)
 
@@ -654,10 +672,10 @@ Behavior that's still missing from this component that original food items had t
 	for(var/quality in extra_quality)
 		food_quality += quality
 
-	if(HAS_TRAIT(parent, TRAIT_FOOD_SILVER)) // it's not real food
-		if(!isjellyperson(eater)) //if you aren't a jellyperson, it makes you sick no matter how nice it looks
-			return TOXIC_FOOD_QUALITY_THRESHOLD
-		food_quality += LIKED_FOOD_QUALITY_CHANGE
+	// if(HAS_TRAIT(parent, TRAIT_FOOD_SILVER)) // it's not real food
+	// 	if(!isjellyperson(eater)) //if you aren't a jellyperson, it makes you sick no matter how nice it looks
+	// 		return TOXIC_FOOD_QUALITY_THRESHOLD
+	// 	food_quality += LIKED_FOOD_QUALITY_CHANGE
 
 	if(check_liked) //Callback handling; use this as an override for special food like donuts
 		var/special_reaction = check_liked.Invoke(eater)

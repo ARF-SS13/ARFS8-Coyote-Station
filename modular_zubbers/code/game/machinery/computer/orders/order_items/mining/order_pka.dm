@@ -1,3 +1,5 @@
+
+/* arfs: lavaland is no more, we need to tone down the power fantasies
 /datum/orderable_item/accelerator/gun/repeater
 	purchase_path = /obj/item/gun/energy/recharge/kinetic_accelerator/repeater
 	cost_per_order = 1250
@@ -21,3 +23,4 @@
 /datum/orderable_item/accelerator/gun/m79
 	purchase_path = /obj/item/gun/energy/recharge/kinetic_accelerator/m79
 	cost_per_order = 1250
+*/

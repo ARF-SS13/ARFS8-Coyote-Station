@@ -29,7 +29,7 @@
 		var/obj/item/clothing/underwear/briefs/undies = w_underwear
 		update_hud_underwear(undies)
 
-		if(underwear_visibility & UNDERWEAR_HIDE_UNDIES)
+		if(underwear_visibility & UNDERWEAR_HIDE_UNDIES || IsFeral())
 			return
 
 		var/target_overlay = undies.icon_state
@@ -95,7 +95,7 @@
 		var/obj/item/clothing/underwear/shirt/undershirt = w_shirt
 		update_hud_shirt(undershirt)
 
-		if(underwear_visibility & UNDERWEAR_HIDE_SHIRT)
+		if(underwear_visibility & UNDERWEAR_HIDE_SHIRT || IsFeral())
 			return
 
 		var/target_overlay = undershirt.icon_state
@@ -161,7 +161,7 @@
 		var/obj/item/clothing/underwear/shirt/bra/bra = w_bra
 		update_hud_bra(bra)
 
-		if(underwear_visibility & UNDERWEAR_HIDE_BRA)
+		if(underwear_visibility & UNDERWEAR_HIDE_BRA || IsFeral())
 			return
 
 		var/target_overlay = bra.icon_state
@@ -223,7 +223,7 @@
 		var/atom/movable/screen/inventory/inv = hud_used.extra_inventory[WRISTS_INDEX]
 		inv.update_icon()
 
-	if(wrists)
+	if(wrists && !IsFeral())
 		var/obj/item/worn_item = wrists
 		update_hud_wrists(worn_item)
 
@@ -258,7 +258,7 @@
 		var/obj/item/worn_item = ears_extra
 		update_hud_ears_extra(worn_item)
 
-		if(obscured_slots & HIDEEARS)
+		if(obscured_slots & HIDEEARS || IsFeral())
 			return
 
 		var/icon_file = 'icons/mob/clothing/ears.dmi'
@@ -295,7 +295,7 @@
 		var/obj/item/clothing/underwear/socks/worn_item = w_socks
 		update_hud_socks(worn_item)
 
-		if(underwear_visibility & UNDERWEAR_HIDE_SOCKS)
+		if(underwear_visibility & UNDERWEAR_HIDE_SOCKS || IsFeral())
 			return
 
 		var/target_overlay = worn_item.icon_state
@@ -452,33 +452,32 @@
 
 /mob/living/carbon/human/update_underwear()
 		//Underwear, Undershirts, & Socks
-
 	var/dummy_test = istype(src, /mob/living/carbon/human/dummy) && (usr?.client?.prefs.preview_pref == PREVIEW_PREF_NAKED || usr?.client?.prefs.preview_pref == PREVIEW_PREF_NAKED_AROUSED) //hacky af but it works
 	var/list/obj/item/clothing/underwear/worn_underwear = list()
 
 	if(!HAS_TRAIT(src, TRAIT_NO_UNDERWEAR) && !dummy_test)
-		if(underwear && underwear != "Nude" && !(underwear_visibility & UNDERWEAR_HIDE_UNDIES))
+		if(underwear && underwear != "Nude" && !(underwear_visibility & UNDERWEAR_HIDE_UNDIES) && !IsFeral())
 			var/datum/sprite_accessory/underwear/underwear_accessory = SSaccessories.underwear_list[underwear]
 			if(underwear_accessory && !w_underwear)
 				var/obj/item/clothing/underwear/briefs/briefs_obj = new underwear_accessory.briefs_obj(src)
 				equip_to_slot_or_del(briefs_obj, ITEM_SLOT_UNDERWEAR)
 				worn_underwear += briefs_obj
 
-		if(bra && bra != "Nude" && !(underwear_visibility & UNDERWEAR_HIDE_BRA))
+		if(bra && bra != "Nude" && !(underwear_visibility & UNDERWEAR_HIDE_BRA) && !IsFeral())
 			var/datum/sprite_accessory/bra/bra_accessory = SSaccessories.bra_list[bra]
 			if(bra_accessory && !w_bra)
 				var/obj/item/clothing/underwear/shirt/bra/bra_obj = new bra_accessory.bra_obj(src)
 				equip_to_slot_or_del(bra_obj, ITEM_SLOT_BRA)
 				worn_underwear += bra_obj
 
-		if(undershirt && !undershirt != "Nude" && !(underwear_visibility & UNDERWEAR_HIDE_SHIRT))
+		if(undershirt && !undershirt != "Nude" && !(underwear_visibility & UNDERWEAR_HIDE_SHIRT) && !IsFeral())
 			var/datum/sprite_accessory/undershirt/undershirt_accessory = SSaccessories.undershirt_list[undershirt]
 			if(undershirt_accessory && !w_shirt)
 				var/obj/item/clothing/underwear/shirt/shirt_obj = new undershirt_accessory.shirt_obj(src)
 				equip_to_slot_or_del(shirt_obj, ITEM_SLOT_SHIRT)
 				worn_underwear += shirt_obj
 
-		if(socks && num_legs >= 2 && !(dna.features["taur"] && dna.features["taur"] != "None") && !socks != "Nude" && !(underwear_visibility & UNDERWEAR_HIDE_SOCKS))
+		if(socks && num_legs >= 2 && !(dna.features["taur"] && dna.features["taur"] != "None") && !socks != "Nude" && !(underwear_visibility & UNDERWEAR_HIDE_SOCKS) && !IsFeral())
 			var/datum/sprite_accessory/socks/socks_accessory = SSaccessories.socks_list[socks]
 			if(socks_accessory && !w_socks)
 				var/obj/item/clothing/underwear/socks/socks_obj = new socks_accessory.socks_obj(src)

@@ -151,6 +151,18 @@ export function CharacterPreferenceWindow(props) {
             />
             {/* BUBBER EDIT ADDITION END */}
           </Stack.Item>
+          {/* Hi fenny */}
+          <Stack.Item>
+            <Button
+              onClick={() => {
+                act('export_char_image');
+              }}
+              fontSize="13px"
+              icon="file-export"
+              tooltip="Export Character Image" //Delete this comment about being experimental before merge
+              tooltipPosition="top"
+            />
+          </Stack.Item>
           {!data.content_unlocked && (
             <Stack.Item grow align="center" mb={-1}>
               <NoticeBox color="grey">

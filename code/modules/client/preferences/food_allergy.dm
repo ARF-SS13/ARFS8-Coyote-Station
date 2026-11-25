@@ -10,7 +10,7 @@
 /datum/preference/choiced/food_allergy/create_default_value()
 	return "Random"
 
-/datum/preference/choiced/food_allergy/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/food_allergy/is_accessible(datum/prefs_holder/preferences)
 	if (!..())
 		return FALSE
 

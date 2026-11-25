@@ -9,7 +9,7 @@
 /datum/preference/choiced/scarred_eye/create_default_value()
 	return "Random"
 
-/datum/preference/choiced/scarred_eye/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/scarred_eye/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	if (!.)
 		return FALSE

@@ -8,6 +8,9 @@
 	color = "#264d61"
 	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE, MAT_CATEGORY_ITEM_MATERIAL = TRUE)
 	sheet_type = /obj/item/stack/sheet/cobolterium
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_UNCOMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_COMMON
 
 /datum/material/cobolterium/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
 	victim.apply_damage(10, BRUTE, BODY_ZONE_HEAD, wound_bonus = 5)
@@ -36,6 +39,9 @@
 	color = "#c55a1d"
 	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE, MAT_CATEGORY_ITEM_MATERIAL = TRUE)
 	sheet_type = /obj/item/stack/sheet/copporcitite
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_UNCOMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_COMMON
 
 /datum/material/copporcitite/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
 	victim.apply_damage(10, BRUTE, BODY_ZONE_HEAD, wound_bonus = 5)
@@ -64,6 +70,9 @@
 	color = "#717e97"
 	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE, MAT_CATEGORY_ITEM_MATERIAL = TRUE)
 	sheet_type = /obj/item/stack/sheet/tinumium
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_UNCOMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_COMMON
 
 /datum/material/tinumium/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
 	victim.apply_damage(10, BRUTE, BODY_ZONE_HEAD, wound_bonus = 5)
@@ -92,6 +101,9 @@
 	color = "#E1C16E"
 	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE, MAT_CATEGORY_ITEM_MATERIAL = TRUE)
 	sheet_type = /obj/item/stack/sheet/brussite
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_UNCOMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_COMMON
 
 /datum/material/brussite/on_accidental_mat_consumption(mob/living/carbon/victim, obj/item/source_item)
 	victim.apply_damage(10, BRUTE, BODY_ZONE_HEAD, wound_bonus = 5)

@@ -389,7 +389,7 @@
 	///Multiplier for the bounty payout received by the person who claims the handling tip.
 	var/handler_tip = 0.1
 	///Time between nags.
-	var/nag_cooldown = 5 MINUTES
+	var/nag_cooldown = 3 HOURS
 	///How much the time between nags extends each nag.
 	var/nag_cooldown_multiplier = 1.25
 	///Next world tick to nag Supply listeners.

@@ -2,6 +2,17 @@
 
 This does not contain all the information on specific values--you can find those as doc-comments in relevant paths, such as `/datum/preference`. Rather, this gives you an overview for creating _most_ preferences, and getting your foot in the door to create more advanced ones.
 
+## /datum/prefs_holder
+
+They are instantiated per player and hold all the preferences for that player. Held in the Client, and kept safe in
+GLOB.preferences_datums[ckey] = prefs
+
+A player's prefs_holder is created on first connect of a client, and stored in `GLOB.preferences_datums` under their `ckey`.
+Clients have the var `prefs`, which is assigned a reference to their `prefs_holder`.
+Client deletion (disconnecting) doesn't touch the datum, it just remains safe in `GLOB.preferences_datums`.
+
+This also means that preference datums are also instantiated per player, or something.
+
 ## Anatomy of a preference (A.K.A. how do I make one?)
 
 Most preferences consist of two parts:
@@ -296,8 +307,8 @@ Secondary features tend to be species specific. Non contextual features shouldn'
 There are three procs to be aware of in regards to this topic:
 
 - `create_default_value()`. This is used when a value deserializes improperly or when a new character is created.
-- `create_informed_default_value(datum/preferences/preferences)` - Used for more complicated default values, like how names require the gender. Will call `create_default_value()` by default.
-- `create_random_value(datum/preferences/preferences)` - Explicitly used for random values, such as when a character is being randomized.
+- `create_informed_default_value(datum/prefs_holder/preferences)` - Used for more complicated default values, like how names require the gender. Will call `create_default_value()` by default.
+- `create_random_value(datum/prefs_holder/preferences)` - Explicitly used for random values, such as when a character is being randomized.
 
 `create_default_value()` in most preferences will create a random value. If this is a problem (like how default characters should always be human), you can override `create_default_value()`. By default (without overriding `create_random_value`), random values are just default values.
 

@@ -404,7 +404,7 @@
 	min_val = 0
 
 /datum/config_entry/number/ratcap
-	default = 64
+	default = 128
 	min_val = 0
 
 /datum/config_entry/number/maxfine

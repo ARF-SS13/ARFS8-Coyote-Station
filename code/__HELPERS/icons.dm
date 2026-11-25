@@ -753,7 +753,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 /// # If you already have a human and need to get its flat icon, call `get_flat_existing_human_icon()` instead.
 /// For creating consistent icons for human looking simple animals.
-/proc/get_flat_human_icon(icon_id, datum/job/job, datum/preferences/prefs, dummy_key, showDirs = GLOB.cardinals, outfit_override = null, no_anim = FALSE)
+/proc/get_flat_human_icon(icon_id, datum/job/job, datum/prefs_holder/prefs, dummy_key, showDirs = GLOB.cardinals, outfit_override = null, no_anim = FALSE)
 	var/static/list/humanoid_icon_cache = list()
 	if(icon_id && humanoid_icon_cache[icon_id])
 		return humanoid_icon_cache[icon_id]

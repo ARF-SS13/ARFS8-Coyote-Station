@@ -42,10 +42,10 @@
 /datum/preference/text/dirty_text/serialize(input)
 	return htmlrendertext(input)
 
-/datum/preference/text/dirty_text/deserialize(input, datum/preferences/preferences)
+/datum/preference/text/dirty_text/deserialize(input, datum/prefs_holder/preferences)
 	return htmlrendertext(input)
 
-/datum/preference/text/dirty_text/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/text/dirty_text/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return
 
 /datum/preference/text/dirty_text/create_default_value()
@@ -57,7 +57,7 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	can_randomize = FALSE
 
-/datum/preference/color/dirty_color/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/color/dirty_color/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return
 
 /datum/preference/color/dirty_color/create_default_value()

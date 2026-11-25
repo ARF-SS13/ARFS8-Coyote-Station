@@ -1,3 +1,4 @@
+/*
 /datum/armament_entry/company_import/vitezstvi
 	category = COMPANY_NAME_VITEZSTVI_AMMO
 	company_bitflag = CARGO_COMPANY_VITEZSTVI_AMMO
@@ -96,3 +97,4 @@
 /datum/armament_entry/company_import/vitezstvi/grenade_shells/phosphor
 	item_type = /obj/item/ammo_box/c980grenade/shrapnel/phosphor
 	contraband = TRUE
+*/

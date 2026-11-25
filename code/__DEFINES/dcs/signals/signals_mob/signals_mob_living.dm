@@ -148,6 +148,8 @@
 #define COMSIG_LIVING_POST_FULLY_HEAL "living_post_fully_heal"
 /// from start of /mob/living/handle_breathing(): (seconds_per_tick)
 #define COMSIG_LIVING_HANDLE_BREATHING "living_handle_breathing"
+/// from start of /mob/living/handle_breathing(): (seconds_per_tick)
+#define COMSIG_LIVING_CAN_BREATHE_THIS "living_can_breathe_this"
 ///from /obj/item/hand_item/slapper/attack_atom(): (source=mob/living/slammer, obj/structure/table/slammed_table)
 #define COMSIG_LIVING_SLAM_TABLE "living_slam_table"
 ///from /obj/item/hand_item/slapper/attack(): (source=mob/living/slapper, mob/living/slapped)

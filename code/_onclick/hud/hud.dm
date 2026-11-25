@@ -120,6 +120,7 @@ GLOBAL_LIST_INIT(available_erp_ui_styles, list(
 	var/atom/movable/screen/healths
 	var/atom/movable/screen/stamina
 	var/atom/movable/screen/healthdoll/healthdoll
+	var/atom/movable/screen/posebutton/posebutt
 	var/atom/movable/screen/spacesuit
 	var/atom/movable/screen/hunger/hunger
 
@@ -152,7 +153,7 @@ GLOBAL_LIST_INIT(available_erp_ui_styles, list(
 	var/datum/plane_master_group/main/main_group = new(PLANE_GROUP_MAIN)
 	main_group.attach_to(src)
 
-	var/datum/preferences/preferences = owner?.client?.prefs
+	var/datum/prefs_holder/preferences = owner?.client?.prefs
 	screentip_color = preferences?.read_preference(/datum/preference/color/screentip_color)
 	screentips_enabled = preferences?.read_preference(/datum/preference/choiced/enable_screentips)
 	screentip_images = preferences?.read_preference(/datum/preference/toggle/screentip_images)
@@ -281,6 +282,7 @@ GLOBAL_LIST_INIT(available_erp_ui_styles, list(
 	healths = null
 	stamina = null
 	healthdoll = null
+	posebutt = null
 	spacesuit = null
 	hunger = null
 	alien_plasma_display = null

@@ -1,6 +1,7 @@
 /datum/job/roboticist
 	title = JOB_ROBOTICIST
-	description = "Build and repair the AI and cyborgs, create mechs."
+	description = "Build cyborgs, mechs, AIs, and maintain them all. Create MODsuits for those that wish. Try to remind medical that you're \
+	actually a lot better at treating synthetic crew members than them."
 	faction = FACTION_STATION
 	total_positions = 2
 	spawn_positions = 2
@@ -42,23 +43,25 @@
 	name = "Roboticist"
 	jobtype = /datum/job/roboticist
 
+	glasses = /obj/item/clothing/glasses/hud/diagnostic
+	gloves = /obj/item/clothing/gloves/color/black
 	id_trim = /datum/id_trim/job/roboticist
 	uniform = /obj/item/clothing/under/rank/rnd/roboticist
 	suit = /obj/item/clothing/suit/toggle/labcoat/roboticist
+	suit_store = /obj/item/storage/medkit/robotic_repair/preemo/stocked
 	belt = /obj/item/storage/belt/utility/full
 	ears = /obj/item/radio/headset/headset_sci
 	l_pocket = /obj/item/modular_computer/pda/roboticist
+	r_pocket = /obj/item/clothing/glasses/welding
 
-	backpack = /obj/item/storage/backpack/science
-	satchel = /obj/item/storage/backpack/satchel/science
-	duffelbag = /obj/item/storage/backpack/duffelbag/science
-
+	backpack = /obj/item/storage/backpack/science/robo
+	satchel = /obj/item/storage/backpack/satchel/science/robo
+	duffelbag = /obj/item/storage/backpack/duffelbag/science/robo
 	pda_slot = ITEM_SLOT_LPOCKET
 	skillchips = list(/obj/item/skillchip/job/roboticist)
 
 /datum/outfit/job/roboticist/mod
 	name = "Roboticist (MODsuit)"
-	suit_store = /obj/item/tank/internals/oxygen
 	back = /obj/item/mod/control/pre_equipped/standard
 	suit = null
 	mask = /obj/item/clothing/mask/breath

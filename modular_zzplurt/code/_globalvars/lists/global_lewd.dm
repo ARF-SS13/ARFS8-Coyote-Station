@@ -51,6 +51,7 @@ GLOBAL_LIST_INIT(skirt_peekable, typecacheof(list(
 			/obj/item/clothing/under/rank/security/warden/skirt,
 			// Secoff
 			/obj/item/clothing/under/rank/security/officer/skirt,
+			/obj/item/clothing/under/color/white/security/skirt,
 			// Detective
 			/obj/item/clothing/under/rank/security/detective/skirt,
 			/obj/item/clothing/under/rank/security/detective/noir/skirt,

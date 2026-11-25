@@ -895,7 +895,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// If this item's been bbq grilled
 #define TRAIT_FOOD_BBQ_GRILLED "food_bbq_grilled"
 /// This is a silver slime created item
-#define TRAIT_FOOD_SILVER "food_silver"
+// #define TRAIT_FOOD_SILVER "food_silver"
 /// If this item's been made by a chef instead of being map-spawned or admin-spawned or such
 #define TRAIT_FOOD_CHEF_MADE "food_made_by_chef"
 /// This atom has a quality_food_ingredient element attached
@@ -1644,5 +1644,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Makes the owner desensetized to death, but happy whenever someone gets blown to pieces (as a sacrifice to the necropolis) unless its another worshipper
 #define TRAIT_NECROPOLIS_WORSHIP "necropolis_worship"
+
+//coyote add
+/// Trait for human species that have feral shaped bodies. Will skip most icon generation and use simple_icon instead. Check creature_species.dm and creature_procs.dm
+#define TRAIT_FERAL "feral_body"
+//end coyote add
 
 // END TRAIT DEFINES

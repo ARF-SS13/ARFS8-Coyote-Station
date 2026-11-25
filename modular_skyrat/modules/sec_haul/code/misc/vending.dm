@@ -1,6 +1,6 @@
 /obj/machinery/vending/security
-	name = "\improper Armadyne Peacekeeper Equipment Vendor"
-	desc = "An Armadyne peacekeeper equipment vendor."
+	name = "\improper Security Equipment Vendor"
+	desc = "A security equipment vendor."
 	product_ads = "Crack capitalist skulls!;Beat some heads in!;Don't forget - harm is good!;Your weapons are right here.;Handcuffs!;Freeze, scumbag!;Don't tase me bro!;Tase them, bro.;Why not have a donut?"
 	icon = 'modular_skyrat/modules/sec_haul/icons/vending/vending.dmi'
 	products = list(
@@ -13,7 +13,6 @@
 		/obj/item/flashlight/seclite = 16,
 		/obj/item/restraints/legcuffs/bola/energy = 20,
 		/obj/item/clothing/gloves/tackler/security = 5,
-		/obj/item/ammo_box/advanced/s12gauge/bean = 2,
 	)
 	contraband = list(
 		/obj/item/clothing/glasses/sunglasses = 2,
@@ -28,9 +27,6 @@
 		/obj/item/watertank/pepperspray = 2,
 		/obj/item/storage/belt/holster/energy = 4,
 		/obj/item/storage/box/holobadge = 1,
-		/obj/item/ammo_box/magazine/security = 12,
-		/obj/item/ammo_box/magazine/pepperball = 12,
-		/obj/item/ammo_box/advanced/s12gauge/frangible = 2,
 	)
 
 /obj/item/vending_refill/security
@@ -38,8 +34,8 @@
 
 
 /obj/machinery/vending/wardrobe/sec_wardrobe
-	name = "\improper Peacekeeper Outfitting Station"
-	desc = "A vending machine stocked with Lopland's \"Peacekeeper\" security package, including standardized uniforms and general equipment."
+	name = "\improper Security Outfitting Station"
+	desc = "A vending machine stocked with standard security clothing, including standardized uniforms and general equipment."
 	icon = 'modular_skyrat/modules/sec_haul/icons/vending/vending.dmi'
 	light_mask = "sec-light-mask"
 	icon_state = "peace"

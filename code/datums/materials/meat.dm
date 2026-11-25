@@ -26,6 +26,9 @@
 	fishing_bounciness_mult = 0.9
 	fishing_gravity_mult = 0.85
 	var/list/blood_dna
+	tradable = TRUE
+	tradable_base_quantity = MATERIAL_QUANTITY_UNCOMMON
+	tradable_fancy = MATERIAL_FANCY_WEIGHT_RARE
 
 /datum/material/meat/on_main_applied(atom/source, mat_amount, multiplier)
 	. = ..()

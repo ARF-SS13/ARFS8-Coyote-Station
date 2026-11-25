@@ -84,7 +84,7 @@
 	new /obj/item/radio/headset/heads/cmo(src)
 	new /obj/item/megaphone/command(src)
 	new /obj/item/assembly/flash/handheld(src)
-	new /obj/item/storage/briefcase/medicalgunset/cmo(src) //SKYRAT EDIT ADDITION MEDIGUNS
+//	new /obj/item/storage/briefcase/medicalgunset/cmo(src) //SKYRAT EDIT ADDITION MEDIGUNS // arfs edit: removing mediguns. running around the halls shooting random people with healing juice is LRP, as is standing there shooting a critical patient repeatedly
 	new /obj/item/autosurgeon/medical_hud(src)
 	new /obj/item/door_remote/chief_medical_officer(src)
 	new /obj/item/clothing/neck/petcollar(src)

@@ -22,9 +22,6 @@
 /obj/item/gun/ballistic/rifle/boltaction/lionhunter/give_manufacturer_examine()
 	return
 
-/obj/item/gun/ballistic/revolver/give_manufacturer_examine()
-	AddElement(/datum/element/manufacturer_examine, COMPANY_SCARBOROUGH)
-
 /obj/item/gun/ballistic/shotgun/riot/give_manufacturer_examine()
 	AddElement(/datum/element/manufacturer_examine, COMPANY_NANOTRASEN)
 

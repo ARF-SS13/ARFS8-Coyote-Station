@@ -9,7 +9,7 @@
 /datum/preference/choiced/paraplegic/create_default_value()
 	return "Default"
 
-/datum/preference/choiced/paraplegic/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/paraplegic/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	if (!.)
 		return FALSE

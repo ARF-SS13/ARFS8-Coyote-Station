@@ -202,7 +202,7 @@
 /datum/preference/choiced/entombed_skin/create_default_value()
 	return "Civilian"
 
-/datum/preference/choiced/entombed_skin/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/entombed_skin/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -219,7 +219,7 @@
 	can_randomize = FALSE
 	maximum_value_length = 48
 
-/datum/preference/text/entombed_mod_name/is_accessible(datum/preferences/preferences)
+/datum/preference/text/entombed_mod_name/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -229,7 +229,7 @@
 /datum/preference/text/entombed_mod_name/serialize(input)
 	return htmlrendertext(input)
 
-/datum/preference/text/entombed_mod_name/deserialize(input, datum/preferences/preferences)
+/datum/preference/text/entombed_mod_name/deserialize(input, datum/prefs_holder/preferences)
 	var/sanitized_input = htmlrendertext(input)
 	if(!isnull(sanitized_input))
 		return sanitized_input
@@ -245,7 +245,7 @@
 	savefile_identifier = PREFERENCE_CHARACTER
 	can_randomize = FALSE
 
-/datum/preference/text/entombed_mod_desc/is_accessible(datum/preferences/preferences)
+/datum/preference/text/entombed_mod_desc/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -255,7 +255,7 @@
 /datum/preference/text/entombed_mod_desc/serialize(input)
 	return htmlrendertext(input)
 
-/datum/preference/text/entombed_mod_desc/deserialize(input, datum/preferences/preferences)
+/datum/preference/text/entombed_mod_desc/deserialize(input, datum/prefs_holder/preferences)
 	var/sanitized_input = htmlrendertext(input)
 	if(!isnull(sanitized_input))
 		return sanitized_input
@@ -272,7 +272,7 @@
 	can_randomize = FALSE
 	maximum_value_length = 16
 
-/datum/preference/text/entombed_mod_prefix/is_accessible(datum/preferences/preferences)
+/datum/preference/text/entombed_mod_prefix/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -282,7 +282,7 @@
 /datum/preference/text/entombed_mod_prefix/serialize(input)
 	return htmlrendertext(input)
 
-/datum/preference/text/entombed_mod_prefix/deserialize(input, datum/preferences/preferences)
+/datum/preference/text/entombed_mod_prefix/deserialize(input, datum/prefs_holder/preferences)
 	return htmlrendertext(input)
 
 /datum/preference/text/entombed_mod_prefix/create_default_value()
@@ -296,7 +296,7 @@
 	savefile_key = "entombed_deploy_lock"
 	savefile_identifier = PREFERENCE_CHARACTER
 
-/datum/preference/toggle/entombed_deploy_lock/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/entombed_deploy_lock/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 

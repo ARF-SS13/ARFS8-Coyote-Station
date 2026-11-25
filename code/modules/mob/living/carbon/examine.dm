@@ -47,9 +47,9 @@
 		. += status_examines
 
 	// SPLURT EDIT START: - Sizecode
-	var/list/size_examines = get_size_examine_info(user)
-	if (length(size_examines))
-		. += size_examines
+	// var/list/size_examines = get_size_examine_info(user)
+	// if (length(size_examines))
+	// 	. += size_examines
 	// SPLURT EDIT END
 
 	if(get_bodypart(BODY_ZONE_HEAD) && !get_organ_by_type(/obj/item/organ/brain))
@@ -297,6 +297,16 @@
 					if(!(G.is_hidden(src)))
 						. += "<span class='notice'>[t_He] [t_has] exposed genitals... <a href='byond://?src=[REF(src)];lookup_info=genitals'>\[Look closer...\]</a></span>"
 						break
+
+	var/temperments = SSdans_cool_prefs.get_text(src, CSNIP_TEMPERAMENT, TRUE)
+	var/builds = SSdans_cool_prefs.get_text(src, CSNIP_BUILD, TRUE)
+	if(LAZYLEN(builds))
+		. += ""
+		. += "[builds]"
+	if(LAZYLEN(temperments))
+		. += ""
+		. += "[temperments]"
+		. += ""
 
 	var/flavor_text_link = get_flavor_text()
 	if(flavor_text_link)

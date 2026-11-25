@@ -9,6 +9,7 @@
 	quirk_flags = QUIRK_HIDE_FROM_SCAN
 	var/character_name
 	var/new_name
+	hidden_quirk = TRUE
 
 /datum/preference/text/nameless_quirk_option
 	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
@@ -26,7 +27,7 @@
 /datum/preference/text/nameless_quirk_option/serialize(input)
 	return htmlrendertext(input)
 
-/datum/preference/text/nameless_quirk_option/deserialize(input, datum/preferences/preferences)
+/datum/preference/text/nameless_quirk_option/deserialize(input, datum/prefs_holder/preferences)
 	return htmlrendertext(input)
 
 /datum/preference/text/nameless_quirk_option/apply_to_human(mob/living/carbon/human/target, value)

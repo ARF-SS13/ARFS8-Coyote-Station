@@ -109,7 +109,7 @@
 		addtimer(CALLBACK(src, PROC_REF(freak_out), null, trigger_regex.group[2]), 1 SECONDS)
 		hearing_args[HEARING_RAW_MESSAGE] = trigger_regex.Replace(hearing_args[HEARING_RAW_MESSAGE], "[span_phobia("$2")]$3")
 
-/datum/terror_handler/phobia_source/proc/handle_speech(datum/source, list/speech_args)
+/datum/terror_handler/phobia_source/proc/handle_speech(datum/source, list/speech_args, list/message_data)
 	SIGNAL_HANDLER
 
 	if (!can_trigger())
@@ -126,6 +126,7 @@
 
 	if (whisper)
 		speech_args[SPEECH_SPANS] |= SPAN_SMALL_VOICE
+		message_data[SATA_SPANS] |= SPAN_SMALL_VOICE
 	if (stutter)
 		owner.set_stutter_if_lower(4 SECONDS)
 	to_chat(owner, span_warning("You struggle to say the word \"[span_phobia("[trigger_regex.group[2]]")]\"!"))

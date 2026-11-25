@@ -169,6 +169,9 @@
 	greyscale_config = /datum/greyscale_config/encryptionkey_cube
 	greyscale_colors = "#2b2793#dca01b"
 
+/obj/item/encryptionkey/heads/captain/bridgebunny
+	name = "bridge bunny encryption key"
+
 /obj/item/encryptionkey/heads/rd
 	name = "\proper the research director's encryption key"
 	icon = 'icons/map_icons/items/encryptionkey.dmi'

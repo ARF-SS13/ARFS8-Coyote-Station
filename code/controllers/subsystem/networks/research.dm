@@ -167,12 +167,23 @@ SUBSYSTEM_DEF(research)
 		var/datum/techweb_node/TN = techweb_nodes[id]
 		TN.Initialize()
 	techweb_nodes = returned
-	if (!verify_techweb_nodes()) //Verify all nodes have ids and such.
-		stack_trace("Invalid techweb nodes detected")
+	var/list/verify_results = verify_techweb_nodes()
+	if (!verify_results["good"]) //Verify all nodes have ids and such.
+		var/list/fail_log = verify_results["fail_log"]
+		spawn(10 SECONDS)
+			to_chat(world, span_comradio("Invalid techweb nodes detected! And here they are:"))
+			to_chat(world, span_sciradio("[fail_log.Join("\n")]"))
+			to_chat(world, span_comradio("End of invalid techweb nodes list."))
+			to_chat(world, span_hypnophrase("Whoever fixes this gets one (1) ERP token from Dan Kelly!"))
+#ifndef LOWMEMORYMODE // it kept tripping my breakpoints
+		stack_trace("Invalid techweb nodes detected: [fail_log.Join("\n")]")
+#endif
 	calculate_techweb_nodes()
 	calculate_techweb_item_unlocking_requirements()
-	if (!verify_techweb_nodes()) //Verify nodes and designs have been crosslinked properly.
-		CRASH("Invalid techweb nodes detected")
+	verify_results = verify_techweb_nodes()
+	if (!verify_results["good"]) //Verify nodes and designs have been crosslinked properly.
+		var/list/fail_log = verify_results["fail_log"]
+		CRASH("Invalid techweb nodes detected: [fail_log.Join("\n")]")
 
 /datum/controller/subsystem/research/proc/initialize_all_techweb_designs(clearall = FALSE)
 	if(islist(techweb_designs) && clearall)
@@ -203,47 +214,55 @@ SUBSYSTEM_DEF(research)
 
 
 /datum/controller/subsystem/research/proc/verify_techweb_nodes()
-	. = TRUE
+	. = list()
+	.["good"] = TRUE
+	.["fail_log"] = list()
 	for(var/n in techweb_nodes)
 		var/datum/techweb_node/N = techweb_nodes[n]
 		if(!istype(N))
 			WARNING("Invalid research node with ID [n] detected and removed.")
+			.["fail_log"] += "ID [n] detected and removed."
 			techweb_nodes -= n
 			research_node_id_error(n)
-			. = FALSE
+			.["good"] = FALSE
 		for(var/p in N.prereq_ids)
 			var/datum/techweb_node/P = techweb_nodes[p]
 			if(!istype(P))
 				WARNING("Invalid research prerequisite node with ID [p] detected in node [N.display_name]\[[N.id]\] removed.")
+				.["fail_log"] += "prerequisite node ID [p]  node [N.display_name]\[[N.id]\]."
 				N.prereq_ids  -= p
 				research_node_id_error(p)
-				. = FALSE
+				.["good"] = FALSE
 		for(var/d in N.design_ids)
 			var/datum/design/D = techweb_designs[d]
 			if(!istype(D))
 				WARNING("Invalid research design with ID [d] detected in node [N.display_name]\[[N.id]\] removed.")
+				.["fail_log"] += "design with ID [d]  node [N.display_name]\[[N.id]\]."
 				N.design_ids -= d
 				design_id_error(d)
-				. = FALSE
+				.["good"] = FALSE
 		for(var/u in N.unlock_ids)
 			var/datum/techweb_node/U = techweb_nodes[u]
 			if(!istype(U))
 				WARNING("Invalid research unlock node with ID [u] detected in node [N.display_name]\[[N.id]\] removed.")
+				.["fail_log"] += "unlock node with ID [u]  node [N.display_name]\[[N.id]\]."
 				N.unlock_ids -= u
 				research_node_id_error(u)
-				. = FALSE
+				.["good"] = FALSE
 		for(var/p in N.required_items_to_unlock)
 			if(!ispath(p))
 				N.required_items_to_unlock -= p
+				.["fail_log"] += "[p] is not a valid path."
 				WARNING("[p] is not a valid path.")
 				node_boost_error(N.id, "[p] is not a valid path.")
-				. = FALSE
+				.["good"] = FALSE
 			var/list/points = N.required_items_to_unlock[p]
 			if(!isnull(points))
 				N.required_items_to_unlock -= p
+				.["fail_log"] += "No valid list for required item [p] in node [N.display_name]\[[N.id]\]."
 				node_boost_error(N.id, "No valid list.")
 				WARNING("No valid list.")
-				. = FALSE
+				.["good"] = FALSE
 		CHECK_TICK
 
 /datum/controller/subsystem/research/proc/verify_techweb_designs()

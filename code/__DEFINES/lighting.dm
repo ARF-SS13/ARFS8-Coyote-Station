@@ -78,9 +78,9 @@
 /// Don't block any emissives. Useful for things like, pieces of paper?
 #define EMISSIVE_BLOCK_NONE 2
 
-#define _EMISSIVE_COLOR(val) list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, val,0,0,0)
-#define _EMISSIVE_COLOR_NO_BLOOM(val) list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,val,0,0)
-#define _SPECULAR_COLOR(val) list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,val,0)
+#define _EMISSIVE_COLOR(val)          list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, val,0,  0,  0)
+#define _EMISSIVE_COLOR_NO_BLOOM(val) list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,  val,0,  0)
+#define _SPECULAR_COLOR(val)          list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,  0,  val,0)
 /// The color matrix applied to all emissive overlays. Should be solely dependent on alpha and not have RGB overlap with [EM_BLOCK_COLOR].
 #define EMISSIVE_COLOR _EMISSIVE_COLOR(1)
 #define EMISSIVE_COLOR_NO_BLOOM _EMISSIVE_COLOR_NO_BLOOM(1)
@@ -121,7 +121,7 @@ GLOBAL_LIST_INIT(em_mask_matrix, EM_MASK_MATRIX)
 /// Maximum selectable value for emissive bloom, minimum being 0 which just disables it outright
 #define MAXIMUM_EMISSIVE_BLOOM_SIZE 5
 /// Default value for emissive bloom
-#define DEFAULT_EMISSIVE_BLOOM_SIZE 2
+#define DEFAULT_EMISSIVE_BLOOM_SIZE 0
 
 /// Parse the hexadecimal color into lumcounts of each perspective.
 #define PARSE_LIGHT_COLOR(source) \

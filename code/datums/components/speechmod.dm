@@ -58,7 +58,7 @@
 		RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_unequipped))
 
 
-/datum/component/speechmod/proc/handle_speech(datum/source, list/speech_args)
+/datum/component/speechmod/proc/handle_speech(datum/source, list/speech_args, list/message_data)
 	SIGNAL_HANDLER
 
 	var/message = speech_args[SPEECH_MESSAGE]

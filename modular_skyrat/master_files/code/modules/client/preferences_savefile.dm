@@ -23,7 +23,7 @@
  * Checks if the modular side of the savefile is up to date.
  * If the return value is higher than 0, update_character_skyrat() will be called later.
  */
-/datum/preferences/proc/savefile_needs_update_skyrat(list/save_data)
+/datum/prefs_holder/proc/savefile_needs_update_skyrat(list/save_data)
 	var/savefile_version = save_data["modular_version"]
 
 	if(savefile_version && savefile_version < MODULAR_SAVEFILE_VERSION_MAX) // BUBBER EDIT
@@ -32,7 +32,7 @@
 	return MODULAR_SAVEFILE_UP_TO_DATE
 
 /// Check that the alt job titles in the save data exist on the server side
-/datum/preferences/proc/validate_alt_jobs(list/job_titles)
+/datum/prefs_holder/proc/validate_alt_jobs(list/job_titles)
 	. = list()
 	for(var/job in job_titles)
 		var/datum/job/job_datum = SSjob.get_job(job)
@@ -44,7 +44,7 @@
 		.[job] = alt_title
 
 /// Loads the modular customizations of a character from the savefile
-/datum/preferences/proc/load_character_skyrat(list/save_data)
+/datum/prefs_holder/proc/load_character_skyrat(list/save_data)
 	if(!save_data)
 		save_data = list()
 
@@ -96,7 +96,7 @@
 
 
 /// Brings a savefile up to date with modular preferences. Called if savefile_needs_update_skyrat() returned a value higher than 0
-/datum/preferences/proc/update_character_skyrat(current_version, list/save_data)
+/datum/prefs_holder/proc/update_character_skyrat(current_version, list/save_data)
 	to_chat(parent, custom_boxed_message("red_box", span_bolddanger("Updating preference values, if you don't see the second half of this message, ahelp immediately!")))
 	if(current_version < VERSION_GENITAL_TOGGLES)
 		// removed genital toggles, with the new choiced prefs paths as assoc
@@ -278,14 +278,14 @@
 
 	to_chat(parent, custom_boxed_message("green_box", span_greentext("Updated preferences!")))
 
-/datum/preferences/proc/check_migration()
+/datum/prefs_holder/proc/check_migration()
 	if(!tgui_prefs_migration)
 		to_chat(parent, custom_boxed_message("red_box", span_redtext("CRITICAL FAILURE IN PREFERENCE MIGRATION, REPORT THIS IMMEDIATELY.")))
 		message_admins("PREFERENCE MIGRATION: [ADMIN_LOOKUPFLW(parent)] has failed the process for migrating PREFERENCES. Check runtimes.")
 
 
 /// Saves the modular customizations of a character on the savefile
-/datum/preferences/proc/save_character_skyrat(list/save_data, updated)
+/datum/prefs_holder/proc/save_character_skyrat(list/save_data, updated)
 	save_data["augments"] = augments
 	save_data["augment_limb_styles"] = augment_limb_styles
 	save_data["features"] = features
@@ -301,7 +301,7 @@
 	save_data["modular_version"] = MODULAR_SAVEFILE_VERSION_MAX
 
 
-/datum/preferences/proc/update_body_parts(datum/preference/preference)
+/datum/prefs_holder/proc/update_body_parts(datum/preference/preference)
 	if (!preference.relevant_mutant_bodypart)
 		return
 	var/part = preference.relevant_mutant_bodypart
@@ -328,7 +328,7 @@
 			mutant_bodyparts[part][MUTANT_INDEX_COLOR_LIST] = value
 
 
-/datum/preferences/proc/update_markings(list/markings)
+/datum/prefs_holder/proc/update_markings(list/markings)
 	if (islist(markings))
 		for (var/marking in markings)
 			for (var/title in markings[marking])
@@ -336,7 +336,7 @@
 					markings[marking][title] = list(sanitize_hexcolor(markings[marking][title]), FALSE)
 	return markings
 
-/datum/preferences/proc/load_augments(list/augments_prefs)
+/datum/prefs_holder/proc/load_augments(list/augments_prefs)
 	var/list/augments_sanitized = list()
 	for(var/aug_slot in augments_prefs)
 		var/aug_entry = augments_prefs[aug_slot]

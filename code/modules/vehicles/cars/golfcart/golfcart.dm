@@ -56,6 +56,12 @@
 	///Is the hood open?
 	var/hood_open = FALSE
 
+	///Sound file(s) to play when we drive around
+	var/engine_sound = 'sound/vehicles/carrev.ogg'
+	///Set this to the length of the engine sound.
+	var/engine_sound_length = 1 SECONDS
+	COOLDOWN_DECLARE(enginesound_cooldown)
+
 /obj/item/key/golfcart
 	name = "golfcart key"
 	desc = "A small grey key for using the golf cart."
@@ -203,6 +209,14 @@
 	for(var/mob/living/future_pancake in loc)
 		if (!(future_pancake in child.buckled_mobs))
 			run_over(future_pancake)
+
+/obj/vehicle/ridden/golfcart/relaydrive(mob/living/user, direction)
+	. = ..()
+	if((key_type && !istype(inserted_key, key_type)) || !cell || cell.charge < charge_per_move || driver_amount() <= 0)
+		return
+	if(COOLDOWN_FINISHED(src, enginesound_cooldown))
+		COOLDOWN_START(src, enginesound_cooldown, engine_sound_length)
+		playsound(get_turf(src), engine_sound, 100, TRUE)
 
 /obj/vehicle/ridden/golfcart/mouse_drop_receive(atom/dropped, mob/user, params)
 	if (child.can_load(dropped))

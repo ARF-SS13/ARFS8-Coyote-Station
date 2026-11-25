@@ -21,6 +21,8 @@ GLOBAL_LIST_EMPTY(roundstart_station_closets)
 	contents_thermal_insulation = 0
 	pass_flags_self = PASSSTRUCTURE | LETPASSCLICKS
 	custom_materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT * 2)
+	tracking_category = CATTRACK_LOCKERS
+
 	/// The overlay for the closet's door
 	var/obj/effect/overlay/closet_door/door_obj
 	/// Whether or not this door is being animated
@@ -1165,7 +1167,7 @@ GLOBAL_LIST_EMPTY(roundstart_station_closets)
 				balloon_alert(user, error_msg)
 			//SPLURT EDIT CHANGE BEGIN - Fixes not able to tear manifests from locked crate
 			return FALSE //SPLURT EDIT - ORIGINAL: return TRUE
-			
+
 			//SPLURT EDIT CHANGE END
 
 	if(iscarbon(user))

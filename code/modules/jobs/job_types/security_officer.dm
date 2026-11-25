@@ -57,20 +57,6 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
  */
 GLOBAL_LIST_EMPTY(security_officer_distribution)
 
-/datum/job/security_officer/after_spawn(mob/living/spawned, client/player_client)
-	. = ..()
-	if(!ishuman(spawned) || !prob(PIG_COP_PROBABILITY))
-		return
-	var/mob/living/carbon/human/piggy = spawned
-	for (var/obj/item/bodypart/ham as anything in piggy.bodyparts)
-		// These are string lists
-		ham.butcher_drops = ham.butcher_drops.Copy()
-		for (var/meat_type in ham.butcher_drops)
-			if (!ispath(meat_type, /obj/item/food/meat/slab))
-				continue
-			ham.butcher_drops[/obj/item/food/meat/slab/pig] = ham.butcher_drops[meat_type]
-			ham.butcher_drops -= meat_type
-		ham.butcher_drops = string_list(ham.butcher_drops)
 
 /datum/job/security_officer/after_roundstart_spawn(mob/living/spawning, client/player_client)
 	. = ..()
@@ -233,18 +219,15 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 	id_trim = /datum/id_trim/job/security_officer
 	uniform = /obj/item/clothing/under/color/white/security
 	suit = /obj/item/clothing/suit/armor/vest/alt/sec
-	suit_store = /obj/item/gun/energy/disabler
-	backpack_contents = list(
-		/obj/item/evidencebag = 1,
-		/obj/item/clothing/head/helmet/sec = 1,
-		)
-	belt = /obj/item/modular_computer/pda/security
+	suit_store = /obj/item/gun/energy/e_gun/advtaser
+	belt = /obj/item/storage/belt/security/full
 	ears = /obj/item/radio/headset/headset_sec/alt
+	glasses = /obj/item/clothing/glasses/hud/security
 	gloves = /obj/item/clothing/gloves/fingerless/punch_mitts
 	head = /obj/item/clothing/head/beret/sec
 	shoes = /obj/item/clothing/shoes/jackboots/sec
-	l_pocket = /obj/item/restraints/handcuffs
-	r_pocket = /obj/item/assembly/flash/handheld
+	l_pocket = /obj/item/modular_computer/pda/security
+	r_pocket = /obj/item/flashlight/seclite
 
 	backpack = /obj/item/storage/backpack/security/redsec
 	satchel = /obj/item/storage/backpack/satchel/sec
@@ -252,10 +235,10 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 	messenger = /obj/item/storage/backpack/messenger/sec
 
 	box = /obj/item/storage/box/survival/security
+	pda_slot = ITEM_SLOT_LPOCKET
 	chameleon_extras = list(
 		/obj/item/clothing/glasses/hud/security/sunglasses,
 		/obj/item/clothing/head/helmet,
-		/obj/item/gun/energy/disabler,
 		)
 		//The helmet is necessary because /obj/item/clothing/head/helmet/sec is overwritten in the chameleon list by the standard helmet, which has the same name and icon state
 	implants = list(/obj/item/implant/mindshield)

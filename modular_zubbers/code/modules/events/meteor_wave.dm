@@ -116,7 +116,7 @@ GLOBAL_LIST_INIT(meteors_candy_halloween, list(
 	description = "A meteor wave for the holidays, filled with candy."
 
 /obj/effect/meteor
-	lifetime = 45 SECONDS
+	lifetime = 200 SECONDS
 
 /obj/effect/meteor/candy
 	name = "debug candy meteor"

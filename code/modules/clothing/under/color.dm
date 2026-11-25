@@ -175,16 +175,30 @@
 //Coyote Addition Start
 /obj/item/clothing/under/color/white/security
 	name = "white security jumpsuit"
+	desc = "A neat white jumpsuit for the defenders of the station."
 	icon_state = "/obj/item/clothing/under/color/white"
 	armor_type = /datum/armor/clothing_under/rank_security
 	greyscale_colors = "#ffffff"
-
-//Coyote Addition End
 
 /obj/item/clothing/under/color/jumpskirt/white
 	name = "white jumpskirt"
 	icon_state = "/obj/item/clothing/under/color/jumpskirt/white"
 	greyscale_colors = "#ffffff"
+
+/obj/item/clothing/under/color/white/security/skirt
+	name = "white security jumpskirt"
+	desc = "A neat white jumpskirt for the defenders of the station."
+	icon_state = "/obj/item/clothing/under/color/jumpskirt/white"
+	armor_type = /datum/armor/clothing_under/rank_security
+	greyscale_colors = "#ffffff"
+	post_init_icon_state = "jumpskirt"
+	body_parts_covered = CHEST|GROIN|ARMS
+	dying_key = DYE_REGISTRY_JUMPSKIRT
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
+	greyscale_config_worn_digi = null //SKYRAT EDIT ADDITION - DigiGreyscale
+
+//Coyote Addition End
 
 /obj/item/clothing/under/color/yellow
 	name = "yellow jumpsuit"

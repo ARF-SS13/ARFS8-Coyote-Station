@@ -191,6 +191,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 /// Allows you to pass over windows and window-adjacent stuff, like windows and windoors. Does not include airlocks with glass in them.
 #define PASSWINDOW (1<<14)
 
+#define TINY_CREATURE_PASS (PASSTABLE|PASSGRILLE|PASSMOB|PASSMACHINE|PASSSTRUCTURE|PASSFLAPS|PASSDOORS|PASSVEHICLE)
+
 //Movement Types
 #define GROUND (1<<0)
 #define FLYING (1<<1)
@@ -236,8 +238,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 /// Zaps with this flag will generate less power through tesla coils
 #define ZAP_LOW_POWER_GEN (1<<6)
 
-#define ZAP_DEFAULT_FLAGS ZAP_MOB_STUN | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
-#define ZAP_FUSION_FLAGS ZAP_OBJ_DAMAGE | ZAP_MOB_DAMAGE | ZAP_MOB_STUN
+#define ZAP_DEFAULT_FLAGS ZAP_MOB_STUN | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_GENERATES_POWER
+#define ZAP_FUSION_FLAGS ZAP_OBJ_DAMAGE | ZAP_MOB_DAMAGE | ZAP_MOB_STUN | ZAP_GENERATES_POWER
 #define ZAP_SUPERMATTER_FLAGS ZAP_GENERATES_POWER
 
 ///Object will protect itself.

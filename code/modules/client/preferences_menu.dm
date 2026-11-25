@@ -3,7 +3,7 @@
 	set name = "Open Character Preferences"
 	set desc = "Open Character Preferences"
 
-	var/datum/preferences/preferences = usr?.client?.prefs
+	var/datum/prefs_holder/preferences = usr?.client?.prefs
 	if (!preferences)
 		return
 
@@ -16,7 +16,7 @@
 	set name = "Open Game Preferences"
 	set desc = "Open Game Preferences"
 
-	var/datum/preferences/preferences = usr?.client?.prefs
+	var/datum/prefs_holder/preferences = usr?.client?.prefs
 	if (!preferences)
 		return
 

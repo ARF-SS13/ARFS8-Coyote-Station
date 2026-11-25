@@ -1,4 +1,4 @@
-/datum/preference/is_accessible(datum/preferences/preferences)
+/datum/preference/is_accessible(datum/prefs_holder/preferences)
 	. = ..()
 	if(!is_type_in_list(src, SSinteractions.interaction_menu_preferences))
 		return

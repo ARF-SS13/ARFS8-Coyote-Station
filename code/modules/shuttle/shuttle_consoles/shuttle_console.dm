@@ -32,6 +32,7 @@
 	var/datum/weakref/remote_ref
 	///may this console be remote controlled?
 	var/may_be_remote_controlled = FALSE
+	var/lockout_until = 0
 	/// Authorization request cooldown to prevent request spam to admin staff
 	COOLDOWN_DECLARE(request_cooldown)
 
@@ -78,6 +79,7 @@
 	data["authorization_required"] = admin_controlled
 	data["timer_str"] = mobile_docking_port ? mobile_docking_port.getTimerStr() : "00:00"
 	data["destination"] = destination
+	var/timeleft = timelocked(user)
 	if(!mobile_docking_port)
 		data["status"] = "Missing"
 		return data
@@ -85,6 +87,8 @@
 		data["status"] = "Unauthorized Access"
 	else if(locked)
 		data["status"] = "Locked"
+	else if(timeleft)
+		data["status"] = "Unavailable until: [DisplayTimeText(timeleft)]"
 	else
 		switch(mobile_docking_port.mode)
 			if(SHUTTLE_IGNITING)
@@ -118,6 +122,16 @@
 	if(!allowed(user)) //Normally this is already checked via interaction code but some cases may skip that so check it explicitly here (illiterates launching randomly)
 		return FALSE
 	return TRUE
+
+/obj/machinery/computer/shuttle/proc/timelocked(mob/user)
+	if(user && user.client && check_rights_for(user.client, R_ADMIN))
+		return FALSE
+	if(!lockout_until)
+		return FALSE
+	var/timeleft = lockout_until - (world.time - SSticker.round_start_time)
+	if(timeleft > 0)
+		return timeleft
+	return FALSE
 
 /**
  * Returns a list of currently valid destinations for this shuttle console,
@@ -192,6 +206,10 @@
 
 	switch(action)
 		if("move")
+			var/timeleft = timelocked(usr)
+			if(timeleft)
+				to_chat(usr, span_warning("Cannot complete request, shuttle unavailable, check back in [DisplayTimeText(timeleft)]"))
+				return TRUE
 			switch (send_shuttle(params["shuttle_id"], usr)) //Try to send the shuttle, tell the user what happened
 				if (SHUTTLE_CONSOLE_ACCESSDENIED)
 					to_chat(usr, span_warning("Access denied."))
@@ -219,6 +237,10 @@
 				destination = target_destination
 				return TRUE
 		if("request")
+			var/timeleft = timelocked(usr)
+			if(timeleft)
+				to_chat(usr, span_warning("Cannot complete request, shuttle unavailable, check back in [DisplayTimeText(timeleft)]"))
+				return TRUE
 			if(!COOLDOWN_FINISHED(src, request_cooldown))
 				to_chat(usr, span_warning("CentCom is still processing last authorization request!"))
 				return

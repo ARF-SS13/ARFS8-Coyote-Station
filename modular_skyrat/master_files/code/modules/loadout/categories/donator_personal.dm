@@ -46,13 +46,13 @@
 	name = "Peacekeeper jacket"
 	item_path = /obj/item/clothing/suit/armor/vest/warden/rax
 	//ckeywhitelist = list("raxraus")
-	restricted_roles = list(JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_DETECTIVE, JOB_CORRECTIONS_OFFICER)
+	restricted_roles = list(JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_SECURITY_OFFICER, JOB_DETECTIVE, JOB_CORRECTIONS_OFFICER)
 
 /datum/loadout_item/uniform/rax_banded_uniform
 	name = "Banded Uniform"
 	item_path = /obj/item/clothing/under/rank/security/rax
 	//ckeywhitelist = list("raxraus")
-	restricted_roles = list(JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_DETECTIVE, JOB_CORRECTIONS_OFFICER)
+	restricted_roles = list(JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_SECURITY_OFFICER, JOB_DETECTIVE, JOB_CORRECTIONS_OFFICER)
 
 /datum/loadout_item/head/goldengoggles
 	name = "Steampunk Goggles"
@@ -118,7 +118,7 @@
 	name = "Blacktide Armored Coat"
 	item_path = /obj/item/clothing/suit/armor/vest/caligram_parka_vest_tan
 //	ckeywhitelist = list("farsightednightlight", "raxraus", "1ceres", "marcoalbaredaa", "itzshift_yt", "drifter7371", "AvianAviator", "Katty Kat", "Investigator77", "Dalao Azure", "Socialistion", "ChillyLobster", "Sylvara", "AmZee", "Tf4", "rb303", "Kay_Nite", "whataboutism", "taac", "Halkyon", "Lupo_di_rosa", "Merek2", "lowpowermia", "RyeanBread", "Jesterz7", "Saund_Minah", "Ruediger4")
-	restricted_roles = list(JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_DETECTIVE, JOB_CORRECTIONS_OFFICER)
+	restricted_roles = list(JOB_BLUESHIELD, JOB_HEAD_OF_SECURITY, JOB_SECURITY_OFFICER, JOB_DETECTIVE, JOB_CORRECTIONS_OFFICER)
 
 /datum/loadout_item/suit/brasspriest
 	name = "Brasspriest Coat"
@@ -133,7 +133,7 @@
 /datum/loadout_item/suit/wetsuit_norm
 	name = "Fitted Wetsuit"
 	item_path = /obj/item/clothing/under/wetsuit_norm
-	ckeywhitelist = list("ChillyLobster")
+//ckeywhitelist = list("ChillyLobster")
 
 /datum/loadout_item/head/drake_skull
 	name = "Skull of an ashdrake"
@@ -190,7 +190,7 @@
 /datum/loadout_item/pocket_items/brightcosmos
 	name = "Bright Cosmos cigar"
 	item_path = /obj/item/holocigarette/cigar
-	ckeywhitelist = list("lyricalpaws")
+//ckeywhitelist = list("lyricalpaws")
 
 /datum/loadout_item/uniform/lannese
 	name = "Lannese Dress"
@@ -303,7 +303,7 @@
 /datum/loadout_item/toys/plush/zappplush
 	name = "Lil' Zapp Plushie"
 	item_path = /obj/item/toy/plush/skyrat/zapp
-	donator_only = TRUE
+	//donator_only = TRUE
 
 /datum/loadout_item/pocket_items/tacticalbrush
 	name = "Tactical Brush"
@@ -367,7 +367,7 @@
 /datum/loadout_item/pocket_items/hypno_watch
 	name = "Pocket Watch"
 	item_path = /obj/item/clothing/accessory/hypno_watch
-	ckeywhitelist = list("slippyjoe")
+//ckeywhitelist = list("slippyjoe")
 
 /datum/loadout_item/uniform/nt_idol
 	name = "NT Idol's Skirt"
@@ -459,6 +459,7 @@
 	item_path = /obj/item/toy/plush/skyrat/plushie_elofy
 	//ckeywhitelist = list("october23") // Asked it to be public.
 
+/* arfs 8: disabled while HOSdrip is figured out
 /datum/loadout_item/suit/elofy
 	name = "Solar Admiral Coat"
 	item_path = /obj/item/clothing/suit/armor/hos/elofy
@@ -468,9 +469,9 @@
 /datum/loadout_item/head/elofy
 	name = "Solar Admiral Hat"
 	item_path = /obj/item/clothing/head/hats/hos/elofy
-	ckeywhitelist = list("october23")
+//ckeywhitelist = list("october23")
 	restricted_roles = list(JOB_HEAD_OF_SECURITY)
-
+*/
 /datum/loadout_item/pocket_items/transponder
 	name = "Broken Helian Transponder"
 	item_path = /obj/item/donator/transponder

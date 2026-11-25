@@ -47,17 +47,15 @@
 	id_trim = /datum/id_trim/job/mime
 	uniform = /obj/item/clothing/under/rank/civilian/mime
 	suit = /obj/item/clothing/suit/toggle/suspenders
-	backpack_contents = list(
-		/obj/item/book/granter/action/spell/mime/mimery = 1,
-		/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing = 1,
-		/obj/item/stamp/mime = 1,
-		)
+	suit_store = /obj/item/reagent_containers/cup/glass/bottle/bottleofnothing
 	belt = /obj/item/modular_computer/pda/mime
 	ears = /obj/item/radio/headset/headset_srv
 	gloves = /obj/item/clothing/gloves/color/white
 	head = /obj/item/clothing/head/beret/frenchberet
 	mask = /obj/item/clothing/mask/gas/mime
 	shoes = /obj/item/clothing/shoes/laceup
+	l_pocket = /obj/item/stamp/mime
+	r_pocket = /obj/item/book/granter/action/spell/mime/mimery
 
 	backpack = /obj/item/storage/backpack/mime
 	satchel = /obj/item/storage/backpack/mime

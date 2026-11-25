@@ -1,3 +1,4 @@
+/*
 /datum/market_item/weapon
 	category = "Weapons"
 	abstract_path = /datum/market_item/weapon
@@ -34,24 +35,23 @@
 	price_min = CARGO_CRATE_VALUE * 1
 	price_max = CARGO_CRATE_VALUE * 3
 
-/datum/market_item/weapon/strilka
-	name = "Ammobox of .310 Strilka"
-	desc = "Listen, .310 Strilka isn't exactly rare, but if you want it to come through \
+/datum/market_item/weapon/mosin_ammo
+	name = "Ammobox of 7.62x54mmR"
+	desc = "Listen, 7.62R isn't exactly rare, but if you want it to come through \
 		any source that isn't the Third Soviet diehards, then you get what you get. \
 		Some of this is the good stuff. Some of it is surplus. We make no promises, okay?"
 	stock_max = 7
 	availability_prob = 35
-	item = /obj/effect/spawner/random/armory/strilka
+	item = /obj/effect/spawner/random/armory/mosin_ammo
 	price_min = CARGO_CRATE_VALUE
 	price_max = CARGO_CRATE_VALUE * 2
 
 /datum/market_item/weapon/sks_kit
-	name = "Sakhno SKS semi-automatic rifle"
-	desc = "That's right baby, it's a SKS parts kit! Okay, not one of those ancient originals, but it \
-		may as well be ancient at this point. Just slap it together in some corner in maint and you've \
-		got yourself a fully constructed SKS! It doesn't even jam! Why the fuck did they make those Third \
-		Soviet soldiers use the Sakhno M2442 Army anyway? This thing is the shit! That means good. BUY IT."
-	item = /obj/item/weaponcrafting/gunkit/sks
+	name = "Mosin Nagant rifle"
+	desc = "That's right baby, it's a genuine Mosin Nagant rifle, straight from the Motherland! \
+		Get yourself a fully functioning rifle in perfect condition! It doesn't even jam! \
+		This thing is the shit! That means good. BUY IT."
+	item = /obj/item/gun/ballistic/rifle/mosin/random
 	price_min = CARGO_CRATE_VALUE * 1
 	price_max = CARGO_CRATE_VALUE * 3
 	stock_max = 5
@@ -153,3 +153,4 @@
 	price_max = CARGO_CRATE_VALUE * 5
 	stock_max = 2
 	availability_prob = 80
+*/

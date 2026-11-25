@@ -8,6 +8,7 @@
 	lose_text = span_notice("You feel less assertive than before")
 	quirk_flags = QUIRK_HIDE_FROM_SCAN
 	erp_quirk = TRUE // Disables on ERP config.
+	hidden_quirk = TRUE
 
 /datum/quirk/dominant_aura/add(client/client_source)
 	. = ..()

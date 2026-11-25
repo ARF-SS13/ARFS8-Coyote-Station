@@ -56,7 +56,7 @@
 	. = ..()
 	var/list/data = .
 
-	var/datum/preferences/preferences = holder.client?.prefs
+	var/datum/prefs_holder/preferences = holder.client?.prefs
 
 	var/flavor_text
 	var/flavor_text_nsfw
@@ -171,6 +171,7 @@
 
 	var/atom/movable/screen/map_view/examine_panel_screen/viewer_screen = LAZYACCESS(viewer_screens, user)
 
+	data["rumors"] = SSrumormill.get_examine_rumor_display_text_for_tgui(holder)
 	data["obscured"] = obscured ? TRUE : FALSE
 	data["character_name"] = name
 	data["assigned_map"] = viewer_screen?.assigned_map

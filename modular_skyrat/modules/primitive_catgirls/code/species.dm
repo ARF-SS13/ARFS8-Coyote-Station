@@ -34,7 +34,7 @@
 	)
 	sort_bottom = TRUE //BUBBER EDIT ADDITION: We want to sort this to the bottom because it's a ghostrole only species.
 
-	always_customizable = TRUE
+	// always_customizable = TRUE
 
 /datum/species/human/felinid/primitive/get_default_mutant_bodyparts()
 	return list(

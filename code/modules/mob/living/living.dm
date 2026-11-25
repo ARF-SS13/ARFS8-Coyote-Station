@@ -219,8 +219,8 @@
 			return TRUE
 		//SKYRAT EDIT ADDITION END
 
-	if(moving_diagonally)//no mob swap during diagonal moves.
-		return TRUE
+	// if(moving_diagonally)//no mob swap during diagonal moves.
+	// 	return TRUE
 
 	//SPLURT EDIT ADDITION BEGIN - FEATURE_NAME - (sizecode)
 	//handle micro bumping on help intent
@@ -750,6 +750,8 @@
 				to_chat(src, "<span class='notice'>You stand up.</span>")*/
 			get_up(instant)
 
+	UpdateFeralBody()//coyote add
+
 	SEND_SIGNAL(src, COMSIG_LIVING_RESTING, new_resting, silent, instant)
 	update_resting()
 
@@ -817,6 +819,7 @@
 		setDir(pick(NORTH, SOUTH)) // We are and look helpless.
 	if(rotate_on_lying)
 		add_offsets(LYING_DOWN_TRAIT, y_add = PIXEL_Y_OFFSET_LYING)
+	UpdateFeralBody()//coyote add
 
 /// Proc to append behavior related to lying down.
 /mob/living/proc/on_standing_up()
@@ -824,6 +827,7 @@
 		layer = initial(layer)
 	remove_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED, TRAIT_UNDENSE), LYING_DOWN_TRAIT)
 	remove_offsets(LYING_DOWN_TRAIT)
+	UpdateFeralBody()//coyote add
 
 /mob/living/proc/update_density()
 	if(HAS_TRAIT(src, TRAIT_UNDENSE))
@@ -1869,7 +1873,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	if(fire_stacks <= 0)
 		return FALSE
 
-	var/datum/status_effect/fire_handler/fire_stacks/fire_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks)
+	var/datum/status_effect/fire_handler/fire_stacks/fire_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks) || has_status_effect(/datum/status_effect/fire_handler/fire_stacks/spaceproof)
 	if(!fire_status || fire_status.on_fire)
 		return FALSE
 
@@ -2549,6 +2553,8 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 			add_to_dead_mob_list()
 			log_combat(src, src, "died")
 
+	UpdateFeralBody()//coyote add
+
 ///Reports the event of the change in value of the buckled variable.
 /mob/living/proc/set_buckled(new_buckled)
 	if(new_buckled == buckled)
@@ -2713,7 +2719,15 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 	on_fall()
 	if(body_position == STANDING_UP) //force them on the ground
 		set_body_position(LYING_DOWN)
-		set_lying_angle(pick(LYING_ANGLE_EAST, LYING_ANGLE_WEST))
+		var/langle = 0
+		switch(dir)
+			if(EAST, NORTHEAST, SOUTHEAST)
+				langle = LYING_ANGLE_EAST
+			if(WEST, NORTHWEST, SOUTHWEST)
+				langle = LYING_ANGLE_WEST
+			else
+				langle = pick(LYING_ANGLE_EAST, LYING_ANGLE_WEST)
+		set_lying_angle(langle)
 
 /// Proc to append behavior to the condition of being floored. Called when the condition ends.
 /mob/living/proc/on_floored_end()

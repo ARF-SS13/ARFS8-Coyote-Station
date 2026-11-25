@@ -20,7 +20,7 @@ GLOBAL_DATUM(character_directory, /datum/character_directory)
 	return ""
 
 //Any text preference needs this for some reason
-/datum/preference/text/character_ad/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/text/character_ad/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/choiced/attraction
@@ -34,7 +34,7 @@ GLOBAL_DATUM(character_directory, /datum/character_directory)
 /datum/preference/choiced/attraction/create_default_value()
 	return "Unset"
 
-/datum/preference/choiced/attraction/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/attraction/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/choiced/display_gender
@@ -48,7 +48,7 @@ GLOBAL_DATUM(character_directory, /datum/character_directory)
 /datum/preference/choiced/display_gender/create_default_value()
 	return "Unset"
 
-/datum/preference/choiced/display_gender/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/display_gender/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 //Can't believe Bubberstation invented attraction and gender in the year December 2023
 
@@ -60,7 +60,7 @@ GLOBAL_DATUM(character_directory, /datum/character_directory)
 /datum/preference/choiced/emote_length/init_possible_values()
 	return list("A few sentences", "1-2 Paragraphs", "Multi-Paragraph", "I'll Match You", "No Preference", "Check OOC")
 
-/datum/preference/choiced/emote_length/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/emote_length/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/choiced/emote_length/create_default_value()
@@ -74,7 +74,7 @@ GLOBAL_DATUM(character_directory, /datum/character_directory)
 /datum/preference/choiced/approach_pref/init_possible_values()
 	return list("Approach IC", "Approach OOC", "Any", "Both", "Check OOC", "See Below", "Unset")
 
-/datum/preference/choiced/approach_pref/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/approach_pref/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/choiced/approach_pref/create_default_value()
@@ -89,7 +89,7 @@ GLOBAL_DATUM(character_directory, /datum/character_directory)
 /datum/preference/choiced/directory_character_prefs/init_possible_values()
 	return list("Yes", "No", "No ERP", "Check OOC", "Unset", "Maybe")
 
-/datum/preference/choiced/directory_character_prefs/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/choiced/directory_character_prefs/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/choiced/directory_character_prefs/create_default_value()

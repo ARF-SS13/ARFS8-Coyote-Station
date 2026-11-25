@@ -12,142 +12,11 @@
 	cost = 100000
 	contains = list(/obj/item/modular_computer/pda/clear)
 
-/datum/supply_pack/goody/dumdum38
-	name = ".38 DumDum Speedloader Single-Pack"
-	desc = "Contains one speedloader of .38 DumDum ammunition, good for embedding in soft targets."
-	cost = PAYCHECK_CREW * 2
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/ammo_box/speedloader/c38/dumdum)
-
-/datum/supply_pack/goody/match38
-	name = ".38 Match Grade Speedloader Single-Pack"
-	desc = "Contains one speedloader of match grade .38 ammunition, perfect for showing off trickshots."
-	cost = PAYCHECK_CREW * 2
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/ammo_box/speedloader/c38/match)
-
-/datum/supply_pack/goody/rubber
-	name = ".38 Rubber Speedloader Single-Pack"
-	desc = "Contains one speedloader of bouncy rubber .38 ammunition, for when you want to bounce your shots off anything and everything."
-	cost = PAYCHECK_CREW * 1.5
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/ammo_box/speedloader/c38/match/bouncy)
-
-/datum/supply_pack/goody/dumdum38br
-	name = ".38 DumDum Magazine Single-Pack"
-	desc = "Contains one magazine of .38 DumDum ammunition, good for embedding in soft targets."
-	cost = PAYCHECK_CREW * 2
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/ammo_box/magazine/m38/dumdum)
-
-/datum/supply_pack/goody/match38br
-	name = ".38 Match Grade Magazine Single-Pack"
-	desc = "Contains one magazine of match grade .38 ammunition, perfect for showing off trickshots."
-	cost = PAYCHECK_CREW * 2
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/ammo_box/magazine/m38/match)
-
-/datum/supply_pack/goody/rubber
-	name = ".38 Rubber Magazine Single-Pack"
-	desc = "Contains one magazine of bouncy rubber .38 ammunition, for when you want to bounce your shots off anything and everything."
-	cost = PAYCHECK_CREW * 1.5
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/ammo_box/magazine/m38/match/bouncy)
-	
-/datum/supply_pack/goody/mars_single
-	name = "Colt Detective Special Single-Pack"
-	desc = "The HoS took your gun and your badge? No problem! Just pay the absurd taxation fee and you too can be reunited with the lethal power of a .38!"
-	cost = PAYCHECK_CREW * 40 //they really mean a premium here
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/gun/ballistic/revolver/c38/detective)
-
-/datum/supply_pack/goody/stingbang
-	name = "Stingbang Single-Pack"
-	desc = "Contains one \"Stingbang\" grenade, perfect for playing meanhearted pranks."
-	cost = PAYCHECK_COMMAND * 2.5
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/grenade/stingbang)
-
 /datum/supply_pack/goody/Survivalknives_single
 	name = "Survival Knife Single-Pack"
 	desc = "Contains one sharpened survival knife. Guaranteed to fit snugly inside any Nanotrasen-standard boot."
 	cost = PAYCHECK_COMMAND * 1.75
 	contains = list(/obj/item/knife/combat/survival)
-
-/datum/supply_pack/goody/ballistic_single
-	name = "Combat Shotgun Single-Pack"
-	desc = "For when the enemy absolutely needs to be replaced with lead. Contains one Aussec-designed Combat Shotgun, and one Shotgun Bandolier."
-	cost = PAYCHECK_COMMAND * 15
-	access_view = ACCESS_ARMORY
-	contains = list(
-		/obj/item/gun/ballistic/shotgun/automatic/combat,
-		/obj/item/storage/belt/bandolier
-	)
-
-/datum/supply_pack/goody/disabler_single
-	name = "Disabler Single-Pack"
-	desc = "Contains one disabler, the non-lethal workhorse of Nanotrasen security everywhere. Comes in an energy holster, just in case you happen to have an extra disabler."
-	cost = PAYCHECK_COMMAND * 3
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/storage/belt/holster/energy/disabler)
-
-/datum/supply_pack/goody/energy_single
-	name = "Energy Gun Single-Pack"
-	desc = "Contains one energy gun, capable of firing both non-lethal and lethal blasts of light."
-	cost = PAYCHECK_COMMAND * 12
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/gun/energy/e_gun)
-
-/datum/supply_pack/goody/laser_single
-	name = "Type 5 Laser Gun Single-Pack"
-	desc = "Contains one Type 5 laser gun, the lethal workhorse of Nanotrasen security everywhere."
-	cost = PAYCHECK_COMMAND * 6
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/gun/energy/laser)
-
-/datum/supply_pack/goody/carbine_single
-	name = "Type 5/R Laser Carbine Single-Pack"
-	desc = "Contains one laser carbine. Fires a rapid burst of slightly weaker laser projectiles."
-	cost = PAYCHECK_COMMAND * 8
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/gun/energy/laser/carbine)
-
-/datum/supply_pack/goody/laser_pistol_single
-	name = "Type 5/C Laser Pistol Single-Pack"
-	desc = "Contains one Type 5C laser pistol in an energy shoulder holster. Groovy."
-	cost = PAYCHECK_COMMAND * 2
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/storage/belt/holster/energy/laser_pistol)
-
-/datum/supply_pack/goody/laser_single_soul
-	name = "Type 3 Laser Gun Single-Pack"
-	desc = "Contains one Type 3 laser gun. They don't make 'em like they used to."
-	cost = PAYCHECK_COMMAND * 6
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/gun/energy/laser/soul)
-
-/datum/supply_pack/goody/smg_single
-	name = "Disabler SMG Single_Pack"
-	desc = "Contains one disabler SMG, capable of rapidly firing weak disabler beams."
-	cost = PAYCHECK_COMMAND * 6
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/gun/energy/disabler/smg)
-
-/datum/supply_pack/goody/hell_single
-	name = "Hellgun Kit Single-Pack"
-	desc = "Contains one hellgun degradation kit, to convert regular laser guns into an older pattern of laser gun, \
-		infamous for its ability to horribly disfigure targets with burns. \
-		Technically violates the Space Geneva Convention when used on humanoids."
-	cost = PAYCHECK_CREW * 2
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/weaponcrafting/gunkit/hellgun)
-
-/datum/supply_pack/goody/thermal_single
-	name = "Thermal Pistol Holster Single-Pack"
-	desc = "Contains twinned thermal pistols in a holster, ready for use in the field."
-	cost = PAYCHECK_COMMAND * 15
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/storage/belt/holster/energy/thermal)
 
 /datum/supply_pack/goody/sologamermitts
 	name = "Insulated Gloves Single-Pack"
@@ -397,13 +266,6 @@
 	cost = PAYCHECK_CREW * 5
 	contains = list(/obj/item/climbing_hook)
 
-/datum/supply_pack/goody/double_barrel
-	name = "Double-barreled Shotgun Single-Pack"
-	desc = "Lost your beloved bunny to a demonic invasion? Clown broke in and stole your beloved gun? No worries! Get a new gun as long as you can pay the absurd fees."
-	cost = PAYCHECK_COMMAND * 18
-	access_view = ACCESS_WEAPONS
-	contains = list(/obj/item/gun/ballistic/shotgun/doublebarrel)
-
 /datum/supply_pack/goody/experimental_medication
 	name = "Experimental Medication Single-Pack"
 	desc = "A single bottle of Interdyne brand experimental medication, used for treating people suffering from hereditary manifold disease."
@@ -434,3 +296,16 @@
 	desc = "If you in your carelessness lost the key to your golfcart you can purchase one. Unfortunately not covered by warranty."
 	cost = PAYCHECK_CREW * 5
 	contains = list(/obj/item/key/golfcart)
+
+// fuck you gun cargo! this is all you get.
+/datum/supply_pack/goody/civtaser_single
+	name = "Self Defense Taser Single-Pack"
+	desc = "Contains a single use non-rechargeable taser for halting a single assailant. Results not guaranteed. No weapons permit required!"
+	cost = PAYCHECK_CREW * 5
+	contains = list(/obj/item/gun/energy/civilian_taser)
+
+/datum/supply_pack/goody/civpepper_single
+	name = "Self Defense Pepperspray Single-Pack"
+	desc = "Contains a low capacity pepperspray for self defense. Results not guaranteed. No weapons permit required!"
+	cost = PAYCHECK_CREW * 5
+	contains = list(/obj/item/reagent_containers/spray/civilian_pepper)

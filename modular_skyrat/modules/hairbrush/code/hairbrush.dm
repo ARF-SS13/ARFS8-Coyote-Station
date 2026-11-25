@@ -20,6 +20,11 @@
 
 /// Brushes someone, giving them a small mood boost
 /obj/item/hairbrush/proc/brush(mob/living/target, mob/user)
+	var/list/message_data = list()
+	message_data[SATA_SPEAKER] = user
+	message_data[SATA_VC_SOURCE] = user
+	message_data[SATA_SAYMODE] = SAYMODE_EMOTE
+	var/terminal_message = ""
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
 		var/obj/item/bodypart/head = human_target.get_bodypart(BODY_ZONE_HEAD)
@@ -36,23 +41,31 @@
 
 		// Do 1 brute to their head if they're bald. Should've been more careful.
 		if(human_target.hairstyle == "Bald" || human_target.hairstyle == "Skinhead" && is_species(human_target, /datum/species/human)) //It can be assumed most anthros have hair on them!
-			human_target.visible_message(span_warning("[usr] scrapes the bristles uncomfortably over [human_target]'s scalp."), span_warning("You scrape the bristles uncomfortably over [human_target]'s scalp."))
+			terminal_message = span_warning("[usr] scrapes the bristles uncomfortably over [human_target]'s scalp.")
+			message_data[SATA_MESSAGE_HEARD] = terminal_message
+			human_target.visible_message(terminal_message, span_warning("You scrape the bristles uncomfortably over [human_target]'s scalp."), message_data = message_data)
 			head.receive_damage(1)
 			return
 
 		// Brush their hair
 		if(human_target == user)
-			human_target.visible_message(span_notice("[usr] brushes [usr.p_their()] hair!"), span_notice("You brush your hair."))
+			terminal_message = span_notice("[usr] brushes [usr.p_their()] hair!")
+			message_data[SATA_MESSAGE_HEARD] = terminal_message
+			human_target.visible_message(terminal_message, span_notice("You brush your hair."), message_data = message_data)
 			human_target.add_mood_event("brushed", /datum/mood_event/brushed/self)
 		else
-			user.visible_message(span_notice("[usr] brushes [human_target]'s hair!"), span_notice("You brush [human_target]'s hair."), ignored_mobs=list(human_target))
-			human_target.show_message(span_notice("[usr] brushes your hair!"), MSG_VISUAL)
+			terminal_message = span_notice("[usr] brushes [human_target]'s hair!")
+			message_data[SATA_MESSAGE_HEARD] = terminal_message
+			user.visible_message(terminal_message, span_notice("You brush [human_target]'s hair."), ignored_mobs=list(human_target), message_data = message_data)
+			human_target.show_message(terminal_message, MSG_VISUAL, message_data = message_data)
 			human_target.add_mood_event("brushed", /datum/mood_event/brushed, user)
 
 	else if(istype(target, /mob/living/basic/pet))
 		if(!do_after(usr, brush_speed, target))
 			return
-		to_chat(user, span_notice("[target] closes [target.p_their()] eyes as you brush [target.p_them()]!"))
+		terminal_message = span_notice("[target] closes [target.p_their()] eyes as you brush [target.p_them()]!")
+		message_data[SATA_MESSAGE_HEARD] = terminal_message
+		to_chat(user, terminal_message, extra_data = message_data)
 		var/mob/living/living_user = user
 		if(istype(living_user))
 			living_user.add_mood_event("brushed", /datum/mood_event/brushed/pet, target)

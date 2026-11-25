@@ -6,18 +6,19 @@ SUBSYSTEM_DEF(economy)
 	var/roundstart_paychecks = 5
 	///How many credits does the in-game economy have in circulation at round start? Divided up by 6 of the 7 department budgets evenly, where cargo starts with nothing.
 	var/budget_pool = 35000
-	var/list/department_accounts = list(ACCOUNT_CIV = ACCOUNT_CIV_NAME,
-										ACCOUNT_ENG = ACCOUNT_ENG_NAME,
-										ACCOUNT_SCI = ACCOUNT_SCI_NAME,
-										ACCOUNT_MED = ACCOUNT_MED_NAME,
-										ACCOUNT_SRV = ACCOUNT_SRV_NAME,
-										ACCOUNT_CAR = ACCOUNT_CAR_NAME,
-										ACCOUNT_CMD = ACCOUNT_CMD_NAME, // SKYRAT EDIT
-										ACCOUNT_INT = ACCOUNT_INT_NAME, // BUBBER EDIT
-										ACCOUNT_TAR = ACCOUNT_TAR_NAME, // END BUBBER EDIT
-										ACCOUNT_AAD = ACCOUNT_AAD_NAME, // SPLURT EDIT
-										ACCOUNT_LZGAS = ACCOUNT_LZGAS_NAME, // SPLURT EDIT
-										ACCOUNT_SEC = ACCOUNT_SEC_NAME)
+	var/list/department_accounts = list(
+		ACCOUNT_CIV   = ACCOUNT_CIV_NAME,
+		ACCOUNT_ENG   = ACCOUNT_ENG_NAME,
+		ACCOUNT_SCI   = ACCOUNT_SCI_NAME,
+		ACCOUNT_MED   = ACCOUNT_MED_NAME,
+		ACCOUNT_SRV   = ACCOUNT_SRV_NAME,
+		ACCOUNT_CAR   = ACCOUNT_CAR_NAME,
+		ACCOUNT_CMD   = ACCOUNT_CMD_NAME, // SKYRAT EDIT
+		ACCOUNT_INT   = ACCOUNT_INT_NAME, // BUBBER EDIT
+		ACCOUNT_TAR   = ACCOUNT_TAR_NAME, // END BUBBER EDIT
+		ACCOUNT_AAD   = ACCOUNT_AAD_NAME, // SPLURT EDIT
+		ACCOUNT_LZGAS = ACCOUNT_LZGAS_NAME, // SPLURT EDIT
+		ACCOUNT_SEC   = ACCOUNT_SEC_NAME)
 	var/list/departmental_accounts = list()
 
 	/// Departmental cash provided to science when a node is researched in specific configs.

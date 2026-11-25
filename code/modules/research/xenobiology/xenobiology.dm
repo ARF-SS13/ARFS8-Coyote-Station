@@ -217,7 +217,7 @@ GLOBAL_LIST_INIT(slime_extract_auto_activate_reactions, init_slime_auto_activate
 		if(SLIME_ACTIVATE_MINOR)
 			var/food_type = get_random_food()
 			var/obj/item/food/food_item = new food_type
-			ADD_TRAIT(food_item, TRAIT_FOOD_SILVER, INNATE_TRAIT)
+			// ADD_TRAIT(food_item, TRAIT_FOOD_SILVER, INNATE_TRAIT)
 			if(!user.put_in_active_hand(food_item))
 				food_item.forceMove(user.drop_location())
 			playsound(user, 'sound/effects/splat.ogg', 50, TRUE)

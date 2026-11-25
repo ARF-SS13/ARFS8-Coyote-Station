@@ -14,17 +14,29 @@
 	. = ..() //contents explosion
 	if(QDELETED(src))
 		return TRUE
+	var/damage2do = 0
+	var/retaining_thing = FALSE
+	var/turf/underme = get_turf(src)
+	if(underme && underme.explosion_no_breach)
+		retaining_thing = borders_space(src)
 	if(target == src)
-		take_damage(INFINITY, BRUTE, BOMB, 0)
+		damage2do = INFINITY
 		return TRUE
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
-			take_damage(INFINITY, BRUTE, BOMB, 0)
+			damage2do = INFINITY
 		if(EXPLODE_HEAVY)
-			take_damage(rand(100, 250), BRUTE, BOMB, 0)
+			damage2do = rand(100, 250)
 		if(EXPLODE_LIGHT)
-			take_damage(rand(10, 90), BRUTE, BOMB, 0)
+			damage2do = rand(10, 90)
 
+	// If the object is bordering space, ensure damage does not make atom_integrity drop to zero or below
+	if(retaining_thing)
+		var/damage_would_break = (atom_integrity - damage2do) <= 0
+		if(damage_would_break)
+			damage2do = atom_integrity * 0.5
+	if(damage2do > 0)
+		take_damage(damage2do, BRUTE, BOMB, TRUE)
 	return TRUE
 
 /obj/bullet_act(obj/projectile/hitting_projectile, def_zone, piercing_hit = FALSE, blocked = null)

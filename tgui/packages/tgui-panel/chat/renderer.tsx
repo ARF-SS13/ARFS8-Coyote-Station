@@ -5,11 +5,13 @@
  */
 
 import { createRoot } from 'react-dom/client';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { createLogger } from 'tgui/logging';
-import { Tooltip } from 'tgui-core/components';
+import { Box, Stack, Tooltip } from 'tgui-core/components';
 import { EventEmitter } from 'tgui-core/events';
 import { classes } from 'tgui-core/react';
 import { store } from '../events/store';
+import { settingsAtom } from '../settings/atoms';
 import { scrollTrackingAtom } from './atom';
 import {
   COMBINE_MAX_MESSAGES,
@@ -24,8 +26,19 @@ import {
   MESSAGE_TYPE_UNKNOWN,
   MESSAGE_TYPES,
 } from './constants';
-import { canPageAcceptType, createMessage, isSameMessage } from './model';
+import {
+  canPageAcceptType,
+  createMessage,
+  isSameMessage,
+  type SerializedMessage,
+} from './model';
 import { highlightNode, linkifyNode } from './replaceInTextNode';
+import {
+  AssembleVisualChatElement,
+  Nameify,
+  VisualChatify,
+} from './visualchat_chat_element_builder';
+import { VCSaymode } from './visualchat_types';
 
 const logger = createLogger('chatRenderer');
 
@@ -148,6 +161,14 @@ class ChatRenderer {
         logger.debug('tracking', this.scrollTracking);
       }
     };
+    let theme = store.get(settingsAtom).theme;
+    store.sub(settingsAtom, () => {
+      const nextTheme = store.get(settingsAtom).theme;
+      if (nextTheme !== theme) {
+        theme = nextTheme;
+        this.updateVisualChatTheme(nextTheme);
+      }
+    });
     // Periodic message pruning
     setInterval(() => this.pruneMessages(), MESSAGE_PRUNE_INTERVAL);
   }
@@ -190,6 +211,68 @@ class ChatRenderer {
   assignStyle(style = {}) {
     for (const key of Object.keys(style)) {
       this.rootNode!.style.setProperty(key, style[key]);
+    }
+  }
+
+  updateVisualChatTheme(theme: string) {
+    const messages = new Set([...this.messages, ...this.visibleMessages]);
+    const template = document.createElement('template');
+    for (const message of messages) {
+      if (
+        !this.isVisualChatMessage(message) ||
+        !message.extraData ||
+        message.extraData.message_data.use_settings ||
+        message.text ||
+        !(message.node instanceof HTMLElement)
+      ) {
+        continue;
+      }
+
+      try {
+        const styles = VisualChatify(
+          message.extraData.saymode_data,
+          message.extraData.message_data,
+          theme,
+        );
+        template.innerHTML = renderToStaticMarkup(
+          <>
+            <Box className="VisualChat__outer" style={styles.outerBoxStyle} />
+            <Stack.Item
+              grow
+              className="VisualChat__message"
+              style={styles.messageStyle}
+            />
+            <Stack.Item
+              shrink
+              className="VisualChat__pfp"
+              style={{ ...styles.pfpBoxStyle, height: '100cqv' }}
+            />
+          </>,
+        );
+
+        for (const region of ['outer', 'message', 'pfp']) {
+          const selector = `.VisualChat__${region}`;
+          const target = message.node.querySelector(selector);
+          const source = template.content.querySelector(selector);
+          if (!target) {
+            if (region !== 'pfp') {
+              logger.error(`Missing VisualChat ${region} region`, message);
+            }
+            continue;
+          }
+          if (!source) {
+            throw new Error(`Missing VisualChat ${region} style`);
+          }
+          const style = source.getAttribute('style');
+          if (style === null) {
+            target.removeAttribute('style');
+          } else {
+            target.setAttribute('style', style);
+          }
+        }
+      } catch (error) {
+        logger.error('Failed to update VisualChat theme', error);
+      }
     }
   }
 
@@ -337,6 +420,157 @@ class ChatRenderer {
     return null;
   }
 
+  // yes i know this is checked in like 5 different places, but i am SO FUCKIGN
+  // TIRED of these runtimes, fuck
+  isVisualChatMessage(message: SerializedMessage) {
+    return (
+      typeof message.extraData === 'object' &&
+      message.extraData !== null &&
+      typeof message.extraData.saymode_data === 'object' &&
+      message.extraData.saymode_data !== null &&
+      typeof message.extraData.saymode_data.saymode_kind === 'string' &&
+      Object.values(VCSaymode).includes(
+        message.extraData.saymode_data.saymode_kind,
+      ) &&
+      typeof message.extraData.message_data === 'object' &&
+      message.extraData.message_data !== null &&
+      typeof message.extraData.message_data.name_displayed === 'string'
+    );
+  }
+
+  // Attempts to see if a message above this one is made by the same person
+  // and if so, rip out the message data from the DOM, append ours to it
+  // and merge it with the current message, effectively consolidating consecutive
+  // messages from the same user into a single visual block. BUT only if there
+  // are no non-combinable messages in between.
+  // takes in the message asn an arg, and modifies it in place!
+  absorbCombinableVCMessage(devourer: SerializedMessage) {
+    if (!this.isVisualChatMessage(devourer)) return;
+    if (!devourer.extraData) return;
+    if (!devourer.extraData.saymode_data) return;
+    if (!devourer.extraData.message_data) return;
+    if (devourer.already_processed) return;
+    devourer.already_processed = true;
+    const ourExtra = devourer.extraData;
+    const ourMsgData = ourExtra.message_data;
+    const ourSayword = ourMsgData.displayed_saymode;
+    const ourName = ourMsgData.name_displayed;
+    const ourSaymode = ourExtra.saymode_data;
+    const ourPfp = ourSaymode.pfp_image_link;
+    const ourSay = ourSaymode.saymode_kind;
+    const ourUniqueishId = ourMsgData.uniqueish_id;
+
+    // ok, get the previous message!
+    const now = Date.now();
+    const combinableModes = [
+      VCSaymode.Subtle,
+      VCSaymode.Emote,
+      VCSaymode.EmoteQuick,
+    ];
+    function isCombinableMode(mode_A, mode_B) {
+      return (
+        combinableModes.includes(mode_A) === combinableModes.includes(mode_B)
+      );
+    }
+
+    const prevMessage = this.messages[this.messages.length - 1];
+    if (!prevMessage) return;
+    if (!this.isVisualChatMessage(prevMessage)) return;
+    if (!prevMessage.extraData) return;
+    if (!prevMessage.extraData.message_data) return;
+    if (!prevMessage.extraData.saymode_data) return;
+    const prevExtra = prevMessage.extraData;
+    const prevMsgData = prevExtra.message_data;
+    const prevName = prevMsgData.name_displayed;
+    const prevSaymode = prevExtra.saymode_data;
+    const prevPfp = prevSaymode.pfp_image_link;
+    const prevSay = prevSaymode.saymode_kind;
+    const prevUniqueishId = prevMsgData.uniqueish_id;
+    // ok now some actual checks
+    if (prevUniqueishId !== ourUniqueishId) return;
+    if (!isCombinableMode(prevSay, ourSay)) return;
+    // close enough in time?
+    if (now > prevMessage.createdAt + prevMsgData?.msg_splice_timeout) return;
+    // if we passed all these checks, we can attempt to combine ourselves with the previous message
+    if (prevPfp && !ourPfp) {
+      devourer.extraData.saymode_data.pfp_image_link =
+        prevMessage.extraData.saymode_data.pfp_image_link;
+      if (
+        prevMessage.extraData.saymode_data.saymode_kind ===
+          VCSaymode.EmoteQuick ||
+        (devourer.extraData.saymode_data.saymode_kind ===
+          VCSaymode.EmoteQuick &&
+          devourer.extraData.saymode_data.saymode_kind !==
+            prevMessage.extraData.saymode_data.saymode_kind)
+      )
+        devourer.extraData.saymode_data.saymode_kind = VCSaymode.Emote;
+    }
+    let mergemode;
+    if (prevSay === ourSay) mergemode = 'body';
+    else if (
+      combinableModes.includes(ourSay) &&
+      combinableModes.includes(prevSay)
+    )
+      mergemode = 'body';
+    else if (prevPfp === ourPfp) {
+      mergemode = 'body+name';
+    }
+    if (!mergemode) return;
+    // we have a winner! we have found an edible message that we can devour
+    const nameToo = mergemode === 'body+name';
+    // take the previous body_text and compiled_message from the old message
+    // and append the new message's content to it, complete with a br
+
+    const newName = `<br>${Nameify(ourName, ourSayword)}`;
+    // logger.log('new name', newName);
+    // logger.log('name too', nameToo);
+    // logger.log('new body', newBody);
+    // logger.log('new comp', newComp);
+
+    const newhtmlstuff = `${nameToo ? `${newName}<br>` : ''}${devourer.extraData.message_data.body_text}`;
+    const newcompiled = `${nameToo ? `<br>${newName}` : ''}${devourer.extraData.message_data.compiled_message}`;
+    const coolBreak = nameToo ? '' : '<br>';
+    devourer.extraData.message_data.body_text = `${prevMessage.extraData.message_data.body_text}<br>${newhtmlstuff}`;
+    devourer.extraData.message_data.compiled_message = `${prevMessage.extraData.message_data.compiled_message}<br>${newcompiled}`;
+    devourer.extraData.message_data.displayed_saymode =
+      prevMsgData.displayed_saymode;
+
+    // and finally, kill the message we just devoured.
+    prevMessage.node?.parentNode?.removeChild(prevMessage.node);
+    this.visibleMessages = this.visibleMessages.filter(
+      (m) => m !== prevMessage,
+    );
+    this.messages = this.messages.filter((m) => m !== prevMessage);
+    // if (prevMessage.node?.parentNode === this.rootNode)
+    //   this.rootNode?.removeChild(prevMessage.node);
+    // if (prevMessage.node?.parentNode) {
+    //   prevMessage.node?.parentNode.removeChild(prevMessage.node);
+    // }
+    // if (prevMessage.node) {
+    //   prevMessage.node.remove();
+    // }
+    // // Ensure the node is completely removed from the DOM
+    // if (prevMessage.node?.parentNode) {
+    //   prevMessage.node.parentNode.removeChild(prevMessage.node);
+    // }
+    // // Finally, nullify the node reference to prevent any accidental reuse
+    // prevMessage.node = null;
+
+    // const vcCombinable = this.getVCCombinableMessage(message);
+    // if (vcCombinable) {
+    //   if (vcCombinable[0].node?.parentNode === this.rootNode)
+    //     this.rootNode?.removeChild(vcCombinable[0].node);
+    //   const coolmsg = updateVCMessage(vcCombinable[0], message);
+    //   this.visibleMessages = this.visibleMessages.filter(
+    //     (m) => m !== vcCombinable[0],
+    //   );
+    //   this.messages = this.messages.filter((m) => m !== vcCombinable[0]);
+    //   return coolmsg;
+    // }
+    // return message;
+  }
+
+  // region the actual part
   processBatch(
     batch,
     options: { prepend?: boolean; notifyListeners?: boolean } = {},
@@ -362,13 +596,21 @@ class ChatRenderer {
     let node;
     for (const payload of batch) {
       const message = createMessage(payload);
+
       // Combine messages
-      const combinable = this.getCombinableMessage(message);
-      if (combinable) {
-        combinable.times = (combinable.times || 1) + 1;
-        updateMessageBadge(combinable);
-        continue;
+      let amVC = false;
+      if (this.isVisualChatMessage(message)) {
+        amVC = true;
+        this.absorbCombinableVCMessage(message);
+      } else {
+        const combinable = this.getCombinableMessage(message);
+        if (combinable) {
+          combinable.times = (combinable.times || 1) + 1;
+          updateMessageBadge(combinable);
+          continue;
+        }
       }
+
       // Reuse message node
       if (message.node) {
         node = message.node;
@@ -383,9 +625,24 @@ class ChatRenderer {
         // Payload is plain text
         if (message.text) {
           node.textContent = message.text;
-        }
-        // Payload is HTML
-        else if (message.html) {
+        } else if (amVC && message.extraData) {
+          try {
+            const vcAssData = VisualChatify(
+              message.extraData.saymode_data,
+              message.extraData.message_data,
+              store.get(settingsAtom).theme,
+            );
+            if (!vcAssData) throw new Error('no vc data');
+            const visualChatElement = AssembleVisualChatElement(vcAssData);
+            if (!visualChatElement) throw new Error('no visual element');
+            const html = renderToStaticMarkup(visualChatElement);
+            if (!html) throw new Error('no html');
+            node.innerHTML = html;
+          } catch (e) {
+            logger.error('VC error', e);
+          }
+          // Payload is HTML
+        } else if (message.html) {
           node.innerHTML = message.html;
         } else {
           logger.error('Error: message is missing text payload', message);
@@ -488,7 +745,6 @@ class ChatRenderer {
         countByType[message.type] = 0;
       }
       countByType[message.type] += 1;
-      // TODO: Detect duplicates
       this.messages.push(message);
       if (canPageAcceptType(this.page, message.type)) {
         fragment.appendChild(node);

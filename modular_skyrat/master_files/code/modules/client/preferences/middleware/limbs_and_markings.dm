@@ -60,7 +60,7 @@
 	var/list/robotic_styles
 
 
-/datum/preference_middleware/limbs_and_markings/apply_to_human(mob/living/carbon/human/target, datum/preferences/preferences, visuals_only = FALSE)
+/datum/preference_middleware/limbs_and_markings/apply_to_human(mob/living/carbon/human/target, datum/prefs_holder/preferences, visuals_only = FALSE)
 	target.dna.species.body_markings = LAZYCOPY(preferences.body_markings)
 
 	var/list/visited_body_zones = list()

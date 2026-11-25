@@ -52,7 +52,7 @@
 	parent_movable.setDir(direction)
 
 ///Called when the person grabbing us speaks, we lower their volume to 1 tile and speak what they said through us.
-/datum/component/marionette/proc/on_puller_speech(datum/source, list/speech_args)
+/datum/component/marionette/proc/on_puller_speech(datum/source, list/speech_args, list/message_data)
 	SIGNAL_HANDLER
 
 	if(HAS_TRAIT(grabber, TRAIT_SIGN_LANG))
@@ -62,6 +62,8 @@
 	var/list/spans = speech_args[SPEECH_SPANS]
 	var/language = speech_args[SPEECH_LANGUAGE]
 	var/saymode = speech_args[SPEECH_SAYMODE]
+	var/list/new_message_data = message_data.Copy()
+	new_message_data[MODE_RELAY] = TRUE
 	var/atom/movable/movable_parent = parent
 	movable_parent.say(
 		message = message,
@@ -69,7 +71,7 @@
 		language = language,
 		forced = "[source]'s marionette",
 		saymode = saymode,
-		message_mods = list(MODE_RELAY = TRUE),
+		message_data = new_message_data,
 	)
 	speech_args[SPEECH_RANGE] = WHISPER_RANGE
 

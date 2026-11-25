@@ -288,7 +288,8 @@
 
 /mob/living/carbon/update_damage_overlays()
 	remove_overlay(DAMAGE_LAYER)
-
+	if(IsFeral())//coyote add
+		return
 	var/mutable_appearance/damage_overlay
 	for(var/obj/item/bodypart/iter_part as anything in bodyparts)
 		if(!iter_part.dmg_overlay_type)
@@ -313,7 +314,8 @@
 /// Handles bleeding overlays
 /mob/living/carbon/proc/update_wound_overlays()
 	remove_overlay(WOUND_LAYER)
-
+	if(IsFeral())//coyote add
+		return
 	var/datum/blood_type/blood_type = get_bloodtype()
 	if(!blood_type || !can_bleed())
 		return
@@ -479,6 +481,9 @@
 /mob/living/carbon/proc/update_body_parts(update_limb_data)
 	update_damage_overlays()
 	update_wound_overlays()
+	if(IsFeral())//coyote add
+		UpdateFeralBody()
+		return//coyote add end
 	var/list/needs_update = list()
 	var/limb_count_update = 0
 	for(var/obj/item/bodypart/limb as anything in bodyparts)
@@ -548,7 +553,9 @@
 	if(should_draw_greyscale && draw_color)
 		. += "-[draw_color]"
 	if(is_invisible)
-		. += "-invisible"
+		. += "invisible"
+	if(limb_alpha != 255)
+		. += "alpha_[limb_alpha]" // BUBBER EDIT ADDITION - per-limb alpha
 	for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
 		if(!overlay.can_draw_on_bodypart(src, owner))
 			continue
@@ -563,15 +570,21 @@
 /obj/item/bodypart/proc/generate_husk_key()
 	RETURN_TYPE(/list)
 	. = list()
-	. += "[limb_id]-"
-	. += "[husk_type]"
-	. += "-husk"
-	. += "-[body_zone]"
-	var/list/blood_dna = blood_dna_info || owner?.get_blood_dna_list()
-	if (LAZYLEN(blood_dna))
-		. += "-[get_color_from_blood_list(blood_dna)]"
-	else
-		. += "-[BLOOD_COLOR_RED]"
+	if(is_dimorphic)
+		. += limb_gender
+	. += limb_id
+	. += husk_type
+	. += "husk"
+	. += body_zone
+	if(is_invisible)
+		. += "invisible"
+	if(limb_alpha != 255)
+		. += "alpha_[limb_alpha]" // BUBBER EDIT ADDITION - per-limb alpha
+	. += "[LAZYLEN(blood_dna_info) ? get_color_from_blood_list(blood_dna_info) : BLOOD_COLOR_RED]"
+	for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
+		if(!overlay.can_draw_on_bodypart(src, owner, TRUE))
+			continue
+		. += overlay.generate_icon_cache(src)
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
 		. += "-[human_owner.mob_height]"

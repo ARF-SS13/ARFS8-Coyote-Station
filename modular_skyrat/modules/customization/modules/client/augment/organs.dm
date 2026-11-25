@@ -1,7 +1,7 @@
 /datum/augment_item/organ
 	category = AUGMENT_CATEGORY_ORGANS
 
-/datum/augment_item/organ/apply(mob/living/carbon/human/human_holder, character_setup = FALSE, datum/preferences/prefs)
+/datum/augment_item/organ/apply(mob/living/carbon/human/human_holder, character_setup = FALSE, datum/prefs_holder/prefs)
 	if(character_setup)
 		return
 

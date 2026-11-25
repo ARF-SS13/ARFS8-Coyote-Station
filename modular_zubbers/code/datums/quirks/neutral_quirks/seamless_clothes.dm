@@ -62,7 +62,7 @@
 /datum/preference/choiced/seamless_heel_type/create_default_value()
 	return assoc_to_keys(GLOB.seamless_heel_choice)[1]
 
-/datum/preference/choiced/seamless_heel_type/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/seamless_heel_type/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 

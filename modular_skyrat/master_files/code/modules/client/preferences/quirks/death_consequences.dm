@@ -5,7 +5,7 @@
 
 	step = 0.01
 
-/datum/preference/numeric/death_consequences/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/numeric/death_consequences/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/numeric/death_consequences/starting_degradation
@@ -150,7 +150,7 @@
 	category = PREFERENCE_CATEGORY_MANUALLY_RENDERED
 	savefile_identifier = PREFERENCE_CHARACTER
 
-/datum/preference/toggle/death_consequences/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/death_consequences/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return FALSE
 
 /datum/preference/toggle/death_consequences/permakill_at_max

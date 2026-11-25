@@ -250,7 +250,7 @@
 	landing_zone_y_offset = 8
 	category = GHC_SPECIAL
 	donator_tier = DONATOR_TIER_1
-	ckeywhitelist = list("drarielpro")
+//ckeywhitelist = list("drarielpro")
 
 /datum/map_template/condo/splurt_deters_lair
 	name = "Deter's Lair"
@@ -259,7 +259,7 @@
 	landing_zone_y_offset = 12
 	category = GHC_SPECIAL
 	donator_tier = DONATOR_TIER_1
-	ckeywhitelist = list("girko", "moldb")
+//ckeywhitelist = list("girko", "moldb")
 
 /datum/map_template/condo/mountainside_dragonlair
 	name = "Dragon Cave Lair"

@@ -1,4 +1,4 @@
-/datum/preferences/proc/render_new_preview_appearance(mob/living/carbon/human/dummy/mannequin)
+/datum/prefs_holder/proc/render_new_preview_appearance(mob/living/carbon/human/dummy/mannequin)
 	var/datum/job/preview_job = get_highest_priority_job()
 	mannequin.dna.mutant_bodyparts = list()
 

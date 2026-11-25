@@ -12,7 +12,7 @@
 /datum/preference/choiced/blooper/apply_to_human(mob/living/carbon/human/target, value)
 	target.blooper = SSblooper.blooper_list[value]
 
-/datum/preference/choiced/blooper/is_accessible(datum/preferences/preferences)
+/datum/preference/choiced/blooper/is_accessible(datum/prefs_holder/preferences)
 	return ..() && length(SSblooper.blooper_list)
 
 /datum/preference/choiced/blooper/compile_constant_data()
@@ -38,7 +38,7 @@
 /datum/preference/numeric/blooper_speed/create_default_value()
 	return 50
 
-/datum/preference/numeric/blooper_speed/is_accessible(datum/preferences/preferences)
+/datum/preference/numeric/blooper_speed/is_accessible(datum/prefs_holder/preferences)
 	return ..() && length(SSblooper.blooper_list)
 
 /datum/preference/numeric/blooper_pitch
@@ -54,7 +54,7 @@
 /datum/preference/numeric/blooper_pitch/create_default_value()
 	return 50
 
-/datum/preference/numeric/blooper_pitch/is_accessible(datum/preferences/preferences)
+/datum/preference/numeric/blooper_pitch/is_accessible(datum/prefs_holder/preferences)
 	return ..() && length(SSblooper.blooper_list)
 
 /datum/preference/numeric/blooper_pitch_range
@@ -70,7 +70,7 @@
 /datum/preference/numeric/blooper_pitch_range/create_default_value()
 	return 30
 
-/datum/preference/numeric/blooper_pitch_range/is_accessible(datum/preferences/preferences)
+/datum/preference/numeric/blooper_pitch_range/is_accessible(datum/prefs_holder/preferences)
 	return ..() && length(SSblooper.blooper_list)
 
 // Send vocal bloopers

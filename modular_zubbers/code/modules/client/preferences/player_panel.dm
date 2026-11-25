@@ -4,7 +4,7 @@
 	savefile_identifier = PREFERENCE_PLAYER
 	default_value = FALSE
 
-/datum/preference/toggle/use_tgui_player_panel/is_accessible(datum/preferences/preferences)
+/datum/preference/toggle/use_tgui_player_panel/is_accessible(datum/prefs_holder/preferences)
 	if (!..(preferences))
 		return FALSE
 

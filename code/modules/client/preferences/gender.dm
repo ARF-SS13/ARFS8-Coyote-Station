@@ -19,7 +19,7 @@
 	// is that hairstyle randomization handles enbies poorly
 	return pick(MALE, FEMALE)
 
-/datum/preference/choiced/gender/post_write(value, datum/preferences/preferences)
+/datum/preference/choiced/gender/post_write(value, datum/prefs_holder/preferences)
 	..()
 	if (gender_has_physique(value))
 		return

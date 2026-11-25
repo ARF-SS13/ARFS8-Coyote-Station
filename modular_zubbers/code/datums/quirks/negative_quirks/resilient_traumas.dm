@@ -25,7 +25,7 @@
 	can_randomize = FALSE
 	default_value = FALSE
 
-/datum/preference/toggle/hardcore_mode/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/hardcore_mode/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return
 
 /datum/preference/toggle/hardcore_mode/create_default_value()
@@ -38,7 +38,7 @@
 	can_randomize = FALSE
 	default_value = FALSE
 
-/datum/preference/toggle/permanent_traumas/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
+/datum/preference/toggle/permanent_traumas/apply_to_human(mob/living/carbon/human/target, value, datum/prefs_holder/preferences)
 	return
 
 /datum/preference/toggle/permanent_traumas/create_default_value()

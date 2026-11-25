@@ -142,7 +142,8 @@
 		var/material_type = possible_stack.material_type
 		//in case we ordered more than what's in the market at the time due to market fluctuations
 		//we find the min of what was ordered & what's actually available in the market at this point of time
-		var/market_quantity = SSstock_market.materials_quantity[material_type]
+		var/datum/stock_market_material/market = SSstock_market.get_market_datum(material_type)
+		var/market_quantity = market.current_quantity
 		var/available_quantity = contains[possible_stack]
 		if(available_quantity > market_quantity)
 			var/message = "[possible_stack::singular_name]: requested=[available_quantity] sheets, available=[market_quantity] sheets, adjusted=[market_quantity - available_quantity] sheets."
@@ -160,7 +161,7 @@
 		var/fraction = available_quantity
 		if(market_quantity != available_quantity) //to avoid division by zero error
 			fraction /= (market_quantity - available_quantity)
-		SSstock_market.adjust_material_price(material_type, SSstock_market.materials_prices[material_type] * fraction)
+		SSstock_market.adjust_material_price_by_fraction(material_type, fraction)
 
 		//We decrease the quantity only after adjusting our prices for accurate values
 		SSstock_market.adjust_material_quantity(material_type, -available_quantity)

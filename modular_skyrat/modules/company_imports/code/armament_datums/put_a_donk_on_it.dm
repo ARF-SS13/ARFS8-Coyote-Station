@@ -110,11 +110,11 @@
 /datum/armament_entry/company_import/donk/mod_modules/dart_collector_safe
 	item_type = /obj/item/mod/module/recycler/donk/safe
 	cost = PAYCHECK_COMMAND
-
+/*
 /datum/armament_entry/company_import/donk/mod_modules/dart_collector
 	item_type = /obj/item/mod/module/recycler/donk
 	cost = PAYCHECK_COMMAND * 4
-
+*/
 /datum/armament_entry/company_import/donk/foamforce_ammo
 	subcategory = "Foam Force (TM) Dart Accessories"
 	cost = PAYCHECK_CREW
@@ -122,11 +122,11 @@
 /datum/armament_entry/company_import/donk/foamforce_ammo/darts
 	item_type = /obj/item/ammo_box/foambox
 	cost = PAYCHECK_LOWER
-
+/*
 /datum/armament_entry/company_import/donk/foamforce_ammo/riot_darts
 	item_type = /obj/item/ammo_box/foambox/riot
 	cost = PAYCHECK_COMMAND * 1.5
-
+*/
 /datum/armament_entry/company_import/donk/foamforce_ammo/pistol_mag
 	item_type = /obj/item/ammo_box/magazine/toy/pistol
 
