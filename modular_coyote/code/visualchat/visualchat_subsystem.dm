@@ -218,6 +218,7 @@ SUBSYSTEM_DEF(visualchat)
 	msg_dat["msg_splice_timeout"]      = speaker_manager.saymode_cooldown || 0
 	msg_dat["msg_splice_last_saymode"] = speaker_manager.last_saymode || ""
 	msg_dat["differentiator"]          = phol.differentiator
+	msg_dat["uniqueish_id"]            = phol.uniqueish_id
 	if(debug_seed_auto)
 		debug_seed_offsetter = ""
 		for(var/i in 1 to 10)

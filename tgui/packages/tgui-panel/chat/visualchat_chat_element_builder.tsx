@@ -52,7 +52,6 @@ export function Sanitate(str) {
 export function VisualChatify(
   saymodeData: VCSaymodeData,
   messageData: VCMessageData,
-  theme: string = 'dark',
 ): VCAssemblerHolder {
   const { name_displayed, displayed_saymode, body_text, compiled_message } =
     messageData;
@@ -69,13 +68,15 @@ export function VisualChatify(
 
   if (!messageData.use_settings) {
     // use what we got, but good
-    const stylePack =
-      theme === 'light'
-        ? GetVCChatStylePack(VCStylePackEnum.light, messageData.differentiator)
-        : GetVCChatStylePack(
-            VCStylePackEnum.default,
-            messageData.differentiator,
-          );
+    const stylePack = GetVCChatStylePack(
+      VCStylePackEnum.default,
+      messageData.differentiator,
+    );
+
+    // const stylePack = GetVCChatStylePack(
+    //   VCStylePackEnum.default,
+    //   messageData.differentiator,
+    // );
     // logger.log(`using style pack ${theme === 'light' ? 'light' : 'def'}`);
     vcaOut.outerBoxStyle = {
       ...stylePack.Swag,
@@ -181,7 +182,7 @@ export function AssembleVisualChatElement(
           {injectedStyle}
           <Stack fill>
             {/* Profile picture */}
-            {displayMode !== VCDisplayMode.FullWithoutImage && coolImage}
+            {displayMode === VCDisplayMode.FullWithoutImage ? null : coolImage}
             {/* Name and message */}
             <Stack.Item grow>
               <Stack fill vertical>
@@ -221,7 +222,9 @@ export function AssembleVisualChatElement(
         <Box style={{ ...vch.outerBoxStyle }}>
           <Stack fill>
             {/* Profile picture */}
-            {displayMode !== VCDisplayMode.CombinedWithoutImage && coolImage}
+            {displayMode === VCDisplayMode.CombinedWithoutImage
+              ? null
+              : coolImage}
             {/* Name and message */}
             <Stack.Item
               grow
@@ -243,7 +246,9 @@ export function AssembleVisualChatElement(
         <Box style={{ ...vch.outerBoxStyle }}>
           <Stack fill>
             {/* Profile picture */}
-            {displayMode !== VCDisplayMode.PreCompiledWithoutImage && coolImage}
+            {displayMode === VCDisplayMode.PreCompiledWithoutImage
+              ? null
+              : coolImage}
             {/* Name and message */}
             <Stack.Item
               grow

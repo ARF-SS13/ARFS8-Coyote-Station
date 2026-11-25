@@ -11,7 +11,6 @@ import { Tooltip } from 'tgui-core/components';
 import { EventEmitter } from 'tgui-core/events';
 import { classes } from 'tgui-core/react';
 import { store } from '../events/store';
-import { settingsAtom } from '../settings/atoms';
 import { scrollTrackingAtom } from './atom';
 import {
   COMBINE_MAX_MESSAGES,
@@ -116,54 +115,6 @@ function updateMessageBadge(message) {
   if (!foundBadge) {
     node.appendChild(badge);
   }
-}
-function updateVCMessage(
-  oldmsg: SerializedMessage,
-  newmsg: SerializedMessage,
-): SerializedMessage {
-  if (
-    !newmsg ||
-    !newmsg.extraData ||
-    !newmsg.extraData.message_data ||
-    !oldmsg ||
-    !oldmsg.extraData ||
-    !oldmsg.extraData.message_data
-  ) {
-    // Nothing to update
-    logger.log('no update. why?', oldmsg);
-    return oldmsg;
-  }
-  const nameToo = newmsg.extraData?.message_data.merge_name_too;
-  const newName = `<br>${Nameify(newmsg.extraData?.message_data.name_displayed, newmsg.extraData?.message_data.displayed_saymode)}`;
-  const newBody = `<br>${newmsg.extraData?.message_data.body_text}`;
-  const newComp = `<div>${newmsg.extraData?.message_data.compiled_message}</div>`;
-  // logger.log('new name', newName);
-  // logger.log('name too', nameToo);
-  // logger.log('new body', newBody);
-  // logger.log('new comp', newComp);
-
-  const newhtmlstuff = `${nameToo ? newName : ''}${newBody}`;
-  const newcompiled = `${nameToo ? newName : ''}${newComp}`;
-
-  oldmsg.extraData.message_data.body_text += newhtmlstuff;
-  oldmsg.extraData.message_data.compiled_message += newcompiled;
-  oldmsg.extraData.message_data.msg_splice_timeout =
-    newmsg.extraData.message_data.msg_splice_timeout;
-  oldmsg.node = createMessageNode();
-  const settings = store.get(settingsAtom);
-  const theme = settings.theme || 'dark';
-  const vcAssData = VisualChatify(
-    oldmsg.extraData.saymode_data,
-    oldmsg.extraData.message_data,
-    theme,
-  );
-  if (!vcAssData) throw new Error('no vc data');
-  const visualChatElement = AssembleVisualChatElement(vcAssData, true);
-  if (!visualChatElement) throw new Error('no visual element');
-  const html = renderToStaticMarkup(visualChatElement);
-  if (!html) throw new Error('no html');
-  oldmsg.node.innerHTML = html;
-  return oldmsg;
 }
 
 class ChatRenderer {
@@ -398,55 +349,154 @@ class ChatRenderer {
     return null;
   }
 
-  getVCCombinableMessage(predicate: SerializedMessage) {
-    if (!predicate.extraData) return null;
-    if (predicate.already_processed) return null;
-    predicate.already_processed = true;
+  // yes i know this is checked in like 5 different places, but i am SO FUCKIGN
+  // TIRED of these runtimes, fuck
+  isVisualChatMessage(message: SerializedMessage) {
+    return (
+      typeof message.extraData === 'object' &&
+      message.extraData !== null &&
+      typeof message.extraData.saymode_data === 'object' &&
+      message.extraData.saymode_data !== null &&
+      typeof message.extraData.saymode_data.saymode_kind === 'string' &&
+      Object.values(VCSaymode).includes(
+        message.extraData.saymode_data.saymode_kind,
+      ) &&
+      typeof message.extraData.message_data === 'object' &&
+      message.extraData.message_data !== null &&
+      typeof message.extraData.message_data.name_displayed === 'string'
+    );
+  }
+
+  // Attempts to see if a message above this one is made by the same person
+  // and if so, rip out the message data from the DOM, append ours to it
+  // and merge it with the current message, effectively consolidating consecutive
+  // messages from the same user into a single visual block. BUT only if there
+  // are no non-combinable messages in between.
+  // takes in the message asn an arg, and modifies it in place!
+  absorbCombinableVCMessage(devourer: SerializedMessage) {
+    if (!this.isVisualChatMessage(devourer)) return;
+    if (!devourer.extraData) return;
+    if (!devourer.extraData.saymode_data) return;
+    if (!devourer.extraData.message_data) return;
+    if (devourer.already_processed) return;
+    devourer.already_processed = true;
+    const ourExtra = devourer.extraData;
+    const ourMsgData = ourExtra.message_data;
+    const ourSayword = ourMsgData.displayed_saymode;
+    const ourName = ourMsgData.name_displayed;
+    const ourSaymode = ourExtra.saymode_data;
+    const ourPfp = ourSaymode.pfp_image_link;
+    const ourSay = ourSaymode.saymode_kind;
+    const ourUniqueishId = ourMsgData.uniqueish_id;
+
+    // ok, get the previous message!
     const now = Date.now();
-    const len = this.messages.length;
-    const from = len - 1;
-    const to = Math.max(0, len - 2);
-    const ourpfp = predicate.extraData?.saymode_data?.pfp_image_link;
-    const ourSay = predicate.extraData?.saymode_data?.saymode_kind;
-    const combinableModes = [VCSaymode.Subtle, VCSaymode.Emote]
-    for (let i = from; i >= to; i--) {
-      const message = this.messages[i];
-      if (!message.extraData) continue;
-      if (!message.extraData.message_data) continue;
-      if (!message.extraData.saymode_data) continue;
-      if (
-        message?.extraData?.message_data?.name_displayed ===
-        predicate?.extraData?.message_data?.name_displayed
-      ) {
-        // only merge our messages, screw everyone else
-        const matches =
-          !message.type.startsWith(MESSAGE_TYPE_INTERNAL) &&
-          // Text payload must fully match
-          now <
-            message.createdAt + message.extraData.message_data?.msg_splice_timeout;
-        if (matches) {
-          // merge conditions:
-          // if saymode is the same, merge body
-          // if saymode is different, but pfp is the same, merge body and name
-          // else dont merge
-          let mergemode;
-          const they_mode = message.extraData.saymode_data;
-          if (they_mode.saymode_kind === ourSay)
-            mergemode = 'body';
-          else if (combinableModes.includes(ourSay) && combinableModes.includes(they_mode.saymode_kind))
-            mergemode = 'body';
-          else if (they_mode.pfp_image_link === ourpfp)
-            mergemode = 'body+name';
-          if (!mergemode) break;
-          message.extraData.saymode_data = predicate.extraData.saymode_data;
-          message.createdAt = now;
-          if (mergemode === 'body+name')
-            predicate.extraData.message_data.merge_name_too = true;
-          return [message, i];
-        }
-      }
+    const combinableModes = [
+      VCSaymode.Subtle,
+      VCSaymode.Emote,
+      VCSaymode.EmoteQuick,
+    ];
+    function isCombinableMode(mode_A, mode_B) {
+      return (
+        combinableModes.includes(mode_A) === combinableModes.includes(mode_B)
+      );
     }
-    return null;
+
+    const prevMessage = this.messages[this.messages.length - 1];
+    if (!prevMessage) return;
+    if (!this.isVisualChatMessage(prevMessage)) return;
+    if (!prevMessage.extraData) return;
+    if (!prevMessage.extraData.message_data) return;
+    if (!prevMessage.extraData.saymode_data) return;
+    const prevExtra = prevMessage.extraData;
+    const prevMsgData = prevExtra.message_data;
+    const prevName = prevMsgData.name_displayed;
+    const prevSaymode = prevExtra.saymode_data;
+    const prevPfp = prevSaymode.pfp_image_link;
+    const prevSay = prevSaymode.saymode_kind;
+    const prevUniqueishId = prevMsgData.uniqueish_id;
+    // ok now some actual checks
+    if (prevUniqueishId !== ourUniqueishId) return;
+    if (!isCombinableMode(prevSay, ourSay)) return;
+    // close enough in time?
+    if (now > prevMessage.createdAt + prevMsgData?.msg_splice_timeout) return;
+    // if we passed all these checks, we can attempt to combine ourselves with the previous message
+    if (prevPfp && !ourPfp) {
+      devourer.extraData.saymode_data.pfp_image_link =
+        prevMessage.extraData.saymode_data.pfp_image_link;
+      if (
+        prevMessage.extraData.saymode_data.saymode_kind ===
+          VCSaymode.EmoteQuick ||
+        (devourer.extraData.saymode_data.saymode_kind ===
+          VCSaymode.EmoteQuick &&
+          devourer.extraData.saymode_data.saymode_kind !==
+            prevMessage.extraData.saymode_data.saymode_kind)
+      )
+        devourer.extraData.saymode_data.saymode_kind = VCSaymode.Emote;
+    }
+    let mergemode;
+    if (prevSay === ourSay) mergemode = 'body';
+    else if (
+      combinableModes.includes(ourSay) &&
+      combinableModes.includes(prevSay)
+    )
+      mergemode = 'body';
+    else if (prevPfp === ourPfp) {
+      mergemode = 'body+name';
+    }
+    if (!mergemode) return;
+    // we have a winner! we have found an edible message that we can devour
+    const nameToo = mergemode === 'body+name';
+    // take the previous body_text and compiled_message from the old message
+    // and append the new message's content to it, complete with a br
+
+    const newName = `<br>${Nameify(ourName, ourSayword)}`;
+    // logger.log('new name', newName);
+    // logger.log('name too', nameToo);
+    // logger.log('new body', newBody);
+    // logger.log('new comp', newComp);
+
+    const newhtmlstuff = `${nameToo ? `${newName}<br>` : ''}${devourer.extraData.message_data.body_text}`;
+    const newcompiled = `${nameToo ? `<br>${newName}` : ''}${devourer.extraData.message_data.compiled_message}`;
+    const coolBreak = nameToo ? '' : '<br>';
+    devourer.extraData.message_data.body_text = `${prevMessage.extraData.message_data.body_text}<br>${newhtmlstuff}`;
+    devourer.extraData.message_data.compiled_message = `${prevMessage.extraData.message_data.compiled_message}<br>${newcompiled}`;
+    devourer.extraData.message_data.displayed_saymode =
+      prevMsgData.displayed_saymode;
+
+    // and finally, kill the message we just devoured.
+    prevMessage.node?.parentNode?.removeChild(prevMessage.node);
+    this.visibleMessages = this.visibleMessages.filter(
+      (m) => m !== prevMessage,
+    );
+    this.messages = this.messages.filter((m) => m !== prevMessage);
+    // if (prevMessage.node?.parentNode === this.rootNode)
+    //   this.rootNode?.removeChild(prevMessage.node);
+    // if (prevMessage.node?.parentNode) {
+    //   prevMessage.node?.parentNode.removeChild(prevMessage.node);
+    // }
+    // if (prevMessage.node) {
+    //   prevMessage.node.remove();
+    // }
+    // // Ensure the node is completely removed from the DOM
+    // if (prevMessage.node?.parentNode) {
+    //   prevMessage.node.parentNode.removeChild(prevMessage.node);
+    // }
+    // // Finally, nullify the node reference to prevent any accidental reuse
+    // prevMessage.node = null;
+
+    // const vcCombinable = this.getVCCombinableMessage(message);
+    // if (vcCombinable) {
+    //   if (vcCombinable[0].node?.parentNode === this.rootNode)
+    //     this.rootNode?.removeChild(vcCombinable[0].node);
+    //   const coolmsg = updateVCMessage(vcCombinable[0], message);
+    //   this.visibleMessages = this.visibleMessages.filter(
+    //     (m) => m !== vcCombinable[0],
+    //   );
+    //   this.messages = this.messages.filter((m) => m !== vcCombinable[0]);
+    //   return coolmsg;
+    // }
+    // return message;
   }
 
   // region the actual part
@@ -474,25 +524,20 @@ class ChatRenderer {
     const countByType = {};
     let node;
     for (const payload of batch) {
-      let message = createMessage(payload);
-      // Combine messages
-      const vcCombinable = this.getVCCombinableMessage(message);
-      if (vcCombinable) {
-        if (vcCombinable[0].node?.parentNode === this.rootNode)
-          this.rootNode?.removeChild(vcCombinable[0].node);
-        const coolmsg = updateVCMessage(vcCombinable[0], message);
-        this.visibleMessages = this.visibleMessages.filter((m) => m !== vcCombinable[0]);
-        this.messages = this.messages.filter((m) => m !== vcCombinable[0]);
-        message = coolmsg;
-        // most of this is likely unneeded, i am a noob at js
-        // however it works, and takes out my frustrations on the poor messages
-      }
+      const message = createMessage(payload);
 
-      const combinable = this.getCombinableMessage(message);
-      if (combinable) {
-        combinable.times = (combinable.times || 1) + 1;
-        updateMessageBadge(combinable);
-        continue;
+      // Combine messages
+      let amVC = false;
+      if (this.isVisualChatMessage(message)) {
+        amVC = true;
+        this.absorbCombinableVCMessage(message);
+      } else {
+        const combinable = this.getCombinableMessage(message);
+        if (combinable) {
+          combinable.times = (combinable.times || 1) + 1;
+          updateMessageBadge(combinable);
+          continue;
+        }
       }
 
       // Reuse message node
@@ -509,14 +554,13 @@ class ChatRenderer {
         // Payload is plain text
         if (message.text) {
           node.textContent = message.text;
-        } else if (message.extraData) {
+        } else if (amVC && message.extraData) {
           try {
-            const settings = store.get(settingsAtom);
-            const theme = settings.theme || 'dark';
+            // const settings = store.get(settingsAtom);
+            // const theme = settings.theme || 'dark';
             const vcAssData = VisualChatify(
               message.extraData.saymode_data,
               message.extraData.message_data,
-              theme,
             );
             if (!vcAssData) throw new Error('no vc data');
             const visualChatElement = AssembleVisualChatElement(vcAssData);
