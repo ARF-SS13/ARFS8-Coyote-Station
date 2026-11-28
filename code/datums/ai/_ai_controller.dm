@@ -16,6 +16,7 @@ multiple modular subtrees with behaviors
 	 * Use the setters, this is important for reference handing.
 	 */
 	var/list/blackboard = list()
+	var/list/blackboard_locks = list()
 
 	///Bitfield of traits for this AI to handle extra behavior
 	var/ai_traits = DEFAULT_AI_FLAGS
@@ -273,7 +274,9 @@ multiple modular subtrees with behaviors
 	if(!pawn_turf)
 		CRASH("AI controller [src] controlling pawn ([pawn]) is not on a turf.")
 #endif
-	if(!length(SSmobs.clients_by_zlevel[pawn_turf.z]) || on_failed_planning_timeout || !able_to_run)
+	if(on_failed_planning_timeout || !able_to_run)
+		return AI_STATUS_OFF
+	if(SSai_controllers.ai_goes_to_sleep_on_z_levels_where_there_are_no_clients_on && !length(SSmobs.clients_by_zlevel[pawn_turf.z]))
 		return AI_STATUS_OFF
 	if(should_idle())
 		return AI_STATUS_IDLE
@@ -684,21 +687,25 @@ multiple modular subtrees with behaviors
  * * key - A blackboard key
  * * thing - a value to set the blackboard key to.
  */
-/datum/ai_controller/proc/set_blackboard_key(key, thing)
+/datum/ai_controller/proc/set_blackboard_key(key, thing, lock = FALSE, override = FALSE)
 	// Assume it is an error when trying to set a value overtop a list
 	if(islist(blackboard[key]))
 		CRASH("set_blackboard_key attempting to set a blackboard value to key [key] when it's a list!")
 	// Don't do anything if it's already got this value
-	if (blackboard[key] == thing)
+	if(blackboard[key] == thing)
 		return
 
-	// Clear existing values
-	if(!isnull(blackboard[key]))
-		clear_blackboard_key(key)
-
-	TRACK_AI_DATUM_TARGET(thing, key)
-	blackboard[key] = thing
-	post_blackboard_key_set(key)
+	if (override)
+		blackboard_locks[key] = FALSE
+	if(!blackboard_locks[key])
+		// Clear existing values
+		if(!isnull(blackboard[key]))
+			clear_blackboard_key(key, override)
+		TRACK_AI_DATUM_TARGET(thing, key)
+		blackboard[key] = thing
+		post_blackboard_key_set(key)
+	if(lock)
+		blackboard_locks[key] = TRUE
 
 /**
  * Helper to force a key to be a certain thing no matter what's already there
@@ -717,7 +724,7 @@ multiple modular subtrees with behaviors
 		return
 
 	clear_blackboard_key(key)
-	set_blackboard_key(key, thing)
+	set_blackboard_key(key, thing, FALSE, TRUE)
 
 /**
  * Sets the key at index thing to the passed value
@@ -852,9 +859,13 @@ multiple modular subtrees with behaviors
  *
  * * key - A blackboard key
  */
-/datum/ai_controller/proc/clear_blackboard_key(key)
+/datum/ai_controller/proc/clear_blackboard_key(key, override = FALSE)
 	if(isnull(blackboard[key]))
 		return
+	if(blackboard_locks[key] && !override)
+		return
+	if(override)
+		blackboard_locks[key] = FALSE
 	if(pawn && (SEND_SIGNAL(pawn, COMSIG_AI_BLACKBOARD_KEY_PRECLEAR(key))))
 		return
 	CLEAR_AI_DATUM_TARGET(blackboard[key], key)

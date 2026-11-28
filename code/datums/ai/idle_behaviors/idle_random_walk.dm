@@ -64,7 +64,7 @@
 
 	var/atom/target = controller.blackboard[target_key]
 	var/distance = get_dist(target, living_pawn)
-	if(isnull(target) || distance > minimum_distance) //if we are too far away from target, just walk randomly
+	if(isnull(target) || distance > minimum_distance || QDELETED(target)) //if we are too far away from target, just walk randomly
 		var/move_dir = pick(GLOB.alldirs)
 		living_pawn.Move(get_step(living_pawn, move_dir), move_dir)
 		return
@@ -84,3 +84,44 @@
 	var/turf/picked_turf = pick(possible_turfs)
 
 	living_pawn.Move(picked_turf, get_dir(living_pawn, picked_turf))
+
+
+/// try to walk towards the target if we are too far from it
+/datum/idle_behavior/random_walk_towards_target
+	/// chance per tick to move at all
+	var/move_chance = 50
+	/// chance to walk toward the target
+	var/walk_chance = 70
+	/// when our distance is roughly this, just start random walking
+	var/minimum_distance = 20
+	/// key that holds target
+	var/target_key
+
+/datum/idle_behavior/random_walk_towards_target/perform_idle_behavior(seconds_per_tick, datum/ai_controller/controller)
+	. = ..()
+	var/mob/living/living_pawn = controller.pawn
+	if(LAZYLEN(living_pawn.do_afters))
+		return
+
+	if(!SPT_PROB(move_chance, seconds_per_tick) || !(living_pawn.mobility_flags & MOBILITY_MOVE) || !isturf(living_pawn.loc) || living_pawn.pulledby)
+		return
+
+	var/atom/target = controller.blackboard[target_key]
+	if(isnull(target) || QDELETED(target) || !SPT_PROB(walk_chance, seconds_per_tick))
+		return wander_aimlessly(living_pawn, controller, seconds_per_tick)
+	var/distance = get_dist(target, living_pawn)
+	if(distance < minimum_distance) //if we are close enough to the target, just walk randomly
+		return wander_aimlessly(living_pawn, controller, seconds_per_tick)
+	return approach_target(target, living_pawn, controller, seconds_per_tick)
+
+/// wander aimlessly in a random direction
+/datum/idle_behavior/random_walk_towards_target/proc/wander_aimlessly(mob/living/living_pawn, datum/ai_controller/controller, seconds_per_tick)
+	var/move_dir = pick(GLOB.alldirs)
+	living_pawn.Move(get_step(living_pawn, move_dir), move_dir)
+
+/// approach the target if we are too far away
+/datum/idle_behavior/random_walk_towards_target/proc/approach_target(atom/target, mob/living/living_pawn, datum/ai_controller/controller, seconds_per_tick)
+	var/turf/t = get_step_towards(living_pawn, target)
+	living_pawn.Move(t, get_dir(living_pawn, t))
+
+

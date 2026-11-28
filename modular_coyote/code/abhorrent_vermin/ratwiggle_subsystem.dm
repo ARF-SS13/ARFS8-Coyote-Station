@@ -181,9 +181,16 @@ SUBSYSTEM_DEF(ratwiggle)
 		DEBUG_LOG("Invalid spawner or creature type provided to GetSpawnLocation.", RW_LOGLVL_ERROR)
 		return null
 	var/turf/place
+	if(prob(spawner.space_chance))
+		DEBUG_LOG("Attempting to find a space spawn location.", RW_LOGLVL_DEBUG)
+		place = find_outer_space_tile(40)
+		if(place)
+			DEBUG_LOG("Found a space spawn location: [place]", RW_LOGLVL_DEBUG)
+			return place
+		DEBUG_LOG("Failed to find a space spawn location, falling back to regular spawn logic.", RW_LOGLVL_DEBUG)
 	if(prob(spawner.maints_chance))
 		DEBUG_LOG("Attempting to find a maintenance spawn location.", RW_LOGLVL_DEBUG)
-		place = find_maintenance_spawn(TRUE, FALSE)
+		place = find_maintenance_tile() || find_maintenance_spawn(TRUE, FALSE)
 		if(place)
 			DEBUG_LOG("Found a maintenance spawn location: [place]", RW_LOGLVL_DEBUG)
 			return place

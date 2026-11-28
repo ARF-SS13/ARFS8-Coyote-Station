@@ -71,6 +71,10 @@
 #define BB_LOW_PRIORITY_HUNTING_TARGET "BB_low_priority_hunting_target"
 ///key that holds the cooldown for our hunting subtree
 #define BB_HUNTING_COOLDOWN(type) "BB_HUNTING_COOLDOWN_[type]"
+/// Key for the home-in target, used by AI to know where to return or focus on when idle
+#define BB_HOME_IN_TARGET "BB_home_in_target"
+/// Key for whether the mob should seek and destroy electrical stuff
+#define BB_SEEK_N_DESTROY_ELECTRICAL_STUFF "BB_seek_n_destroy_electrical_stuff"
 
 ///Basic Mob Keys
 
@@ -81,6 +85,7 @@
 
 ///Targeting subtrees
 #define BB_BASIC_MOB_CURRENT_TARGET "BB_basic_current_target"
+#define BB_BASIC_MOB_BACKUP_TARGET "BB_basic_backup_target"
 #define BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION "BB_basic_current_target_hiding_location"
 #define BB_TARGETING_STRATEGY "targeting_strategy"
 #define BB_HUNT_TARGETING_STRATEGY "hunt_targeting_strategy"

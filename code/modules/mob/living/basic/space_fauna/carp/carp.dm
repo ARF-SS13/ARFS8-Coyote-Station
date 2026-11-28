@@ -46,6 +46,7 @@
 	minimum_survivable_temperature = 0
 	maximum_survivable_temperature = 1500
 
+	var/rush = TRUE
 	/// If true we will run away from attackers even at full health
 	var/cowardly = FALSE
 	/// Cytology cells you can swab from this creature
@@ -122,6 +123,11 @@
 	teleport.Grant(src)
 	ai_controller.set_blackboard_key(BB_CARP_RIFT, teleport)
 	ai_controller.set_blackboard_key(BB_OBSTACLE_TARGETING_WHITELIST, allowed_obstacle_targets)
+	if(rush)
+		passive_target_something()
+
+/mob/living/basic/carp/proc/passive_target_something()
+	ai_controller.set_blackboard_key(BB_SEEK_N_DESTROY_ELECTRICAL_STUFF, TRUE, TRUE, TRUE)
 
 /mob/living/basic/carp/Destroy()
 	QDEL_NULL(teleport)

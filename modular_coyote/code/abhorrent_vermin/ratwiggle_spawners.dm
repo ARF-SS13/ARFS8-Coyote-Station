@@ -430,4 +430,30 @@
 		CATTRACK_VENTS = 1,
 	)
 
+/datum/rw_spawner/carp
+	weight = 25
+	min_phase = 2
+	max_phase = 6
+	max_alive = 20
+	max_existing = 30
+	max_spawnable = 10
+	value_multiplier = 2
+	maints_chance = 0
+	spawn_types = list(
+		/mob/living/basic/carp = 10,
+		/mob/living/basic/carp/clarp = 1,
+		/mob/living/basic/carp/holographic = 3,
+		/mob/living/basic/carp/minnow = 20,
+		/mob/living/basic/carp/mega = 3,
+	)
+	hostile = TRUE
+	spawnwave_max = 5
+	spawnwave_min = 1
+	space_chance = 100
+	only_on_station = FALSE
+	only_off_station = TRUE
+	spawnable_from = list(
+		CATTRACK_VENTS = 1,
+	)
+
 

@@ -147,3 +147,32 @@
 		val = max(val-amt,target)
 	return val
 
+/proc/find_outer_space_tile(distfromedge = 50)
+	//finds a tile within 50 tiles of any edge of the map
+	var/edge_distance = distfromedge
+	var/map_maxx = world.maxx
+	var/map_maxy = world.maxy
+	var/x = 0
+	var/y = 0
+	var/list/zs = SSmapping.levels_by_trait(ZTRAIT_STATION)
+	var/turf/ok
+	var/safety = 20
+	while(!is_space_or_openspace(ok) && safety > 0)
+		if(prob(50))
+			x = rand(1, edge_distance)
+		else
+			x = rand(map_maxx - edge_distance, map_maxx)
+		if(prob(50))
+			y = rand(1, edge_distance)
+		else
+			y = rand(map_maxy - edge_distance, map_maxy)
+		ok = locate(x, y, pick(zs))
+		safety--
+	return ok
+
+/proc/find_maintenance_tile()
+	var/list/turfs = get_area_turfs(/area/station/maintenance, 0, TRUE)
+	if(!LAZYLEN(turfs))
+		return null
+	return pick(turfs)
+

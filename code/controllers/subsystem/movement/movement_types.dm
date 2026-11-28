@@ -508,8 +508,13 @@
 		return
 	var/atom/old_loc = moving.loc
 	var/turf/next = get_step_to(moving, target)
+	var/turf/nexter = get_step_towards(moving, target)
 	moving.Move(next, get_dir(moving, next), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
-	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
+	var/made_it = old_loc != moving?.loc
+	if(!made_it)
+		moving.Move(nexter, get_dir(moving, nexter), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
+		made_it = old_loc != moving?.loc
+	return made_it ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
 
 /**
  * Wrapper around walk_away()
