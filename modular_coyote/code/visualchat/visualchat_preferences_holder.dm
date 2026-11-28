@@ -21,6 +21,8 @@
 	kind = thekind
 	slot = theslot
 	setup_default_saymode_prefs()
+	load_character_prefs()
+	set_differentiator_value()
 
 /datum/vc_preference_holder/Destroy()
 	parent_manager = null
@@ -90,6 +92,10 @@
 	if(datacontent)
 		var/list/slot_prefs = json_decode(datacontent)
 		suppress_characterwide = slot_prefs["suppress_characterwide"]
+	else
+		// no character prefs file exists? save the defaults!
+		save_character_prefs(TRUE)
+		return
 	// now the files!
 	var/list/saymode_files = flist(pafth)
 	for(var/sayfilename in saymode_files)
@@ -105,7 +111,6 @@
 			saymode_prefs[saymode_text] = saymode
 		var/truepath = "[pafth][sayfilename]"
 		saymode.load_saymode_prefs(truepath)
-	set_differentiator_value()
 
 /datum/vc_preference_holder/proc/set_durty_character()
 	durty_character = TRUE
@@ -121,6 +126,11 @@
 /datum/vc_preference_holder/proc/am_durty_character() // im such a durty character uwu~
 	if(durty_character)
 		return TRUE
+	/// check if our preferences save file actually exists
+	var/pafth = "[SSvisualchat.GetSavesFolder()][parent_manager.owner_ckey]/slot_[slot]/[kind]/"
+	var/filename = "[pafth]character_prefs.json"
+	if(!rustg_file_exists(filename))
+		return FALSE
 	for(var/smod in saymode_prefs)
 		var/datum/vc_saymode/saymode = saymode_prefs[smod]
 		if(saymode?.am_durty_saymode())

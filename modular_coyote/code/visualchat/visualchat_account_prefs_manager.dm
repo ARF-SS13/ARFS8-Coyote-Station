@@ -67,8 +67,7 @@
 	if(!clientser || !clientser.ckey)
 		CRASH("Attempted to make a new VC account for a null user or user with no ckey!!!!!!!!!!")
 	new_chatman(clientser?.mob) // squirrelly little things
-	super_durty_account = TRUE
-	save_account()
+	save_account(TRUE)
 
 /datum/vc_account_prefs_manager/proc/new_chatman(mob/user)
 	if(!user || !user.ckey)
@@ -127,6 +126,8 @@
 	var/datum/vc_preference_holder/hold_out = null
 	if(!kind)
 		kind = get_mob_kind_for_slot(slot)
+	if(!kind)
+		kind = "human"
 	switch(kind)
 		if("human")
 			hold_out = prefs_per_slot_human["[slot]"]
@@ -141,6 +142,7 @@
 				prefs_per_slot_human["[slot]"] = hold_out
 			if("silicon")
 				prefs_per_slot_silicon["[slot]"] = hold_out
+		save_account(TRUE)
 	return hold_out
 
 /datum/vc_account_prefs_manager/proc/manager_get_saymode(atom/movable/yap, slut, say_mode, tgui = FALSE, bounce_if_default = FALSE) as /datum/vc_saymode
@@ -151,13 +153,13 @@
 
 /datum/vc_account_prefs_manager/proc/get_mob_kind_for_slot(slot)
 	//! todo: Update to handle non-ckeyed atoms, and non-humanlike mobs (frickable owls)
-	var/atom/movable/thing = extract_mob(GLOB.directory[owner_ckey])
+	var/atom/movable/thing = extract_mob(GLOB.directory[ckey(owner_ckey)])
 	if(!thing)
 		CRASH("Attempted to get mob kind for a null mob!")
-	// are we human...
+	// are we silicon...
 	if(issilicon(thing))
 		return "silicon"
-	// ...or are we dancer
+	// ...or are we dancers
 	else
 		return "human" // whatever close enough
 
@@ -175,7 +177,8 @@
 		holder?.set_un_durty()
 
 /// Save the account data to disk, if it has been marked as durty
-/datum/vc_account_prefs_manager/proc/save_account(super_durty_account)
+/datum/vc_account_prefs_manager/proc/save_account(megadirty)
+	super_durty_account ||= megadirty
 	if(!am_durty())
 		return FALSE
 	update_chatman_data()

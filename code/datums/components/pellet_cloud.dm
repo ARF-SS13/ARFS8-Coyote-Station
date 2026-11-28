@@ -55,7 +55,7 @@
 
 
 /datum/component/pellet_cloud/Initialize(projectile_type=/obj/item/shrapnel, magnitude=5)
-	if(!isammocasing(parent) && !isgrenade(parent) && !islandmine(parent) && !issupplypod(parent) && !ishorrorling(parent)) //SKYRAT EDIT CHANGE: if(!isammocasing(parent) && !isgrenade(parent) && !islandmine(parent) && !issupplypod(parent))
+	if(!isammocasing(parent) && !isgrenade(parent) && !islandmine(parent) && !issupplypod(parent) && !ishorrorling(parent) && !ismob(parent)) //SKYRAT EDIT CHANGE: if(!isammocasing(parent) && !isgrenade(parent) && !islandmine(parent) && !issupplypod(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	if(magnitude < 1)
@@ -66,7 +66,7 @@
 
 	if(isammocasing(parent))
 		num_pellets = magnitude
-	else if(isgrenade(parent) || islandmine(parent) || issupplypod(parent) || ishorrorling(parent)) //SKYRAT EDIT CHANGE: else if(isgrenade(parent) || islandmine(parent) || issupplypod(parent))
+	else if(isgrenade(parent) || islandmine(parent) || issupplypod(parent) || ishorrorling(parent) || ismob(parent)) //SKYRAT EDIT CHANGE: else if(isgrenade(parent) || islandmine(parent) || issupplypod(parent))
 		radius = magnitude
 
 /datum/component/pellet_cloud/Destroy(force)
@@ -89,12 +89,11 @@
 	else if(issupplypod(parent))
 		RegisterSignal(parent, COMSIG_SUPPLYPOD_LANDED, PROC_REF(create_blast_pellets))
 	//SKYRAT EDIT ADDITION BEGIN
-	else if(ishorrorling(parent))
-		RegisterSignal(parent, COMSIG_HORRORFORM_EXPLODE, PROC_REF(create_blast_pellets))
+	RegisterSignal(parent, COMSIG_HORRORFORM_EXPLODE, PROC_REF(create_blast_pellets))
 	//SKYRAT EDIT END
 
 /datum/component/pellet_cloud/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_PREQDELETED, COMSIG_FIRE_CASING, COMSIG_GRENADE_DETONATE, COMSIG_GRENADE_ARMED, COMSIG_MOVABLE_MOVED, COMSIG_MINE_TRIGGERED, COMSIG_ITEM_DROPPED))
+	UnregisterSignal(parent, list(COMSIG_PREQDELETED, COMSIG_FIRE_CASING, COMSIG_GRENADE_DETONATE, COMSIG_GRENADE_ARMED, COMSIG_MOVABLE_MOVED, COMSIG_MINE_TRIGGERED, COMSIG_ITEM_DROPPED, COMSIG_HORRORFORM_EXPLODE))
 
 /**
  * create_casing_pellets() is for directed pellet clouds for ammo casings that have multiple pellets (buckshot and scatter lasers for instance)

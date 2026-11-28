@@ -47,10 +47,19 @@
 /datum/ai_behavior/find_hunt_target
 	///is this only meant to search for turf types?
 	var/search_turf_types = FALSE
+	/// are we looking through walls?
+	var/through_walls = TRUE
 
 /datum/ai_behavior/find_hunt_target/perform(seconds_per_tick, datum/ai_controller/controller, hunting_target_key, types_to_hunt, hunt_range)
 	var/mob/living/living_mob = controller.pawn
-	var/list/interesting_objects = search_turf_types ? RANGE_TURFS(hunt_range, living_mob) : oview(hunt_range, living_mob)
+	var/list/interesting_objects
+	if(search_turf_types)
+		interesting_objects = RANGE_TURFS(hunt_range, living_mob)
+	else
+		if(through_walls)
+			interesting_objects = orange(hunt_range, living_mob)
+		else
+			interesting_objects = oview(hunt_range, living_mob)
 	for(var/atom/possible_dinner as anything in typecache_filter_list(interesting_objects, types_to_hunt))
 		if(!valid_dinner(living_mob, possible_dinner, hunt_range, controller, seconds_per_tick))
 			continue

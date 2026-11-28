@@ -8,6 +8,7 @@
  * * Go and attack our target (which might be food, or might be a mob).
  */
 /datum/ai_controller/basic_controller/carp
+	max_target_distance = 9999
 	blackboard = list(
 		BB_BASIC_MOB_STOP_FLEEING = TRUE,
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
@@ -17,7 +18,7 @@
 	)
 
 	ai_movement = /datum/ai_movement/basic_avoidance
-	idle_behavior = /datum/idle_behavior/idle_random_walk
+	idle_behavior = /datum/idle_behavior/random_walk_towards_target/carp
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/escape_captivity,
 		/datum/ai_planning_subtree/pet_planning,

@@ -186,9 +186,10 @@
 	var/search_distance = 3
 	/// Minimum distance we should be from the target before we bother performing this action
 	var/minimum_distance = 2
+	var/target_key = BB_BASIC_MOB_CURRENT_TARGET
 
 /datum/ai_planning_subtree/shortcut_to_target_through_carp_rift/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
-	var/mob/living/target = controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET]
+	var/mob/living/target = controller.blackboard[target_key]
 	if (QDELETED(target) || (controller.blackboard[BB_CARPS_FEAR_FISHERMAN] && HAS_TRAIT(target, TRAIT_SCARY_FISHERMAN)))
 		return
 

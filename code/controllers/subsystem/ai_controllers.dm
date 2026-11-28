@@ -15,6 +15,8 @@ SUBSYSTEM_DEF(ai_controllers)
 	var/our_cost
 	/// The tick cost of all currently processed AI, being summed together
 	var/summing_cost
+	var/ai_goes_to_sleep_on_z_levels_where_there_are_no_clients_on = FALSE
+
 
 /datum/controller/subsystem/ai_controllers/Initialize()
 	setup_subtrees()
